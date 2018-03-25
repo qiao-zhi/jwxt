@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.trainScheme.TTeachingprogramInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfo" >
+    <id column="courseFileID" property="coursefileid" jdbcType="INTEGER" />
+    <result column="courseID" property="courseid" jdbcType="VARCHAR" />
+    <result column="fileOriName" property="fileoriname" jdbcType="VARCHAR" />
+    <result column="fileNowName" property="filenowname" jdbcType="VARCHAR" />
+    <result column="Filetype" property="filetype" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    courseFileID, courseID, fileOriName, fileNowName, Filetype, remark1
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_teachingprogram_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_teachingprogram_info
+    where courseFileID = #{coursefileid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_teachingprogram_info
+    where courseFileID = #{coursefileid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfoExample" >
+    delete from t_teachingprogram_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfo" >
+    insert into t_teachingprogram_info (courseFileID, courseID, fileOriName, 
+      fileNowName, Filetype, remark1
+      )
+    values (#{coursefileid,jdbcType=INTEGER}, #{courseid,jdbcType=VARCHAR}, #{fileoriname,jdbcType=VARCHAR}, 
+      #{filenowname,jdbcType=VARCHAR}, #{filetype,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfo" >
+    insert into t_teachingprogram_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coursefileid != null" >
+        courseFileID,
+      </if>
+      <if test="courseid != null" >
+        courseID,
+      </if>
+      <if test="fileoriname != null" >
+        fileOriName,
+      </if>
+      <if test="filenowname != null" >
+        fileNowName,
+      </if>
+      <if test="filetype != null" >
+        Filetype,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coursefileid != null" >
+        #{coursefileid,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileoriname != null" >
+        #{fileoriname,jdbcType=VARCHAR},
+      </if>
+      <if test="filenowname != null" >
+        #{filenowname,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null" >
+        #{filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_teachingprogram_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_teachingprogram_info
+    <set >
+      <if test="record.coursefileid != null" >
+        courseFileID = #{record.coursefileid,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseid != null" >
+        courseID = #{record.courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileoriname != null" >
+        fileOriName = #{record.fileoriname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filenowname != null" >
+        fileNowName = #{record.filenowname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filetype != null" >
+        Filetype = #{record.filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_teachingprogram_info
+    set courseFileID = #{record.coursefileid,jdbcType=INTEGER},
+      courseID = #{record.courseid,jdbcType=VARCHAR},
+      fileOriName = #{record.fileoriname,jdbcType=VARCHAR},
+      fileNowName = #{record.filenowname,jdbcType=VARCHAR},
+      Filetype = #{record.filetype,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfo" >
+    update t_teachingprogram_info
+    <set >
+      <if test="courseid != null" >
+        courseID = #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileoriname != null" >
+        fileOriName = #{fileoriname,jdbcType=VARCHAR},
+      </if>
+      <if test="filenowname != null" >
+        fileNowName = #{filenowname,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null" >
+        Filetype = #{filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where courseFileID = #{coursefileid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfo" >
+    update t_teachingprogram_info
+    set courseID = #{courseid,jdbcType=VARCHAR},
+      fileOriName = #{fileoriname,jdbcType=VARCHAR},
+      fileNowName = #{filenowname,jdbcType=VARCHAR},
+      Filetype = #{filetype,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR}
+    where courseFileID = #{coursefileid,jdbcType=INTEGER}
+  </update>
+</mapper>

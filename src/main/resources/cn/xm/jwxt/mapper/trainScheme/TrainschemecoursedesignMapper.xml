@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.trainScheme.TrainschemecoursedesignMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.trainScheme.Trainschemecoursedesign" >
+    <id column="trainCourseDesignId" property="traincoursedesignid" jdbcType="VARCHAR" />
+    <result column="trainingSchemeID" property="trainingschemeid" jdbcType="VARCHAR" />
+    <result column="courseDesignName" property="coursedesignname" jdbcType="VARCHAR" />
+    <result column="semester" property="semester" jdbcType="VARCHAR" />
+    <result column="yearNum" property="yearnum" jdbcType="VARCHAR" />
+    <result column="isArrange" property="isarrange" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    trainCourseDesignId, trainingSchemeID, courseDesignName, semester, yearNum, isArrange, 
+    remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.trainScheme.TrainschemecoursedesignExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trainschemecoursedesign
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from trainschemecoursedesign
+    where trainCourseDesignId = #{traincoursedesignid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from trainschemecoursedesign
+    where trainCourseDesignId = #{traincoursedesignid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TrainschemecoursedesignExample" >
+    delete from trainschemecoursedesign
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.trainScheme.Trainschemecoursedesign" >
+    insert into trainschemecoursedesign (trainCourseDesignId, trainingSchemeID, 
+      courseDesignName, semester, yearNum, 
+      isArrange, remark)
+    values (#{traincoursedesignid,jdbcType=VARCHAR}, #{trainingschemeid,jdbcType=VARCHAR}, 
+      #{coursedesignname,jdbcType=VARCHAR}, #{semester,jdbcType=VARCHAR}, #{yearnum,jdbcType=VARCHAR}, 
+      #{isarrange,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.trainScheme.Trainschemecoursedesign" >
+    insert into trainschemecoursedesign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="traincoursedesignid != null" >
+        trainCourseDesignId,
+      </if>
+      <if test="trainingschemeid != null" >
+        trainingSchemeID,
+      </if>
+      <if test="coursedesignname != null" >
+        courseDesignName,
+      </if>
+      <if test="semester != null" >
+        semester,
+      </if>
+      <if test="yearnum != null" >
+        yearNum,
+      </if>
+      <if test="isarrange != null" >
+        isArrange,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="traincoursedesignid != null" >
+        #{traincoursedesignid,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingschemeid != null" >
+        #{trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedesignname != null" >
+        #{coursedesignname,jdbcType=VARCHAR},
+      </if>
+      <if test="semester != null" >
+        #{semester,jdbcType=VARCHAR},
+      </if>
+      <if test="yearnum != null" >
+        #{yearnum,jdbcType=VARCHAR},
+      </if>
+      <if test="isarrange != null" >
+        #{isarrange,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TrainschemecoursedesignExample" resultType="java.lang.Integer" >
+    select count(*) from trainschemecoursedesign
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update trainschemecoursedesign
+    <set >
+      <if test="record.traincoursedesignid != null" >
+        trainCourseDesignId = #{record.traincoursedesignid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainingschemeid != null" >
+        trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursedesignname != null" >
+        courseDesignName = #{record.coursedesignname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.semester != null" >
+        semester = #{record.semester,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yearnum != null" >
+        yearNum = #{record.yearnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isarrange != null" >
+        isArrange = #{record.isarrange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update trainschemecoursedesign
+    set trainCourseDesignId = #{record.traincoursedesignid,jdbcType=VARCHAR},
+      trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
+      courseDesignName = #{record.coursedesignname,jdbcType=VARCHAR},
+      semester = #{record.semester,jdbcType=VARCHAR},
+      yearNum = #{record.yearnum,jdbcType=VARCHAR},
+      isArrange = #{record.isarrange,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.trainScheme.Trainschemecoursedesign" >
+    update trainschemecoursedesign
+    <set >
+      <if test="trainingschemeid != null" >
+        trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedesignname != null" >
+        courseDesignName = #{coursedesignname,jdbcType=VARCHAR},
+      </if>
+      <if test="semester != null" >
+        semester = #{semester,jdbcType=VARCHAR},
+      </if>
+      <if test="yearnum != null" >
+        yearNum = #{yearnum,jdbcType=VARCHAR},
+      </if>
+      <if test="isarrange != null" >
+        isArrange = #{isarrange,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trainCourseDesignId = #{traincoursedesignid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.trainScheme.Trainschemecoursedesign" >
+    update trainschemecoursedesign
+    set trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR},
+      courseDesignName = #{coursedesignname,jdbcType=VARCHAR},
+      semester = #{semester,jdbcType=VARCHAR},
+      yearNum = #{yearnum,jdbcType=VARCHAR},
+      isArrange = #{isarrange,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where trainCourseDesignId = #{traincoursedesignid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.trainScheme.TrainschemeinfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.trainScheme.Trainschemeinfo" >
+    <id column="trainingSchemeID" property="trainingschemeid" jdbcType="VARCHAR" />
+    <result column="trainingSchemaName" property="trainingschemaname" jdbcType="VARCHAR" />
+    <result column="majorName" property="majorname" jdbcType="VARCHAR" />
+    <result column="majorID" property="majorid" jdbcType="VARCHAR" />
+    <result column="revisePerson" property="reviseperson" jdbcType="VARCHAR" />
+    <result column="checkPerson" property="checkperson" jdbcType="VARCHAR" />
+    <result column="majorManager" property="majormanager" jdbcType="VARCHAR" />
+    <result column="majorType" property="majortype" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="DATE" />
+    <result column="isUse" property="isuse" jdbcType="CHAR" />
+    <result column="trainingtarget" property="trainingtarget" jdbcType="VARCHAR" />
+    <result column="trainingRequire" property="trainingrequire" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    trainingSchemeID, trainingSchemaName, majorName, majorID, revisePerson, checkPerson, 
+    majorManager, majorType, createTime, isUse, trainingtarget, trainingRequire, remark1, 
+    remark2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.trainScheme.TrainschemeinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trainschemeinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from trainschemeinfo
+    where trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from trainschemeinfo
+    where trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TrainschemeinfoExample" >
+    delete from trainschemeinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.trainScheme.Trainschemeinfo" >
+    insert into trainschemeinfo (trainingSchemeID, trainingSchemaName, 
+      majorName, majorID, revisePerson, 
+      checkPerson, majorManager, majorType, 
+      createTime, isUse, trainingtarget, 
+      trainingRequire, remark1, remark2
+      )
+    values (#{trainingschemeid,jdbcType=VARCHAR}, #{trainingschemaname,jdbcType=VARCHAR}, 
+      #{majorname,jdbcType=VARCHAR}, #{majorid,jdbcType=VARCHAR}, #{reviseperson,jdbcType=VARCHAR}, 
+      #{checkperson,jdbcType=VARCHAR}, #{majormanager,jdbcType=VARCHAR}, #{majortype,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=DATE}, #{isuse,jdbcType=CHAR}, #{trainingtarget,jdbcType=VARCHAR}, 
+      #{trainingrequire,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.trainScheme.Trainschemeinfo" >
+    insert into trainschemeinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="trainingschemeid != null" >
+        trainingSchemeID,
+      </if>
+      <if test="trainingschemaname != null" >
+        trainingSchemaName,
+      </if>
+      <if test="majorname != null" >
+        majorName,
+      </if>
+      <if test="majorid != null" >
+        majorID,
+      </if>
+      <if test="reviseperson != null" >
+        revisePerson,
+      </if>
+      <if test="checkperson != null" >
+        checkPerson,
+      </if>
+      <if test="majormanager != null" >
+        majorManager,
+      </if>
+      <if test="majortype != null" >
+        majorType,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="isuse != null" >
+        isUse,
+      </if>
+      <if test="trainingtarget != null" >
+        trainingtarget,
+      </if>
+      <if test="trainingrequire != null" >
+        trainingRequire,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="trainingschemeid != null" >
+        #{trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingschemaname != null" >
+        #{trainingschemaname,jdbcType=VARCHAR},
+      </if>
+      <if test="majorname != null" >
+        #{majorname,jdbcType=VARCHAR},
+      </if>
+      <if test="majorid != null" >
+        #{majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="reviseperson != null" >
+        #{reviseperson,jdbcType=VARCHAR},
+      </if>
+      <if test="checkperson != null" >
+        #{checkperson,jdbcType=VARCHAR},
+      </if>
+      <if test="majormanager != null" >
+        #{majormanager,jdbcType=VARCHAR},
+      </if>
+      <if test="majortype != null" >
+        #{majortype,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="isuse != null" >
+        #{isuse,jdbcType=CHAR},
+      </if>
+      <if test="trainingtarget != null" >
+        #{trainingtarget,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingrequire != null" >
+        #{trainingrequire,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TrainschemeinfoExample" resultType="java.lang.Integer" >
+    select count(*) from trainschemeinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update trainschemeinfo
+    <set >
+      <if test="record.trainingschemeid != null" >
+        trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainingschemaname != null" >
+        trainingSchemaName = #{record.trainingschemaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorname != null" >
+        majorName = #{record.majorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorid != null" >
+        majorID = #{record.majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviseperson != null" >
+        revisePerson = #{record.reviseperson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkperson != null" >
+        checkPerson = #{record.checkperson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majormanager != null" >
+        majorManager = #{record.majormanager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majortype != null" >
+        majorType = #{record.majortype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=DATE},
+      </if>
+      <if test="record.isuse != null" >
+        isUse = #{record.isuse,jdbcType=CHAR},
+      </if>
+      <if test="record.trainingtarget != null" >
+        trainingtarget = #{record.trainingtarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainingrequire != null" >
+        trainingRequire = #{record.trainingrequire,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update trainschemeinfo
+    set trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
+      trainingSchemaName = #{record.trainingschemaname,jdbcType=VARCHAR},
+      majorName = #{record.majorname,jdbcType=VARCHAR},
+      majorID = #{record.majorid,jdbcType=VARCHAR},
+      revisePerson = #{record.reviseperson,jdbcType=VARCHAR},
+      checkPerson = #{record.checkperson,jdbcType=VARCHAR},
+      majorManager = #{record.majormanager,jdbcType=VARCHAR},
+      majorType = #{record.majortype,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=DATE},
+      isUse = #{record.isuse,jdbcType=CHAR},
+      trainingtarget = #{record.trainingtarget,jdbcType=VARCHAR},
+      trainingRequire = #{record.trainingrequire,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.trainScheme.Trainschemeinfo" >
+    update trainschemeinfo
+    <set >
+      <if test="trainingschemaname != null" >
+        trainingSchemaName = #{trainingschemaname,jdbcType=VARCHAR},
+      </if>
+      <if test="majorname != null" >
+        majorName = #{majorname,jdbcType=VARCHAR},
+      </if>
+      <if test="majorid != null" >
+        majorID = #{majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="reviseperson != null" >
+        revisePerson = #{reviseperson,jdbcType=VARCHAR},
+      </if>
+      <if test="checkperson != null" >
+        checkPerson = #{checkperson,jdbcType=VARCHAR},
+      </if>
+      <if test="majormanager != null" >
+        majorManager = #{majormanager,jdbcType=VARCHAR},
+      </if>
+      <if test="majortype != null" >
+        majorType = #{majortype,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="isuse != null" >
+        isUse = #{isuse,jdbcType=CHAR},
+      </if>
+      <if test="trainingtarget != null" >
+        trainingtarget = #{trainingtarget,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingrequire != null" >
+        trainingRequire = #{trainingrequire,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.trainScheme.Trainschemeinfo" >
+    update trainschemeinfo
+    set trainingSchemaName = #{trainingschemaname,jdbcType=VARCHAR},
+      majorName = #{majorname,jdbcType=VARCHAR},
+      majorID = #{majorid,jdbcType=VARCHAR},
+      revisePerson = #{reviseperson,jdbcType=VARCHAR},
+      checkPerson = #{checkperson,jdbcType=VARCHAR},
+      majorManager = #{majormanager,jdbcType=VARCHAR},
+      majorType = #{majortype,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=DATE},
+      isUse = #{isuse,jdbcType=CHAR},
+      trainingtarget = #{trainingtarget,jdbcType=VARCHAR},
+      trainingRequire = #{trainingrequire,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR}
+    where trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.trainScheme.TCourseBaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo" >
+    <id column="courseId" property="courseid" jdbcType="VARCHAR" />
+    <result column="courseNum" property="coursenum" jdbcType="VARCHAR" />
+    <result column="coursePlatform" property="courseplatform" jdbcType="VARCHAR" />
+    <result column="courseNature" property="coursenature" jdbcType="VARCHAR" />
+    <result column="courseNameCN" property="coursenamecn" jdbcType="VARCHAR" />
+    <result column="courseNameEN" property="coursenameen" jdbcType="VARCHAR" />
+    <result column="credit" property="credit" jdbcType="VARCHAR" />
+    <result column="courseHour" property="coursehour" jdbcType="VARCHAR" />
+    <result column="teachHour" property="teachhour" jdbcType="VARCHAR" />
+    <result column="experimentHour" property="experimenthour" jdbcType="VARCHAR" />
+    <result column="computerHour" property="computerhour" jdbcType="VARCHAR" />
+    <result column="practiceHour" property="practicehour" jdbcType="VARCHAR" />
+    <result column="weeklyHour" property="weeklyhour" jdbcType="VARCHAR" />
+    <result column="scoringWay" property="scoringway" jdbcType="VARCHAR" />
+    <result column="courseHourMethod" property="coursehourmethod" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    courseId, courseNum, coursePlatform, courseNature, courseNameCN, courseNameEN, credit, 
+    courseHour, teachHour, experimentHour, computerHour, practiceHour, weeklyHour, scoringWay, 
+    courseHourMethod, remark1, remark2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_course_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_course_base_info
+    where courseId = #{courseid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_course_base_info
+    where courseId = #{courseid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfoExample" >
+    delete from t_course_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo" >
+    insert into t_course_base_info (courseId, courseNum, coursePlatform, 
+      courseNature, courseNameCN, courseNameEN, 
+      credit, courseHour, teachHour, 
+      experimentHour, computerHour, practiceHour, 
+      weeklyHour, scoringWay, courseHourMethod, 
+      remark1, remark2)
+    values (#{courseid,jdbcType=VARCHAR}, #{coursenum,jdbcType=VARCHAR}, #{courseplatform,jdbcType=VARCHAR}, 
+      #{coursenature,jdbcType=VARCHAR}, #{coursenamecn,jdbcType=VARCHAR}, #{coursenameen,jdbcType=VARCHAR}, 
+      #{credit,jdbcType=VARCHAR}, #{coursehour,jdbcType=VARCHAR}, #{teachhour,jdbcType=VARCHAR}, 
+      #{experimenthour,jdbcType=VARCHAR}, #{computerhour,jdbcType=VARCHAR}, #{practicehour,jdbcType=VARCHAR}, 
+      #{weeklyhour,jdbcType=VARCHAR}, #{scoringway,jdbcType=VARCHAR}, #{coursehourmethod,jdbcType=VARCHAR}, 
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo" >
+    insert into t_course_base_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        courseId,
+      </if>
+      <if test="coursenum != null" >
+        courseNum,
+      </if>
+      <if test="courseplatform != null" >
+        coursePlatform,
+      </if>
+      <if test="coursenature != null" >
+        courseNature,
+      </if>
+      <if test="coursenamecn != null" >
+        courseNameCN,
+      </if>
+      <if test="coursenameen != null" >
+        courseNameEN,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="coursehour != null" >
+        courseHour,
+      </if>
+      <if test="teachhour != null" >
+        teachHour,
+      </if>
+      <if test="experimenthour != null" >
+        experimentHour,
+      </if>
+      <if test="computerhour != null" >
+        computerHour,
+      </if>
+      <if test="practicehour != null" >
+        practiceHour,
+      </if>
+      <if test="weeklyhour != null" >
+        weeklyHour,
+      </if>
+      <if test="scoringway != null" >
+        scoringWay,
+      </if>
+      <if test="coursehourmethod != null" >
+        courseHourMethod,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="coursenum != null" >
+        #{coursenum,jdbcType=VARCHAR},
+      </if>
+      <if test="courseplatform != null" >
+        #{courseplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="coursenature != null" >
+        #{coursenature,jdbcType=VARCHAR},
+      </if>
+      <if test="coursenamecn != null" >
+        #{coursenamecn,jdbcType=VARCHAR},
+      </if>
+      <if test="coursenameen != null" >
+        #{coursenameen,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="coursehour != null" >
+        #{coursehour,jdbcType=VARCHAR},
+      </if>
+      <if test="teachhour != null" >
+        #{teachhour,jdbcType=VARCHAR},
+      </if>
+      <if test="experimenthour != null" >
+        #{experimenthour,jdbcType=VARCHAR},
+      </if>
+      <if test="computerhour != null" >
+        #{computerhour,jdbcType=VARCHAR},
+      </if>
+      <if test="practicehour != null" >
+        #{practicehour,jdbcType=VARCHAR},
+      </if>
+      <if test="weeklyhour != null" >
+        #{weeklyhour,jdbcType=VARCHAR},
+      </if>
+      <if test="scoringway != null" >
+        #{scoringway,jdbcType=VARCHAR},
+      </if>
+      <if test="coursehourmethod != null" >
+        #{coursehourmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_course_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_course_base_info
+    <set >
+      <if test="record.courseid != null" >
+        courseId = #{record.courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursenum != null" >
+        courseNum = #{record.coursenum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseplatform != null" >
+        coursePlatform = #{record.courseplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursenature != null" >
+        courseNature = #{record.coursenature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursenamecn != null" >
+        courseNameCN = #{record.coursenamecn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursenameen != null" >
+        courseNameEN = #{record.coursenameen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.credit != null" >
+        credit = #{record.credit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursehour != null" >
+        courseHour = #{record.coursehour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachhour != null" >
+        teachHour = #{record.teachhour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experimenthour != null" >
+        experimentHour = #{record.experimenthour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.computerhour != null" >
+        computerHour = #{record.computerhour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.practicehour != null" >
+        practiceHour = #{record.practicehour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weeklyhour != null" >
+        weeklyHour = #{record.weeklyhour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scoringway != null" >
+        scoringWay = #{record.scoringway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursehourmethod != null" >
+        courseHourMethod = #{record.coursehourmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_course_base_info
+    set courseId = #{record.courseid,jdbcType=VARCHAR},
+      courseNum = #{record.coursenum,jdbcType=VARCHAR},
+      coursePlatform = #{record.courseplatform,jdbcType=VARCHAR},
+      courseNature = #{record.coursenature,jdbcType=VARCHAR},
+      courseNameCN = #{record.coursenamecn,jdbcType=VARCHAR},
+      courseNameEN = #{record.coursenameen,jdbcType=VARCHAR},
+      credit = #{record.credit,jdbcType=VARCHAR},
+      courseHour = #{record.coursehour,jdbcType=VARCHAR},
+      teachHour = #{record.teachhour,jdbcType=VARCHAR},
+      experimentHour = #{record.experimenthour,jdbcType=VARCHAR},
+      computerHour = #{record.computerhour,jdbcType=VARCHAR},
+      practiceHour = #{record.practicehour,jdbcType=VARCHAR},
+      weeklyHour = #{record.weeklyhour,jdbcType=VARCHAR},
+      scoringWay = #{record.scoringway,jdbcType=VARCHAR},
+      courseHourMethod = #{record.coursehourmethod,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo" >
+    update t_course_base_info
+    <set >
+      <if test="coursenum != null" >
+        courseNum = #{coursenum,jdbcType=VARCHAR},
+      </if>
+      <if test="courseplatform != null" >
+        coursePlatform = #{courseplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="coursenature != null" >
+        courseNature = #{coursenature,jdbcType=VARCHAR},
+      </if>
+      <if test="coursenamecn != null" >
+        courseNameCN = #{coursenamecn,jdbcType=VARCHAR},
+      </if>
+      <if test="coursenameen != null" >
+        courseNameEN = #{coursenameen,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="coursehour != null" >
+        courseHour = #{coursehour,jdbcType=VARCHAR},
+      </if>
+      <if test="teachhour != null" >
+        teachHour = #{teachhour,jdbcType=VARCHAR},
+      </if>
+      <if test="experimenthour != null" >
+        experimentHour = #{experimenthour,jdbcType=VARCHAR},
+      </if>
+      <if test="computerhour != null" >
+        computerHour = #{computerhour,jdbcType=VARCHAR},
+      </if>
+      <if test="practicehour != null" >
+        practiceHour = #{practicehour,jdbcType=VARCHAR},
+      </if>
+      <if test="weeklyhour != null" >
+        weeklyHour = #{weeklyhour,jdbcType=VARCHAR},
+      </if>
+      <if test="scoringway != null" >
+        scoringWay = #{scoringway,jdbcType=VARCHAR},
+      </if>
+      <if test="coursehourmethod != null" >
+        courseHourMethod = #{coursehourmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where courseId = #{courseid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo" >
+    update t_course_base_info
+    set courseNum = #{coursenum,jdbcType=VARCHAR},
+      coursePlatform = #{courseplatform,jdbcType=VARCHAR},
+      courseNature = #{coursenature,jdbcType=VARCHAR},
+      courseNameCN = #{coursenamecn,jdbcType=VARCHAR},
+      courseNameEN = #{coursenameen,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=VARCHAR},
+      courseHour = #{coursehour,jdbcType=VARCHAR},
+      teachHour = #{teachhour,jdbcType=VARCHAR},
+      experimentHour = #{experimenthour,jdbcType=VARCHAR},
+      computerHour = #{computerhour,jdbcType=VARCHAR},
+      practiceHour = #{practicehour,jdbcType=VARCHAR},
+      weeklyHour = #{weeklyhour,jdbcType=VARCHAR},
+      scoringWay = #{scoringway,jdbcType=VARCHAR},
+      courseHourMethod = #{coursehourmethod,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR}
+    where courseId = #{courseid,jdbcType=VARCHAR}
+  </update>
+</mapper>

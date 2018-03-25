@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd ">
+
+
+    <!-- 扫描@Controler @Service -->
+    <context:component-scan base-package="cn.xm.jwxt" />
+
+
+    <!-- 开启aop，对类代理 -->
+    <aop:config proxy-target-class="true"></aop:config>
+    <!-- 开启shiro注解支持 -->
+
+
+    <!-- 处理器映射器 -->
+    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
+    <!-- 处理器适配器 -->
+    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
+    <!-- 注解驱动，代替上面两个 -->
+    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean" />
+    <!-- 视图解释器 -->
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- 配置Conveter转换器 转换工厂 （日期、去掉前后空格）。。 -->
+    <bean id="conversionServiceFactoryBean"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <!-- 配置 多个转换器 -->
+        <property name="converters">
+            <list>
+                <bean class="cn.xm.jwxt.conveter.DateConveter" />
+                <!-- 可以配置多个转换器 -->
+                <!-- <bean class="com.itheima.springmvc.conversion.DateConveter" /> <bean
+                    class="com.itheima.springmvc.conversion.DateConveter" /> -->
+            </list>
+        </property>
+    </bean>
+
+
+
+</beans>

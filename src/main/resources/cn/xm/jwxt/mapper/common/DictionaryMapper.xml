@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.common.DictionaryMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.common.Dictionary" >
+    <id column="dictionaryID" property="dictionaryid" jdbcType="VARCHAR" />
+    <result column="dictionaryName" property="dictionaryname" jdbcType="VARCHAR" />
+    <result column="updictionaryID" property="updictionaryid" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="dataType" property="datatype" jdbcType="VARCHAR" />
+    <result column="sortNo" property="sortno" jdbcType="VARCHAR" />
+    <result column="isUse" property="isuse" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    dictionaryID, dictionaryName, updictionaryID, description, dataType, sortNo, isUse, 
+    remark1
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.common.DictionaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dictionary
+    where dictionaryID = #{dictionaryid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dictionary
+    where dictionaryID = #{dictionaryid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.common.DictionaryExample" >
+    delete from dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.common.Dictionary" >
+    insert into dictionary (dictionaryID, dictionaryName, updictionaryID, 
+      description, dataType, sortNo, 
+      isUse, remark1)
+    values (#{dictionaryid,jdbcType=VARCHAR}, #{dictionaryname,jdbcType=VARCHAR}, #{updictionaryid,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{datatype,jdbcType=VARCHAR}, #{sortno,jdbcType=VARCHAR}, 
+      #{isuse,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.common.Dictionary" >
+    insert into dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dictionaryid != null" >
+        dictionaryID,
+      </if>
+      <if test="dictionaryname != null" >
+        dictionaryName,
+      </if>
+      <if test="updictionaryid != null" >
+        updictionaryID,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="datatype != null" >
+        dataType,
+      </if>
+      <if test="sortno != null" >
+        sortNo,
+      </if>
+      <if test="isuse != null" >
+        isUse,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dictionaryid != null" >
+        #{dictionaryid,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryname != null" >
+        #{dictionaryname,jdbcType=VARCHAR},
+      </if>
+      <if test="updictionaryid != null" >
+        #{updictionaryid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="datatype != null" >
+        #{datatype,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        #{sortno,jdbcType=VARCHAR},
+      </if>
+      <if test="isuse != null" >
+        #{isuse,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.common.DictionaryExample" resultType="java.lang.Integer" >
+    select count(*) from dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dictionary
+    <set >
+      <if test="record.dictionaryid != null" >
+        dictionaryID = #{record.dictionaryid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictionaryname != null" >
+        dictionaryName = #{record.dictionaryname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updictionaryid != null" >
+        updictionaryID = #{record.updictionaryid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datatype != null" >
+        dataType = #{record.datatype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortno != null" >
+        sortNo = #{record.sortno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuse != null" >
+        isUse = #{record.isuse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dictionary
+    set dictionaryID = #{record.dictionaryid,jdbcType=VARCHAR},
+      dictionaryName = #{record.dictionaryname,jdbcType=VARCHAR},
+      updictionaryID = #{record.updictionaryid,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      dataType = #{record.datatype,jdbcType=VARCHAR},
+      sortNo = #{record.sortno,jdbcType=VARCHAR},
+      isUse = #{record.isuse,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.common.Dictionary" >
+    update dictionary
+    <set >
+      <if test="dictionaryname != null" >
+        dictionaryName = #{dictionaryname,jdbcType=VARCHAR},
+      </if>
+      <if test="updictionaryid != null" >
+        updictionaryID = #{updictionaryid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="datatype != null" >
+        dataType = #{datatype,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null" >
+        sortNo = #{sortno,jdbcType=VARCHAR},
+      </if>
+      <if test="isuse != null" >
+        isUse = #{isuse,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dictionaryID = #{dictionaryid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.common.Dictionary" >
+    update dictionary
+    set dictionaryName = #{dictionaryname,jdbcType=VARCHAR},
+      updictionaryID = #{updictionaryid,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      dataType = #{datatype,jdbcType=VARCHAR},
+      sortNo = #{sortno,jdbcType=VARCHAR},
+      isUse = #{isuse,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR}
+    where dictionaryID = #{dictionaryid,jdbcType=VARCHAR}
+  </update>
+</mapper>

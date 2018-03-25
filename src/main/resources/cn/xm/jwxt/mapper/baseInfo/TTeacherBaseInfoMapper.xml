@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo" >
+    <id column="teacherID" property="teacherid" jdbcType="VARCHAR" />
+    <result column="teacherNum" property="teachernum" jdbcType="VARCHAR" />
+    <result column="collegeID" property="collegeid" jdbcType="VARCHAR" />
+    <result column="majorID" property="majorid" jdbcType="VARCHAR" />
+    <result column="teacherName" property="teachername" jdbcType="VARCHAR" />
+    <result column="teacherSex" property="teachersex" jdbcType="VARCHAR" />
+    <result column="teacherBirth" property="teacherbirth" jdbcType="DATE" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="degree" property="degree" jdbcType="VARCHAR" />
+    <result column="graduateSchool" property="graduateschool" jdbcType="VARCHAR" />
+    <result column="graduateMajor" property="graduatemajor" jdbcType="VARCHAR" />
+    <result column="teacherPhoto" property="teacherphoto" jdbcType="VARCHAR" />
+    <result column="teacherTel" property="teachertel" jdbcType="VARCHAR" />
+    <result column="positionalTitle" property="positionaltitle" jdbcType="VARCHAR" />
+    <result column="joinSchoolTime" property="joinschooltime" jdbcType="DATE" />
+    <result column="teacherPosition" property="teacherposition" jdbcType="VARCHAR" />
+    <result column="inPosition" property="inposition" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    teacherID, teacherNum, collegeID, majorID, teacherName, teacherSex, teacherBirth, 
+    education, degree, graduateSchool, graduateMajor, teacherPhoto, teacherTel, positionalTitle, 
+    joinSchoolTime, teacherPosition, inPosition, remark2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_teacher_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_teacher_base_info
+    where teacherID = #{teacherid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_teacher_base_info
+    where teacherID = #{teacherid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfoExample" >
+    delete from t_teacher_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo" >
+    insert into t_teacher_base_info (teacherID, teacherNum, collegeID, 
+      majorID, teacherName, teacherSex, 
+      teacherBirth, education, degree, 
+      graduateSchool, graduateMajor, teacherPhoto, 
+      teacherTel, positionalTitle, joinSchoolTime, 
+      teacherPosition, inPosition, remark2
+      )
+    values (#{teacherid,jdbcType=VARCHAR}, #{teachernum,jdbcType=VARCHAR}, #{collegeid,jdbcType=VARCHAR}, 
+      #{majorid,jdbcType=VARCHAR}, #{teachername,jdbcType=VARCHAR}, #{teachersex,jdbcType=VARCHAR}, 
+      #{teacherbirth,jdbcType=DATE}, #{education,jdbcType=VARCHAR}, #{degree,jdbcType=VARCHAR}, 
+      #{graduateschool,jdbcType=VARCHAR}, #{graduatemajor,jdbcType=VARCHAR}, #{teacherphoto,jdbcType=VARCHAR}, 
+      #{teachertel,jdbcType=VARCHAR}, #{positionaltitle,jdbcType=VARCHAR}, #{joinschooltime,jdbcType=DATE}, 
+      #{teacherposition,jdbcType=VARCHAR}, #{inposition,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo" >
+    insert into t_teacher_base_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherid != null" >
+        teacherID,
+      </if>
+      <if test="teachernum != null" >
+        teacherNum,
+      </if>
+      <if test="collegeid != null" >
+        collegeID,
+      </if>
+      <if test="majorid != null" >
+        majorID,
+      </if>
+      <if test="teachername != null" >
+        teacherName,
+      </if>
+      <if test="teachersex != null" >
+        teacherSex,
+      </if>
+      <if test="teacherbirth != null" >
+        teacherBirth,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="degree != null" >
+        degree,
+      </if>
+      <if test="graduateschool != null" >
+        graduateSchool,
+      </if>
+      <if test="graduatemajor != null" >
+        graduateMajor,
+      </if>
+      <if test="teacherphoto != null" >
+        teacherPhoto,
+      </if>
+      <if test="teachertel != null" >
+        teacherTel,
+      </if>
+      <if test="positionaltitle != null" >
+        positionalTitle,
+      </if>
+      <if test="joinschooltime != null" >
+        joinSchoolTime,
+      </if>
+      <if test="teacherposition != null" >
+        teacherPosition,
+      </if>
+      <if test="inposition != null" >
+        inPosition,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherid != null" >
+        #{teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="teachernum != null" >
+        #{teachernum,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeid != null" >
+        #{collegeid,jdbcType=VARCHAR},
+      </if>
+      <if test="majorid != null" >
+        #{majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="teachername != null" >
+        #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="teachersex != null" >
+        #{teachersex,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherbirth != null" >
+        #{teacherbirth,jdbcType=DATE},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateschool != null" >
+        #{graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="graduatemajor != null" >
+        #{graduatemajor,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherphoto != null" >
+        #{teacherphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="teachertel != null" >
+        #{teachertel,jdbcType=VARCHAR},
+      </if>
+      <if test="positionaltitle != null" >
+        #{positionaltitle,jdbcType=VARCHAR},
+      </if>
+      <if test="joinschooltime != null" >
+        #{joinschooltime,jdbcType=DATE},
+      </if>
+      <if test="teacherposition != null" >
+        #{teacherposition,jdbcType=VARCHAR},
+      </if>
+      <if test="inposition != null" >
+        #{inposition,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_teacher_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_teacher_base_info
+    <set >
+      <if test="record.teacherid != null" >
+        teacherID = #{record.teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachernum != null" >
+        teacherNum = #{record.teachernum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collegeid != null" >
+        collegeID = #{record.collegeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorid != null" >
+        majorID = #{record.majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachername != null" >
+        teacherName = #{record.teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachersex != null" >
+        teacherSex = #{record.teachersex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherbirth != null" >
+        teacherBirth = #{record.teacherbirth,jdbcType=DATE},
+      </if>
+      <if test="record.education != null" >
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.degree != null" >
+        degree = #{record.degree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduateschool != null" >
+        graduateSchool = #{record.graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduatemajor != null" >
+        graduateMajor = #{record.graduatemajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherphoto != null" >
+        teacherPhoto = #{record.teacherphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachertel != null" >
+        teacherTel = #{record.teachertel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionaltitle != null" >
+        positionalTitle = #{record.positionaltitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinschooltime != null" >
+        joinSchoolTime = #{record.joinschooltime,jdbcType=DATE},
+      </if>
+      <if test="record.teacherposition != null" >
+        teacherPosition = #{record.teacherposition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inposition != null" >
+        inPosition = #{record.inposition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_teacher_base_info
+    set teacherID = #{record.teacherid,jdbcType=VARCHAR},
+      teacherNum = #{record.teachernum,jdbcType=VARCHAR},
+      collegeID = #{record.collegeid,jdbcType=VARCHAR},
+      majorID = #{record.majorid,jdbcType=VARCHAR},
+      teacherName = #{record.teachername,jdbcType=VARCHAR},
+      teacherSex = #{record.teachersex,jdbcType=VARCHAR},
+      teacherBirth = #{record.teacherbirth,jdbcType=DATE},
+      education = #{record.education,jdbcType=VARCHAR},
+      degree = #{record.degree,jdbcType=VARCHAR},
+      graduateSchool = #{record.graduateschool,jdbcType=VARCHAR},
+      graduateMajor = #{record.graduatemajor,jdbcType=VARCHAR},
+      teacherPhoto = #{record.teacherphoto,jdbcType=VARCHAR},
+      teacherTel = #{record.teachertel,jdbcType=VARCHAR},
+      positionalTitle = #{record.positionaltitle,jdbcType=VARCHAR},
+      joinSchoolTime = #{record.joinschooltime,jdbcType=DATE},
+      teacherPosition = #{record.teacherposition,jdbcType=VARCHAR},
+      inPosition = #{record.inposition,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo" >
+    update t_teacher_base_info
+    <set >
+      <if test="teachernum != null" >
+        teacherNum = #{teachernum,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeid != null" >
+        collegeID = #{collegeid,jdbcType=VARCHAR},
+      </if>
+      <if test="majorid != null" >
+        majorID = #{majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="teachername != null" >
+        teacherName = #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="teachersex != null" >
+        teacherSex = #{teachersex,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherbirth != null" >
+        teacherBirth = #{teacherbirth,jdbcType=DATE},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        degree = #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateschool != null" >
+        graduateSchool = #{graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="graduatemajor != null" >
+        graduateMajor = #{graduatemajor,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherphoto != null" >
+        teacherPhoto = #{teacherphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="teachertel != null" >
+        teacherTel = #{teachertel,jdbcType=VARCHAR},
+      </if>
+      <if test="positionaltitle != null" >
+        positionalTitle = #{positionaltitle,jdbcType=VARCHAR},
+      </if>
+      <if test="joinschooltime != null" >
+        joinSchoolTime = #{joinschooltime,jdbcType=DATE},
+      </if>
+      <if test="teacherposition != null" >
+        teacherPosition = #{teacherposition,jdbcType=VARCHAR},
+      </if>
+      <if test="inposition != null" >
+        inPosition = #{inposition,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where teacherID = #{teacherid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo" >
+    update t_teacher_base_info
+    set teacherNum = #{teachernum,jdbcType=VARCHAR},
+      collegeID = #{collegeid,jdbcType=VARCHAR},
+      majorID = #{majorid,jdbcType=VARCHAR},
+      teacherName = #{teachername,jdbcType=VARCHAR},
+      teacherSex = #{teachersex,jdbcType=VARCHAR},
+      teacherBirth = #{teacherbirth,jdbcType=DATE},
+      education = #{education,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=VARCHAR},
+      graduateSchool = #{graduateschool,jdbcType=VARCHAR},
+      graduateMajor = #{graduatemajor,jdbcType=VARCHAR},
+      teacherPhoto = #{teacherphoto,jdbcType=VARCHAR},
+      teacherTel = #{teachertel,jdbcType=VARCHAR},
+      positionalTitle = #{positionaltitle,jdbcType=VARCHAR},
+      joinSchoolTime = #{joinschooltime,jdbcType=DATE},
+      teacherPosition = #{teacherposition,jdbcType=VARCHAR},
+      inPosition = #{inposition,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR}
+    where teacherID = #{teacherid,jdbcType=VARCHAR}
+  </update>
+</mapper>

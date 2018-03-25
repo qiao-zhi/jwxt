@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.orderBooks.TextbookOrder2Mapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.orderBooks.TextbookOrder2" >
+    <id column="orderDetailID2" property="orderdetailid2" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="INTEGER" />
+    <result column="textbookID" property="textbookid" jdbcType="VARCHAR" />
+    <result column="noticeDatailId" property="noticedatailid" jdbcType="INTEGER" />
+    <result column="orderNum" property="ordernum" jdbcType="SMALLINT" />
+    <result column="teacherID" property="teacherid" jdbcType="VARCHAR" />
+    <result column="isConfirm" property="isconfirm" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    orderDetailID2, orderid, textbookID, noticeDatailId, orderNum, teacherID, isConfirm, 
+    remark1, remark2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from textbook_order2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from textbook_order2
+    where orderDetailID2 = #{orderdetailid2,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from textbook_order2
+    where orderDetailID2 = #{orderdetailid2,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2Example" >
+    delete from textbook_order2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2" >
+    insert into textbook_order2 (orderDetailID2, orderid, textbookID, 
+      noticeDatailId, orderNum, teacherID, 
+      isConfirm, remark1, remark2
+      )
+    values (#{orderdetailid2,jdbcType=VARCHAR}, #{orderid,jdbcType=INTEGER}, #{textbookid,jdbcType=VARCHAR}, 
+      #{noticedatailid,jdbcType=INTEGER}, #{ordernum,jdbcType=SMALLINT}, #{teacherid,jdbcType=VARCHAR}, 
+      #{isconfirm,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2" >
+    insert into textbook_order2
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderdetailid2 != null" >
+        orderDetailID2,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="textbookid != null" >
+        textbookID,
+      </if>
+      <if test="noticedatailid != null" >
+        noticeDatailId,
+      </if>
+      <if test="ordernum != null" >
+        orderNum,
+      </if>
+      <if test="teacherid != null" >
+        teacherID,
+      </if>
+      <if test="isconfirm != null" >
+        isConfirm,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderdetailid2 != null" >
+        #{orderdetailid2,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="textbookid != null" >
+        #{textbookid,jdbcType=VARCHAR},
+      </if>
+      <if test="noticedatailid != null" >
+        #{noticedatailid,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=SMALLINT},
+      </if>
+      <if test="teacherid != null" >
+        #{teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="isconfirm != null" >
+        #{isconfirm,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2Example" resultType="java.lang.Integer" >
+    select count(*) from textbook_order2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update textbook_order2
+    <set >
+      <if test="record.orderdetailid2 != null" >
+        orderDetailID2 = #{record.orderdetailid2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.textbookid != null" >
+        textbookID = #{record.textbookid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticedatailid != null" >
+        noticeDatailId = #{record.noticedatailid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordernum != null" >
+        orderNum = #{record.ordernum,jdbcType=SMALLINT},
+      </if>
+      <if test="record.teacherid != null" >
+        teacherID = #{record.teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isconfirm != null" >
+        isConfirm = #{record.isconfirm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update textbook_order2
+    set orderDetailID2 = #{record.orderdetailid2,jdbcType=VARCHAR},
+      orderid = #{record.orderid,jdbcType=INTEGER},
+      textbookID = #{record.textbookid,jdbcType=VARCHAR},
+      noticeDatailId = #{record.noticedatailid,jdbcType=INTEGER},
+      orderNum = #{record.ordernum,jdbcType=SMALLINT},
+      teacherID = #{record.teacherid,jdbcType=VARCHAR},
+      isConfirm = #{record.isconfirm,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2" >
+    update textbook_order2
+    <set >
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="textbookid != null" >
+        textbookID = #{textbookid,jdbcType=VARCHAR},
+      </if>
+      <if test="noticedatailid != null" >
+        noticeDatailId = #{noticedatailid,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null" >
+        orderNum = #{ordernum,jdbcType=SMALLINT},
+      </if>
+      <if test="teacherid != null" >
+        teacherID = #{teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="isconfirm != null" >
+        isConfirm = #{isconfirm,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where orderDetailID2 = #{orderdetailid2,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2" >
+    update textbook_order2
+    set orderid = #{orderid,jdbcType=INTEGER},
+      textbookID = #{textbookid,jdbcType=VARCHAR},
+      noticeDatailId = #{noticedatailid,jdbcType=INTEGER},
+      orderNum = #{ordernum,jdbcType=SMALLINT},
+      teacherID = #{teacherid,jdbcType=VARCHAR},
+      isConfirm = #{isconfirm,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR}
+    where orderDetailID2 = #{orderdetailid2,jdbcType=VARCHAR}
+  </update>
+</mapper>

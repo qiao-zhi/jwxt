@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="jwxt:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="jwxt-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="jwxt:war exploded" />
+    </root>
+  </artifact>
+</component>
