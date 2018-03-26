@@ -1,6 +1,8 @@
 package cn.xm.jwxt.bean.system;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
     private String userid;
 
     private String usercode;

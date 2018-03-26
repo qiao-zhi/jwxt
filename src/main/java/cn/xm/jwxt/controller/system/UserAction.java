@@ -17,8 +17,12 @@ public class UserAction {
 
     @RequestMapping("/findUserById.action")
     public @ResponseBody
-    User findAllUsers(String userId) throws SQLException {
+    User findUserById(String userId) throws SQLException {
         return userService.findUserById(userId);
+    }
+    @RequestMapping("/findAllUser.action")
+    public @ResponseBody  List<User> findAllUsers() throws SQLException {
+        return userService.findAllUser();
     }
 
     @RequestMapping("/test.action")

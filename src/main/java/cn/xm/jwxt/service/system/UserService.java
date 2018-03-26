@@ -3,6 +3,7 @@ package cn.xm.jwxt.service.system;
 import cn.xm.jwxt.bean.system.User;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @Author: qlq
@@ -17,4 +18,11 @@ public interface UserService {
      * @throws SQLException
      */
     public User findUserById(String userId)throws SQLException;
+
+    /**
+     * 查询所有用户
+     * @return
+     * @throws SQLException
+     */
+    public List<User> findAllUser()throws SQLException;
 }

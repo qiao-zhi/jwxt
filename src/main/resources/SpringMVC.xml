@@ -7,7 +7,9 @@
 
 
     <!-- 扫描@Controler @Service -->
-    <context:component-scan base-package="cn.xm.jwxt" />
+    <context:component-scan base-package="cn.xm.jwxt.controller" />
+    <context:component-scan base-package="cn.xm.jwxt.service" />
+    <context:component-scan base-package="cn.xm.jwxt.utils" />
 
 
     <!-- 开启aop，对类代理 -->

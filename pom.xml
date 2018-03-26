@@ -239,7 +239,7 @@
                 <version>2.2</version>
                 <configuration>
                     <port>80</port>
-                    <path>/SSM</path>
+                    <path>/jwxt</path>
                     <uriEncoding>UTF-8</uriEncoding>
                     <server>tomcat7</server>
                 </configuration>
