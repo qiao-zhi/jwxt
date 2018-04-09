@@ -10,7 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,7 +23,6 @@ public class UserAction {
     private Logger logger = Logger.getLogger(UserAction.class);
     @Autowired
     private UserService userService;
-
     /**
      * 根据userCode查询user
      * @param userCode
@@ -31,6 +34,11 @@ public class UserAction {
         User user = null;
         try {
             user = userService.findUserByUsercode(userCode);
+            //获取request与session
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            HttpSession session = request.getSession(false);
+            Object username = session.getAttribute("username");
+            System.out.println(username.toString());
         } catch (SQLException e) {
             logger.error("根据userCode查询user出错",e);
         }
@@ -79,6 +87,10 @@ public class UserAction {
     @RequestMapping("/test.action")
     public @ResponseBody
     String testEnv() {
+        //获取request与session
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession(false);
+        session.setAttribute("username","qlq");
         return "success";
     }
 }
