@@ -30,6 +30,24 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+
+    <!-- 设定消息转换的编码为utf-8防止controller返回中文乱码 -->
+    <bean
+            class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean
+                        class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/html;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
     <!-- 配置Conveter转换器 转换工厂 （日期、去掉前后空格）。。 -->
     <bean id="conversionServiceFactoryBean"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
