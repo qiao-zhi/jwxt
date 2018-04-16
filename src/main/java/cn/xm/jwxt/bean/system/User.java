@@ -59,6 +59,18 @@ public class User implements Serializable{
         return remark2;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid='" + userid + '\'' +
+                ", usercode='" + usercode + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", usersort='" + usersort + '\'' +
+                ", remark2='" + remark2 + '\'' +
+                '}';
+    }
+
     public void setRemark2(String remark2) {
         this.remark2 = remark2 == null ? null : remark2.trim();
     }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ import java.util.Map;
  */
 @Service
 @SuppressWarnings("all")
+@Transactional//事务注解
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
@@ -33,7 +35,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(User user) throws SQLException {
-        return false;
+        user=new User();
+        user.setPassword("qqq");
+        user.setUsercode("111");
+        user.setUsername("qqq");
+        user.setUserid("10");
+        userMapper.insert(user);
+//       模拟制作Exception
+        int i=1/0;
+        return true;
     }
 
     @Override

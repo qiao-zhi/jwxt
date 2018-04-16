@@ -61,44 +61,5 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	</bean>
 	
 	<!-- 5.开启注解管理aop事务 -->
-	<tx:annotation-driven/>
-	
-	
-	
-	<!-- 事务模板对象，依赖于事务核心管理器 -->
-	<bean name="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
-		<property name="transactionManager" ref="transactionManager"></property>
-	</bean>	
-
-	<!-- ················开始使用XML管理事务························  --> 
-	<!--  配置事务通知（无论哪种方式都要用到事务的核心管理器）-->
-	<tx:advice transaction-manager="transactionManager" id="firstTx">
-		<tx:attributes>
-			<!--以方法为单位，指定方法应用事务什么属性
-			 isolation:隔离级别
-			 read-only:只读属性
-			 propagation:传播行为
-			 -->
-			 <!-- 企业中运用通配符命名规则。两套增删改查(8种) -->
-			<tx:method name="save*" isolation="DEFAULT" read-only="false" propagation="REQUIRED"/>
-			<tx:method name="persist*" isolation="DEFAULT" read-only="false" propagation="REQUIRED"/>
-			<tx:method name="delete*" isolation="DEFAULT" read-only="false" propagation="REQUIRED"/>
-			<tx:method name="remove*" isolation="DEFAULT" read-only="false" propagation="REQUIRED"/>
-			<tx:method name="update*" isolation="DEFAULT" read-only="false" propagation="REQUIRED"/>
-			<tx:method name="modify*" isolation="DEFAULT" read-only="false" propagation="REQUIRED"/>
-			<tx:method name="get*" isolation="DEFAULT" read-only="true" propagation="REQUIRED"/>
-			<tx:method name="find*" isolation="DEFAULT" read-only="true" propagation="REQUIRED"/>
-		</tx:attributes>
-	</tx:advice>
-	
-	<!-- 配置织入 -->
-	<aop:config>
-		<!-- 配置切点表达式 -->
-		<aop:pointcut expression="execution(* cn.xm.jwxt.service.impl.*ServiceImpl.*(..))" id="texPc"/>
-		<!-- 配置切面:切点+通知
-		advice-ref：通知名称
-		pointcut-ref：切点名称
-		 -->
-		<aop:advisor advice-ref="firstTx" pointcut-ref="texPc"/>
-	</aop:config>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
