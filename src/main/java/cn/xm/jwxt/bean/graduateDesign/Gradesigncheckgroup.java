@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+/**
+ * 中期和后期毕设答辩检查小组表
+ */
 public class Gradesigncheckgroup {
     private String groupid;
 

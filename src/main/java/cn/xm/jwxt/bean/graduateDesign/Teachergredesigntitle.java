@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+/**
+ * 教师毕业课题题目申请表
+ */
 public class Teachergredesigntitle {
     private String teachertitleid;
 

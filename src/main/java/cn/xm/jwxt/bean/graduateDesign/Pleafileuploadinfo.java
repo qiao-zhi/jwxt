@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 毕设资料提交信息表
+ */
 public class Pleafileuploadinfo {
     private Integer pleafileid;
 

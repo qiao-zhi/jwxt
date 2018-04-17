@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 毕设答辩基本信息表
+ */
 public class Finallypleainfo {
     private String pleaid;
 

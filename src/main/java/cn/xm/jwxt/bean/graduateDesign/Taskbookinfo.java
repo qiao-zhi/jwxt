@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 毕设课题任务书
+ */
 public class Taskbookinfo {
     private Integer bookid;
 

@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+/**
+ * 毕设基本信息表
+ */
 public class Gradeuatebaseinfo {
     private String gradesignid;
 

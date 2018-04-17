@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+/**
+ * 毕业答辩安排信息表
+ */
 public class Pleaarrangeinfo {
     private Integer arrangeid;
 

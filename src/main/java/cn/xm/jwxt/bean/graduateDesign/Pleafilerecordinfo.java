@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 毕设资料提交情况记录表
+ */
 public class Pleafilerecordinfo {
     private Integer fileuprecoreid;
 

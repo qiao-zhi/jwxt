@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 毕业设计任务书签名表
+ */
 public class Graduatedesigntasksigninfo {
     private String gratasksignid;
 

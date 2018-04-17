@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+/**
+ * 毕设学生选题表
+ */
 public class Gradesignstudenttitleinfo {
     private String studenttitleid;
 

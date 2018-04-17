@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+/**
+ * 检查小组成员表
+ */
 public class Checkgroupperson {
     private Integer gropersonid;
 

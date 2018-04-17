@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 教师毕设课题审核表
+ */
 public class Teachertitlecheckinfo {
     private String checkid;
 

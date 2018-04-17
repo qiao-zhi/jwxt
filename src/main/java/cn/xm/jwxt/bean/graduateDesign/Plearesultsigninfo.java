@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 毕设答辩结果签名表
+ */
 public class Plearesultsigninfo {
     private Integer plearesultsignid;
 

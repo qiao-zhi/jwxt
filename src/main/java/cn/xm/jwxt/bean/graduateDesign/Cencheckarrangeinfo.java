@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+/**
+ * 毕设中期检查安排表
+ */
 public class Cencheckarrangeinfo {
     private Integer cenarrangeinfoid;
 

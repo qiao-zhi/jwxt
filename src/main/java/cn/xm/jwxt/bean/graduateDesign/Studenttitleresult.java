@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+/**
+ * 学生选题最终结果表
+ */
 public class Studenttitleresult {
     private String studenttitleresultid;
 

@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 毕设中期检查结果表
+ */
 public class Cencheckresultinfo {
     private Integer centerresultid;
 

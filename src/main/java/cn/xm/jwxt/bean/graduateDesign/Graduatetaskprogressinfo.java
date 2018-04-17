@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 毕设任务进度表
+ */
 public class Graduatetaskprogressinfo {
     private Integer progressid;
 

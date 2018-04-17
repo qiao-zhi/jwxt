@@ -2,6 +2,9 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
+/**
+ * 中期检查基本信息表
+ */
 public class Cencheckbaseinfo {
     private String cencheckinfoid;
 

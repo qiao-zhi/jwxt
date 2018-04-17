@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+/**
+ * 毕业答辩结果表
+ */
 public class Plearesultinfo {
     private Integer plearesultid;
 
