@@ -23,6 +23,15 @@ public class UserAction {
     private Logger logger = Logger.getLogger(UserAction.class);
     @Autowired
     private UserService userService;
+    @RequestMapping("/addUser")
+    public String addUser(){
+        try {
+            userService.addUser(null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "sss";
+    }
     /**
      * 根据userCode查询user
      * @param userCode
@@ -34,11 +43,6 @@ public class UserAction {
         User user = null;
         try {
             user = userService.findUserByUsercode(userCode);
-            //获取request与session
-            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            HttpSession session = request.getSession(false);
-            Object username = session.getAttribute("username");
-            System.out.println(username.toString());
         } catch (SQLException e) {
             logger.error("根据userCode查询user出错",e);
         }
@@ -87,10 +91,6 @@ public class UserAction {
     @RequestMapping("/test.action")
     public @ResponseBody
     String testEnv() {
-        //获取request与session
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        HttpSession session = request.getSession(false);
-        session.setAttribute("username","qlq");
         return "success";
     }
 }
