@@ -1,3 +1,4 @@
+/*
 package cn.xm.jwxt.utils;
 
 
@@ -8,11 +9,13 @@ import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
+*/
 /**
  * word转pdf工具类
  * @author QiaoLiQiang
  * @time 2018年1月5日下午7:16:12
- */
+ *//*
+
 public class Word2PdfUtil {
     static final int wdFormatPDF = 17;// PDF 格式   
     public static void main(String[] args) throws Exception {
@@ -21,12 +24,14 @@ public class Word2PdfUtil {
           Word2PdfUtil.word2pdf(source1, target1);
 	}
     
-    /**
+    */
+/**
      * 实现转换word文档为PDF文档
      * @param docFileName doc文件全路径（路径+文件名）
      * @param toFileName PDF文件全路径（路径+文件名）
      * @throws Exception
-     */
+     *//*
+
     public static boolean word2pdf(String docFileName,String toFileName) throws Exception {   
         ComThread.InitSTA();
         System.out.println("启动Word...");
@@ -77,3 +82,4 @@ public class Word2PdfUtil {
         return true;
     }
 }
+*/
