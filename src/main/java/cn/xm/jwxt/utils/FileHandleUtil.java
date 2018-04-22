@@ -87,7 +87,7 @@ public class FileHandleUtil {
         //如果文件是doc或者docx文件将文件转为pdf存一份到服务器
         if("doc".equals(sufix)||"docx".equals(sufix)){
             try {
-                Word2PdfUtil.word2pdf(dir, basePath+prefix+".pdf");
+//                Word2PdfUtil.word2pdf(dir, basePath+prefix+".pdf");
             } catch (Exception e) {
                 e.printStackTrace();
             }
