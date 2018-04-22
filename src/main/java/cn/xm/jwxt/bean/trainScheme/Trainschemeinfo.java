@@ -27,6 +27,20 @@ public class Trainschemeinfo {
 
     private String trainingrequire;
 
+    private String trainyears;
+
+    private String traindegree;
+
+    private String maincourse;
+
+    private String corecourse;
+
+    private String maintestitem;
+
+    private String mainmajorexperience;
+
+    private String majorfeature;
+
     private String remark1;
 
     private String remark2;
@@ -125,6 +139,62 @@ public class Trainschemeinfo {
 
     public void setTrainingrequire(String trainingrequire) {
         this.trainingrequire = trainingrequire == null ? null : trainingrequire.trim();
+    }
+
+    public String getTrainyears() {
+        return trainyears;
+    }
+
+    public void setTrainyears(String trainyears) {
+        this.trainyears = trainyears == null ? null : trainyears.trim();
+    }
+
+    public String getTraindegree() {
+        return traindegree;
+    }
+
+    public void setTraindegree(String traindegree) {
+        this.traindegree = traindegree == null ? null : traindegree.trim();
+    }
+
+    public String getMaincourse() {
+        return maincourse;
+    }
+
+    public void setMaincourse(String maincourse) {
+        this.maincourse = maincourse == null ? null : maincourse.trim();
+    }
+
+    public String getCorecourse() {
+        return corecourse;
+    }
+
+    public void setCorecourse(String corecourse) {
+        this.corecourse = corecourse == null ? null : corecourse.trim();
+    }
+
+    public String getMaintestitem() {
+        return maintestitem;
+    }
+
+    public void setMaintestitem(String maintestitem) {
+        this.maintestitem = maintestitem == null ? null : maintestitem.trim();
+    }
+
+    public String getMainmajorexperience() {
+        return mainmajorexperience;
+    }
+
+    public void setMainmajorexperience(String mainmajorexperience) {
+        this.mainmajorexperience = mainmajorexperience == null ? null : mainmajorexperience.trim();
+    }
+
+    public String getMajorfeature() {
+        return majorfeature;
+    }
+
+    public void setMajorfeature(String majorfeature) {
+        this.majorfeature = majorfeature == null ? null : majorfeature.trim();
     }
 
     public String getRemark1() {
