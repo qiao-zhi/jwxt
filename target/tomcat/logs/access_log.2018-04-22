@@ -1,0 +1,5 @@
+0:0:0:0:0:0:0:1 - - [22/Apr/2018:18:49:07 +0800] "GET /jwxt HTTP/1.1" 302 - http-bio-80-exec-1 0
+0:0:0:0:0:0:0:1 - - [22/Apr/2018:18:49:08 +0800] "GET /jwxt/ HTTP/1.1" 304 - http-bio-80-exec-2 40
+0:0:0:0:0:0:0:1 - - [22/Apr/2018:18:49:08 +0800] "GET /jwxt/lib/layui/css/layui.css HTTP/1.1" 304 - http-bio-80-exec-3 45
+0:0:0:0:0:0:0:1 - - [22/Apr/2018:18:49:08 +0800] "GET /jwxt/welcome.html HTTP/1.1" 200 1241 http-bio-80-exec-6 113
+0:0:0:0:0:0:0:1 - - [22/Apr/2018:18:49:08 +0800] "GET /jwxt/favicon.ico HTTP/1.1" 404 983 http-bio-80-exec-7 4

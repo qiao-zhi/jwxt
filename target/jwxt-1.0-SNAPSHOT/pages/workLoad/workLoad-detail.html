@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>课设分配</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/xadmin.css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/xadmin.js"></script>
+ <style>
+ 	.layui-table-wang-info{
+ 		width: 100%;
+		margin: 10px 0;
+		background-color: #fff;
+		border-collapse: collapse;
+		border-spacing: 0;
+		padding: 0px;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 12px;
+		 	}
+ 	.layui-table-wang-info tr{
+ 		-webkit-transition: all .3s;
+ 		margin: 0px;
+		padding: 0px;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 12px;
+		border-collapse: collapse;
+		border-spacing: 0;
+		 	}
+ 	 .layui-table-wang-info tr td{
+ 		text-align: center;
+ 		float: left;
+ 		/*position: relative;*/
+		padding: 9px 15px;
+		min-height: 20px;
+		line-height: 20px;
+		font-size: 14px;
+		border: 1px solid #e2e2e2;
+		word-break: break-all;
+		 	}
+	 	 .layui-table-wang-info tr td:nth-child(2n+1){
+	 	 	width: 110px;
+	 	 	background-color: #FBFBFB;
+	 	 	box-sizing: border-box;
+			
+			}
+	 	 .layui-table-wang-info tr td:nth-child(2n){
+	 	 	width: 200px;
+	 	 	}
+	 	 	
+ </style>
+</head>
+
+<body>
+<div class="x-body">
+	<table class="layui-table-wang-info">
+		<tr>
+			<td>课程名称</td>
+			<td>计算机组织与结构</td>
+			<td>课程编号</td>
+			<td>Y32453553254</td>
+		</tr>
+		<tr>
+			<td>教师名称</td>
+			<td>王五</td>
+			<td>教师编号</td>
+			<td>888888888</td>
+		</tr>
+		<tr>
+			<td>开始时间</td>
+			<td>第一周</td>
+			<td>结束时间</td>
+			<td>第八周</td>
+		</tr>
+	</table>
+    <form class="layui-form layui-form-pane">
+        <!--1-->
+       
+        <!--4-->
+      
+        
+        
+        
+        
+        
+        
+         <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+              所带班级
+            </label>
+            <div class="layui-input-inline">
+            	
+				<input type="" id="" name="" required="" lay-verify="required" disabled  style="width: 575px;" value="软件一班，软件二班"
+                       autocomplete="off" class="layui-input">
+            </div>
+            
+            
+        </div>
+        
+         <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+               软件一班
+            </label>
+            <div class="layui-input-block">
+		      <input type="checkbox" name="" title="张三" checked="" >
+		      <input type="checkbox" name="" title="李四" checked="" >
+		      <input type="checkbox" name="" title="王二麻子" checked="" >
+		      <input type="checkbox" name="" title="张三" checked="" >
+		      <input type="checkbox" name="" title="王二麻子" checked="" >
+		      <input type="checkbox" name="" title="张三" checked="">
+		      <input type="checkbox" name="" title="李四" >
+		      <input type="checkbox" name="" title="王二麻子">
+		      <input type="checkbox" name="" title="张三">
+		      <input type="checkbox" name="" title="李四">
+		      <input type="checkbox" name="" title="王二麻子">
+		      <input type="checkbox" name="" title="张三">
+		      <input type="checkbox" name="" title="李四" >
+		      <input type="checkbox" name="" title="王二麻子">
+		      <input type="checkbox" name="" title="张三">
+		      <input type="checkbox" name="" title="李四" >
+		      <input type="checkbox" name="" title="王二麻子">
+		      <input type="checkbox" name="" title="张三">
+		      <input type="checkbox" name="" title="李四" >
+		      <input type="checkbox" name="" title="王二麻子">
+		      <input type="checkbox" name="" title="张三">
+		      <input type="checkbox" name="" title="李四">
+		      <input type="checkbox" name="" title="王二麻子">
+		    </div>
+            
+        </div>
+      
+    </form>
+</div>
+
+<script>
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer;
+
+    });
+</script>
+
+</body>
+
+</html>

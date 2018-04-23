@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.OutgradesigninfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo" >
+    <id column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
+    <result column="StudentTitleresultID" property="studenttitleresultid" jdbcType="VARCHAR" />
+    <result column="studentName" property="studentname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="majorClass" property="majorclass" jdbcType="VARCHAR" />
+    <result column="inTeacherName" property="inteachername" jdbcType="VARCHAR" />
+    <result column="receiveUnit" property="receiveunit" jdbcType="VARCHAR" />
+    <result column="applyReason" property="applyreason" jdbcType="VARCHAR" />
+    <result column="applyDate" property="applydate" jdbcType="TIMESTAMP" />
+    <result column="stuSignUrl" property="stusignurl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="isCommit" property="iscommit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    outsideApplyID, StudentTitleresultID, studentName, sex, majorClass, inTeacherName, 
+    receiveUnit, applyReason, applyDate, stuSignUrl, status, isCommit
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutgradesigninfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outgradesigninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from outgradesigninfo
+    where outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from outgradesigninfo
+    where outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutgradesigninfoExample" >
+    delete from outgradesigninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo" >
+    insert into outgradesigninfo (outsideApplyID, StudentTitleresultID, 
+      studentName, sex, majorClass, 
+      inTeacherName, receiveUnit, applyReason, 
+      applyDate, stuSignUrl, status, 
+      isCommit)
+    values (#{outsideapplyid,jdbcType=VARCHAR}, #{studenttitleresultid,jdbcType=VARCHAR}, 
+      #{studentname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{majorclass,jdbcType=VARCHAR}, 
+      #{inteachername,jdbcType=VARCHAR}, #{receiveunit,jdbcType=VARCHAR}, #{applyreason,jdbcType=VARCHAR}, 
+      #{applydate,jdbcType=TIMESTAMP}, #{stusignurl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{iscommit,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo" >
+    insert into outgradesigninfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="outsideapplyid != null" >
+        outsideApplyID,
+      </if>
+      <if test="studenttitleresultid != null" >
+        StudentTitleresultID,
+      </if>
+      <if test="studentname != null" >
+        studentName,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="majorclass != null" >
+        majorClass,
+      </if>
+      <if test="inteachername != null" >
+        inTeacherName,
+      </if>
+      <if test="receiveunit != null" >
+        receiveUnit,
+      </if>
+      <if test="applyreason != null" >
+        applyReason,
+      </if>
+      <if test="applydate != null" >
+        applyDate,
+      </if>
+      <if test="stusignurl != null" >
+        stuSignUrl,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="iscommit != null" >
+        isCommit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="outsideapplyid != null" >
+        #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="studenttitleresultid != null" >
+        #{studenttitleresultid,jdbcType=VARCHAR},
+      </if>
+      <if test="studentname != null" >
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="majorclass != null" >
+        #{majorclass,jdbcType=VARCHAR},
+      </if>
+      <if test="inteachername != null" >
+        #{inteachername,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveunit != null" >
+        #{receiveunit,jdbcType=VARCHAR},
+      </if>
+      <if test="applyreason != null" >
+        #{applyreason,jdbcType=VARCHAR},
+      </if>
+      <if test="applydate != null" >
+        #{applydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stusignurl != null" >
+        #{stusignurl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="iscommit != null" >
+        #{iscommit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutgradesigninfoExample" resultType="java.lang.Integer" >
+    select count(*) from outgradesigninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update outgradesigninfo
+    <set >
+      <if test="record.outsideapplyid != null" >
+        outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studenttitleresultid != null" >
+        StudentTitleresultID = #{record.studenttitleresultid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentname != null" >
+        studentName = #{record.studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorclass != null" >
+        majorClass = #{record.majorclass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inteachername != null" >
+        inTeacherName = #{record.inteachername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveunit != null" >
+        receiveUnit = #{record.receiveunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyreason != null" >
+        applyReason = #{record.applyreason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applydate != null" >
+        applyDate = #{record.applydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stusignurl != null" >
+        stuSignUrl = #{record.stusignurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iscommit != null" >
+        isCommit = #{record.iscommit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update outgradesigninfo
+    set outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      StudentTitleresultID = #{record.studenttitleresultid,jdbcType=VARCHAR},
+      studentName = #{record.studentname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      majorClass = #{record.majorclass,jdbcType=VARCHAR},
+      inTeacherName = #{record.inteachername,jdbcType=VARCHAR},
+      receiveUnit = #{record.receiveunit,jdbcType=VARCHAR},
+      applyReason = #{record.applyreason,jdbcType=VARCHAR},
+      applyDate = #{record.applydate,jdbcType=TIMESTAMP},
+      stuSignUrl = #{record.stusignurl,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      isCommit = #{record.iscommit,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo" >
+    update outgradesigninfo
+    <set >
+      <if test="studenttitleresultid != null" >
+        StudentTitleresultID = #{studenttitleresultid,jdbcType=VARCHAR},
+      </if>
+      <if test="studentname != null" >
+        studentName = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="majorclass != null" >
+        majorClass = #{majorclass,jdbcType=VARCHAR},
+      </if>
+      <if test="inteachername != null" >
+        inTeacherName = #{inteachername,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveunit != null" >
+        receiveUnit = #{receiveunit,jdbcType=VARCHAR},
+      </if>
+      <if test="applyreason != null" >
+        applyReason = #{applyreason,jdbcType=VARCHAR},
+      </if>
+      <if test="applydate != null" >
+        applyDate = #{applydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stusignurl != null" >
+        stuSignUrl = #{stusignurl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="iscommit != null" >
+        isCommit = #{iscommit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo" >
+    update outgradesigninfo
+    set StudentTitleresultID = #{studenttitleresultid,jdbcType=VARCHAR},
+      studentName = #{studentname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      majorClass = #{majorclass,jdbcType=VARCHAR},
+      inTeacherName = #{inteachername,jdbcType=VARCHAR},
+      receiveUnit = #{receiveunit,jdbcType=VARCHAR},
+      applyReason = #{applyreason,jdbcType=VARCHAR},
+      applyDate = #{applydate,jdbcType=TIMESTAMP},
+      stuSignUrl = #{stusignurl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      isCommit = #{iscommit,jdbcType=VARCHAR}
+    where outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR}
+  </update>
+</mapper>

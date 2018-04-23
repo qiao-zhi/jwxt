@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.trainScheme.TrainningcapacitybaseinfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.trainScheme.Trainningcapacitybaseinfo" >
+    <id column="capacityId" property="capacityid" jdbcType="INTEGER" />
+    <result column="trainingSchemeID" property="trainingschemeid" jdbcType="VARCHAR" />
+    <result column="capacitySort" property="capacitysort" jdbcType="VARCHAR" />
+    <result column="capacityName" property="capacityname" jdbcType="VARCHAR" />
+    <result column="capacityDescription" property="capacitydescription" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    capacityId, trainingSchemeID, capacitySort, capacityName, capacityDescription, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.trainScheme.TrainningcapacitybaseinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trainningcapacitybaseinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from trainningcapacitybaseinfo
+    where capacityId = #{capacityid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trainningcapacitybaseinfo
+    where capacityId = #{capacityid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TrainningcapacitybaseinfoExample" >
+    delete from trainningcapacitybaseinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.trainScheme.Trainningcapacitybaseinfo" >
+    insert into trainningcapacitybaseinfo (capacityId, trainingSchemeID, capacitySort, 
+      capacityName, capacityDescription, remark
+      )
+    values (#{capacityid,jdbcType=INTEGER}, #{trainingschemeid,jdbcType=VARCHAR}, #{capacitysort,jdbcType=VARCHAR}, 
+      #{capacityname,jdbcType=VARCHAR}, #{capacitydescription,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.trainScheme.Trainningcapacitybaseinfo" >
+    insert into trainningcapacitybaseinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="capacityid != null" >
+        capacityId,
+      </if>
+      <if test="trainingschemeid != null" >
+        trainingSchemeID,
+      </if>
+      <if test="capacitysort != null" >
+        capacitySort,
+      </if>
+      <if test="capacityname != null" >
+        capacityName,
+      </if>
+      <if test="capacitydescription != null" >
+        capacityDescription,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="capacityid != null" >
+        #{capacityid,jdbcType=INTEGER},
+      </if>
+      <if test="trainingschemeid != null" >
+        #{trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="capacitysort != null" >
+        #{capacitysort,jdbcType=VARCHAR},
+      </if>
+      <if test="capacityname != null" >
+        #{capacityname,jdbcType=VARCHAR},
+      </if>
+      <if test="capacitydescription != null" >
+        #{capacitydescription,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TrainningcapacitybaseinfoExample" resultType="java.lang.Integer" >
+    select count(*) from trainningcapacitybaseinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update trainningcapacitybaseinfo
+    <set >
+      <if test="record.capacityid != null" >
+        capacityId = #{record.capacityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.trainingschemeid != null" >
+        trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capacitysort != null" >
+        capacitySort = #{record.capacitysort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capacityname != null" >
+        capacityName = #{record.capacityname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capacitydescription != null" >
+        capacityDescription = #{record.capacitydescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update trainningcapacitybaseinfo
+    set capacityId = #{record.capacityid,jdbcType=INTEGER},
+      trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
+      capacitySort = #{record.capacitysort,jdbcType=VARCHAR},
+      capacityName = #{record.capacityname,jdbcType=VARCHAR},
+      capacityDescription = #{record.capacitydescription,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.trainScheme.Trainningcapacitybaseinfo" >
+    update trainningcapacitybaseinfo
+    <set >
+      <if test="trainingschemeid != null" >
+        trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="capacitysort != null" >
+        capacitySort = #{capacitysort,jdbcType=VARCHAR},
+      </if>
+      <if test="capacityname != null" >
+        capacityName = #{capacityname,jdbcType=VARCHAR},
+      </if>
+      <if test="capacitydescription != null" >
+        capacityDescription = #{capacitydescription,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where capacityId = #{capacityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.trainScheme.Trainningcapacitybaseinfo" >
+    update trainningcapacitybaseinfo
+    set trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR},
+      capacitySort = #{capacitysort,jdbcType=VARCHAR},
+      capacityName = #{capacityname,jdbcType=VARCHAR},
+      capacityDescription = #{capacitydescription,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where capacityId = #{capacityid,jdbcType=INTEGER}
+  </update>
+</mapper>

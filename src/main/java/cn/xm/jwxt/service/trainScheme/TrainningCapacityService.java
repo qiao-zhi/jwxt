@@ -14,12 +14,12 @@ import java.util.Map;
  */
 public interface TrainningCapacityService {
     /**
-     * 增加培养方案能力信息基本信息
-     * @param trainningcapacitybaseinfo 培养方案能力信息
+     * 批量增加培养方案能力信息基本信息
+     * @param trainningcapacitybaseinfo 培养方案能力信息集合
      * @return
      * @throws SQLException
      */
-    public boolean addTrainningCapacity(Trainningcapacitybaseinfo trainningcapacitybaseinfo)throws SQLException;
+    public boolean addTrainningCapacity(List<Trainningcapacitybaseinfo> trainningcapacitybaseinfo)throws SQLException;
 
     /**
      * 删除培养方案能力

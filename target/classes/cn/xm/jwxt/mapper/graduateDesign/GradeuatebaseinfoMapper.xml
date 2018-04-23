@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.GradeuatebaseinfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo" >
+    <id column="graDesignID" property="gradesignid" jdbcType="VARCHAR" />
+    <result column="graduateDesignName" property="graduatedesignname" jdbcType="VARCHAR" />
+    <result column="majorId" property="majorid" jdbcType="VARCHAR" />
+    <result column="graduateDesc" property="graduatedesc" jdbcType="VARCHAR" />
+    <result column="yearNum" property="yearnum" jdbcType="VARCHAR" />
+    <result column="semesterNum" property="semesternum" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    graDesignID, graduateDesignName, majorId, graduateDesc, yearNum, semesterNum, status, 
+    remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.graduateDesign.GradeuatebaseinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gradeuatebaseinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from gradeuatebaseinfo
+    where graDesignID = #{gradesignid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from gradeuatebaseinfo
+    where graDesignID = #{gradesignid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.graduateDesign.GradeuatebaseinfoExample" >
+    delete from gradeuatebaseinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo" >
+    insert into gradeuatebaseinfo (graDesignID, graduateDesignName, 
+      majorId, graduateDesc, yearNum, 
+      semesterNum, status, remark
+      )
+    values (#{gradesignid,jdbcType=VARCHAR}, #{graduatedesignname,jdbcType=VARCHAR}, 
+      #{majorid,jdbcType=VARCHAR}, #{graduatedesc,jdbcType=VARCHAR}, #{yearnum,jdbcType=VARCHAR}, 
+      #{semesternum,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo" >
+    insert into gradeuatebaseinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gradesignid != null" >
+        graDesignID,
+      </if>
+      <if test="graduatedesignname != null" >
+        graduateDesignName,
+      </if>
+      <if test="majorid != null" >
+        majorId,
+      </if>
+      <if test="graduatedesc != null" >
+        graduateDesc,
+      </if>
+      <if test="yearnum != null" >
+        yearNum,
+      </if>
+      <if test="semesternum != null" >
+        semesterNum,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gradesignid != null" >
+        #{gradesignid,jdbcType=VARCHAR},
+      </if>
+      <if test="graduatedesignname != null" >
+        #{graduatedesignname,jdbcType=VARCHAR},
+      </if>
+      <if test="majorid != null" >
+        #{majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="graduatedesc != null" >
+        #{graduatedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="yearnum != null" >
+        #{yearnum,jdbcType=VARCHAR},
+      </if>
+      <if test="semesternum != null" >
+        #{semesternum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.graduateDesign.GradeuatebaseinfoExample" resultType="java.lang.Integer" >
+    select count(*) from gradeuatebaseinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gradeuatebaseinfo
+    <set >
+      <if test="record.gradesignid != null" >
+        graDesignID = #{record.gradesignid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduatedesignname != null" >
+        graduateDesignName = #{record.graduatedesignname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorid != null" >
+        majorId = #{record.majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduatedesc != null" >
+        graduateDesc = #{record.graduatedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yearnum != null" >
+        yearNum = #{record.yearnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.semesternum != null" >
+        semesterNum = #{record.semesternum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gradeuatebaseinfo
+    set graDesignID = #{record.gradesignid,jdbcType=VARCHAR},
+      graduateDesignName = #{record.graduatedesignname,jdbcType=VARCHAR},
+      majorId = #{record.majorid,jdbcType=VARCHAR},
+      graduateDesc = #{record.graduatedesc,jdbcType=VARCHAR},
+      yearNum = #{record.yearnum,jdbcType=VARCHAR},
+      semesterNum = #{record.semesternum,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo" >
+    update gradeuatebaseinfo
+    <set >
+      <if test="graduatedesignname != null" >
+        graduateDesignName = #{graduatedesignname,jdbcType=VARCHAR},
+      </if>
+      <if test="majorid != null" >
+        majorId = #{majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="graduatedesc != null" >
+        graduateDesc = #{graduatedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="yearnum != null" >
+        yearNum = #{yearnum,jdbcType=VARCHAR},
+      </if>
+      <if test="semesternum != null" >
+        semesterNum = #{semesternum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where graDesignID = #{gradesignid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo" >
+    update gradeuatebaseinfo
+    set graduateDesignName = #{graduatedesignname,jdbcType=VARCHAR},
+      majorId = #{majorid,jdbcType=VARCHAR},
+      graduateDesc = #{graduatedesc,jdbcType=VARCHAR},
+      yearNum = #{yearnum,jdbcType=VARCHAR},
+      semesterNum = #{semesternum,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where graDesignID = #{gradesignid,jdbcType=VARCHAR}
+  </update>
+</mapper>

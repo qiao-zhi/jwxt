@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.baseInfo.SigninfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.baseInfo.Signinfo" >
+    <id column="sign_id" property="signId" jdbcType="VARCHAR" />
+    <result column="signer_id" property="signerId" jdbcType="VARCHAR" />
+    <result column="oriName" property="oriname" jdbcType="VARCHAR" />
+    <result column="nowName" property="nowname" jdbcType="VARCHAR" />
+    <result column="uploadDate" property="uploaddate" jdbcType="TIMESTAMP" />
+    <result column="signType" property="signtype" jdbcType="CHAR" />
+    <result column="signPassword" property="signpassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sign_id, signer_id, oriName, nowName, uploadDate, signType, signPassword
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.baseInfo.SigninfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from signinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from signinfo
+    where sign_id = #{signId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from signinfo
+    where sign_id = #{signId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.baseInfo.SigninfoExample" >
+    delete from signinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.baseInfo.Signinfo" >
+    insert into signinfo (sign_id, signer_id, oriName, 
+      nowName, uploadDate, signType, 
+      signPassword)
+    values (#{signId,jdbcType=VARCHAR}, #{signerId,jdbcType=VARCHAR}, #{oriname,jdbcType=VARCHAR}, 
+      #{nowname,jdbcType=VARCHAR}, #{uploaddate,jdbcType=TIMESTAMP}, #{signtype,jdbcType=CHAR}, 
+      #{signpassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.baseInfo.Signinfo" >
+    insert into signinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="signId != null" >
+        sign_id,
+      </if>
+      <if test="signerId != null" >
+        signer_id,
+      </if>
+      <if test="oriname != null" >
+        oriName,
+      </if>
+      <if test="nowname != null" >
+        nowName,
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate,
+      </if>
+      <if test="signtype != null" >
+        signType,
+      </if>
+      <if test="signpassword != null" >
+        signPassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="signId != null" >
+        #{signId,jdbcType=VARCHAR},
+      </if>
+      <if test="signerId != null" >
+        #{signerId,jdbcType=VARCHAR},
+      </if>
+      <if test="oriname != null" >
+        #{oriname,jdbcType=VARCHAR},
+      </if>
+      <if test="nowname != null" >
+        #{nowname,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null" >
+        #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signtype != null" >
+        #{signtype,jdbcType=CHAR},
+      </if>
+      <if test="signpassword != null" >
+        #{signpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.baseInfo.SigninfoExample" resultType="java.lang.Integer" >
+    select count(*) from signinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update signinfo
+    <set >
+      <if test="record.signId != null" >
+        sign_id = #{record.signId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signerId != null" >
+        signer_id = #{record.signerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oriname != null" >
+        oriName = #{record.oriname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nowname != null" >
+        nowName = #{record.nowname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploaddate != null" >
+        uploadDate = #{record.uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.signtype != null" >
+        signType = #{record.signtype,jdbcType=CHAR},
+      </if>
+      <if test="record.signpassword != null" >
+        signPassword = #{record.signpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update signinfo
+    set sign_id = #{record.signId,jdbcType=VARCHAR},
+      signer_id = #{record.signerId,jdbcType=VARCHAR},
+      oriName = #{record.oriname,jdbcType=VARCHAR},
+      nowName = #{record.nowname,jdbcType=VARCHAR},
+      uploadDate = #{record.uploaddate,jdbcType=TIMESTAMP},
+      signType = #{record.signtype,jdbcType=CHAR},
+      signPassword = #{record.signpassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.baseInfo.Signinfo" >
+    update signinfo
+    <set >
+      <if test="signerId != null" >
+        signer_id = #{signerId,jdbcType=VARCHAR},
+      </if>
+      <if test="oriname != null" >
+        oriName = #{oriname,jdbcType=VARCHAR},
+      </if>
+      <if test="nowname != null" >
+        nowName = #{nowname,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signtype != null" >
+        signType = #{signtype,jdbcType=CHAR},
+      </if>
+      <if test="signpassword != null" >
+        signPassword = #{signpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sign_id = #{signId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.baseInfo.Signinfo" >
+    update signinfo
+    set signer_id = #{signerId,jdbcType=VARCHAR},
+      oriName = #{oriname,jdbcType=VARCHAR},
+      nowName = #{nowname,jdbcType=VARCHAR},
+      uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      signType = #{signtype,jdbcType=CHAR},
+      signPassword = #{signpassword,jdbcType=VARCHAR}
+    where sign_id = #{signId,jdbcType=VARCHAR}
+  </update>
+</mapper>
