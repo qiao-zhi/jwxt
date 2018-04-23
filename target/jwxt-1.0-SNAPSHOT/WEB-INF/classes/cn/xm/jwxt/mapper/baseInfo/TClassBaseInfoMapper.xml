@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.baseInfo.TClassBaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.baseInfo.TClassBaseInfo" >
+    <id column="classID" property="classid" jdbcType="VARCHAR" />
+    <result column="classNum" property="classnum" jdbcType="VARCHAR" />
+    <result column="majorID" property="majorid" jdbcType="VARCHAR" />
+    <result column="trainingSchemeID" property="trainingschemeid" jdbcType="VARCHAR" />
+    <result column="className" property="classname" jdbcType="VARCHAR" />
+    <result column="classPeopleNum" property="classpeoplenum" jdbcType="INTEGER" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    classID, classNum, majorID, trainingSchemeID, className, classPeopleNum, remark1, 
+    remark2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_class_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_class_base_info
+    where classID = #{classid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_class_base_info
+    where classID = #{classid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfoExample" >
+    delete from t_class_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfo" >
+    insert into t_class_base_info (classID, classNum, majorID, 
+      trainingSchemeID, className, classPeopleNum, 
+      remark1, remark2)
+    values (#{classid,jdbcType=VARCHAR}, #{classnum,jdbcType=VARCHAR}, #{majorid,jdbcType=VARCHAR}, 
+      #{trainingschemeid,jdbcType=VARCHAR}, #{classname,jdbcType=VARCHAR}, #{classpeoplenum,jdbcType=INTEGER}, 
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfo" >
+    insert into t_class_base_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        classID,
+      </if>
+      <if test="classnum != null" >
+        classNum,
+      </if>
+      <if test="majorid != null" >
+        majorID,
+      </if>
+      <if test="trainingschemeid != null" >
+        trainingSchemeID,
+      </if>
+      <if test="classname != null" >
+        className,
+      </if>
+      <if test="classpeoplenum != null" >
+        classPeopleNum,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        #{classid,jdbcType=VARCHAR},
+      </if>
+      <if test="classnum != null" >
+        #{classnum,jdbcType=VARCHAR},
+      </if>
+      <if test="majorid != null" >
+        #{majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingschemeid != null" >
+        #{trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null" >
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="classpeoplenum != null" >
+        #{classpeoplenum,jdbcType=INTEGER},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_class_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_class_base_info
+    <set >
+      <if test="record.classid != null" >
+        classID = #{record.classid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classnum != null" >
+        classNum = #{record.classnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorid != null" >
+        majorID = #{record.majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainingschemeid != null" >
+        trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classname != null" >
+        className = #{record.classname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classpeoplenum != null" >
+        classPeopleNum = #{record.classpeoplenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_class_base_info
+    set classID = #{record.classid,jdbcType=VARCHAR},
+      classNum = #{record.classnum,jdbcType=VARCHAR},
+      majorID = #{record.majorid,jdbcType=VARCHAR},
+      trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
+      className = #{record.classname,jdbcType=VARCHAR},
+      classPeopleNum = #{record.classpeoplenum,jdbcType=INTEGER},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfo" >
+    update t_class_base_info
+    <set >
+      <if test="classnum != null" >
+        classNum = #{classnum,jdbcType=VARCHAR},
+      </if>
+      <if test="majorid != null" >
+        majorID = #{majorid,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingschemeid != null" >
+        trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null" >
+        className = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="classpeoplenum != null" >
+        classPeopleNum = #{classpeoplenum,jdbcType=INTEGER},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where classID = #{classid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfo" >
+    update t_class_base_info
+    set classNum = #{classnum,jdbcType=VARCHAR},
+      majorID = #{majorid,jdbcType=VARCHAR},
+      trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR},
+      className = #{classname,jdbcType=VARCHAR},
+      classPeopleNum = #{classpeoplenum,jdbcType=INTEGER},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR}
+    where classID = #{classid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.OutsidegradesignattachmentMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
+    <id column="attachmentID" property="attachmentid" jdbcType="VARCHAR" />
+    <result column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
+    <result column="attachmentOldName" property="attachmentoldname" jdbcType="VARCHAR" />
+    <result column="newName" property="newname" jdbcType="VARCHAR" />
+    <result column="attachmentAddr" property="attachmentaddr" jdbcType="VARCHAR" />
+    <result column="uploadDate" property="uploaddate" jdbcType="TIMESTAMP" />
+    <result column="attachmentType" property="attachmenttype" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    attachmentID, outsideApplyID, attachmentOldName, newName, attachmentAddr, uploadDate, 
+    attachmentType
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutsidegradesignattachmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outsidegradesignattachment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from outsidegradesignattachment
+    where attachmentID = #{attachmentid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from outsidegradesignattachment
+    where attachmentID = #{attachmentid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutsidegradesignattachmentExample" >
+    delete from outsidegradesignattachment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
+    insert into outsidegradesignattachment (attachmentID, outsideApplyID, attachmentOldName, 
+      newName, attachmentAddr, uploadDate, 
+      attachmentType)
+    values (#{attachmentid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, #{attachmentoldname,jdbcType=VARCHAR}, 
+      #{newname,jdbcType=VARCHAR}, #{attachmentaddr,jdbcType=VARCHAR}, #{uploaddate,jdbcType=TIMESTAMP}, 
+      #{attachmenttype,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
+    insert into outsidegradesignattachment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attachmentid != null" >
+        attachmentID,
+      </if>
+      <if test="outsideapplyid != null" >
+        outsideApplyID,
+      </if>
+      <if test="attachmentoldname != null" >
+        attachmentOldName,
+      </if>
+      <if test="newname != null" >
+        newName,
+      </if>
+      <if test="attachmentaddr != null" >
+        attachmentAddr,
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate,
+      </if>
+      <if test="attachmenttype != null" >
+        attachmentType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attachmentid != null" >
+        #{attachmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="outsideapplyid != null" >
+        #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentoldname != null" >
+        #{attachmentoldname,jdbcType=VARCHAR},
+      </if>
+      <if test="newname != null" >
+        #{newname,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentaddr != null" >
+        #{attachmentaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null" >
+        #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attachmenttype != null" >
+        #{attachmenttype,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutsidegradesignattachmentExample" resultType="java.lang.Integer" >
+    select count(*) from outsidegradesignattachment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update outsidegradesignattachment
+    <set >
+      <if test="record.attachmentid != null" >
+        attachmentID = #{record.attachmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outsideapplyid != null" >
+        outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentoldname != null" >
+        attachmentOldName = #{record.attachmentoldname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newname != null" >
+        newName = #{record.newname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentaddr != null" >
+        attachmentAddr = #{record.attachmentaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploaddate != null" >
+        uploadDate = #{record.uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attachmenttype != null" >
+        attachmentType = #{record.attachmenttype,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update outsidegradesignattachment
+    set attachmentID = #{record.attachmentid,jdbcType=VARCHAR},
+      outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      attachmentOldName = #{record.attachmentoldname,jdbcType=VARCHAR},
+      newName = #{record.newname,jdbcType=VARCHAR},
+      attachmentAddr = #{record.attachmentaddr,jdbcType=VARCHAR},
+      uploadDate = #{record.uploaddate,jdbcType=TIMESTAMP},
+      attachmentType = #{record.attachmenttype,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
+    update outsidegradesignattachment
+    <set >
+      <if test="outsideapplyid != null" >
+        outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentoldname != null" >
+        attachmentOldName = #{attachmentoldname,jdbcType=VARCHAR},
+      </if>
+      <if test="newname != null" >
+        newName = #{newname,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentaddr != null" >
+        attachmentAddr = #{attachmentaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attachmenttype != null" >
+        attachmentType = #{attachmenttype,jdbcType=CHAR},
+      </if>
+    </set>
+    where attachmentID = #{attachmentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
+    update outsidegradesignattachment
+    set outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      attachmentOldName = #{attachmentoldname,jdbcType=VARCHAR},
+      newName = #{newname,jdbcType=VARCHAR},
+      attachmentAddr = #{attachmentaddr,jdbcType=VARCHAR},
+      uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      attachmentType = #{attachmenttype,jdbcType=CHAR}
+    where attachmentID = #{attachmentid,jdbcType=VARCHAR}
+  </update>
+</mapper>

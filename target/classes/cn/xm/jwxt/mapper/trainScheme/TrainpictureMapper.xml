@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.trainScheme.TrainpictureMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.trainScheme.Trainpicture" >
+    <id column="pictureId" property="pictureid" jdbcType="INTEGER" />
+    <result column="trainningSchemeID" property="trainningschemeid" jdbcType="VARCHAR" />
+    <result column="pictureType" property="picturetype" jdbcType="INTEGER" />
+    <result column="pictureOriName" property="pictureoriname" jdbcType="VARCHAR" />
+    <result column="pictureNowName" property="picturenowname" jdbcType="VARCHAR" />
+    <result column="upTime" property="uptime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pictureId, trainningSchemeID, pictureType, pictureOriName, pictureNowName, upTime, 
+    remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.trainScheme.TrainpictureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trainpicture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from trainpicture
+    where pictureId = #{pictureid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trainpicture
+    where pictureId = #{pictureid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TrainpictureExample" >
+    delete from trainpicture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.trainScheme.Trainpicture" >
+    insert into trainpicture (pictureId, trainningSchemeID, pictureType, 
+      pictureOriName, pictureNowName, upTime, 
+      remark)
+    values (#{pictureid,jdbcType=INTEGER}, #{trainningschemeid,jdbcType=VARCHAR}, #{picturetype,jdbcType=INTEGER}, 
+      #{pictureoriname,jdbcType=VARCHAR}, #{picturenowname,jdbcType=VARCHAR}, #{uptime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.trainScheme.Trainpicture" >
+    insert into trainpicture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pictureid != null" >
+        pictureId,
+      </if>
+      <if test="trainningschemeid != null" >
+        trainningSchemeID,
+      </if>
+      <if test="picturetype != null" >
+        pictureType,
+      </if>
+      <if test="pictureoriname != null" >
+        pictureOriName,
+      </if>
+      <if test="picturenowname != null" >
+        pictureNowName,
+      </if>
+      <if test="uptime != null" >
+        upTime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pictureid != null" >
+        #{pictureid,jdbcType=INTEGER},
+      </if>
+      <if test="trainningschemeid != null" >
+        #{trainningschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="picturetype != null" >
+        #{picturetype,jdbcType=INTEGER},
+      </if>
+      <if test="pictureoriname != null" >
+        #{pictureoriname,jdbcType=VARCHAR},
+      </if>
+      <if test="picturenowname != null" >
+        #{picturenowname,jdbcType=VARCHAR},
+      </if>
+      <if test="uptime != null" >
+        #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.trainScheme.TrainpictureExample" resultType="java.lang.Integer" >
+    select count(*) from trainpicture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update trainpicture
+    <set >
+      <if test="record.pictureid != null" >
+        pictureId = #{record.pictureid,jdbcType=INTEGER},
+      </if>
+      <if test="record.trainningschemeid != null" >
+        trainningSchemeID = #{record.trainningschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picturetype != null" >
+        pictureType = #{record.picturetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.pictureoriname != null" >
+        pictureOriName = #{record.pictureoriname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picturenowname != null" >
+        pictureNowName = #{record.picturenowname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uptime != null" >
+        upTime = #{record.uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update trainpicture
+    set pictureId = #{record.pictureid,jdbcType=INTEGER},
+      trainningSchemeID = #{record.trainningschemeid,jdbcType=VARCHAR},
+      pictureType = #{record.picturetype,jdbcType=INTEGER},
+      pictureOriName = #{record.pictureoriname,jdbcType=VARCHAR},
+      pictureNowName = #{record.picturenowname,jdbcType=VARCHAR},
+      upTime = #{record.uptime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.trainScheme.Trainpicture" >
+    update trainpicture
+    <set >
+      <if test="trainningschemeid != null" >
+        trainningSchemeID = #{trainningschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="picturetype != null" >
+        pictureType = #{picturetype,jdbcType=INTEGER},
+      </if>
+      <if test="pictureoriname != null" >
+        pictureOriName = #{pictureoriname,jdbcType=VARCHAR},
+      </if>
+      <if test="picturenowname != null" >
+        pictureNowName = #{picturenowname,jdbcType=VARCHAR},
+      </if>
+      <if test="uptime != null" >
+        upTime = #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pictureId = #{pictureid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.trainScheme.Trainpicture" >
+    update trainpicture
+    set trainningSchemeID = #{trainningschemeid,jdbcType=VARCHAR},
+      pictureType = #{picturetype,jdbcType=INTEGER},
+      pictureOriName = #{pictureoriname,jdbcType=VARCHAR},
+      pictureNowName = #{picturenowname,jdbcType=VARCHAR},
+      upTime = #{uptime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where pictureId = #{pictureid,jdbcType=INTEGER}
+  </update>
+</mapper>

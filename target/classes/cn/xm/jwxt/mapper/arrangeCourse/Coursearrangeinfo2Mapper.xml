@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.Coursearrangeinfo2Mapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.Coursearrangeinfo2" >
+    <id column="arrangeOutId" property="arrangeoutid" jdbcType="INTEGER" />
+    <result column="noticeDatailId" property="noticedatailid" jdbcType="INTEGER" />
+    <result column="teacherid" property="teacherid" jdbcType="VARCHAR" />
+    <result column="arrangePersonName" property="arrangepersonname" jdbcType="VARCHAR" />
+    <result column="arrangeTime" property="arrangetime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    arrangeOutId, noticeDatailId, teacherid, arrangePersonName, arrangeTime, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.arrangeCourse.Coursearrangeinfo2Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from coursearrangeinfo2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from coursearrangeinfo2
+    where arrangeOutId = #{arrangeoutid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from coursearrangeinfo2
+    where arrangeOutId = #{arrangeoutid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.arrangeCourse.Coursearrangeinfo2Example" >
+    delete from coursearrangeinfo2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.arrangeCourse.Coursearrangeinfo2" >
+    insert into coursearrangeinfo2 (arrangeOutId, noticeDatailId, teacherid, 
+      arrangePersonName, arrangeTime, remark
+      )
+    values (#{arrangeoutid,jdbcType=INTEGER}, #{noticedatailid,jdbcType=INTEGER}, #{teacherid,jdbcType=VARCHAR}, 
+      #{arrangepersonname,jdbcType=VARCHAR}, #{arrangetime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.arrangeCourse.Coursearrangeinfo2" >
+    insert into coursearrangeinfo2
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="arrangeoutid != null" >
+        arrangeOutId,
+      </if>
+      <if test="noticedatailid != null" >
+        noticeDatailId,
+      </if>
+      <if test="teacherid != null" >
+        teacherid,
+      </if>
+      <if test="arrangepersonname != null" >
+        arrangePersonName,
+      </if>
+      <if test="arrangetime != null" >
+        arrangeTime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="arrangeoutid != null" >
+        #{arrangeoutid,jdbcType=INTEGER},
+      </if>
+      <if test="noticedatailid != null" >
+        #{noticedatailid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null" >
+        #{teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="arrangepersonname != null" >
+        #{arrangepersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="arrangetime != null" >
+        #{arrangetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.arrangeCourse.Coursearrangeinfo2Example" resultType="java.lang.Integer" >
+    select count(*) from coursearrangeinfo2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update coursearrangeinfo2
+    <set >
+      <if test="record.arrangeoutid != null" >
+        arrangeOutId = #{record.arrangeoutid,jdbcType=INTEGER},
+      </if>
+      <if test="record.noticedatailid != null" >
+        noticeDatailId = #{record.noticedatailid,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherid != null" >
+        teacherid = #{record.teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrangepersonname != null" >
+        arrangePersonName = #{record.arrangepersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrangetime != null" >
+        arrangeTime = #{record.arrangetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update coursearrangeinfo2
+    set arrangeOutId = #{record.arrangeoutid,jdbcType=INTEGER},
+      noticeDatailId = #{record.noticedatailid,jdbcType=INTEGER},
+      teacherid = #{record.teacherid,jdbcType=VARCHAR},
+      arrangePersonName = #{record.arrangepersonname,jdbcType=VARCHAR},
+      arrangeTime = #{record.arrangetime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.arrangeCourse.Coursearrangeinfo2" >
+    update coursearrangeinfo2
+    <set >
+      <if test="noticedatailid != null" >
+        noticeDatailId = #{noticedatailid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null" >
+        teacherid = #{teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="arrangepersonname != null" >
+        arrangePersonName = #{arrangepersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="arrangetime != null" >
+        arrangeTime = #{arrangetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where arrangeOutId = #{arrangeoutid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.arrangeCourse.Coursearrangeinfo2" >
+    update coursearrangeinfo2
+    set noticeDatailId = #{noticedatailid,jdbcType=INTEGER},
+      teacherid = #{teacherid,jdbcType=VARCHAR},
+      arrangePersonName = #{arrangepersonname,jdbcType=VARCHAR},
+      arrangeTime = #{arrangetime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where arrangeOutId = #{arrangeoutid,jdbcType=INTEGER}
+  </update>
+</mapper>

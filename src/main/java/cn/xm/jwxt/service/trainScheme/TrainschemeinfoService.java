@@ -8,10 +8,30 @@ import java.util.Map;
 
 /**
  * @Author: qlq
- * @Description
+ * @Description 培养方案基本信息Service
  * @Date: 12:17 2018/3/26
  */
 public interface TrainschemeinfoService {
+
+    /**************S   获取专业信息******************/
+    /**
+     * 获取所有的专业名称和专业代码
+     * @return
+     * @throws SQLException
+     */
+    public List<Map<String,Object>> getMajorNameAndCode()throws SQLException;
+
+    /**
+     * 根据专业代码获取专业信息用于添加培养方案的时候给专业信息赋值
+     * @param majorCode
+     * @return
+     * @throws SQLException
+     */
+    public Map<String,Object> getMajorInfoByMajorCode(String majorCode)throws  SQLException;
+    /**************E   获取专业信息******************/
+
+
+
     /**
      * 添加培养方案的基本信息1
      * @param trainschemeinfo   培养方案基本信息
