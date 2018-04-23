@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * 完
  * 培养方案图片service
  * @Author: qlq
  * @Description
@@ -14,7 +15,7 @@ import java.util.List;
 public interface TrainPictureService {
     /**
      * 增加培训方案图片
-     * @param trainpicture  图片信息(1.图片保存到磁盘，2数据保存到数据库)
+     * @param trainpicture  图片信息(1.图片保存到磁盘在控制层调用utils完成，2数据保存到数据库)
      * @return  是否成功
      * @throws SQLException
      */
@@ -30,19 +31,11 @@ public interface TrainPictureService {
 
     /**
      * 修改培养方案图片
-     * @param trainpictureId
+     * @param trainpicture  修改过的培养方案信息
      * @return
      * @throws SQLException
      */
-    public boolean updateTrainPictureById(int trainpictureId)throws SQLException;
-
-    /**
-     * 根据培养方案图片ID获取图片
-     * @param trainpictureId
-     * @return
-     * @throws SQLException
-     */
-    public Trainpicture getTrainPictureById(int trainpictureId)throws SQLException;
+    public boolean updateTrainPictureById(Trainpicture trainpicture)throws SQLException;
 
     /**
      * 根据培养方案编号获取培养方案图片信息

@@ -18,5 +18,13 @@ public class DefaultValue {
      * 代表女性
      */
     public static final String SEX_FEMALE = "2";
+    /**
+     * 代表未使用(已经删除)
+     */
+    public static final String IS_NOT_USE = "0";
+    /**
+     * 代表正在使用(未删除)
+     */
+    public static final String IS_USE = "1";
 
 }
