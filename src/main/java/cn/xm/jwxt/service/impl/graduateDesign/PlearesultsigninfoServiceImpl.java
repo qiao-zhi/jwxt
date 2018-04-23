@@ -32,22 +32,22 @@ public class PlearesultsigninfoServiceImpl implements PlearesultsigninfoService 
 
     @Override
     public boolean deleteByExample(PlearesultsigninfoExample example) {
-        return plearesultsigninfoMapper.deleteByExample(example)==1?true:false;
+        return plearesultsigninfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(Integer plearesultsignid) {
-        return plearesultsigninfoMapper.deleteByPrimaryKey(plearesultsignid)==1?true:false;
+        return plearesultsigninfoMapper.deleteByPrimaryKey(plearesultsignid)==1;
     }
 
     @Override
     public boolean insert(Plearesultsigninfo record) {
-        return plearesultsigninfoMapper.insert(record)==1?true:false;
+        return plearesultsigninfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Plearesultsigninfo record) {
-        return plearesultsigninfoMapper.insertSelective(record)==1?true:false;
+        return plearesultsigninfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class PlearesultsigninfoServiceImpl implements PlearesultsigninfoService 
 
     @Override
     public boolean updateByExampleSelective(Plearesultsigninfo record, PlearesultsigninfoExample example) {
-        return plearesultsigninfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return plearesultsigninfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Plearesultsigninfo record, PlearesultsigninfoExample example) {
-        return plearesultsigninfoMapper.updateByExample(record, example)==1?true:false;
+        return plearesultsigninfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Plearesultsigninfo record) {
-        return plearesultsigninfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return plearesultsigninfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Plearesultsigninfo record) {
-        return plearesultsigninfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return plearesultsigninfoMapper.updateByPrimaryKey(record)==1;
     }
 }

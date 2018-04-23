@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 中期检查表Service
+ * 中期检查安排表Service
  */
 public interface CencheckarrangeinfoService {
 

@@ -33,22 +33,22 @@ public class CheckgrouppersonServiceImpl implements  CheckgrouppersonService {
 
     @Override
     public boolean deleteByExample(CheckgrouppersonExample example) {
-        return checkgrouppersonMapper.deleteByExample(example)==1?true:false;
+        return checkgrouppersonMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(Integer gropersonid) {
-        return checkgrouppersonMapper.deleteByPrimaryKey(gropersonid)==1?true:false;
+        return checkgrouppersonMapper.deleteByPrimaryKey(gropersonid)==1;
     }
 
     @Override
     public boolean insert(Checkgroupperson record) {
-        return checkgrouppersonMapper.insert(record)==1?true:false;
+        return checkgrouppersonMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Checkgroupperson record) {
-        return checkgrouppersonMapper.insertSelective(record)==1?true:false;
+        return checkgrouppersonMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -63,17 +63,17 @@ public class CheckgrouppersonServiceImpl implements  CheckgrouppersonService {
 
     @Override
     public boolean updateByExampleSelective(Checkgroupperson record, CheckgrouppersonExample example) {
-        return checkgrouppersonMapper.updateByExampleSelective(record,example)==1?true:false;
+        return checkgrouppersonMapper.updateByExampleSelective(record,example)==1;
     }
 
     @Override
     public boolean updateByExample(Checkgroupperson record, CheckgrouppersonExample example) {
-        return checkgrouppersonMapper.updateByExample(record, example)==1?true:false;
+        return checkgrouppersonMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Checkgroupperson record) {
-        return checkgrouppersonMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return checkgrouppersonMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override

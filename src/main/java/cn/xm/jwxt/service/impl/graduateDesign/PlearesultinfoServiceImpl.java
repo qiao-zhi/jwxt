@@ -32,22 +32,22 @@ public class PlearesultinfoServiceImpl implements PlearesultinfoService {
 
     @Override
     public boolean deleteByExample(PlearesultinfoExample example) {
-        return plearesultinfoMapper.deleteByExample(example)==1?true:false;
+        return plearesultinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(Integer plearesultid) {
-        return plearesultinfoMapper.deleteByPrimaryKey(plearesultid)==1?true:false;
+        return plearesultinfoMapper.deleteByPrimaryKey(plearesultid)==1;
     }
 
     @Override
     public boolean insert(Plearesultinfo record) {
-        return plearesultinfoMapper.insert(record)==1?true:false;
+        return plearesultinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Plearesultinfo record) {
-        return plearesultinfoMapper.insertSelective(record)==1?true:false;
+        return plearesultinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class PlearesultinfoServiceImpl implements PlearesultinfoService {
 
     @Override
     public boolean updateByExampleSelective(Plearesultinfo record, PlearesultinfoExample example) {
-        return plearesultinfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return plearesultinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Plearesultinfo record, PlearesultinfoExample example) {
-        return plearesultinfoMapper.updateByExample(record, example)==1?true:false;
+        return plearesultinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Plearesultinfo record) {
-        return plearesultinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return plearesultinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Plearesultinfo record) {
-        return plearesultinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return plearesultinfoMapper.updateByPrimaryKey(record)==1;
     }
 }
