@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 课程基本信息Service
+ * 完
+ * 课程基本信息Service(课程库)
  * @Author: qlq
  * @Description
  * @Date: 16:53 2018/4/3
@@ -47,9 +48,9 @@ public interface CourseBaseInfoService {
 
     /**
      * 组合条件分页查询课程信息
-     * @param condition
+     * @param condition 组合条件
      * @return
      * @throws SQLException
      */
-    public List<TCourseBaseInfo> getCourseBaseInfosByCondition(Map condition)throws SQLException;
+    public List<Map<String,Object>> getCourseBaseInfosByCondition(Map condition)throws SQLException;
 }

@@ -14,20 +14,28 @@ import java.util.Map;
  */
 public interface TrainCourseService {
     /**
-     * 增加培养方案课程
-     * @param trainCourse
+     * 批量增加培养方案课程
+     * @param trainCourses
      * @return
      * @throws SQLException
      */
-    public boolean addTrainCourse(TrainCourse trainCourse)throws SQLException;
+    public boolean addTrainCourse(List<TrainCourse> trainCourses)throws SQLException;
 
     /**
-     * 删除培养方案课程
-     * @param trainCourseId
+     * 根据培养方案编号删除培养方案课程
+     * @param trainSchemeId 培养方案编号
      * @return
      * @throws SQLException
      */
-    public boolean deleteTrainCourseById(int trainCourseId)throws SQLException;
+    public boolean deleteTrainCourseByTrainSchemeId(String trainSchemeId)throws SQLException;
+
+    /**
+     * 根据培养方案编号删除培养方案课程
+     * @param trainSchemeId 培养方案编号
+     * @return
+     * @throws SQLException
+     */
+    public boolean deleteTrainCourseByCoureseTypeId(String trainSchemeId)throws SQLException;
 
     /**
      * 更新培养方案课程
