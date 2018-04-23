@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>添加课程</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/xadmin.css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <style>
+    	.layui-table-wang-info tr td:nth-child(2n){
+	 	 	width: 200px;
+	 	 	}
+    	.layui-form-item .layui-input-inline {
+		    width: 200px !important;
+		}
+    </style>
+</head>
+<body>
+<div class="x-body">
+	<table class="layui-table-wang-info">
+			<tr>
+		      <td>课程名称</td>
+		      <td>Java高级程序语言设计</td>
+		      <td>课程编号</td>
+		      <td>Y12476417</td>
+		    </tr> 
+		    <tr>
+		      <td>学分</td>
+		      <td>3</td>
+		      <td>学时</td>
+		      <td id="totalXueshi">48</td>
+		    </tr> 
+	</table>
+    <form class="layui-form ">
+    	<div class="layui-form-item">
+            <label for="" class="layui-form-label">
+                上课周数
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="weekNum" name="" required=""  lay-verify="required" value="16" onkeyup="calWeekPeriod()"
+                       autocomplete="off" class="layui-input">
+            </div>
+           <label for="" class="layui-form-label">
+                周学时数
+            </label>
+            <div class="layui-input-inline">
+               <input type="text" id="weekPeriod" name="" required=""  lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            
+        </div>
+        <!--5-->
+        
+        <!--6-->
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+                是否用多媒体
+            </label>
+            <div class="layui-input-inline">
+                <select name="" lay-verify="">
+				  <option value="010">是</option>
+				  <option value="021">否</option>
+				</select>
+            </div>
+            <label for="" class="layui-form-label">
+              历史任课教师
+            </label>
+            <div class="layui-input-inline">
+                <select name="" lay-verify="" id="selectcalss" lay-search lay-filter="selectTeacher" >
+				  <option value="">点击查看历史任课教师</option>
+				  <option value="张三">张三</option>
+				  <option value="李四">李四</option>
+				   <option value="王二麻子">王二麻子</option>
+				  
+				</select>
+            </div>
+        </div>
+        <!--3-->
+       
+         <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+              任课教师
+            </label>
+            <div class="layui-input-inline">
+               <input type="text" id="courseTeacher" name="" required=""  lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+             <label for="" class="layui-form-label">
+              教师编号
+            </label>
+            <div class="layui-input-inline">
+               <input type="text" id="teacherNume" name="" required=""  lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            
+        </div>
+        
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+              所任班级
+            </label>
+            <div class="layui-input-inline">
+                <select name="" lay-verify="" id="selectcalss" lay-search  lay-filter="selectGrade">
+				  <option value="">请选择班级</option>
+				  <option value="软件工程142001">软件工程142001</option>
+				  <option value="软件工程142002">软件工程142002</option>
+				   <option value="软件工程142003">软件工程142003</option>
+				  
+				</select>
+				 <textarea id="appendGrade" name="" required lay-verify="required" placeholder="" class="layui-textarea" ></textarea>
+               <input type="hidden" id="hiddenValue" />
+            </div>
+            <div class="layui-input-inline">
+            <button class="layui-btn" onclick="addToTable()" style="margin-left: 44px;" >
+			  <i class="layui-icon">&#xe608;</i> 添加至表格
+			</button>
+			</div>
+        </div>
+        <!--4-->
+        <!---->
+    </form>
+    <button class="layui-btn" lay-filter="add" lay-submit="">
+                  确认排课
+     </button>
+    <table class="layui-table">
+        	<thead>
+		    <tr>
+		      <th>教师名称</th>
+		      <th>教师编号</th>
+		      <th>所任班级</th>
+		      <th>操作</th>
+		    </tr> 
+		  </thead>
+		  <tbody id="filterTeacher">
+		    <tr>
+		      <td>王五</td>
+		      <td>2016-11-29</td>
+		      <td>人生就像是一场修行</td>
+		      <td class="td-manage">
+                
+                <a title="删除" onclick="member_del(this,'要删除的id')">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+		    </tr>
+		    
+  			</tbody>
+        </table>
+        
+</div>
+<script>
+	function addToTable(){
+		var teacherNametotable=$("#courseTeacher").val();
+		var teacherNumber=$("#teacherNume").val();
+		var className=$("#appendGrade").val();
+		console.log(teacherNametotable)
+		console.log(teacherNumber)
+		console.log(className)
+		
+	}
+	
+</script>
+
+<script>
+	/*用户-删除*/
+    function member_del(obj, id) {
+        layer.confirm('确认要删除吗？', function (index) {
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!', {icon: 1, time: 1000});
+        });
+    }
+	//页面初始话计算学分学时
+	$(document).ready(function(){
+		calWeekPeriod()
+	});
+	function calWeekPeriod(){
+		var xueshi=parseInt($("#totalXueshi").text());
+		var weeknum=$("#weekNum").val();
+		var weekxuesgi=xueshi/weeknum;
+		$("#weekPeriod").val(weekxuesgi)
+		checkRe(weeknum)
+	}
+	function checkRe(val){
+		if(""==val)
+		$("#weekPeriod").val("上课周数不能为空");
+	}
+	//layui
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+            nikename: function (value) {
+                if (value.length < 5) {
+                    return '昵称至少得5个字符啊';
+                }
+            }
+            , pass: [/(.+){6,12}$/, '密码必须6到12位']
+            , repass: function (value) {
+                if ($('#L_pass').val() != $('#L_repass').val()) {
+                    return '两次密码不一致';
+                }
+            }
+        });
+
+        //监听提交
+        form.on('submit(add)', function (data) {
+            console.log(data);
+            //发异步，把数据提交给
+            layer.alert("增加成功", {icon: 6}, function () {
+                // 获得frame索引
+              var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+             parent.layer.close(index);
+            });
+            return false;
+        });
+        //监听选择教师事件
+        var category = 0;  
+		var teacherName = '';  
+		var teacherNume=213;
+		form.on('select(selectTeacher)', function (data) {  
+		    category = data.value;  
+		    teacherName = data.elem[data.elem.selectedIndex].text;  
+		    form.render('select');
+		    $("#courseTeacher").val(teacherName);
+		    $("#teacherNume").val(teacherNume);
+			});  
+		//监听选择班级事件
+        var category = 0;  
+		var categoryName = '';  
+		form.on('select(selectGrade)', function (data) {  
+		    category = data.value;  
+		    categoryName = data.elem[data.elem.selectedIndex].text;  
+		    form.render('select');
+		    var before = $("#hiddenValue").val();//之前的    隐藏域中的
+			$("#hiddenValue").val(categoryName);//将现在选中的添加
+			if(before==""){
+				var laterTextArea = $("#hiddenValue").val();
+				$("#hiddenValue").val(laterTextArea);
+				$("#appendGrade").val($("#hiddenValue").val());//添加到文本框中
+			}else{
+				var laterTextArea = $("#hiddenValue").val()+" / "+before;
+				$("#hiddenValue").val(laterTextArea);
+				$("#appendGrade").val($("#hiddenValue").val());//添加到文本框中
+			}
+				});  
+			
+
+
+    });
+</script>
+
+</body>
+
+</html>

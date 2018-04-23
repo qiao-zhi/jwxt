@@ -1,2 +1,4 @@
 target/
 src/test/*
+.idea/*
+src/main/resources/db.properties

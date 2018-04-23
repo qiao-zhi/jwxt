@@ -1,0 +1,2 @@
+1.男性用 1       DefaultValue.SEX_MALE
+  女性用 2       DefaultValue.SEX_FEMALE
