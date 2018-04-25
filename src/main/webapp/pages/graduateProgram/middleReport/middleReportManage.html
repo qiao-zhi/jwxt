@@ -21,8 +21,8 @@
 <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="../../../welcome.html">首页</a>
-        <a href="">毕业设计管理</a>
-        <a href="">中期答辩管理</a>
+        <a href="javascript:void(0)">毕业设计管理</a>
+        <a href="javascript:void(0)">中期答辩管理</a>
         <a>
           <cite>中期检查结果填写</cite>
         </a>
@@ -41,11 +41,9 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-            <input type="text" name="username" placeholder="学生学号" autocomplete="off" class="layui-input">
             <input type="text" name="username" placeholder="学生姓名" autocomplete="off" class="layui-input">
             <input type="text" name="username" placeholder="班级名称" autocomplete="off" class="layui-input">
-            <input type="text" name="username" placeholder="毕设编号" autocomplete="off" class="layui-input">
-            <input type="text" name="username" placeholder="课题名称" autocomplete="off" class="layui-input">
+            <input type="text" name="username" placeholder="毕设题目" autocomplete="off" class="layui-input">
             <div class="layui-input-inline">
                 <select name="contrller">
                     <option>答辩状态</option>
@@ -55,24 +53,9 @@
             </div>
             <div class="layui-input-inline">
                 <select name="contrller">
-                    <option>审核结果</option>
-                    <option>优</option>
-                    <option>良</option>
-                    <option>差</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <select name="contrller">
                     <option>毕设类型</option>
                     <option>校外毕设</option>
                     <option>校内毕设</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>是否审核</option><!--通过判断是否有审核结果-->
-                    <option>已审核</option>
-                    <option>未审核</option>
                 </select>
             </div>
             <div class="layui-input-inline">
@@ -90,7 +73,6 @@
     <!--操作区域-->
     <xblock>
         <button class="layui-btn" onclick="x_admin_show('填写中期检查表','./middleReportManage-addResult.html')">填写中期检查表 </button>
-        <button class="layui-btn layui-btn-normal" onclick="x_admin_show('统计','./statistics.html')">统计 </button>
         <button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>
     </xblock>
     <!--end 操作区域-->
@@ -103,15 +85,14 @@
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
                     &#xe605;</i></div>
             </th>
-            <th>学号</th>
-            <th>姓名</th>
+            <th>学生</th>
             <th>班级</th>
-            <th>毕设类型</th>
-            <th>毕设编号</th>
-            <th>课题名称</th>
-            <th>毕设人数</th>
+            <th>毕设题目</th>
+            <th>指导教师</th>
+            <th>中期检查教师</th>
             <th>是否进行答辩</th>
             <th>检查表填写情况</th>
+            <th>毕设类型</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -121,15 +102,16 @@
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
                     &#xe605;</i></div>
             </td>
-            <td>201700917</td>
             <td>老王</td>
             <td>软12004</td>
+            <td>ASDF</td>
+            <td>ASDF</td>
+            <td>ASDF</td>
+            <td>是</td>
+            <td>完成</td>
             <td>校内</td>
-            <td>1851234</td>
-            <td>阿萨德发</td>
-            <td>3</td>
-            <td>以舔你邪恶</td>
             <td class="td-manage">
+                <!--如果该学生中期检查表，填写完成可以在详细信息中查看到-->
                 <a title="详细信息" onclick="x_admin_show('详细信息','middleReportManage-view.html')">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>

@@ -11,13 +11,14 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="../../../css/font.css">
     <link rel="stylesheet" href="../../../css/xadmin.css">
+    <link rel="stylesheet" href="../../../lib/bootstrap/bootstrap.min.css">
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
 </head>
 
 <body>
-<div class="x-body">
+<div class="x-body" style="margin:0 50px;">
 
     <!--学生信息-->
     <table class="layui-table">
@@ -70,61 +71,82 @@
     </table>
 
 
-    <div>
-        查看学生相关内容：
-        <a href="" style="color:#01AAED;">中期检查表</a>
-        <a href="" style="color:#01AAED;">论文</a>
-        <a href="" style="color:#01AAED;">论文评审记录</a>
-        <a href="" style="color:#01AAED;">答辩成绩表</a>
-    </div>
+    <table class="table table-bordered">
+        <caption><h1>答辩委员会成员及答辩成绩表</h1>
+        </caption>
+        <tbody>
+        <tr>
+            <td>姓名</td>
+            <td>职称</td>
+            <td>签名</td>
+            <td>姓名</td>
+            <td>职称</td>
+            <td>签名</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td colspan="3">答辩委员会评分（满分 50分）</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td style="width:100px">答辩中提出的主要问题及回答的简要情况</td>
+            <td colspan="5"></td>
+        </tr>
+        <tr>
+            <td>答辩委员会决议（包括评语及成绩）</td>
+            <td colspan="5"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<script>
-    //出生年月
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        laydate.render({
-            elem: '#L_pass' //指定元素
-        });
-    });
-</script>
-<script>
-    layui.use(['form', 'layer'], function () {
-        $ = layui.jquery;
-        var form = layui.form
-            , layer = layui.layer;
-
-        //自定义验证规则
-        form.verify({
-            nikename: function (value) {
-                if (value.length < 5) {
-                    return '昵称至少得5个字符啊';
-                }
-            }
-            , pass: [/(.+){6,12}$/, '密码必须6到12位']
-            , repass: function (value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }
-        });
-
-        //监听提交
-        form.on('submit(add)', function (data) {
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6}, function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-        });
-
-
-    });
-</script>
 </body>
 
 </html>

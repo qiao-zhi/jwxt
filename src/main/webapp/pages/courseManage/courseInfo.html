@@ -14,24 +14,10 @@
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../lib/layui/lay/modules/layui-xtree.js"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <!--qlq引入的课程管理的JS-->
+    <script type="text/javascript" src="../../js/trainScheme/courseLibrary.js"></script>
+
 </head>
- <!--<style type="text/css">
-        .xtree_contianer {
-            width: 220px;
-            /*border: 1px solid #9C9C9C;*/
-            overflow: auto;
-            margin-bottom: 30px;
-            background-color: #fff;
-            padding: 10px 0 25px 5px;
-        }
-        
-        .layui-xtree-item{
-        	margin-left: 20px !important;
-        }
-        .xtree_contianer>.layui-xtree-item{
-        	margin-left: 10px !important;
-        }
-    </style>-->
 
 <body>
 <!--面包屑-->
@@ -53,15 +39,7 @@
 </div>
 <!--主体-->
 <div class="layui-row">
-<!--<div class="w-left layui-col-md-2" style="float: left; width: 12%;"> 
-	
-	<form class="layui-form">
-		<h2 style="font-size: 16px; text-align: center;">课程树</h2>
-		<div id="xtree1" class="xtree_contianer">
-			
-		</div>
-	</form>
-</div>-->
+
 <script type="text/javascript">
 //  //一套json数据下面会使用，同时供你参考
 //  var json = [
@@ -174,9 +152,7 @@
         <button class="layui-btn" onclick="copyAdd()">复制性新增 </button>
          <button type="button" class="layui-btn"  id="importTimeTable">导入课程表</button>
         <button class="layui-btn" onclick="importSyllabus()">上传教学资料 </button>
-        <!--<button class="layui-btn" onclick="importProgress()">导入进度表 </button>
-        <button class="layui-btn" onclick="importExperiment()">导入实验大纲</button>-->
-        <button class="layui-btn" >导出 </button>
+        <button class="layui-btn layui-btn-normal" >导出 </button>
     </xblock>
     <!--end 操作区域-->
  <script>
@@ -264,7 +240,6 @@
             <th>学时分配方式及时长</th>
             <th>每周学时分配</th>
             <th>计分方式</th>
-            
             <th>操作</th>
         </tr>
         </thead>
@@ -338,22 +313,6 @@
             layer.msg('已删除!', {icon: 1, time: 1000});
         });
     }
-</script>
-<script>
-    //???
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-    });
 </script>
 <!--文件上传-->
 <script>
