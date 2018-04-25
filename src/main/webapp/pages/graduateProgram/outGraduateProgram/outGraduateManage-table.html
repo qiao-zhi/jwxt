@@ -10,6 +10,7 @@
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="../../../css/font.css">
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css">
     <link rel="stylesheet" href="../../../lib/bootstrap/bootstrap.min.css">
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
@@ -21,15 +22,13 @@
     <button class="btn-primary btn">保存</button>
     <button class="btn-primary btn">提交</button>
     <table class="table table-bordered">
-        <caption><h1>太远科技大学毕业设计（论文）任务书</h1>
+        <caption><h1>****表</h1>
             <span>学院：计算机科学与技术学院</span>
         </caption>
         <tbody>
         <tr>
             <td>学生姓名</td>
-            <td>
-                <input type="text">
-            </td>
+            <td><input type="text" class="layui-input"></td>
             <td>学号</td>
             <td>
                 <input type="text">
@@ -62,7 +61,7 @@
         <tr>
             <td>设计目的要求</td>
             <td colspan="3">
-                <textarea name="" cols="100" rows="5"></textarea>
+                <textarea name="" class="layui-textarea" cols="100" rows="5"></textarea>
             </td>
         </tr>
         <tr>
@@ -82,13 +81,6 @@
             <td></td>
             <td>指导教师签名</td>
             <td>
-                <div class="layui-upload">
-                    <button type="button" class="layui-btn" id="test1">上传照片</button>
-                    <div class="layui-upload-list" style="position:relative;left:110px;">
-                        <img class="layui-upload-img" width="100" id="demo1">
-                        <p id="demoText"></p>
-                    </div>
-                </div>
             </td>
         </tr>
         <tr>

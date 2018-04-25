@@ -47,7 +47,7 @@ public interface TrainschemeinfoService {
 
 
     /**
-     * 根据培养方案ID删除培养方案基本信息(做标记，将idUse标记置为已经删除)
+     * 根据培养方案ID删除培养方案基本信息(做标记，将isUse标记置为已经删除)
      * @param trainschemeinfoId
      * @return
      * @throws SQLException

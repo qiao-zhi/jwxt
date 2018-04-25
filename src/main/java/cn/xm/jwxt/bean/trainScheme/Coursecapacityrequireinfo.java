@@ -5,7 +5,7 @@ public class Coursecapacityrequireinfo {
 
     private String trainningschemeid;
 
-    private String courseid;
+    private Integer traincourseid;
 
     private Integer capacityid;
 
@@ -27,12 +27,12 @@ public class Coursecapacityrequireinfo {
         this.trainningschemeid = trainningschemeid == null ? null : trainningschemeid.trim();
     }
 
-    public String getCourseid() {
-        return courseid;
+    public Integer getTraincourseid() {
+        return traincourseid;
     }
 
-    public void setCourseid(String courseid) {
-        this.courseid = courseid == null ? null : courseid.trim();
+    public void setTraincourseid(Integer traincourseid) {
+        this.traincourseid = traincourseid;
     }
 
     public Integer getCapacityid() {

@@ -32,7 +32,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     }
 
     @Override
-    public List<Map<String,Object>> getCourseBaseInfosByCondition(Map condition) throws SQLException {
+    public List<Map<String, Object>> getCourseBaseInfosByCondition(Map condition) throws SQLException {
         return null;
     }
 }
