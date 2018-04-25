@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 毕设课题任务书Service
+ */
 public interface TaskbookinfoService {
     int countByExample(TaskbookinfoExample example);
 

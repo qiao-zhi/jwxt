@@ -32,22 +32,22 @@ public class TeachertitlecheckinfoServiceImpl implements TeachertitlecheckinfoSe
 
     @Override
     public boolean deleteByExample(TeachertitlecheckinfoExample example) {
-        return teachertitlecheckinfoMapper.deleteByExample(example)==1?true:false;
+        return teachertitlecheckinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(String checkid) {
-        return teachertitlecheckinfoMapper.deleteByPrimaryKey(checkid)==1?true:false;
+        return teachertitlecheckinfoMapper.deleteByPrimaryKey(checkid)==1;
     }
 
     @Override
     public boolean insert(Teachertitlecheckinfo record) {
-        return teachertitlecheckinfoMapper.insert(record)==1?true:false;
+        return teachertitlecheckinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Teachertitlecheckinfo record) {
-        return teachertitlecheckinfoMapper.insertSelective(record)==1?true:false;
+        return teachertitlecheckinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class TeachertitlecheckinfoServiceImpl implements TeachertitlecheckinfoSe
 
     @Override
     public boolean updateByExampleSelective(Teachertitlecheckinfo record, TeachertitlecheckinfoExample example) {
-        return teachertitlecheckinfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return teachertitlecheckinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Teachertitlecheckinfo record, TeachertitlecheckinfoExample example) {
-        return teachertitlecheckinfoMapper.updateByExample(record, example)==1?true:false;
+        return teachertitlecheckinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Teachertitlecheckinfo record) {
-        return teachertitlecheckinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return teachertitlecheckinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Teachertitlecheckinfo record) {
-        return teachertitlecheckinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return teachertitlecheckinfoMapper.updateByPrimaryKey(record)==1;
     }
 }

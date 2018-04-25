@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(value = "user",key = "'user_'+#usercode.toString()")
     @Override
     public boolean updateUserByUserCode(String usercode,String username) throws SQLException {
-        return userCustomMapper.updateUserByUsercode(usercode,username)>0?true:false;
+        return userCustomMapper.updateUserByUsercode(usercode,username)>0;
     }
 
     @Override

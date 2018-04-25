@@ -32,22 +32,22 @@ public class GradesignstudenttitleinfoServiceImpl implements Gradesignstudenttit
 
     @Override
     public boolean deleteByExample(GradesignstudenttitleinfoExample example) {
-        return gradesignstudenttitleinfoMapper.deleteByExample(example)==1?true:false;
+        return gradesignstudenttitleinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(String studenttitleid) {
-        return gradesignstudenttitleinfoMapper.deleteByPrimaryKey(studenttitleid)==1?true:false;
+        return gradesignstudenttitleinfoMapper.deleteByPrimaryKey(studenttitleid)==1;
     }
 
     @Override
     public boolean insert(Gradesignstudenttitleinfo record) {
-        return gradesignstudenttitleinfoMapper.insert(record)==1?true:false;
+        return gradesignstudenttitleinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Gradesignstudenttitleinfo record) {
-        return gradesignstudenttitleinfoMapper.insertSelective(record)==1?true:false;
+        return gradesignstudenttitleinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class GradesignstudenttitleinfoServiceImpl implements Gradesignstudenttit
 
     @Override
     public boolean updateByExampleSelective(Gradesignstudenttitleinfo record, GradesignstudenttitleinfoExample example) {
-        return gradesignstudenttitleinfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return gradesignstudenttitleinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Gradesignstudenttitleinfo record, GradesignstudenttitleinfoExample example) {
-        return gradesignstudenttitleinfoMapper.updateByExample(record, example)==1?true:false;
+        return gradesignstudenttitleinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Gradesignstudenttitleinfo record) {
-        return gradesignstudenttitleinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return gradesignstudenttitleinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Gradesignstudenttitleinfo record) {
-        return gradesignstudenttitleinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return gradesignstudenttitleinfoMapper.updateByPrimaryKey(record)==1;
     }
 }

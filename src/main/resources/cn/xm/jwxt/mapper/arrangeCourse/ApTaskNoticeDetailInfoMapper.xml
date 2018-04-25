@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.ApTaskNoticeDetailInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo" >
+    <id column="notice_detail_id" property="noticeDetailId" jdbcType="INTEGER" />
+    <result column="notice_book_id" property="noticeBookId" jdbcType="VARCHAR" />
+    <result column="datail_sort" property="datailSort" jdbcType="VARCHAR" />
+    <result column="course_code" property="courseCode" jdbcType="VARCHAR" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="teach_plan_num" property="teachPlanNum" jdbcType="VARCHAR" />
+    <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+    <result column="campus_code" property="campusCode" jdbcType="VARCHAR" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="class_student_num" property="classStudentNum" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="major_students_number" property="majorStudentsNumber" jdbcType="INTEGER" />
+    <result column="test_method" property="testMethod" jdbcType="VARCHAR" />
+    <result column="week_period" property="weekPeriod" jdbcType="VARCHAR" />
+    <result column="total_period" property="totalPeriod" jdbcType="VARCHAR" />
+    <result column="start_stop_week" property="startStopWeek" jdbcType="VARCHAR" />
+    <result column="contact_time" property="contactTime" jdbcType="VARCHAR" />
+    <result column="experimental_time" property="experimentalTime" jdbcType="VARCHAR" />
+    <result column="course_character" property="courseCharacter" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    notice_detail_id, notice_book_id, datail_sort, course_code, course_name, teach_plan_num, 
+    major_name, campus_code, class_name, class_student_num, grade, major_students_number, 
+    test_method, week_period, total_period, start_stop_week, contact_time, experimental_time, 
+    course_character, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ap_task_notice_detail_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ap_task_notice_detail_info
+    where notice_detail_id = #{noticeDetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ap_task_notice_detail_info
+    where notice_detail_id = #{noticeDetailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfoExample" >
+    delete from ap_task_notice_detail_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo" >
+    insert into ap_task_notice_detail_info (notice_detail_id, notice_book_id, datail_sort, 
+      course_code, course_name, teach_plan_num, 
+      major_name, campus_code, class_name, 
+      class_student_num, grade, major_students_number, 
+      test_method, week_period, total_period, 
+      start_stop_week, contact_time, experimental_time, 
+      course_character, remark)
+    values (#{noticeDetailId,jdbcType=INTEGER}, #{noticeBookId,jdbcType=VARCHAR}, #{datailSort,jdbcType=VARCHAR}, 
+      #{courseCode,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{teachPlanNum,jdbcType=VARCHAR}, 
+      #{majorName,jdbcType=VARCHAR}, #{campusCode,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, 
+      #{classStudentNum,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}, #{majorStudentsNumber,jdbcType=INTEGER}, 
+      #{testMethod,jdbcType=VARCHAR}, #{weekPeriod,jdbcType=VARCHAR}, #{totalPeriod,jdbcType=VARCHAR}, 
+      #{startStopWeek,jdbcType=VARCHAR}, #{contactTime,jdbcType=VARCHAR}, #{experimentalTime,jdbcType=VARCHAR}, 
+      #{courseCharacter,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo" >
+    insert into ap_task_notice_detail_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noticeDetailId != null" >
+        notice_detail_id,
+      </if>
+      <if test="noticeBookId != null" >
+        notice_book_id,
+      </if>
+      <if test="datailSort != null" >
+        datail_sort,
+      </if>
+      <if test="courseCode != null" >
+        course_code,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="teachPlanNum != null" >
+        teach_plan_num,
+      </if>
+      <if test="majorName != null" >
+        major_name,
+      </if>
+      <if test="campusCode != null" >
+        campus_code,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="classStudentNum != null" >
+        class_student_num,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="majorStudentsNumber != null" >
+        major_students_number,
+      </if>
+      <if test="testMethod != null" >
+        test_method,
+      </if>
+      <if test="weekPeriod != null" >
+        week_period,
+      </if>
+      <if test="totalPeriod != null" >
+        total_period,
+      </if>
+      <if test="startStopWeek != null" >
+        start_stop_week,
+      </if>
+      <if test="contactTime != null" >
+        contact_time,
+      </if>
+      <if test="experimentalTime != null" >
+        experimental_time,
+      </if>
+      <if test="courseCharacter != null" >
+        course_character,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noticeDetailId != null" >
+        #{noticeDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeBookId != null" >
+        #{noticeBookId,jdbcType=VARCHAR},
+      </if>
+      <if test="datailSort != null" >
+        #{datailSort,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null" >
+        #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="teachPlanNum != null" >
+        #{teachPlanNum,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null" >
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="campusCode != null" >
+        #{campusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classStudentNum != null" >
+        #{classStudentNum,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="majorStudentsNumber != null" >
+        #{majorStudentsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="testMethod != null" >
+        #{testMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="weekPeriod != null" >
+        #{weekPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPeriod != null" >
+        #{totalPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="startStopWeek != null" >
+        #{startStopWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTime != null" >
+        #{contactTime,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentalTime != null" >
+        #{experimentalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCharacter != null" >
+        #{courseCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfoExample" resultType="java.lang.Integer" >
+    select count(*) from ap_task_notice_detail_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ap_task_notice_detail_info
+    <set >
+      <if test="record.noticeDetailId != null" >
+        notice_detail_id = #{record.noticeDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.noticeBookId != null" >
+        notice_book_id = #{record.noticeBookId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datailSort != null" >
+        datail_sort = #{record.datailSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseCode != null" >
+        course_code = #{record.courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseName != null" >
+        course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachPlanNum != null" >
+        teach_plan_num = #{record.teachPlanNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorName != null" >
+        major_name = #{record.majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.campusCode != null" >
+        campus_code = #{record.campusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.className != null" >
+        class_name = #{record.className,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classStudentNum != null" >
+        class_student_num = #{record.classStudentNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorStudentsNumber != null" >
+        major_students_number = #{record.majorStudentsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.testMethod != null" >
+        test_method = #{record.testMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weekPeriod != null" >
+        week_period = #{record.weekPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalPeriod != null" >
+        total_period = #{record.totalPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startStopWeek != null" >
+        start_stop_week = #{record.startStopWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactTime != null" >
+        contact_time = #{record.contactTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experimentalTime != null" >
+        experimental_time = #{record.experimentalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseCharacter != null" >
+        course_character = #{record.courseCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ap_task_notice_detail_info
+    set notice_detail_id = #{record.noticeDetailId,jdbcType=INTEGER},
+      notice_book_id = #{record.noticeBookId,jdbcType=VARCHAR},
+      datail_sort = #{record.datailSort,jdbcType=VARCHAR},
+      course_code = #{record.courseCode,jdbcType=VARCHAR},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      teach_plan_num = #{record.teachPlanNum,jdbcType=VARCHAR},
+      major_name = #{record.majorName,jdbcType=VARCHAR},
+      campus_code = #{record.campusCode,jdbcType=VARCHAR},
+      class_name = #{record.className,jdbcType=VARCHAR},
+      class_student_num = #{record.classStudentNum,jdbcType=INTEGER},
+      grade = #{record.grade,jdbcType=VARCHAR},
+      major_students_number = #{record.majorStudentsNumber,jdbcType=INTEGER},
+      test_method = #{record.testMethod,jdbcType=VARCHAR},
+      week_period = #{record.weekPeriod,jdbcType=VARCHAR},
+      total_period = #{record.totalPeriod,jdbcType=VARCHAR},
+      start_stop_week = #{record.startStopWeek,jdbcType=VARCHAR},
+      contact_time = #{record.contactTime,jdbcType=VARCHAR},
+      experimental_time = #{record.experimentalTime,jdbcType=VARCHAR},
+      course_character = #{record.courseCharacter,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo" >
+    update ap_task_notice_detail_info
+    <set >
+      <if test="noticeBookId != null" >
+        notice_book_id = #{noticeBookId,jdbcType=VARCHAR},
+      </if>
+      <if test="datailSort != null" >
+        datail_sort = #{datailSort,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null" >
+        course_code = #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="teachPlanNum != null" >
+        teach_plan_num = #{teachPlanNum,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null" >
+        major_name = #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="campusCode != null" >
+        campus_code = #{campusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classStudentNum != null" >
+        class_student_num = #{classStudentNum,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="majorStudentsNumber != null" >
+        major_students_number = #{majorStudentsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="testMethod != null" >
+        test_method = #{testMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="weekPeriod != null" >
+        week_period = #{weekPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPeriod != null" >
+        total_period = #{totalPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="startStopWeek != null" >
+        start_stop_week = #{startStopWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTime != null" >
+        contact_time = #{contactTime,jdbcType=VARCHAR},
+      </if>
+      <if test="experimentalTime != null" >
+        experimental_time = #{experimentalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCharacter != null" >
+        course_character = #{courseCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where notice_detail_id = #{noticeDetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo" >
+    update ap_task_notice_detail_info
+    set notice_book_id = #{noticeBookId,jdbcType=VARCHAR},
+      datail_sort = #{datailSort,jdbcType=VARCHAR},
+      course_code = #{courseCode,jdbcType=VARCHAR},
+      course_name = #{courseName,jdbcType=VARCHAR},
+      teach_plan_num = #{teachPlanNum,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      campus_code = #{campusCode,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR},
+      class_student_num = #{classStudentNum,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=VARCHAR},
+      major_students_number = #{majorStudentsNumber,jdbcType=INTEGER},
+      test_method = #{testMethod,jdbcType=VARCHAR},
+      week_period = #{weekPeriod,jdbcType=VARCHAR},
+      total_period = #{totalPeriod,jdbcType=VARCHAR},
+      start_stop_week = #{startStopWeek,jdbcType=VARCHAR},
+      contact_time = #{contactTime,jdbcType=VARCHAR},
+      experimental_time = #{experimentalTime,jdbcType=VARCHAR},
+      course_character = #{courseCharacter,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where notice_detail_id = #{noticeDetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

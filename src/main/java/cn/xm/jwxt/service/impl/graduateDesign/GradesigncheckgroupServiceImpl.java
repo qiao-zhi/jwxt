@@ -32,22 +32,22 @@ public class GradesigncheckgroupServiceImpl implements GradesigncheckgroupServic
 
     @Override
     public boolean deleteByExample(GradesigncheckgroupExample example) {
-        return gradesigncheckgroupMapper.deleteByExample(example)==1?true:false;
+        return gradesigncheckgroupMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(String groupid) {
-        return gradesigncheckgroupMapper.deleteByPrimaryKey(groupid)==1?true:false;
+        return gradesigncheckgroupMapper.deleteByPrimaryKey(groupid)==1;
     }
 
     @Override
     public boolean insert(Gradesigncheckgroup record) {
-        return gradesigncheckgroupMapper.insert(record)==1?true:false;
+        return gradesigncheckgroupMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Gradesigncheckgroup record) {
-        return gradesigncheckgroupMapper.insertSelective(record)==1?true:false;
+        return gradesigncheckgroupMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class GradesigncheckgroupServiceImpl implements GradesigncheckgroupServic
 
     @Override
     public boolean updateByExampleSelective(Gradesigncheckgroup record, GradesigncheckgroupExample example) {
-        return gradesigncheckgroupMapper.updateByExampleSelective(record, example)==1?true:false;
+        return gradesigncheckgroupMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Gradesigncheckgroup record, GradesigncheckgroupExample example) {
-        return gradesigncheckgroupMapper.updateByExample(record, example)==1?true:false;
+        return gradesigncheckgroupMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Gradesigncheckgroup record) {
-        return gradesigncheckgroupMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return gradesigncheckgroupMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Gradesigncheckgroup record) {
-        return gradesigncheckgroupMapper.updateByPrimaryKey(record)==1?true:false;
+        return gradesigncheckgroupMapper.updateByPrimaryKey(record)==1;
     }
 }
