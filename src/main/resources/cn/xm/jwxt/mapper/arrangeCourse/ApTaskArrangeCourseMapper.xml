@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.ApTaskArrangeCourseMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse" >
+    <id column="arrange_course_id" property="arrangeCourseId" jdbcType="VARCHAR" />
+    <result column="arrange_task_id" property="arrangeTaskId" jdbcType="VARCHAR" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="course_code" property="courseCode" jdbcType="VARCHAR" />
+    <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="major_students_number" property="majorStudentsNumber" jdbcType="INTEGER" />
+    <result column="total_period" property="totalPeriod" jdbcType="INTEGER" />
+    <result column="campus_code" property="campusCode" jdbcType="CHAR" />
+    <result column="is_use_multimedia" property="isUseMultimedia" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    arrange_course_id, arrange_task_id, course_name, course_code, major_name, class_name, 
+    major_students_number, total_period, campus_code, is_use_multimedia, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ap_task_arrange_course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ap_task_arrange_course
+    where arrange_course_id = #{arrangeCourseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ap_task_arrange_course
+    where arrange_course_id = #{arrangeCourseId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourseExample" >
+    delete from ap_task_arrange_course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse" >
+    insert into ap_task_arrange_course (arrange_course_id, arrange_task_id, course_name, 
+      course_code, major_name, class_name, 
+      major_students_number, total_period, campus_code, 
+      is_use_multimedia, remark)
+    values (#{arrangeCourseId,jdbcType=VARCHAR}, #{arrangeTaskId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, 
+      #{courseCode,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, 
+      #{majorStudentsNumber,jdbcType=INTEGER}, #{totalPeriod,jdbcType=INTEGER}, #{campusCode,jdbcType=CHAR}, 
+      #{isUseMultimedia,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse" >
+    insert into ap_task_arrange_course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="arrangeCourseId != null" >
+        arrange_course_id,
+      </if>
+      <if test="arrangeTaskId != null" >
+        arrange_task_id,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="courseCode != null" >
+        course_code,
+      </if>
+      <if test="majorName != null" >
+        major_name,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="majorStudentsNumber != null" >
+        major_students_number,
+      </if>
+      <if test="totalPeriod != null" >
+        total_period,
+      </if>
+      <if test="campusCode != null" >
+        campus_code,
+      </if>
+      <if test="isUseMultimedia != null" >
+        is_use_multimedia,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="arrangeCourseId != null" >
+        #{arrangeCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="arrangeTaskId != null" >
+        #{arrangeTaskId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null" >
+        #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null" >
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="majorStudentsNumber != null" >
+        #{majorStudentsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="totalPeriod != null" >
+        #{totalPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="campusCode != null" >
+        #{campusCode,jdbcType=CHAR},
+      </if>
+      <if test="isUseMultimedia != null" >
+        #{isUseMultimedia,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourseExample" resultType="java.lang.Integer" >
+    select count(*) from ap_task_arrange_course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ap_task_arrange_course
+    <set >
+      <if test="record.arrangeCourseId != null" >
+        arrange_course_id = #{record.arrangeCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrangeTaskId != null" >
+        arrange_task_id = #{record.arrangeTaskId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseName != null" >
+        course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseCode != null" >
+        course_code = #{record.courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorName != null" >
+        major_name = #{record.majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.className != null" >
+        class_name = #{record.className,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorStudentsNumber != null" >
+        major_students_number = #{record.majorStudentsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalPeriod != null" >
+        total_period = #{record.totalPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.campusCode != null" >
+        campus_code = #{record.campusCode,jdbcType=CHAR},
+      </if>
+      <if test="record.isUseMultimedia != null" >
+        is_use_multimedia = #{record.isUseMultimedia,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ap_task_arrange_course
+    set arrange_course_id = #{record.arrangeCourseId,jdbcType=VARCHAR},
+      arrange_task_id = #{record.arrangeTaskId,jdbcType=VARCHAR},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      course_code = #{record.courseCode,jdbcType=VARCHAR},
+      major_name = #{record.majorName,jdbcType=VARCHAR},
+      class_name = #{record.className,jdbcType=VARCHAR},
+      major_students_number = #{record.majorStudentsNumber,jdbcType=INTEGER},
+      total_period = #{record.totalPeriod,jdbcType=INTEGER},
+      campus_code = #{record.campusCode,jdbcType=CHAR},
+      is_use_multimedia = #{record.isUseMultimedia,jdbcType=CHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse" >
+    update ap_task_arrange_course
+    <set >
+      <if test="arrangeTaskId != null" >
+        arrange_task_id = #{arrangeTaskId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null" >
+        course_code = #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null" >
+        major_name = #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="majorStudentsNumber != null" >
+        major_students_number = #{majorStudentsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="totalPeriod != null" >
+        total_period = #{totalPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="campusCode != null" >
+        campus_code = #{campusCode,jdbcType=CHAR},
+      </if>
+      <if test="isUseMultimedia != null" >
+        is_use_multimedia = #{isUseMultimedia,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where arrange_course_id = #{arrangeCourseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse" >
+    update ap_task_arrange_course
+    set arrange_task_id = #{arrangeTaskId,jdbcType=VARCHAR},
+      course_name = #{courseName,jdbcType=VARCHAR},
+      course_code = #{courseCode,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR},
+      major_students_number = #{majorStudentsNumber,jdbcType=INTEGER},
+      total_period = #{totalPeriod,jdbcType=INTEGER},
+      campus_code = #{campusCode,jdbcType=CHAR},
+      is_use_multimedia = #{isUseMultimedia,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where arrange_course_id = #{arrangeCourseId,jdbcType=VARCHAR}
+  </update>
+</mapper>
