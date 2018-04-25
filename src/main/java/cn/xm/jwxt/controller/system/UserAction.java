@@ -93,4 +93,14 @@ public class UserAction {
     String testEnv() {
         return "success";
     }
+
+    /**
+     * 测试环境
+     * @return
+     */
+    @RequestMapping("/test2")
+    public @ResponseBody
+    String testEnv2() {
+        return "success2222";
+    }
 }

@@ -52,7 +52,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/courseManage/courseInfo.html">
+                        <a _href="pages/courseManage/courseInfo.jsp">
                             <cite>课程信息</cite>
                         </a>
                     </li>
