@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <html>
 
 <head>
@@ -14,19 +14,26 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+
+    <%--引入公共的标签--%>
+    <%@ include file="/tag.jsp" %>
+    <!--qlq引入的课程管理的JS-->
+    <script type="text/javascript" src="../../js/trainScheme/courseLibrary.js" charset="UTF-8"></script>
+
    
 </head>
 
 <body>
+
 <div class="x-body">
-    <form class="layui-form">
+    <form class="layui-form" id="addCourseForm">
         <!--1-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
                 课程编号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text" name="coursenum" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -34,14 +41,36 @@
             </div>
         </div>
         <!--1-1-->
-        
+
+
         <!--2-->
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+                课程平台
+            </label>
+            <div class="layui-input-inline">
+                <select name="courseplatform" lay-verify="required">
+                    <option value="">请选择课程平台</option>
+                    <option value="通识教育">通识教育</option>
+                    <option value="学科基础课">学科基础课</option>
+                    <option value="专业课程">专业课程</option>
+                    <option value="个性培养">个性培养</option>
+                    <option value="教学环节">教学环节</option>
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>必须填写
+            </div>
+        </div>
+
+        
+        <!--3-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
                 课程名称
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required=""  lay-verify="required"
+                <input type="text" name="coursenamecn" required=""  lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -54,43 +83,23 @@
               英文名称
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text" name="coursenameen" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
             </div>
         </div>
-        <!--4-->
-        <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-                课程类别
-            </label>
-            <div class="layui-input-inline">
-               <select name="" lay-verify="">
-				  <option value="">请选择</option>
-				  <option value="010">通识教育</option>
-				  <option value="021">学科基础课</option>
-				  <option value="010">专业课程</option>
-				  <option value="021">个性培养</option>
-				 	<option> 教学环节</option>
-				</select>
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
-            </div>
-        </div>
+
         <!--5-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
                课程性质
             </label>
             <div class="layui-input-inline">
-                <select name="" lay-verify="">
-				  <option value="">请选择</option>
-				  <option value="010">必修</option>
-				  <option value="021">选修</option>
-				  
+                <select name="coursenature" lay-verify="required">
+				  <option value="必修">必修</option>
+				  <option value="选修">选修</option>
 				</select>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -105,71 +114,84 @@
                 学分
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="xuefen" name="" required="" lay-verify="required" value="" onkeyup="calculatexueshi(value)"
+                <input type="text" id="xuefen" name="credit" required="" lay-verify="required,number" value="" onkeyup="calculatexueshi(value)"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
             </div>
         </div>
+
         <!--8-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
                学时
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="xueshi" name="" required="" lay-verify="required" value=""
+                <input type="text" id="xueshi" readonly name="coursehour" required="" lay-verify="required,number" value=""
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
             </div>
         </div>
+
         <!--9-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-            讲课时长
+                讲课时长
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text"  name="teachhour" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
             </div>
         </div>
+
+
+        <!--10实验时长(和上机时长只能存在一个)-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-            实验/上机
-            </label>
-            <div class="layui-input-block">
-      <input type="radio" name="like" title="实验" checked>
-      <input type="radio" name="like" title="上机" >
-    </div>
-            
-        </div>
-       <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-            实验/上机时长
+                实验时长
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text"  name="experimenthour" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
             </div>
         </div>
+
+
+        <!--11 上级时长 -->
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+                上机时长
+            </label>
+            <div class="layui-input-inline">
+                <input type="text"  name="computerhour" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>必须填写
+            </div>
+        </div>
+
+
+
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
              实践时长
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text"  name="practicehour" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>实践填写
+                <span class="x-red">*</span>必须填写
             </div>
         </div>
         <!--10-->
@@ -180,7 +202,7 @@
              周学时分配
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text" id="" name="weeklyhour" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -188,20 +210,33 @@
             </div>
         </div>
         <!--12-->
-        
+
         <!--13-->
-        
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+                学时单位
+            </label>
+            <div class="layui-input-inline">
+                <select name="coursehourmethod" lay-verify="required">
+                    <option value="学时">学时</option>
+                    <option value="周">周</option>
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+
+
         <!--14-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
                 记分方式
             </label>
             <div class="layui-input-inline">
-                <select name="" lay-verify="">
-				  <option value="">请选择</option>
-				  <option value="010">百分制</option>
-				  <option value="021">五级制</option>
-				  
+                <select name="scoringway" lay-verify="required">
+                    <option value="五级制">五级制</option>
+                    <option value="百分制">百分制</option>
 				</select>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -216,7 +251,7 @@
         <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
-              <button class="layui-btn" lay-filter="add" lay-submit="">
+              <button class="layui-btn" lay-filter="addCourse" lay-submit="">
                   确认添加
               </button>
         </div>
@@ -237,41 +272,6 @@
 	}
 	
 	
-</script>
-<script>
-    layui.use(['form', 'layer'], function () {
-        $ = layui.jquery;
-        var form = layui.form
-            , layer = layui.layer;
-
-        //自定义验证规则
-        form.verify({
-            nikename: function (value) {
-                if (value.length < 5) {
-                    return '昵称至少得5个字符啊';
-                }
-            }
-            , pass: [/(.+){6,12}$/, '密码必须6到12位']
-            , repass: function (value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }
-        });
-
-        //监听提交
-        form.on('submit(add)', function (data) {
-            console.log(data);
-            //发异步，把数据提交给
-            layer.alert("增加成功", {icon: 6}, function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-        });
-    });
 </script>
 
 </body>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <html>
 
 <head>
@@ -14,8 +14,12 @@
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../lib/layui/lay/modules/layui-xtree.js"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+
+    <%--引入公共的标签--%>
+    <%@ include file="/tag.jsp" %>
     <!--qlq引入的课程管理的JS-->
-    <script type="text/javascript" src="../../js/trainScheme/courseLibrary.js"></script>
+    <script type="text/javascript" src="../../js/trainScheme/courseLibrary.js" charset="utf-8"></script>
+
 
 </head>
 
@@ -40,72 +44,6 @@
 <!--主体-->
 <div class="layui-row">
 
-<script type="text/javascript">
-//  //一套json数据下面会使用，同时供你参考
-//  var json = [
-//          {
-//              title: "必修课程", value: "jd1", data: [
-//                { title: "通识必修",  value: "jd1.1", data: [] }
-//              , { title: "学科基础", value: "jd1.2",  data: [
-//              { title: "专业必修", value: "jd1.3",  data: [] }
-//               , { title: "数理基础", value: "jd1.2",  data: [] }
-//                , { title: "大类基础", value: "jd1.2",  data: [] }] }
-//              , { title: "专业基础", value: "jd1.3",  data: [
-//              
-//              ] }
-//              
-//              ]
-//          }
-//          , {
-//              title: "选修课程", value: "jd2", data: [
-//                { title: "专业选修", value: "jd2.1", data: [] }
-//              , { title: "个性培养方案", value: "jd2.2", data: [] }
-//             
-//              ]
-//          }
-//           , {
-//              title: "实践教学环节", value: "jd2", data: [
-//                { title: "通识实践", value: "jd2.1", data: [] }
-//              , { title: "专业实践", value: "jd2.2", data: [] }
-//             
-//              ]
-//          }
-//        
-//  ];
-
-  
-    //layui 的 form 模块是必须的
-//  layui.use(['form'], function () {
-//      var form = layui.form;
-//
-//      //1、最基础的用法 - 直接绑定json
-//      var xtree1 = new layuiXtree({
-//          elem: 'xtree1'   //(必填) 放置xtree的容器，样式参照 .xtree_contianer
-//          , form: form     //(必填) layui 的 from
-//          , data: json     //(必填) json数据
-//          , isopen: false   //设置是否默认展开所有节点
-//          , icon: {        //三种图标样式，更改几个都可以，用的是layui的图标
-//              open: "&#xe61a;"       //节点打开的图标
-//              , close: "&#xe602;"    //节点关闭的图标
-//              , end: "&#xe603;"      //末尾节点的图标
-//          }, color: {       //三种图标颜色，独立配色，更改几个都可以
-//              open: "#EE9A00"        //节点图标打开的颜色
-//              , close: "#EEC591"     //节点图标关闭的颜色
-//              , end: "#828282"       //末级节点图标的颜色
-//          }
-//          , click: function (data) {  //节点选中状态改变事件监听，全选框有自己的监听事件
-//              console.log(data.elem); //得到checkbox原始DOM对象
-//              console.log(data.elem.checked); //开关是否开启，true或者false
-//              console.log(data.value); //开关value值，也可以通过data.elem.value得到
-//              console.log(data.othis); //得到美化后的DOM对象
-//          }
-//           
-//      });
-//
-//  });
-
-
-</script>
 <div class="x-body layui-col-md10" style="float: right; width: 100%;">
     <!--查询-->
     <div class="layui-row">
@@ -148,9 +86,8 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('新增课程','./addCourse.html')">新增 </button>
+        <button class="layui-btn" onclick="x_admin_show('新增课程','./addCourse.jsp')">新增 </button>
         <button class="layui-btn" onclick="copyAdd()">复制性新增 </button>
-         <button type="button" class="layui-btn"  id="importTimeTable">导入课程表</button>
         <button class="layui-btn" onclick="importSyllabus()">上传教学资料 </button>
         <button class="layui-btn layui-btn-normal" >导出 </button>
     </xblock>
@@ -167,7 +104,7 @@
     	function copyAdd(){
     		panduan();//调用判断方法
     		if (chooseCourse>0) {
-						x_admin_show('复制性新增课程','./addCourse.html')
+						x_admin_show('复制性新增课程','./addCourse.jsp')
 						}
     		else{
     			layer.alert('请先选择需要复制的课程');
@@ -178,7 +115,7 @@
     	function importSyllabus(){
     		panduan();//调用判断方法
     		if (chooseCourse>0) {
-    			x_admin_show('上传教学资料','./courseMaterial-add.html')
+    			x_admin_show('上传教学资料','./courseMaterial-add.jsp')
 						}
     		else{
     			layer.alert('请先选择需要上传教学资料的课程');
@@ -257,10 +194,10 @@
             <td>软12004</td>
             <td>学生</td>
             <td class="td-manage">
-                <a title="点击查看课程详细信息" onclick="x_admin_show('详细信息','course-view.html')" href="javascript:;">
+                <a title="点击查看课程详细信息" onclick="x_admin_show('详细信息','course-view.jsp')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>
-                <a title="编辑"  onclick="x_admin_show('修改','course-edit.html')" href="javascript:;">
+                <a title="编辑"  onclick="x_admin_show('修改','course-edit.jsp')" href="javascript:;">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">

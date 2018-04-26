@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <html>
 
 <head>
@@ -14,6 +14,14 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+
+
+	<%--引入公共的标签--%>
+	<%@ include file="/tag.jsp" %>
+	<!--qlq引入的课程管理的JS-->
+	<script type="text/javascript" src="../../js/trainScheme/courseLibrary.js" charset="utf-8"></script>
+
+
 </head>
 <body>
 <div class="x-body">

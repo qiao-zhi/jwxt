@@ -1,39 +1,39 @@
 package cn.xm.jwxt.bean.trainScheme;
 
 public class TCourseBaseInfo {
-    private String courseid;
+    private String courseid;//课程编号
 
-    private String coursenum;
+    private String coursenum;//课程编号
 
-    private String courseplatform;
+    private String courseplatform;//课程平台
 
-    private String coursenature;
+    private String coursenature;//课程性质
 
-    private String coursenamecn;
+    private String coursenamecn;//中文名称
 
-    private String coursenameen;
+    private String coursenameen;//英文名称
 
-    private String credit;
+    private String credit;//学分
 
-    private String coursehour;
+    private String coursehour;//学时
 
-    private String teachhour;
+    private String teachhour;//讲课时长
 
-    private String experimenthour;
+    private String experimenthour;//实验时长
 
-    private String computerhour;
+    private String computerhour;//上级时长
 
-    private String practicehour;
+    private String practicehour;//实践时长
 
-    private String weeklyhour;
+    private String weeklyhour;//周学时分配
 
-    private String scoringway;
+    private String scoringway;//计分方式
 
-    private String coursehourmethod;
+    private String coursehourmethod;//学时单位
 
-    private String remark1;
+    private String remark1;//备注一(用于标记是否删除)
 
-    private String remark2;
+    private String remark2;//备注二
 
     public String getCourseid() {
         return courseid;
@@ -169,5 +169,28 @@ public class TCourseBaseInfo {
 
     public void setRemark2(String remark2) {
         this.remark2 = remark2 == null ? null : remark2.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "TCourseBaseInfo{" +
+                "courseid='" + courseid + '\'' +
+                ", coursenum='" + coursenum + '\'' +
+                ", courseplatform='" + courseplatform + '\'' +
+                ", coursenature='" + coursenature + '\'' +
+                ", coursenamecn='" + coursenamecn + '\'' +
+                ", coursenameen='" + coursenameen + '\'' +
+                ", credit='" + credit + '\'' +
+                ", coursehour='" + coursehour + '\'' +
+                ", teachhour='" + teachhour + '\'' +
+                ", experimenthour='" + experimenthour + '\'' +
+                ", computerhour='" + computerhour + '\'' +
+                ", practicehour='" + practicehour + '\'' +
+                ", weeklyhour='" + weeklyhour + '\'' +
+                ", scoringway='" + scoringway + '\'' +
+                ", coursehourmethod='" + coursehourmethod + '\'' +
+                ", remark1='" + remark1 + '\'' +
+                ", remark2='" + remark2 + '\'' +
+                '}';
     }
 }
