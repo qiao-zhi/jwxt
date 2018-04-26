@@ -372,11 +372,6 @@
                             <cite>字典管理</cite>
                         </a>
                     </li>
-                    <li>
-                        <a _href="pages/system/loginfo.html">
-                            <cite>日志管理</cite>
-                        </a>
-                    </li>
                 </ul>
             </li>
         </ul>
