@@ -20,7 +20,6 @@
     <!--qlq引入的课程管理的JS-->
     <script type="text/javascript" src="../../js/trainScheme/courseLibrary.js" charset="UTF-8"></script>
 
-   
 </head>
 
 <body>
@@ -270,8 +269,7 @@
 		if(""==val)
 		$("#xueshi").val("请输入学分");
 	}
-	
-	
+
 </script>
 
 </body>

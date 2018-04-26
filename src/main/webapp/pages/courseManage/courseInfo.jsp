@@ -21,6 +21,12 @@
     <script type="text/javascript" src="../../js/trainScheme/courseLibrary.js" charset="utf-8"></script>
 
 
+
+
+
+
+
+
 </head>
 
 <body>
@@ -48,38 +54,43 @@
     <!--查询-->
     <div class="layui-row">
 
-        <form class="layui-form layui-col-md12 x-so">
+        <form class="layui-form layui-col-md12 x-so" id="queryCourseForm">
+            <%--隐藏两个，一个当前页，一个页号--%>
+                <%--当前页--%>
+                <input type="hidden" name="pageNum"/>
+                <input type="hidden" name="pageSize"/>
+
            <div class="layui-input-inline">
-                <input type="text" name=""  placeholder="请输入课程名称" autocomplete="off" class="layui-input">
+                <input type="text" name="coursenamecn"  placeholder="请输入课程中文名称" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-input-inline">
-                <select name="contrller">
-                	<option>请选择课程类别</option>
-                    <option>通识教育</option>
-                    <option>学科基础课</option>
-                    <option>专业课程</option>
-                    <option>个性培养</option>
-                    <option>教学环节</option>
+                <select name="courseplatform">
+                	<option value="">请选择课程平台</option>
+                    <option value="通识教育">通识教育</option>
+                    <option value="学科基础课">学科基础课</option>
+                    <option value="专业课程">专业课程</option>
+                    <option value="个性培养">个性培养</option>
+                    <option value="教学环节">教学环节</option>
                 </select>
             </div>
            
             <div class="layui-input-inline">
-                <select name="contrller">
-                	<option>请选择课程性质</option>
-                    <option>必修</option>
-                    <option>选修</option>
+                <select name="coursenature">
+                	<option value="">请选择课程性质</option>
+                    <option value="必修">必修</option>
+                    <option value="选修">选修</option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="contrller">
-                	<option>请选择课程学分</option>
-                    <option>1</option>
-                    <option>2</option>
-                    
+                <select name="credit">
+                	<option value="">请选择课程学分</option>
+                    <option value="0-2">0-2</option>
+                    <option value="2-4">2-4</option>
+                    <option value="4-1000">4分以上</option>
                 </select>
             </div>
            
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn" type="button" onclick="queryCourseFYBtn()"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
     <!--end查询-->
@@ -87,8 +98,8 @@
     <!--操作区域-->
     <xblock>
         <button class="layui-btn" onclick="x_admin_show('新增课程','./addCourse.jsp')">新增 </button>
-        <button class="layui-btn" onclick="copyAdd()">复制性新增 </button>
-        <button class="layui-btn" onclick="importSyllabus()">上传教学资料 </button>
+        <button class="layui-btn" onclick="copyAndUpdateAdd()">复制性新增 </button>
+        <button class="layui-btn" onclick="openUploadLayer()">上传教学资料 </button>
         <button class="layui-btn layui-btn-normal" >导出 </button>
     </xblock>
     <!--end 操作区域-->
@@ -113,40 +124,8 @@
     	}
     	//上传教学资料
     	function importSyllabus(){
-    		panduan();//调用判断方法
-    		if (chooseCourse>0) {
     			x_admin_show('上传教学资料','./courseMaterial-add.jsp')
-						}
-    		else{
-    			layer.alert('请先选择需要上传教学资料的课程');
-    		}
-    		chooseCourse=0;//清空值
-    		
     	}
-    	//导入进度表
-//  	function importProgress(){
-//  		panduan();//调用判断方法
-//  		if (chooseCourse>0) {
-//  			x_admin_show('导入进度表','./courseTempo-add.html')
-//						}
-//  		else{
-//  			layer.alert('请先选择需要导入教学进度表的课程');
-//  		}
-//  		chooseCourse=0;//清空值
-//  		
-//  	}
-    	//导入实验大纲
-//  	function importExperiment(){
-//  		panduan();//调用判断方法
-//  		if (chooseCourse>0) {
-//  			x_admin_show('导入实验大纲','./courseExperOutline-add.html')
-//						}
-//  		else{
-//  			layer.alert('请先选择需要导入实验大纲的课程');
-//  		}
-//  		chooseCourse=0;//清空值
-//  		
-//  	}
     	//导出
     	function exportCourse(){
     		panduan();//调用判断方法
@@ -167,71 +146,55 @@
         <thead>
         <tr>
             <th>
-                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                    &#xe605;</i></div>
             </th>
-             <th>序号</th>
-            <th>课程名称</th>
-            <th>学分</th>
-            <th>学时</th>
-            <th>学时分配方式及时长</th>
-            <th>每周学时分配</th>
-            <th>计分方式</th>
-            <th>操作</th>
+                <th>序号</th>
+                <th>课程编号</th>
+                <th>课程平台</th>
+                <th>课程性质</th>
+                <th>中文名称</th>
+                <th>学分/学时</th>
+                <th>周学时分配</th>
+                <th>计分方式</th>
+                <th>操作</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
-                    &#xe605;</i></div>
-            </td>
-            <td>201700917</td>
-            <td>201700917</td>
-            <td>老王</td>
-            <td>男</td>
-            <td>1854-10-2</td>
-            <td>软12004</td>
-            <td>学生</td>
-            <td class="td-manage">
-                <a title="点击查看课程详细信息" onclick="x_admin_show('详细信息','course-view.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-                <a title="编辑"  onclick="x_admin_show('修改','course-edit.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i>
-                </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
-        </tr>
+        <tbody id="courseTbody">
+<%--            <tr >
+                <td>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </td>
+                <td>1</td>
+                <td>11111</td>
+                <td>课程平台</td>
+                <td>课程性质</td>
+                <td>中文名称</td>
+                <td>学分/学时</td>
+                <td>周学时分配</td>
+                <td>计分方式</td>
+                <td class="td-manage">
+                    <a title="点击查看课程详细信息" onclick="x_admin_show('详细信息','course-view.jsp')" href="javascript:;">
+                        <i class="layui-icon">&#xe63c;</i>
+                    </a>
+                    <a title="编辑"  onclick="x_admin_show('修改','course-edit.jsp')" href="javascript:;">
+                        <i class="layui-icon">&#xe642;</i>
+                    </a>
+                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                        <i class="layui-icon">&#xe640;</i>
+                    </a>
+                </td>
+            </tr>--%>
         </tbody>
     </table>
     <!--end 表格内容-->
 
     <!--分页-->
-    <div id="demo7"></div>
+    <div id="pageDiv"></div>
     <!--end 分页-->
 </div>
 </div>
 
 <script>
-    /*分页js*/
-    layui.use(['laypage', 'layer'], function(){
-        var laypage = layui.laypage
-            ,layer = layui.layer;
-
-        //完整功能
-        laypage.render({
-            elem: 'demo7'
-            ,count: 100
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            ,jump: function(obj){
-                console.log(obj)
-            }
-        });
-    });
-
     //点击关闭其他，触发事件
     function closeOther() {
         var closeTable = $(".layui-tab-title", parent.document).children("li");
@@ -253,25 +216,6 @@
 </script>
 <!--文件上传-->
 <script>
-layui.use('upload', function(){
-  var upload = layui.upload;
-   
-  //导入课程表
-  var uploadInst = upload.render({
-    elem: '#importTimeTable' //绑定元素
-    ,url: '' //上传接口
-    ,accept:'file'//允许上传文件类型上传接口参阅http://www.layui.com/doc/modules/upload.html
-    ,done: function(res){
-      //上传完毕回调
-    }
-    ,error: function(){
-      //请求异常回调
-    }
-  });
-  //导入教学大纲
-  
-  
-});
 </script>
 </body>
 

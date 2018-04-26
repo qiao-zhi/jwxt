@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.trainScheme.custom.TCourseBaseInfoCustomMapper" >
+
+    <!--组合条件分页查询课程信息-->
+    <select id="getCourseBaseInfosByCondition" resultType="map" parameterType="map">
+        SELECT * from t_course_base_info
+        <where>
+            <if test="courseplatform !=null and courseplatform!=''">
+                and courseplatform=#{courseplatform}
+            </if>
+            <if test="coursenature !=null and coursenature!=''">
+                and coursenature=#{coursenature}
+            </if>
+            <if test="coursenamecn !=null and coursenamecn!=''">
+                and coursenamecn like '%${coursenamecn}%'
+            </if>
+            <if test="startcredit !=null and startcredit!=''">
+                and credit+0 &gt;= #{startcredit}+0
+            </if>
+            <if test="endcredit !=null and endcredit!=''">
+                and credit+0 &lt;= #{endcredit}+0
+            </if>
+        </where>
+    </select>
+
 </mapper>
