@@ -9,7 +9,7 @@ public class DefaultValue {
     /**
      * 页大小默认值
      */
-    public static final int PAGE_SIZE = 8;
+    public static final int PAGE_SIZE = 6;
     /**
      * 代表男性
      */

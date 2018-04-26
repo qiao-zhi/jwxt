@@ -101,6 +101,6 @@ public class UserAction {
     @RequestMapping("/test2")
     public @ResponseBody
     String testEnv2() {
-        return "success2222";
+        return "成功了";
     }
 }

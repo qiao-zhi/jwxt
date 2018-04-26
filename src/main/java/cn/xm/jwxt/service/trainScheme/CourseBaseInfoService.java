@@ -15,6 +15,13 @@ import java.util.Map;
  */
 public interface CourseBaseInfoService {
     /**
+     * 根据课程编号查询课程总数，判断当前是否存在对应课程编号的课程
+     * @param courseNum 课程编号
+     * @return  查到的总数
+     * @throws SQLException
+     */
+    public int getCountByCourseNum(String courseNum)throws SQLException;
+    /**
      * 增加课程基本信息
      * @param courseBaseInfo    课程信息实体类
      * @return  是否添加成功
@@ -52,5 +59,5 @@ public interface CourseBaseInfoService {
      * @return
      * @throws SQLException
      */
-    public List<Map<String,Object>> getCourseBaseInfosByCondition(Map condition)throws SQLException;
+    public List<Map<String,Object>> getCourseBaseInfosByCondition(Map<String,Object> condition)throws SQLException;
 }

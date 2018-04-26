@@ -15,10 +15,28 @@
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
 
+
+
+
+    <%--S    上传文件相关操作--%>
+    <%
+        String courseId=request.getParameter("courseId");
+    %>
+    <% if (courseId != null) { %>
+    <script type="text/javascript" charset="utf-8">
+        var courseId = "<%= courseId %>";//将传过来的课程编号赋给JS的全局变量
+    </script>
+    <% }%>
+    <%--E    上传文件相关操作--%>
+
+
     <%--引入公共的标签--%>
     <%@ include file="/tag.jsp" %>
     <!--qlq引入的课程管理的JS-->
     <script type="text/javascript" src="../../js/trainScheme/courseLibrary.js" charset="utf-8"></script>
+
+
+
 
 
 </head>
@@ -83,16 +101,30 @@
 <script>
 layui.use('upload', function(){
   var upload = layui.upload;
-   
-  //执行实例
-   upload.render({
-	  elem: '#uploadCourseMaterial'
-	  ,accept:'file'
-	  ,url: '' //必填项
-	  ,method: ''  //可选项。HTTP类型，默认post
-	  ,data: {} //可选项。额外的参数，如：{id: 123, abc: 'xxx'}
-	}); 
-	});
+
+    //选完文件后不自动上传
+    upload.render({
+        elem: '#uploadCourseMaterial',
+        url: '/upload/',auto: false,
+        accept: 'file', //普通文件,
+        exts: 'doc|docx|pdf', //只允许上传doc,docx和pdf文件
+        bindAction: '#test9',//绑定到哪个按钮进行提交
+        done: function(res){
+            console.log(res)
+        }
+    });
+
+
+
+});
+
+
+
+
+
+
+
+
 </script>
 
 <script>

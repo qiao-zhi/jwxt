@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>修改课程基本信息</title>
+    <title>添加课程</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -24,16 +24,16 @@
     <%--S    复制性新增的操作--%>
     <%--如果满足复制新增的条件就设置一全局变量标记可以复制性新增--%>
     <script type="text/javascript" charset="utf-8">
-        var updateOk = false;//定义一个全局变量，如果是复制性新增新盖为true
+        var copyOk = false;//定义一个全局变量，如果是复制性新增新盖为true
     </script>
     <%
         String courseId=request.getParameter("courseId");
     %>
     <% if (courseId != null) { %>
-    <script type="text/javascript" charset="utf-8">
-        updateOk = true;
-        var courseId = "<%= courseId %>";//将传过来的课程编号赋给JS的全局变量
-    </script>
+        <script type="text/javascript" charset="utf-8">
+            copyOk = true;
+            var courseId = "<%= courseId %>";//将传过来的课程编号赋给JS的全局变量
+        </script>
     <% }%>
     <%--E    复制性新增的操作--%>
 
@@ -44,19 +44,14 @@
 <body>
 
 <div class="x-body">
-    <form class="layui-form" id="updateForm">
-
-        <%--隐藏课程主键--%>
-        <input type="hidden" name="courseid">
-
-
+    <form class="layui-form" id="addCourseForm">
         <!--1-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
                 课程编号
             </label>
             <div class="layui-input-inline">
-                <input type="text" name="coursenum" readonly="readonly" lay-verify="required"
+                <input type="text" name="coursenum" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -86,7 +81,7 @@
             </div>
         </div>
 
-
+        
         <!--3-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
@@ -103,7 +98,7 @@
         <!--3-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-                英文名称
+              英文名称
             </label>
             <div class="layui-input-inline">
                 <input type="text" name="coursenameen" required="" lay-verify="required"
@@ -117,20 +112,20 @@
         <!--5-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-                课程性质
+               课程性质
             </label>
             <div class="layui-input-inline">
                 <select name="coursenature" lay-verify="required">
-                    <option value="必修">必修</option>
-                    <option value="选修">选修</option>
-                </select>
+				  <option value="必修">必修</option>
+				  <option value="选修">选修</option>
+				</select>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
             </div>
         </div>
         <!--6-->
-
+       
         <!--7-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
@@ -148,7 +143,7 @@
         <!--8-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-                学时
+               学时
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="xueshi" readonly name="coursehour" required="" lay-verify="required,number" value=""
@@ -207,7 +202,7 @@
 
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-                实践时长
+             实践时长
             </label>
             <div class="layui-input-inline">
                 <input type="text"  name="practicehour" required="" lay-verify="required"
@@ -218,11 +213,11 @@
             </div>
         </div>
         <!--10-->
-
+        
         <!--11-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-                周学时分配
+             周学时分配
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="" name="weeklyhour" required="" lay-verify="required"
@@ -260,43 +255,43 @@
                 <select name="scoringway" lay-verify="required">
                     <option value="五级制">五级制</option>
                     <option value="百分制">百分制</option>
-                </select>
+				</select>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须选择
             </div>
         </div>
         <!--15-->
-
+        
         <!--16-->
-
+        
         <!---->
         <div class="layui-form-item">
-            <label for="L_repass" class="layui-form-label">
-            </label>
-            <button class="layui-btn" lay-filter="updateCourse" lay-submit="">
-                确认修改
-            </button>
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button class="layui-btn" lay-filter="addCourse" lay-submit="">
+                  确认添加
+              </button>
         </div>
         <!---->
     </form>
 </div>
 <script>
 
-    //根据学分计算学时
-    function calculatexueshi(value){
-        score=$("#xuefen").val();
-        var value=score*16;
-        $("#xueshi").val(value);
-        checkRe(score)
-    }
-    function checkRe(val){
-        if(""==val)
-            $("#xueshi").val("请输入学分");
-    }
+	//根据学分计算学时
+	function calculatexueshi(value){
+		score=$("#xuefen").val();
+		var value=score*16;
+		$("#xueshi").val(value);
+		checkRe(score)
+	}
+	function checkRe(val){
+		if(""==val)
+		$("#xueshi").val("请输入学分");
+	}
 
-    updateCourseBaseInfo();//修改基本信息相关操作
-
+    copAddFun();//复制性新增相关操作
+	
 </script>
 
 </body>
