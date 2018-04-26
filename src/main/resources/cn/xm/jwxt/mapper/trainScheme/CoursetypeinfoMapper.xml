@@ -6,6 +6,7 @@
     <result column="typeNum" property="typenum" jdbcType="VARCHAR" />
     <result column="upTypeNum" property="uptypenum" jdbcType="VARCHAR" />
     <result column="typeName" property="typename" jdbcType="VARCHAR" />
+    <result column="trainingSchemeID" property="trainingschemeid" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    courseTypeId, typeNum, upTypeNum, typeName, remark
+    courseTypeId, typeNum, upTypeNum, typeName, trainingSchemeID, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.trainScheme.CoursetypeinfoExample" >
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.trainScheme.Coursetypeinfo" >
     insert into coursetypeinfo (courseTypeId, typeNum, upTypeNum, 
-      typeName, remark)
+      typeName, trainingSchemeID, remark
+      )
     values (#{coursetypeid,jdbcType=INTEGER}, #{typenum,jdbcType=VARCHAR}, #{uptypenum,jdbcType=VARCHAR}, 
-      #{typename,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+      #{typename,jdbcType=VARCHAR}, #{trainingschemeid,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.trainScheme.Coursetypeinfo" >
     insert into coursetypeinfo
@@ -119,6 +122,9 @@
       </if>
       <if test="typename != null" >
         typeName,
+      </if>
+      <if test="trainingschemeid != null" >
+        trainingSchemeID,
       </if>
       <if test="remark != null" >
         remark,
@@ -136,6 +142,9 @@
       </if>
       <if test="typename != null" >
         #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingschemeid != null" >
+        #{trainingschemeid,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -163,6 +172,9 @@
       <if test="record.typename != null" >
         typeName = #{record.typename,jdbcType=VARCHAR},
       </if>
+      <if test="record.trainingschemeid != null" >
+        trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
+      </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -177,6 +189,7 @@
       typeNum = #{record.typenum,jdbcType=VARCHAR},
       upTypeNum = #{record.uptypenum,jdbcType=VARCHAR},
       typeName = #{record.typename,jdbcType=VARCHAR},
+      trainingSchemeID = #{record.trainingschemeid,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -194,6 +207,9 @@
       <if test="typename != null" >
         typeName = #{typename,jdbcType=VARCHAR},
       </if>
+      <if test="trainingschemeid != null" >
+        trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR},
+      </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -205,6 +221,7 @@
     set typeNum = #{typenum,jdbcType=VARCHAR},
       upTypeNum = #{uptypenum,jdbcType=VARCHAR},
       typeName = #{typename,jdbcType=VARCHAR},
+      trainingSchemeID = #{trainingschemeid,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where courseTypeId = #{coursetypeid,jdbcType=INTEGER}
   </update>

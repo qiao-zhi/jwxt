@@ -234,73 +234,63 @@ public class CoursecapacityrequireinfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andCourseidIsNull() {
-            addCriterion("courseID is null");
+        public Criteria andTraincourseidIsNull() {
+            addCriterion("trainCourseID is null");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidIsNotNull() {
-            addCriterion("courseID is not null");
+        public Criteria andTraincourseidIsNotNull() {
+            addCriterion("trainCourseID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidEqualTo(String value) {
-            addCriterion("courseID =", value, "courseid");
+        public Criteria andTraincourseidEqualTo(Integer value) {
+            addCriterion("trainCourseID =", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidNotEqualTo(String value) {
-            addCriterion("courseID <>", value, "courseid");
+        public Criteria andTraincourseidNotEqualTo(Integer value) {
+            addCriterion("trainCourseID <>", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidGreaterThan(String value) {
-            addCriterion("courseID >", value, "courseid");
+        public Criteria andTraincourseidGreaterThan(Integer value) {
+            addCriterion("trainCourseID >", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidGreaterThanOrEqualTo(String value) {
-            addCriterion("courseID >=", value, "courseid");
+        public Criteria andTraincourseidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("trainCourseID >=", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidLessThan(String value) {
-            addCriterion("courseID <", value, "courseid");
+        public Criteria andTraincourseidLessThan(Integer value) {
+            addCriterion("trainCourseID <", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidLessThanOrEqualTo(String value) {
-            addCriterion("courseID <=", value, "courseid");
+        public Criteria andTraincourseidLessThanOrEqualTo(Integer value) {
+            addCriterion("trainCourseID <=", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidLike(String value) {
-            addCriterion("courseID like", value, "courseid");
+        public Criteria andTraincourseidIn(List<Integer> values) {
+            addCriterion("trainCourseID in", values, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidNotLike(String value) {
-            addCriterion("courseID not like", value, "courseid");
+        public Criteria andTraincourseidNotIn(List<Integer> values) {
+            addCriterion("trainCourseID not in", values, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidIn(List<String> values) {
-            addCriterion("courseID in", values, "courseid");
+        public Criteria andTraincourseidBetween(Integer value1, Integer value2) {
+            addCriterion("trainCourseID between", value1, value2, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andCourseidNotIn(List<String> values) {
-            addCriterion("courseID not in", values, "courseid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCourseidBetween(String value1, String value2) {
-            addCriterion("courseID between", value1, value2, "courseid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCourseidNotBetween(String value1, String value2) {
-            addCriterion("courseID not between", value1, value2, "courseid");
+        public Criteria andTraincourseidNotBetween(Integer value1, Integer value2) {
+            addCriterion("trainCourseID not between", value1, value2, "traincourseid");
             return (Criteria) this;
         }
 

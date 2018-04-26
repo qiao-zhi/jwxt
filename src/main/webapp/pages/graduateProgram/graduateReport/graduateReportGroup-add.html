@@ -14,24 +14,28 @@
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
+    <style>
+        .layui-form-item .layui-input-inline {
+            width: 300px !important;
+        }
+
+        .y_left {
+            float: right;
+            width: 43%;
+            height: 200px;
+            background-color: #eee;
+        }
+
+        .y_left table {
+            margin-top: 200px;
+            box-shadow: 0 -2px 2px #ccc;
+        }
+    </style>
 </head>
 
 <body>
 <div class="x-body">
-    <form class="layui-form">
-        <!--1-->
-        <div class="layui-form-item">
-            <label for="graDesignID" class="layui-form-label">
-                小组编号
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="graDesignID" name="username" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
+    <form class="layui-form" style="width:55%;float:left;">
         <!--2-->
         <div class="layui-form-item">
             <label for="titlename" class="layui-form-label">
@@ -89,12 +93,13 @@
         <!--5-->
         <div class="layui-form-item">
             <label for="projectType" class="layui-form-label">
-                秘书
+                答辩秘书
             </label>
             <div class="layui-input-inline">
                 <div class="layui-input-inline">
                     <select name="contrller" id="projectType2">
                         <option>请选择</option>
+                        <option>A</option>
                         <option>A</option>
                         <option>A</option>
                     </select>
@@ -107,12 +112,21 @@
         <!--4-->
         <div class="layui-form-item">
             <label class="layui-form-label">
-                设置审核教师
+                设置检查教师
             </label>
             <div class="layui-input-inline">
-                指导教师为教师1的学生<input type="text" name="title" class="layui-input" placeholder="请输入检查教师"  >
-                指导教师为教师2的学生<input type="text" name="title" class="layui-input" placeholder="请输入检查教师"  >
-                指导教师为教师3的学生<input type="text" name="title" class="layui-input" placeholder="请输入检查教师"  >
+                <div><span>教师1</span>
+                    <button class="layui-btn layui-btn-sm">添加学生</button>
+                    <textarea class="layui-textarea" name="" rows="5"></textarea>
+                </div>
+                <div><span>教师2</span>
+                    <button class="layui-btn layui-btn-sm">添加学生</button>
+                    <textarea class="layui-textarea" name="" rows="5"></textarea>
+                </div>
+                <div><span>教师3</span>
+                    <button class="layui-btn layui-btn-sm">添加学生</button>
+                    <textarea class="layui-textarea" name="" rows="5"></textarea>
+                </div>
             </div>
         </div>
 
@@ -122,9 +136,78 @@
             <button class="layui-btn" lay-submit="" lay-filter="add">增加</button>
         </div>
     </form>
+
+    <div class="y_left">
+        <table class="layui-table">
+            <thead>
+            <tr>
+                <th>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </th>
+                <th>学生姓名</th>
+                <th>班级</th>
+                <th>毕设题目</th>
+                <th>指导教师</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </td>
+                <td>学生1</td>
+                <td>软件工程1</td>
+                <td>8888</td>
+                <td>教师1</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </td>
+                <td>学生1</td>
+                <td>软件工程1</td>
+                <td>8888</td>
+                <td>教师1</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </td>
+                <td>学生1</td>
+                <td>软件工程1</td>
+                <td>8888</td>
+                <td>教师1</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </td>
+                <td>学生1</td>
+                <td>软件工程1</td>
+                <td>8888</td>
+                <td>教师1</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </td>
+                <td>学生1</td>
+                <td>软件工程1</td>
+                <td>8888</td>
+                <td>教师1</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <script>
-    //出生年月
+    //答辩时间
     layui.use('laydate', function () {
         var laydate = layui.laydate;
 
@@ -132,8 +215,7 @@
             elem: '#L_pass' //指定元素
         });
     });
-</script>
-<script>
+
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form
@@ -166,8 +248,6 @@
             });
             return false;
         });
-
-
     });
 </script>
 </body>
