@@ -1,8 +1,7 @@
 package cn.xm.jwxt.service.courseDesign;
 
-import cn.xm.jwxt.bean.courseDesign.Coursedesignteacherstudent;
-import cn.xm.jwxt.bean.courseDesign.TCoursedesignInfo;
 import cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherArrange;
+
 import java.util.List;
 
 import java.sql.SQLException;
@@ -29,11 +28,18 @@ public interface TCoursedesignTeacherArrangeService {
     //    public boolean updateTCoursedesignTeacherArrange(TCoursedesignTeacherArrange cdta)throws SQLException;
 
     /**
-     * 教师根据id,学年等从教师课设安排表开始 查询课设安排
+     * 教师 根据id,学年等从教师课设安排表开始 查询课设安排
      * @param condition
      * @return  可以查出带过的所有课设
      * @throws SQLException
      */
     public List<Map<String,Object>> findCourseDesignerByTeacherId(Map<String, Object> condition) throws SQLException;
 
+    /**
+     *  根据课设安排id查询课设教师安排表
+     * @param courseDesignArrangeID
+     * @return
+     * @throws SQLException
+     */
+    public List<TCoursedesignTeacherArrange> findTCoursedesignTeacherArrangeBycourseDesignArrangeID(String courseDesignArrangeID) throws SQLException;
 }

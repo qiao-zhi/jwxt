@@ -1,6 +1,6 @@
 package cn.xm.jwxt.bean.courseDesign;
 
-public class TCoursedesignArrange {
+public class TCoursedesignClassArrange {
     private String coursedesignclassarrangeid;
 
     private String coursedesignarrangeid;

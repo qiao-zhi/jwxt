@@ -3,14 +3,14 @@ package cn.xm.jwxt.bean.courseDesign;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TCoursedesignArrangeExample {
+public class TCoursedesignClassArrangeExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public TCoursedesignArrangeExample() {
+    public TCoursedesignClassArrangeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

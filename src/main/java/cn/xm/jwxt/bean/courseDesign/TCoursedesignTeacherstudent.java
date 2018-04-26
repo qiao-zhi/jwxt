@@ -2,7 +2,7 @@ package cn.xm.jwxt.bean.courseDesign;
 
 import java.util.Date;
 
-public class Coursedesignteacherstudent {
+public class TCoursedesignTeacherstudent {
     private String coursedesignteacherstudentid;
 
     private String coursedesignteacherarrangeid;
@@ -17,7 +17,13 @@ public class Coursedesignteacherstudent {
 
     private Date uploadtime;
 
-    private Date uploadstatus;
+    private String uploadstatus;
+
+    private String checkstatus;
+
+    private String checkadvice;
+
+    private String remark;
 
     public String getCoursedesignteacherstudentid() {
         return coursedesignteacherstudentid;
@@ -75,11 +81,35 @@ public class Coursedesignteacherstudent {
         this.uploadtime = uploadtime;
     }
 
-    public Date getUploadstatus() {
+    public String getUploadstatus() {
         return uploadstatus;
     }
 
-    public void setUploadstatus(Date uploadstatus) {
-        this.uploadstatus = uploadstatus;
+    public void setUploadstatus(String uploadstatus) {
+        this.uploadstatus = uploadstatus == null ? null : uploadstatus.trim();
+    }
+
+    public String getCheckstatus() {
+        return checkstatus;
+    }
+
+    public void setCheckstatus(String checkstatus) {
+        this.checkstatus = checkstatus == null ? null : checkstatus.trim();
+    }
+
+    public String getCheckadvice() {
+        return checkadvice;
+    }
+
+    public void setCheckadvice(String checkadvice) {
+        this.checkadvice = checkadvice == null ? null : checkadvice.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

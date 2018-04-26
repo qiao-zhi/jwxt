@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xm.jwxt.mapper.courseDesign.CoursedesignteacherstudentMapper" >
-  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.courseDesign.Coursedesignteacherstudent" >
+<mapper namespace="cn.xm.jwxt.mapper.courseDesign.TCoursedesignTeacherstudentMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudent" >
     <id column="courseDesignTeacherStudentID" property="coursedesignteacherstudentid" jdbcType="VARCHAR" />
     <result column="courseDesignTeacherArrangeID" property="coursedesignteacherarrangeid" jdbcType="VARCHAR" />
     <result column="studentID" property="studentid" jdbcType="VARCHAR" />
@@ -9,7 +9,10 @@
     <result column="courseDesignReportName" property="coursedesignreportname" jdbcType="VARCHAR" />
     <result column="courseDesignReportStore" property="coursedesignreportstore" jdbcType="VARCHAR" />
     <result column="uploadTime" property="uploadtime" jdbcType="TIMESTAMP" />
-    <result column="uploadStatus" property="uploadstatus" jdbcType="TIMESTAMP" />
+    <result column="uploadStatus" property="uploadstatus" jdbcType="VARCHAR" />
+    <result column="checkStatus" property="checkstatus" jdbcType="VARCHAR" />
+    <result column="checkAdvice" property="checkadvice" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,15 +74,16 @@
   </sql>
   <sql id="Base_Column_List" >
     courseDesignTeacherStudentID, courseDesignTeacherArrangeID, studentID, courseDesignArrangeNum, 
-    courseDesignReportName, courseDesignReportStore, uploadTime, uploadStatus
+    courseDesignReportName, courseDesignReportStore, uploadTime, uploadStatus, checkStatus, 
+    checkAdvice, remark
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.courseDesign.CoursedesignteacherstudentExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudentExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from coursedesignteacherstudent
+    from t_coursedesign_teacherstudent
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,31 +94,33 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from coursedesignteacherstudent
+    from t_coursedesign_teacherstudent
     where courseDesignTeacherStudentID = #{coursedesignteacherstudentid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from coursedesignteacherstudent
+    delete from t_coursedesign_teacherstudent
     where courseDesignTeacherStudentID = #{coursedesignteacherstudentid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.courseDesign.CoursedesignteacherstudentExample" >
-    delete from coursedesignteacherstudent
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudentExample" >
+    delete from t_coursedesign_teacherstudent
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.xm.jwxt.bean.courseDesign.Coursedesignteacherstudent" >
-    insert into coursedesignteacherstudent (courseDesignTeacherStudentID, courseDesignTeacherArrangeID, 
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudent" >
+    insert into t_coursedesign_teacherstudent (courseDesignTeacherStudentID, courseDesignTeacherArrangeID, 
       studentID, courseDesignArrangeNum, courseDesignReportName, 
       courseDesignReportStore, uploadTime, 
-      uploadStatus)
+      uploadStatus, checkStatus, checkAdvice, 
+      remark)
     values (#{coursedesignteacherstudentid,jdbcType=VARCHAR}, #{coursedesignteacherarrangeid,jdbcType=VARCHAR}, 
       #{studentid,jdbcType=VARCHAR}, #{coursedesignarrangenum,jdbcType=VARCHAR}, #{coursedesignreportname,jdbcType=VARCHAR}, 
       #{coursedesignreportstore,jdbcType=VARCHAR}, #{uploadtime,jdbcType=TIMESTAMP}, 
-      #{uploadstatus,jdbcType=TIMESTAMP})
+      #{uploadstatus,jdbcType=VARCHAR}, #{checkstatus,jdbcType=VARCHAR}, #{checkadvice,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.courseDesign.Coursedesignteacherstudent" >
-    insert into coursedesignteacherstudent
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudent" >
+    insert into t_coursedesign_teacherstudent
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="coursedesignteacherstudentid != null" >
         courseDesignTeacherStudentID,
@@ -140,6 +146,15 @@
       <if test="uploadstatus != null" >
         uploadStatus,
       </if>
+      <if test="checkstatus != null" >
+        checkStatus,
+      </if>
+      <if test="checkadvice != null" >
+        checkAdvice,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="coursedesignteacherstudentid != null" >
@@ -164,18 +179,27 @@
         #{uploadtime,jdbcType=TIMESTAMP},
       </if>
       <if test="uploadstatus != null" >
-        #{uploadstatus,jdbcType=TIMESTAMP},
+        #{uploadstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkstatus != null" >
+        #{checkstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkadvice != null" >
+        #{checkadvice,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.xm.jwxt.bean.courseDesign.CoursedesignteacherstudentExample" resultType="java.lang.Integer" >
-    select count(*) from coursedesignteacherstudent
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudentExample" resultType="java.lang.Integer" >
+    select count(*) from t_coursedesign_teacherstudent
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update coursedesignteacherstudent
+    update t_coursedesign_teacherstudent
     <set >
       <if test="record.coursedesignteacherstudentid != null" >
         courseDesignTeacherStudentID = #{record.coursedesignteacherstudentid,jdbcType=VARCHAR},
@@ -199,7 +223,16 @@
         uploadTime = #{record.uploadtime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.uploadstatus != null" >
-        uploadStatus = #{record.uploadstatus,jdbcType=TIMESTAMP},
+        uploadStatus = #{record.uploadstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkstatus != null" >
+        checkStatus = #{record.checkstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkadvice != null" >
+        checkAdvice = #{record.checkadvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -207,7 +240,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update coursedesignteacherstudent
+    update t_coursedesign_teacherstudent
     set courseDesignTeacherStudentID = #{record.coursedesignteacherstudentid,jdbcType=VARCHAR},
       courseDesignTeacherArrangeID = #{record.coursedesignteacherarrangeid,jdbcType=VARCHAR},
       studentID = #{record.studentid,jdbcType=VARCHAR},
@@ -215,13 +248,16 @@
       courseDesignReportName = #{record.coursedesignreportname,jdbcType=VARCHAR},
       courseDesignReportStore = #{record.coursedesignreportstore,jdbcType=VARCHAR},
       uploadTime = #{record.uploadtime,jdbcType=TIMESTAMP},
-      uploadStatus = #{record.uploadstatus,jdbcType=TIMESTAMP}
+      uploadStatus = #{record.uploadstatus,jdbcType=VARCHAR},
+      checkStatus = #{record.checkstatus,jdbcType=VARCHAR},
+      checkAdvice = #{record.checkadvice,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.courseDesign.Coursedesignteacherstudent" >
-    update coursedesignteacherstudent
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudent" >
+    update t_coursedesign_teacherstudent
     <set >
       <if test="coursedesignteacherarrangeid != null" >
         courseDesignTeacherArrangeID = #{coursedesignteacherarrangeid,jdbcType=VARCHAR},
@@ -242,20 +278,32 @@
         uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
       </if>
       <if test="uploadstatus != null" >
-        uploadStatus = #{uploadstatus,jdbcType=TIMESTAMP},
+        uploadStatus = #{uploadstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkstatus != null" >
+        checkStatus = #{checkstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkadvice != null" >
+        checkAdvice = #{checkadvice,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where courseDesignTeacherStudentID = #{coursedesignteacherstudentid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.courseDesign.Coursedesignteacherstudent" >
-    update coursedesignteacherstudent
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudent" >
+    update t_coursedesign_teacherstudent
     set courseDesignTeacherArrangeID = #{coursedesignteacherarrangeid,jdbcType=VARCHAR},
       studentID = #{studentid,jdbcType=VARCHAR},
       courseDesignArrangeNum = #{coursedesignarrangenum,jdbcType=VARCHAR},
       courseDesignReportName = #{coursedesignreportname,jdbcType=VARCHAR},
       courseDesignReportStore = #{coursedesignreportstore,jdbcType=VARCHAR},
       uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
-      uploadStatus = #{uploadstatus,jdbcType=TIMESTAMP}
+      uploadStatus = #{uploadstatus,jdbcType=VARCHAR},
+      checkStatus = #{checkstatus,jdbcType=VARCHAR},
+      checkAdvice = #{checkadvice,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
     where courseDesignTeacherStudentID = #{coursedesignteacherstudentid,jdbcType=VARCHAR}
   </update>
 </mapper>
