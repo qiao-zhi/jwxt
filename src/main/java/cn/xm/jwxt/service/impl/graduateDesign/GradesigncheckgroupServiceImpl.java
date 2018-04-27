@@ -13,17 +13,22 @@ package cn.xm.jwxt.service.impl.graduateDesign;
 import cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup;
 import cn.xm.jwxt.bean.graduateDesign.GradesigncheckgroupExample;
 import cn.xm.jwxt.mapper.graduateDesign.GradesigncheckgroupMapper;
+import cn.xm.jwxt.mapper.graduateDesign.custom.GradesigncheckgroupCustomMapper;
 import cn.xm.jwxt.service.graduateDesign.GradesigncheckgroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GradesigncheckgroupServiceImpl implements GradesigncheckgroupService {
 
     @Autowired
     private GradesigncheckgroupMapper gradesigncheckgroupMapper;
+
+    @Autowired
+    private GradesigncheckgroupCustomMapper gradesigncheckgroupCustomMapper;
 
     @Override
     public int countByExample(GradesigncheckgroupExample example) {
@@ -78,5 +83,15 @@ public class GradesigncheckgroupServiceImpl implements GradesigncheckgroupServic
     @Override
     public boolean updateByPrimaryKey(Gradesigncheckgroup record) {
         return gradesigncheckgroupMapper.updateByPrimaryKey(record)==1;
+    }
+
+    @Override
+    public Gradesigncheckgroup selectOneGradesigncheckgroup(String groupid) {
+        return gradesigncheckgroupCustomMapper.selectOneGradesigncheckgroup(groupid);
+    }
+
+    @Override
+    public List<Gradesigncheckgroup> selectGradesigncheckgroupList(Map<String, Object> map) {
+        return gradesigncheckgroupCustomMapper.selectGradesigncheckgroupList(map);
     }
 }

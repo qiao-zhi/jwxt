@@ -5,6 +5,7 @@ import cn.xm.jwxt.bean.graduateDesign.CencheckbaseinfoExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 课程安排信息表Service
@@ -32,4 +33,6 @@ public interface CencheckbaseinfoService {
     boolean updateByPrimaryKeySelective(Cencheckbaseinfo record);
 
     boolean updateByPrimaryKey(Cencheckbaseinfo record);
+
+    List<Cencheckbaseinfo> selectCencheckbaseinfoList(Map<String,Object> map);
 }

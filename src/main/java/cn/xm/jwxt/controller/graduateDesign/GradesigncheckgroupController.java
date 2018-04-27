@@ -14,6 +14,7 @@ import cn.xm.jwxt.bean.graduateDesign.Checkgroupperson;
 import cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonExample;
 import cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup;
 import cn.xm.jwxt.bean.graduateDesign.GradesigncheckgroupExample;
+import cn.xm.jwxt.mapper.graduateDesign.custom.GradesigncheckgroupCustomMapper;
 import cn.xm.jwxt.service.graduateDesign.CheckgrouppersonService;
 import cn.xm.jwxt.service.graduateDesign.GradesigncheckgroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -46,11 +49,31 @@ public class GradesigncheckgroupController {
     /*
     插入答辩小组及其成员信息
     当结果都为true之后，才能插入
+    （测试成功）
      */
-    @RequestMapping("add")
+    @RequestMapping("add.action")
     @ResponseBody
     public String addGradesigncheckgroup(Gradesigncheckgroup gradesigncheckgroup, List<Checkgroupperson> checkgrouppersonList){
-        String result = "";
+        //测试数据
+        gradesigncheckgroup.setGroupid("2");
+        gradesigncheckgroup.setGroupname("2号小组");
+        gradesigncheckgroup.setGrouptype("突击小组");
+        gradesigncheckgroup.setReplyaddress("18楼301");
+        gradesigncheckgroup.setReplyaddress("突击小组备注");
+        checkgrouppersonList = new ArrayList<Checkgroupperson>();
+        for (int i = 0 ;i<3;i++){
+            Checkgroupperson checkgroupperson = new Checkgroupperson();
+            checkgroupperson.setGropersonid(i+2);
+            checkgroupperson.setTeacherid("1");
+            checkgroupperson.setTeachername("呜呜");
+            checkgroupperson.setGroupid("2");
+            checkgroupperson.setGrouprole("组长");
+            checkgroupperson.setRemark("测试备注");
+            checkgrouppersonList.add(checkgroupperson);
+        }
+        //测试数据
+
+
         boolean b1 = gradesigncheckgroupService.insert(gradesigncheckgroup);
         boolean b2 = false;
         for (Checkgroupperson checkgroupperson:checkgrouppersonList){
@@ -59,57 +82,58 @@ public class GradesigncheckgroupController {
                 break;
             }
         }
-        if (b1 && b2){
-            result = "success";
-        }else {
-            result = "fail";
-        }
-        return result;
+        return b1 && b2?"success":"fail";
     }
 
     /*
-    更改小组信息
+    更改小组信息（测试成功）
      */
     @ResponseBody
-    @RequestMapping("update")
-    public String updateGradesigncheckgroup(String groupId){
+    @RequestMapping("update.action")
+    public String updateGradesigncheckgroup(Gradesigncheckgroup gradesigncheckgroup){
+        //假数据
+        gradesigncheckgroup = new Gradesigncheckgroup();
+        gradesigncheckgroup.setGroupid("1");
+        gradesigncheckgroup.setGroupname("1号小组");
+        gradesigncheckgroup.setGrouptype("检查小组");
+        gradesigncheckgroup.setReplyaddress("16楼301");
+        gradesigncheckgroup.setRemark("没有备注");
+        //假数据
         String result = "";
-        Gradesigncheckgroup gradesigncheckgroup = new Gradesigncheckgroup();
-        gradesigncheckgroup.setGroupid(groupId);
         result = gradesigncheckgroupService.updateByPrimaryKey(gradesigncheckgroup)?"success":"fail";
         return result;
     }
 
     /*
-    查询全部小组及其成员信息(未完成)
+    查询全部小组及其成员信息
      */
-    @RequestMapping("selectList")
-    public ModelAndView selectGradesigncheckgroupList(){
+    @RequestMapping("selectList.action")
+    public ModelAndView selectGradesigncheckgroupList(Gradesigncheckgroup gradesigncheckgroup){
         ModelAndView modelAndView = new ModelAndView();
         List<Gradesigncheckgroup> GradesigncheckgroupList = new ArrayList<Gradesigncheckgroup>();
-        GradesigncheckgroupExample gradesigncheckgroup = new GradesigncheckgroupExample();
-        GradesigncheckgroupList = gradesigncheckgroupService.selectByExample(gradesigncheckgroup);
+        Map<String ,Object> map = new HashMap<String, Object>();
+        map.put("groupid",gradesigncheckgroup.getGroupid());
+        map.put("groupname",gradesigncheckgroup.getGroupname());
+        map.put("grouptype",gradesigncheckgroup.getGrouptype());
+        map.put("replyaddress",gradesigncheckgroup.getReplyaddress());
+        map.put("remark",gradesigncheckgroup.getRemark());
+        GradesigncheckgroupList = gradesigncheckgroupService.selectGradesigncheckgroupList(map);
         modelAndView.addObject("GradesigncheckgroupList",GradesigncheckgroupList);
         modelAndView.setViewName("pages/graduateProgram/middleReport/middleReportSettle");
         return modelAndView;
     }
 
     /*
-    删除教师所属小组
+    删除小组及组内成员信息
      */
-    @RequestMapping("deleteGroup")
+    @RequestMapping("deleteGroup.action")
     @ResponseBody
     public String deleteGradesigncheckgroup(String groupId){
-        String result = "";
-        CheckgrouppersonExample checkgroupperson = new CheckgrouppersonExample();
-        checkgroupperson.setOrderByClause(groupId);
-        boolean b1 = checkgrouppersonService.deleteByExample(checkgroupperson);
+        CheckgrouppersonExample checkgrouppersonExample = new CheckgrouppersonExample();
+        CheckgrouppersonExample.Criteria criteria = checkgrouppersonExample.createCriteria();
+        criteria.andGroupidEqualTo(groupId);
+        boolean b1 = checkgrouppersonService.deleteByExample(checkgrouppersonExample);
         boolean b2 = gradesigncheckgroupService.deleteByPrimaryKey(groupId);
-        if (b1 && b2){
-            result = "success";
-        }else {
-            result = "fail";
-        }
-        return result;
+        return b1 && b2?"success":"fail";
     }
 }

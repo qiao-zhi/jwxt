@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+import java.util.List;
+
 /**
  * 中期和后期毕设答辩检查小组表
  */
@@ -13,6 +15,16 @@ public class Gradesigncheckgroup {
     private String replyaddress;
 
     private String remark;
+
+    private List<Checkgroupperson> checkgrouppersonList;
+
+    public List<Checkgroupperson> getCheckgrouppersonList() {
+        return checkgrouppersonList;
+    }
+
+    public void setCheckgrouppersonList(List<Checkgroupperson> checkgrouppersonList) {
+        this.checkgrouppersonList = checkgrouppersonList;
+    }
 
     public String getGroupid() {
         return groupid;
