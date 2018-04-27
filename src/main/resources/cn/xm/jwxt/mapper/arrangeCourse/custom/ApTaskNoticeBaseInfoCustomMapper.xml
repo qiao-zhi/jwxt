@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskNoticeBaseInfoCustomMapper" >
+    <!--根据任务通知书ID修改是否删除字段-->
+    <update id="updateIsDeleteById">
+        UPDATE ap_task_notice_base_info SET is_delete =#{value} WHERE notice_book_id = #{taskNoticeBaseInfo}
+    </update>
+</mapper>
