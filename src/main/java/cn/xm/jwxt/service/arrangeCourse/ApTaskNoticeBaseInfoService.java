@@ -12,6 +12,7 @@ import java.util.Map;
  * 创建时间：2018/4/24 12:03
  */
 public interface ApTaskNoticeBaseInfoService {
+
     /**
      * 添加教学任务通知书基本信息
      * @param noticeBaseInfo
@@ -46,5 +47,5 @@ public interface ApTaskNoticeBaseInfoService {
      * @return
      * @throws Exception
      */
-    List<ApTaskNoticeBaseInfo> findApTaskNoticeBaseInfoByCondition(Map condition) throws Exception;
+    List<ApTaskNoticeBaseInfo> findApTaskNoticeBaseInfoByCondition(Map condition,Integer currentPage,Integer pageSize) throws Exception;
 }
