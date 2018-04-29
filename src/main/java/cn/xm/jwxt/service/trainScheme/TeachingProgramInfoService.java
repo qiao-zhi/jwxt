@@ -48,10 +48,10 @@ public interface TeachingProgramInfoService {
     public boolean updateTeachingProgramInfo(int teachingprogramInfoId,TTeachingprogramInfo teachingprogramInfo) throws SQLException;
 
     /**
-     * 在线预览培训资料信息(主要是预览pdf文件)
-     * @param teachingprogramInfo
+     * 根据课程编号查询课程教学资料信息(主要是预览pdf文件)
+     * @param courseId   课程编号
      * @return
      * @throws SQLException
      */
-    public TTeachingprogramInfo getTeachingProgramInfo(TTeachingprogramInfo teachingprogramInfo) throws SQLException;
+    public List<TTeachingprogramInfo> getTeachingProgramInfoByCourseId(String  courseId) throws SQLException;
 }

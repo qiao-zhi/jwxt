@@ -30,7 +30,7 @@ public interface CourseBaseInfoService {
     public boolean addCourseBaseInfo(TCourseBaseInfo courseBaseInfo)throws SQLException;
 
     /**
-     * 根据编号删除课程信息
+     * 根据编号删除课程信息(修改remark1,标记为0)
      * @param courseId
      * @return
      * @throws SQLException

@@ -129,7 +129,17 @@ public class CourseBaseInfoController {
         return result;
     }
 
-
+    @RequestMapping("/deleteCourseById")
+    public @ResponseBody String deleteCourseById(String courseid){
+        String result = null;
+        try {
+            result = courseBaseInfoService.deleteCourseBaseInfoById(courseid)?"删除成功":"删除失败";
+        } catch (SQLException e) {
+            result = "删除失败";
+            logger.error("删除课程信息失败",e);
+        }
+        return result;
+    }
 
 
 

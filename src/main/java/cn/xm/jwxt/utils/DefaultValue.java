@@ -26,5 +26,9 @@ public class DefaultValue {
      * 代表正在使用(未删除)
      */
     public static final String IS_USE = "1";
+    /**
+     * 默认的课程下载的文件名字
+     */
+    public static final String COURSE_DEFAULT_FILENAME = "课程信息.xls";
 
 }

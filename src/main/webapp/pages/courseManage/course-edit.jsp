@@ -36,6 +36,14 @@
     </script>
     <% }%>
     <%--E    复制性新增的操作--%>
+    <script>
+        //页面加载完成执行一些操作
+        $(function () {
+            updateCourseBaseInfo();//修改基本信息相关操作
+            initUpdateForm();//初始化layui的修改的提交表单
+            queryCourseFileInfoForDeleteFile();//查看课程教学资料信息
+        })
+    </script>
 
 
 
@@ -47,7 +55,7 @@
     <form class="layui-form" id="updateForm">
 
         <%--隐藏课程主键--%>
-        <input type="hidden" name="courseid">
+        <input type="hidden" name="courseid" value="<%=courseId %>">
 
 
         <!--1-->
@@ -280,6 +288,30 @@
         </div>
         <!---->
     </form>
+
+    <%--S 课程教学资料用于修改--%>
+    <h3>教学资料信息</h3>
+    <%--开始的时候表格不显示，只有当表格有数据才显示表格--%>
+    <center id="promptLabel" style="display: none;">
+        <h1>您还没有课程资料，请先上传培训资料</h1>
+    </center>
+    <table class="layui-table" style="display: none" id="courseFileTable">
+        <thead>
+        <tr>
+            <th>资料类型</th>
+            <th>资料名称</th>
+            <th>删除资料</th>
+        </tr>
+        </thead>
+        <tbody id="courseFileTbody">
+        <%--异步往这里填充数据--%>
+        </tbody>
+    </table>
+    <%--E 课程教学资料用于修改--%>
+
+
+
+
 </div>
 <script>
 
@@ -294,9 +326,6 @@
         if(""==val)
             $("#xueshi").val("请输入学分");
     }
-
-    updateCourseBaseInfo();//修改基本信息相关操作
-
 </script>
 
 </body>

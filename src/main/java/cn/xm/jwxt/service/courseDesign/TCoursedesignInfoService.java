@@ -2,7 +2,6 @@ package cn.xm.jwxt.service.courseDesign;
 
 import cn.xm.jwxt.bean.courseDesign.TCoursedesignArrange;
 import cn.xm.jwxt.bean.courseDesign.TCoursedesignInfo;
-import cn.xm.jwxt.bean.trainScheme.Trainschemecoursedesign;
 
 import java.sql.SQLException;
 import java.util.List;

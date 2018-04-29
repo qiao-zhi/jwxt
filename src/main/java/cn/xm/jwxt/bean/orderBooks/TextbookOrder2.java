@@ -13,11 +13,11 @@ public class TextbookOrder2 {
 
     private String teacherid;
 
+    private String isorder;
+
     private String isconfirm;
 
-    private String remark1;
-
-    private String remark2;
+    private String remark;
 
     public String getOrderdetailid2() {
         return orderdetailid2;
@@ -67,6 +67,14 @@ public class TextbookOrder2 {
         this.teacherid = teacherid == null ? null : teacherid.trim();
     }
 
+    public String getIsorder() {
+        return isorder;
+    }
+
+    public void setIsorder(String isorder) {
+        this.isorder = isorder == null ? null : isorder.trim();
+    }
+
     public String getIsconfirm() {
         return isconfirm;
     }
@@ -75,19 +83,11 @@ public class TextbookOrder2 {
         this.isconfirm = isconfirm == null ? null : isconfirm.trim();
     }
 
-    public String getRemark1() {
-        return remark1;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setRemark1(String remark1) {
-        this.remark1 = remark1 == null ? null : remark1.trim();
-    }
-
-    public String getRemark2() {
-        return remark2;
-    }
-
-    public void setRemark2(String remark2) {
-        this.remark2 = remark2 == null ? null : remark2.trim();
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }
