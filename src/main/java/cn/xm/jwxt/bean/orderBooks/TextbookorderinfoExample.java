@@ -575,6 +575,286 @@ public class TextbookorderinfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsorderIsNull() {
+            addCriterion("isOrder is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderIsNotNull() {
+            addCriterion("isOrder is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderEqualTo(String value) {
+            addCriterion("isOrder =", value, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderNotEqualTo(String value) {
+            addCriterion("isOrder <>", value, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderGreaterThan(String value) {
+            addCriterion("isOrder >", value, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderGreaterThanOrEqualTo(String value) {
+            addCriterion("isOrder >=", value, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderLessThan(String value) {
+            addCriterion("isOrder <", value, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderLessThanOrEqualTo(String value) {
+            addCriterion("isOrder <=", value, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderLike(String value) {
+            addCriterion("isOrder like", value, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderNotLike(String value) {
+            addCriterion("isOrder not like", value, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderIn(List<String> values) {
+            addCriterion("isOrder in", values, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderNotIn(List<String> values) {
+            addCriterion("isOrder not in", values, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderBetween(String value1, String value2) {
+            addCriterion("isOrder between", value1, value2, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsorderNotBetween(String value1, String value2) {
+            addCriterion("isOrder not between", value1, value2, "isorder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckIsNull() {
+            addCriterion("isCheck is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckIsNotNull() {
+            addCriterion("isCheck is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckEqualTo(String value) {
+            addCriterion("isCheck =", value, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckNotEqualTo(String value) {
+            addCriterion("isCheck <>", value, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckGreaterThan(String value) {
+            addCriterion("isCheck >", value, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckGreaterThanOrEqualTo(String value) {
+            addCriterion("isCheck >=", value, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckLessThan(String value) {
+            addCriterion("isCheck <", value, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckLessThanOrEqualTo(String value) {
+            addCriterion("isCheck <=", value, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckLike(String value) {
+            addCriterion("isCheck like", value, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckNotLike(String value) {
+            addCriterion("isCheck not like", value, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckIn(List<String> values) {
+            addCriterion("isCheck in", values, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckNotIn(List<String> values) {
+            addCriterion("isCheck not in", values, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckBetween(String value1, String value2) {
+            addCriterion("isCheck between", value1, value2, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscheckNotBetween(String value1, String value2) {
+            addCriterion("isCheck not between", value1, value2, "ischeck");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalIsNull() {
+            addCriterion("checkProposal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalIsNotNull() {
+            addCriterion("checkProposal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalEqualTo(String value) {
+            addCriterion("checkProposal =", value, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalNotEqualTo(String value) {
+            addCriterion("checkProposal <>", value, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalGreaterThan(String value) {
+            addCriterion("checkProposal >", value, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalGreaterThanOrEqualTo(String value) {
+            addCriterion("checkProposal >=", value, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalLessThan(String value) {
+            addCriterion("checkProposal <", value, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalLessThanOrEqualTo(String value) {
+            addCriterion("checkProposal <=", value, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalLike(String value) {
+            addCriterion("checkProposal like", value, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalNotLike(String value) {
+            addCriterion("checkProposal not like", value, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalIn(List<String> values) {
+            addCriterion("checkProposal in", values, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalNotIn(List<String> values) {
+            addCriterion("checkProposal not in", values, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalBetween(String value1, String value2) {
+            addCriterion("checkProposal between", value1, value2, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckproposalNotBetween(String value1, String value2) {
+            addCriterion("checkProposal not between", value1, value2, "checkproposal");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteIsNull() {
+            addCriterion("proposalNote is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteIsNotNull() {
+            addCriterion("proposalNote is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteEqualTo(String value) {
+            addCriterion("proposalNote =", value, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteNotEqualTo(String value) {
+            addCriterion("proposalNote <>", value, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteGreaterThan(String value) {
+            addCriterion("proposalNote >", value, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteGreaterThanOrEqualTo(String value) {
+            addCriterion("proposalNote >=", value, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteLessThan(String value) {
+            addCriterion("proposalNote <", value, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteLessThanOrEqualTo(String value) {
+            addCriterion("proposalNote <=", value, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteLike(String value) {
+            addCriterion("proposalNote like", value, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteNotLike(String value) {
+            addCriterion("proposalNote not like", value, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteIn(List<String> values) {
+            addCriterion("proposalNote in", values, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteNotIn(List<String> values) {
+            addCriterion("proposalNote not in", values, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteBetween(String value1, String value2) {
+            addCriterion("proposalNote between", value1, value2, "proposalnote");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposalnoteNotBetween(String value1, String value2) {
+            addCriterion("proposalNote not between", value1, value2, "proposalnote");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarkIsNull() {
             addCriterion("remark is null");
             return (Criteria) this;

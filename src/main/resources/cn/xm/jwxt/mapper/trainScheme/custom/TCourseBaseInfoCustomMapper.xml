@@ -21,6 +21,10 @@
             <if test="endcredit !=null and endcredit!=''">
                 and credit+0 &lt;= #{endcredit}+0
             </if>
+            <!--查询正在使用的课程信息-->
+            <if test="1==1">
+               and remark1='1'
+           </if>
         </where>
     </select>
 

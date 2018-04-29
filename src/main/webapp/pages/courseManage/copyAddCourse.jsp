@@ -36,6 +36,15 @@
         </script>
     <% }%>
     <%--E    复制性新增的操作--%>
+    <script>
+        //页面加载完成后执行一些操作
+        $(function(){
+            copAddFun();//复制性新增相关操作
+        });
+    </script>
+
+
+
 
 
 
@@ -289,9 +298,6 @@
 		if(""==val)
 		$("#xueshi").val("请输入学分");
 	}
-
-    copAddFun();//复制性新增相关操作
-	
 </script>
 
 </body>
