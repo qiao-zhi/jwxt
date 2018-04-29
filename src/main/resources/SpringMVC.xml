@@ -27,10 +27,10 @@
                         <value>text/html;charset=UTF-8</value>
                     </list>
                 </property>
+
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
 
 
     <!-- 2.扫描@Controler @Service -->

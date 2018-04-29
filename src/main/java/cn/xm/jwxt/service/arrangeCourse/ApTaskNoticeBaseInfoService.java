@@ -1,6 +1,8 @@
 package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -47,5 +49,5 @@ public interface ApTaskNoticeBaseInfoService {
      * @return
      * @throws Exception
      */
-    List<ApTaskNoticeBaseInfo> findApTaskNoticeBaseInfoByCondition(Map condition,Integer currentPage,Integer pageSize) throws Exception;
+    PageInfo<ApTaskNoticeBaseInfo> findApTaskNoticeBaseInfoByCondition(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception;
 }

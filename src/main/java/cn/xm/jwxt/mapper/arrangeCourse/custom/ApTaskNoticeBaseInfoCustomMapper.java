@@ -1,9 +1,12 @@
 package cn.xm.jwxt.mapper.arrangeCourse.custom;
 
+import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.core.support.SqlLobValue;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * 项目名称：jwxt
@@ -20,4 +23,12 @@ public interface ApTaskNoticeBaseInfoCustomMapper {
      * @throws SQLException
      */
     int updateIsDeleteById(@Param("taskNoticeBaseInfo") String taskNoticeBaseInfo, @Param("value")String value) throws SQLException;
+
+    /**
+     * 组合条件查询教学任务通知书信息分页显示
+     * @param condition
+     * @return
+     * @throws SQLException
+     */
+    List<ApTaskNoticeBaseInfo> findTaskNoticeInfoListByCondition(CommonQueryVo condition) throws SQLException;
 }

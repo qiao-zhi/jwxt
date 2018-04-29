@@ -65,6 +65,11 @@
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
+                    <li>
+                        <a _href="pages/arrangeCourse/adviceBook.jsp">
+                            <cite>通知书管理</cite>
+                        </a>
+                    </li>
                 	<li>
                         <a _href="pages/arrangeCourse/scheduleTask.html">
                             <cite>任务管理</cite>
