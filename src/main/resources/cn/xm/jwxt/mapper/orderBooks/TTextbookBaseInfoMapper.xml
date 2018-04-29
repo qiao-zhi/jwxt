@@ -10,7 +10,7 @@
     <result column="author" property="author" jdbcType="VARCHAR" />
     <result column="isbn" property="isbn" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DOUBLE" />
-    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,7 +72,7 @@
   </sql>
   <sql id="Base_Column_List" >
     textbookID, textbookNUM, courseID, textbookName, publishingHouse, author, isbn, price, 
-    remark2
+    remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.orderBooks.TTextbookBaseInfoExample" >
     select
@@ -107,12 +107,10 @@
   <insert id="insert" parameterType="cn.xm.jwxt.bean.orderBooks.TTextbookBaseInfo" >
     insert into t_textbook_base_info (textbookID, textbookNUM, courseID, 
       textbookName, publishingHouse, author, 
-      isbn, price, remark2
-      )
+      isbn, price, remark)
     values (#{textbookid,jdbcType=VARCHAR}, #{textbooknum,jdbcType=VARCHAR}, #{courseid,jdbcType=VARCHAR}, 
       #{textbookname,jdbcType=VARCHAR}, #{publishinghouse,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
-      #{isbn,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{remark2,jdbcType=VARCHAR}
-      )
+      #{isbn,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.orderBooks.TTextbookBaseInfo" >
     insert into t_textbook_base_info
@@ -141,8 +139,8 @@
       <if test="price != null" >
         price,
       </if>
-      <if test="remark2 != null" >
-        remark2,
+      <if test="remark != null" >
+        remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -170,8 +168,8 @@
       <if test="price != null" >
         #{price,jdbcType=DOUBLE},
       </if>
-      <if test="remark2 != null" >
-        #{remark2,jdbcType=VARCHAR},
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -208,8 +206,8 @@
       <if test="record.price != null" >
         price = #{record.price,jdbcType=DOUBLE},
       </if>
-      <if test="record.remark2 != null" >
-        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -226,7 +224,7 @@
       author = #{record.author,jdbcType=VARCHAR},
       isbn = #{record.isbn,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DOUBLE},
-      remark2 = #{record.remark2,jdbcType=VARCHAR}
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -255,8 +253,8 @@
       <if test="price != null" >
         price = #{price,jdbcType=DOUBLE},
       </if>
-      <if test="remark2 != null" >
-        remark2 = #{remark2,jdbcType=VARCHAR},
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where textbookID = #{textbookid,jdbcType=VARCHAR}
@@ -270,7 +268,7 @@
       author = #{author,jdbcType=VARCHAR},
       isbn = #{isbn,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
-      remark2 = #{remark2,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR}
     where textbookID = #{textbookid,jdbcType=VARCHAR}
   </update>
 </mapper>

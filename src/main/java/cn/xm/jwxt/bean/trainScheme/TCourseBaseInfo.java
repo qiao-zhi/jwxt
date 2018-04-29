@@ -1,7 +1,7 @@
 package cn.xm.jwxt.bean.trainScheme;
 
 public class TCourseBaseInfo {
-    private String courseid;//课程编号
+    private String courseid;//课程主键
 
     private String coursenum;//课程编号
 

@@ -17,6 +17,14 @@ public class Textbookorderinfo {
 
     private String semester;
 
+    private String isorder;
+
+    private String ischeck;
+
+    private String checkproposal;
+
+    private String proposalnote;
+
     private String remark;
 
     public Integer getOrderid() {
@@ -73,6 +81,38 @@ public class Textbookorderinfo {
 
     public void setSemester(String semester) {
         this.semester = semester == null ? null : semester.trim();
+    }
+
+    public String getIsorder() {
+        return isorder;
+    }
+
+    public void setIsorder(String isorder) {
+        this.isorder = isorder == null ? null : isorder.trim();
+    }
+
+    public String getIscheck() {
+        return ischeck;
+    }
+
+    public void setIscheck(String ischeck) {
+        this.ischeck = ischeck == null ? null : ischeck.trim();
+    }
+
+    public String getCheckproposal() {
+        return checkproposal;
+    }
+
+    public void setCheckproposal(String checkproposal) {
+        this.checkproposal = checkproposal == null ? null : checkproposal.trim();
+    }
+
+    public String getProposalnote() {
+        return proposalnote;
+    }
+
+    public void setProposalnote(String proposalnote) {
+        this.proposalnote = proposalnote == null ? null : proposalnote.trim();
     }
 
     public String getRemark() {

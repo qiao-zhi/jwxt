@@ -17,7 +17,7 @@ public class TTextbookBaseInfo {
 
     private Double price;
 
-    private String remark2;
+    private String remark;
 
     public String getTextbookid() {
         return textbookid;
@@ -83,11 +83,11 @@ public class TTextbookBaseInfo {
         this.price = price;
     }
 
-    public String getRemark2() {
-        return remark2;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setRemark2(String remark2) {
-        this.remark2 = remark2 == null ? null : remark2.trim();
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

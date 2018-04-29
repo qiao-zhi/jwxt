@@ -15,13 +15,20 @@
     <script type="text/javascript" src="../../lib/layui/lay/modules/layui-xtree.js"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
 
+
+    <%--S       qlq引入的--%>
     <%--引入公共的标签--%>
     <%@ include file="/tag.jsp" %>
     <!--qlq引入的课程管理的JS-->
     <script type="text/javascript" src="../../js/trainScheme/courseLibrary.js" charset="utf-8"></script>
-
-
-
+    <%--页面加载完成后执行一些函数--%>
+    <script>
+        //页面初始化的时候执行一些JS函数
+        $(function () {
+            queryCourseFY();//分页查询课程信息
+        });
+    </script>
+    <%--E         qlq引入的--%>
 
 
 
@@ -54,6 +61,10 @@
     <!--查询-->
     <div class="layui-row">
 
+        <%--隐藏弹出修改窗口时候的index--%>
+            <input type="hidden" id="hidden_update_index">
+
+
         <form class="layui-form layui-col-md12 x-so" id="queryCourseForm">
             <%--隐藏两个，一个当前页，一个页号--%>
                 <%--当前页--%>
@@ -73,7 +84,7 @@
                     <option value="教学环节">教学环节</option>
                 </select>
             </div>
-           
+
             <div class="layui-input-inline">
                 <select name="coursenature">
                 	<option value="">请选择课程性质</option>
@@ -89,7 +100,7 @@
                     <option value="4-1000">4分以上</option>
                 </select>
             </div>
-           
+
             <button class="layui-btn" type="button" onclick="queryCourseFYBtn()"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
@@ -100,13 +111,13 @@
         <button class="layui-btn" onclick="x_admin_show('新增课程','./addCourse.jsp')">新增 </button>
         <button class="layui-btn" onclick="copyAndUpdateAdd()">复制性新增 </button>
         <button class="layui-btn" onclick="openUploadLayer()">上传教学资料 </button>
-        <button class="layui-btn layui-btn-normal" >导出 </button>
+        <button class="layui-btn layui-btn-normal" onclick="downloadCourses()">导出 </button>
     </xblock>
     <!--end 操作区域-->
  <script>
     	var chooseCourse=0;//判断是否选中课程
     	function panduan(){
-    		$(".layui-form-checkbox").each(function() { 
+    		$(".layui-form-checkbox").each(function() {
 				if ($(this).hasClass("layui-form-checked")) {
 					chooseCourse++;
 				}
@@ -136,10 +147,10 @@
     			layer.alert('请先选择需要导出的课程');
     		}
     		chooseCourse=0;//清空值
-    		
+
     	}
-    	
-    	
+
+
     </script>
     <!--表格内容-->
     <table class="layui-table">

@@ -4,6 +4,7 @@ import cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo;
 import cn.xm.jwxt.mapper.trainScheme.TCourseBaseInfoMapper;
 import cn.xm.jwxt.mapper.trainScheme.custom.TCourseBaseInfoCustomMapper;
 import cn.xm.jwxt.service.trainScheme.CourseBaseInfoService;
+import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.UUIDUtil;
 import cn.xm.jwxt.utils.ValidateCheck;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.Map;
  */
 @Service//service层
 @SuppressWarnings("all")//压制警告
-public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
+public class   CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     @Autowired
     private TCourseBaseInfoMapper tCourseBaseInfoMapper;
     @Autowired
@@ -40,17 +41,24 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         }
         // remark1用于标记是否正在使用，1代表正在使用，0代表已经删除。
         if(ValidateCheck.isNull(courseBaseInfo.getRemark1())){
-            courseBaseInfo.setRemark1("1");
+            courseBaseInfo.setRemark1(DefaultValue.IS_USE);
         }
         return tCourseBaseInfoMapper.insert(courseBaseInfo)>0?true:false;
     }
 
+    @CacheEvict(value = "coursesFy",allEntries =true )//清掉分页的redis缓存
     @Override
     public boolean deleteCourseBaseInfoById(String courseId) throws SQLException {
-        return false;
+        TCourseBaseInfo tCourseBaseInfo = new TCourseBaseInfo();
+        tCourseBaseInfo.setCourseid(courseId);
+        tCourseBaseInfo.setRemark1(DefaultValue.IS_NOT_USE);
+        return tCourseBaseInfoMapper.updateByPrimaryKeySelective(tCourseBaseInfo)>0?true:false;
     }
 
-    @CacheEvict(value = "courseBaseInfo" , key = "'courseBaseInfo_'+#courseBaseInfo.courseid.toString()")//清除对应的缓存
+
+
+//    @CacheEvict(value = {"courseBaseInfo","coursesFy"} , key = "'courseBaseInfo_'+#courseBaseInfo.courseid.toString()")//清除对应的缓存
+    @CacheEvict(value = {"courseBaseInfo","coursesFy"} , allEntries = true)//清除对应的缓存
     @Override
     public boolean updateCourseBaseInfoById(TCourseBaseInfo courseBaseInfo) throws SQLException {
         return tCourseBaseInfoMapper.updateByPrimaryKeySelective(courseBaseInfo)>0?true:false;
