@@ -6,7 +6,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd ">
 
 
-    <!-- 开启aop，对类代理 -->
+
+    <!-- 0.开启aop，对类代理 -->
+
     <aop:config proxy-target-class="true"></aop:config>
     <!-- 开启shiro注解支持 -->
 
@@ -15,9 +17,31 @@
     <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
     <!-- 处理器适配器 -->
     <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
-    <!-- 注解驱动，代替上面两个 -->
-    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean" />
-    <!-- 视图解释器 -->
+    <!-- 1.注解驱动，代替上面两个,配置JSON转换器与防止中文乱码 -->
+    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean" >
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8" />
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+    <!-- 2.扫描@Controler @Service -->
+    <context:component-scan base-package="cn.xm.jwxt.controller" />
+    <context:component-scan base-package="cn.xm.jwxt.service" />
+    <context:component-scan base-package="cn.xm.jwxt.utils" />
+
+
+    <!-- 3.视图解释器 -->
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/" />
@@ -25,24 +49,8 @@
     </bean>
 
 
-    <!-- 设定消息转换的编码为utf-8防止controller返回中文乱码 -->
-    <bean
-            class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <bean
-                        class="org.springframework.http.converter.StringHttpMessageConverter">
-                    <property name="supportedMediaTypes">
-                        <list>
-                            <value>text/html;charset=UTF-8</value>
-                        </list>
-                    </property>
-                </bean>
-            </list>
-        </property>
-    </bean>
 
-    <!-- 配置Conveter转换器 转换工厂 （日期、去掉前后空格）。。 -->
+    <!-- 4.配置Conveter转换器 转换工厂 （日期、去掉前后空格）。。 -->
     <bean id="conversionServiceFactoryBean"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <!-- 配置 多个转换器 -->
@@ -54,6 +62,20 @@
                     class="com.itheima.springmvc.conversion.DateConveter" /> -->
             </list>
         </property>
+    </bean>
+
+
+
+
+    <!--文件上传配置-->
+    <!-- 注意：CommonsMultipartResolver的id是固定不变的，一定是multipartResolver，不可修改 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 如果上传后出现文件名中文乱码可以使用该属性解决 -->
+        <property name="defaultEncoding" value="utf-8"/>
+        <!-- 单位是字节，不设置默认不限制总的上传文件大小，这里设置总的上传文件大小不超过1M（1*1024*1024） -->
+        <property name="maxUploadSize" value="104857600"/>
+        <!-- 跟maxUploadSize差不多，不过maxUploadSizePerFile是限制每个上传文件的大小，而maxUploadSize是限制总的上传文件大小 -->
+        <property name="maxUploadSizePerFile" value="104857600"/>
     </bean>
 
 

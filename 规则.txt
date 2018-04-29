@@ -1,2 +1,5 @@
 1.男性用 1       DefaultValue.SEX_MALE
   女性用 2       DefaultValue.SEX_FEMALE
+2.系统中许多标记是否删除的东西用0表示未使用，1表示正在使用
+    未删除 DefaultValue.IS_NOT_USE
+    已删除 DefaultValue.IS_USE

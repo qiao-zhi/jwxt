@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.ApArrangeCourseTaskMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask" >
+    <id column="arrange_task_id" property="arrangeTaskId" jdbcType="VARCHAR" />
+    <result column="notice_book_id" property="noticeBookId" jdbcType="VARCHAR" />
+    <result column="notice_book_name" property="noticeBookName" jdbcType="VARCHAR" />
+    <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+    <result column="major_id" property="majorId" jdbcType="VARCHAR" />
+    <result column="academic_year" property="academicYear" jdbcType="VARCHAR" />
+    <result column="term" property="term" jdbcType="CHAR" />
+    <result column="originator_name" property="originatorName" jdbcType="VARCHAR" />
+    <result column="originator_id" property="originatorId" jdbcType="VARCHAR" />
+    <result column="task_create_time" property="taskCreateTime" jdbcType="TIMESTAMP" />
+    <result column="task_receipt_time" property="taskReceiptTime" jdbcType="TIMESTAMP" />
+    <result column="task_receipt_name" property="taskReceiptName" jdbcType="VARCHAR" />
+    <result column="task_receipt_id" property="taskReceiptId" jdbcType="VARCHAR" />
+    <result column="task_status" property="taskStatus" jdbcType="CHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    arrange_task_id, notice_book_id, notice_book_name, major_name, major_id, academic_year, 
+    term, originator_name, originator_id, task_create_time, task_receipt_time, task_receipt_name, 
+    task_receipt_id, task_status, is_delete, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ap_arrange_course_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ap_arrange_course_task
+    where arrange_task_id = #{arrangeTaskId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ap_arrange_course_task
+    where arrange_task_id = #{arrangeTaskId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTaskExample" >
+    delete from ap_arrange_course_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask" >
+    insert into ap_arrange_course_task (arrange_task_id, notice_book_id, notice_book_name, 
+      major_name, major_id, academic_year, 
+      term, originator_name, originator_id, 
+      task_create_time, task_receipt_time, task_receipt_name, 
+      task_receipt_id, task_status, is_delete, 
+      remark)
+    values (#{arrangeTaskId,jdbcType=VARCHAR}, #{noticeBookId,jdbcType=VARCHAR}, #{noticeBookName,jdbcType=VARCHAR}, 
+      #{majorName,jdbcType=VARCHAR}, #{majorId,jdbcType=VARCHAR}, #{academicYear,jdbcType=VARCHAR}, 
+      #{term,jdbcType=CHAR}, #{originatorName,jdbcType=VARCHAR}, #{originatorId,jdbcType=VARCHAR}, 
+      #{taskCreateTime,jdbcType=TIMESTAMP}, #{taskReceiptTime,jdbcType=TIMESTAMP}, #{taskReceiptName,jdbcType=VARCHAR}, 
+      #{taskReceiptId,jdbcType=VARCHAR}, #{taskStatus,jdbcType=CHAR}, #{isDelete,jdbcType=CHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask" >
+    insert into ap_arrange_course_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="arrangeTaskId != null" >
+        arrange_task_id,
+      </if>
+      <if test="noticeBookId != null" >
+        notice_book_id,
+      </if>
+      <if test="noticeBookName != null" >
+        notice_book_name,
+      </if>
+      <if test="majorName != null" >
+        major_name,
+      </if>
+      <if test="majorId != null" >
+        major_id,
+      </if>
+      <if test="academicYear != null" >
+        academic_year,
+      </if>
+      <if test="term != null" >
+        term,
+      </if>
+      <if test="originatorName != null" >
+        originator_name,
+      </if>
+      <if test="originatorId != null" >
+        originator_id,
+      </if>
+      <if test="taskCreateTime != null" >
+        task_create_time,
+      </if>
+      <if test="taskReceiptTime != null" >
+        task_receipt_time,
+      </if>
+      <if test="taskReceiptName != null" >
+        task_receipt_name,
+      </if>
+      <if test="taskReceiptId != null" >
+        task_receipt_id,
+      </if>
+      <if test="taskStatus != null" >
+        task_status,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="arrangeTaskId != null" >
+        #{arrangeTaskId,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeBookId != null" >
+        #{noticeBookId,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeBookName != null" >
+        #{noticeBookName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null" >
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorId != null" >
+        #{majorId,jdbcType=VARCHAR},
+      </if>
+      <if test="academicYear != null" >
+        #{academicYear,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null" >
+        #{term,jdbcType=CHAR},
+      </if>
+      <if test="originatorName != null" >
+        #{originatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="originatorId != null" >
+        #{originatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCreateTime != null" >
+        #{taskCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskReceiptTime != null" >
+        #{taskReceiptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskReceiptName != null" >
+        #{taskReceiptName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskReceiptId != null" >
+        #{taskReceiptId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null" >
+        #{taskStatus,jdbcType=CHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTaskExample" resultType="java.lang.Integer" >
+    select count(*) from ap_arrange_course_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ap_arrange_course_task
+    <set >
+      <if test="record.arrangeTaskId != null" >
+        arrange_task_id = #{record.arrangeTaskId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeBookId != null" >
+        notice_book_id = #{record.noticeBookId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeBookName != null" >
+        notice_book_name = #{record.noticeBookName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorName != null" >
+        major_name = #{record.majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorId != null" >
+        major_id = #{record.majorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.academicYear != null" >
+        academic_year = #{record.academicYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.term != null" >
+        term = #{record.term,jdbcType=CHAR},
+      </if>
+      <if test="record.originatorName != null" >
+        originator_name = #{record.originatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originatorId != null" >
+        originator_id = #{record.originatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskCreateTime != null" >
+        task_create_time = #{record.taskCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.taskReceiptTime != null" >
+        task_receipt_time = #{record.taskReceiptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.taskReceiptName != null" >
+        task_receipt_name = #{record.taskReceiptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskReceiptId != null" >
+        task_receipt_id = #{record.taskReceiptId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskStatus != null" >
+        task_status = #{record.taskStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ap_arrange_course_task
+    set arrange_task_id = #{record.arrangeTaskId,jdbcType=VARCHAR},
+      notice_book_id = #{record.noticeBookId,jdbcType=VARCHAR},
+      notice_book_name = #{record.noticeBookName,jdbcType=VARCHAR},
+      major_name = #{record.majorName,jdbcType=VARCHAR},
+      major_id = #{record.majorId,jdbcType=VARCHAR},
+      academic_year = #{record.academicYear,jdbcType=VARCHAR},
+      term = #{record.term,jdbcType=CHAR},
+      originator_name = #{record.originatorName,jdbcType=VARCHAR},
+      originator_id = #{record.originatorId,jdbcType=VARCHAR},
+      task_create_time = #{record.taskCreateTime,jdbcType=TIMESTAMP},
+      task_receipt_time = #{record.taskReceiptTime,jdbcType=TIMESTAMP},
+      task_receipt_name = #{record.taskReceiptName,jdbcType=VARCHAR},
+      task_receipt_id = #{record.taskReceiptId,jdbcType=VARCHAR},
+      task_status = #{record.taskStatus,jdbcType=CHAR},
+      is_delete = #{record.isDelete,jdbcType=CHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask" >
+    update ap_arrange_course_task
+    <set >
+      <if test="noticeBookId != null" >
+        notice_book_id = #{noticeBookId,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeBookName != null" >
+        notice_book_name = #{noticeBookName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null" >
+        major_name = #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorId != null" >
+        major_id = #{majorId,jdbcType=VARCHAR},
+      </if>
+      <if test="academicYear != null" >
+        academic_year = #{academicYear,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null" >
+        term = #{term,jdbcType=CHAR},
+      </if>
+      <if test="originatorName != null" >
+        originator_name = #{originatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="originatorId != null" >
+        originator_id = #{originatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCreateTime != null" >
+        task_create_time = #{taskCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskReceiptTime != null" >
+        task_receipt_time = #{taskReceiptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskReceiptName != null" >
+        task_receipt_name = #{taskReceiptName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskReceiptId != null" >
+        task_receipt_id = #{taskReceiptId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null" >
+        task_status = #{taskStatus,jdbcType=CHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where arrange_task_id = #{arrangeTaskId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask" >
+    update ap_arrange_course_task
+    set notice_book_id = #{noticeBookId,jdbcType=VARCHAR},
+      notice_book_name = #{noticeBookName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      major_id = #{majorId,jdbcType=VARCHAR},
+      academic_year = #{academicYear,jdbcType=VARCHAR},
+      term = #{term,jdbcType=CHAR},
+      originator_name = #{originatorName,jdbcType=VARCHAR},
+      originator_id = #{originatorId,jdbcType=VARCHAR},
+      task_create_time = #{taskCreateTime,jdbcType=TIMESTAMP},
+      task_receipt_time = #{taskReceiptTime,jdbcType=TIMESTAMP},
+      task_receipt_name = #{taskReceiptName,jdbcType=VARCHAR},
+      task_receipt_id = #{taskReceiptId,jdbcType=VARCHAR},
+      task_status = #{taskStatus,jdbcType=CHAR},
+      is_delete = #{isDelete,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where arrange_task_id = #{arrangeTaskId,jdbcType=VARCHAR}
+  </update>
+</mapper>

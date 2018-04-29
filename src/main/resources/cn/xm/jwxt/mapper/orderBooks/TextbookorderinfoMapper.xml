@@ -9,6 +9,10 @@
     <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="yearNum" property="yearnum" jdbcType="VARCHAR" />
     <result column="semester" property="semester" jdbcType="VARCHAR" />
+    <result column="isOrder" property="isorder" jdbcType="VARCHAR" />
+    <result column="isCheck" property="ischeck" jdbcType="VARCHAR" />
+    <result column="checkProposal" property="checkproposal" jdbcType="VARCHAR" />
+    <result column="proposalNote" property="proposalnote" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -70,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    orderid, orderName, roomName, createPerson, createTime, yearNum, semester, remark
+    orderid, orderName, roomName, createPerson, createTime, yearNum, semester, isOrder, 
+    isCheck, checkProposal, proposalNote, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookorderinfoExample" >
     select
@@ -105,10 +110,14 @@
   <insert id="insert" parameterType="cn.xm.jwxt.bean.orderBooks.Textbookorderinfo" >
     insert into textbookorderinfo (orderid, orderName, roomName, 
       createPerson, createTime, yearNum, 
-      semester, remark)
+      semester, isOrder, isCheck, 
+      checkProposal, proposalNote, remark
+      )
     values (#{orderid,jdbcType=INTEGER}, #{ordername,jdbcType=VARCHAR}, #{roomname,jdbcType=VARCHAR}, 
       #{createperson,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{yearnum,jdbcType=VARCHAR}, 
-      #{semester,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+      #{semester,jdbcType=VARCHAR}, #{isorder,jdbcType=VARCHAR}, #{ischeck,jdbcType=VARCHAR}, 
+      #{checkproposal,jdbcType=VARCHAR}, #{proposalnote,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.orderBooks.Textbookorderinfo" >
     insert into textbookorderinfo
@@ -133,6 +142,18 @@
       </if>
       <if test="semester != null" >
         semester,
+      </if>
+      <if test="isorder != null" >
+        isOrder,
+      </if>
+      <if test="ischeck != null" >
+        isCheck,
+      </if>
+      <if test="checkproposal != null" >
+        checkProposal,
+      </if>
+      <if test="proposalnote != null" >
+        proposalNote,
       </if>
       <if test="remark != null" >
         remark,
@@ -159,6 +180,18 @@
       </if>
       <if test="semester != null" >
         #{semester,jdbcType=VARCHAR},
+      </if>
+      <if test="isorder != null" >
+        #{isorder,jdbcType=VARCHAR},
+      </if>
+      <if test="ischeck != null" >
+        #{ischeck,jdbcType=VARCHAR},
+      </if>
+      <if test="checkproposal != null" >
+        #{checkproposal,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalnote != null" >
+        #{proposalnote,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -195,6 +228,18 @@
       <if test="record.semester != null" >
         semester = #{record.semester,jdbcType=VARCHAR},
       </if>
+      <if test="record.isorder != null" >
+        isOrder = #{record.isorder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ischeck != null" >
+        isCheck = #{record.ischeck,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkproposal != null" >
+        checkProposal = #{record.checkproposal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proposalnote != null" >
+        proposalNote = #{record.proposalnote,jdbcType=VARCHAR},
+      </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -212,6 +257,10 @@
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
       yearNum = #{record.yearnum,jdbcType=VARCHAR},
       semester = #{record.semester,jdbcType=VARCHAR},
+      isOrder = #{record.isorder,jdbcType=VARCHAR},
+      isCheck = #{record.ischeck,jdbcType=VARCHAR},
+      checkProposal = #{record.checkproposal,jdbcType=VARCHAR},
+      proposalNote = #{record.proposalnote,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -238,6 +287,18 @@
       <if test="semester != null" >
         semester = #{semester,jdbcType=VARCHAR},
       </if>
+      <if test="isorder != null" >
+        isOrder = #{isorder,jdbcType=VARCHAR},
+      </if>
+      <if test="ischeck != null" >
+        isCheck = #{ischeck,jdbcType=VARCHAR},
+      </if>
+      <if test="checkproposal != null" >
+        checkProposal = #{checkproposal,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalnote != null" >
+        proposalNote = #{proposalnote,jdbcType=VARCHAR},
+      </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -252,6 +313,10 @@
       createTime = #{createtime,jdbcType=TIMESTAMP},
       yearNum = #{yearnum,jdbcType=VARCHAR},
       semester = #{semester,jdbcType=VARCHAR},
+      isOrder = #{isorder,jdbcType=VARCHAR},
+      isCheck = #{ischeck,jdbcType=VARCHAR},
+      checkProposal = #{checkproposal,jdbcType=VARCHAR},
+      proposalNote = #{proposalnote,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where orderid = #{orderid,jdbcType=INTEGER}
   </update>

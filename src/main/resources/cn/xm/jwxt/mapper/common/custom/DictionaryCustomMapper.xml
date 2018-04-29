@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.common.custom.DictionaryCustomMapper" >
+
+  <!--根据上级字典Id查询下一个要插入的下一级字典的编号-->
+<select id="getNextDictionaryId" parameterType="string" resultType="string">
+  SELECT  IFNULL(MAX(dictionaryId),'0') FROM dictionary WHERE updictionaryID = #{value}
+</select>
+
+  <!--批量删除-->
+<delete id="deleteDictionaryBatch" parameterType="java.util.List">
+  DELETE from dictionary where dictionaryId in
+  <foreach collection="list" item="dictionaryId" separator="," open="(" close=")">
+    #{dictionaryId}
+  </foreach>
+</delete>
+
+  <!--分页查询-->
+  <select id="getDictionaryByConditon" resultType="map" parameterType="cn.xm.jwxt.bean.common.Dictionary">
+    select * from dictionary
+    <where>
+      <if test="dictionaryName != null">
+        and dictionaryName like '%${dictionaryName}%'
+      </if>
+    </where>
+  </select>
+
+  <!--根据上级字典编号查询字典名称和字典编号-->
+  <select id="getDictionaryIdAndNamesByUpId" resultType="map" parameterType="string">
+     SELECT  dictionaryId,dictionaryName  FROM dictionary WHERE updictionaryID = #{value}
+  </select>
+
+
+<!--获取字典树-->
+  <select id="getDictionaryTree" resultType="map">
+          SELECT  dictionaryId, dictionaryName, updictionaryID  FROM dictionary
+  </select>
+
+
+</mapper>

@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 毕设任务进度表Service
+ */
 public interface GraduatetaskprogressinfoService {
     int countByExample(GraduatetaskprogressinfoExample example);
 

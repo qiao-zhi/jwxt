@@ -32,22 +32,22 @@ public class StudenttitleresultServiceImpl implements StudenttitleresultService 
 
     @Override
     public boolean deleteByExample(StudenttitleresultExample example) {
-        return studenttitleresultMapper.deleteByExample(example)==1?true:false;
+        return studenttitleresultMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(String studenttitleresultid) {
-        return studenttitleresultMapper.deleteByPrimaryKey(studenttitleresultid)==1?true:false;
+        return studenttitleresultMapper.deleteByPrimaryKey(studenttitleresultid)==1;
     }
 
     @Override
     public boolean insert(Studenttitleresult record) {
-        return studenttitleresultMapper.insert(record)==1?true:false;
+        return studenttitleresultMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Studenttitleresult record) {
-        return studenttitleresultMapper.insertSelective(record)==1?true:false;
+        return studenttitleresultMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class StudenttitleresultServiceImpl implements StudenttitleresultService 
 
     @Override
     public boolean updateByExampleSelective(Studenttitleresult record, StudenttitleresultExample example) {
-        return studenttitleresultMapper.updateByExampleSelective(record, example)==1?true:false;
+        return studenttitleresultMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Studenttitleresult record, StudenttitleresultExample example) {
-        return studenttitleresultMapper.updateByExample(record, example)==1?true:false;
+        return studenttitleresultMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Studenttitleresult record) {
-        return studenttitleresultMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return studenttitleresultMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Studenttitleresult record) {
-        return studenttitleresultMapper.updateByPrimaryKey(record)==1?true:false;
+        return studenttitleresultMapper.updateByPrimaryKey(record)==1;
     }
 }

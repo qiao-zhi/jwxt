@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.custom.CencheckbaseinfoCustomMapper" >
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.Cencheckbaseinfo" id="oneCencheckbaseinfoResultMap" autoMapping="true">
+        <id property="cencheckinfoid" column="cencheckinfoid" />
+
+        <collection property="cencheckarrangeinfoList"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Cencheckarrangeinfo">
+            <id column="cenArrangeInfoId" property="cenarrangeinfoid"/>
+            <result column="cenCheckInfoid" property="cencheckinfoid"/>
+        </collection>
+
+    </resultMap>
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.Cencheckbaseinfo" id="CencheckbaseinfoListResultMap" autoMapping="true">
+        <id property="cencheckinfoid" column="cencheckinfoid" />
+
+        <collection property="cencheckarrangeinfoList"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Cencheckarrangeinfo">
+            <id column="cenArrangeInfoId" property="cenarrangeinfoid"/>
+            <result column="cenCheckInfoid" property="cencheckinfoid"/>
+        </collection>
+
+    </resultMap>
+
+
+    <select id="selectOneCencheckbaseinfo" resultMap="oneCencheckbaseinfoResultMap">
+        SELECT
+        b.cencheckinfoid,b.starttime,b.endtime,b.arrangePerson,b.arrangeTime,b.description,
+        a.cenArrangeInfoId,a.cenCheckInfoid,a.teacherid,a.groupid,a.bookid
+        FROM
+        cenCheckBaseInfo b,cenCheckArrangeInfo a
+        WHERE
+        b.cenCheckInfoid = a.cenCheckInfoid
+        AND
+        b.cenCheckInfoid = #{cenCheckInfoid}
+    </select>
+
+    <select id="selectCencheckbaseinfoList" resultMap="CencheckbaseinfoListResultMap">
+        SELECT
+        b.cencheckinfoid,b.starttime,b.endtime,b.arrangePerson,b.arrangeTime,b.description,
+        a.cenArrangeInfoId,a.cenCheckInfoid,a.teacherid,a.groupid,a.bookid
+        FROM
+        cenCheckBaseInfo b,cenCheckArrangeInfo a
+        <where>
+            <if test="1==1">
+                b.cenCheckInfoid = a.cenCheckInfoid
+            </if>
+            <if test="cencheckinfoid != null">
+                and b.cencheckinfoid = #{cencheckinfoid}
+            </if>
+            <if test="endtime != null">
+                and b.endtime = #{endtime}
+            </if>
+            <if test="starttime != null">
+                and b.starttime = #{starttime}
+            </if>
+            <if test="arrangeperson != null">
+                and b.arrangeperson like CONCAT('%', #{arrangeperson}, '%')
+            </if>
+            <if test="arrangetime != null">
+                and b.arrangetime like CONCAT('%', #{arrangetime}, '%')
+            </if>
+            <if test="description != null">
+                and b.description like CONCAT('%', #{description}, '%')
+            </if>
+        </where>
+        <if test="page != null and limit != null">
+            limit #{page},#{limit}
+        </if>
+    </select>
+
+</mapper>

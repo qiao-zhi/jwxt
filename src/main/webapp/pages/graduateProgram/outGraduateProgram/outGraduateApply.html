@@ -14,6 +14,12 @@
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
+    <style>
+        tbody tr td:first-child{
+            color:#01AAED;
+            cursor: pointer
+        }
+    </style>
 </head>
 
 <body>
@@ -41,7 +47,8 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('查看校外毕设要求','./title-check.html')">查看校外毕设要求 </button>
+        <button class="layui-btn" onclick="x_admin_show('查看校外毕设要求','./outGraduateApply-require.html')">查看校外毕设要求 </button>
+        <button class="layui-btn" onclick="x_admin_show('下载模板','./outGraduateApply-download.html')">下载模板 </button>
     </xblock>
     <!--end 操作区域-->
 
@@ -58,13 +65,13 @@
         </thead>
         <tbody>
         <tr>
-            <td style="color:#01AAED;cursor: pointer" onclick="x_admin_show('***表','./outGraduateApply-add.html')">***表</td>
+            <td title="点击上传" onclick="x_admin_show('***表','./outGraduateApply-add.html')">***表</td>
             <td>未上传</td>
-            <td>不通过</td>
+            <td>导员审核通过，待院长审核</td>
             <td>不通过</td>
         </tr>
         <tr>
-            <td style="color:#01AAED;cursor: pointer" onclick="x_admin_show('***表','./outGraduateApply-add.html')">***表</td>
+            <td title="点击上传" onclick="x_admin_show('***表','./outGraduateApply-add.html')">***表</td>
             <td>未上传</td>
             <td>不通过</td>
             <td>不通过</td>

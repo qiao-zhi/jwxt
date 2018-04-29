@@ -68,7 +68,15 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 	    <property name="dataSource" ref="dataSource"></property>
 	</bean>
-	
+
+
 	<!-- 5.开启注解管理aop事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+	<!-- 6.扫描@Controler @Service -->
+	<context:component-scan base-package="cn.xm.jwxt.controller" />
+	<context:component-scan base-package="cn.xm.jwxt.service" />
+	<context:component-scan base-package="cn.xm.jwxt.utils" />
+
 </beans>

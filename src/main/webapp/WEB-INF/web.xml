@@ -5,12 +5,7 @@
          id="WebApp_ID" version="2.5">
   <display-name>jwxt</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-<!--    <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>-->
   </welcome-file-list>
 
 
@@ -60,6 +55,12 @@
         结尾的请求 肯定能使用 ERP 3. / 拦截所有 （不包括jsp) (包含.js .png.css) 强烈建议使用 前台 面向消费者 www.jd.com/search
         /对静态资源放行 -->
     <url-pattern>*.action</url-pattern>
+  </servlet-mapping>
+
+<!--配置多个请求的方式-->
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>*.do</url-pattern>
   </servlet-mapping>
 
 </web-app>

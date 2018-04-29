@@ -33,96 +33,76 @@
         <tbody>
         <tr>
             <td>学院（直属系）</td>
-            <td>
-                <input type="text">
-            </td>
+            <td></td>
             <td>教研室</td>
-            <td>
-                <input type="text">
-            </td>
+            <td></td>
         </tr>
         <tr>
             <td>指导教师</td>
-            <td>
-                <input type="text">
-            </td>
+            <td></td>
             <td>检查人</td>
-            <td>
-                <input type="text">
-            </td>
+            <td></td>
         </tr>
         <tr>
             <td>学生姓名</td>
-            <td>
-                <input type="text">
-            </td>
+            <td></td>
             <td>学  号</td>
-            <td>
-                <input type="text">
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <textarea class="layui-textarea" name="" cols="100" rows="8">工作进度情况（对照学生的计划进程表和任务书）：</textarea>
             </td>
         </tr>
         <tr>
             <td colspan="4">
-                <textarea name="" cols="100" rows="8">工作进度情况（对照学生的计划进程表和任务书）：
-                </textarea>
+                <textarea class="layui-textarea" name="" cols="100" rows="8">工作态度情况（学生对毕业设计、毕业论文的认真程度、纪律及出勤情况；指导教师具体指导情况）：</textarea>
             </td>
         </tr>
         <tr>
             <td colspan="4">
-                <textarea name="" cols="100" rows="8">工作态度情况（学生对毕业设计、毕业论文的认真程度、纪律及出勤情况；指导教师具体指导情况）：
-                </textarea>
+                <textarea class="layui-textarea" name="" cols="100" rows="8">质量评价（学生前期已完成工作的质量情况）：</textarea>
             </td>
         </tr>
         <tr>
             <td colspan="4">
-                <textarea name="" cols="100" rows="8">质量评价（学生前期已完成工作的质量情况）：
-                </textarea>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4">
-                <textarea name="" cols="100" rows="8">存在的问题与建议：
-                </textarea>
+                <textarea class="layui-textarea" name="" cols="100" rows="8">存在的问题与建议：</textarea>
             </td>
         </tr>
         </tbody>
     </table>
-    <p style="text-align: right">填表时间： <input type="text" class="y_date">    年   <input type="text" class="y_date">    月   <input class="y_date" type="text">    日</p>
-    说明：<p>1、此表由学院（直属系）教学院长（主任）组织相关检查人员填写；<br/>
-        2、此表一式两份，一份附入学生毕业设计（论文）资料袋内，一份交学院（直属系）。
-    </p>
+    <div style="float: right">
+        <label for="L_pass" class="layui-form-label">
+            时间：
+        </label>
+        <div class="layui-input-inline" style="width: 135px">
+            <input type="text" class="layui-input" id="L_pass">
+        </div>
+    </div>
+    <div style="clear:both">
+        说明：<p>1、此表由学院（直属系）教学院长（主任）组织相关检查人员填写；<br/>
+            2、此表一式两份，一份附入学生毕业设计（论文）资料袋内，一份交学院（直属系）。
+        </p>
+    </div>
 
 </div>
 <script>
-    //照片上传
-    layui.use('upload', function () {
-        var $ = layui.jquery, upload = layui.upload;
-        var uploadInst = upload.render({
-            elem: '#test1'
-            , url: '/upload/'
-            , before: function (obj) {
-                //预读本地文件示例，不支持ie8
-                obj.preview(function (index, file, result) {
-                    $('#demo1').attr('src', result); //图片链接（base64）
-                });
-            }
-            , done: function (res) {
-                //如果上传失败
-                if (res.code > 0) {
-                    return layer.msg('上传失败');
-                }
-                //上传成功
-            }
-            , error: function () {
-                //演示失败状态，并实现重传
-                var demoText = $('#demoText');
-                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function () {
-                    uploadInst.upload();
-                });
-            }
+    /*时间*/
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#L_pass' //指定元素
+            ,format: 'yyyy年MM月dd日'
         });
-    })//end 照片上传
+    })
+    var myDate = new Date;
+    var year = myDate.getFullYear();//获取当前年
+    var month = myDate.getMonth()+1;//获取当前月
+    var date = myDate.getDate();
+    if (month < 10) month = "0" + month;
+    if (date < 10) date = "0" + date;
+
+    $("#L_pass").val(year + "年" + month + "月" + date + "日");
 </script>
 </body>
 

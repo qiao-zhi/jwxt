@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.trainScheme;
 
+/**
+ * 课程教学资料
+ */
 public class TTeachingprogramInfo {
     private Integer coursefileid;
 
