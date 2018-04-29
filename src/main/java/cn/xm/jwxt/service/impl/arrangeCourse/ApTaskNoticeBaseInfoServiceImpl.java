@@ -2,11 +2,16 @@ package cn.xm.jwxt.service.impl.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfo;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfoExample;
+import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.mapper.arrangeCourse.ApTaskNoticeBaseInfoMapper;
 import cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskNoticeBaseInfoCustomMapper;
 import cn.xm.jwxt.service.arrangeCourse.ApTaskNoticeBaseInfoService;
 import cn.xm.jwxt.utils.DefaultValue;
+import cn.xm.jwxt.utils.UUIDUtil;
 import cn.xm.jwxt.utils.ValidateCheck;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +44,12 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
      */
     @Override
     public boolean addApTaskNoticeBaseInfo(ApTaskNoticeBaseInfo noticeBaseInfo) throws Exception {
+        //设置主键
+        noticeBaseInfo.setNoticeBookId(UUIDUtil.getUUID2());
+        //是否删除字段默认使用
+        noticeBaseInfo.setIsDelete(DefaultValue.IS_USE);
+        //默认未导入文件
+        noticeBaseInfo.setIsInput(DefaultValue.IS_NOT_USE);
         int count = taskNoticeBaseInfoMapper.insertSelective(noticeBaseInfo);
         return count>0?true:false;
     }
@@ -89,8 +100,14 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
      * @throws Exception
      */
     @Override
-    public List<ApTaskNoticeBaseInfo> findApTaskNoticeBaseInfoByCondition(Map condition,Integer currentPage,Integer pageSize) throws Exception {
-
-        return null;
+    public PageInfo<ApTaskNoticeBaseInfo> findApTaskNoticeBaseInfoByCondition(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception {
+        if(currentPage==null||pageSize==null){
+            throw new IllegalArgumentException("分页参数传递错误！");
+        }
+        //采用PageHelper插件进行分页
+        PageHelper.startPage(currentPage,pageSize,"create_time DESC");
+        List<ApTaskNoticeBaseInfo> listInfo = taskNoticeBaseInfoCustomMapper.findTaskNoticeInfoListByCondition(condition);
+        PageInfo<ApTaskNoticeBaseInfo> pageInfo = new PageInfo<ApTaskNoticeBaseInfo>(listInfo);
+        return pageInfo;
     }
 }

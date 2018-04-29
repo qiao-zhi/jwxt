@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.arrangeCourse;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class ApTaskNoticeBaseInfo {
@@ -90,7 +92,7 @@ public class ApTaskNoticeBaseInfo {
     public void setCreaterId(String createrId) {
         this.createrId = createrId == null ? null : createrId.trim();
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
