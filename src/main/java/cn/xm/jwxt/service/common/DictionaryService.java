@@ -59,7 +59,7 @@ public interface DictionaryService {
      * @return
      * @throws Exception
      */
-    public boolean updateDictionary(Dictionary dictionary) throws Exception;
+    public boolean updateDictionary(Dictionary dictionary) throws SQLException;
 
     /**
      * 根据条件分页查询字典信息
@@ -68,7 +68,7 @@ public interface DictionaryService {
      * @return  字典集合
      * @throws Exception
      */
-    public List<Dictionary> getDictionaryByConditon(Map<String, Object> condition) throws SQLException;
+    public List<Map<String,Object>> getDictionaryByConditon(Map<String, Object> condition) throws SQLException;
 
 
     /**
@@ -98,6 +98,6 @@ public interface DictionaryService {
      * @return
      * @throws Exception
      */
-    public Dictionary getDictionaryById(String dictionaryOptionId) throws Exception;
+    public Dictionary getDictionaryById(String dictionaryOptionId) throws SQLException;
 
 }
