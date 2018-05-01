@@ -17,8 +17,6 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		<property name="password" value="${jdbc.password}"></property>
 	</bean>
 	
-	
-	
 	<!--2. 配置 Mybatis的会话工厂 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 数据源 -->
