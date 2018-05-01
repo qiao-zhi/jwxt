@@ -373,7 +373,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/dictionary.html">
+                        <a _href="pages/system/dictionary.jsp">
                             <cite>字典管理</cite>
                         </a>
                     </li>

@@ -16,11 +16,20 @@
 </delete>
 
   <!--分页查询-->
-  <select id="getDictionaryByConditon" resultType="map" parameterType="cn.xm.jwxt.bean.common.Dictionary">
-    select * from dictionary
+  <select id="getDictionaryByConditon" resultType="map" parameterType="map">
+    select dict.*,(select dictionaryName from dictionary where dict.updictionaryID = dictionary.dictionaryID) as upDictName from dictionary dict
     <where>
-      <if test="dictionaryName != null">
-        and dictionaryName like '%${dictionaryName}%'
+      <if test="dictionaryname != null and dictionaryname != ''">
+        and dictionaryname like '%${dictionaryname}%'
+      </if>
+      <if test="updictionaryid != null and updictionaryid != ''">
+        and updictionaryid = #{updictionaryid}
+      </if>
+      <if test="isuse != null and isuse != ''">
+        and isuse = #{isuse}
+      </if>
+      <if test="1 == 1">
+        and dictionaryID != '1'
       </if>
     </where>
   </select>

@@ -4,6 +4,7 @@ import cn.xm.jwxt.bean.common.Dictionary;
 import cn.xm.jwxt.mapper.common.DictionaryMapper;
 import cn.xm.jwxt.mapper.common.custom.DictionaryCustomMapper;
 import cn.xm.jwxt.service.common.DictionaryService;
+import org.apache.ibatis.jdbc.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,12 +50,12 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override
-    public boolean updateDictionary(Dictionary dictionary) throws Exception {
+    public boolean updateDictionary(Dictionary dictionary) throws SQLException {
         return dictionaryMapper.updateByPrimaryKeySelective(dictionary)>0?true:false;
     }
 
     @Override
-    public List<Dictionary> getDictionaryByConditon(Map<String, Object> condition) throws SQLException {
+    public List<Map<String,Object>> getDictionaryByConditon(Map<String, Object> condition) throws SQLException {
         return dictionaryCustomMapper.getDictionaryByConditon(condition);
     }
 
@@ -69,7 +70,7 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override
-    public Dictionary getDictionaryById(String dictionaryOptionId) throws Exception {
+    public Dictionary getDictionaryById(String dictionaryOptionId) throws SQLException {
         return dictionaryMapper.selectByPrimaryKey(dictionaryOptionId);
     }
 }
