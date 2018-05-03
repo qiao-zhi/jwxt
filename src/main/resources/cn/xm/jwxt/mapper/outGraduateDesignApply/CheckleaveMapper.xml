@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.CheckleaveMapper" >
   <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Checkleave" >
-    <id column="checkLeaveID" property="checkleaveid" jdbcType="INTEGER" />
-    <result column="leaveID" property="leaveid" jdbcType="INTEGER" />
+    <id column="checkLeaveID" property="checkleaveid" jdbcType="VARCHAR" />
+    <result column="leaveID" property="leaveid" jdbcType="VARCHAR" />
     <result column="checkPeople" property="checkpeople" jdbcType="VARCHAR" />
     <result column="checkOpinion" property="checkopinion" jdbcType="VARCHAR" />
     <result column="teacherSign" property="teachersign" jdbcType="VARCHAR" />
     <result column="result" property="result" jdbcType="VARCHAR" />
     <result column="applyTime" property="applytime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    checkLeaveID, leaveID, checkPeople, checkOpinion, teacherSign, result, applyTime
+    checkLeaveID, leaveID, checkPeople, checkOpinion, teacherSign, result, applyTime, 
+    remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.CheckleaveExample" >
     select
@@ -85,15 +87,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from checkleave
-    where checkLeaveID = #{checkleaveid,jdbcType=INTEGER}
+    where checkLeaveID = #{checkleaveid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from checkleave
-    where checkLeaveID = #{checkleaveid,jdbcType=INTEGER}
+    where checkLeaveID = #{checkleaveid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.CheckleaveExample" >
     delete from checkleave
@@ -104,10 +106,10 @@
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Checkleave" >
     insert into checkleave (checkLeaveID, leaveID, checkPeople, 
       checkOpinion, teacherSign, result, 
-      applyTime)
-    values (#{checkleaveid,jdbcType=INTEGER}, #{leaveid,jdbcType=INTEGER}, #{checkpeople,jdbcType=VARCHAR}, 
+      applyTime, remark)
+    values (#{checkleaveid,jdbcType=VARCHAR}, #{leaveid,jdbcType=VARCHAR}, #{checkpeople,jdbcType=VARCHAR}, 
       #{checkopinion,jdbcType=VARCHAR}, #{teachersign,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, 
-      #{applytime,jdbcType=TIMESTAMP})
+      #{applytime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Checkleave" >
     insert into checkleave
@@ -133,13 +135,16 @@
       <if test="applytime != null" >
         applyTime,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="checkleaveid != null" >
-        #{checkleaveid,jdbcType=INTEGER},
+        #{checkleaveid,jdbcType=VARCHAR},
       </if>
       <if test="leaveid != null" >
-        #{leaveid,jdbcType=INTEGER},
+        #{leaveid,jdbcType=VARCHAR},
       </if>
       <if test="checkpeople != null" >
         #{checkpeople,jdbcType=VARCHAR},
@@ -156,6 +161,9 @@
       <if test="applytime != null" >
         #{applytime,jdbcType=TIMESTAMP},
       </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.CheckleaveExample" resultType="java.lang.Integer" >
@@ -168,10 +176,10 @@
     update checkleave
     <set >
       <if test="record.checkleaveid != null" >
-        checkLeaveID = #{record.checkleaveid,jdbcType=INTEGER},
+        checkLeaveID = #{record.checkleaveid,jdbcType=VARCHAR},
       </if>
       <if test="record.leaveid != null" >
-        leaveID = #{record.leaveid,jdbcType=INTEGER},
+        leaveID = #{record.leaveid,jdbcType=VARCHAR},
       </if>
       <if test="record.checkpeople != null" >
         checkPeople = #{record.checkpeople,jdbcType=VARCHAR},
@@ -188,6 +196,9 @@
       <if test="record.applytime != null" >
         applyTime = #{record.applytime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -195,13 +206,14 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update checkleave
-    set checkLeaveID = #{record.checkleaveid,jdbcType=INTEGER},
-      leaveID = #{record.leaveid,jdbcType=INTEGER},
+    set checkLeaveID = #{record.checkleaveid,jdbcType=VARCHAR},
+      leaveID = #{record.leaveid,jdbcType=VARCHAR},
       checkPeople = #{record.checkpeople,jdbcType=VARCHAR},
       checkOpinion = #{record.checkopinion,jdbcType=VARCHAR},
       teacherSign = #{record.teachersign,jdbcType=VARCHAR},
       result = #{record.result,jdbcType=VARCHAR},
-      applyTime = #{record.applytime,jdbcType=TIMESTAMP}
+      applyTime = #{record.applytime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,7 +222,7 @@
     update checkleave
     <set >
       <if test="leaveid != null" >
-        leaveID = #{leaveid,jdbcType=INTEGER},
+        leaveID = #{leaveid,jdbcType=VARCHAR},
       </if>
       <if test="checkpeople != null" >
         checkPeople = #{checkpeople,jdbcType=VARCHAR},
@@ -227,17 +239,21 @@
       <if test="applytime != null" >
         applyTime = #{applytime,jdbcType=TIMESTAMP},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
-    where checkLeaveID = #{checkleaveid,jdbcType=INTEGER}
+    where checkLeaveID = #{checkleaveid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Checkleave" >
     update checkleave
-    set leaveID = #{leaveid,jdbcType=INTEGER},
+    set leaveID = #{leaveid,jdbcType=VARCHAR},
       checkPeople = #{checkpeople,jdbcType=VARCHAR},
       checkOpinion = #{checkopinion,jdbcType=VARCHAR},
       teacherSign = #{teachersign,jdbcType=VARCHAR},
       result = #{result,jdbcType=VARCHAR},
-      applyTime = #{applytime,jdbcType=TIMESTAMP}
-    where checkLeaveID = #{checkleaveid,jdbcType=INTEGER}
+      applyTime = #{applytime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where checkLeaveID = #{checkleaveid,jdbcType=VARCHAR}
   </update>
 </mapper>

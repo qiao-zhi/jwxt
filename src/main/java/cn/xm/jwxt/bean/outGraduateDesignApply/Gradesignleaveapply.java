@@ -1,11 +1,14 @@
 package cn.xm.jwxt.bean.outGraduateDesignApply;
 
 import java.util.Date;
+import java.util.List;
 
 public class Gradesignleaveapply {
     private String leaveid;
 
     private String outsideapplyid;
+
+    private String tablename;
 
     private String studentname;
 
@@ -35,6 +38,31 @@ public class Gradesignleaveapply {
 
     private String iscancel;
 
+    private String remark;
+
+    /**
+     * 关联请假申请表和销假表
+     */
+    private Cancelleave cancelLeave;
+
+    private List<Checkleave> checkLeaves;
+
+    public Cancelleave getCancelLeave() {
+        return cancelLeave;
+    }
+
+    public void setCancelLeave(Cancelleave cancelLeave) {
+        this.cancelLeave = cancelLeave;
+    }
+
+    public List<Checkleave> getCheckLeaves() {
+        return checkLeaves;
+    }
+
+    public void setCheckLeaves(List<Checkleave> checkLeaves) {
+        this.checkLeaves = checkLeaves;
+    }
+
     public String getLeaveid() {
         return leaveid;
     }
@@ -49,6 +77,14 @@ public class Gradesignleaveapply {
 
     public void setOutsideapplyid(String outsideapplyid) {
         this.outsideapplyid = outsideapplyid == null ? null : outsideapplyid.trim();
+    }
+
+    public String getTablename() {
+        return tablename;
+    }
+
+    public void setTablename(String tablename) {
+        this.tablename = tablename == null ? null : tablename.trim();
     }
 
     public String getStudentname() {
@@ -161,5 +197,13 @@ public class Gradesignleaveapply {
 
     public void setIscancel(String iscancel) {
         this.iscancel = iscancel == null ? null : iscancel.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }
