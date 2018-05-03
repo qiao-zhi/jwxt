@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.courseDesign.custom.TCoursedesignInfoArrangeCustomMapper" >
+
+
+    <!--<resultMap id="needArrangeCourseDesignMap" type="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo">-->
+
+        <!--<id column="courseId" property="courseId" jdbcType="varchar"/>-->
+        <!--<result column="courseNum" property="courseNum" jdbcType="varchar"/>-->
+        <!--<result column="courseNameCN" property="courseNameCN" jdbcType="varchar"/>-->
+        <!--<result column="credit" property="credit" jdbcType="varchar"/>-->
+        <!--<result column="experimentHour" property="experimentHour" jdbcType="varchar"/>-->
+
+    <!--</resultMap>-->
+
+
+    <!--查询需要安排的课设-->
+    <select id="findNeedArrangeCourseDesign" parameterType="hashmap" resultType="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo">
+        SELECT
+            cbi.courseNum,
+            cbi.courseNameCN,
+            cbi.credit,
+            cbi.experimentHour
+          FROM
+           t_class_base_info class
+            JOIN train_course tc
+                ON class.trainingSchemeID = tc.trainningSchemeID
+            JOIN t_course_base_info cbi
+                ON tc.courseID = cbi.courseID
+            JOIN t_major_base_info mbi
+                ON class.majorID = mbi.majorID
+           WHERE
+            <trim suffixOverrides="AND">
+              <if test="grade!=null">
+                  class.grade = #{grade} AND
+              </if>
+              <if test="majorName!=null">
+                  mbi.majorName = #{majorName } AND
+              </if>
+              <if test="semester!=null">
+                  tc.semester = #{semester }
+              </if>
+            </trim>
+
+    </select>
+
+</mapper>

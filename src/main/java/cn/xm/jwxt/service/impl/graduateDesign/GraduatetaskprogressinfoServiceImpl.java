@@ -32,22 +32,22 @@ public class GraduatetaskprogressinfoServiceImpl implements Graduatetaskprogress
 
     @Override
     public boolean deleteByExample(GraduatetaskprogressinfoExample example) {
-        return graduatetaskprogressinfoMapper.deleteByExample(example)==1?true:false;
+        return graduatetaskprogressinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(Integer progressid) {
-        return graduatetaskprogressinfoMapper.deleteByPrimaryKey(progressid)==1?true:false;
+        return graduatetaskprogressinfoMapper.deleteByPrimaryKey(progressid)==1;
     }
 
     @Override
     public boolean insert(Graduatetaskprogressinfo record) {
-        return graduatetaskprogressinfoMapper.insert(record)==1?true:false;
+        return graduatetaskprogressinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Graduatetaskprogressinfo record) {
-        return graduatetaskprogressinfoMapper.insertSelective(record)==1?true:false;
+        return graduatetaskprogressinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class GraduatetaskprogressinfoServiceImpl implements Graduatetaskprogress
 
     @Override
     public boolean updateByExampleSelective(Graduatetaskprogressinfo record, GraduatetaskprogressinfoExample example) {
-        return graduatetaskprogressinfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return graduatetaskprogressinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Graduatetaskprogressinfo record, GraduatetaskprogressinfoExample example) {
-        return graduatetaskprogressinfoMapper.updateByExample(record, example)==1?true:false;
+        return graduatetaskprogressinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Graduatetaskprogressinfo record) {
-        return graduatetaskprogressinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return graduatetaskprogressinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Graduatetaskprogressinfo record) {
-        return graduatetaskprogressinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return graduatetaskprogressinfoMapper.updateByPrimaryKey(record)==1;
     }
 }

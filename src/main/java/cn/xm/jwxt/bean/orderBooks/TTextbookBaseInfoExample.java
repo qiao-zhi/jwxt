@@ -654,73 +654,73 @@ public class TTextbookBaseInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andRemark2IsNull() {
-            addCriterion("remark2 is null");
+        public Criteria andRemarkIsNull() {
+            addCriterion("remark is null");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2IsNotNull() {
-            addCriterion("remark2 is not null");
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("remark is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2EqualTo(String value) {
-            addCriterion("remark2 =", value, "remark2");
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("remark =", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2NotEqualTo(String value) {
-            addCriterion("remark2 <>", value, "remark2");
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("remark <>", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2GreaterThan(String value) {
-            addCriterion("remark2 >", value, "remark2");
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("remark >", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2GreaterThanOrEqualTo(String value) {
-            addCriterion("remark2 >=", value, "remark2");
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("remark >=", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2LessThan(String value) {
-            addCriterion("remark2 <", value, "remark2");
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("remark <", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2LessThanOrEqualTo(String value) {
-            addCriterion("remark2 <=", value, "remark2");
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("remark <=", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2Like(String value) {
-            addCriterion("remark2 like", value, "remark2");
+        public Criteria andRemarkLike(String value) {
+            addCriterion("remark like", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2NotLike(String value) {
-            addCriterion("remark2 not like", value, "remark2");
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("remark not like", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2In(List<String> values) {
-            addCriterion("remark2 in", values, "remark2");
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("remark in", values, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2NotIn(List<String> values) {
-            addCriterion("remark2 not in", values, "remark2");
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("remark not in", values, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2Between(String value1, String value2) {
-            addCriterion("remark2 between", value1, value2, "remark2");
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("remark between", value1, value2, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2NotBetween(String value1, String value2) {
-            addCriterion("remark2 not between", value1, value2, "remark2");
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
     }

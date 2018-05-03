@@ -32,22 +32,22 @@ public class TeachergredesigntitleServiceImpl implements TeachergredesigntitleSe
 
     @Override
     public boolean deleteByExample(TeachergredesigntitleExample example) {
-        return teachergredesigntitleMapper.deleteByExample(example)==1?true:false;
+        return teachergredesigntitleMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(String teachertitleid) {
-        return teachergredesigntitleMapper.deleteByPrimaryKey(teachertitleid)==1?true:false;
+        return teachergredesigntitleMapper.deleteByPrimaryKey(teachertitleid)==1;
     }
 
     @Override
     public boolean insert(Teachergredesigntitle record) {
-        return teachergredesigntitleMapper.insert(record)==1?true:false;
+        return teachergredesigntitleMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Teachergredesigntitle record) {
-        return teachergredesigntitleMapper.insertSelective(record)==1?true:false;
+        return teachergredesigntitleMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class TeachergredesigntitleServiceImpl implements TeachergredesigntitleSe
 
     @Override
     public boolean updateByExampleSelective(Teachergredesigntitle record, TeachergredesigntitleExample example) {
-        return teachergredesigntitleMapper.updateByExampleSelective(record, example)==1?true:false;
+        return teachergredesigntitleMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Teachergredesigntitle record, TeachergredesigntitleExample example) {
-        return teachergredesigntitleMapper.updateByExample(record, example)==1?true:false;
+        return teachergredesigntitleMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Teachergredesigntitle record) {
-        return teachergredesigntitleMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return teachergredesigntitleMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Teachergredesigntitle record) {
-        return teachergredesigntitleMapper.updateByPrimaryKey(record)==1?true:false;
+        return teachergredesigntitleMapper.updateByPrimaryKey(record)==1;
     }
 }

@@ -8,9 +8,9 @@
     <result column="noticeDatailId" property="noticedatailid" jdbcType="INTEGER" />
     <result column="orderNum" property="ordernum" jdbcType="SMALLINT" />
     <result column="teacherID" property="teacherid" jdbcType="VARCHAR" />
+    <result column="isOrder" property="isorder" jdbcType="VARCHAR" />
     <result column="isConfirm" property="isconfirm" jdbcType="VARCHAR" />
-    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
-    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    orderDetailID2, orderid, textbookID, noticeDatailId, orderNum, teacherID, isConfirm, 
-    remark1, remark2
+    orderDetailID2, orderid, textbookID, noticeDatailId, orderNum, teacherID, isOrder, 
+    isConfirm, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2Example" >
     select
@@ -107,11 +107,11 @@
   <insert id="insert" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2" >
     insert into textbook_order2 (orderDetailID2, orderid, textbookID, 
       noticeDatailId, orderNum, teacherID, 
-      isConfirm, remark1, remark2
+      isOrder, isConfirm, remark
       )
     values (#{orderdetailid2,jdbcType=VARCHAR}, #{orderid,jdbcType=INTEGER}, #{textbookid,jdbcType=VARCHAR}, 
       #{noticedatailid,jdbcType=INTEGER}, #{ordernum,jdbcType=SMALLINT}, #{teacherid,jdbcType=VARCHAR}, 
-      #{isconfirm,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}
+      #{isorder,jdbcType=VARCHAR}, #{isconfirm,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookOrder2" >
@@ -135,14 +135,14 @@
       <if test="teacherid != null" >
         teacherID,
       </if>
+      <if test="isorder != null" >
+        isOrder,
+      </if>
       <if test="isconfirm != null" >
         isConfirm,
       </if>
-      <if test="remark1 != null" >
-        remark1,
-      </if>
-      <if test="remark2 != null" >
-        remark2,
+      <if test="remark != null" >
+        remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -164,14 +164,14 @@
       <if test="teacherid != null" >
         #{teacherid,jdbcType=VARCHAR},
       </if>
+      <if test="isorder != null" >
+        #{isorder,jdbcType=VARCHAR},
+      </if>
       <if test="isconfirm != null" >
         #{isconfirm,jdbcType=VARCHAR},
       </if>
-      <if test="remark1 != null" >
-        #{remark1,jdbcType=VARCHAR},
-      </if>
-      <if test="remark2 != null" >
-        #{remark2,jdbcType=VARCHAR},
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -202,14 +202,14 @@
       <if test="record.teacherid != null" >
         teacherID = #{record.teacherid,jdbcType=VARCHAR},
       </if>
+      <if test="record.isorder != null" >
+        isOrder = #{record.isorder,jdbcType=VARCHAR},
+      </if>
       <if test="record.isconfirm != null" >
         isConfirm = #{record.isconfirm,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark1 != null" >
-        remark1 = #{record.remark1,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark2 != null" >
-        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -224,9 +224,9 @@
       noticeDatailId = #{record.noticedatailid,jdbcType=INTEGER},
       orderNum = #{record.ordernum,jdbcType=SMALLINT},
       teacherID = #{record.teacherid,jdbcType=VARCHAR},
+      isOrder = #{record.isorder,jdbcType=VARCHAR},
       isConfirm = #{record.isconfirm,jdbcType=VARCHAR},
-      remark1 = #{record.remark1,jdbcType=VARCHAR},
-      remark2 = #{record.remark2,jdbcType=VARCHAR}
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -249,14 +249,14 @@
       <if test="teacherid != null" >
         teacherID = #{teacherid,jdbcType=VARCHAR},
       </if>
+      <if test="isorder != null" >
+        isOrder = #{isorder,jdbcType=VARCHAR},
+      </if>
       <if test="isconfirm != null" >
         isConfirm = #{isconfirm,jdbcType=VARCHAR},
       </if>
-      <if test="remark1 != null" >
-        remark1 = #{remark1,jdbcType=VARCHAR},
-      </if>
-      <if test="remark2 != null" >
-        remark2 = #{remark2,jdbcType=VARCHAR},
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where orderDetailID2 = #{orderdetailid2,jdbcType=VARCHAR}
@@ -268,9 +268,9 @@
       noticeDatailId = #{noticedatailid,jdbcType=INTEGER},
       orderNum = #{ordernum,jdbcType=SMALLINT},
       teacherID = #{teacherid,jdbcType=VARCHAR},
+      isOrder = #{isorder,jdbcType=VARCHAR},
       isConfirm = #{isconfirm,jdbcType=VARCHAR},
-      remark1 = #{remark1,jdbcType=VARCHAR},
-      remark2 = #{remark2,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR}
     where orderDetailID2 = #{orderdetailid2,jdbcType=VARCHAR}
   </update>
 </mapper>

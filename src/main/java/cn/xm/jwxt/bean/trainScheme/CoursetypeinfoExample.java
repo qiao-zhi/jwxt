@@ -374,6 +374,76 @@ public class CoursetypeinfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andTrainingschemeidIsNull() {
+            addCriterion("trainingSchemeID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidIsNotNull() {
+            addCriterion("trainingSchemeID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidEqualTo(String value) {
+            addCriterion("trainingSchemeID =", value, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidNotEqualTo(String value) {
+            addCriterion("trainingSchemeID <>", value, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidGreaterThan(String value) {
+            addCriterion("trainingSchemeID >", value, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidGreaterThanOrEqualTo(String value) {
+            addCriterion("trainingSchemeID >=", value, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidLessThan(String value) {
+            addCriterion("trainingSchemeID <", value, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidLessThanOrEqualTo(String value) {
+            addCriterion("trainingSchemeID <=", value, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidLike(String value) {
+            addCriterion("trainingSchemeID like", value, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidNotLike(String value) {
+            addCriterion("trainingSchemeID not like", value, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidIn(List<String> values) {
+            addCriterion("trainingSchemeID in", values, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidNotIn(List<String> values) {
+            addCriterion("trainingSchemeID not in", values, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidBetween(String value1, String value2) {
+            addCriterion("trainingSchemeID between", value1, value2, "trainingschemeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainingschemeidNotBetween(String value1, String value2) {
+            addCriterion("trainingSchemeID not between", value1, value2, "trainingschemeid");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarkIsNull() {
             addCriterion("remark is null");
             return (Criteria) this;

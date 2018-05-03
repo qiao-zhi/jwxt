@@ -32,22 +32,22 @@ public class PleafileuploadinfoServiceImpl implements PleafileuploadinfoService 
 
     @Override
     public boolean deleteByExample(PleafileuploadinfoExample example) {
-        return pleafileuploadinfoMapper.deleteByExample(example)==1?true:false;
+        return pleafileuploadinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(Integer pleafileid) {
-        return pleafileuploadinfoMapper.deleteByPrimaryKey(pleafileid)==1?true:false;
+        return pleafileuploadinfoMapper.deleteByPrimaryKey(pleafileid)==1;
     }
 
     @Override
     public boolean insert(Pleafileuploadinfo record) {
-        return pleafileuploadinfoMapper.insert(record)==1?true:false;
+        return pleafileuploadinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Pleafileuploadinfo record) {
-        return pleafileuploadinfoMapper.insertSelective(record)==1?true:false;
+        return pleafileuploadinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class PleafileuploadinfoServiceImpl implements PleafileuploadinfoService 
 
     @Override
     public boolean updateByExampleSelective(Pleafileuploadinfo record, PleafileuploadinfoExample example) {
-        return pleafileuploadinfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return pleafileuploadinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Pleafileuploadinfo record, PleafileuploadinfoExample example) {
-        return pleafileuploadinfoMapper.updateByExample(record, example)==1?true:false;
+        return pleafileuploadinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Pleafileuploadinfo record) {
-        return pleafileuploadinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return pleafileuploadinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Pleafileuploadinfo record) {
-        return pleafileuploadinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return pleafileuploadinfoMapper.updateByPrimaryKey(record)==1;
     }
 }

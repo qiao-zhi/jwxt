@@ -6,8 +6,17 @@ xmlns:aop="http://www.springframework.org/schema/aop"
 xmlns:tx="http://www.springframework.org/schema/tx" 
 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
 
+	<context:component-scan base-package="cn.xm.jwxt.controller" />
+	<context:component-scan base-package="cn.xm.jwxt.service" />
+	<context:component-scan base-package="cn.xm.jwxt.utils" />
 	<!-- 0.连接池属性设置读取指定的properties文件 -->
 	<context:property-placeholder location="classpath:db.properties" ignore-unresolvable="true"/>
+
+	<!-- 扫描@Controler @Service -->
+	<context:component-scan base-package="cn.xm.jwxt.controller" />
+	<context:component-scan base-package="cn.xm.jwxt.service" />
+	<context:component-scan base-package="cn.xm.jwxt.utils" />
+
 
 	<!-- 1.将连接池放入spring容器 -->
 	<bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -59,7 +68,15 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 	    <property name="dataSource" ref="dataSource"></property>
 	</bean>
-	
+
+
 	<!-- 5.开启注解管理aop事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+	<!-- 6.扫描@Controler @Service -->
+	<context:component-scan base-package="cn.xm.jwxt.controller" />
+	<context:component-scan base-package="cn.xm.jwxt.service" />
+	<context:component-scan base-package="cn.xm.jwxt.utils" />
+
 </beans>
