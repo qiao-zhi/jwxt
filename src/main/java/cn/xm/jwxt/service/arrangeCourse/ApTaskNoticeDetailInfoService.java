@@ -1,6 +1,7 @@
 package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -34,8 +35,10 @@ public interface ApTaskNoticeDetailInfoService {
     /**
      * 根据通知书ID查询通知书明细信息分页显示
      * @param noticeId
+     * @param currentPage
+     * @param pageSize
      * @return
      * @throws Exception
      */
-    List<ApTaskNoticeDetailInfo> findApTaskNoticeDetailInfoByNoticeId(String noticeId) throws Exception;
+    PageInfo<ApTaskNoticeDetailInfo> findApTaskNoticeDetailInfoByNoticeId(String noticeId, Integer currentPage, Integer pageSize) throws Exception;
 }
