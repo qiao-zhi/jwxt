@@ -5,7 +5,7 @@ $(function(){
         var layer = layui.layer;
         var index1 = layer.load();
         $.ajax({
-            url:"/jwxt/outGraduateDesiner/loadApplyFile.do",
+            url:contextPath+"/outGraduateDesiner/loadApplyFile.do",
             type:"post",
             data:{"userID":userID},
             dataType:"json",
