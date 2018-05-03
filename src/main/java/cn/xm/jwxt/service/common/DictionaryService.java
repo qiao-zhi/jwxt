@@ -75,10 +75,10 @@ public interface DictionaryService {
      * 根据字典的上级编号查询字典的名称与编号(用于往下拉列表显示一些字典项)
      *
      * @param upDicId   上级字典ID
-     * @return
+     * @return  满足条件的字典项
      * @throws SQLException
      */
-    public List<Map<String, Object>> getDictionaryIdAndNamesByUpId(String upDicId) throws SQLException;
+    public List<Dictionary> getDictionaryIdAndNamesByUpId(String upDicId) throws SQLException;
 
     /**
      * 查询字典树信息

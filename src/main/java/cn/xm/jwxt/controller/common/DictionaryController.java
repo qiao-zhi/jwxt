@@ -124,4 +124,44 @@ public class DictionaryController {
         return result;
     }
 
+    /**
+     * 根据字典编号查询字典
+     * @param dictionaryId
+     * @return
+     */
+    @RequestMapping("/getDictionaryById")
+    public Dictionary getDictionaryById(String dictionaryId){
+        if(ValidateCheck.isNull(dictionaryId)){
+            dictionaryId="1";
+        }
+        Dictionary dictionary = null;
+        try {
+            dictionary = dictionaryService.getDictionaryById(dictionaryId);
+        } catch (SQLException e) {
+            logger.error("根据字典编号查询字典出错",e);
+        }
+        return dictionary;
+    }
+
+
+    /**
+     * 根据字典上级编号查询下级字典名信息
+     * @param upDicId
+     * @return
+     */
+    @RequestMapping("/getDictionarysByUpDictId")
+    public List<Dictionary> getDictionaryIdAndNamesByUpId(String upDicId){
+        if(ValidateCheck.isNull(upDicId)){
+            upDicId = "1";
+        }
+        List<Dictionary> dictionarys = null;
+        try {
+            dictionarys = dictionaryService.getDictionaryIdAndNamesByUpId(upDicId);
+        } catch (SQLException e) {
+            logger.error("根据字典上级编号查询字典出错",e);
+        }
+        return dictionarys;
+    }
+
+
 }
