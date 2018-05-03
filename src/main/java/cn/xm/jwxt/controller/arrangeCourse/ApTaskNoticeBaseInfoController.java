@@ -66,4 +66,58 @@ public class ApTaskNoticeBaseInfoController {
         }
         return pageInfo;
     }
+
+    /**
+     * 根据任务通知书ID删除通知书信息
+     * @param noticeBookId
+     * @return
+     */
+    @RequestMapping("/deleteNoticeBaseInfo")
+    public @ResponseBody String deleteNoticeBaseInfo(String noticeBookId){
+        try {
+            taskNoticeBaseInfoService.deleteApTaskNoticeBaseInfoById(noticeBookId);
+        } catch (Exception e) {
+            logger.error("删除任务通知书失败",e);
+            return "删除任务通知书失败！";
+        }
+        return "删除任务通知书成功！";
+    }
+
+    /**
+     * 根据任务通知书ID查询基本信息
+     * @param noticeBookId
+     * @return
+     */
+    @RequestMapping("/getApTaskNoticeBaseInfo")
+    public @ResponseBody ApTaskNoticeBaseInfo getApTaskNoticeBaseInfo(String noticeBookId){
+        ApTaskNoticeBaseInfo taskNoticeBaseInfo = null;
+        try {
+            taskNoticeBaseInfo = taskNoticeBaseInfoService.getApTaskNoticeBaseInfoById(noticeBookId);
+        } catch (Exception e) {
+            logger.error("查询任务通知书失败",e);
+        }
+        return taskNoticeBaseInfo;
+    }
+
+    /**
+     * 修改任务通知书基本信息
+     * @param noticeInfo
+     * @return
+     */
+    @RequestMapping("/updateApTaskNoticeBaseInfo")
+    public @ResponseBody String updateApTaskNoticeBaseInfo(ApTaskNoticeBaseInfo noticeInfo){
+       String noticeBookId = null;
+       if(ValidateCheck.isNull(noticeInfo.getNoticeBookId())){
+           return "修改失败！";
+       }else{
+           noticeBookId = noticeInfo.getNoticeBookId();
+       }
+        try {
+            taskNoticeBaseInfoService.updateApTaskNoticeBaseInfoById(noticeBookId,noticeInfo);
+        } catch (Exception e) {
+            logger.error("修改任务通知书失败",e);
+            return "修改失败！";
+        }
+        return "修改成功！";
+    }
 }
