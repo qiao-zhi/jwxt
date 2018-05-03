@@ -1,9 +1,13 @@
 package cn.xm.jwxt.bean.outGraduateDesignApply;
 
+import java.util.List;
+
 public class Outgradesigntitleapply {
     private String outgradesignapplyid;
 
     private String outsideapplyid;
+
+    private String tablename;
 
     private String coursename;
 
@@ -41,6 +45,38 @@ public class Outgradesigntitleapply {
 
     private String remark2;
 
+    /**
+     * 关联审核表
+     *
+     */
+    private Outgradesigninfo outGradesignInfo;
+    private Gradesignleaveapply graDesignLeaveApply;
+    private List<Projectcheck> projectChecks;
+
+    public Outgradesigninfo getOutGradesignInfo() {
+        return outGradesignInfo;
+    }
+
+    public void setOutGradesignInfo(Outgradesigninfo outGradesignInfo) {
+        this.outGradesignInfo = outGradesignInfo;
+    }
+
+    public Gradesignleaveapply getGraDesignLeaveApply() {
+        return graDesignLeaveApply;
+    }
+
+    public void setGraDesignLeaveApply(Gradesignleaveapply graDesignLeaveApply) {
+        this.graDesignLeaveApply = graDesignLeaveApply;
+    }
+
+    public List<Projectcheck> getProjectChecks() {
+        return projectChecks;
+    }
+
+    public void setProjectChecks(List<Projectcheck> projectChecks) {
+        this.projectChecks = projectChecks;
+    }
+
     public String getOutgradesignapplyid() {
         return outgradesignapplyid;
     }
@@ -55,6 +91,14 @@ public class Outgradesigntitleapply {
 
     public void setOutsideapplyid(String outsideapplyid) {
         this.outsideapplyid = outsideapplyid == null ? null : outsideapplyid.trim();
+    }
+
+    public String getTablename() {
+        return tablename;
+    }
+
+    public void setTablename(String tablename) {
+        this.tablename = tablename == null ? null : tablename.trim();
     }
 
     public String getCoursename() {

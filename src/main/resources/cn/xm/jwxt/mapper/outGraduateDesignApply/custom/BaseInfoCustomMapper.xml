@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.BaseInfoCustomMapper" >
+    <select id="selectIsApplyByStudentID" parameterType="String" resultType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo">
+        SELECT * FROM outGraDesignInfo WHERE StudentTitleresultID=(
+              SELECT StudentTitleresultID FROM studentTitleResult WHERE studentID=#{studentID})
+    </select>
+
+    <select id="selectFileStatus" parameterType="String" resultType="Map">
+        SELECT i.outsideApplyID AS table1ID,i.tableName AS table1Name,i.status AS table1Status,i.isCommit AS table1Commit,
+            t.outGraDesignApplyID AS table2ID,t.tableName AS table2Name,t.checkStatus AS table2Status,t.isOk AS table2Commit,
+            l.leaveID table3ID,l.tableName AS table3Name,l.checkStatus AS table3Status,l.isOk AS table3Commit,
+            att.attachmentID as table6ID,att.attachmentName as table6Name,att.remark AS table6Commit,
+            agg.agreementID as table4ID,agg.agreementName as table4Name,agg.applyStatus AS table4Status,agg.remark AS table4Commit,
+            s.sureID as table5ID,s.sureName as table5Name,s.sureStatus AS table5Commit
+        FROM outGraDesignInfo i,outGraDesignTitleApply t,graDesignLeaveApply l,outsideGraDesignAttachment att,
+	        outsideGraDesignAgreemen agg,outGraDesignSureBook s
+        WHERE i.outsideApplyID=t.outsideApplyID AND i.outsideApplyID=l.outsideApplyID AND i.outsideApplyID=att.outsideApplyID
+	        AND i.outsideApplyID=agg.outsideApplyID AND i.outsideApplyID=s.outsideApplyID AND i.outsideApplyID=#{id};
+    </select>
+
+    <select id="isFinishTitleResult" parameterType="String" resultType="cn.xm.jwxt.bean.graduateDesign.Studenttitleresult">
+        SELECT * FROM studentTitleResult where studentID=#{studentID}
+    </select>
+
+</mapper>

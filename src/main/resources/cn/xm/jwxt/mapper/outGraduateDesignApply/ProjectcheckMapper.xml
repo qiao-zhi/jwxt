@@ -9,6 +9,7 @@
     <result column="teacherSign" property="teachersign" jdbcType="VARCHAR" />
     <result column="checkResult" property="checkresult" jdbcType="VARCHAR" />
     <result column="applyTime" property="applytime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +71,7 @@
   </sql>
   <sql id="Base_Column_List" >
     check_id, outGraDesignApplyID, checkPeople, checkOpinion, teacherSign, checkResult, 
-    applyTime
+    applyTime, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.ProjectcheckExample" >
     select
@@ -105,10 +106,10 @@
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Projectcheck" >
     insert into projectcheck (check_id, outGraDesignApplyID, checkPeople, 
       checkOpinion, teacherSign, checkResult, 
-      applyTime)
+      applyTime, remark)
     values (#{checkId,jdbcType=VARCHAR}, #{outgradesignapplyid,jdbcType=VARCHAR}, #{checkpeople,jdbcType=VARCHAR}, 
       #{checkopinion,jdbcType=VARCHAR}, #{teachersign,jdbcType=VARCHAR}, #{checkresult,jdbcType=VARCHAR}, 
-      #{applytime,jdbcType=TIMESTAMP})
+      #{applytime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Projectcheck" >
     insert into projectcheck
@@ -134,6 +135,9 @@
       <if test="applytime != null" >
         applyTime,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="checkId != null" >
@@ -156,6 +160,9 @@
       </if>
       <if test="applytime != null" >
         #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -189,6 +196,9 @@
       <if test="record.applytime != null" >
         applyTime = #{record.applytime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -202,7 +212,8 @@
       checkOpinion = #{record.checkopinion,jdbcType=VARCHAR},
       teacherSign = #{record.teachersign,jdbcType=VARCHAR},
       checkResult = #{record.checkresult,jdbcType=VARCHAR},
-      applyTime = #{record.applytime,jdbcType=TIMESTAMP}
+      applyTime = #{record.applytime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -228,6 +239,9 @@
       <if test="applytime != null" >
         applyTime = #{applytime,jdbcType=TIMESTAMP},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where check_id = #{checkId,jdbcType=VARCHAR}
   </update>
@@ -238,7 +252,8 @@
       checkOpinion = #{checkopinion,jdbcType=VARCHAR},
       teacherSign = #{teachersign,jdbcType=VARCHAR},
       checkResult = #{checkresult,jdbcType=VARCHAR},
-      applyTime = #{applytime,jdbcType=TIMESTAMP}
+      applyTime = #{applytime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
     where check_id = #{checkId,jdbcType=VARCHAR}
   </update>
 </mapper>

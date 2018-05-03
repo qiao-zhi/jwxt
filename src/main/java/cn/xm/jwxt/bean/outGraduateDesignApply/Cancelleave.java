@@ -3,9 +3,9 @@ package cn.xm.jwxt.bean.outGraduateDesignApply;
 import java.util.Date;
 
 public class Cancelleave {
-    private Integer cancelleaveid;
+    private String cancelleaveid;
 
-    private Integer leaveid;
+    private String leaveid;
 
     private Date canceltime;
 
@@ -13,20 +13,20 @@ public class Cancelleave {
 
     private Date passendtime;
 
-    public Integer getCancelleaveid() {
+    public String getCancelleaveid() {
         return cancelleaveid;
     }
 
-    public void setCancelleaveid(Integer cancelleaveid) {
-        this.cancelleaveid = cancelleaveid;
+    public void setCancelleaveid(String cancelleaveid) {
+        this.cancelleaveid = cancelleaveid == null ? null : cancelleaveid.trim();
     }
 
-    public Integer getLeaveid() {
+    public String getLeaveid() {
         return leaveid;
     }
 
-    public void setLeaveid(Integer leaveid) {
-        this.leaveid = leaveid;
+    public void setLeaveid(String leaveid) {
+        this.leaveid = leaveid == null ? null : leaveid.trim();
     }
 
     public Date getCanceltime() {

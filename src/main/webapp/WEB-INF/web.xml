@@ -62,4 +62,9 @@
     <url-pattern>*.action</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
 </web-app>
