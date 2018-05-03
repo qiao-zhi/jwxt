@@ -3,43 +3,43 @@ package cn.xm.jwxt.bean.trainScheme;
 import java.util.Date;
 
 public class Trainschemeinfo {
-    private String trainingschemeid;
+    private String trainingschemeid;//培养方案ID
 
-    private String trainingschemaname;
+    private String trainingschemaname;//培养方案名称
 
-    private String majorname;
+    private String majorname;//专业名称
 
-    private String majorid;
+    private String majorid;//专业代码
 
-    private String reviseperson;
+    private String reviseperson;//修订人
 
-    private String checkperson;
+    private String checkperson;//审核人
 
-    private String majormanager;
+    private String majormanager;//专业负责人
 
-    private String majortype;
+    private String majortype;//学科门类
 
-    private Date createtime;
+    private Date createtime;//创建时间
 
-    private String isuse;
+    private String isuse;//是否启用
 
-    private String trainingtarget;
+    private String trainingtarget;//培养目标
 
-    private String trainingrequire;
+    private String trainingrequire;//培养要求
 
-    private String trainyears;
+    private String trainyears;//修业年限
 
-    private String traindegree;
+    private String traindegree;//授予学位
 
-    private String maincourse;
+    private String maincourse;//主干学科
 
-    private String corecourse;
+    private String corecourse;//核心课程
 
-    private String maintestitem;
+    private String maintestitem;//主要实践性教学环节
 
-    private String mainmajorexperience;
+    private String mainmajorexperience;//主要专业实验
 
-    private String majorfeature;
+    private String majorfeature;//专业特色
 
     private String remark1;
 

@@ -85,6 +85,22 @@ function zTreeOnClick(event, treeId, treeNode) {
     //2.清空页号重新查询
     $("[name='pageNum']").val("");
     getDictionaryFY();
+
+    //根据树的级别显示两个按钮
+    switch(treeNode.level){
+        case 0://1.如果是树的级别是一级显示添加按钮，隐藏删除按钮
+            $("#openAddModalBtn").css("display","");
+            $("#deleteDictBtn").css("display","none");
+            break;
+        case 1://2.如果是树的级别是二级树，显示添加，删除按钮
+            $("#openAddModalBtn").css("display","");
+            $("#deleteDictBtn").css("display","");
+            break;
+        case 2:    //3.如果是三级树的话，添加删除按钮都不显示
+            $("#openAddModalBtn").css("display","none");
+            $("#deleteDictBtn").css("display","none");
+            break;
+    }
 }
 
 /**
@@ -206,6 +222,8 @@ function clearQueryCondition(obj) {
     form.find("input").val("");
     form.find("select").val("");
     $(".curSelectedNode").removeClass("curSelectedNode");//去掉树选中的class，取消树的背景色
+    $("#openAddModalBtn").css("display","none");//藏掉两个按钮
+    $("#deleteDictBtn").css("display","none");//藏掉两个按钮
     //2.重新查询一次
 
     getDictionaryFY();

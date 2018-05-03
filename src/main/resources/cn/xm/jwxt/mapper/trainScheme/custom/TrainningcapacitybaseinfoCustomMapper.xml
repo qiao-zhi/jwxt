@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.trainScheme.custom.TrainningcapacitybaseinfoCustomMapper" >
+
+    <!--1.批量添加培养方案能力-->
+    <insert id="addTrainningcapacitybaseinfoBatch" parameterType="java.util.List">
+        insert into trainningcapacitybaseinfo(capacityId,trainingSchemeID,capacitySort,capacityName,capacityDescription,remark)
+        values
+        <foreach collection="list" separator="," item="capacity">
+            (null,#{capacity.trainingschemeid},#{capacity.capacitysort},#{capacity.capacityname},#{capacity.capacitydescription},#{capacity.remark})
+        </foreach>
+    </insert>
+
+
 </mapper>

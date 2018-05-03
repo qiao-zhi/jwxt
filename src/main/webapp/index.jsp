@@ -310,8 +310,13 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/trainingScheme/trainingScheme.html">
+                        <a _href="pages/trainingScheme/trainingScheme.jsp">
                             <cite>培养方案管理</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="pages/trainingScheme/trainingScheme-add.jsp">
+                            <cite>添加培养方案</cite>
                         </a>
                     </li>
                 </ul>
