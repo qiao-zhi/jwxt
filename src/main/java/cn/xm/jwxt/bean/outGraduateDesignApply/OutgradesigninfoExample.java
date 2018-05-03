@@ -245,6 +245,76 @@ public class OutgradesigninfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andTablenameIsNull() {
+            addCriterion("tableName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameIsNotNull() {
+            addCriterion("tableName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameEqualTo(String value) {
+            addCriterion("tableName =", value, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameNotEqualTo(String value) {
+            addCriterion("tableName <>", value, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameGreaterThan(String value) {
+            addCriterion("tableName >", value, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameGreaterThanOrEqualTo(String value) {
+            addCriterion("tableName >=", value, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameLessThan(String value) {
+            addCriterion("tableName <", value, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameLessThanOrEqualTo(String value) {
+            addCriterion("tableName <=", value, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameLike(String value) {
+            addCriterion("tableName like", value, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameNotLike(String value) {
+            addCriterion("tableName not like", value, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameIn(List<String> values) {
+            addCriterion("tableName in", values, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameNotIn(List<String> values) {
+            addCriterion("tableName not in", values, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameBetween(String value1, String value2) {
+            addCriterion("tableName between", value1, value2, "tablename");
+            return (Criteria) this;
+        }
+
+        public Criteria andTablenameNotBetween(String value1, String value2) {
+            addCriterion("tableName not between", value1, value2, "tablename");
+            return (Criteria) this;
+        }
+
         public Criteria andStudentnameIsNull() {
             addCriterion("studentName is null");
             return (Criteria) this;
@@ -932,6 +1002,76 @@ public class OutgradesigninfoExample {
 
         public Criteria andIscommitNotBetween(String value1, String value2) {
             addCriterion("isCommit not between", value1, value2, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1IsNull() {
+            addCriterion("remark1 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1IsNotNull() {
+            addCriterion("remark1 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1EqualTo(String value) {
+            addCriterion("remark1 =", value, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1NotEqualTo(String value) {
+            addCriterion("remark1 <>", value, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1GreaterThan(String value) {
+            addCriterion("remark1 >", value, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1GreaterThanOrEqualTo(String value) {
+            addCriterion("remark1 >=", value, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1LessThan(String value) {
+            addCriterion("remark1 <", value, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1LessThanOrEqualTo(String value) {
+            addCriterion("remark1 <=", value, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1Like(String value) {
+            addCriterion("remark1 like", value, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1NotLike(String value) {
+            addCriterion("remark1 not like", value, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1In(List<String> values) {
+            addCriterion("remark1 in", values, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1NotIn(List<String> values) {
+            addCriterion("remark1 not in", values, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1Between(String value1, String value2) {
+            addCriterion("remark1 between", value1, value2, "remark1");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark1NotBetween(String value1, String value2) {
+            addCriterion("remark1 not between", value1, value2, "remark1");
             return (Criteria) this;
         }
     }

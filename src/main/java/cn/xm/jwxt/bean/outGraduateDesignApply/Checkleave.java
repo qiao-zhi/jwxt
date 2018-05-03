@@ -3,9 +3,9 @@ package cn.xm.jwxt.bean.outGraduateDesignApply;
 import java.util.Date;
 
 public class Checkleave {
-    private Integer checkleaveid;
+    private String checkleaveid;
 
-    private Integer leaveid;
+    private String leaveid;
 
     private String checkpeople;
 
@@ -17,20 +17,22 @@ public class Checkleave {
 
     private Date applytime;
 
-    public Integer getCheckleaveid() {
+    private String remark;
+
+    public String getCheckleaveid() {
         return checkleaveid;
     }
 
-    public void setCheckleaveid(Integer checkleaveid) {
-        this.checkleaveid = checkleaveid;
+    public void setCheckleaveid(String checkleaveid) {
+        this.checkleaveid = checkleaveid == null ? null : checkleaveid.trim();
     }
 
-    public Integer getLeaveid() {
+    public String getLeaveid() {
         return leaveid;
     }
 
-    public void setLeaveid(Integer leaveid) {
-        this.leaveid = leaveid;
+    public void setLeaveid(String leaveid) {
+        this.leaveid = leaveid == null ? null : leaveid.trim();
     }
 
     public String getCheckpeople() {
@@ -71,5 +73,13 @@ public class Checkleave {
 
     public void setApplytime(Date applytime) {
         this.applytime = applytime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

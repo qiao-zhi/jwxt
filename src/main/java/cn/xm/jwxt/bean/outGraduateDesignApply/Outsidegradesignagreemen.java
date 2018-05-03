@@ -3,9 +3,11 @@ package cn.xm.jwxt.bean.outGraduateDesignApply;
 import java.util.Date;
 
 public class Outsidegradesignagreemen {
-    private Integer agreementid;
+    private String agreementid;
 
     private String outsideapplyid;
+
+    private String agreementname;
 
     private String schoolsign;
 
@@ -17,12 +19,14 @@ public class Outsidegradesignagreemen {
 
     private String applystatus;
 
-    public Integer getAgreementid() {
+    private String remark;
+
+    public String getAgreementid() {
         return agreementid;
     }
 
-    public void setAgreementid(Integer agreementid) {
-        this.agreementid = agreementid;
+    public void setAgreementid(String agreementid) {
+        this.agreementid = agreementid == null ? null : agreementid.trim();
     }
 
     public String getOutsideapplyid() {
@@ -31,6 +35,14 @@ public class Outsidegradesignagreemen {
 
     public void setOutsideapplyid(String outsideapplyid) {
         this.outsideapplyid = outsideapplyid == null ? null : outsideapplyid.trim();
+    }
+
+    public String getAgreementname() {
+        return agreementname;
+    }
+
+    public void setAgreementname(String agreementname) {
+        this.agreementname = agreementname == null ? null : agreementname.trim();
     }
 
     public String getSchoolsign() {
@@ -71,5 +83,13 @@ public class Outsidegradesignagreemen {
 
     public void setApplystatus(String applystatus) {
         this.applystatus = applystatus == null ? null : applystatus.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

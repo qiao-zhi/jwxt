@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDTitleCustomMapper" >
+    <select id="selectTitleByOutsideApplyID" parameterType="string" resultMap="checkTitle">
+        SELECT * FROM outGraDesignTitleApply t,projectCheck p,outGraDesignInfo i,graDesignLeaveApply l
+          WHERE t.outGraDesignApplyID=p.outGraDesignApplyID AND t.outsideApplyID=i.outsideApplyID AND t.outsideApplyID = i.outsideApplyID
+          AND t.outsideApplyID = l.outsideApplyID AND t.outGraDesignApplyID=#{ID};
+    </select>
+    <resultMap id="checkTitle" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigntitleapply">
+        <id property="outgradesignapplyid" column="outgradesignapplyid"/>
+        <result property="outsideapplyid" column="outsideapplyid"/>
+        <result property="tablename" column="tablename"/>
+        <result property="coursename" column="coursename"/>
+        <result property="outunitname" column="outunitname"/>
+        <result property="outunitphone" column="outunitphone"/>
+        <result property="outunitaddr" column="outunitaddr"/>
+        <result property="studentphone" column="studentphone"/>
+        <result property="stuparentphone" column="stuparentphone"/>
+        <result property="inteachername" column="inteachername"/>
+        <result property="inteacherphone" column="inteacherphone"/>
+        <result property="outteachername" column="outteachername"/>
+        <result property="outteacherphone" column="outteacherphone"/>
+        <result property="coursedescription" column="coursedescription"/>
+        <result property="testcontent" column="testcontent"/>
+        <result property="teststandard" column="teststandard"/>
+        <result property="resulttype" column="resulttype"/>
+        <result property="isok" column="isok"/>
+        <result property="remark1" column="remark1"/>
+        <result property="remark2" column="remark2"/>
+        <association property="outGradesignInfo" javaType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo">
+            <result property="studentname" column="studentname"/>
+            <result property="majorclass" column="majorclass"/>
+            <result property="sex" column="sex"/>
+        </association>
+        <association property="graDesignLeaveApply" javaType="cn.xm.jwxt.bean.outGraduateDesignApply.Gradesignleaveapply">
+            <result property="studentnum" column="studentnum"/>
+            <result property="major" column="major"/>
+        </association>
+        <collection property="projectChecks" javaType="java.util.List" ofType="cn.xm.jwxt.bean.outGraduateDesignApply.Projectcheck">
+            <id property="checkId" column="checkId"/>
+            <result property="outgradesignapplyid" column="outgradesignapplyid"/>
+            <result property="checkpeople" column="checkpeople"/>
+            <result property="checkopinion" column="checkopinion"/>
+            <result property="teachersign" column="teachersign"/>
+            <result property="checkresult" column="checkresult"/>
+            <result property="applytime" column="applytime"/>
+            <result property="remark" column="remark"/>
+        </collection>
+    </resultMap>
+
+</mapper>

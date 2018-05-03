@@ -17,6 +17,8 @@ public class Projectcheck {
 
     private Date applytime;
 
+    private String remark;
+
     public String getCheckId() {
         return checkId;
     }
@@ -71,5 +73,13 @@ public class Projectcheck {
 
     public void setApplytime(Date applytime) {
         this.applytime = applytime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

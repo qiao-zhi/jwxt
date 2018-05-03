@@ -10,7 +10,7 @@ public interface CheckleaveMapper {
 
     int deleteByExample(CheckleaveExample example);
 
-    int deleteByPrimaryKey(Integer checkleaveid);
+    int deleteByPrimaryKey(String checkleaveid);
 
     int insert(Checkleave record);
 
@@ -18,7 +18,7 @@ public interface CheckleaveMapper {
 
     List<Checkleave> selectByExample(CheckleaveExample example);
 
-    Checkleave selectByPrimaryKey(Integer checkleaveid);
+    Checkleave selectByPrimaryKey(String checkleaveid);
 
     int updateByExampleSelective(@Param("record") Checkleave record, @Param("example") CheckleaveExample example);
 
