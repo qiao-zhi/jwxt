@@ -1,11 +1,14 @@
 package cn.xm.jwxt.bean.outGraduateDesignApply;
 
 import java.util.Date;
+import java.util.List;
 
 public class Outgradesigninfo {
     private String outsideapplyid;
 
     private String studenttitleresultid;
+
+    private String tablename;
 
     private String studentname;
 
@@ -27,6 +30,18 @@ public class Outgradesigninfo {
 
     private String iscommit;
 
+    private String remark1;
+
+    private List<Checkoutgradesigninfo> checkOGDInfo;
+
+    public List<Checkoutgradesigninfo> getCheckOGDInfo() {
+        return checkOGDInfo;
+    }
+
+    public void setCheckOGDInfo(List<Checkoutgradesigninfo> checkOGDInfo) {
+        this.checkOGDInfo = checkOGDInfo;
+    }
+
     public String getOutsideapplyid() {
         return outsideapplyid;
     }
@@ -41,6 +56,14 @@ public class Outgradesigninfo {
 
     public void setStudenttitleresultid(String studenttitleresultid) {
         this.studenttitleresultid = studenttitleresultid == null ? null : studenttitleresultid.trim();
+    }
+
+    public String getTablename() {
+        return tablename;
+    }
+
+    public void setTablename(String tablename) {
+        this.tablename = tablename == null ? null : tablename.trim();
     }
 
     public String getStudentname() {
@@ -121,5 +144,13 @@ public class Outgradesigninfo {
 
     public void setIscommit(String iscommit) {
         this.iscommit = iscommit == null ? null : iscommit.trim();
+    }
+
+    public String getRemark1() {
+        return remark1;
+    }
+
+    public void setRemark1(String remark1) {
+        this.remark1 = remark1 == null ? null : remark1.trim();
     }
 }

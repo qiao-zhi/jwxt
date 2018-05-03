@@ -118,10 +118,10 @@
             <button class="layui-btn layui-btn-normal" type="button" onclick='clearQueryCondition(this)' title="点击清空查询条件"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
-    <xblock>
-        <button class="layui-btn" type="button" onclick="openAddModal()">添加字典</button>
-        <button class="layui-btn layui-btn-danger" type="button" onclick="deleteDictBatch()">批量删除</button>
-    </xblock>
+    <div>
+        <button class="layui-btn" type="button" onclick="openAddModal()" id="openAddModalBtn" style="display: none;">添加字典</button>
+        <button class="layui-btn layui-btn-danger" type="button" id="deleteDictBtn" onclick="deleteDictBatch()" style="display: none;">批量删除</button>
+    </div>
     <table class="layui-table">
         <thead>
             <tr>

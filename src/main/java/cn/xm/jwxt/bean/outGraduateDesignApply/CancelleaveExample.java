@@ -115,52 +115,62 @@ public class CancelleaveExample {
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidEqualTo(Integer value) {
+        public Criteria andCancelleaveidEqualTo(String value) {
             addCriterion("cancelLeaveID =", value, "cancelleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidNotEqualTo(Integer value) {
+        public Criteria andCancelleaveidNotEqualTo(String value) {
             addCriterion("cancelLeaveID <>", value, "cancelleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidGreaterThan(Integer value) {
+        public Criteria andCancelleaveidGreaterThan(String value) {
             addCriterion("cancelLeaveID >", value, "cancelleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCancelleaveidGreaterThanOrEqualTo(String value) {
             addCriterion("cancelLeaveID >=", value, "cancelleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidLessThan(Integer value) {
+        public Criteria andCancelleaveidLessThan(String value) {
             addCriterion("cancelLeaveID <", value, "cancelleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidLessThanOrEqualTo(Integer value) {
+        public Criteria andCancelleaveidLessThanOrEqualTo(String value) {
             addCriterion("cancelLeaveID <=", value, "cancelleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidIn(List<Integer> values) {
+        public Criteria andCancelleaveidLike(String value) {
+            addCriterion("cancelLeaveID like", value, "cancelleaveid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelleaveidNotLike(String value) {
+            addCriterion("cancelLeaveID not like", value, "cancelleaveid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelleaveidIn(List<String> values) {
             addCriterion("cancelLeaveID in", values, "cancelleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidNotIn(List<Integer> values) {
+        public Criteria andCancelleaveidNotIn(List<String> values) {
             addCriterion("cancelLeaveID not in", values, "cancelleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidBetween(Integer value1, Integer value2) {
+        public Criteria andCancelleaveidBetween(String value1, String value2) {
             addCriterion("cancelLeaveID between", value1, value2, "cancelleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCancelleaveidNotBetween(Integer value1, Integer value2) {
+        public Criteria andCancelleaveidNotBetween(String value1, String value2) {
             addCriterion("cancelLeaveID not between", value1, value2, "cancelleaveid");
             return (Criteria) this;
         }
@@ -175,52 +185,62 @@ public class CancelleaveExample {
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidEqualTo(Integer value) {
+        public Criteria andLeaveidEqualTo(String value) {
             addCriterion("leaveID =", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidNotEqualTo(Integer value) {
+        public Criteria andLeaveidNotEqualTo(String value) {
             addCriterion("leaveID <>", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidGreaterThan(Integer value) {
+        public Criteria andLeaveidGreaterThan(String value) {
             addCriterion("leaveID >", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andLeaveidGreaterThanOrEqualTo(String value) {
             addCriterion("leaveID >=", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidLessThan(Integer value) {
+        public Criteria andLeaveidLessThan(String value) {
             addCriterion("leaveID <", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidLessThanOrEqualTo(Integer value) {
+        public Criteria andLeaveidLessThanOrEqualTo(String value) {
             addCriterion("leaveID <=", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidIn(List<Integer> values) {
+        public Criteria andLeaveidLike(String value) {
+            addCriterion("leaveID like", value, "leaveid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveidNotLike(String value) {
+            addCriterion("leaveID not like", value, "leaveid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveidIn(List<String> values) {
             addCriterion("leaveID in", values, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidNotIn(List<Integer> values) {
+        public Criteria andLeaveidNotIn(List<String> values) {
             addCriterion("leaveID not in", values, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidBetween(Integer value1, Integer value2) {
+        public Criteria andLeaveidBetween(String value1, String value2) {
             addCriterion("leaveID between", value1, value2, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidNotBetween(Integer value1, Integer value2) {
+        public Criteria andLeaveidNotBetween(String value1, String value2) {
             addCriterion("leaveID not between", value1, value2, "leaveid");
             return (Criteria) this;
         }

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.CancelleaveMapper" >
   <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Cancelleave" >
-    <id column="cancelLeaveID" property="cancelleaveid" jdbcType="INTEGER" />
-    <result column="leaveID" property="leaveid" jdbcType="INTEGER" />
+    <id column="cancelLeaveID" property="cancelleaveid" jdbcType="VARCHAR" />
+    <result column="leaveID" property="leaveid" jdbcType="VARCHAR" />
     <result column="cancelTime" property="canceltime" jdbcType="TIMESTAMP" />
     <result column="passStartTime" property="passstarttime" jdbcType="TIMESTAMP" />
     <result column="passEndTime" property="passendtime" jdbcType="TIMESTAMP" />
@@ -83,15 +83,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from cancelleave
-    where cancelLeaveID = #{cancelleaveid,jdbcType=INTEGER}
+    where cancelLeaveID = #{cancelleaveid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from cancelleave
-    where cancelLeaveID = #{cancelleaveid,jdbcType=INTEGER}
+    where cancelLeaveID = #{cancelleaveid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.CancelleaveExample" >
     delete from cancelleave
@@ -102,7 +102,7 @@
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Cancelleave" >
     insert into cancelleave (cancelLeaveID, leaveID, cancelTime, 
       passStartTime, passEndTime)
-    values (#{cancelleaveid,jdbcType=INTEGER}, #{leaveid,jdbcType=INTEGER}, #{canceltime,jdbcType=TIMESTAMP}, 
+    values (#{cancelleaveid,jdbcType=VARCHAR}, #{leaveid,jdbcType=VARCHAR}, #{canceltime,jdbcType=TIMESTAMP}, 
       #{passstarttime,jdbcType=TIMESTAMP}, #{passendtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Cancelleave" >
@@ -126,10 +126,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cancelleaveid != null" >
-        #{cancelleaveid,jdbcType=INTEGER},
+        #{cancelleaveid,jdbcType=VARCHAR},
       </if>
       <if test="leaveid != null" >
-        #{leaveid,jdbcType=INTEGER},
+        #{leaveid,jdbcType=VARCHAR},
       </if>
       <if test="canceltime != null" >
         #{canceltime,jdbcType=TIMESTAMP},
@@ -152,10 +152,10 @@
     update cancelleave
     <set >
       <if test="record.cancelleaveid != null" >
-        cancelLeaveID = #{record.cancelleaveid,jdbcType=INTEGER},
+        cancelLeaveID = #{record.cancelleaveid,jdbcType=VARCHAR},
       </if>
       <if test="record.leaveid != null" >
-        leaveID = #{record.leaveid,jdbcType=INTEGER},
+        leaveID = #{record.leaveid,jdbcType=VARCHAR},
       </if>
       <if test="record.canceltime != null" >
         cancelTime = #{record.canceltime,jdbcType=TIMESTAMP},
@@ -173,8 +173,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update cancelleave
-    set cancelLeaveID = #{record.cancelleaveid,jdbcType=INTEGER},
-      leaveID = #{record.leaveid,jdbcType=INTEGER},
+    set cancelLeaveID = #{record.cancelleaveid,jdbcType=VARCHAR},
+      leaveID = #{record.leaveid,jdbcType=VARCHAR},
       cancelTime = #{record.canceltime,jdbcType=TIMESTAMP},
       passStartTime = #{record.passstarttime,jdbcType=TIMESTAMP},
       passEndTime = #{record.passendtime,jdbcType=TIMESTAMP}
@@ -186,7 +186,7 @@
     update cancelleave
     <set >
       <if test="leaveid != null" >
-        leaveID = #{leaveid,jdbcType=INTEGER},
+        leaveID = #{leaveid,jdbcType=VARCHAR},
       </if>
       <if test="canceltime != null" >
         cancelTime = #{canceltime,jdbcType=TIMESTAMP},
@@ -198,14 +198,14 @@
         passEndTime = #{passendtime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where cancelLeaveID = #{cancelleaveid,jdbcType=INTEGER}
+    where cancelLeaveID = #{cancelleaveid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Cancelleave" >
     update cancelleave
-    set leaveID = #{leaveid,jdbcType=INTEGER},
+    set leaveID = #{leaveid,jdbcType=VARCHAR},
       cancelTime = #{canceltime,jdbcType=TIMESTAMP},
       passStartTime = #{passstarttime,jdbcType=TIMESTAMP},
       passEndTime = #{passendtime,jdbcType=TIMESTAMP}
-    where cancelLeaveID = #{cancelleaveid,jdbcType=INTEGER}
+    where cancelLeaveID = #{cancelleaveid,jdbcType=VARCHAR}
   </update>
 </mapper>

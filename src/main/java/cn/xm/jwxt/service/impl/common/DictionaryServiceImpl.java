@@ -1,6 +1,7 @@
 package cn.xm.jwxt.service.impl.common;
 
 import cn.xm.jwxt.bean.common.Dictionary;
+import cn.xm.jwxt.bean.common.DictionaryExample;
 import cn.xm.jwxt.mapper.common.DictionaryMapper;
 import cn.xm.jwxt.mapper.common.custom.DictionaryCustomMapper;
 import cn.xm.jwxt.service.common.DictionaryService;
@@ -60,8 +61,11 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override
-    public List<Map<String, Object>> getDictionaryIdAndNamesByUpId(String upDicId) throws SQLException {
-        return dictionaryCustomMapper.getDictionaryIdAndNamesByUpId(upDicId);
+    public List<Dictionary> getDictionaryIdAndNamesByUpId(String upDicId) throws SQLException {
+        DictionaryExample example = new DictionaryExample();
+        DictionaryExample.Criteria criteria = example.createCriteria();
+        criteria.andUpdictionaryidEqualTo(upDicId);
+        return dictionaryMapper.selectByExample(example);
     }
 
     @Override

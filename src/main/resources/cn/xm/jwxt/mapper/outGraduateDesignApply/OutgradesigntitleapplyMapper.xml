@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigntitleapply" >
     <id column="outGraDesignApplyID" property="outgradesignapplyid" jdbcType="VARCHAR" />
     <result column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
+    <result column="tableName" property="tablename" jdbcType="VARCHAR" />
     <result column="courseName" property="coursename" jdbcType="VARCHAR" />
     <result column="outUnitName" property="outunitname" jdbcType="VARCHAR" />
     <result column="outUnitPhone" property="outunitphone" jdbcType="VARCHAR" />
@@ -82,10 +83,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    outGraDesignApplyID, outsideApplyID, courseName, outUnitName, outUnitPhone, outUnitAddr, 
-    studentPhone, stuParentPhone, inTeacherName, inTeacherPhone, outTeacherName, outTeacherPhone, 
-    courseDescription, testContent, testStandard, resultType, checkStatus, isOk, remark1, 
-    remark2
+    outGraDesignApplyID, outsideApplyID, tableName, courseName, outUnitName, outUnitPhone, 
+    outUnitAddr, studentPhone, stuParentPhone, inTeacherName, inTeacherPhone, outTeacherName, 
+    outTeacherPhone, courseDescription, testContent, testStandard, resultType, checkStatus, 
+    isOk, remark1, remark2
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutgradesigntitleapplyExample" >
     select
@@ -119,21 +120,21 @@
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigntitleapply" >
     insert into outgradesigntitleapply (outGraDesignApplyID, outsideApplyID, 
-      courseName, outUnitName, outUnitPhone, 
-      outUnitAddr, studentPhone, stuParentPhone, 
-      inTeacherName, inTeacherPhone, outTeacherName, 
-      outTeacherPhone, courseDescription, testContent, 
-      testStandard, resultType, checkStatus, 
-      isOk, remark1, remark2
-      )
+      tableName, courseName, outUnitName, 
+      outUnitPhone, outUnitAddr, studentPhone, 
+      stuParentPhone, inTeacherName, inTeacherPhone, 
+      outTeacherName, outTeacherPhone, courseDescription, 
+      testContent, testStandard, resultType, 
+      checkStatus, isOk, remark1, 
+      remark2)
     values (#{outgradesignapplyid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, 
-      #{coursename,jdbcType=VARCHAR}, #{outunitname,jdbcType=VARCHAR}, #{outunitphone,jdbcType=VARCHAR}, 
-      #{outunitaddr,jdbcType=VARCHAR}, #{studentphone,jdbcType=VARCHAR}, #{stuparentphone,jdbcType=VARCHAR}, 
-      #{inteachername,jdbcType=VARCHAR}, #{inteacherphone,jdbcType=VARCHAR}, #{outteachername,jdbcType=VARCHAR}, 
-      #{outteacherphone,jdbcType=VARCHAR}, #{coursedescription,jdbcType=VARCHAR}, #{testcontent,jdbcType=VARCHAR}, 
-      #{teststandard,jdbcType=VARCHAR}, #{resulttype,jdbcType=VARCHAR}, #{checkstatus,jdbcType=VARCHAR}, 
-      #{isok,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}
-      )
+      #{tablename,jdbcType=VARCHAR}, #{coursename,jdbcType=VARCHAR}, #{outunitname,jdbcType=VARCHAR}, 
+      #{outunitphone,jdbcType=VARCHAR}, #{outunitaddr,jdbcType=VARCHAR}, #{studentphone,jdbcType=VARCHAR}, 
+      #{stuparentphone,jdbcType=VARCHAR}, #{inteachername,jdbcType=VARCHAR}, #{inteacherphone,jdbcType=VARCHAR}, 
+      #{outteachername,jdbcType=VARCHAR}, #{outteacherphone,jdbcType=VARCHAR}, #{coursedescription,jdbcType=VARCHAR}, 
+      #{testcontent,jdbcType=VARCHAR}, #{teststandard,jdbcType=VARCHAR}, #{resulttype,jdbcType=VARCHAR}, 
+      #{checkstatus,jdbcType=VARCHAR}, #{isok,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigntitleapply" >
     insert into outgradesigntitleapply
@@ -143,6 +144,9 @@
       </if>
       <if test="outsideapplyid != null" >
         outsideApplyID,
+      </if>
+      <if test="tablename != null" >
+        tableName,
       </if>
       <if test="coursename != null" >
         courseName,
@@ -205,6 +209,9 @@
       </if>
       <if test="outsideapplyid != null" >
         #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null" >
+        #{tablename,jdbcType=VARCHAR},
       </if>
       <if test="coursename != null" >
         #{coursename,jdbcType=VARCHAR},
@@ -277,6 +284,9 @@
       <if test="record.outsideapplyid != null" >
         outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
       </if>
+      <if test="record.tablename != null" >
+        tableName = #{record.tablename,jdbcType=VARCHAR},
+      </if>
       <if test="record.coursename != null" >
         courseName = #{record.coursename,jdbcType=VARCHAR},
       </if>
@@ -340,6 +350,7 @@
     update outgradesigntitleapply
     set outGraDesignApplyID = #{record.outgradesignapplyid,jdbcType=VARCHAR},
       outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      tableName = #{record.tablename,jdbcType=VARCHAR},
       courseName = #{record.coursename,jdbcType=VARCHAR},
       outUnitName = #{record.outunitname,jdbcType=VARCHAR},
       outUnitPhone = #{record.outunitphone,jdbcType=VARCHAR},
@@ -367,6 +378,9 @@
     <set >
       <if test="outsideapplyid != null" >
         outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null" >
+        tableName = #{tablename,jdbcType=VARCHAR},
       </if>
       <if test="coursename != null" >
         courseName = #{coursename,jdbcType=VARCHAR},
@@ -428,6 +442,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigntitleapply" >
     update outgradesigntitleapply
     set outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      tableName = #{tablename,jdbcType=VARCHAR},
       courseName = #{coursename,jdbcType=VARCHAR},
       outUnitName = #{outunitname,jdbcType=VARCHAR},
       outUnitPhone = #{outunitphone,jdbcType=VARCHAR},

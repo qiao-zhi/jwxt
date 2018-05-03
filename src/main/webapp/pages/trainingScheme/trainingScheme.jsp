@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<%@ page  language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8"%>
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <title>培养方案基础信息</title>
+    <title>培养方案管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -14,6 +14,22 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+
+
+    <%--S   QLQ引入的--%>
+    <script>
+
+    </script>
+
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
+    <%--培养方案管理的JS--%>
+    <script type="text/javascript" src="../../js/trainScheme/trainSchemeManager.js"></script>
+
+
+    <%--E   QLQ引入的--%>
+
+
 </head>
 
 <body>
@@ -38,31 +54,41 @@
 <div class="x-body">
 
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-            <input type="text" name="username" placeholder="培养方案名称" autocomplete="off" class="layui-input">
-            <input type="text" name="" class="layui-input" id="y_year" placeholder="学年" autocomplete="off">
+        <%--查询条件的form--%>
+        <form class="layui-form layui-col-md12 x-so" id="queryTrainschemeForm">
+            <%--隐藏当前页和页号--%>
+                <input type="hidden" name="pageNum">
+                <input type="hidden" name="pageSize">
+
+
+
+            <input type="text" name="trainingschemaname" placeholder="培养方案名称" autocomplete="off" class="layui-input">
+            <input type="text" name="majorname" class="layui-input"  placeholder="专业名称" autocomplete="off">
+            <input type="text" name="majorid" class="layui-input"  placeholder="专业代码" autocomplete="off">
             <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>编辑状态</option>
-                    <option>已完成</option>
-                    <option>未完成</option>
+                <select name="remark1">
+                    <option value="">编辑状态</option>
+                    <option value="保存">保存</option>
+                    <option value="已提交">已提交</option>
                 </select>
             </div>
-            <div class="layui-input-inline">
+<%--            <div class="layui-input-inline">
                 <select name="contrller">
                     <option>是否使用</option>
                     <option>是</option>
                     <option>否</option>
                 </select>
-            </div>
-            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            </div>--%>
+            <button class="layui-btn" type="button" onclick="queryTrainSchemeFYBtn()"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn layui-btn-normal" type="button" onclick='clearQueryCondition(this)' title="点击重置查询条件"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加培养方案','./trainingScheme-add.html')">添加培养方案</button>
-        <button class="layui-btn" onclick="x_admin_show('课程安排','./trainingScheme-course.html')">课程安排</button>
+        <button class="layui-btn" onclick="x_admin_show('课程安排','./trainingScheme-course.html')">上传课程结构图</button>
+        <button class="layui-btn" onclick="x_admin_show('课程安排','./trainingScheme-course.html')">安排课程</button>
+        <button class="layui-btn" onclick="x_admin_show('课程安排','./trainingScheme-course.html')">安排课程能力</button>
         <button class="layui-btn layui-btn-normal" onclick="">下载培养方案 </button>
     </xblock>
     <!--end 操作区域-->
@@ -70,46 +96,29 @@
     <!--表格内容-->
     <table class="layui-table">
         <thead>
-        <tr>
-            <th>学年</th>
-            <th>培养方案名称</th>
-            <th>专业名称</th>
-            <th>修订人</th>
-            <th>审核人</th>
-            <th>专业负责人</th>
-            <th>学科门类</th>
-            <th>是否使用</th>
-            <th>操作</th>
-        </tr>
+            <tr>
+                <th></th>
+                <th>序号</th>
+                <th>培养方案名称</th>
+                <th>专业名称</th>
+                <th>专业代码</th>
+                <th>学科门类</th>
+                <th>专业负责人</th>
+                <th>修业年限</th>
+                <th>修订人</th>
+                <th>修订时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>软件</td>
-            <td>软件</td>
-            <td>软件</td>
-            <td>软件</td>
-            <td>软件</td>
-            <td>软件</td>
-            <td>软件</td>
-            <td>软件</td>
-            <td class="td-manage">
-                <a title="查看详情" onclick="" href="trainingScheme-view.html">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-                <a title="编辑"  onclick=""  href="trainingScheme-modify.html">
-                    <i class="layui-icon">&#xe642;</i>
-                </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
-        </tr>
+        <tbody id="trainSchemeTbody">
+            <!--动态填充数据-->
         </tbody>
     </table>
     <!--end 表格内容-->
 
     <!--分页-->
-    <div id="demo7"></div>
+    <div id="pageDiv"></div>
     <!--end 分页-->
 </div>
 <script>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDInfoCustomMapper" >
+
+    <select id="selectInfoByOutsideApplyID" parameterType="string" resultMap="checkInfo">
+        SELECT * FROM outGraDesignInfo i JOIN checkOutGraDesignInfo ci
+        on(i.outsideapplyid=ci.outsideapplyid) WHERE i.outsideapplyid=#{outsideApplyID}
+    </select>
+    <resultMap id="checkInfo" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo">
+        <id property="outsideapplyid" column="outsideapplyid"/>
+        <result property="studenttitleresultid" column="studenttitleresultid"/>
+        <result property="studentname" column="studentname"/>
+        <result property="tablename" column="tablename"/>
+        <result property="sex" column="sex"/>
+        <result property="majorclass" column="majorclass"/>
+        <result property="inteachername" column="inteachername"/>
+        <result property="receiveunit" column="receiveunit"/>
+        <result property="applyreason" column="applyreason"/>
+        <result property="applydate" column="applydate"/>
+        <result property="stusignurl" column="stusignurl"/>
+        <result property="status" column="status"/>
+        <result property="iscommit" column="iscommit"/>
+        <result property="remark1" column="remark1"/>
+        <collection property="checkOGDInfo" javaType="java.util.List" ofType="cn.xm.jwxt.bean.outGraduateDesignApply.Checkoutgradesigninfo">
+            <id property="checkoutapplyid" column="checkoutapplyid"/>
+            <result property="outsideapplyid" column="outsideapplyid"/>
+            <result property="checkpeople" column="checkpeople"/>
+            <result property="checkadvice" column="checkadvice"/>
+            <result property="teachersign" column="teachersign"/>
+            <result property="result" column="result"/>
+            <result property="applytime" column="applytime"/>
+            <result property="remark" column="remark"/>
+        </collection>
+    </resultMap>
+
+
+</mapper>

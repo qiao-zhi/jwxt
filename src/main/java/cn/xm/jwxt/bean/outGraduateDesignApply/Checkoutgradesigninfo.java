@@ -17,6 +17,8 @@ public class Checkoutgradesigninfo {
 
     private Date applytime;
 
+    private String remark;
+
     public String getCheckoutapplyid() {
         return checkoutapplyid;
     }
@@ -71,5 +73,13 @@ public class Checkoutgradesigninfo {
 
     public void setApplytime(Date applytime) {
         this.applytime = applytime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

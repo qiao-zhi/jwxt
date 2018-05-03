@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDLeaveCustomMapper" >
+    <select id="selectLeaveByOutsideApplyID" parameterType="String" resultMap="checkLeave">
+         SELECT * FROM graDesignLeaveApply g,cancelLeave c,checkLeave ch
+         WHERE g.leaveID=c.leaveID AND c.leaveID=ch.leaveID AND g.leaveID=#{leaveID}
+    </select>
+    <resultMap id="checkLeave" type="cn.xm.jwxt.bean.outGraduateDesignApply.Gradesignleaveapply">
+        <id property="leaveid" column="leaveid"></id>
+        <result property="outsideapplyid" column="outsideapplyid"></result>
+        <result property="tablename" column="tablename"></result>
+        <result property="studentname" column="studentname"></result>
+        <result property="studentnum" column="studentnum"></result>
+        <result property="major" column="major"></result>
+        <result property="startdate" column="startdate"></result>
+        <result property="enddate" column="enddate"></result>
+        <result property="leavedays" column="leavedays"></result>
+        <result property="leaveaddress" column="leaveaddress"></result>
+        <result property="studenttel" column="studenttel"></result>
+        <result property="homeaddress" column="homeaddress"></result>
+        <result property="hometel" column="hometel"></result>
+        <result property="leavereason" column="leavereason"></result>
+        <result property="checkstatus" column="checkstatus"></result>
+        <result property="isok" column="isok"></result>
+        <result property="iscancel" column="iscancel"></result>
+        <result property="remark" column="remark"></result>
+        <association property="cancelLeave" javaType="cn.xm.jwxt.bean.outGraduateDesignApply.Cancelleave">
+            <id property="cancelleaveid" column="cancelleaveid"/>
+            <result property="canceltime" column="canceltime"/>
+            <result property="passstarttime" column="passstarttime"/>
+            <result property="passendtime" column="passendtime"/>
+        </association>
+        <collection property="checkLeaves" javaType="java.util.List" ofType="cn.xm.jwxt.bean.outGraduateDesignApply.Checkleave">
+            <id property="checkleaveid" column="checkleaveid"/>
+            <result property="checkpeople" column="checkpeople"/>
+            <result property="checkopinion" column="checkopinion"/>
+            <result property="teachersign" column="teachersign"/>
+            <result property="result" column="result"/>
+            <result property="applytime" column="applytime"/>
+            <result property="remark" column="remark"/>
+        </collection>
+    </resultMap>
+
+</mapper>
