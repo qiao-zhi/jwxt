@@ -57,7 +57,6 @@
     <url-pattern>*.action</url-pattern>
   </servlet-mapping>
 
-
 <!--配置多个请求的方式-->
   <servlet-mapping>
     <servlet-name>springmvc</servlet-name>

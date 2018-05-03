@@ -11,7 +11,12 @@
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
+    <%--s   bzy--%>
+    <%@include file="/tag.jsp"%>
+
     <script typr="text/javascript" src="../../../js/outsideGraduateDesiner/apply.js"></script>
+    <%--E   bzy--%>
+
 
     <style>
         tbody tr td:nth-child(3){
