@@ -20,5 +20,14 @@ public interface TrainningcapacitybaseinfoCustomMapper {
      */
     public int addTrainningcapacitybaseinfoBatch(List<Trainningcapacitybaseinfo> trainningcapacitybaseinfos)throws SQLException;
 
+    /**
+     * 根据培养方案编号批量删除培养方案能力
+     * @param trainSchemeId 培养方案编号
+     * @return  影响的行数
+     * @throws SQLException
+     */
+    public int deleteTrainningcapacityByTrainSchemeId(@Param("trainSchemeId")String trainSchemeId)throws SQLException;
+
+
 
 }

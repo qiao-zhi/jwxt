@@ -137,8 +137,9 @@ public class FileHandleUtil {
         String dir = FileHandleUtil.getValue(propertiesFileName, propertiesKey);// 获取文件的基本目录
         try {
             //删除文件
-            FileUtils.forceDeleteOnExit(new File(dir + fileName));
-        } catch (IOException e) {
+//            FileUtils.forceDeleteOnExit(new File(dir + fileName));
+            FileUtils.deleteQuietly(new File(dir + fileName));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
