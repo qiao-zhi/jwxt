@@ -38,7 +38,7 @@ public interface DictionaryCustomMapper {
      * @return  字典集合
      * @throws Exception
      */
-    public List<Dictionary> getDictionaryByConditon(Map<String, Object> condition) throws SQLException;
+    public List<Map<String,Object>> getDictionaryByConditon(Map<String, Object> condition) throws SQLException;
 
 
     /**

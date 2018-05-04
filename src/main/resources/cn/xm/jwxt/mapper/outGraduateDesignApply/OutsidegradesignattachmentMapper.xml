@@ -4,11 +4,13 @@
   <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
     <id column="attachmentID" property="attachmentid" jdbcType="VARCHAR" />
     <result column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
+    <result column="attachmentName" property="attachmentname" jdbcType="VARCHAR" />
     <result column="attachmentOldName" property="attachmentoldname" jdbcType="VARCHAR" />
     <result column="newName" property="newname" jdbcType="VARCHAR" />
     <result column="attachmentAddr" property="attachmentaddr" jdbcType="VARCHAR" />
     <result column="uploadDate" property="uploaddate" jdbcType="TIMESTAMP" />
     <result column="attachmentType" property="attachmenttype" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    attachmentID, outsideApplyID, attachmentOldName, newName, attachmentAddr, uploadDate, 
-    attachmentType
+    attachmentID, outsideApplyID, attachmentName, attachmentOldName, newName, attachmentAddr, 
+    uploadDate, attachmentType, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutsidegradesignattachmentExample" >
     select
@@ -103,12 +105,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
-    insert into outsidegradesignattachment (attachmentID, outsideApplyID, attachmentOldName, 
-      newName, attachmentAddr, uploadDate, 
-      attachmentType)
-    values (#{attachmentid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, #{attachmentoldname,jdbcType=VARCHAR}, 
-      #{newname,jdbcType=VARCHAR}, #{attachmentaddr,jdbcType=VARCHAR}, #{uploaddate,jdbcType=TIMESTAMP}, 
-      #{attachmenttype,jdbcType=CHAR})
+    insert into outsidegradesignattachment (attachmentID, outsideApplyID, attachmentName, 
+      attachmentOldName, newName, attachmentAddr, 
+      uploadDate, attachmentType, remark
+      )
+    values (#{attachmentid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, #{attachmentname,jdbcType=VARCHAR}, 
+      #{attachmentoldname,jdbcType=VARCHAR}, #{newname,jdbcType=VARCHAR}, #{attachmentaddr,jdbcType=VARCHAR}, 
+      #{uploaddate,jdbcType=TIMESTAMP}, #{attachmenttype,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
     insert into outsidegradesignattachment
@@ -118,6 +122,9 @@
       </if>
       <if test="outsideapplyid != null" >
         outsideApplyID,
+      </if>
+      <if test="attachmentname != null" >
+        attachmentName,
       </if>
       <if test="attachmentoldname != null" >
         attachmentOldName,
@@ -134,6 +141,9 @@
       <if test="attachmenttype != null" >
         attachmentType,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="attachmentid != null" >
@@ -141,6 +151,9 @@
       </if>
       <if test="outsideapplyid != null" >
         #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentname != null" >
+        #{attachmentname,jdbcType=VARCHAR},
       </if>
       <if test="attachmentoldname != null" >
         #{attachmentoldname,jdbcType=VARCHAR},
@@ -156,6 +169,9 @@
       </if>
       <if test="attachmenttype != null" >
         #{attachmenttype,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -174,6 +190,9 @@
       <if test="record.outsideapplyid != null" >
         outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
       </if>
+      <if test="record.attachmentname != null" >
+        attachmentName = #{record.attachmentname,jdbcType=VARCHAR},
+      </if>
       <if test="record.attachmentoldname != null" >
         attachmentOldName = #{record.attachmentoldname,jdbcType=VARCHAR},
       </if>
@@ -189,6 +208,9 @@
       <if test="record.attachmenttype != null" >
         attachmentType = #{record.attachmenttype,jdbcType=CHAR},
       </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -198,11 +220,13 @@
     update outsidegradesignattachment
     set attachmentID = #{record.attachmentid,jdbcType=VARCHAR},
       outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      attachmentName = #{record.attachmentname,jdbcType=VARCHAR},
       attachmentOldName = #{record.attachmentoldname,jdbcType=VARCHAR},
       newName = #{record.newname,jdbcType=VARCHAR},
       attachmentAddr = #{record.attachmentaddr,jdbcType=VARCHAR},
       uploadDate = #{record.uploaddate,jdbcType=TIMESTAMP},
-      attachmentType = #{record.attachmenttype,jdbcType=CHAR}
+      attachmentType = #{record.attachmenttype,jdbcType=CHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -212,6 +236,9 @@
     <set >
       <if test="outsideapplyid != null" >
         outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentname != null" >
+        attachmentName = #{attachmentname,jdbcType=VARCHAR},
       </if>
       <if test="attachmentoldname != null" >
         attachmentOldName = #{attachmentoldname,jdbcType=VARCHAR},
@@ -228,17 +255,22 @@
       <if test="attachmenttype != null" >
         attachmentType = #{attachmenttype,jdbcType=CHAR},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where attachmentID = #{attachmentid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
     update outsidegradesignattachment
     set outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      attachmentName = #{attachmentname,jdbcType=VARCHAR},
       attachmentOldName = #{attachmentoldname,jdbcType=VARCHAR},
       newName = #{newname,jdbcType=VARCHAR},
       attachmentAddr = #{attachmentaddr,jdbcType=VARCHAR},
       uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
-      attachmentType = #{attachmenttype,jdbcType=CHAR}
+      attachmentType = #{attachmenttype,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR}
     where attachmentID = #{attachmentid,jdbcType=VARCHAR}
   </update>
 </mapper>

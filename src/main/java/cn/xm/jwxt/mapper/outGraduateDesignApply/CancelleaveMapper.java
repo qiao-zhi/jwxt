@@ -10,7 +10,7 @@ public interface CancelleaveMapper {
 
     int deleteByExample(CancelleaveExample example);
 
-    int deleteByPrimaryKey(Integer cancelleaveid);
+    int deleteByPrimaryKey(String cancelleaveid);
 
     int insert(Cancelleave record);
 
@@ -18,7 +18,7 @@ public interface CancelleaveMapper {
 
     List<Cancelleave> selectByExample(CancelleaveExample example);
 
-    Cancelleave selectByPrimaryKey(Integer cancelleaveid);
+    Cancelleave selectByPrimaryKey(String cancelleaveid);
 
     int updateByExampleSelective(@Param("record") Cancelleave record, @Param("example") CancelleaveExample example);
 

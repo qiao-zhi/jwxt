@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo" >
     <id column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
     <result column="StudentTitleresultID" property="studenttitleresultid" jdbcType="VARCHAR" />
+    <result column="tableName" property="tablename" jdbcType="VARCHAR" />
     <result column="studentName" property="studentname" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="majorClass" property="majorclass" jdbcType="VARCHAR" />
@@ -14,6 +15,7 @@
     <result column="stuSignUrl" property="stusignurl" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="isCommit" property="iscommit" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    outsideApplyID, StudentTitleresultID, studentName, sex, majorClass, inTeacherName, 
-    receiveUnit, applyReason, applyDate, stuSignUrl, status, isCommit
+    outsideApplyID, StudentTitleresultID, tableName, studentName, sex, majorClass, inTeacherName, 
+    receiveUnit, applyReason, applyDate, stuSignUrl, status, isCommit, remark1
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutgradesigninfoExample" >
     select
@@ -109,15 +111,17 @@
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo" >
     insert into outgradesigninfo (outsideApplyID, StudentTitleresultID, 
-      studentName, sex, majorClass, 
-      inTeacherName, receiveUnit, applyReason, 
-      applyDate, stuSignUrl, status, 
-      isCommit)
+      tableName, studentName, sex, 
+      majorClass, inTeacherName, receiveUnit, 
+      applyReason, applyDate, stuSignUrl, 
+      status, isCommit, remark1
+      )
     values (#{outsideapplyid,jdbcType=VARCHAR}, #{studenttitleresultid,jdbcType=VARCHAR}, 
-      #{studentname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{majorclass,jdbcType=VARCHAR}, 
-      #{inteachername,jdbcType=VARCHAR}, #{receiveunit,jdbcType=VARCHAR}, #{applyreason,jdbcType=VARCHAR}, 
-      #{applydate,jdbcType=TIMESTAMP}, #{stusignurl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{iscommit,jdbcType=VARCHAR})
+      #{tablename,jdbcType=VARCHAR}, #{studentname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{majorclass,jdbcType=VARCHAR}, #{inteachername,jdbcType=VARCHAR}, #{receiveunit,jdbcType=VARCHAR}, 
+      #{applyreason,jdbcType=VARCHAR}, #{applydate,jdbcType=TIMESTAMP}, #{stusignurl,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{iscommit,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo" >
     insert into outgradesigninfo
@@ -127,6 +131,9 @@
       </if>
       <if test="studenttitleresultid != null" >
         StudentTitleresultID,
+      </if>
+      <if test="tablename != null" >
+        tableName,
       </if>
       <if test="studentname != null" >
         studentName,
@@ -158,6 +165,9 @@
       <if test="iscommit != null" >
         isCommit,
       </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="outsideapplyid != null" >
@@ -165,6 +175,9 @@
       </if>
       <if test="studenttitleresultid != null" >
         #{studenttitleresultid,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null" >
+        #{tablename,jdbcType=VARCHAR},
       </if>
       <if test="studentname != null" >
         #{studentname,jdbcType=VARCHAR},
@@ -196,6 +209,9 @@
       <if test="iscommit != null" >
         #{iscommit,jdbcType=VARCHAR},
       </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutgradesigninfoExample" resultType="java.lang.Integer" >
@@ -212,6 +228,9 @@
       </if>
       <if test="record.studenttitleresultid != null" >
         StudentTitleresultID = #{record.studenttitleresultid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tablename != null" >
+        tableName = #{record.tablename,jdbcType=VARCHAR},
       </if>
       <if test="record.studentname != null" >
         studentName = #{record.studentname,jdbcType=VARCHAR},
@@ -243,6 +262,9 @@
       <if test="record.iscommit != null" >
         isCommit = #{record.iscommit,jdbcType=VARCHAR},
       </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -252,6 +274,7 @@
     update outgradesigninfo
     set outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
       StudentTitleresultID = #{record.studenttitleresultid,jdbcType=VARCHAR},
+      tableName = #{record.tablename,jdbcType=VARCHAR},
       studentName = #{record.studentname,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=VARCHAR},
       majorClass = #{record.majorclass,jdbcType=VARCHAR},
@@ -261,7 +284,8 @@
       applyDate = #{record.applydate,jdbcType=TIMESTAMP},
       stuSignUrl = #{record.stusignurl,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=VARCHAR},
-      isCommit = #{record.iscommit,jdbcType=VARCHAR}
+      isCommit = #{record.iscommit,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -271,6 +295,9 @@
     <set >
       <if test="studenttitleresultid != null" >
         StudentTitleresultID = #{studenttitleresultid,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null" >
+        tableName = #{tablename,jdbcType=VARCHAR},
       </if>
       <if test="studentname != null" >
         studentName = #{studentname,jdbcType=VARCHAR},
@@ -302,12 +329,16 @@
       <if test="iscommit != null" >
         isCommit = #{iscommit,jdbcType=VARCHAR},
       </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
     </set>
     where outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo" >
     update outgradesigninfo
     set StudentTitleresultID = #{studenttitleresultid,jdbcType=VARCHAR},
+      tableName = #{tablename,jdbcType=VARCHAR},
       studentName = #{studentname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
       majorClass = #{majorclass,jdbcType=VARCHAR},
@@ -317,7 +348,8 @@
       applyDate = #{applydate,jdbcType=TIMESTAMP},
       stuSignUrl = #{stusignurl,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
-      isCommit = #{iscommit,jdbcType=VARCHAR}
+      isCommit = #{iscommit,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR}
     where outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR}
   </update>
 </mapper>

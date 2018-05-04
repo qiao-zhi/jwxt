@@ -30,5 +30,14 @@ public class DefaultValue {
      * 默认的课程下载的文件名字
      */
     public static final String COURSE_DEFAULT_FILENAME = "课程信息.xls";
+    /**
+     * 保存状态
+     */
+    public static final String SAVE_STATUS = "保存";
+    /**
+     * 提交状态
+     */
+    public static final String SUBMIT_STATUS = "提交";
+
 
 }

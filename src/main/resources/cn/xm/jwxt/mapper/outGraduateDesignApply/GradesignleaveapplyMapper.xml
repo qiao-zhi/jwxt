@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Gradesignleaveapply" >
     <id column="leaveID" property="leaveid" jdbcType="VARCHAR" />
     <result column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
+    <result column="tableName" property="tablename" jdbcType="VARCHAR" />
     <result column="studentName" property="studentname" jdbcType="VARCHAR" />
     <result column="studentNum" property="studentnum" jdbcType="VARCHAR" />
     <result column="major" property="major" jdbcType="VARCHAR" />
@@ -18,6 +19,7 @@
     <result column="checkStatus" property="checkstatus" jdbcType="VARCHAR" />
     <result column="isOk" property="isok" jdbcType="VARCHAR" />
     <result column="isCancel" property="iscancel" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,8 +80,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    leaveID, outsideApplyID, studentName, studentNum, major, startDate, endDate, leaveDays, 
-    leaveAddress, studentTel, homeAddress, homeTel, leaveReason, checkStatus, isOk, isCancel
+    leaveID, outsideApplyID, tableName, studentName, studentNum, major, startDate, endDate, 
+    leaveDays, leaveAddress, studentTel, homeAddress, homeTel, leaveReason, checkStatus, 
+    isOk, isCancel, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.GradesignleaveapplyExample" >
     select
@@ -112,18 +115,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Gradesignleaveapply" >
-    insert into gradesignleaveapply (leaveID, outsideApplyID, studentName, 
-      studentNum, major, startDate, 
-      endDate, leaveDays, leaveAddress, 
-      studentTel, homeAddress, homeTel, 
-      leaveReason, checkStatus, isOk, 
-      isCancel)
-    values (#{leaveid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, #{studentname,jdbcType=VARCHAR}, 
-      #{studentnum,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{startdate,jdbcType=TIMESTAMP}, 
-      #{enddate,jdbcType=TIMESTAMP}, #{leavedays,jdbcType=INTEGER}, #{leaveaddress,jdbcType=VARCHAR}, 
-      #{studenttel,jdbcType=VARCHAR}, #{homeaddress,jdbcType=VARCHAR}, #{hometel,jdbcType=VARCHAR}, 
-      #{leavereason,jdbcType=VARCHAR}, #{checkstatus,jdbcType=VARCHAR}, #{isok,jdbcType=VARCHAR}, 
-      #{iscancel,jdbcType=VARCHAR})
+    insert into gradesignleaveapply (leaveID, outsideApplyID, tableName, 
+      studentName, studentNum, major, 
+      startDate, endDate, leaveDays, 
+      leaveAddress, studentTel, homeAddress, 
+      homeTel, leaveReason, checkStatus, 
+      isOk, isCancel, remark
+      )
+    values (#{leaveid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, #{tablename,jdbcType=VARCHAR}, 
+      #{studentname,jdbcType=VARCHAR}, #{studentnum,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, 
+      #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, #{leavedays,jdbcType=INTEGER}, 
+      #{leaveaddress,jdbcType=VARCHAR}, #{studenttel,jdbcType=VARCHAR}, #{homeaddress,jdbcType=VARCHAR}, 
+      #{hometel,jdbcType=VARCHAR}, #{leavereason,jdbcType=VARCHAR}, #{checkstatus,jdbcType=VARCHAR}, 
+      #{isok,jdbcType=VARCHAR}, #{iscancel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Gradesignleaveapply" >
     insert into gradesignleaveapply
@@ -133,6 +138,9 @@
       </if>
       <if test="outsideapplyid != null" >
         outsideApplyID,
+      </if>
+      <if test="tablename != null" >
+        tableName,
       </if>
       <if test="studentname != null" >
         studentName,
@@ -176,6 +184,9 @@
       <if test="iscancel != null" >
         isCancel,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="leaveid != null" >
@@ -183,6 +194,9 @@
       </if>
       <if test="outsideapplyid != null" >
         #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null" >
+        #{tablename,jdbcType=VARCHAR},
       </if>
       <if test="studentname != null" >
         #{studentname,jdbcType=VARCHAR},
@@ -226,6 +240,9 @@
       <if test="iscancel != null" >
         #{iscancel,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.GradesignleaveapplyExample" resultType="java.lang.Integer" >
@@ -242,6 +259,9 @@
       </if>
       <if test="record.outsideapplyid != null" >
         outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tablename != null" >
+        tableName = #{record.tablename,jdbcType=VARCHAR},
       </if>
       <if test="record.studentname != null" >
         studentName = #{record.studentname,jdbcType=VARCHAR},
@@ -285,6 +305,9 @@
       <if test="record.iscancel != null" >
         isCancel = #{record.iscancel,jdbcType=VARCHAR},
       </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -294,6 +317,7 @@
     update gradesignleaveapply
     set leaveID = #{record.leaveid,jdbcType=VARCHAR},
       outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      tableName = #{record.tablename,jdbcType=VARCHAR},
       studentName = #{record.studentname,jdbcType=VARCHAR},
       studentNum = #{record.studentnum,jdbcType=VARCHAR},
       major = #{record.major,jdbcType=VARCHAR},
@@ -307,7 +331,8 @@
       leaveReason = #{record.leavereason,jdbcType=VARCHAR},
       checkStatus = #{record.checkstatus,jdbcType=VARCHAR},
       isOk = #{record.isok,jdbcType=VARCHAR},
-      isCancel = #{record.iscancel,jdbcType=VARCHAR}
+      isCancel = #{record.iscancel,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -317,6 +342,9 @@
     <set >
       <if test="outsideapplyid != null" >
         outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null" >
+        tableName = #{tablename,jdbcType=VARCHAR},
       </if>
       <if test="studentname != null" >
         studentName = #{studentname,jdbcType=VARCHAR},
@@ -360,12 +388,16 @@
       <if test="iscancel != null" >
         isCancel = #{iscancel,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where leaveID = #{leaveid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Gradesignleaveapply" >
     update gradesignleaveapply
     set outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      tableName = #{tablename,jdbcType=VARCHAR},
       studentName = #{studentname,jdbcType=VARCHAR},
       studentNum = #{studentnum,jdbcType=VARCHAR},
       major = #{major,jdbcType=VARCHAR},
@@ -379,7 +411,8 @@
       leaveReason = #{leavereason,jdbcType=VARCHAR},
       checkStatus = #{checkstatus,jdbcType=VARCHAR},
       isOk = #{isok,jdbcType=VARCHAR},
-      isCancel = #{iscancel,jdbcType=VARCHAR}
+      isCancel = #{iscancel,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
     where leaveID = #{leaveid,jdbcType=VARCHAR}
   </update>
 </mapper>

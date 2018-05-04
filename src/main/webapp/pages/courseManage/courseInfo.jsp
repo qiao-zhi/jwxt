@@ -102,6 +102,7 @@
             </div>
 
             <button class="layui-btn" type="button" onclick="queryCourseFYBtn()"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn layui-btn-normal" type="button" onclick='clearQueryCondition(this)' title="点击重置查询条件"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
     <!--end查询-->

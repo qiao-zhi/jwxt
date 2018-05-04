@@ -177,6 +177,20 @@ function queryCourseFYBtn() {
 }
 
 
+/**
+ * 清空查询条件的按钮
+ * 1.清空所有的条件，包括隐藏域的条件，2.重新查询一次
+ * @param obj   将清空条件按钮自己传下来
+ */
+function clearQueryCondition(obj) {
+    //1.清空条件
+    var form = $(obj).parents("form");
+    form.find("input").val("");
+    form.find("select").val("");
+    //2.重新查询一次
+    queryCourseFY();
+}
+
 
 /*****************E   查询课程相关操作*****************/
 

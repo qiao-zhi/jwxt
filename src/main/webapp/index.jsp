@@ -249,13 +249,18 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateApply.html">
+                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateApply.jsp">
                                     <cite>校外毕设申请</cite><!--添加申请及上传相关材料-->
                                 </a>
                             </li>
                             <li>
                                 <a _href="pages/graduateProgram/outGraduateProgram/outGraduateManage.html">
                                     <cite>校外毕设审核管理</cite><!-- 上传资料，教研室主任审核及意见，院长审核意见-->
+                                </a>
+                            </li>
+                            <li>
+                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateStatistics.html">
+                                    <cite>校外毕设统计</cite><!-- 上传资料，教研室主任审核及意见，院长审核意见-->
                                 </a>
                             </li>
                         </ul>
@@ -310,8 +315,13 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/trainingScheme/trainingScheme.html">
+                        <a _href="pages/trainingScheme/trainingScheme.jsp">
                             <cite>培养方案管理</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="pages/trainingScheme/trainingScheme-add.jsp">
+                            <cite>添加培养方案</cite>
                         </a>
                     </li>
                 </ul>
@@ -373,7 +383,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/dictionary.html">
+                        <a _href="pages/system/dictionary.jsp">
                             <cite>字典管理</cite>
                         </a>
                     </li>

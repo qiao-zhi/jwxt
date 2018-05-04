@@ -2,13 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.OutsidegradesignagreemenMapper" >
   <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignagreemen" >
-    <id column="agreementID" property="agreementid" jdbcType="INTEGER" />
+    <id column="agreementID" property="agreementid" jdbcType="VARCHAR" />
     <result column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
+    <result column="agreementName" property="agreementname" jdbcType="VARCHAR" />
     <result column="schoolSign" property="schoolsign" jdbcType="VARCHAR" />
     <result column="schoolSignDate" property="schoolsigndate" jdbcType="TIMESTAMP" />
     <result column="studentSign" property="studentsign" jdbcType="VARCHAR" />
     <result column="studentSignDate" property="studentsigndate" jdbcType="TIMESTAMP" />
     <result column="applyStatus" property="applystatus" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    agreementID, outsideApplyID, schoolSign, schoolSignDate, studentSign, studentSignDate, 
-    applyStatus
+    agreementID, outsideApplyID, agreementName, schoolSign, schoolSignDate, studentSign, 
+    studentSignDate, applyStatus, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutsidegradesignagreemenExample" >
     select
@@ -86,15 +88,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from outsidegradesignagreemen
-    where agreementID = #{agreementid,jdbcType=INTEGER}
+    where agreementID = #{agreementid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from outsidegradesignagreemen
-    where agreementID = #{agreementid,jdbcType=INTEGER}
+    where agreementID = #{agreementid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutsidegradesignagreemenExample" >
     delete from outsidegradesignagreemen
@@ -103,12 +105,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignagreemen" >
-    insert into outsidegradesignagreemen (agreementID, outsideApplyID, schoolSign, 
-      schoolSignDate, studentSign, studentSignDate, 
-      applyStatus)
-    values (#{agreementid,jdbcType=INTEGER}, #{outsideapplyid,jdbcType=VARCHAR}, #{schoolsign,jdbcType=VARCHAR}, 
-      #{schoolsigndate,jdbcType=TIMESTAMP}, #{studentsign,jdbcType=VARCHAR}, #{studentsigndate,jdbcType=TIMESTAMP}, 
-      #{applystatus,jdbcType=VARCHAR})
+    insert into outsidegradesignagreemen (agreementID, outsideApplyID, agreementName, 
+      schoolSign, schoolSignDate, studentSign, 
+      studentSignDate, applyStatus, remark
+      )
+    values (#{agreementid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, #{agreementname,jdbcType=VARCHAR}, 
+      #{schoolsign,jdbcType=VARCHAR}, #{schoolsigndate,jdbcType=TIMESTAMP}, #{studentsign,jdbcType=VARCHAR}, 
+      #{studentsigndate,jdbcType=TIMESTAMP}, #{applystatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignagreemen" >
     insert into outsidegradesignagreemen
@@ -118,6 +122,9 @@
       </if>
       <if test="outsideapplyid != null" >
         outsideApplyID,
+      </if>
+      <if test="agreementname != null" >
+        agreementName,
       </if>
       <if test="schoolsign != null" >
         schoolSign,
@@ -134,13 +141,19 @@
       <if test="applystatus != null" >
         applyStatus,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="agreementid != null" >
-        #{agreementid,jdbcType=INTEGER},
+        #{agreementid,jdbcType=VARCHAR},
       </if>
       <if test="outsideapplyid != null" >
         #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementname != null" >
+        #{agreementname,jdbcType=VARCHAR},
       </if>
       <if test="schoolsign != null" >
         #{schoolsign,jdbcType=VARCHAR},
@@ -157,6 +170,9 @@
       <if test="applystatus != null" >
         #{applystatus,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutsidegradesignagreemenExample" resultType="java.lang.Integer" >
@@ -169,10 +185,13 @@
     update outsidegradesignagreemen
     <set >
       <if test="record.agreementid != null" >
-        agreementID = #{record.agreementid,jdbcType=INTEGER},
+        agreementID = #{record.agreementid,jdbcType=VARCHAR},
       </if>
       <if test="record.outsideapplyid != null" >
         outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agreementname != null" >
+        agreementName = #{record.agreementname,jdbcType=VARCHAR},
       </if>
       <if test="record.schoolsign != null" >
         schoolSign = #{record.schoolsign,jdbcType=VARCHAR},
@@ -189,6 +208,9 @@
       <if test="record.applystatus != null" >
         applyStatus = #{record.applystatus,jdbcType=VARCHAR},
       </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -196,13 +218,15 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update outsidegradesignagreemen
-    set agreementID = #{record.agreementid,jdbcType=INTEGER},
+    set agreementID = #{record.agreementid,jdbcType=VARCHAR},
       outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      agreementName = #{record.agreementname,jdbcType=VARCHAR},
       schoolSign = #{record.schoolsign,jdbcType=VARCHAR},
       schoolSignDate = #{record.schoolsigndate,jdbcType=TIMESTAMP},
       studentSign = #{record.studentsign,jdbcType=VARCHAR},
       studentSignDate = #{record.studentsigndate,jdbcType=TIMESTAMP},
-      applyStatus = #{record.applystatus,jdbcType=VARCHAR}
+      applyStatus = #{record.applystatus,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -212,6 +236,9 @@
     <set >
       <if test="outsideapplyid != null" >
         outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementname != null" >
+        agreementName = #{agreementname,jdbcType=VARCHAR},
       </if>
       <if test="schoolsign != null" >
         schoolSign = #{schoolsign,jdbcType=VARCHAR},
@@ -228,17 +255,22 @@
       <if test="applystatus != null" >
         applyStatus = #{applystatus,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
-    where agreementID = #{agreementid,jdbcType=INTEGER}
+    where agreementID = #{agreementid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignagreemen" >
     update outsidegradesignagreemen
     set outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      agreementName = #{agreementname,jdbcType=VARCHAR},
       schoolSign = #{schoolsign,jdbcType=VARCHAR},
       schoolSignDate = #{schoolsigndate,jdbcType=TIMESTAMP},
       studentSign = #{studentsign,jdbcType=VARCHAR},
       studentSignDate = #{studentsigndate,jdbcType=TIMESTAMP},
-      applyStatus = #{applystatus,jdbcType=VARCHAR}
-    where agreementID = #{agreementid,jdbcType=INTEGER}
+      applyStatus = #{applystatus,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where agreementID = #{agreementid,jdbcType=VARCHAR}
   </update>
 </mapper>

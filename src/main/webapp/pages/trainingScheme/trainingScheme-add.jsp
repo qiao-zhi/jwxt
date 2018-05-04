@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8"%>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>添加培养方案基本信息</title>
@@ -16,6 +15,21 @@
     <script type="text/javascript" src="../../js/xadmin.js"></script>
     <!--漂浮导航-->
     <script src="../../js/demo.js"></script>
+
+
+    <%--S   QLQ引入的--%>
+    <script>
+
+    </script>
+
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
+    <%--增加培养方案的JS--%>
+    <script type="text/javascript" src="../../js/trainScheme/trainScheme-add.js"></script>
+
+
+    <%--E   QLQ引入的--%>
+
     <style>
         /*漂浮导航*/
         .box { position:fixed; top:150px; left:800px; min-width:240px; min-height:200px; border:1px solid #ccc; background:#fff; }
@@ -33,101 +47,107 @@
             overflow: visible;
             list-style-type: disc;
         }
+        /*输入框的宽度为100%*/
+        #graduateCapacityTbody input{
+            width: 100%;
+        }
     </style>
 </head>
 
 <body>
 <div class="x-body">
+    <form class="layui-form layui-form-pane" id="addTrainSchemeForm" action="">
 
-    <div class="layui-form-item">
-        <button class="layui-btn" lay-submit="" lay-filter="demo2">保存</button>
-        <button class="layui-btn" lay-submit="" lay-filter="demo2">提交</button>
-    </div>
+        <%--隐藏将来使用的培养方案能力--%>
+        <div id="hidden_capacity_div">
+            <%--JS添加数据到这里--%>
+        </div>
 
-    <form class="layui-form layui-form-pane" action="">
 
         <!--基本信息-->
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="zero">基本信息</a></legend>
         </fieldset>
-        <!--1-->
+        <!--1.培养方案名称-->
         <div class="layui-form-item">
             <label for="classID" class="layui-form-label">
                 培养方案名称
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="classID" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input" placeholder="太原科技大学本科专业人才培养方案">
+                <input type="text" id="classID" name="trainingschemaname" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input" value="太原科技大学本科专业人才培养方案">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 必须填写
             </div>
         </div>
-        <!--2-->
+        <!--2.专业名称-->
         <div class="layui-form-item">
-            <label for="className" class="layui-form-label">
+            <label for="majorname" class="layui-form-label">
                 专业名称
             </label>
-            <div class="layui-input-inline">
-                <input type="text" id="className" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <!--2-->
-        <div class="layui-form-item">
-            <label for="className" class="layui-form-label">
-                专业代码
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="classNam2e" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <!--3-->
-        <div class="layui-form-item">
-            <label for="majorName" class="layui-form-label">
-                专科门类
-            </label>
             <div class="layui-input-inline"><!--带搜索的查询-->
-                <select lay-verify="required" name="contrller" id="majorName">
-                    <option value="1">工学</option><!--哲学、经济学、法学、教育学、文学、历史学、理学、工学、农学、医学、管理学-->
-                    <option value="2">法学</option>
-                    <option value="3">农学</option>
-                    <option value="4">医学</option>
-                    <option value="4">经济学</option>
-                    <option value="4">管理学</option>
+                <input type="hidden" name="majorname">
+                <select lay-verify="required" lay-filter="majornameSelect" id="majorname">
+                    <!--动态填充数据-->
                 </select>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 必须选择
             </div>
         </div>
-        <!--3-->
+        <!--2.专业代码-->
         <div class="layui-form-item">
-            <label for="classNam2到e" class="layui-form-label">
-                专业负责人
+            <label for="majorid" class="layui-form-label">
+                专业代码
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="classNam2到e" name="email" required="" lay-verify="email"
+                <input type="text" id="majorid" name="majorid" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 必须填写
             </div>
         </div>
-        <!--5-->
+        <!--3.学科门类-->
+        <div class="layui-form-item">
+            <label for="majortype" class="layui-form-label">
+                学科门类
+            </label>
+            <div class="layui-input-inline"><!--带搜索的查询-->
+                <select lay-verify="required" name="majortype" id="majortype">
+                    <option value="工学">工学</option><!--哲学、经济学、法学、教育学、文学、历史学、理学、工学、农学、医学、管理学-->
+                    <option value="法学">法学</option>
+                    <option value="农学">农学</option>
+                    <option value="医学">医学</option>
+                    <option value="经济学">经济学</option>
+                    <option value="管理学">管理学</option>
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                必须选择
+            </div>
+        </div>
+        <!--4.专业负责人-->
+        <div class="layui-form-item">
+            <label for="add_majormanager" class="layui-form-label">
+                专业负责人
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="add_majormanager" name="majormanager" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                必须填写
+            </div>
+        </div>
+        <!--5.时间-->
         <div class="layui-form-item">
             <label for="L_pass" class="layui-form-label">
                 时间
             </label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" id="L_pass" placeholder="yyyy-MM-dd">
+                <input type="text" class="layui-input" name="createtime" id="L_pass" placeholder="yyyy-MM-dd">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 请选择年月
@@ -135,70 +155,62 @@
         </div>
 
         <br>
-        <!--培养目标-->
+        <!--6.培养目标-->
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="one">培养目标</a></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">培养目标</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="trainingtarget"></textarea>
             </div>
         </div>
 
+        <%--7.培养要求--%>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="two">培养要求</a></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">培养要求</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="trainingrequire"></textarea>
             </div>
         </div>
 
+        <%--8.--%>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
-            <legend><a name="three">毕业生能力</a></legend>
+            <legend><a name="three">毕业生能力</a> <i class="layui-icon" title="点击添加一行到表格中" onclick="addTr()">&#xe608;</i></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label" style="font-weight: bolder">毕业生能力</label>
-            <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
-            </div>
+           <table class="layui-table">
+                <colgroup>
+                    <col width="10%">
+                    <col width="80%">
+                    <col width="10%">
+                </colgroup>
+               <tbody id="graduateCapacityTbody">
+               <%--毕业生能力表格，手动往这里添加--%>
+                   <%--<tr>
+                       <td>G1</td>
+                       <td><input type="text"></td>
+                       <td><a class="layui-icon" title="点击删除当前行数据" onclick="deleteTr(this)">&#xe640;</a></td>
+                   </tr>--%>
+
+               </tbody>
+           </table>
         </div>
 
+
+        <%--9.修业年限--%>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="four">修业年限</a></legend>
         </fieldset>
         <div class="layui-form-item">
-            <label for="classNam2到e" class="layui-form-label">
+            <label for="trainyears" class="layui-form-label">
                 4、修业年限
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="classNam21e" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="classNam2到e" class="layui-form-label">
-                5、授予学位
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="classNam24e" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="classNam2到e" class="layui-form-label">
-                6、主干学科
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="className2" name="email" required="" lay-verify="email"
+                <input type="text" id="trainyears" name="trainyears" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -206,47 +218,82 @@
             </div>
         </div>
 
+
+        <%--10授予学位--%>
+        <div class="layui-form-item">
+            <label for="traindegree" class="layui-form-label">
+                5、授予学位
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="traindegree" name="traindegree" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                必须填写
+            </div>
+        </div>
+
+        <%--11.主干学科--%>
+        <div class="layui-form-item">
+            <label for="maincourse" class="layui-form-label">
+                6、主干学科
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="maincourse" name="maincourse" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                必须填写
+            </div>
+        </div>
+
+        <%--12.核心课程--%>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="five">核心课程</a></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">7、核心课程</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" id="corecourse" name="corecourse"></textarea>
             </div>
         </div>
 
+        <%--13.专业特色--%>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="six">专业特色</a></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">专业特色</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="majorfeature"></textarea>
             </div>
         </div>
 
+
+        <%--14.主要实践性教学环节--%>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="seven">主要实践性教学环节</a></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">主要实践性教学环节</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="maintestitem"></textarea>
             </div>
         </div>
 
+
+        <%--15.主要专业实验--%>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="eight">主要专业实验</a></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">主要专业实验</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="mainmajorexperience"></textarea>
             </div>
         </div>
 
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
+       <%-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="nine">主要课程关系结构图</a></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
@@ -291,7 +338,15 @@
                     }
                 });
             })//end 照片上传
-        </script>
+        </script>--%>
+        <p></p>
+        <p></p>
+        <p></p>
+        <%--保存和提交按钮--%>
+        <div class="layui-form-item">
+            <button class="layui-btn" type="button" onclick="saveTrainschemeInfo()">保存</button>
+            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo2">提交</button>
+        </div>
 
     </form>
 
@@ -368,6 +423,11 @@
         });
     });
 </script>
+
+
+<!--隐藏一个打开的窗口的index，用于关闭-->
+<input type="hidden" id="index_temp"/>
+
 
 </body>
 

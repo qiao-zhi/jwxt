@@ -15,6 +15,7 @@ import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.font.TrueTypeFont;
 
 import javax.annotation.Resource;
 import javax.xml.bind.annotation.XmlType;
@@ -44,6 +45,9 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
      */
     @Override
     public boolean addApTaskNoticeBaseInfo(ApTaskNoticeBaseInfo noticeBaseInfo) throws Exception {
+        if(noticeBaseInfo==null){
+            throw new IllegalArgumentException("通知书基本信息不能为空!");
+        }
         //设置主键
         noticeBaseInfo.setNoticeBookId(UUIDUtil.getUUID2());
         //是否删除字段默认使用
@@ -67,9 +71,27 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
         if(ValidateCheck.isNull(noticeBookId)){
             throw new IllegalArgumentException("通知书编号不能为空!");
         }
+        if(noticeBaseInfo==null){
+            throw new IllegalArgumentException("通知书基本信息不能为空!");
+        }
         //设置通知书编号
         noticeBaseInfo.setNoticeBookId(noticeBookId);
-        int count = taskNoticeBaseInfoMapper.updateByPrimaryKey(noticeBaseInfo);
+        int count = taskNoticeBaseInfoMapper.updateByPrimaryKeySelective(noticeBaseInfo);
+        return count>0?true:false;
+    }
+
+    /**
+     * 根据通知书ID修改是否导入状态为导入状态
+     * @param noticeBookId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean updateIsInputStatus(String noticeBookId) throws Exception {
+        if(ValidateCheck.isNull(noticeBookId)){
+            throw new IllegalArgumentException("通知书编号不能为空!");
+        }
+        int count = taskNoticeBaseInfoCustomMapper.updateIsImportById(noticeBookId, DefaultValue.IS_USE);
         return count>0?true:false;
     }
 
@@ -92,6 +114,22 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
     }
 
     /**
+     * 根据教学任务通知书ID查询通知书基本信息
+     *
+     * @param noticeBookId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ApTaskNoticeBaseInfo getApTaskNoticeBaseInfoById(String noticeBookId) throws Exception {
+        if(ValidateCheck.isNull(noticeBookId)){
+            throw new IllegalArgumentException("通知书编号不能为空!");
+        }
+        ApTaskNoticeBaseInfo taskNoticeBaseInfo = taskNoticeBaseInfoMapper.selectByPrimaryKey(noticeBookId);
+        return taskNoticeBaseInfo;
+    }
+
+    /**
      * 组合条件查询任务通知书基本信息分页显示
      * 过滤掉删除标记为0的通知书信息
      *
@@ -103,6 +141,9 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
     public PageInfo<ApTaskNoticeBaseInfo> findApTaskNoticeBaseInfoByCondition(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception {
         if(currentPage==null||pageSize==null){
             throw new IllegalArgumentException("分页参数传递错误！");
+        }
+        if(condition==null){
+            throw new IllegalArgumentException("查询条件参数传递错误!");
         }
         //采用PageHelper插件进行分页
         PageHelper.startPage(currentPage,pageSize,"create_time DESC");

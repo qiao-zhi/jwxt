@@ -48,7 +48,7 @@
         <form class="layui-form layui-col-md12 x-so" id="selectNoticeInfoForm">
         	
             <div class="layui-input-inline">
-                <select name="contrller">
+                <select name="academicId">
                     <option value="">请输入学院</option>
                     <option value="1">计算机科学与技术学院</option>
                     <option value="2">机械学院</option>
@@ -56,16 +56,11 @@
                     <option value="4">经济管理学院</option>
                 </select>
             </div>
+
+            <input id="y_year" name="academicYear" class="layui-input" placeholder="学年"  lay-key="1"/>
+
             <div class="layui-input-inline">
-                <select name="contrller">
-                	<option value="">请输入学年</option>
-                    <option value="2014-2015学年">2014-2015学年</option>
-                    <option value="2015-2016学年">2015-2016学年</option>
-                    <option value="2016-2017学年">2016-2017学年</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <select name="contrller">
+                <select name="term">
                 	<option value="">请输入学期</option>
                     <option value="1">第一学期</option>
                     <option value="2">第二学期</option>
@@ -73,7 +68,7 @@
             </div>
         	
             <div class="layui-input-inline">
-                 <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                 <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
             </div>
             <%--隐藏当前页和当前页显示条数--%>
             <input type="hidden" name="pageSize"/>
@@ -86,48 +81,8 @@
     
     <xblock>
 	<button class="layui-btn" onclick="addTask()" >新增</button>
-	<button class="layui-btn" onclick="allotCourse()" >导入课程</button>
+	<button class="layui-btn" onclick="importNoticeBook()" >导入任务通知书</button>
 	</xblock>
-	<script>
-		//新增任务
-		function addTask(){
-			x_admin_show('新增通知书','./adviceBook-add.jsp')
-		}
-		var chooseCourse=0;//判断是否选中课程
-    	function panduan(){
-    		$(".layui-form-checkbox").each(function() { 
-				if ($(this).hasClass("layui-form-checked")) {
-					chooseCourse++;
-				}
-			})
-    	}
-    	//分配课程
-    	function allotCourse(){
-    		panduan();//调用判断方法
-    		if (chooseCourse>0) {
-    			if(chooseCourse===1){
-    				x_admin_show('导入课程','./adviceBook-import.jsp')
-    			}else{
-    				layer.alert('每次只可为一个通知书导入课程');
-    			}
-					}
-    		else{
-    			layer.alert('请先选择需要导入课程的通知书');
-    		}
-    		chooseCourse=0;//清空值
-    	}
-    	//接收任务
-    	function accept(){
-    		panduan();//调用判断方法
-    		if (chooseCourse>0) {
-    			layer.confirm("您确定接收选中的教学任务？")
-					}
-    		else{
-    			layer.alert('请先选择需要接收的任务');
-    		}
-    		chooseCourse=0;//清空值
-    	}
-	</script>
     <!--表格内容-->
     <table class="layui-table">
         <thead>
@@ -138,14 +93,14 @@
                         &#xe605;</i>
                     </div>--%>
                 </th>
-         	<th>序号</th>
-            <th>学院名称</th>
-            <th>学年</th>
-            <th>学期</th>
-            <th>创建人</th>
-            <th>创建时间</th>
-            <th>状态</th>
-            <th>操作</th>
+                <th>序号</th>
+                <th>学院名称</th>
+                <th>学年</th>
+                <th>学期</th>
+                <th>创建人</th>
+                <th>创建时间</th>
+                <th>状态</th>
+                <th>操作</th>
 		    </tr>
         </thead>
         <tbody id="noticeBaseInfoList">
@@ -170,14 +125,7 @@
         })
     }
 
-    /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
-        });
-    }
+
 </script>
 
 </body>
