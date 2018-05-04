@@ -1,4 +1,7 @@
 <%@ page  language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8"%>
+<%--全局配置JSP--%>
+<%@ include file ="/tag.jsp"%>
+
 <html>
 
 <head>
@@ -9,22 +12,19 @@
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="../../css/font.css">
-    <link rel="stylesheet" href="../../css/xadmin.css">
-    <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <link rel="stylesheet" href="${baseurl}/css/font.css">
+    <link rel="stylesheet" href="${baseurl}/css/xadmin.css">
+    <script type="text/javascript" src="${baseurl}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${baseurl}/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${baseurl}/js/xadmin.js"></script>
 
 
     <%--S   QLQ引入的--%>
     <script>
 
     </script>
-
-    <%--全局配置JSP--%>
-    <%@ include file ="/tag.jsp"%>
     <%--培养方案管理的JS--%>
-    <script type="text/javascript" src="../../js/trainScheme/trainSchemeManager.js"></script>
+    <script type="text/javascript" src="${baseurl}/js/trainScheme/trainSchemeManage.js"></script>
 
 
     <%--E   QLQ引入的--%>
@@ -86,7 +86,7 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('课程安排','./trainingScheme-course.html')">上传课程结构图</button>
+        <button class="layui-btn" type="button" onclick="openAddPictureModal()">上传课程结构图</button>
         <button class="layui-btn" onclick="x_admin_show('课程安排','./trainingScheme-course.html')">安排课程</button>
         <button class="layui-btn" onclick="x_admin_show('课程安排','./trainingScheme-course.html')">安排课程能力</button>
         <button class="layui-btn layui-btn-normal" onclick="">下载培养方案 </button>
@@ -170,3 +170,40 @@
 </body>
 
 </html>
+
+<!--相关的几个模态框-->
+<!--1 S    上传图片的模态框-->
+<%--隐藏打开的index--%>
+<input type="hidden" id="hidden_picture_index">
+<div class="x-body" style="display: none" id="pictureModal">
+    <div class="layui-upload">
+        <!--隐藏培养方案编号-->
+        <input type="hidden" id="hidden_trainSchemeId">
+        <!--隐藏上传文件的操作-->
+        <input type="hidden" id="hidden_tmp_index">
+        <button type="button" class="layui-btn" id="structurePicture"><!--动态赋值--></button>
+        <!--预留一个预览的img标签-->
+        <div id="imgDiv" style="display: none;margin-top: 10px;">
+            <img id="imgPreview" width="400px" height="200px">
+        </div>
+        <div id="promptDiv" style="margin-top: 10px;display: none">
+            <p><font style="font-size: 30px">您还没有上传课程关系结构图，请先上传课程关系结构图!</font></p>
+        </div>
+    </div>
+</div>
+<!--1 E    上传图片的模态框-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

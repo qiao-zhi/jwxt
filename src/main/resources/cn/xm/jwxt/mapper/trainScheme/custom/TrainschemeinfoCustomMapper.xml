@@ -41,7 +41,25 @@
     </select>
     <!--E    分页查询培养方案信息-->
 
+    <!--S  根据培养方案编号查询培养方案信息-->
+    <select id="getTrainschemeinfoById" parameterType="string" resultType="map">
+        select * from trainschemeinfo
+        <where>
+            <if test="1 == 1">
+                and isUse = '1'
+            </if>
+            <if test="1 == 1">
+                and trainingSchemeID = #{trainschemeinfoId}
+            </if>
+        </where>
+    </select>
+    <!--E  根据培养方案编号查询培养方案信息-->
 
+
+    <!--删除培养方案-->
+    <update id="deleteTrainSchemeById" parameterType="string">
+        update trainschemeinfo set isUse='0' where trainingSchemeID=#{trainSchemeId}
+    </update>
 
 
 

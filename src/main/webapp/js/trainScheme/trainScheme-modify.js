@@ -1,7 +1,7 @@
 /**
  * @author: qlq
  * @time: 9:31
- * @description:    添加培养方案的JS
+ * @description:    修改培养方案的JS(与添加不同的是需要初始化一些数据)
  */
 
 /**
@@ -26,6 +26,8 @@ $(function () {
 
     // layer.msg("消息框")
     getMajorNameAndCode();//查询所有的专业名称和专业代码
+    getTrainSchemeInfo();//根据培养方案编号查询培养方案基本信息
+    getTrainSchemeCapacityInfos();//根据培养方案编号查询能力信息
 });
 
 
@@ -71,13 +73,13 @@ layui.use(['form','layer'], function () {
        layer.confirm("确认提交?提交之后不能更改!!!",function (index) {
            //4.验证通过的话就提交表单，并将隐藏的状态置为已经提交
            $("[name='remark1']").val("提交");//将隐藏的状态设为提交
-           $.post(contextPath+"/TrainScheme/addTrainScheme.do",
+           $.post(contextPath+"/TrainScheme/updateTrainScheme.do",
                $("#addTrainSchemeForm").serialize(),
                function (response) {
                     layer.close(index);//关闭当前询问窗口
                    layer.msg(response,{time:2000},function () {
                        //关闭当前tab
-                       if("添加成功"==response)
+                       if("保存成功"==response)
                            closeNowPage();
                    })
                },
@@ -166,13 +168,13 @@ function saveTrainschemeInfo(){
         //1.将培养方案能力数据隐藏到表单中
         initCapacity();//将能力数据添加到表单中
         //2.post提交数据
-        $.post(contextPath+"/TrainScheme/addTrainScheme.do",
+        $.post(contextPath+"/TrainScheme/updateTrainScheme.do",
                 $("#addTrainSchemeForm").serialize(),
                 function (response) {
                     layer.close(index)//关闭当前询问窗口
                     //弹出返回信息
                     layer.msg(response,{time:2*1000},function () {
-                        if("添加成功"==response){
+                        if("保存成功"==response){
                             //关闭当前tab
                             closeNowPage();
                         }
@@ -282,3 +284,74 @@ function closeNowPage() {
 
 
 
+/****************S   相比于增加的方法***********************************/
+/**
+ * 根据培养方案编号查询培养方案基本信息
+ * 1.ajax异步查询培养方案基本信息
+ * 2.向页面中的表单中赋值
+ */
+function getTrainSchemeInfo(){
+    $.post(contextPath+"/TrainScheme/getTrainSchemeInfoById.do",{"trainSchemeId":trainSchemeId},initTrainScheme,'json')
+}
+
+/**
+ * 将返回的数据填充到表单中
+ * @param response  ajax异步返回的数据
+ */
+function initTrainScheme(response) {
+     $("[name='trainingschemaname']").val(response.trainingSchemaName);//培养方案名称
+     $("[name='majorname']").val(response.majorName);//专业名称
+    //设置下拉列表选中的值
+     $("#majorname option").each(function () {
+         if($(this).text() == response.majorName){
+             $(this).attr("selected","selected")
+         }
+     })
+
+     $("[name='majorid']").val(response.majorID);//专业代码
+     $("[name='trainingschemaname']").val(response.trainingSchemaName);
+     $("[name='majormanager']").val(response.majorManager);//专业负责人
+     $("[name='reviseperson']").val(response.revisePerson);//修订人
+     $("[name='createtime']").val(response.createTime);//时间
+     $("[name='trainingtarget']").val(response.trainingtarget);//培养目标
+     $("[name='trainingrequire']").val(response.trainingRequire);//培养要求
+     $("[name='trainyears']").val(response.trainYears);//修业年限
+     $("[name='traindegree']").val(response.trainDegree);//授予学位
+     $("[name='maincourse']").val(response.mainCourse);//主干学科
+     $("[name='corecourse']").val(response.coreCourse);//核心课程
+     $("[name='majorfeature']").val(response.majorfeature);//专业特色
+     $("[name='maintestitem']").val(response.mainTestItem);//主要实践性教学环节
+     $("[name='mainmajorexperience']").val(response.mainMajorExperience);//主要专业实验
+    layui.use('form',function () {
+        layui.form.render();//重新渲染页面组件
+    })
+}
+
+
+
+/**
+ * 根据培养方案编号查询能力信息
+ */
+function getTrainSchemeCapacityInfos(){
+    $.post(contextPath+"/TrainSchemeCapacity/getCapacitysByTrainId.do",{"trainSchemeId":trainSchemeId},initTrainSchemeCapacity,'json')
+}
+
+/**
+ * 初始化培养方案能力信息
+ * @param response  ajax返回的能力信息
+ */
+function initTrainSchemeCapacity(response) {
+    if(response == null ){
+        return;
+    }
+    if(response.length == 0){
+        return;
+    }
+    $("#graduateCapacityTbody").html("");//先清空表格
+    for(var i=0,length_1 = response.length;i<length_1;i++){
+        var tr ="<tr><td>"+response[i].capacitysort+"</td><td><input type='text' class='capacityInput' value='"+response[i].capacitydescription+"'></td><td><a class='layui-icon' title='点击删除当前行数据' onclick='deleteTr(this)'>&#xe640;</a></td>";
+        $("#graduateCapacityTbody").append(tr);
+    }
+
+}
+/****************E   相比于增加的方法***********************************/
