@@ -112,7 +112,8 @@
         <button class="layui-btn" onclick="x_admin_show('新增课程','./addCourse.jsp')">新增 </button>
         <button class="layui-btn" onclick="copyAndUpdateAdd()">复制性新增 </button>
         <button class="layui-btn" onclick="openUploadLayer()">上传教学资料 </button>
-        <button class="layui-btn layui-btn-normal" onclick="downloadCourses()">导出 </button>
+        <button class="layui-btn layui-btn-normal" onclick="downloadCourses()" style="float: right"><i class="layui-icon">&#xe601;</i>导出课程</button>
+        <button class="layui-btn layui-btn-warm" type="button" id="importCoursesBtn" style="float: right"><i class="layui-icon">&#xe67c;</i>导入课程</button>
     </xblock>
     <!--end 操作区域-->
  <script>
