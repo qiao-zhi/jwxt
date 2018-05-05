@@ -59,14 +59,14 @@ public class ExtCourseExcel {
      * @param fileQualifyName   文件全路径(比如C:/USER/XXX.excel)
      */
     public void writeCourse2LocalExcel(List<Map<String,Object>> datas,String fileQualifyName){
-        String[] title = { "序号", "课程编号", "课程平台","课程性质","中文名称","英文名称","学分/学时", "周学时分配","计分方式" };
+        String[] title = { "课程编号", "课程平台","课程性质","中文名称","英文名称","学分", "学时","讲课时长","实验时长","上机时长","实践时长","周学时分配","计分方式","学时单位" };
         //2.1写入表头信息
         // 创建一个工作簿
         HSSFWorkbook workbook = new HSSFWorkbook();
         // 创建一个工作表sheet
         HSSFSheet sheet = workbook.createSheet();
         // 设置列宽
-        this.setColumnWidth(sheet, 9);
+        this.setColumnWidth(sheet, 14);
         // 创建第一行
         HSSFRow row = sheet.createRow(0);
         // 创建一个单元格
@@ -99,43 +99,63 @@ public class ExtCourseExcel {
             cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 设置字体居中
             // 获取数据(一条数据)
             Map<String, Object> course = datas.get(i - 1);
-            for (int j = 0; j < 9; j++) {
+            for (int j = 0; j < 14; j++) {
                 HSSFCell cell2 = nextRow.createCell(j);
                 cell2.setCellStyle(cellStyle);
                 if (j == 0) {
-                    cell2.setCellValue(i);//第一列是序号
-                    continue;
-                }
-                if (j == 1) {
                     cell2.setCellValue(course.get("courseNum").toString());//课程编号
                     continue;
                 }
-                if (j == 2) {
+                if (j == 1) {
                     cell2.setCellValue(course.get("coursePlatform").toString());//课程平台
                     continue;
                 }
-                if (j == 3) {
+                if (j == 2) {
                     cell2.setCellValue(course.get("courseNature").toString());//课程性质
                     continue;
                 }
-                if (j == 4) {
+                if (j == 3) {
                     cell2.setCellValue(course.get("courseNameCN").toString());//中文名称
                     continue;
                 }
-                if (j == 5) {
+                if (j == 4) {
                     cell2.setCellValue(course.get("courseNameEN").toString());//英文名称
                     continue;
                 }
+                if (j == 5) {
+                    cell2.setCellValue(course.get("credit").toString());//学分
+                    continue;
+                }
                 if (j == 6) {
-                    cell2.setCellValue(course.get("credit").toString()+"/"+course.get("courseHour").toString());//学分/学时
+                    cell2.setCellValue(course.get("courseHour").toString());//学时
                     continue;
                 }
                 if (j == 7) {
-                    cell2.setCellValue(course.get("weeklyHour").toString());//周学时
+                    cell2.setCellValue(course.get("teachHour").toString());//讲课时长
                     continue;
                 }
                 if (j == 8) {
-                    cell2.setCellValue(course.get("scoringWay").toString());//计分方式
+                    cell2.setCellValue(course.get("experimentHour").toString());//实验时长
+                    continue;
+                }
+                if (j == 9) {
+                    cell2.setCellValue(course.get("computerHour").toString());//上机时长
+                    continue;
+                }
+                if (j == 10) {
+                    cell2.setCellValue(course.get("practiceHour").toString());//实践时长
+                    continue;
+                }
+                if (j == 11) {
+                    cell2.setCellValue(course.get("weeklyHour").toString());//周学时分配
+                    continue;
+                }
+                if (j == 12) {
+                    cell2.setCellValue(course.get("scoringWay").toString());//积分方式
+                    continue;
+                }
+                if (j == 13) {
+                    cell2.setCellValue(course.get("courseHourMethod").toString());//学时单位
                     continue;
                 }
             }
@@ -177,8 +197,8 @@ public class ExtCourseExcel {
     private  void setColumnWidth(HSSFSheet sheet, int colNum) {
         for (int i = 0; i < colNum; i++) {
             int v = 0;
-            v = Math.round(Float.parseFloat("15.0") * 37F);
-            v = Math.round(Float.parseFloat("20.0") * 267.5F);
+//            v = Math.round(Float.parseFloat("15.0") * 37F);
+            v = Math.round(Float.parseFloat("16.0") * 267.5F);
             sheet.setColumnWidth(i, v);
         }
     }
