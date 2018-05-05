@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>添加培养方案基本信息</title>
+    <title>修改培养方案基本信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -16,16 +16,21 @@
     <!--漂浮导航-->
     <script src="../../js/demo.js"></script>
 
+    <% String trainSchemeId = request.getParameter("trainSchemeId"); %>
 
     <%--S   QLQ引入的--%>
     <script>
-
+        /**
+         * 将培养方案编号放入JS全局变量中
+         * @type {string}
+         */
+        var trainSchemeId = "<%= trainSchemeId%>";
     </script>
 
     <%--全局配置JSP--%>
     <%@ include file ="/tag.jsp"%>
-    <%--增加培养方案的JS--%>
-    <script type="text/javascript" src="../../js/trainScheme/trainScheme-add.js"></script>
+    <%--修改培养方案的JS--%>
+    <script type="text/javascript" src="../../js/trainScheme/trainScheme-modify.js"></script>
 
 
     <%--E   QLQ引入的--%>
@@ -60,6 +65,8 @@
 
         <%--隐藏操作是保存还是提交--%>
         <input type="hidden" name="remark1">
+        <%--隐藏培养方案编号--%>
+        <input type="hidden" name="trainingschemeid" value="<%=trainSchemeId %>">
         <%--隐藏将来使用的培养方案能力--%>
         <div id="hidden_capacity_div">
             <%--JS添加数据到这里--%>
@@ -77,7 +84,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="classID" name="trainingschemaname" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="太原科技大学本科专业人才培养方案">
+                       autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 必须填写
@@ -113,17 +120,18 @@
         </div>
         <!--3.学科门类-->
         <div class="layui-form-item">
-            <label for="majortype" class="layui-form-label">
+            <label for="update_majortype" class="layui-form-label">
                 学科门类
             </label>
             <div class="layui-input-inline"><!--带搜索的查询-->
-                <select lay-verify="required" name="majortype" id="majortype">
+                <select lay-verify="required" name="majortype" id="update_majortype">
                     <option value="工学">工学</option><!--哲学、经济学、法学、教育学、文学、历史学、理学、工学、农学、医学、管理学-->
                     <option value="法学">法学</option>
                     <option value="农学">农学</option>
                     <option value="医学">医学</option>
                     <option value="经济学">经济学</option>
                     <option value="管理学">管理学</option>
+                    <option value="其他">其他</option>
                 </select>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -198,22 +206,22 @@
             <legend><a name="three">毕业生能力</a> <i class="layui-icon" title="点击添加一行到表格中" onclick="addTr()">&#xe608;</i></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
-           <table class="layui-table">
+            <table class="layui-table">
                 <colgroup>
                     <col width="10%">
                     <col width="80%">
                     <col width="10%">
                 </colgroup>
-               <tbody id="graduateCapacityTbody">
-               <%--毕业生能力表格，手动往这里添加--%>
-                   <%--<tr>
-                       <td>G1</td>
-                       <td><input type="text"></td>
-                       <td><a class="layui-icon" title="点击删除当前行数据" onclick="deleteTr(this)">&#xe640;</a></td>
-                   </tr>--%>
+                <tbody id="graduateCapacityTbody">
+                <%--毕业生能力表格，手动往这里添加--%>
+                <%--<tr>
+                    <td>G1</td>
+                    <td><input type="text"></td>
+                    <td><a class="layui-icon" title="点击删除当前行数据" onclick="deleteTr(this)">&#xe640;</a></td>
+                </tr>--%>
 
-               </tbody>
-           </table>
+                </tbody>
+            </table>
         </div>
 
 
@@ -309,9 +317,9 @@
             </div>
         </div>
 
-       <%-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
-            <legend><a name="nine">主要课程关系结构图</a></legend>
-        </fieldset>
+        <%-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
+        <legend><a name="nine">主要课程关系结构图</a></legend>
+    </fieldset>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">主要课程关系结构图</label>
             <div class="layui-input-block">
@@ -430,7 +438,7 @@
         form.on('submit(add)', function (data) {
             console.log(data);
             //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6}, function () {
+            layer.alert("保存成功", {icon: 6}, function () {
                 // 获得frame索引
                 var index = parent.layer.getFrameIndex(window.name);
                 //关闭当前frame

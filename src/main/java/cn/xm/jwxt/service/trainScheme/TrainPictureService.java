@@ -30,6 +30,15 @@ public interface TrainPictureService {
     public boolean deleteTrainPictureById(int trainpictureId)throws SQLException;
 
     /**
+     * 根据培养方案编号删除培养方案图片
+     * 1.先查出所有的信息，2.删掉本地的图片之后删除数据库信息
+     * @param trainSchemeId 培养方案编号
+     * @return  是否删除成功
+     * @throws SQLException
+     */
+    public boolean deleteTrainPictureByTrainSchemeId(String trainSchemeId)throws SQLException;
+
+    /**
      * 修改培养方案图片
      * @param trainpicture  修改过的培养方案信息
      * @return
