@@ -26,7 +26,7 @@ layui.use(['layer', 'form', 'element'], function(){
 //查询任务通知书基本信息
 function findTaskNoticeBaseInfo(){
     $.ajax({
-        url : contextPath+'/arrangeCourse/findTaskInfoList.action',
+        url : contextPath+'/arrangeCourse/findTaskNoticeInfoList.action',
         data : $("#selectNoticeInfoForm").serialize(),
         type : 'POST',
         dataType : 'json',
@@ -41,7 +41,7 @@ function showTaskNoticeBaseInfo(pageInfo){
     var pageSize = pageInfo.pageSize;//页大小
     var baseInfoList = pageInfo.list;
     $("#noticeBaseInfoList").html("");//清空表格中数据并重新填充数据
-    for(var i=0,length_1 = baseInfoList.length;i<length_1;i++){
+    for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr ="<tr><td><input type='radio' name='noticeRadio' value='"+baseInfoList[i].noticeBookId+"'/>"
             +"<input type='hidden' name='sel_noticeBookName' value='"+baseInfoList[i].noticeBookName+"'>"
@@ -108,7 +108,6 @@ function deleteNoticeBookInfo(id) {
                 })
             }
         })
-
     });
 }
 

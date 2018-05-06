@@ -587,6 +587,7 @@ function downloadCourses(){
 /********S       导入课程相关操作******/
 layui.use(['layer','upload'],function () {//使用文件上传和layer模块
     var layer =layui.layer,upload = layui.upload;
+    var index;
     var uploadInst = upload.render({
         elem: '#importCoursesBtn',//绑定的元素
         url: contextPath+'/uploadCourseExcel.do',//提交的url
@@ -594,7 +595,11 @@ layui.use(['layer','upload'],function () {//使用文件上传和layer模块
         accept:"file",//指定允许上传的文件类型
         multiple:false,//支持多文件上传
         exts:'xls|xlsx',
-        done: function(res, index, upload){ //假设code=0代表上传成功
+        before:function (obj) {
+            index = layer.load(); //上传的时候打开load层
+        },
+        done: function(res){ //假设code=0代表上传成功
+            layer.close(index);//关闭load层
             layer.close(layer.index); //它获取的始终是最新弹出的某个层，值是由layer内部动态递增计算的
             layer.alert(res.msg);
         }

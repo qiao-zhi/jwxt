@@ -67,10 +67,18 @@ public class ImportCourseExcel {
         } catch (Exception e) {
             resposeResult.setMsg("请上传正确的Excel文件");
             logger.error("导入课程信息失败失败",e);
+            return resposeResult;
         }
         //2.读取文件
         String fileQualifyName = ResourcesUtil.getValue("path","courseExcelFileImport")+fileNowName;//生成文件全路径
-        List<TCourseBaseInfo> tCourseBaseInfos = this.readExcelData(fileQualifyName);//读取的Excel数据
+        List<TCourseBaseInfo> tCourseBaseInfos = null;
+        try{
+            tCourseBaseInfos = this.readExcelData(fileQualifyName);//读取的Excel数据
+        }catch(Exception e){
+            resposeResult.setMsg("您上传的文件格式不符合或者excel版本不正确，请上传正确版本的excel文件");
+            return resposeResult;
+        }
+
         if(tCourseBaseInfos == null || tCourseBaseInfos.size()==0){
             resposeResult.setMsg("您上传的文件没有课程信息，请重新编辑");
             return resposeResult;

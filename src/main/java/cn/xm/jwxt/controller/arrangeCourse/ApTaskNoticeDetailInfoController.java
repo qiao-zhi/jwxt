@@ -88,17 +88,15 @@ public class ApTaskNoticeDetailInfoController {
      */
     @RequestMapping("/findNoticeDetailInfo")
     public @ResponseBody  PageInfo<ApTaskNoticeDetailInfo> findNoticeDetailInfo(String noticeBookId,CommonQueryVo condition){
-        Integer pageSize = DefaultValue.PAGE_SIZE;
-        Integer currentPage = 1;
-        if(ValidateCheck.isNotNull(condition.getPageSize())){
-            pageSize = Integer.valueOf(condition.getPageSize());
+        if(condition.getPageSize()==null){
+            condition.setPageSize(DefaultValue.PAGE_SIZE);
         }
-        if(ValidateCheck.isNotNull(condition.getCurrentPage())){
-            currentPage = Integer.valueOf(condition.getCurrentPage());
+        if(condition.getCurrentPage()==null){
+            condition.setCurrentPage(1);
         }
         PageInfo<ApTaskNoticeDetailInfo> pageInfo = null;
         try {
-            pageInfo = taskNoticeDetailInfoService.findApTaskNoticeDetailInfoByNoticeId(noticeBookId, currentPage, pageSize);
+            pageInfo = taskNoticeDetailInfoService.findApTaskNoticeDetailInfoByNoticeId(noticeBookId, condition.getCurrentPage(), condition.getPageSize());
         } catch (Exception e) {
             logger.error("查询任务通知书明细失败",e);
         }

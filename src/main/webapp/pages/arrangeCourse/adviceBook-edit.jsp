@@ -89,7 +89,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text"  name="createrName" required=""  lay-verify="required"
-                       value="正陈宫"  autocomplete="off" class="layui-input" readonly>
+                        autocomplete="off" class="layui-input" readonly>
                 <%--隐藏创建人ID--%>
                 <input type="hidden" value="asdfwiefjiwenxhuwe" name="createrId"/>
             </div>

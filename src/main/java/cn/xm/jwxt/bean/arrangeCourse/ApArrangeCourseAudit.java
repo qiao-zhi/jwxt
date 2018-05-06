@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.arrangeCourse;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class ApArrangeCourseAudit {
@@ -50,7 +52,7 @@ public class ApArrangeCourseAudit {
     public void setAuditorId(String auditorId) {
         this.auditorId = auditorId == null ? null : auditorId.trim();
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getAuditTime() {
         return auditTime;
     }
