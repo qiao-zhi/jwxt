@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.arrangeCourse;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class ApArrangeCourseTask {
@@ -106,7 +108,7 @@ public class ApArrangeCourseTask {
     public void setOriginatorId(String originatorId) {
         this.originatorId = originatorId == null ? null : originatorId.trim();
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getTaskCreateTime() {
         return taskCreateTime;
     }
@@ -122,7 +124,7 @@ public class ApArrangeCourseTask {
     public void setTaskReceiptTime(Date taskReceiptTime) {
         this.taskReceiptTime = taskReceiptTime;
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public String getTaskReceiptName() {
         return taskReceiptName;
     }

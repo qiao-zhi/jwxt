@@ -105,7 +105,7 @@
         var pageSize = pageInfo.pageSize;//页大小
         var detailInfoList = pageInfo.list;
         $("tbody").html("");//清空表格中数据并重新填充数据
-        for(var i=0,length_1 = detailInfoList.length;i<length_1;i++){
+        for(var i=0,length_l = detailInfoList.length;i<length_l;i++){
             var index = (pageNum - 1) * pageSize + i + 1;
             var tr ="<tr><td>"+index+"</td><td>"
                 +detailInfoList[i].courseCode+"</td><td>"

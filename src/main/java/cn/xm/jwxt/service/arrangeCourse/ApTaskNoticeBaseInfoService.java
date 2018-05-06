@@ -3,6 +3,10 @@ package cn.xm.jwxt.service.arrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfo;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * 项目名称：jwxt
  * 类描述：教学任务通知书基本信息的Service接口
@@ -64,4 +68,11 @@ public interface ApTaskNoticeBaseInfoService {
      * @throws Exception
      */
     PageInfo<ApTaskNoticeBaseInfo> findApTaskNoticeBaseInfoByCondition(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception;
+
+    /**
+     * 查询教学任务通知书的名称和ID用于下拉框显示
+     * @return
+     * @throws Exception
+     */
+    List<Map<String,Object>> findNoticeNameAndId() throws Exception;
 }
