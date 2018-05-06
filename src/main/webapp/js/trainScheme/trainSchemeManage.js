@@ -324,11 +324,30 @@ layui.use(['upload','layer'],function () {
     });
 })
 
-
-
-
 /*************E  上传培养方案课程结构图相关操作***************/
 
+/********S   安排课程相关操作****************/
+/**
+ * 修改培养方案
+ * @param obj   按钮自己传下来
+ */
+function arrangeTrainschemeCourse(){
+    //1.验证是否选中元素
+    var layer;
+    layui.use(['layer'],function () {
+        layer = layui.layer;
+    })
+    var selectRadio = $("[name='trainshemeRadio']:checked");//获取到选中的单选框
+    if(selectRadio==null || selectRadio.length==0){
+        // layer.msg("请先选择培养方案然后进行上传!");
+        layer.msg("请先选择培养方案然后进行排课!",  {icon: 7,shade: [0.8, '#393D49'],time:2*1000});
+        return;
+    }
+    //2.验证通过跳转到培养方案管理界面
+    var trainSchemeId = selectRadio.val();
+    window.location.href=contextPath+"/pages/trainingScheme/trainingScheme-course.jsp?trainSchemeId="+trainSchemeId;//带着培养方案编号跳到修改页面";
+}
+/********E   安排课程相关操作****************/
 
 
 
