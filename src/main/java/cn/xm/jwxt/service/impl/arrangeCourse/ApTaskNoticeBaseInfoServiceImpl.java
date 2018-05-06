@@ -4,6 +4,7 @@ import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfo;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfoExample;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.mapper.arrangeCourse.ApTaskNoticeBaseInfoMapper;
+import cn.xm.jwxt.mapper.arrangeCourse.custom.ApArrangeCourseTaskCustomMapper;
 import cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskNoticeBaseInfoCustomMapper;
 import cn.xm.jwxt.service.arrangeCourse.ApTaskNoticeBaseInfoService;
 import cn.xm.jwxt.utils.DefaultValue;
@@ -36,6 +37,8 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
     private ApTaskNoticeBaseInfoMapper taskNoticeBaseInfoMapper;
     @Resource
     private ApTaskNoticeBaseInfoCustomMapper taskNoticeBaseInfoCustomMapper;
+    @Resource
+    private ApArrangeCourseTaskCustomMapper arrangeCourseTaskCustomMapper;
     /**
      * 添加教学任务通知书基本信息
      *
@@ -110,6 +113,8 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
             throw new IllegalArgumentException("通知书编号不能为空!");
         }
         int count = taskNoticeBaseInfoCustomMapper.updateIsDeleteById(noticeBookId, DefaultValue.IS_NOT_USE);
+        //如果有排课任务修改排课任务是否删除字段
+        arrangeCourseTaskCustomMapper.updateIsDeleteByNoticeBookId(noticeBookId,DefaultValue.IS_NOT_USE);
         return count>0?true:false;
     }
 
@@ -150,5 +155,15 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
         List<ApTaskNoticeBaseInfo> listInfo = taskNoticeBaseInfoCustomMapper.findTaskNoticeInfoListByCondition(condition);
         PageInfo<ApTaskNoticeBaseInfo> pageInfo = new PageInfo<ApTaskNoticeBaseInfo>(listInfo);
         return pageInfo;
+    }
+
+    /**
+     * 查询教学任务通知书的名称和ID
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Map<String, Object>> findNoticeNameAndId() throws Exception {
+        return taskNoticeBaseInfoCustomMapper.findNoticeNameAndId();
     }
 }

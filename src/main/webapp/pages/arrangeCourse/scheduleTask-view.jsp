@@ -1,3 +1,4 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -15,69 +16,41 @@
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
 
+    <%--公共标签--%>
+    <%@include file="/tag.jsp"%>
 </head>
 
 <body>
 
 <!--主体-->
 <div class="x-body">
-
-    <!--end查询-->
-
-    <!--操作区域-->
-    <xblock>
-    	 <!--<button class="layui-btn" onclick="historyTeacher()">历史任课教师 </button>-->
-        <button class="layui-btn" onclick="arrangeCourse()">分配 </button>
-    </xblock>
-    <!--end 操作区域-->
-    <script>
-    	var chooseCourse=0;//判断是否选中课程
-    	function panduan(){
-    		$(".layui-form-checkbox").each(function() { 
-				if ($(this).hasClass("layui-form-checked")) {
-					chooseCourse++;
-				}
-			})
-    	}
-    	function arrangeCourse(){
-    		panduan();//调用判断方法
-    		if (chooseCourse>0) {
-							layer.confirm("您确认要为当前的教学任务分配选中的课程吗？",function(){
-								var index = parent.layer.getFrameIndex(window.name);
-					                //关闭当前frame
-				             	parent.layer.close(index);
-							});
-						}
-    		else{
-    			layer.alert('请先选择需要分配的课程');
-    		}
-    		chooseCourse=0;//清空值
-    	}
-    	/*function historyTeacher(){
-    		panduan();//调用判断方法
-    		if (chooseCourse>0) {
-				x_admin_show('历史任课教师','./scheduleManage-history.html')
-						}
-    		else{
-    			layer.alert('请先选择需要查看历史任课教师的课程');
-    		}
-    		chooseCourse=0;//清空值
-    		
-    	}*/
-    	
-    </script>
+<table class="layui-table-wang-info">
+	<tr>
+		<td>专业</td>
+		<td></td>
+		<td>接收人</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>学年</td>
+		<td></td>
+		<td>学期</td>
+		<td></td>
+	</tr>
+	
+</table>
    
-
+   
     <!--表格内容-->
     <table class="layui-table">
         <thead>
         	
         	<tr>
-    			<th lay-data="{field:'', width:80}" rowspan="2">
+    			<!--<th lay-data="{field:'', width:80}" rowspan="2">
     				<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
                     &#xe605;</i>
     				</div>
-    			</th>
+    			</th>-->
 		      <th lay-data="{field:'', width:80}" rowspan="2">课程编号</th>
 		      <th lay-data="{field:'', width:120}" rowspan="2">课程名称</th>
 		       <th lay-data="{field:'', width:80}" rowspan="2">学分</th>
@@ -87,7 +60,7 @@
 		      <th lay-data="{field:'', width:80}" rowspan="2">记分方式</th>
 		      <th lay-data="{field:'', width:80}" rowspan="2">上课班级</th>
 		      <th lay-data="{field:'', width:80}" rowspan="2">上课人数</th>
-		       <!--<th lay-data="{field:'', width:80}" rowspan="2">操作需要？</th>-->
+		       <th lay-data="{field:'', width:80}" rowspan="2">操作</th>
 		    </tr>
 		    <tr>
 		      <th lay-data="{field:'', }">讲课</th>
@@ -98,10 +71,10 @@
         </thead>
         <tbody>
         <tr>
-            <td>
+            <!--<td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
                     &#xe605;</i></div>
-            </td>
+            </td>-->
             <td>Y0201012</td>
             <td>201</td>
             <td>老王</td>
@@ -114,17 +87,17 @@
             <td>学生</td>
              <td>软件工程142001，软件工程142002，软件工程142003</td>
              <td>123</td>
-            <!--<td class="td-manage">
-                <a title="点击查看排课详细信息" onclick="x_admin_show('详细信息','scheduleManage-view.html')" href="javascript:;">
+            <td class="td-manage">
+                <!--<a title="点击查看排课详细信息" onclick="x_admin_show('详细信息','scheduleManage-view.html')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>
                 <a title="修改"  onclick="x_admin_show('修改','scheduleManage-edit.html')" href="javascript:;">
                     <i class="layui-icon">&#xe642;</i>
-                </a>
+                </a>-->
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
-            </td>-->
+            </td>
         </tr>
         </tbody>
     </table>
@@ -161,8 +134,7 @@
             }
         })
     }
-
-    /*用户-删除*/
+/*用户-删除*/
     function member_del(obj, id) {
         layer.confirm('确认要删除吗？', function (index) {
             //发异步删除数据
@@ -170,6 +142,7 @@
             layer.msg('已删除!', {icon: 1, time: 1000});
         });
     }
+    
 </script>
 
 </body>
