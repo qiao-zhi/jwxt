@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.courseDesign.custom.TCoursedesignTeacherstudentCustomMapper" >
+
+    <!-- 学生上传课设报告 -->
+    <update id="addCourseDesignFileInfo" parameterType="map">
+        UPDATE
+            t_courseDesign_TeacherStudent
+            SET
+              courseDesignReportName = #{courseDesignReportName},
+              courseDesignReportStore = #{courseDesignReportStore},
+              uploadTime = #{uploadTime},
+              uploadStatus = #{uploadStatus}
+            WHERE
+              studentID = #{studentID}
+
+    </update>
+
+    <!--  查询需要上传课设报告的课设  -->
+    <select id="findNeedUploadCoursedesignFile" parameterType="map" resultType="map">
+        SELECT
+            ia.courseDesignName,
+            ia.courseDesignNum,
+            ti.teacherNum,
+            ti.teacherName,
+            ts.uploadStatus,
+            ts.checkStatus
+          FROM
+            t_courseDesign_TeacherStudent ts
+            JOIN t_courseDesign_teacher_arrange ta
+              ON ts.courseDesignTeacherArrangeID = ta.courseDesignTeacherArrangeID
+            JOIN t_teacher_base_info ti
+              ON ta.teacherID = ti.teacherID
+            JOIN t_courseDesign_info_arrange ia
+              ON ta.courseDesignArrangeID = ia.courseDesignArrangeID
+            WHERE
+              ts.studentID = #{studentID}
+              AND ts.uploadStatus = #{uploadStatus}
+              AND ts.display = #{display}
+    </select>
+</mapper>

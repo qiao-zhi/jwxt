@@ -5,7 +5,7 @@ import java.util.Date;
 public class TCoursedesignInfoArrange {
     private String coursedesignarrangeid;
 
-    private String trainningschemeid;
+    private String traincourseid;
 
     private String majorid;
 
@@ -27,7 +27,7 @@ public class TCoursedesignInfoArrange {
 
     private String isarrange;
 
-    private String remark1;
+    private String display;
 
     private String remark2;
 
@@ -39,12 +39,12 @@ public class TCoursedesignInfoArrange {
         this.coursedesignarrangeid = coursedesignarrangeid == null ? null : coursedesignarrangeid.trim();
     }
 
-    public String getTrainningschemeid() {
-        return trainningschemeid;
+    public String getTraincourseid() {
+        return traincourseid;
     }
 
-    public void setTrainningschemeid(String trainningschemeid) {
-        this.trainningschemeid = trainningschemeid == null ? null : trainningschemeid.trim();
+    public void setTraincourseid(String traincourseid) {
+        this.traincourseid = traincourseid == null ? null : traincourseid.trim();
     }
 
     public String getMajorid() {
@@ -127,12 +127,12 @@ public class TCoursedesignInfoArrange {
         this.isarrange = isarrange == null ? null : isarrange.trim();
     }
 
-    public String getRemark1() {
-        return remark1;
+    public String getDisplay() {
+        return display;
     }
 
-    public void setRemark1(String remark1) {
-        this.remark1 = remark1 == null ? null : remark1.trim();
+    public void setDisplay(String display) {
+        this.display = display == null ? null : display.trim();
     }
 
     public String getRemark2() {
