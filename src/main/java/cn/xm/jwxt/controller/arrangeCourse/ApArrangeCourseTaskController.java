@@ -79,9 +79,9 @@ public class ApArrangeCourseTaskController {
             arrangeCourseTaskService.updateArrangeCourseTaskStatus(arrangeTaskId,status);
         } catch (Exception e) {
             logger.error("修改排课任务状态失败",e);
-            return "false";
+            return "操作失败！";
         }
-        return "true";
+        return "操作成功!";
     }
 
     /**

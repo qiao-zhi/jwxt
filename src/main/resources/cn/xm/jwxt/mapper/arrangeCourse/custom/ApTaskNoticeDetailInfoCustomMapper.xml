@@ -43,4 +43,100 @@
           #{detailInfo.courseCharacter,jdbcType=VARCHAR}, #{detailInfo.remark,jdbcType=VARCHAR})
         </foreach>
     </insert>
+
+    <resultMap id="distributeCourseSourceResultMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.DistributeCourseSource">         <result column="course_code" jdbcType="VARCHAR" property="courseCode" />
+        <result column="course_code" jdbcType="VARCHAR" property="courseCode" />
+        <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+        <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+        <result column="campus_code" jdbcType="VARCHAR" property="campusCode" />
+        <result column="major_students_number" jdbcType="INTEGER" property="majorStudentsNumber" />
+        <result column="total_period" jdbcType="VARCHAR" property="totalPeriod" />
+        <result column="class_name" jdbcType="LONGVARCHAR" property="classNames" />
+    </resultMap>
+    <!--查询的列-->
+    <sql id="Base_Column_List">
+        course_code,  course_name,  campus_code,  class_name, major_students_number,  total_period
+    </sql>
+
+    <!--根据任务通知书ID,排课任务ID查询任务书中需要进行排课的课程-->
+    <select id="findUnarrangedCourseInfoByCondition" parameterType="map" resultMap="distributeCourseSourceResultMap">
+        <bind name="courseNames" value="'%'+courseName+'%'"></bind>
+        <bind name="majorNames" value="'%'+majorName+'%'"></bind>
+        SELECT
+        *
+        FROM
+        (
+        SELECT
+            <include refid="Base_Column_List"/>
+            ,major_name
+        FROM
+        `distribute_course_source`
+        <where>
+                <include refid="query_unDistributeCourse_where"></include>
+            </where>
+            UNION ALL
+            SELECT
+              <include refid="Base_Column_List" />
+              ,course.major_name
+            FROM
+            ap_arrange_course_task task,
+            ap_task_arrange_course course
+            <where>
+                <include refid="query_distributeCourse_where"></include>
+            </where>
+        )temp
+        GROUP BY
+            course_name,
+            major_name
+        HAVING
+            count(*) = 1
+    </select>
+    <!--封装查询条件-->
+    <!--所有分配课程查询条件-->
+    <sql id="query_unDistributeCourse_where">
+        <!--任务通知书ID-->
+        <if test="noticeBookId != null and noticeBookId !=''">
+            AND notice_book_id = #{noticeBookId}
+        </if>
+        <!--课程名称-->
+        <if test="courseName != null and courseName !=''">
+            AND course_name LIKE #{courseNames}
+        </if>
+        <!--专业名称-->
+        <if test="majorName != null and majorName !=''">
+            AND major_name LIKE #{majorNames}
+        </if>
+        <!--校区-->
+        <if test="campusCode != null and campusCode !=''">
+            AND campus_code = #{campusCode}
+        </if>
+    </sql>
+    <!--已经分配课程查询条件-->
+    <sql id="query_distributeCourse_where">
+        <if test="0==0">
+            AND task.arrange_task_id = course.arrange_task_id
+            AND task.is_delete = 1
+        </if>
+        <!--任务通知书ID-->
+        <if test="noticeBookId != null and noticeBookId !=''">
+            AND notice_book_id = #{noticeBookId}
+        </if>
+        <!--排课任务ID-->
+        <if test="arrangeTaskId != null and arrangeTaskId !=''">
+            AND course.arrange_task_id != #{arrangeTaskId}
+        </if>
+
+        <!--课程名称-->
+        <if test="courseName != null and courseName !=''">
+            AND course_name LIKE #{courseNames}
+        </if>
+        <!--专业名称-->
+        <if test="majorName != null and majorName !=''">
+            AND course.major_name LIKE #{majorNames}
+        </if>
+        <!--校区-->
+        <if test="campusCode != null and campusCode !=''">
+            AND campus_code = #{campusCode}
+        </if>
+    </sql>
 </mapper>

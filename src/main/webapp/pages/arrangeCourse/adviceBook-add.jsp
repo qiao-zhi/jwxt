@@ -21,7 +21,7 @@
 <body>
 <div class="x-body">
 	
-    <form class="layui-form ">
+    <form class="layui-form">
         <!--3-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">

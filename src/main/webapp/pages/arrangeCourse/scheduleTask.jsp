@@ -18,6 +18,8 @@
 
     <%--公共标签--%>
     <%@include file="/tag.jsp"%>
+    <%--排课公共方法--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
     <%--引入排课任务管理js文件--%>
     <script type="text/javascript" src="${baseurl}/js/arrangeCourse/scheduleTask.js"></script>
 </head>
@@ -89,17 +91,7 @@
 			x_admin_show('新增任务','./scheduleTask-add.jsp')
 		}
 
-    	//接收任务
-    	function accept(){
-    		panduan();//调用判断方法
-    		if (chooseCourse>0) {
-    			layer.confirm("您确定接收选中的教学任务？")
-					}
-    		else{
-    			layer.alert('请先选择需要接收的任务');
-    		}
-    		chooseCourse=0;//清空值
-    	}
+
 	</script>
     <!--表格内容-->
     <table class="layui-table">
@@ -131,22 +123,6 @@
     <div id="taskPage"></div>
     <!--end 分页-->
 </div>
-
-<script>
-
-
-    //点击关闭其他，触发事件
-    function closeOther() {
-        var closeTable = $(".layui-tab-title", parent.document).children("li");
-        closeTable.each(function () {
-            if ($(this).attr("class") == "") {
-                $(this).children("i").trigger("click");
-            }
-        })
-    }
-
-
-</script>
 
 </body>
 
