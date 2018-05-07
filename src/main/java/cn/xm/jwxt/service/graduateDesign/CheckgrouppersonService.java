@@ -2,9 +2,11 @@ package cn.xm.jwxt.service.graduateDesign;
 
 import cn.xm.jwxt.bean.graduateDesign.Checkgroupperson;
 import cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonExample;
+import cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *检查小组成员表Service
@@ -32,4 +34,12 @@ public interface CheckgrouppersonService {
     boolean updateByPrimaryKeySelective(Checkgroupperson record);
 
     boolean updateByPrimaryKey(Checkgroupperson record);
+
+    Checkgroupperson selectOneCheckgroupperson(int grppersonid);
+
+    List<Checkgroupperson> selectCheckgrouppersonList(Map<String,Object> map);
+
+    String selectGroupLeader (String groupid);
+
+    int selectCheckgrouppersonCount(Map<String,Object> map);
 }

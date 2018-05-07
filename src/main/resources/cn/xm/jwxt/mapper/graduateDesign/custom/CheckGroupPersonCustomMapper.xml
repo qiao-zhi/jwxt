@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.custom.CheckGroupPersonCustomMapper" >
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson" id="oneCheckgrouppersonResultMap" autoMapping="true">
+        <id property="gropersonid" column="gropersonid" />
+        <result property="teacherid" column="teacherid"/>
+        <result property="groupid" column="groupid"/>
+
+        <association property="gradesigncheckgroup" column="groupid"
+                     javaType="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup"
+                     select="cn.xm.jwxt.mapper.graduateDesign.GradesigncheckgroupMapper.selectByPrimaryKey">
+        </association>
+        <association property="tTeacherBaseInfo" column="teacherid"
+                     javaType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo"
+                     select="cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper.selectByPrimaryKey">
+        </association>
+    </resultMap>
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson" id="CheckgrouppersonListResultMap" autoMapping="true">
+        <id property="gropersonid" column="gropersonid" />
+        <result property="teacherid" column="teacherid"/>
+        <result property="groupid" column="groupid"/>
+        <association property="gradesigncheckgroup" column="groupid"
+                     javaType="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup"
+                     select="cn.xm.jwxt.mapper.graduateDesign.GradesigncheckgroupMapper.selectByPrimaryKey">
+        </association>
+        <association property="tTeacherBaseInfo" column="teacherid"
+                     javaType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo"
+                     select="cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper.selectByPrimaryKey">
+        </association>
+    </resultMap>
+
+
+    <select id="selectOneCheckgroupperson" resultMap="oneCheckgrouppersonResultMap">
+        SELECT
+        t.teacherid,t.teachername,
+        cg.gropersonid,cg.teacherid,cg.teachername,cg.groupid,cg.grouprole,cg.remark,
+        g.groupid,g.groupname,g.replyaddress,g.remark
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkGroupPerson cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroup g ON cg.groupid = g.groupid
+        WHERE
+        cg.gropersonid = #{gropersonid}
+    </select>
+
+    <select id="selectCheckgrouppersonList" resultMap="CheckgrouppersonListResultMap">
+        SELECT
+        t.teacherid,t.teachername,
+        cg.gropersonid,cg.teacherid,cg.teachername,cg.groupid,cg.grouprole,cg.remark,
+        g.groupid,g.groupname,g.replyaddress,g.remark
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkGroupPerson cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroup g ON cg.groupid = g.groupid
+        <where>
+            <if test="teachername != null">
+                AND t.teachername like CONCAT('%', #{teachername}, '%')
+            </if>
+            <if test="groupname != null">
+                AND g.groupname like CONCAT('%', #{groupname}, '%')
+            </if>
+        </where>
+        <if test="page != null and limit != null">
+            limit ${(page-1)*limit},#{limit}
+        </if>
+    </select>
+
+    <select id="selectCheckgrouppersonCount" resultType="java.lang.Integer">
+        SELECT
+        count(t.teachername)
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkGroupPerson cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroup g ON cg.groupid = g.groupid
+        <where>
+            <if test="teachername != null">
+                AND t.teachername like CONCAT('%', #{teachername}, '%')
+            </if>
+            <if test="groupname != null">
+                AND g.groupname like CONCAT('%', #{groupname}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

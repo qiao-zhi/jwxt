@@ -5,7 +5,8 @@
     <resultMap type="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup" id="oneGradesigncheckgroupResultMap" autoMapping="true">
         <id property="groupid" column="groupid" />
 
-        <collection property="checkgrouppersonList" ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson">
+        <collection property="checkgrouppersonList" column="gropersonid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson">
             <id column="gropersonid" property="gropersonid"/>
         </collection>
     </resultMap>
@@ -13,7 +14,8 @@
     <resultMap type="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup" id="GradesigncheckgroupListResultMap" autoMapping="true">
         <id property="groupid" column="groupid" />
 
-        <collection property="checkgrouppersonList" ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson">
+        <collection property="checkgrouppersonList" column="gropersonid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson">
             <id column="gropersonid" property="gropersonid"/>
         </collection>
 

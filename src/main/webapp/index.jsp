@@ -203,7 +203,7 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a _href="pages/graduateProgram/middleReport/middleReportGroup.html">
+                                <a _href="pages/graduateProgram/middleReport/middleReportGroup.jsp">
                                     <cite>中期检查小组管理</cite><!--教研室主任 3组，互分。这个怎么安排，是写算法还是？-->
                                 </a>
                             </li>
