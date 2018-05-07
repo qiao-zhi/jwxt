@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xm.jwxt.mapper.courseDesign.TCoursedesignArrangeMapper" >
-  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.courseDesign.TCoursedesignArrange" >
+<mapper namespace="cn.xm.jwxt.mapper.courseDesign.TCoursedesignClassArrangeMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.courseDesign.TCoursedesignClassArrange" >
     <id column="courseDesignClassArrangeID" property="coursedesignclassarrangeid" jdbcType="VARCHAR" />
     <result column="courseDesignArrangeID" property="coursedesignarrangeid" jdbcType="VARCHAR" />
     <result column="classID" property="classid" jdbcType="VARCHAR" />
+    <result column="display" property="display" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    courseDesignClassArrangeID, courseDesignArrangeID, classID
+    courseDesignClassArrangeID, courseDesignArrangeID, classID, display
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignArrangeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignClassArrangeExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_coursedesign_arrange
+    from t_coursedesign_class_arrange
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,27 +85,27 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from t_coursedesign_arrange
+    from t_coursedesign_class_arrange
     where courseDesignClassArrangeID = #{coursedesignclassarrangeid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from t_coursedesign_arrange
+    delete from t_coursedesign_class_arrange
     where courseDesignClassArrangeID = #{coursedesignclassarrangeid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignArrangeExample" >
-    delete from t_coursedesign_arrange
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignClassArrangeExample" >
+    delete from t_coursedesign_class_arrange
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignArrange" >
-    insert into t_coursedesign_arrange (courseDesignClassArrangeID, courseDesignArrangeID, 
-      classID)
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignClassArrange" >
+    insert into t_coursedesign_class_arrange (courseDesignClassArrangeID, courseDesignArrangeID, 
+      classID, display)
     values (#{coursedesignclassarrangeid,jdbcType=VARCHAR}, #{coursedesignarrangeid,jdbcType=VARCHAR}, 
-      #{classid,jdbcType=VARCHAR})
+      #{classid,jdbcType=VARCHAR}, #{display,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignArrange" >
-    insert into t_coursedesign_arrange
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignClassArrange" >
+    insert into t_coursedesign_class_arrange
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="coursedesignclassarrangeid != null" >
         courseDesignClassArrangeID,
@@ -114,6 +115,9 @@
       </if>
       <if test="classid != null" >
         classID,
+      </if>
+      <if test="display != null" >
+        display,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -126,16 +130,19 @@
       <if test="classid != null" >
         #{classid,jdbcType=VARCHAR},
       </if>
+      <if test="display != null" >
+        #{display,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignArrangeExample" resultType="java.lang.Integer" >
-    select count(*) from t_coursedesign_arrange
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignClassArrangeExample" resultType="java.lang.Integer" >
+    select count(*) from t_coursedesign_class_arrange
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_coursedesign_arrange
+    update t_coursedesign_class_arrange
     <set >
       <if test="record.coursedesignclassarrangeid != null" >
         courseDesignClassArrangeID = #{record.coursedesignclassarrangeid,jdbcType=VARCHAR},
@@ -146,22 +153,26 @@
       <if test="record.classid != null" >
         classID = #{record.classid,jdbcType=VARCHAR},
       </if>
+      <if test="record.display != null" >
+        display = #{record.display,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_coursedesign_arrange
+    update t_coursedesign_class_arrange
     set courseDesignClassArrangeID = #{record.coursedesignclassarrangeid,jdbcType=VARCHAR},
       courseDesignArrangeID = #{record.coursedesignarrangeid,jdbcType=VARCHAR},
-      classID = #{record.classid,jdbcType=VARCHAR}
+      classID = #{record.classid,jdbcType=VARCHAR},
+      display = #{record.display,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignArrange" >
-    update t_coursedesign_arrange
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignClassArrange" >
+    update t_coursedesign_class_arrange
     <set >
       <if test="coursedesignarrangeid != null" >
         courseDesignArrangeID = #{coursedesignarrangeid,jdbcType=VARCHAR},
@@ -169,13 +180,17 @@
       <if test="classid != null" >
         classID = #{classid,jdbcType=VARCHAR},
       </if>
+      <if test="display != null" >
+        display = #{display,jdbcType=VARCHAR},
+      </if>
     </set>
     where courseDesignClassArrangeID = #{coursedesignclassarrangeid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignArrange" >
-    update t_coursedesign_arrange
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignClassArrange" >
+    update t_coursedesign_class_arrange
     set courseDesignArrangeID = #{coursedesignarrangeid,jdbcType=VARCHAR},
-      classID = #{classid,jdbcType=VARCHAR}
+      classID = #{classid,jdbcType=VARCHAR},
+      display = #{display,jdbcType=VARCHAR}
     where courseDesignClassArrangeID = #{coursedesignclassarrangeid,jdbcType=VARCHAR}
   </update>
 </mapper>

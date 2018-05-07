@@ -1,11 +1,13 @@
 package cn.xm.jwxt.bean.courseDesign;
 
-public class TCoursedesignArrange {
+public class TCoursedesignClassArrange {
     private String coursedesignclassarrangeid;
 
     private String coursedesignarrangeid;
 
     private String classid;
+
+    private String display;
 
     public String getCoursedesignclassarrangeid() {
         return coursedesignclassarrangeid;
@@ -29,5 +31,13 @@ public class TCoursedesignArrange {
 
     public void setClassid(String classid) {
         this.classid = classid == null ? null : classid.trim();
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display == null ? null : display.trim();
     }
 }

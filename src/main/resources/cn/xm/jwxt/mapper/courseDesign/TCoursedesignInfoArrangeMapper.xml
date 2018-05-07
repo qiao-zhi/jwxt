@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xm.jwxt.mapper.courseDesign.TCoursedesignInfoMapper" >
-  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfo" >
+<mapper namespace="cn.xm.jwxt.mapper.courseDesign.TCoursedesignInfoArrangeMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrange" >
     <id column="courseDesignArrangeID" property="coursedesignarrangeid" jdbcType="VARCHAR" />
-    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="trainCourseID" property="traincourseid" jdbcType="VARCHAR" />
     <result column="majorID" property="majorid" jdbcType="VARCHAR" />
-    <result column="startTime" property="starttime" jdbcType="TIMESTAMP" />
-    <result column="endTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="startTime" property="starttime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
     <result column="semester" property="semester" jdbcType="VARCHAR" />
     <result column="yearNum" property="yearnum" jdbcType="VARCHAR" />
-    <result column="courseDesignInfo" property="coursedesigninfo" jdbcType="VARCHAR" />
+    <result column="courseDesignName" property="coursedesignname" jdbcType="VARCHAR" />
     <result column="CourseArrangeInfo" property="coursearrangeinfo" jdbcType="VARCHAR" />
     <result column="CourseArrangeTeacher" property="coursearrangeteacher" jdbcType="VARCHAR" />
     <result column="CourseArrangeTime" property="coursearrangetime" jdbcType="TIMESTAMP" />
-    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="isArrange" property="isarrange" jdbcType="VARCHAR" />
+    <result column="display" property="display" jdbcType="VARCHAR" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -75,16 +76,17 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    courseDesignArrangeID, id, majorID, startTime, endTime, semester, yearNum, courseDesignInfo, 
-    CourseArrangeInfo, CourseArrangeTeacher, CourseArrangeTime, remark1, remark2
+    courseDesignArrangeID, trainCourseID, majorID, startTime, endTime, semester, yearNum, 
+    courseDesignName, CourseArrangeInfo, CourseArrangeTeacher, CourseArrangeTime, isArrange, 
+    display, remark2
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrangeExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_coursedesign_info
+    from t_coursedesign_info_arrange
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,39 +97,41 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from t_coursedesign_info
+    from t_coursedesign_info_arrange
     where courseDesignArrangeID = #{coursedesignarrangeid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from t_coursedesign_info
+    delete from t_coursedesign_info_arrange
     where courseDesignArrangeID = #{coursedesignarrangeid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoExample" >
-    delete from t_coursedesign_info
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrangeExample" >
+    delete from t_coursedesign_info_arrange
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfo" >
-    insert into t_coursedesign_info (courseDesignArrangeID, id, majorID, 
-      startTime, endTime, semester, 
-      yearNum, courseDesignInfo, CourseArrangeInfo, 
-      CourseArrangeTeacher, CourseArrangeTime, 
-      remark1, remark2)
-    values (#{coursedesignarrangeid,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{majorid,jdbcType=VARCHAR}, 
-      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{semester,jdbcType=VARCHAR}, 
-      #{yearnum,jdbcType=VARCHAR}, #{coursedesigninfo,jdbcType=VARCHAR}, #{coursearrangeinfo,jdbcType=VARCHAR}, 
-      #{coursearrangeteacher,jdbcType=VARCHAR}, #{coursearrangetime,jdbcType=TIMESTAMP}, 
-      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrange" >
+    insert into t_coursedesign_info_arrange (courseDesignArrangeID, trainCourseID, 
+      majorID, startTime, endTime, 
+      semester, yearNum, courseDesignName, 
+      CourseArrangeInfo, CourseArrangeTeacher, 
+      CourseArrangeTime, isArrange, display, 
+      remark2)
+    values (#{coursedesignarrangeid,jdbcType=VARCHAR}, #{traincourseid,jdbcType=VARCHAR}, 
+      #{majorid,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
+      #{semester,jdbcType=VARCHAR}, #{yearnum,jdbcType=VARCHAR}, #{coursedesignname,jdbcType=VARCHAR}, 
+      #{coursearrangeinfo,jdbcType=VARCHAR}, #{coursearrangeteacher,jdbcType=VARCHAR}, 
+      #{coursearrangetime,jdbcType=TIMESTAMP}, #{isarrange,jdbcType=VARCHAR}, #{display,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfo" >
-    insert into t_coursedesign_info
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrange" >
+    insert into t_coursedesign_info_arrange
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="coursedesignarrangeid != null" >
         courseDesignArrangeID,
       </if>
-      <if test="id != null" >
-        id,
+      <if test="traincourseid != null" >
+        trainCourseID,
       </if>
       <if test="majorid != null" >
         majorID,
@@ -144,8 +148,8 @@
       <if test="yearnum != null" >
         yearNum,
       </if>
-      <if test="coursedesigninfo != null" >
-        courseDesignInfo,
+      <if test="coursedesignname != null" >
+        courseDesignName,
       </if>
       <if test="coursearrangeinfo != null" >
         CourseArrangeInfo,
@@ -156,8 +160,11 @@
       <if test="coursearrangetime != null" >
         CourseArrangeTime,
       </if>
-      <if test="remark1 != null" >
-        remark1,
+      <if test="isarrange != null" >
+        isArrange,
+      </if>
+      <if test="display != null" >
+        display,
       </if>
       <if test="remark2 != null" >
         remark2,
@@ -167,17 +174,17 @@
       <if test="coursedesignarrangeid != null" >
         #{coursedesignarrangeid,jdbcType=VARCHAR},
       </if>
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+      <if test="traincourseid != null" >
+        #{traincourseid,jdbcType=VARCHAR},
       </if>
       <if test="majorid != null" >
         #{majorid,jdbcType=VARCHAR},
       </if>
       <if test="starttime != null" >
-        #{starttime,jdbcType=TIMESTAMP},
+        #{starttime,jdbcType=VARCHAR},
       </if>
       <if test="endtime != null" >
-        #{endtime,jdbcType=TIMESTAMP},
+        #{endtime,jdbcType=VARCHAR},
       </if>
       <if test="semester != null" >
         #{semester,jdbcType=VARCHAR},
@@ -185,8 +192,8 @@
       <if test="yearnum != null" >
         #{yearnum,jdbcType=VARCHAR},
       </if>
-      <if test="coursedesigninfo != null" >
-        #{coursedesigninfo,jdbcType=VARCHAR},
+      <if test="coursedesignname != null" >
+        #{coursedesignname,jdbcType=VARCHAR},
       </if>
       <if test="coursearrangeinfo != null" >
         #{coursearrangeinfo,jdbcType=VARCHAR},
@@ -197,37 +204,40 @@
       <if test="coursearrangetime != null" >
         #{coursearrangetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="remark1 != null" >
-        #{remark1,jdbcType=VARCHAR},
+      <if test="isarrange != null" >
+        #{isarrange,jdbcType=VARCHAR},
+      </if>
+      <if test="display != null" >
+        #{display,jdbcType=VARCHAR},
       </if>
       <if test="remark2 != null" >
         #{remark2,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoExample" resultType="java.lang.Integer" >
-    select count(*) from t_coursedesign_info
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrangeExample" resultType="java.lang.Integer" >
+    select count(*) from t_coursedesign_info_arrange
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_coursedesign_info
+    update t_coursedesign_info_arrange
     <set >
       <if test="record.coursedesignarrangeid != null" >
         courseDesignArrangeID = #{record.coursedesignarrangeid,jdbcType=VARCHAR},
       </if>
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+      <if test="record.traincourseid != null" >
+        trainCourseID = #{record.traincourseid,jdbcType=VARCHAR},
       </if>
       <if test="record.majorid != null" >
         majorID = #{record.majorid,jdbcType=VARCHAR},
       </if>
       <if test="record.starttime != null" >
-        startTime = #{record.starttime,jdbcType=TIMESTAMP},
+        startTime = #{record.starttime,jdbcType=VARCHAR},
       </if>
       <if test="record.endtime != null" >
-        endTime = #{record.endtime,jdbcType=TIMESTAMP},
+        endTime = #{record.endtime,jdbcType=VARCHAR},
       </if>
       <if test="record.semester != null" >
         semester = #{record.semester,jdbcType=VARCHAR},
@@ -235,8 +245,8 @@
       <if test="record.yearnum != null" >
         yearNum = #{record.yearnum,jdbcType=VARCHAR},
       </if>
-      <if test="record.coursedesigninfo != null" >
-        courseDesignInfo = #{record.coursedesigninfo,jdbcType=VARCHAR},
+      <if test="record.coursedesignname != null" >
+        courseDesignName = #{record.coursedesignname,jdbcType=VARCHAR},
       </if>
       <if test="record.coursearrangeinfo != null" >
         CourseArrangeInfo = #{record.coursearrangeinfo,jdbcType=VARCHAR},
@@ -247,8 +257,11 @@
       <if test="record.coursearrangetime != null" >
         CourseArrangeTime = #{record.coursearrangetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.remark1 != null" >
-        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      <if test="record.isarrange != null" >
+        isArrange = #{record.isarrange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.display != null" >
+        display = #{record.display,jdbcType=VARCHAR},
       </if>
       <if test="record.remark2 != null" >
         remark2 = #{record.remark2,jdbcType=VARCHAR},
@@ -259,38 +272,39 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_coursedesign_info
+    update t_coursedesign_info_arrange
     set courseDesignArrangeID = #{record.coursedesignarrangeid,jdbcType=VARCHAR},
-      id = #{record.id,jdbcType=VARCHAR},
+      trainCourseID = #{record.traincourseid,jdbcType=VARCHAR},
       majorID = #{record.majorid,jdbcType=VARCHAR},
-      startTime = #{record.starttime,jdbcType=TIMESTAMP},
-      endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      startTime = #{record.starttime,jdbcType=VARCHAR},
+      endTime = #{record.endtime,jdbcType=VARCHAR},
       semester = #{record.semester,jdbcType=VARCHAR},
       yearNum = #{record.yearnum,jdbcType=VARCHAR},
-      courseDesignInfo = #{record.coursedesigninfo,jdbcType=VARCHAR},
+      courseDesignName = #{record.coursedesignname,jdbcType=VARCHAR},
       CourseArrangeInfo = #{record.coursearrangeinfo,jdbcType=VARCHAR},
       CourseArrangeTeacher = #{record.coursearrangeteacher,jdbcType=VARCHAR},
       CourseArrangeTime = #{record.coursearrangetime,jdbcType=TIMESTAMP},
-      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      isArrange = #{record.isarrange,jdbcType=VARCHAR},
+      display = #{record.display,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfo" >
-    update t_coursedesign_info
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrange" >
+    update t_coursedesign_info_arrange
     <set >
-      <if test="id != null" >
-        id = #{id,jdbcType=VARCHAR},
+      <if test="traincourseid != null" >
+        trainCourseID = #{traincourseid,jdbcType=VARCHAR},
       </if>
       <if test="majorid != null" >
         majorID = #{majorid,jdbcType=VARCHAR},
       </if>
       <if test="starttime != null" >
-        startTime = #{starttime,jdbcType=TIMESTAMP},
+        startTime = #{starttime,jdbcType=VARCHAR},
       </if>
       <if test="endtime != null" >
-        endTime = #{endtime,jdbcType=TIMESTAMP},
+        endTime = #{endtime,jdbcType=VARCHAR},
       </if>
       <if test="semester != null" >
         semester = #{semester,jdbcType=VARCHAR},
@@ -298,8 +312,8 @@
       <if test="yearnum != null" >
         yearNum = #{yearnum,jdbcType=VARCHAR},
       </if>
-      <if test="coursedesigninfo != null" >
-        courseDesignInfo = #{coursedesigninfo,jdbcType=VARCHAR},
+      <if test="coursedesignname != null" >
+        courseDesignName = #{coursedesignname,jdbcType=VARCHAR},
       </if>
       <if test="coursearrangeinfo != null" >
         CourseArrangeInfo = #{coursearrangeinfo,jdbcType=VARCHAR},
@@ -310,8 +324,11 @@
       <if test="coursearrangetime != null" >
         CourseArrangeTime = #{coursearrangetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="remark1 != null" >
-        remark1 = #{remark1,jdbcType=VARCHAR},
+      <if test="isarrange != null" >
+        isArrange = #{isarrange,jdbcType=VARCHAR},
+      </if>
+      <if test="display != null" >
+        display = #{display,jdbcType=VARCHAR},
       </if>
       <if test="remark2 != null" >
         remark2 = #{remark2,jdbcType=VARCHAR},
@@ -319,19 +336,20 @@
     </set>
     where courseDesignArrangeID = #{coursedesignarrangeid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfo" >
-    update t_coursedesign_info
-    set id = #{id,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrange" >
+    update t_coursedesign_info_arrange
+    set trainCourseID = #{traincourseid,jdbcType=VARCHAR},
       majorID = #{majorid,jdbcType=VARCHAR},
-      startTime = #{starttime,jdbcType=TIMESTAMP},
-      endTime = #{endtime,jdbcType=TIMESTAMP},
+      startTime = #{starttime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR},
       semester = #{semester,jdbcType=VARCHAR},
       yearNum = #{yearnum,jdbcType=VARCHAR},
-      courseDesignInfo = #{coursedesigninfo,jdbcType=VARCHAR},
+      courseDesignName = #{coursedesignname,jdbcType=VARCHAR},
       CourseArrangeInfo = #{coursearrangeinfo,jdbcType=VARCHAR},
       CourseArrangeTeacher = #{coursearrangeteacher,jdbcType=VARCHAR},
       CourseArrangeTime = #{coursearrangetime,jdbcType=TIMESTAMP},
-      remark1 = #{remark1,jdbcType=VARCHAR},
+      isArrange = #{isarrange,jdbcType=VARCHAR},
+      display = #{display,jdbcType=VARCHAR},
       remark2 = #{remark2,jdbcType=VARCHAR}
     where courseDesignArrangeID = #{coursedesignarrangeid,jdbcType=VARCHAR}
   </update>

@@ -2,22 +2,22 @@ package cn.xm.jwxt.bean.courseDesign;
 
 import java.util.Date;
 
-public class TCoursedesignInfo {
+public class TCoursedesignInfoArrange {
     private String coursedesignarrangeid;
 
-    private String id;
+    private String traincourseid;
 
     private String majorid;
 
-    private Date starttime;
+    private String starttime;
 
-    private Date endtime;
+    private String endtime;
 
     private String semester;
 
     private String yearnum;
 
-    private String coursedesigninfo;
+    private String coursedesignname;
 
     private String coursearrangeinfo;
 
@@ -25,7 +25,9 @@ public class TCoursedesignInfo {
 
     private Date coursearrangetime;
 
-    private String remark1;
+    private String isarrange;
+
+    private String display;
 
     private String remark2;
 
@@ -37,12 +39,12 @@ public class TCoursedesignInfo {
         this.coursedesignarrangeid = coursedesignarrangeid == null ? null : coursedesignarrangeid.trim();
     }
 
-    public String getId() {
-        return id;
+    public String getTraincourseid() {
+        return traincourseid;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setTraincourseid(String traincourseid) {
+        this.traincourseid = traincourseid == null ? null : traincourseid.trim();
     }
 
     public String getMajorid() {
@@ -53,20 +55,20 @@ public class TCoursedesignInfo {
         this.majorid = majorid == null ? null : majorid.trim();
     }
 
-    public Date getStarttime() {
+    public String getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(Date starttime) {
-        this.starttime = starttime;
+    public void setStarttime(String starttime) {
+        this.starttime = starttime == null ? null : starttime.trim();
     }
 
-    public Date getEndtime() {
+    public String getEndtime() {
         return endtime;
     }
 
-    public void setEndtime(Date endtime) {
-        this.endtime = endtime;
+    public void setEndtime(String endtime) {
+        this.endtime = endtime == null ? null : endtime.trim();
     }
 
     public String getSemester() {
@@ -85,12 +87,12 @@ public class TCoursedesignInfo {
         this.yearnum = yearnum == null ? null : yearnum.trim();
     }
 
-    public String getCoursedesigninfo() {
-        return coursedesigninfo;
+    public String getCoursedesignname() {
+        return coursedesignname;
     }
 
-    public void setCoursedesigninfo(String coursedesigninfo) {
-        this.coursedesigninfo = coursedesigninfo == null ? null : coursedesigninfo.trim();
+    public void setCoursedesignname(String coursedesignname) {
+        this.coursedesignname = coursedesignname == null ? null : coursedesignname.trim();
     }
 
     public String getCoursearrangeinfo() {
@@ -117,12 +119,20 @@ public class TCoursedesignInfo {
         this.coursearrangetime = coursearrangetime;
     }
 
-    public String getRemark1() {
-        return remark1;
+    public String getIsarrange() {
+        return isarrange;
     }
 
-    public void setRemark1(String remark1) {
-        this.remark1 = remark1 == null ? null : remark1.trim();
+    public void setIsarrange(String isarrange) {
+        this.isarrange = isarrange == null ? null : isarrange.trim();
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display == null ? null : display.trim();
     }
 
     public String getRemark2() {

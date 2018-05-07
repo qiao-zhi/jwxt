@@ -313,6 +313,146 @@ public class TCoursedesignTeacherArrangeExample {
             addCriterion("teacherID not between", value1, value2, "teacherid");
             return (Criteria) this;
         }
+
+        public Criteria andClassnamesIsNull() {
+            addCriterion("classNames is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesIsNotNull() {
+            addCriterion("classNames is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesEqualTo(String value) {
+            addCriterion("classNames =", value, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesNotEqualTo(String value) {
+            addCriterion("classNames <>", value, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesGreaterThan(String value) {
+            addCriterion("classNames >", value, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesGreaterThanOrEqualTo(String value) {
+            addCriterion("classNames >=", value, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesLessThan(String value) {
+            addCriterion("classNames <", value, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesLessThanOrEqualTo(String value) {
+            addCriterion("classNames <=", value, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesLike(String value) {
+            addCriterion("classNames like", value, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesNotLike(String value) {
+            addCriterion("classNames not like", value, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesIn(List<String> values) {
+            addCriterion("classNames in", values, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesNotIn(List<String> values) {
+            addCriterion("classNames not in", values, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesBetween(String value1, String value2) {
+            addCriterion("classNames between", value1, value2, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassnamesNotBetween(String value1, String value2) {
+            addCriterion("classNames not between", value1, value2, "classnames");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayIsNull() {
+            addCriterion("display is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayIsNotNull() {
+            addCriterion("display is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayEqualTo(String value) {
+            addCriterion("display =", value, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayNotEqualTo(String value) {
+            addCriterion("display <>", value, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayGreaterThan(String value) {
+            addCriterion("display >", value, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayGreaterThanOrEqualTo(String value) {
+            addCriterion("display >=", value, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayLessThan(String value) {
+            addCriterion("display <", value, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayLessThanOrEqualTo(String value) {
+            addCriterion("display <=", value, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayLike(String value) {
+            addCriterion("display like", value, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayNotLike(String value) {
+            addCriterion("display not like", value, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayIn(List<String> values) {
+            addCriterion("display in", values, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayNotIn(List<String> values) {
+            addCriterion("display not in", values, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayBetween(String value1, String value2) {
+            addCriterion("display between", value1, value2, "display");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisplayNotBetween(String value1, String value2) {
+            addCriterion("display not between", value1, value2, "display");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

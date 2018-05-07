@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.courseDesign.custom.TCoursedesignToolMapper" >
+
+    <select id="getNowYear" resultType="String">
+        select year(NOW());
+    </select>
+
+    <select id="getMajorList" parameterType="String" resultType="String">
+        SELECT
+            majorName
+          FROM
+            t_major_base_info
+          WHERE
+                collegeID=#{collegeID}
+
+    </select>
+
+    <select id="getStudentListByClassNameAndMajorId" parameterType="map" resultType="map">
+        SELECT
+              student.studentID,student.studentName
+            FROM
+                t_class_base_info class
+              JOIN t_student_base_info student
+                ON  class.classID = student.classID
+
+              <where>
+                  <if test="className!=null and className!=''">
+                      AND class.className = #{className}
+                  </if>
+                  <if test="majorID!=null and majorID!=''">
+                      AND class.majorID = #{majorID}
+                  </if>
+              </where>
+
+    </select>
+
+    <select id="getClassNameByMajor" parameterType="map" resultType="String">
+        SELECT
+            className
+          FROM
+            t_class_base_info
+        <where>
+            <if test="majorID!=null and majorID!=''">
+                AND  majorID = #{majorID}
+            </if>
+            <if test="grade!=null and grade!=''">
+                AND  grade = #{grade}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getTeacherName" parameterType="String" resultType="String">
+        SELECT
+          teacherName
+        FROM
+          t_teacher_base_info
+        <where>
+            <if test="_parameter!=null and _parameter!=''">
+                AND  majorID = #{majorID}
+            </if>
+        </where>
+
+    </select>
+
+    <!-- 根据教师姓名和专业查询教师编号 -->
+    <select id="getTeacherNum" parameterType="hashmap" resultType="String">
+      SELECT
+          teacherNum
+        FROM
+          t_teacher_base_info
+          <where>
+              <if test="majorID!=null and majorID!=''">
+                 AND  majorID = #{majorID}
+              </if>
+              <if test="teacherName!=null and teacherName!=''">
+                  AND teacherName = #{teacherName}
+              </if>
+          </where>
+    </select>
+    <select id="getTeacherID" parameterType="String" resultType="String">
+        SELECT
+          teacherID
+        FROM
+          t_teacher_base_info
+        <where>
+            <if test="_parameter!=null and _parameter!=''">
+                AND  teacherNum = #{teacherNum}
+            </if>
+        </where>
+    </select>
+
+    <select id="getcourseDesignTeacherArrangeID" parameterType="String" resultType="String">
+        SELECT
+          courseDesignTeacherArrangeID
+          FROM
+            t_courseDesign_teacher_arrange
+           WHERE
+            courseDesignArrangeID = #{courseDesignArrangeID}
+    </select>
+
+    <!-- 根据状态查询id-->
+    <select id="getcourseDesignArrangeIDByDisplay" parameterType="String" resultType="String">
+        SELECT
+            courseDesignArrangeID
+          FROM
+            t_courseDesign_info_arrange
+            WHERE
+              display = #{display}
+    </select>
+    <select id="getcourseDesignTeacherArrangeIDByDisplay" parameterType="String" resultType="String">
+        SELECT
+          courseDesignTeacherArrangeID
+        FROM
+          t_courseDesign_teacher_arrange
+        WHERE
+        display = #{display}
+    </select>
+    <select id="getcourseDesignClassArrangeIDByDisplay" parameterType="String" resultType="String">
+        SELECT
+          courseDesignClassArrangeID
+        FROM
+          t_courseDesign_class_arrange
+        WHERE
+        display = #{display}
+    </select>
+    <select id="getcourseDesignTeacherStudentIDByDisplay" parameterType="String" resultType="String">
+        SELECT
+          courseDesignTeacherStudentID
+        FROM
+          t_courseDesign_TeacherStudent
+        WHERE
+        display = #{display}
+    </select>
+
+    <!-- 根据培养方案编号查已经安排的课设信息-->
+    <select id="findCourseDesignArrangeInfoBytrainCourseIDAndYearNumAndMajorID" parameterType="map" resultType="map">
+        SELECT
+            ia.CourseArrangeTime,
+            ta.display,
+            ti.teacherName,
+            ia.yearNum
+          FROM
+            t_courseDesign_teacher_arrange ta
+            JOIN t_teacher_base_info ti
+              ON  ta.teacherID = ti.teacherID
+            JOIN t_courseDesign_info_arrange ia
+              ON ia.courseDesignArrangeID = ta.courseDesignArrangeID
+            JOIN t_courseDesign_class_arrange ca
+              ON ca.courseDesignArrangeID = ia.courseDesignArrangeID
+            WHERE
+              ia.trainCourseID = #{trainCourseID}
+              AND
+              ia.yearNum = #{yearNum}
+              AND
+              ia.majorID = #{majorID}
+              AND
+              ca.grade = #{grade}
+    </select>
+
+    <select id="findcourseDesignArrangeIDBytrainCourseIDAndYearNumAndMajorID" parameterType="map" resultType="String">
+        SELECT
+            ia.courseDesignArrangeID
+          FROM
+              t_courseDesign_info_arrange ia
+              JOIN t_courseDesign_class_arrange ca
+                ON ca.courseDesignArrangeID = ia.courseDesignArrangeID
+            WHERE
+              ia.trainCourseID = #{trainCourseID}
+                AND ia.yearNum = #{yearNum}
+                AND ia.majorID = #{majorID}
+                AND ca.grade = #{grade}
+    </select>
+
+</mapper>
