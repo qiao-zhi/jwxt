@@ -27,7 +27,7 @@
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a href="../../welcome.html">首页</a>
+        <a href="../../welcome.jsp">首页</a>
         <a href="">排课管理</a>
         <a>
           <cite>通知书管理</cite></a>

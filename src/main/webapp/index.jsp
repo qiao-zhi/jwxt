@@ -31,7 +31,7 @@
                 <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
                 <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
                 <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">帮助</a></dd>
-                <dd><a href="./login.html">退出</a></dd>
+                <dd><a href="./login.jsp">退出</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item to-index"><a href="index.jsp">首页</a></li>
@@ -71,17 +71,17 @@
                         </a>
                     </li>
                 	<li>
-                        <a _href="pages/arrangeCourse/scheduleTask.html">
+                        <a _href="pages/arrangeCourse/scheduleTask.jsp">
                             <cite>任务管理</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/arrangeCourse/scheduleArrange.html">
+                        <a _href="pages/arrangeCourse/scheduleArrange.jsp">
                             <cite>安排课程</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/arrangeCourse/scheduleCheck.html">
+                        <a _href="pages/arrangeCourse/scheduleCheck.jsp">
                             <cite>任务审核</cite>
                         </a>
                     </li>
@@ -95,22 +95,22 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/textbookManage/textbookInfo.html">
+                        <a _href="pages/textbookManage/textbookInfo.jsp">
                             <cite>教材库管理</cite>
                         </a>
                     </li>
                      <li>
-                        <a _href="pages/textbookManage/orderTextbook.html">
+                        <a _href="pages/textbookManage/orderTextbook.jsp">
                             <cite>订购教材</cite>
                         </a>
                     </li>
                      <li>
-                        <a _href="pages/textbookManage/teacherConfirm.html">
+                        <a _href="pages/textbookManage/teacherConfirm.jsp">
                             <cite>教师确认订单</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/textbookManage/orderInfo.html">
+                        <a _href="pages/textbookManage/orderInfo.jsp">
                             <cite>订单管理</cite>
                         </a>
                     </li>
@@ -124,17 +124,17 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/courseDesign/courseDesign.html">
+                        <a _href="pages/courseDesign/courseDesign.jsp">
                             <cite>课设分配</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/courseDesign/courseDesignReport.html">
+                        <a _href="pages/courseDesign/courseDesignReport.jsp">
                             <cite>上传课设报告</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/courseDesign/courseDesignReport-progress.html">
+                        <a _href="pages/courseDesign/courseDesignReport-progress.jsp">
                             <cite>报告上传情况</cite>
                         </a>
                     </li>
@@ -148,7 +148,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/workLoad/statistics.html">
+                        <a _href="pages/workLoad/statistics.jsp">
                             <cite>工作量统计</cite>
                         </a>
                     </li>
@@ -171,23 +171,23 @@
                         <ul class="sub-menu">
                             <!--毕业课题管理 课题申请表与审核-->
                             <li>
-                                <a _href="pages/graduateProgram/projectManage/project-AC.html">
+                                <a _href="pages/graduateProgram/projectManage/project-AC.jsp">
                                     <cite>课题添加及审核</cite><!--增删改查  列里边有院长审核情况和教研室审核情况-->
                                 </a><!--教研室主任和院长  可以统计 导出，最下边有发布-->
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/projectManage/chooseProject.html">
+                                <a _href="pages/graduateProgram/projectManage/chooseProject.jsp">
                                     <cite>选择课题</cite><!--学生 选择两个 提交-->
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/projectManage/chooseGPStudent.html">
+                                <a _href="pages/graduateProgram/projectManage/chooseGPStudent.jsp">
                                     <cite>选择毕设学生</cite><!--老师 确认学生 填写任务书，
                             填写论文评语，查看中期检查，毕业答辩情况-->
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/projectManage/projectManage.html">
+                                <a _href="pages/graduateProgram/projectManage/projectManage.jsp">
                                     <cite>课题管理</cite><!--教研室主任  看谁没报（导出），
 							看那个老师报的人数的多少，调剂学生通知（哪些学生还可以选择那些老师和课题）
 							发布结果  查看任务书填写情况 -->
@@ -203,12 +203,12 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a _href="pages/graduateProgram/middleReport/middleReportGroup.html">
+                                <a _href="pages/graduateProgram/middleReport/middleReportGroup.jsp">
                                     <cite>中期检查小组管理</cite><!--教研室主任 3组，互分。这个怎么安排，是写算法还是？-->
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/middleReport/middleReportManage.html">
+                                <a _href="pages/graduateProgram/middleReport/middleReportManage.jsp">
                                     <cite>中期检查审核管理</cite><!--教师 查看中期答辩所负责的学生情况，填写答辩结果-->
                                 </a>
                             </li>
@@ -222,18 +222,18 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a _href="pages/graduateProgram/graduateReport/graduateReportGroup.html">
+                                <a _href="pages/graduateProgram/graduateReport/graduateReportGroup.jsp">
                                     <cite>毕业答辩小组管理</cite><!--教研室主任 3组，互分。这个怎么安排，是写算法还是？-->
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/graduateReport/ThesisManage.html">
+                                <a _href="pages/graduateProgram/graduateReport/ThesisManage.jsp">
                                     <cite>论文管理</cite><!--老师 确认学生 填写任务书，
                             填写论文评语，查看中期检查，毕业答辩情况-->
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/graduateReport/graduateReportManage.html">
+                                <a _href="pages/graduateProgram/graduateReport/graduateReportManage.jsp">
                                     <cite>毕业答辩审核管理</cite><!--教师 查看答辩安排，
 							        填写论文评语 可以下载查看 考勤表？？？ 查看答辩结果（未审核）
 							        查看历年毕业设计 审核学生的资料-->
@@ -249,12 +249,12 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateApply.html">
+                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateApply.jsp">
                                     <cite>校外毕设申请</cite><!--添加申请及上传相关材料-->
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateManage.html">
+                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateManage.jsp">
                                     <cite>校外毕设审核管理</cite><!-- 上传资料，教研室主任审核及意见，院长审核意见-->
                                 </a>
                             </li>
@@ -262,7 +262,7 @@
                     </li>
                     <!--学生-毕设管理-->
                     <li>
-                        <a _href="pages/graduateProgram/studentGPM/studentGPM.html">
+                        <a _href="pages/graduateProgram/studentGPM/studentGPM.jsp">
                             <cite>学生-毕设管理</cite><!--学生，根据老师的任务书 填写进程表-->
                             <!--学生 查看答辩安排，
                             提交论文，下载资料 查看答辩结果（未审核）
@@ -272,12 +272,9 @@
                     </li>
                     <!-- 文件审核管理-->
                     <li>
-                        <a _href="pages/graduateProgram/fileManage/fileManage.html">
-                            <cite>文件管理</cite><!--学生，根据老师的任务书 填写进程表-->
-                            <!--学生 查看答辩安排，
-                            提交论文，下载资料 查看答辩结果（未审核）
-                            提交论文还需要教师的审核
-                        -->
+                        <a _href="pages/graduateProgram/fileManage/fileManage.jsp">
+                            <cite>文件管理</cite>
+                            <!-- 文件管理，答辩秘书负责，答辩秘书负责上传文件模板，负责审核学生提交的文件 -->
                         </a>
                     </li>
                     <!--成绩管理 查看成绩信息，查看统计信息。
@@ -289,12 +286,12 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a _href="pages/graduateProgram/gradeManage/gradeView.html">
+                                <a _href="pages/graduateProgram/gradeManage/gradeView.jsp">
                                     <cite>成绩查询</cite>
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/gradeManage/gradeStatistics.html">
+                                <a _href="pages/graduateProgram/gradeManage/gradeStatistics.jsp">
                                     <cite>成绩统计</cite>
                                 </a>
                             </li>
@@ -310,7 +307,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/trainingScheme/trainingScheme.html">
+                        <a _href="pages/trainingScheme/trainingScheme.jsp">
                             <cite>培养方案管理</cite>
                         </a>
                     </li>
@@ -324,22 +321,22 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/baseinfo/major.html">
+                        <a _href="pages/baseinfo/major.jsp">
                             <cite>专业信息</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/baseinfo/clazz.html">
+                        <a _href="pages/baseinfo/clazz.jsp">
                             <cite>班级信息</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/baseinfo/teacher.html">
+                        <a _href="pages/baseinfo/teacher.jsp">
                             <cite>教师信息</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/baseinfo/student.html">
+                        <a _href="pages/baseinfo/student.jsp">
                             <cite>学生信息</cite>
                         </a>
                     </li>
@@ -353,32 +350,32 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/system/college.html">
+                        <a _href="pages/system/college.jsp">
                             <cite>学院初始化</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/user.html">
+                        <a _href="pages/system/user.jsp">
                             <cite>用户管理</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/role.html">
+                        <a _href="pages/system/role.jsp">
                             <cite>角色管理</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/authority.html">
+                        <a _href="pages/system/authority.jsp">
                             <cite>权限管理</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/dictionary.html">
+                        <a _href="pages/system/dictionary.jsp">
                             <cite>字典管理</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/loginfo.html">
+                        <a _href="pages/system/loginfo.jsp">
                             <cite>日志管理</cite>
                         </a>
                     </li>
@@ -397,7 +394,7 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='./welcome.jsp' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
         </div>
     </div>

@@ -40,7 +40,7 @@
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a href="../../welcome.html">首页</a>
+        <a href="../../welcome.jsp">首页</a>
         <a href="">课程管理</a>
         <a>
           <cite>课程信息</cite></a>
