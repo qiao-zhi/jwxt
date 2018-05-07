@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.trainScheme.custom.TrainschemeinfoCustomMapper" >
+    <!--S    查询专业信息的代码-->
+    <!--1.  获取所有的专业名称和专业代码-->
+    <select id="getMajorNameAndCode" resultType="map">
+        SELECT majorId,majorNum,majorName FROM t_major_base_info
+    </select>
+    <!--2.  根据专业代码获取专业信息用于添加培养方案的时候给专业信息赋值-->
+    <select id="getMajorInfoByMajorCode" resultType="map">
+        select * from t_major_base_info where majorId = #{majorCode}
+    </select>
+
+    <!--E    查询专业信息的代码-->
+
+    <!--S    分页查询培养方案信息-->
+    <select id="getTrainschemeinfoByCondition" parameterType="map" resultType="map">
+        select * from trainschemeinfo
+        <where>
+            <!--查询正在使用的-->
+            <if test="1==1">
+                and isUse = '1'
+            </if>
+            <!--培养方案名称-->
+            <if test="trainingschemaname != null and trainingschemaname != ''">
+                and trainingschemaname like '%${trainingschemaname}%'
+            </if>
+            <!--专业名称-->
+            <if test="majorname != null and majorname != ''">
+                and majorname like '%${majorname}%'
+            </if>
+            <!--专业代码-->
+            <if test="majorid != null and majorid != ''">
+                and majorid = #{majorid}
+            </if>
+            <!--状态-->
+            <if test="remark1 != null and remark1 != ''">
+                and remark1 = #{remark1}
+            </if>
+        </where>
+    </select>
+    <!--E    分页查询培养方案信息-->
+
+    <!--S  根据培养方案编号查询培养方案信息-->
+    <select id="getTrainschemeinfoById" parameterType="string" resultType="map">
+        select * from trainschemeinfo
+        <where>
+            <if test="1 == 1">
+                and isUse = '1'
+            </if>
+            <if test="1 == 1">
+                and trainingSchemeID = #{trainschemeinfoId}
+            </if>
+        </where>
+    </select>
+    <!--E  根据培养方案编号查询培养方案信息-->
+
+
+    <!--删除培养方案-->
+    <update id="deleteTrainSchemeById" parameterType="string">
+        update trainschemeinfo set isUse='0' where trainingSchemeID=#{trainSchemeId}
+    </update>
+
+
+
+</mapper>

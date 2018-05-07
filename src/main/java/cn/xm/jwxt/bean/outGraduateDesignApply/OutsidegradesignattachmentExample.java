@@ -245,6 +245,76 @@ public class OutsidegradesignattachmentExample {
             return (Criteria) this;
         }
 
+        public Criteria andAttachmentnameIsNull() {
+            addCriterion("attachmentName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameIsNotNull() {
+            addCriterion("attachmentName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameEqualTo(String value) {
+            addCriterion("attachmentName =", value, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameNotEqualTo(String value) {
+            addCriterion("attachmentName <>", value, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameGreaterThan(String value) {
+            addCriterion("attachmentName >", value, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameGreaterThanOrEqualTo(String value) {
+            addCriterion("attachmentName >=", value, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameLessThan(String value) {
+            addCriterion("attachmentName <", value, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameLessThanOrEqualTo(String value) {
+            addCriterion("attachmentName <=", value, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameLike(String value) {
+            addCriterion("attachmentName like", value, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameNotLike(String value) {
+            addCriterion("attachmentName not like", value, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameIn(List<String> values) {
+            addCriterion("attachmentName in", values, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameNotIn(List<String> values) {
+            addCriterion("attachmentName not in", values, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameBetween(String value1, String value2) {
+            addCriterion("attachmentName between", value1, value2, "attachmentname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentnameNotBetween(String value1, String value2) {
+            addCriterion("attachmentName not between", value1, value2, "attachmentname");
+            return (Criteria) this;
+        }
+
         public Criteria andAttachmentoldnameIsNull() {
             addCriterion("attachmentOldName is null");
             return (Criteria) this;
@@ -582,6 +652,76 @@ public class OutsidegradesignattachmentExample {
 
         public Criteria andAttachmenttypeNotBetween(String value1, String value2) {
             addCriterion("attachmentType not between", value1, value2, "attachmenttype");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNull() {
+            addCriterion("remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("remark =", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("remark <>", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("remark >", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("remark >=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("remark <", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("remark <=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLike(String value) {
+            addCriterion("remark like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("remark not like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("remark in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("remark not in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("remark between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
     }

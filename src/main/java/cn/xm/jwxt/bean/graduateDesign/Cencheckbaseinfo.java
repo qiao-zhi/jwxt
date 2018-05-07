@@ -1,6 +1,7 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 中期检查基本信息表
@@ -17,6 +18,16 @@ public class Cencheckbaseinfo {
     private Date arrangetime;
 
     private String description;
+
+    private List<Cencheckarrangeinfo> cencheckarrangeinfoList;
+
+    public void setCencheckarrangeinfoList(List<Cencheckarrangeinfo> cencheckarrangeinfoList) {
+        this.cencheckarrangeinfoList = cencheckarrangeinfoList;
+    }
+
+    public List<Cencheckarrangeinfo> getCencheckarrangeinfoList() {
+        return cencheckarrangeinfoList;
+    }
 
     public String getCencheckinfoid() {
         return cencheckinfoid;

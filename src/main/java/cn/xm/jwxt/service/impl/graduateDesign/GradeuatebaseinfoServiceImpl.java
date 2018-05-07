@@ -32,22 +32,22 @@ public class GradeuatebaseinfoServiceImpl implements GradeuatebaseinfoService {
 
     @Override
     public boolean deleteByExample(GradeuatebaseinfoExample example) {
-        return gradeuatebaseinfoMapper.deleteByExample(example)==1?true:false;
+        return gradeuatebaseinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(String gradesignid) {
-        return gradeuatebaseinfoMapper.deleteByPrimaryKey(gradesignid)==1?true:false;
+        return gradeuatebaseinfoMapper.deleteByPrimaryKey(gradesignid)==1;
     }
 
     @Override
     public boolean insert(Gradeuatebaseinfo record) {
-        return gradeuatebaseinfoMapper.insert(record)==1?true:false;
+        return gradeuatebaseinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Gradeuatebaseinfo record) {
-        return gradeuatebaseinfoMapper.insertSelective(record)==1?true:false;
+        return gradeuatebaseinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class GradeuatebaseinfoServiceImpl implements GradeuatebaseinfoService {
 
     @Override
     public boolean updateByExampleSelective(Gradeuatebaseinfo record, GradeuatebaseinfoExample example) {
-        return gradeuatebaseinfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return gradeuatebaseinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Gradeuatebaseinfo record, GradeuatebaseinfoExample example) {
-        return gradeuatebaseinfoMapper.updateByExample(record, example)==1?true:false;
+        return gradeuatebaseinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Gradeuatebaseinfo record) {
-        return gradeuatebaseinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return gradeuatebaseinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Gradeuatebaseinfo record) {
-        return gradeuatebaseinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return gradeuatebaseinfoMapper.updateByPrimaryKey(record)==1;
     }
 }

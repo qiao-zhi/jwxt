@@ -8,12 +8,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="../../../css/font.css">
     <link rel="stylesheet" href="../../../css/xadmin.css">
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
+    <style>
+        .y_files{
+            color:#01AAED;
+            cursor: pointer
+        }
+    </style>
 </head>
 
 <body>
@@ -41,6 +46,7 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
+            <input type="text" name="" class="layui-input" id="y_year" placeholder="学年" autocomplete="off">
             <input type="text" name="username" placeholder="指导教师名称" autocomplete="off" class="layui-input">
             <div class="layui-input-inline">
                 <select lay-verify="required" lay-search="" name="contrller" id="clazzName">
@@ -73,19 +79,25 @@
     <!--end查询-->
 
     <!--操作区域-->
-    <xblock>
+
+    <!--<xblock>
+        <button class="layui-btn" onclick="x_admin_show('辅导员审核','./outGraduateManage-check.html')">辅导员审核 </button>
+        <button class="layui-btn" onclick="x_admin_show('指导教师审批','./outGraduateManage-check.html')">指导教师审批 </button>
+        <button class="layui-btn" onclick="x_admin_show('教研室审批','./outGraduateManage-check.html')">教研室审批 </button>
+        <button class="layui-btn" onclick="x_admin_show('系主任审批','./outGraduateManage-check.html')">系主任审批 </button>
+        <button class="layui-btn" onclick="x_admin_show('学院审批','./outGraduateManage-check.html')">学院审批 </button>
         <button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>
-    </xblock>
+    </xblock>-->
     <!--end 操作区域-->
 
     <!--表格内容-->
     <table class="layui-table">
         <thead>
         <tr>
-            <th>
+            <!--<th>
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
                     &#xe605;</i></div>
-            </th>
+            </th>-->
             <th>学号</th>
             <th>学生姓名</th>
             <th>专业班级</th>
@@ -95,15 +107,15 @@
             <th>申请时间</th>
             <th>审核文件</th>
             <th>审核状态</th><!--通过教研室，通过院长-->
-            <th>操作</th>
+            <!--<th>操作</th>-->
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>
+            <!--<td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
                     &#xe605;</i></div>
-            </td>
+            </td>-->
             <td>201700917</td>
             <td>老王</td>
             <td>软12004</td>
@@ -111,13 +123,14 @@
             <td>阿萨德发</td>
             <td>老王</td>
             <td>1854-10-2</td>
-            <td style="color:#01AAED;cursor: pointer" onclick="x_admin_show('相关申请表','./outGraduateManage-table.html')">相关申请表</td>
+
+            <td class="y_files" title="点击查看审核内容" onclick="x_admin_show_big('相关申请表','./outGraduateManage-table.html')">相关申请表</td>
             <td>通过</td>
-            <td class="td-manage">
+            <!--<td class="td-manage">
                 <a title="校外毕设详细信息" onclick="x_admin_show('校外毕设详细信息','outGraduateManage-view.html')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>
-            </td>
+            </td>-->
         </tr>
         </tbody>
     </table>
@@ -128,6 +141,16 @@
     <!--end 分页-->
 </div>
 <script>
+    /*学年*/
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#y_year' //指定元素
+            ,type: 'year'
+        });
+    })
+
     //发布时间
     layui.use('laydate', function () {
         var laydate = layui.laydate;
@@ -136,8 +159,7 @@
             elem: '#L_pass' //指定元素
         });
     });
-</script>
-<script>
+
     /*分页js*/
     layui.use(['laypage', 'layer'], function(){
         var laypage = layui.laypage

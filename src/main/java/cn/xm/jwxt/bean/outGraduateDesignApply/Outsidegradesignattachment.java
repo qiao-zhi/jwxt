@@ -7,6 +7,8 @@ public class Outsidegradesignattachment {
 
     private String outsideapplyid;
 
+    private String attachmentname;
+
     private String attachmentoldname;
 
     private String newname;
@@ -16,6 +18,8 @@ public class Outsidegradesignattachment {
     private Date uploaddate;
 
     private String attachmenttype;
+
+    private String remark;
 
     public String getAttachmentid() {
         return attachmentid;
@@ -31,6 +35,14 @@ public class Outsidegradesignattachment {
 
     public void setOutsideapplyid(String outsideapplyid) {
         this.outsideapplyid = outsideapplyid == null ? null : outsideapplyid.trim();
+    }
+
+    public String getAttachmentname() {
+        return attachmentname;
+    }
+
+    public void setAttachmentname(String attachmentname) {
+        this.attachmentname = attachmentname == null ? null : attachmentname.trim();
     }
 
     public String getAttachmentoldname() {
@@ -71,5 +83,13 @@ public class Outsidegradesignattachment {
 
     public void setAttachmenttype(String attachmenttype) {
         this.attachmenttype = attachmenttype == null ? null : attachmenttype.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

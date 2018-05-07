@@ -32,22 +32,22 @@ public class GraduatedesigntasksigninfoServiceImpl implements Graduatedesigntask
 
     @Override
     public boolean deleteByExample(GraduatedesigntasksigninfoExample example) {
-        return graduatedesigntasksigninfoMapper.deleteByExample(example)==1?true:false;
+        return graduatedesigntasksigninfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(String gratasksignid) {
-        return graduatedesigntasksigninfoMapper.deleteByPrimaryKey(gratasksignid)==1?true:false;
+        return graduatedesigntasksigninfoMapper.deleteByPrimaryKey(gratasksignid)==1;
     }
 
     @Override
     public boolean insert(Graduatedesigntasksigninfo record) {
-        return graduatedesigntasksigninfoMapper.insert(record)==1?true:false;
+        return graduatedesigntasksigninfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Graduatedesigntasksigninfo record) {
-        return graduatedesigntasksigninfoMapper.insertSelective(record)==1?true:false;
+        return graduatedesigntasksigninfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class GraduatedesigntasksigninfoServiceImpl implements Graduatedesigntask
 
     @Override
     public boolean updateByExampleSelective(Graduatedesigntasksigninfo record, GraduatedesigntasksigninfoExample example) {
-        return graduatedesigntasksigninfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return graduatedesigntasksigninfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Graduatedesigntasksigninfo record, GraduatedesigntasksigninfoExample example) {
-        return graduatedesigntasksigninfoMapper.updateByExample(record, example)==1?true:false;
+        return graduatedesigntasksigninfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Graduatedesigntasksigninfo record) {
-        return graduatedesigntasksigninfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return graduatedesigntasksigninfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Graduatedesigntasksigninfo record) {
-        return graduatedesigntasksigninfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return graduatedesigntasksigninfoMapper.updateByPrimaryKey(record)==1;
     }
 }

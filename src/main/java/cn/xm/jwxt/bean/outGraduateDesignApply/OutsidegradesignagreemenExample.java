@@ -115,52 +115,62 @@ public class OutsidegradesignagreemenExample {
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidEqualTo(Integer value) {
+        public Criteria andAgreementidEqualTo(String value) {
             addCriterion("agreementID =", value, "agreementid");
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidNotEqualTo(Integer value) {
+        public Criteria andAgreementidNotEqualTo(String value) {
             addCriterion("agreementID <>", value, "agreementid");
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidGreaterThan(Integer value) {
+        public Criteria andAgreementidGreaterThan(String value) {
             addCriterion("agreementID >", value, "agreementid");
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andAgreementidGreaterThanOrEqualTo(String value) {
             addCriterion("agreementID >=", value, "agreementid");
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidLessThan(Integer value) {
+        public Criteria andAgreementidLessThan(String value) {
             addCriterion("agreementID <", value, "agreementid");
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidLessThanOrEqualTo(Integer value) {
+        public Criteria andAgreementidLessThanOrEqualTo(String value) {
             addCriterion("agreementID <=", value, "agreementid");
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidIn(List<Integer> values) {
+        public Criteria andAgreementidLike(String value) {
+            addCriterion("agreementID like", value, "agreementid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementidNotLike(String value) {
+            addCriterion("agreementID not like", value, "agreementid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementidIn(List<String> values) {
             addCriterion("agreementID in", values, "agreementid");
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidNotIn(List<Integer> values) {
+        public Criteria andAgreementidNotIn(List<String> values) {
             addCriterion("agreementID not in", values, "agreementid");
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidBetween(Integer value1, Integer value2) {
+        public Criteria andAgreementidBetween(String value1, String value2) {
             addCriterion("agreementID between", value1, value2, "agreementid");
             return (Criteria) this;
         }
 
-        public Criteria andAgreementidNotBetween(Integer value1, Integer value2) {
+        public Criteria andAgreementidNotBetween(String value1, String value2) {
             addCriterion("agreementID not between", value1, value2, "agreementid");
             return (Criteria) this;
         }
@@ -232,6 +242,76 @@ public class OutsidegradesignagreemenExample {
 
         public Criteria andOutsideapplyidNotBetween(String value1, String value2) {
             addCriterion("outsideApplyID not between", value1, value2, "outsideapplyid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameIsNull() {
+            addCriterion("agreementName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameIsNotNull() {
+            addCriterion("agreementName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameEqualTo(String value) {
+            addCriterion("agreementName =", value, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameNotEqualTo(String value) {
+            addCriterion("agreementName <>", value, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameGreaterThan(String value) {
+            addCriterion("agreementName >", value, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameGreaterThanOrEqualTo(String value) {
+            addCriterion("agreementName >=", value, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameLessThan(String value) {
+            addCriterion("agreementName <", value, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameLessThanOrEqualTo(String value) {
+            addCriterion("agreementName <=", value, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameLike(String value) {
+            addCriterion("agreementName like", value, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameNotLike(String value) {
+            addCriterion("agreementName not like", value, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameIn(List<String> values) {
+            addCriterion("agreementName in", values, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameNotIn(List<String> values) {
+            addCriterion("agreementName not in", values, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameBetween(String value1, String value2) {
+            addCriterion("agreementName between", value1, value2, "agreementname");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgreementnameNotBetween(String value1, String value2) {
+            addCriterion("agreementName not between", value1, value2, "agreementname");
             return (Criteria) this;
         }
 
@@ -562,6 +642,76 @@ public class OutsidegradesignagreemenExample {
 
         public Criteria andApplystatusNotBetween(String value1, String value2) {
             addCriterion("applyStatus not between", value1, value2, "applystatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNull() {
+            addCriterion("remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("remark =", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("remark <>", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("remark >", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("remark >=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("remark <", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("remark <=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLike(String value) {
+            addCriterion("remark like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("remark not like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("remark in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("remark not in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("remark between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
     }

@@ -115,52 +115,62 @@ public class CheckleaveExample {
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidEqualTo(Integer value) {
+        public Criteria andCheckleaveidEqualTo(String value) {
             addCriterion("checkLeaveID =", value, "checkleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidNotEqualTo(Integer value) {
+        public Criteria andCheckleaveidNotEqualTo(String value) {
             addCriterion("checkLeaveID <>", value, "checkleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidGreaterThan(Integer value) {
+        public Criteria andCheckleaveidGreaterThan(String value) {
             addCriterion("checkLeaveID >", value, "checkleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCheckleaveidGreaterThanOrEqualTo(String value) {
             addCriterion("checkLeaveID >=", value, "checkleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidLessThan(Integer value) {
+        public Criteria andCheckleaveidLessThan(String value) {
             addCriterion("checkLeaveID <", value, "checkleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidLessThanOrEqualTo(Integer value) {
+        public Criteria andCheckleaveidLessThanOrEqualTo(String value) {
             addCriterion("checkLeaveID <=", value, "checkleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidIn(List<Integer> values) {
+        public Criteria andCheckleaveidLike(String value) {
+            addCriterion("checkLeaveID like", value, "checkleaveid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckleaveidNotLike(String value) {
+            addCriterion("checkLeaveID not like", value, "checkleaveid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckleaveidIn(List<String> values) {
             addCriterion("checkLeaveID in", values, "checkleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidNotIn(List<Integer> values) {
+        public Criteria andCheckleaveidNotIn(List<String> values) {
             addCriterion("checkLeaveID not in", values, "checkleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidBetween(Integer value1, Integer value2) {
+        public Criteria andCheckleaveidBetween(String value1, String value2) {
             addCriterion("checkLeaveID between", value1, value2, "checkleaveid");
             return (Criteria) this;
         }
 
-        public Criteria andCheckleaveidNotBetween(Integer value1, Integer value2) {
+        public Criteria andCheckleaveidNotBetween(String value1, String value2) {
             addCriterion("checkLeaveID not between", value1, value2, "checkleaveid");
             return (Criteria) this;
         }
@@ -175,52 +185,62 @@ public class CheckleaveExample {
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidEqualTo(Integer value) {
+        public Criteria andLeaveidEqualTo(String value) {
             addCriterion("leaveID =", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidNotEqualTo(Integer value) {
+        public Criteria andLeaveidNotEqualTo(String value) {
             addCriterion("leaveID <>", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidGreaterThan(Integer value) {
+        public Criteria andLeaveidGreaterThan(String value) {
             addCriterion("leaveID >", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andLeaveidGreaterThanOrEqualTo(String value) {
             addCriterion("leaveID >=", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidLessThan(Integer value) {
+        public Criteria andLeaveidLessThan(String value) {
             addCriterion("leaveID <", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidLessThanOrEqualTo(Integer value) {
+        public Criteria andLeaveidLessThanOrEqualTo(String value) {
             addCriterion("leaveID <=", value, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidIn(List<Integer> values) {
+        public Criteria andLeaveidLike(String value) {
+            addCriterion("leaveID like", value, "leaveid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveidNotLike(String value) {
+            addCriterion("leaveID not like", value, "leaveid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveidIn(List<String> values) {
             addCriterion("leaveID in", values, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidNotIn(List<Integer> values) {
+        public Criteria andLeaveidNotIn(List<String> values) {
             addCriterion("leaveID not in", values, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidBetween(Integer value1, Integer value2) {
+        public Criteria andLeaveidBetween(String value1, String value2) {
             addCriterion("leaveID between", value1, value2, "leaveid");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveidNotBetween(Integer value1, Integer value2) {
+        public Criteria andLeaveidNotBetween(String value1, String value2) {
             addCriterion("leaveID not between", value1, value2, "leaveid");
             return (Criteria) this;
         }
@@ -562,6 +582,76 @@ public class CheckleaveExample {
 
         public Criteria andApplytimeNotBetween(Date value1, Date value2) {
             addCriterion("applyTime not between", value1, value2, "applytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNull() {
+            addCriterion("remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("remark =", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("remark <>", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("remark >", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("remark >=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("remark <", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("remark <=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLike(String value) {
+            addCriterion("remark like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("remark not like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("remark in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("remark not in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("remark between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
     }

@@ -10,7 +10,7 @@ public interface OutsidegradesignagreemenMapper {
 
     int deleteByExample(OutsidegradesignagreemenExample example);
 
-    int deleteByPrimaryKey(Integer agreementid);
+    int deleteByPrimaryKey(String agreementid);
 
     int insert(Outsidegradesignagreemen record);
 
@@ -18,7 +18,7 @@ public interface OutsidegradesignagreemenMapper {
 
     List<Outsidegradesignagreemen> selectByExample(OutsidegradesignagreemenExample example);
 
-    Outsidegradesignagreemen selectByPrimaryKey(Integer agreementid);
+    Outsidegradesignagreemen selectByPrimaryKey(String agreementid);
 
     int updateByExampleSelective(@Param("record") Outsidegradesignagreemen record, @Param("example") OutsidegradesignagreemenExample example);
 

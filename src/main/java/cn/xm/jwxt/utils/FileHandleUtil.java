@@ -2,6 +2,7 @@ package cn.xm.jwxt.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.Locale;
@@ -103,22 +104,21 @@ public class FileHandleUtil {
     /******************S  删除文件相关操作********/
     /**
      *删除word(有可能后缀是doc，docx，或者转换后的pdf文件)
-     * @param propertiesFileName		properties文件的名称(确定读取哪个properties文件)
-     * @param propertiesKey	properties文件中的key(确定目录)
+     * @param propertiesKey	path.properties文件中的key(确定目录)
      * @param fileName 	需要删除的文件的名字(确定删除哪个文件)
      * @return	删除结果
      */
-    public static boolean deleteWordFile(String propertiesFileName,String propertiesKey,String fileName) {
+    public static boolean deleteWordOrPdfFile(String propertiesKey,String fileName) {
         if (fileName == null) {
             return false;
         }
-        String dir = FileHandleUtil.getValue(propertiesFileName, propertiesKey);// 获取文件的基本目录
+        String dir = FileHandleUtil.getValue("path", propertiesKey);// 获取文件的基本目录
         String baseName = FilenameUtils.getBaseName(fileName);// 获取文件的基本名字(借助commons-io包读取文件基本名称)
         try {
-            FileUtils.forceDeleteOnExit(new File(dir + baseName + ".pdf"));
-            FileUtils.forceDeleteOnExit(new File(dir + baseName + ".doc"));
-            FileUtils.forceDeleteOnExit(new File(dir + baseName + ".docx"));
-        } catch (IOException e) {
+            FileUtils.deleteQuietly(new File(dir + baseName + ".pdf"));
+            FileUtils.deleteQuietly(new File(dir + baseName + ".doc"));
+            FileUtils.deleteQuietly(new File(dir + baseName + ".docx"));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
@@ -137,13 +137,42 @@ public class FileHandleUtil {
         String dir = FileHandleUtil.getValue(propertiesFileName, propertiesKey);// 获取文件的基本目录
         try {
             //删除文件
-            FileUtils.forceDeleteOnExit(new File(dir + fileName));
-        } catch (IOException e) {
+//            FileUtils.forceDeleteOnExit(new File(dir + fileName));
+            FileUtils.deleteQuietly(new File(dir + fileName));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
     }
     /****************E  删除文件相关操作**************/
+
+
+
+    /*******  S针对SptingMVC的上传文件的处理  *************/
+    /**
+     * 专门针对SpringMVC的文件上传操作
+     * @param multipartFile 文件参数
+     * @param propertiesKey  需要读取的path里面的key
+     * @param fileName  文件名字，比如:    ce5bd946fd43410c8a26a6fa1e9bf23c.pdf
+     * @return 返回值是最后的文件名字，如果是word需要转成pdf,1.doc返回值就是1.pdf
+     */
+    public static String uploadSpringMVCFile(MultipartFile multipartFile,String  propertiesKey,String fileName) throws Exception {
+        String fileDir = FileHandleUtil.getValue("path", propertiesKey);// 获取文件的基本目录
+        //1.将文件保存到指定路径
+        multipartFile.transferTo(new File(fileDir+fileName));//保存文件
+        //2.根据文件后缀判断文件是word还是pdf，如果是word需要转成pdf，其他的话不做处理
+        String fileNameSuffix = FilenameUtils.getExtension(fileName);//调用io包的工具类获取后缀
+        if("doc".equals(fileNameSuffix)||"docx".equals(fileNameSuffix)){//如果后缀是doc或者docx的话转为pdf另存一份
+            String fileNamePrefix = FilenameUtils.getBaseName(fileName);//获取文件前缀名字
+            Word2PdfUtil.word2pdf(fileDir+fileName,fileDir+fileNamePrefix+".pdf");//进行word转换pdf操作
+            fileName = fileNamePrefix+".pdf";//并将文件的名字换成新的pdf名字
+        }
+        return fileName;
+    }
+    /*******  E针对SptingMVC的上传文件的处理  *************/
+
+
+
 
 
 

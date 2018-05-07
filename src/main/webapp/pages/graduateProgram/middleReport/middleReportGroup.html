@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>中期检查小组管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="../../../css/font.css">
+    <link rel="stylesheet" href="../../../css/xadmin.css">
+    <script type="text/javascript" src="../../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../../js/xadmin.js"></script>
+</head>
+
+<body>
+<!--面包屑-->
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="../../../welcome.html">首页</a>
+        <a href="javascript:void(0)">毕业设计管理</a>
+        <a href="javascript:void(0)">中期检查管理</a>
+        <a>
+          <cite>中期检查小组管理</cite>
+        </a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="iconfont" style="line-height:30px">&#xe6aa;</i>
+    </a>
+    <a class="layui-btn layui-btn-warm layui-btn-small" style="margin-top:3px;float:right;margin-right:3px;"
+       onclick="closeOther()" title="关闭其他">
+        <i class="iconfont" style="line-height:30px">&#xe6b7;</i>
+    </a>
+</div>
+<!--主体-->
+<div class="x-body">
+    <!--查询-->
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+            <input type="text" name="username" placeholder="教师名称" autocomplete="off" class="layui-input">
+            <input type="text" name="username" placeholder="答辩小组名称" autocomplete="off" class="layui-input">
+            <div class="layui-input-inline">
+                <select name="contrller">
+                    <option>是否分配答辩小组</option>
+                    <option>已分配</option>
+                    <option>未分配</option>
+                </select>
+            </div>
+            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <!--end查询-->
+
+    <!--操作区域-->
+    <xblock>
+        <!--把所选择的行，做为一组， 同时选择组长-->
+        <button class="layui-btn" onclick="reportGroup_add()">添加答辩小组</button>
+        <!--点击前，需要需要判断该教师是否分组，若没分组，提示。-->
+        <button class="layui-btn" onclick="x_admin_show('修改小组基本信息','./middleReportGroup-modifybaseinfo.html')">修改小组基本信息</button>
+        <button class="layui-btn layui-btn-normal" onclick="">导出数据</button>
+    </xblock>
+    <!--end 操作区域-->
+
+    <!--表格内容-->
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                    &#xe605;</i></div>
+            </th>
+            <th>教师名称</th>
+            <th>答辩小组名称</th>
+            <th>小组组长</th>
+            <th>负责学生人数</th>
+            <th>答辩地点</th>
+            <th>答辩时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div class="layui-unselect layui-form-checkbox y-row" lay-skin="primary"><i class="layui-icon">
+                    &#xe605;</i></div>
+            </td>
+            <td>老王</td>
+            <td class="y_groupId">老王小组</td>
+            <td>老王</td>
+            <td>12</td>
+            <td>软件园</td>
+            <td>2018-44-44</td>
+            <td class="td-manage">
+                <a title="查看" onclick="x_admin_show('详细信息','middleReportGroup-view.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i><!--查看该小组中，三个教师负责的信息-->
+                </a>
+                <!--修改小组学生的归属。当前老师可以显示同组内其他老师管理的学生。-->
+                <a title="修改分组成员"  onclick="x_admin_show('修改分组成员','middleReportGroup-modify.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="layui-unselect layui-form-checkbox y-row" lay-skin="primary"><i class="layui-icon">
+                    &#xe605;</i></div>
+            </td>
+            <td>201700917</td>
+            <td>老王</td>
+            <td class="y_groupId"></td>
+            <td></td>
+            <td>软件园</td>
+            <td>2018-44-44</td>
+            <td class="td-manage">
+                <a title="查看" onclick="x_admin_show('详细信息','order-view.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i><!--查看该小组中，三个教师负责的信息-->
+                </a>
+                <a title="修改分组成员"  onclick="x_admin_show('修改分组成员','middleReportGroup-modify.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="layui-unselect layui-form-checkbox y-row" lay-skin="primary"><i class="layui-icon">
+                    &#xe605;</i></div>
+            </td>
+            <td>201700917</td>
+            <td>老王</td>
+            <td class="y_groupId"></td>
+            <td></td>
+            <td>软件园</td>
+            <td>2018-44-44</td>
+            <td class="td-manage">
+                <a title="查看" onclick="x_admin_show('详细信息','order-view.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i><!--查看该小组中，三个教师负责的信息-->
+                </a>
+                <a title="修改分组成员"  onclick="x_admin_show('修改分组成员','middleReportGroup-modify.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="layui-unselect layui-form-checkbox y-row" lay-skin="primary"><i class="layui-icon">
+                    &#xe605;</i></div>
+            </td>
+            <td>201700917</td>
+            <td>老王</td>
+            <td class="y_groupId"></td>
+            <td></td>
+            <td>软件园</td>
+            <td>2018-44-44</td>
+            <td class="td-manage">
+                <a title="查看" onclick="x_admin_show('详细信息','order-view.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i><!--查看该小组中，三个教师负责的信息-->
+                </a>
+                <a title="修改分组成员"  onclick="x_admin_show('修改分组成员','middleReportGroup-modify.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!--end 表格内容-->
+
+    <!--分页-->
+    <div id="demo7"></div>
+    <!--end 分页-->
+</div>
+<script>
+    /*添加答辩小组*/
+    function reportGroup_add(obj, id) {
+        //判断小组是否为 为添加答辩小组的成员，
+        //判断 选择的数量为，1 .0 的话，提示
+        if ($(".layui-form-checked").length <= 2) {
+            layer.alert('至少选择三个指导教师！');
+        } else if ($(".layui-form-checked").parents("tr").children(".y_groupId").text() != "") {
+            layer.alert('选择的教师，包含已被分组的教师！');
+        } else {
+            x_admin_show('添加答辩小组', './middleReportGroup-add.html')
+        }
+    }
+
+    /*分页js*/
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage
+            , layer = layui.layer;
+
+        //完整功能
+        laypage.render({
+            elem: 'demo7'
+            , count: 100
+            , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+            , jump: function (obj) {
+                console.log(obj)
+            }
+        });
+    });
+
+    //点击关闭其他，触发事件
+    function closeOther() {
+        var closeTable = $(".layui-tab-title", parent.document).children("li");
+        closeTable.each(function () {
+            if ($(this).attr("class") == "") {
+                $(this).children("i").trigger("click");
+            }
+        })
+    }
+
+    /*用户-删除*/
+    function member_del(obj, id) {
+        layer.confirm('确认要删除吗？', function (index) {
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!', {icon: 1, time: 1000});
+        });
+    }
+</script>
+</body>
+
+</html>

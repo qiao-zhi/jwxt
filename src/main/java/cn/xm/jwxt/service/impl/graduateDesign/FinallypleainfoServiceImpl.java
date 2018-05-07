@@ -32,22 +32,22 @@ public class FinallypleainfoServiceImpl implements FinallypleainfoService {
 
     @Override
     public boolean deleteByExample(FinallypleainfoExample example) {
-        return finallypleainfoMapper.deleteByExample(example)==1?true:false;
+        return finallypleainfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(String pleaid) {
-        return finallypleainfoMapper.deleteByPrimaryKey(pleaid)==1?true:false;
+        return finallypleainfoMapper.deleteByPrimaryKey(pleaid)==1;
     }
 
     @Override
     public boolean insert(Finallypleainfo record) {
-        return finallypleainfoMapper.insert(record)==1?true:false;
+        return finallypleainfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Finallypleainfo record) {
-        return finallypleainfoMapper.insertSelective(record)==1?true:false;
+        return finallypleainfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class FinallypleainfoServiceImpl implements FinallypleainfoService {
 
     @Override
     public boolean updateByExampleSelective(Finallypleainfo record, FinallypleainfoExample example) {
-        return finallypleainfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return finallypleainfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Finallypleainfo record, FinallypleainfoExample example) {
-        return finallypleainfoMapper.updateByExample(record, example)==1?true:false;
+        return finallypleainfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Finallypleainfo record) {
-        return finallypleainfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return finallypleainfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Finallypleainfo record) {
-        return finallypleainfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return finallypleainfoMapper.updateByPrimaryKey(record)==1;
     }
 }

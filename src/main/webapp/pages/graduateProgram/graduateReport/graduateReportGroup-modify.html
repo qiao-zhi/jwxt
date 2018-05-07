@@ -14,90 +14,94 @@
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
+    <style>
+        .layui-table td, .layui-table th{
+            font-size:13px;
+        }
+    </style>
 </head>
 
 <body>
 <div class="x-body">
     <form class="layui-form">
-        <!--1-->
-        <div class="layui-form-item">
-            <label for="graDesignID" class="layui-form-label">
-                小组编号
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="graDesignID" name="username" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <!--2-->
-        <div class="layui-form-item">
-            <label for="titlename" class="layui-form-label">
-                小组名称
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="titlename" name="username" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <!--3-->
-        <div class="layui-form-item">
-            <label for="teacherName" class="layui-form-label">
-                答辩地点
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="teacherName" name="username" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <!--4-->
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                答辩时间
-            </label>
-            <div class="layui-input-inline">
-                <input type="radio" name="resultType" lay-skin="primary" title="论文+项目" checked>
-                <input type="radio" name="resultType" lay-skin="primary" title="论文">
-            </div>
-        </div>
-        <!--5-->
-        <div class="layui-form-item">
-            <label for="projectType" class="layui-form-label">
-                小组组长
-            </label>
-            <div class="layui-input-inline">
-                <div class="layui-input-inline">
-                    <select name="contrller" id="projectType">
-                        <option>请选择</option>
-                        <option>A</option>
-                        <option>A</option>
-                        <option>A</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须选择
-            </div>
-        </div>
-        <!--4-->
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                设置审核教师
-            </label>
-            <div class="layui-input-inline">
-                教师1<input type="text" name="title" class="layui-input" placeholder="请输入检查教师"  >
-                教师2<input type="text" name="title" class="layui-input" placeholder="请输入检查教师"  >
-                教师3<input type="text" name="title" class="layui-input" placeholder="请输入检查教师"  >
-            </div>
-        </div>
+        <table class="layui-table" style="font-size: 13px;">
+            <thead>
+            <tr>
+                <th>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </th>
+                <th>学生姓名</th>
+                <th>班级</th>
+                <th>毕设题目</th>
+                <th>指导教师</th>
+                <th>已分配的检查教师</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </th>
+                <td>学生1</td>
+                <td>软件工程1</td>
+                <td>8888</td>
+                <td>教师1</td>
+                <td>教师2</td>
+                <td>
+                    <input type="radio" name="xuesheng1" lay-skin="primary" title="选择">
+                    <input type="radio" name="xuesheng1" lay-skin="primary" title="取消">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </th>
+                <td>学生1</td>
+                <td>软件工程1</td>
+                <td>8888</td>
+                <td>教师1</td>
+                <td>教师2</td>
+                <td>
+                    <input type="radio" name="xuesheng1" lay-skin="primary" title="选择">
+                    <input type="radio" name="xuesheng1" lay-skin="primary" title="取消">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </th>
+                <td>学生1</td>
+                <td>软件工程1</td>
+                <td>8888</td>
+                <td>教师1</td>
+                <td>教师2</td>
+                <td>
+                    <input type="radio" name="xuesheng1" lay-skin="primary" title="选择">
+                    <input type="radio" name="xuesheng1" lay-skin="primary" title="取消">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                        &#xe605;</i></div>
+                </th>
+                <td>学生1</td>
+                <td>软件工程1</td>
+                <td>8888</td>
+                <td>教师1</td>
+                <td>教师2</td>
+                <td>
+                    <input type="radio" name="xuesheng1" lay-skin="primary" title="选择">
+                    <input type="radio" name="xuesheng1" lay-skin="primary" title="取消">
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
         <!--10-->
         <div class="layui-form-item">
@@ -107,35 +111,10 @@
     </form>
 </div>
 <script>
-    //出生年月
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        laydate.render({
-            elem: '#L_pass' //指定元素
-        });
-    });
-</script>
-<script>
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer;
-
-        //自定义验证规则
-        form.verify({
-            nikename: function (value) {
-                if (value.length < 5) {
-                    return '昵称至少得5个字符啊';
-                }
-            }
-            , pass: [/(.+){6,12}$/, '密码必须6到12位']
-            , repass: function (value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }
-        });
 
         //监听提交
         form.on('submit(add)', function (data) {
@@ -149,8 +128,6 @@
             });
             return false;
         });
-
-
     });
 </script>
 </body>

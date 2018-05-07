@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.custom.CencheckarrangeinfoCustomMapper" >
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.Cencheckarrangeinfo" id="oneCencheckarrangeinfoResultMap" autoMapping="true">
+        <id property="cenarrangeinfoid" column="cenarrangeinfoid" />
+        <association property="gradesigncheckgroup" column="groupid"
+                     javaType="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup"
+                     select="cn.xm.jwxt.mapper.graduateDesign.custom.GradesigncheckgroupCustomMapper.selectOneGradesigncheckgroup">
+
+        </association>
+        <collection property="cencheckresultinfoList"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Cencheckresultinfo">
+            <id column="centerresultid" property="centerresultid"/>
+        </collection>
+    </resultMap>
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.Cencheckarrangeinfo" id="CencheckarrangeinfoListResultMap" autoMapping="true">
+        <id property="cenarrangeinfoid" column="cenarrangeinfoid" />
+        <association property="gradesigncheckgroup" column="groupid"
+                     javaType="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup"
+                     select="cn.xm.jwxt.mapper.graduateDesign.custom.GradesigncheckgroupCustomMapper.selectOneGradesigncheckgroup">
+
+        </association>
+        <collection property="cencheckresultinfoList"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Cencheckresultinfo">
+            <id column="centerresultid" property="centerresultid"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="selectOneCencheckarrangeinfo" resultMap="oneCencheckarrangeinfoResultMap" parameterType="java.lang.Integer">
+        SELECT
+        a.cenarrangeinfoid,a.cencheckinfoid,a.teacherid,a.groupid,a.bookid,
+        r.centerresultid,r.cenarrangeinfoid,r.wordprogress,r.workattitude,r.qualityadvice,r.problemandaatter,r.checktime,r.remark,
+        g.groupid,g.groupname,g.grouptype,g.replyaddress,g.remark
+        FROM
+        cenCheckArrangeInfo a,cenCheckResultInfo r,graDesignCheckGroup g
+        <where>
+            <if test="1==1">
+              and a.cenarrangeinfoid = r.cenarrangeinfoid and a.groupId = g.groupId
+            </if>
+            <if test="cenarrangeinfoid != null">
+              and a.cenarrangeinfoid = #{cenarrangeinfoid}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCencheckarrangeinfoList" resultMap="CencheckarrangeinfoListResultMap">
+        SELECT
+        a.cenarrangeinfoid,a.cencheckinfoid,a.teacherid,a.groupid,a.replyaddress,a.bookid,
+        r.centerresultid,r.cenarrangeinfoid,r.wordprogress,r.workattitude,r.qualityadvice,r.problemandaatter,r.checktime,r.remark,
+        g.groupid,g.groupname,g.grouptype,g.replyaddress,g.remark
+        FROM
+        cenCheckArrangeInfo a,cenCheckResultInfo r,graDesignCheckGroup g
+        <where>
+            <if test="1==1">
+                and a.cenarrangeinfoid = r.cenarrangeinfoid and a.groupId = g.groupId
+            </if>
+            <if test="cenCheckInfoid != null">
+                and a.cenCheckInfoid = #{cenCheckInfoid}
+            </if>
+            <if test="teacherid != null">
+                and a.teacherid = #{teacherid}
+            </if>
+            <if test="groupid != null">
+                and a.groupid = #{groupid}
+            </if>
+            <if test="bookid != null">
+                and a.bookid = #{bookid}
+            </if>
+        </where>
+        <if test="page != null and limit != null">
+            limit #{page},#{limit}
+        </if>
+    </select>
+
+</mapper>

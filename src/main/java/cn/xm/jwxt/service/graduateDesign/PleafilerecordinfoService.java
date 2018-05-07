@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 毕设资料提交情况记录表Service
+ */
 public interface PleafilerecordinfoService {
     int countByExample(PleafilerecordinfoExample example);
 

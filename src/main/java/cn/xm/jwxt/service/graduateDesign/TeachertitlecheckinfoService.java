@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 教师毕设课题审核表Service
+ */
 public interface TeachertitlecheckinfoService {
 
     int countByExample(TeachertitlecheckinfoExample example);

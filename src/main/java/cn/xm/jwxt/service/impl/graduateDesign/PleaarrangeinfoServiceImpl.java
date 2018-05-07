@@ -32,22 +32,22 @@ public class PleaarrangeinfoServiceImpl implements PleaarrangeinfoService {
 
     @Override
     public boolean deleteByExample(PleaarrangeinfoExample example) {
-        return pleaarrangeinfoMapper.deleteByExample(example)==1?true:false;
+        return pleaarrangeinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(Integer arrangeid) {
-        return pleaarrangeinfoMapper.deleteByPrimaryKey(arrangeid)==1?true:false;
+        return pleaarrangeinfoMapper.deleteByPrimaryKey(arrangeid)==1;
     }
 
     @Override
     public boolean insert(Pleaarrangeinfo record) {
-        return pleaarrangeinfoMapper.insert(record)==1?true:false;
+        return pleaarrangeinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Pleaarrangeinfo record) {
-        return pleaarrangeinfoMapper.insertSelective(record)==1?true:false;
+        return pleaarrangeinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class PleaarrangeinfoServiceImpl implements PleaarrangeinfoService {
 
     @Override
     public boolean updateByExampleSelective(Pleaarrangeinfo record, PleaarrangeinfoExample example) {
-        return pleaarrangeinfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return pleaarrangeinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Pleaarrangeinfo record, PleaarrangeinfoExample example) {
-        return pleaarrangeinfoMapper.updateByExample(record, example)==1?true:false;
+        return pleaarrangeinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Pleaarrangeinfo record) {
-        return pleaarrangeinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return pleaarrangeinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Pleaarrangeinfo record) {
-        return pleaarrangeinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return pleaarrangeinfoMapper.updateByPrimaryKey(record)==1;
     }
 }
