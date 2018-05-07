@@ -23,6 +23,8 @@ public class TCoursedesignTeacherstudent {
 
     private String checkadvice;
 
+    private String display;
+
     private String remark;
 
     public String getCoursedesignteacherstudentid() {
@@ -103,6 +105,14 @@ public class TCoursedesignTeacherstudent {
 
     public void setCheckadvice(String checkadvice) {
         this.checkadvice = checkadvice == null ? null : checkadvice.trim();
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display == null ? null : display.trim();
     }
 
     public String getRemark() {

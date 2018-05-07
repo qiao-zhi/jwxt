@@ -3,24 +3,20 @@
 <mapper namespace="cn.xm.jwxt.mapper.courseDesign.custom.TCoursedesignInfoArrangeCustomMapper" >
 
 
-    <!--<resultMap id="needArrangeCourseDesignMap" type="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo">-->
-
-        <!--<id column="courseId" property="courseId" jdbcType="varchar"/>-->
-        <!--<result column="courseNum" property="courseNum" jdbcType="varchar"/>-->
-        <!--<result column="courseNameCN" property="courseNameCN" jdbcType="varchar"/>-->
-        <!--<result column="credit" property="credit" jdbcType="varchar"/>-->
-        <!--<result column="experimentHour" property="experimentHour" jdbcType="varchar"/>-->
-
-    <!--</resultMap>-->
-
-
     <!--查询需要安排的课设-->
-    <select id="findNeedArrangeCourseDesign" parameterType="hashmap" resultType="cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo">
+    <select id="findNeedArrangeCourseDesign" parameterType="hashmap" resultType="map">
         SELECT
+        Distinct
+            cbi.courseId,
+            tc.trainCourseID,   <!-- 唯一区分,做  '主键 ' -->
             cbi.courseNum,
             cbi.courseNameCN,
             cbi.credit,
-            cbi.experimentHour
+            cbi.experimentHour,
+            class.majorID,
+            class.trainingSchemeID,
+            class.grade,
+            tc.semester
           FROM
            t_class_base_info class
             JOIN train_course tc
@@ -30,18 +26,159 @@
             JOIN t_major_base_info mbi
                 ON class.majorID = mbi.majorID
            WHERE
-            <trim suffixOverrides="AND">
-              <if test="grade!=null">
-                  class.grade = #{grade} AND
-              </if>
-              <if test="majorName!=null">
-                  mbi.majorName = #{majorName } AND
-              </if>
-              <if test="semester!=null">
-                  tc.semester = #{semester }
-              </if>
-            </trim>
+                  <if test="grade!=null and grade!=''">
+                       class.grade = #{grade} AND
+                  </if>
+                  <if test="majorName!=null and majorName!=''">
+                      mbi.majorName = #{majorName } AND
+                  </if>
+                  <if test="semester!=null and semester!=''">
+                      tc.semester = #{semester } AND
+                  </if>
+                  cbi.courseNameCN LIKE 's%'
+
 
     </select>
 
+    <!-- 安排课设  -->
+    <insert id="addCourseDesignerinfoArrange" parameterType="map">
+        INSERT INTO
+            t_courseDesign_info_arrange
+              (courseDesignArrangeID,trainCourseID,majorID,startTime,endTime,semester,yearNum,courseDesignName,CourseArrangeInfo,CourseArrangeTeacher,CourseArrangeTime,isArrange,display,courseDesignNum)
+            VALUES (#{courseDesignArrangeID},#{trainCourseID},#{majorID},#{startTime},#{endTime},
+                      #{semester},#{yearNum},#{courseDesignName},#{CourseArrangeInfo},
+                     #{CourseArrangeTeacher},#{CourseArrangeTime},#{isArrange},#{display},#{courseDesignNum})
+    </insert>
+    <insert id="addCourseDesignTeacherArrange" parameterType="map">
+        INSERT INTO
+            t_courseDesign_teacher_arrange
+            (courseDesignTeacherArrangeID,courseDesignArrangeID,teacherID,classNames,display)
+            VALUES (#{courseDesignTeacherArrangeID},#{courseDesignArrangeID},#{teacherID},#{classNames},#{display})
+    </insert>
+    <insert id="addCourseDesignTeacherStudent" parameterType="map">
+        INSERT INTO
+            t_courseDesign_TeacherStudent
+              (courseDesignTeacherStudentID,courseDesignTeacherArrangeID,studentID,uploadStatus,checkStatus,display)
+            VALUES (#{courseDesignTeacherStudentID},#{courseDesignTeacherArrangeID},#{studentID},#{uploadStatus},#{checkStatus},#{display})
+    </insert>
+    <insert id="addCourseDesignClassArrange" parameterType="map">
+        INSERT INTO
+          t_courseDesign_class_arrange
+            (courseDesignClassArrangeID,courseDesignArrangeID,grade,display)
+            VALUES (#{courseDesignClassArrangeID},#{courseDesignArrangeID},#{grade},#{display})
+    </insert>
+
+    <!-- 删除安排信息 -->
+    <delete id="deleteCourseDesignerinfoArrange" parameterType="String">
+        DELETE
+          FROM
+            t_courseDesign_info_arrange
+          WHERE
+            courseDesignArrangeID = #{courseDesignArrangeID}
+    </delete>
+    <delete id="deleteCourseDesignTeacherArrange" parameterType="String">
+        DELETE
+          FROM
+            t_courseDesign_teacher_arrange
+          WHERE
+            courseDesignArrangeID = #{courseDesignArrangeID}
+    </delete>
+    <delete id="deleteCourseDesignClassArrange" parameterType="String">
+        DELETE
+          FROM
+            t_courseDesign_class_arrange
+          WHERE
+            courseDesignArrangeID = #{courseDesignArrangeID}
+    </delete>
+    <delete id="deleteCourseDesignTeacherStudent" parameterType="String">
+        DELETE
+          FROM
+            t_courseDesign_TeacherStudent
+          WHERE
+              courseDesignTeacherArrangeID = #{courseDesignTeacherArrangeID}
+    </delete>
+
+    <!-- 修改安排信息的显示状态 -->
+    <update id="modifyCourseDesignerinfoArrange" parameterType="map">
+        UPDATE
+            t_courseDesign_info_arrange
+          SET
+            display = #{display}
+          WHERE
+            courseDesignArrangeID IN
+            <foreach collection="ilist" item="courseDesignArrangeID" open="(" separator="," close=")" index="index">
+                #{courseDesignArrangeID}
+            </foreach>
+
+    </update>
+    <update id="modifyCourseDesignClassArrange" parameterType="map">
+        UPDATE
+        t_courseDesign_class_arrange
+        SET
+          display = #{display}
+        WHERE
+        courseDesignClassArrangeID IN
+        <foreach collection="clist" item="courseDesignClassArrangeID" open="(" separator="," close=")" index="index">
+            #{courseDesignClassArrangeID}
+        </foreach>
+    </update>
+    <update id="modifyCourseDesignTeacherArrange" parameterType="map">
+        UPDATE
+            t_courseDesign_teacher_arrange
+          SET
+            display = #{display}
+          WHERE
+            courseDesignTeacherArrangeID IN
+            <foreach collection="tlist" item="courseDesignTeacherArrangeID" index="index" open="(" separator="," close=")">
+                #{courseDesignTeacherArrangeID}
+            </foreach>
+    </update>
+    <update id="modifyCourseDesignTeacherStudent" parameterType="map">
+        UPDATE
+            t_courseDesign_TeacherStudent
+          SET
+            display = #{display}
+          WHERE
+            courseDesignTeacherStudentID IN
+            <foreach collection="tslist" item="courseDesignTeacherStudentID" index="index" open="(" separator="," close=")">
+                #{courseDesignTeacherStudentID}
+            </foreach>
+    </update>
+
+    <select id="findArrangeInfoDetailByCondition" parameterType="map" resultType="map">
+        SELECT
+          ia.courseDesignName,
+          ia.startTime,
+          ia.endTime,
+          ia.CourseArrangeInfo,
+          ti.teacherName,
+          ti.teacherNum,
+          ta.classNames,
+          ta.courseDesignTeacherArrangeID        <!--  用于查询学生列表 -->
+          FROM
+            t_courseDesign_info_arrange ia
+            JOIN t_courseDesign_teacher_arrange ta
+              ON ia.courseDesignArrangeID = ta.courseDesignArrangeID
+            JOIN t_teacher_base_info ti
+              ON  ti.teacherID = ta.teacherID
+            JOIN t_courseDesign_class_arrange ca
+              ON ca.courseDesignArrangeID = ia.courseDesignArrangeID
+          WHERE
+                ia.trainCourseID = #{trainCourseID}
+                AND ia.yearNum = #{yearNum}
+                AND ia.majorID = #{majorID}
+                AND ca.grade = #{grade}
+    </select>
+
+    <!-- 根据findStudentListBycourseDesignTeacherArrangeID查询学生列表 -->
+    <select id="findStudentListBycourseDesignTeacherArrangeID" parameterType="String" resultType="String">
+        SELECT
+            si.studentName
+            FROM
+              t_courseDesign_TeacherStudent ts
+              JOIN t_student_base_info si
+                ON ts.studentID = si.studentID
+              WHERE
+                ts.courseDesignTeacherArrangeID = #{courseDesignTeacherArrangeID}
+    </select>
 </mapper>

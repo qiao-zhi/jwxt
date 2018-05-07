@@ -175,73 +175,73 @@ public class TCoursedesignInfoArrangeExample {
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidIsNull() {
-            addCriterion("trainningSchemeID is null");
+        public Criteria andTraincourseidIsNull() {
+            addCriterion("trainCourseID is null");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidIsNotNull() {
-            addCriterion("trainningSchemeID is not null");
+        public Criteria andTraincourseidIsNotNull() {
+            addCriterion("trainCourseID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidEqualTo(String value) {
-            addCriterion("trainningSchemeID =", value, "trainningschemeid");
+        public Criteria andTraincourseidEqualTo(String value) {
+            addCriterion("trainCourseID =", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidNotEqualTo(String value) {
-            addCriterion("trainningSchemeID <>", value, "trainningschemeid");
+        public Criteria andTraincourseidNotEqualTo(String value) {
+            addCriterion("trainCourseID <>", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidGreaterThan(String value) {
-            addCriterion("trainningSchemeID >", value, "trainningschemeid");
+        public Criteria andTraincourseidGreaterThan(String value) {
+            addCriterion("trainCourseID >", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidGreaterThanOrEqualTo(String value) {
-            addCriterion("trainningSchemeID >=", value, "trainningschemeid");
+        public Criteria andTraincourseidGreaterThanOrEqualTo(String value) {
+            addCriterion("trainCourseID >=", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidLessThan(String value) {
-            addCriterion("trainningSchemeID <", value, "trainningschemeid");
+        public Criteria andTraincourseidLessThan(String value) {
+            addCriterion("trainCourseID <", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidLessThanOrEqualTo(String value) {
-            addCriterion("trainningSchemeID <=", value, "trainningschemeid");
+        public Criteria andTraincourseidLessThanOrEqualTo(String value) {
+            addCriterion("trainCourseID <=", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidLike(String value) {
-            addCriterion("trainningSchemeID like", value, "trainningschemeid");
+        public Criteria andTraincourseidLike(String value) {
+            addCriterion("trainCourseID like", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidNotLike(String value) {
-            addCriterion("trainningSchemeID not like", value, "trainningschemeid");
+        public Criteria andTraincourseidNotLike(String value) {
+            addCriterion("trainCourseID not like", value, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidIn(List<String> values) {
-            addCriterion("trainningSchemeID in", values, "trainningschemeid");
+        public Criteria andTraincourseidIn(List<String> values) {
+            addCriterion("trainCourseID in", values, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidNotIn(List<String> values) {
-            addCriterion("trainningSchemeID not in", values, "trainningschemeid");
+        public Criteria andTraincourseidNotIn(List<String> values) {
+            addCriterion("trainCourseID not in", values, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidBetween(String value1, String value2) {
-            addCriterion("trainningSchemeID between", value1, value2, "trainningschemeid");
+        public Criteria andTraincourseidBetween(String value1, String value2) {
+            addCriterion("trainCourseID between", value1, value2, "traincourseid");
             return (Criteria) this;
         }
 
-        public Criteria andTrainningschemeidNotBetween(String value1, String value2) {
-            addCriterion("trainningSchemeID not between", value1, value2, "trainningschemeid");
+        public Criteria andTraincourseidNotBetween(String value1, String value2) {
+            addCriterion("trainCourseID not between", value1, value2, "traincourseid");
             return (Criteria) this;
         }
 
@@ -935,73 +935,73 @@ public class TCoursedesignInfoArrangeExample {
             return (Criteria) this;
         }
 
-        public Criteria andRemark1IsNull() {
-            addCriterion("remark1 is null");
+        public Criteria andDisplayIsNull() {
+            addCriterion("display is null");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1IsNotNull() {
-            addCriterion("remark1 is not null");
+        public Criteria andDisplayIsNotNull() {
+            addCriterion("display is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1EqualTo(String value) {
-            addCriterion("remark1 =", value, "remark1");
+        public Criteria andDisplayEqualTo(String value) {
+            addCriterion("display =", value, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1NotEqualTo(String value) {
-            addCriterion("remark1 <>", value, "remark1");
+        public Criteria andDisplayNotEqualTo(String value) {
+            addCriterion("display <>", value, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1GreaterThan(String value) {
-            addCriterion("remark1 >", value, "remark1");
+        public Criteria andDisplayGreaterThan(String value) {
+            addCriterion("display >", value, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1GreaterThanOrEqualTo(String value) {
-            addCriterion("remark1 >=", value, "remark1");
+        public Criteria andDisplayGreaterThanOrEqualTo(String value) {
+            addCriterion("display >=", value, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1LessThan(String value) {
-            addCriterion("remark1 <", value, "remark1");
+        public Criteria andDisplayLessThan(String value) {
+            addCriterion("display <", value, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1LessThanOrEqualTo(String value) {
-            addCriterion("remark1 <=", value, "remark1");
+        public Criteria andDisplayLessThanOrEqualTo(String value) {
+            addCriterion("display <=", value, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1Like(String value) {
-            addCriterion("remark1 like", value, "remark1");
+        public Criteria andDisplayLike(String value) {
+            addCriterion("display like", value, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1NotLike(String value) {
-            addCriterion("remark1 not like", value, "remark1");
+        public Criteria andDisplayNotLike(String value) {
+            addCriterion("display not like", value, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1In(List<String> values) {
-            addCriterion("remark1 in", values, "remark1");
+        public Criteria andDisplayIn(List<String> values) {
+            addCriterion("display in", values, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1NotIn(List<String> values) {
-            addCriterion("remark1 not in", values, "remark1");
+        public Criteria andDisplayNotIn(List<String> values) {
+            addCriterion("display not in", values, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1Between(String value1, String value2) {
-            addCriterion("remark1 between", value1, value2, "remark1");
+        public Criteria andDisplayBetween(String value1, String value2) {
+            addCriterion("display between", value1, value2, "display");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1NotBetween(String value1, String value2) {
-            addCriterion("remark1 not between", value1, value2, "remark1");
+        public Criteria andDisplayNotBetween(String value1, String value2) {
+            addCriterion("display not between", value1, value2, "display");
             return (Criteria) this;
         }
 
