@@ -38,6 +38,10 @@ public class DefaultValue {
      * 提交状态
      */
     public static final String SUBMIT_STATUS = "提交";
+    /**
+     * 提交状态
+     */
+    public static final String COURSE_TYPE_ROOT_NAME = "课程类别";
 
 
 }

@@ -1,62 +1,86 @@
-DROP TABLE IF EXISTS t_courseDesign_info_arrange;
+drop table if exists t_courseDesign_info_arrange;
 
 /*==============================================================*/
 /* Table: t_courseDesign_info_arrange                           */
 /*==============================================================*/
-CREATE TABLE t_courseDesign_info_arrange
+create table t_courseDesign_info_arrange
 (
-   courseDesignArrangeID VARCHAR(40) NOT NULL,
-   trainningSchemeID    VARCHAR(40),
-   majorID              VARCHAR(40) NOT NULL,
-   startTime            VARCHAR(20),
-   endTime              VARCHAR(20),
-   semester             VARCHAR(20),
-   yearNum              VARCHAR(20),
-   courseDesignName     VARCHAR(50),
-   CourseArrangeInfo    VARCHAR(200),
-   CourseArrangeTeacher VARCHAR(10),
-   CourseArrangeTime    DATETIME,
-   isArrange            VARCHAR(10),
-   remark1              VARCHAR(50),
-   remark2              VARCHAR(50),
-   PRIMARY KEY (courseDesignArrangeID)
+   courseDesignArrangeID varchar(40) not null,
+   trainCourseID        varchar(40),
+   majorID              varchar(40) not null,
+   startTime            varchar(20),
+   endTime              varchar(20),
+   semester             varchar(20),
+   yearNum              varchar(20),
+   courseDesignName     varchar(50),
+   courseDesignNum     varchar(20),
+   CourseArrangeInfo    varchar(200),
+   CourseArrangeTeacher varchar(10),
+   CourseArrangeTime    datetime,
+   isArrange            varchar(10),
+   display              varchar(10),
+   remark2              varchar(50),
+   primary key (courseDesignArrangeID)
 );
 
 
 
-DROP TABLE IF EXISTS t_courseDesign_TeacherStudent;
+drop table if exists t_courseDesign_teacher_arrange;
+
+/*==============================================================*/
+/* Table: t_courseDesign_teacher_arrange                        */
+/*==============================================================*/
+create table t_courseDesign_teacher_arrange
+(
+   courseDesignTeacherArrangeID varchar(40) not null,
+   courseDesignArrangeID varchar(40),
+   teacherID            varchar(40),
+   classNames           varchar(40),
+   display              varchar(10),
+   primary key (courseDesignTeacherArrangeID)
+);
+
+
+
+
+drop table if exists t_courseDesign_TeacherStudent;
 
 /*==============================================================*/
 /* Table: t_courseDesign_TeacherStudent                         */
 /*==============================================================*/
-CREATE TABLE t_courseDesign_TeacherStudent
+create table t_courseDesign_TeacherStudent
 (
-   courseDesignTeacherStudentID VARCHAR(40) NOT NULL,
-   courseDesignTeacherArrangeID VARCHAR(40),
-   studentID            VARCHAR(40),
-   courseDesignArrangeNum VARCHAR(40),
-   courseDesignReportName VARCHAR(50),
-   courseDesignReportStore VARCHAR(50),
-   uploadTime           DATETIME,
-   uploadStatus         VARCHAR(5),
-   checkStatus          VARCHAR(5),
-   checkAdvice          VARCHAR(200),
-   remark               VARCHAR(20),
-   PRIMARY KEY (courseDesignTeacherStudentID)
+   courseDesignTeacherStudentID varchar(40) not null,
+   courseDesignTeacherArrangeID varchar(40),
+   studentID            varchar(40),
+   courseDesignArrangeNum varchar(40),
+   courseDesignReportName varchar(50),
+   courseDesignReportStore varchar(50),
+   uploadTime           datetime,
+   uploadStatus         varchar(5),
+   checkStatus          varchar(5),
+   checkAdvice          varchar(200),
+   display              varchar(10),
+   remark               varchar(20),
+   primary key (courseDesignTeacherStudentID)
 );
 
-DROP TABLE IF EXISTS t_courseDesign_class_arrange;
+
+
+
+drop table if exists t_courseDesign_class_arrange;
 
 /*==============================================================*/
 /* Table: t_courseDesign_class_arrange                          */
 /*==============================================================*/
-CREATE TABLE t_courseDesign_class_arrange
+create table t_courseDesign_class_arrange
 (
-   courseDesignClassArrangeID VARCHAR(40) NOT NULL,
-   courseDesignArrangeID VARCHAR(40),
-   classID              VARCHAR(40),
-   PRIMARY KEY (courseDesignClassArrangeID)
+   courseDesignClassArrangeID varchar(40) not null,
+   courseDesignArrangeID varchar(40),
+   classID              varchar(40),
+   grade                varchar(10),
+   display              varchar(10),
+   primary key (courseDesignClassArrangeID)
 );
-
 
 

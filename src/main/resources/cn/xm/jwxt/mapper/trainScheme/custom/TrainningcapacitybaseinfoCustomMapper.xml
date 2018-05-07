@@ -11,5 +11,12 @@
         </foreach>
     </insert>
 
+    <!--2.根据培养方案编号删除培养方案能力-->
+    <delete id="deleteTrainningcapacityByTrainSchemeId" parameterType="string">
+        delete from trainningcapacitybaseinfo where trainingSchemeID = #{trainSchemeId}
+    </delete>
+
+
+
 
 </mapper>

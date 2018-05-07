@@ -8,9 +8,9 @@ package cn.xm.jwxt.bean.arrangeCourse.custom;
  */
 public class CommonQueryVo {
     //当前页
-    private String currentPage;
+    private Integer currentPage;
     //当前页显示条数
-    private String pageSize;
+    private Integer pageSize;
     //学院ID
     private String academicId;
     //专业ID
@@ -20,20 +20,20 @@ public class CommonQueryVo {
     //学期
     private String term;
 
-    public String getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(String pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public String getCurrentPage() {
+    public Integer getCurrentPage() {
         return currentPage;
     }
 
-    public void setCurrentPage(String currentPage) {
+    public void setCurrentPage(Integer currentPage) {
         this.currentPage = currentPage;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public String getAcademicId() {

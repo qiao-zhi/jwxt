@@ -56,6 +56,16 @@ public interface TrainschemeinfoService {
 
 
     /**
+     * 修改培养方案的基本信息(1.修改培养方案基本信息。2.删掉培养方案的能力信息3.重新添加培养方案能力)
+     * @param trainschemeinfo   培养方案基本信息
+     * @param trainningcapacitybaseinfos   培养方案基本信息
+     * @return  是否添加成功
+     * @throws SQLException
+     */
+    public boolean updateTrainschemeinfo(Trainschemeinfo trainschemeinfo, List<Trainningcapacitybaseinfo> trainningcapacitybaseinfos)throws SQLException;
+
+
+    /**
      * 根据培养方案ID删除培养方案基本信息(做标记，将isUse标记置为已经删除)
      * @param trainschemeinfoId
      * @return

@@ -34,7 +34,7 @@ function getDictionaryTree(){
         dataType : 'json',
         success : geneDepartmentTree,
         error : function() {
-            alert("查询内部部门树失败！！！")
+            alert("查询字典树失败！！！")
         }
     });
 }
@@ -97,6 +97,9 @@ function zTreeOnClick(event, treeId, treeNode) {
             $("#deleteDictBtn").css("display","");
             break;
         case 2:    //3.如果是三级树的话，添加删除按钮都不显示
+            // $("#openAddModalBtn").css("display","");
+            // $("#deleteDictBtn").css("display","");
+
             $("#openAddModalBtn").css("display","none");
             $("#deleteDictBtn").css("display","none");
             break;
