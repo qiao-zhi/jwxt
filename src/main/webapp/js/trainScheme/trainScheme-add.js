@@ -30,9 +30,8 @@ $(function () {
 
 
 /***********S              layui相关方法  *******************/
-layui.use(['form','element'], function () {
+layui.use(['form','layer'], function () {
     var form = layui.form;//获取form模块
-
 
     /**
      * 专业名称下拉列表的监听事件
@@ -49,6 +48,46 @@ layui.use(['form','element'], function () {
             form.render('select');//重新渲染页面
         }, 'json');
     });
+
+
+    /**
+     * 提交按钮的提交事件
+     */
+    form.on('submit(submitTrainschemeForm)', function(data){
+        //1.初始化表单
+        initCapacity();
+
+        //2.判断是否填写表单能力,如果验证未通过提示填写能力信息
+        if(!validateCapacity()){
+            layer.alert("请完成培养方案能力信息!")
+            return false;
+        }
+
+        //3.询问是否确定提交表单
+       /* if(!confirm("确认提交?提交后不可以更改!!!")){
+            return false;
+        }*/
+
+       layer.confirm("确认提交?提交之后不能更改!!!",function (index) {
+           //4.验证通过的话就提交表单，并将隐藏的状态置为已经提交
+           $("[name='remark1']").val("提交");//将隐藏的状态设为提交
+           $.post(contextPath+"/TrainScheme/addTrainScheme.do",
+               $("#addTrainSchemeForm").serialize(),
+               function (response) {
+                    layer.close(index);//关闭当前询问窗口
+                   layer.msg(response,{time:2000},function () {
+                       //关闭当前tab
+                       if("添加成功"==response)
+                           closeNowPage();
+                   })
+               },
+               'text')
+
+       })
+
+    });
+
+
 
 
 
@@ -163,6 +202,27 @@ function initCapacity() {
     })
 }
 
+
+/**
+ * 验证培养方案能力是否已经填写
+ */
+function validateCapacity(){
+    var tbody = $("#graduateCapacityTbody");//获取到tbody
+    var length_1 = tbody.children("tr").length;
+    //判断是否有数据
+    if(length_1 == 0){
+        return false;
+    }
+    var validateInput = true;
+    tbody.find("input").each(function (index) {
+        if($(this).val()=="" || $.trim($(this).val())==""){
+            validateInput =  false;//将验证结果置为false
+            return ;
+        }
+    })
+    //如果走到这里返回true即可
+    return validateInput;
+}
 
 
 

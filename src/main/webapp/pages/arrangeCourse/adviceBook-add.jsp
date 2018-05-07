@@ -125,19 +125,11 @@
 
 <script>
 
-    var myDate = new Date();//获取系统当前时间
-    var year = myDate.getFullYear();//获取当前年
-    var month = myDate.getMonth()+1;//获取当前月
-    var date = myDate.getDate();
-    if (month < 10) month = "0" + month;
-    if (date < 10) date = "0" + date;
-    var nowTime = year + "-" + month + "-" + date;
-    $("input[name='createTime']").val(nowTime);
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form;
         var layer = layui.layer;
-
+        getNowTime();
         //监听学院下拉框事件
         form.on('select(academic)',function (data) {
             //获取学院的option对象
@@ -169,7 +161,6 @@
         });
      });
 
-
     //日期控件
     layui.use('laydate', function () {
         var laydate = layui.laydate;
@@ -194,6 +185,17 @@
             }
         });
     })
+    //获取当前时间设置到相应字段
+    function getNowTime(){
+        var myDate = new Date();//获取系统当前时间
+        var year = myDate.getFullYear();//获取当前年
+        var month = myDate.getMonth()+1;//获取当前月
+        var date = myDate.getDate();
+        if (month < 10) month = "0" + month;
+        if (date < 10) date = "0" + date;
+        var nowTime = year + "-" + month + "-" + date;
+        $("input[name='createTime']").val(nowTime);
+    }
 </script>
 
 </body>

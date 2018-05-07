@@ -68,18 +68,42 @@ public class TrainSchemeController {
         return majorInfoByMajorCode;
     }
 
-   @RequestMapping("/addTrainScheme")//保存培养方案基本信息和培养方案能力信息
+
+    /**
+     * 保存培养方案基本信息和培养方案能力信息
+     * @param trainschemeinfo   培养方案基本信息
+     * @param listVo    包装培养方案能力的信息
+     * @return  添加结果
+     */
+    @RequestMapping("/addTrainScheme")
     public String addTrainschemeinfo(Trainschemeinfo trainschemeinfo, ListVo listVo){
-       List<Trainningcapacitybaseinfo> trainningcapacitybaseinfos = null;
-       if(listVo != null){
-           trainningcapacitybaseinfos = listVo.getTrainningcapacitybaseinfos();
-       }
-       String result = null;
+        List<Trainningcapacitybaseinfo> trainningcapacitybaseinfos = null;
+        if(listVo != null){
+            trainningcapacitybaseinfos = listVo.getTrainningcapacitybaseinfos();
+        }
+        String result = null;
         try {
             result = trainschemeinfoService.addTrainschemeinfo(trainschemeinfo, trainningcapacitybaseinfos)?"添加成功":"添加失败";
         } catch (Exception e) {
             result="添加失败";
             logger.error("插入培养方案出错!",e);
+        }
+        return result;
+    }
+
+
+    @RequestMapping("/updateTrainScheme")
+    public String updateTrainschemeinfo(Trainschemeinfo trainschemeinfo, ListVo listVo){
+        List<Trainningcapacitybaseinfo> trainningcapacitybaseinfos = null;
+        if(listVo != null){
+            trainningcapacitybaseinfos = listVo.getTrainningcapacitybaseinfos();
+        }
+        String result = null;
+        try {
+            result = trainschemeinfoService.updateTrainschemeinfo(trainschemeinfo, trainningcapacitybaseinfos)?"保存成功":"保存失败";
+        } catch (Exception e) {
+            result="保存失败";
+            logger.error("修改培养方案出错!",e);
         }
         return result;
     }
@@ -100,7 +124,7 @@ public class TrainSchemeController {
             pageSize = Integer.parseInt((String) condition.get("pageSize"));
         }
         //开始分页
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum,pageSize,"createTime desc");//按创建时间降序排序
         List<Map<String, Object>> trainschemeinfoByCondition = null;
         try {
             trainschemeinfoByCondition =  trainschemeinfoService.getTrainschemeinfoByCondition(condition);
@@ -110,6 +134,41 @@ public class TrainSchemeController {
         PageInfo<Map<String,Object>> pageInfo = new PageInfo<Map<String,Object>>(trainschemeinfoByCondition);
         return pageInfo;
     }
+
+    /**
+     * 根据培养方案编号查询培养方案基本信息
+     * @param trainSchemeId 培养方案编号
+     * @return  培养方案信息
+     */
+    @RequestMapping("/getTrainSchemeInfoById")
+    public Map<String,Object> getTrainSchemeInfoById(@RequestParam(defaultValue = "1")String trainSchemeId){
+        Map<String, Object> trainschemeinfo = null;
+        try {
+            trainschemeinfo = trainschemeinfoService.getTrainschemeinfoById(trainSchemeId);
+        } catch (SQLException e) {
+            logger.error("根据培养方案编号查询培养方案信息出错");
+        }
+        return trainschemeinfo;
+    }
+
+
+    /**
+     * 根据培养方案编号删除培养方案(将标记位置为0)
+     * @param trainSchemeId
+     * @return
+     */
+    @RequestMapping("/deleteTrainSchemeById")
+    public String deleteTrainSchemeByTrainSchemeId(@RequestParam(defaultValue = "1")String trainSchemeId){
+        String result = null;
+        try {
+            result = trainschemeinfoService.deleteTrainschemeinfoById(trainSchemeId)?"删除成功":"删除失败";
+        } catch (SQLException e) {
+            result = "删除失败";
+            logger.error("删除培养方案信息出错",e);
+        }
+        return result;
+    }
+
 
 
 

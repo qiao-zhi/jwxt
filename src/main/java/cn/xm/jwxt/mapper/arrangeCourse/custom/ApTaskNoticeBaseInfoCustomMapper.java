@@ -7,7 +7,9 @@ import org.apache.ibatis.jdbc.SQL;
 import org.springframework.jdbc.core.support.SqlLobValue;
 
 import java.sql.SQLException;
+import java.sql.SQLWarning;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：jwxt
@@ -40,4 +42,11 @@ public interface ApTaskNoticeBaseInfoCustomMapper {
      * @throws SQLException
      */
     List<ApTaskNoticeBaseInfo> findTaskNoticeInfoListByCondition(CommonQueryVo condition) throws SQLException;
+
+    /**
+     * 查询所有的任务通知书名称和ID
+     * @return
+     * @throws SQLException
+     */
+    List<Map<String,Object>> findNoticeNameAndId() throws SQLException;
 }

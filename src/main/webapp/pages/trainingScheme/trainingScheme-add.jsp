@@ -56,8 +56,10 @@
 
 <body>
 <div class="x-body">
-    <form class="layui-form layui-form-pane" id="addTrainSchemeForm" action="">
+    <form class="layui-form layui-form-pane" id="addTrainSchemeForm">
 
+        <%--隐藏操作是保存还是提交--%>
+        <input type="hidden" name="remark1">
         <%--隐藏将来使用的培养方案能力--%>
         <div id="hidden_capacity_div">
             <%--JS添加数据到这里--%>
@@ -102,7 +104,7 @@
                 专业代码
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="majorid" name="majorid" required="" lay-verify="required"
+                <input type="text" id="majorid" name="majorid" required="" lay-verify="required" readonly
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -141,13 +143,27 @@
                 必须填写
             </div>
         </div>
-        <!--5.时间-->
+
+        <!--4.修订人-->
         <div class="layui-form-item">
-            <label for="L_pass" class="layui-form-label">
-                时间
+            <label for="add_majormanager" class="layui-form-label">
+                修订人
             </label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" name="createtime" id="L_pass" placeholder="yyyy-MM-dd">
+                <input type="text" id="add_reviseperson" name="reviseperson" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                必须填写
+            </div>
+        </div>
+        <!--5.修订时间-->
+        <div class="layui-form-item">
+            <label for="L_pass" class="layui-form-label">
+                修订时间
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" readonly name="createtime" id="L_pass" placeholder="yyyy-MM-dd" lay-verify="required">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 请选择年月
@@ -345,7 +361,8 @@
         <%--保存和提交按钮--%>
         <div class="layui-form-item">
             <button class="layui-btn" type="button" onclick="saveTrainschemeInfo()">保存</button>
-            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo2">提交</button>
+            <!--下面的表单提交按钮-->
+            <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="submitTrainschemeForm">提交</button>
         </div>
 
     </form>

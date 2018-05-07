@@ -1,6 +1,8 @@
 package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
+import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -51,13 +53,23 @@ public interface ApArrangeCourseTaskService {
     boolean deleteArrangeCourseTaskById(String arrangeTaskId) throws Exception;
 
     /**
-     * 组合条件查询排课任务信息分页显示
-     * 过滤掉删除标记为0的排课任务信息
-     * @param condition
+     * 根据排课任务Id查询排课任务基本信息
+     * @param arrangeTaskId
      * @return
      * @throws Exception
      */
-    List<ApArrangeCourseTask> findApArrangeCourseTaskInfoByCondition(Map condition) throws Exception;
+    ApArrangeCourseTask getArrangeCourseTaskById(String arrangeTaskId) throws Exception;
+
+    /**
+     * 组合条件查询排课任务信息分页显示
+     * 过滤掉删除标记为0的排课任务信息
+     * @param condition
+     * @param currentPage
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
+    PageInfo<ApArrangeCourseTask> findApArrangeCourseTaskInfoByCondition(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception;
 
     /**
      * 根据排课任务ID查询有关排课任务的所有信息用于Excel文件的导出

@@ -5,6 +5,8 @@
     <id column="courseDesignTeacherArrangeID" property="coursedesignteacherarrangeid" jdbcType="VARCHAR" />
     <result column="courseDesignArrangeID" property="coursedesignarrangeid" jdbcType="VARCHAR" />
     <result column="teacherID" property="teacherid" jdbcType="VARCHAR" />
+    <result column="classNames" property="classnames" jdbcType="VARCHAR" />
+    <result column="display" property="display" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    courseDesignTeacherArrangeID, courseDesignArrangeID, teacherID
+    courseDesignTeacherArrangeID, courseDesignArrangeID, teacherID, classNames, display
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherArrangeExample" >
     select
@@ -99,9 +101,11 @@
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherArrange" >
     insert into t_coursedesign_teacher_arrange (courseDesignTeacherArrangeID, courseDesignArrangeID, 
-      teacherID)
+      teacherID, classNames, display
+      )
     values (#{coursedesignteacherarrangeid,jdbcType=VARCHAR}, #{coursedesignarrangeid,jdbcType=VARCHAR}, 
-      #{teacherid,jdbcType=VARCHAR})
+      #{teacherid,jdbcType=VARCHAR}, #{classnames,jdbcType=VARCHAR}, #{display,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherArrange" >
     insert into t_coursedesign_teacher_arrange
@@ -115,6 +119,12 @@
       <if test="teacherid != null" >
         teacherID,
       </if>
+      <if test="classnames != null" >
+        classNames,
+      </if>
+      <if test="display != null" >
+        display,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="coursedesignteacherarrangeid != null" >
@@ -125,6 +135,12 @@
       </if>
       <if test="teacherid != null" >
         #{teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="classnames != null" >
+        #{classnames,jdbcType=VARCHAR},
+      </if>
+      <if test="display != null" >
+        #{display,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -146,6 +162,12 @@
       <if test="record.teacherid != null" >
         teacherID = #{record.teacherid,jdbcType=VARCHAR},
       </if>
+      <if test="record.classnames != null" >
+        classNames = #{record.classnames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.display != null" >
+        display = #{record.display,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +177,9 @@
     update t_coursedesign_teacher_arrange
     set courseDesignTeacherArrangeID = #{record.coursedesignteacherarrangeid,jdbcType=VARCHAR},
       courseDesignArrangeID = #{record.coursedesignarrangeid,jdbcType=VARCHAR},
-      teacherID = #{record.teacherid,jdbcType=VARCHAR}
+      teacherID = #{record.teacherid,jdbcType=VARCHAR},
+      classNames = #{record.classnames,jdbcType=VARCHAR},
+      display = #{record.display,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +193,21 @@
       <if test="teacherid != null" >
         teacherID = #{teacherid,jdbcType=VARCHAR},
       </if>
+      <if test="classnames != null" >
+        classNames = #{classnames,jdbcType=VARCHAR},
+      </if>
+      <if test="display != null" >
+        display = #{display,jdbcType=VARCHAR},
+      </if>
     </set>
     where courseDesignTeacherArrangeID = #{coursedesignteacherarrangeid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherArrange" >
     update t_coursedesign_teacher_arrange
     set courseDesignArrangeID = #{coursedesignarrangeid,jdbcType=VARCHAR},
-      teacherID = #{teacherid,jdbcType=VARCHAR}
+      teacherID = #{teacherid,jdbcType=VARCHAR},
+      classNames = #{classnames,jdbcType=VARCHAR},
+      display = #{display,jdbcType=VARCHAR}
     where courseDesignTeacherArrangeID = #{coursedesignteacherarrangeid,jdbcType=VARCHAR}
   </update>
 </mapper>

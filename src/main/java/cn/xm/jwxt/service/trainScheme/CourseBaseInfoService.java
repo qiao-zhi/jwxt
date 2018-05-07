@@ -21,6 +21,7 @@ public interface CourseBaseInfoService {
      * @throws SQLException
      */
     public int getCountByCourseNum(String courseNum)throws SQLException;
+
     /**
      * 增加课程基本信息
      * @param courseBaseInfo    课程信息实体类
@@ -28,6 +29,14 @@ public interface CourseBaseInfoService {
      * @throws SQLException
      */
     public boolean addCourseBaseInfo(TCourseBaseInfo courseBaseInfo)throws SQLException;
+
+    /**
+     * 增加课程基本信息
+     * @param courseBaseInfos    课程信息实体类集合(用于批量添加)
+     * @return  重复的课程编号(用于筛选重复的课程编号)
+     * @throws SQLException
+     */
+    public List<String> addCourseBaseInfoBatch(List<TCourseBaseInfo> courseBaseInfos)throws SQLException;
 
     /**
      * 根据编号删除课程信息(修改remark1,标记为0)

@@ -1,8 +1,9 @@
 package cn.xm.jwxt.mapper.courseDesign;
 
+import java.util.List;
+
 import cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrange;
 import cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrangeExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TCoursedesignInfoArrangeMapper {
