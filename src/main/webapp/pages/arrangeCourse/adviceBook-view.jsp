@@ -17,6 +17,8 @@
     <script type="text/javascript" src="../../js/xadmin.js"></script>
     
     <%@include file="/tag.jsp"%>
+    <%--排课公共方法--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
 </head>
 
 <body>
@@ -143,31 +145,6 @@
                 }
             });
         });
-    }
-    //状态码转换
-    function replaceStatus(status){
-        var campus = '';
-        switch(status){
-            case "1":
-                campus = "主校区";
-                break;
-            case "2":
-                campus = "华科校区";
-                break;
-            case "3":
-                campus = "晋城校区";
-                break;
-        }
-        return campus;
-    }
-    //点击关闭其他，触发事件
-    function closeOther() {
-        var closeTable = $(".layui-tab-title", parent.document).children("li");
-        closeTable.each(function () {
-            if ($(this).attr("class") == "") {
-                $(this).children("i").trigger("click");
-            }
-        })
     }
 
 </script>
