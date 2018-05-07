@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 学生选题最终结果表Service
+ */
 public interface StudenttitleresultService {
     int countByExample(StudenttitleresultExample example);
 

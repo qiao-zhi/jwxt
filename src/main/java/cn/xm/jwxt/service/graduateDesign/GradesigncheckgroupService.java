@@ -5,6 +5,7 @@ import cn.xm.jwxt.bean.graduateDesign.GradesigncheckgroupExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 学生选题最终结果表Service
@@ -32,4 +33,8 @@ public interface GradesigncheckgroupService {
     boolean updateByPrimaryKeySelective(Gradesigncheckgroup record);
 
     boolean updateByPrimaryKey(Gradesigncheckgroup record);
+
+    Gradesigncheckgroup selectOneGradesigncheckgroup(String groupid);
+
+    List<Gradesigncheckgroup> selectGradesigncheckgroupList(Map<String,Object> map);
 }

@@ -32,22 +32,22 @@ public class PleafilerecordinfoServiceImpl implements PleafilerecordinfoService 
 
     @Override
     public boolean deleteByExample(PleafilerecordinfoExample example) {
-        return pleafilerecordinfoMapper.deleteByExample(example)==1?true:false;
+        return pleafilerecordinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(Integer fileuprecoreid) {
-        return pleafilerecordinfoMapper.deleteByPrimaryKey(fileuprecoreid)==1?true:false;
+        return pleafilerecordinfoMapper.deleteByPrimaryKey(fileuprecoreid)==1;
     }
 
     @Override
     public boolean insert(Pleafilerecordinfo record) {
-        return pleafilerecordinfoMapper.insert(record)==1?true:false;
+        return pleafilerecordinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Pleafilerecordinfo record) {
-        return pleafilerecordinfoMapper.insertSelective(record)==1?true:false;
+        return pleafilerecordinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class PleafilerecordinfoServiceImpl implements PleafilerecordinfoService 
 
     @Override
     public boolean updateByExampleSelective(Pleafilerecordinfo record, PleafilerecordinfoExample example) {
-        return pleafilerecordinfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return pleafilerecordinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Pleafilerecordinfo record, PleafilerecordinfoExample example) {
-        return pleafilerecordinfoMapper.updateByExample(record, example)==1?true:false;
+        return pleafilerecordinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Pleafilerecordinfo record) {
-        return pleafilerecordinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return pleafilerecordinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Pleafilerecordinfo record) {
-        return pleafilerecordinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return pleafilerecordinfoMapper.updateByPrimaryKey(record)==1;
     }
 }

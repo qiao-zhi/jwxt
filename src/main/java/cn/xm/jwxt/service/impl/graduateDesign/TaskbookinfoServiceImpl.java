@@ -32,22 +32,22 @@ public class TaskbookinfoServiceImpl implements TaskbookinfoService {
 
     @Override
     public boolean deleteByExample(TaskbookinfoExample example) {
-        return taskbookinfoMapper.deleteByExample(example)==1?true:false;
+        return taskbookinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(Integer bookid) {
-        return taskbookinfoMapper.deleteByPrimaryKey(bookid)==1?true:false;
+        return taskbookinfoMapper.deleteByPrimaryKey(bookid)==1;
     }
 
     @Override
     public boolean insert(Taskbookinfo record) {
-        return taskbookinfoMapper.insert(record)==1?true:false;
+        return taskbookinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Taskbookinfo record) {
-        return taskbookinfoMapper.insertSelective(record)==1?true:false;
+        return taskbookinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class TaskbookinfoServiceImpl implements TaskbookinfoService {
 
     @Override
     public boolean updateByExampleSelective(Taskbookinfo record, TaskbookinfoExample example) {
-        return taskbookinfoMapper.updateByExampleSelective(record, example)==1?true:false;
+        return taskbookinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
     public boolean updateByExample(Taskbookinfo record, TaskbookinfoExample example) {
-        return taskbookinfoMapper.updateByExample(record, example)==1?true:false;
+        return taskbookinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Taskbookinfo record) {
-        return taskbookinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return taskbookinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Taskbookinfo record) {
-        return taskbookinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return taskbookinfoMapper.updateByPrimaryKey(record)==1;
     }
 }

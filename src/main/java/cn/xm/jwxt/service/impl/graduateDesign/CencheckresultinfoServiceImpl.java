@@ -32,22 +32,22 @@ public class CencheckresultinfoServiceImpl implements CencheckresultinfoService 
 
     @Override
     public boolean deleteByExample(CencheckresultinfoExample example) {
-        return cencheckresultinfoMapper.deleteByExample(example)==1?true:false;
+        return cencheckresultinfoMapper.deleteByExample(example)==1;
     }
 
     @Override
     public boolean deleteByPrimaryKey(Integer centerresultid) {
-        return cencheckresultinfoMapper.deleteByPrimaryKey(centerresultid)==1?true:false;
+        return cencheckresultinfoMapper.deleteByPrimaryKey(centerresultid)==1;
     }
 
     @Override
     public boolean insert(Cencheckresultinfo record) {
-        return cencheckresultinfoMapper.insert(record)==1?true:false;
+        return cencheckresultinfoMapper.insert(record)==1;
     }
 
     @Override
     public boolean insertSelective(Cencheckresultinfo record) {
-        return cencheckresultinfoMapper.insertSelective(record)==1?true:false;
+        return cencheckresultinfoMapper.insertSelective(record)==1;
     }
 
     @Override
@@ -62,21 +62,21 @@ public class CencheckresultinfoServiceImpl implements CencheckresultinfoService 
 
     @Override
     public boolean updateByExampleSelective(Cencheckresultinfo record, CencheckresultinfoExample example) {
-        return cencheckresultinfoMapper.updateByExampleSelective(record,example)==1?true:false;
+        return cencheckresultinfoMapper.updateByExampleSelective(record,example)==1;
     }
 
     @Override
     public boolean updateByExample(Cencheckresultinfo record, CencheckresultinfoExample example) {
-        return cencheckresultinfoMapper.updateByExample(record,example)==1?true:false;
+        return cencheckresultinfoMapper.updateByExample(record,example)==1;
     }
 
     @Override
     public boolean updateByPrimaryKeySelective(Cencheckresultinfo record) {
-        return cencheckresultinfoMapper.updateByPrimaryKeySelective(record)==1?true:false;
+        return cencheckresultinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
     public boolean updateByPrimaryKey(Cencheckresultinfo record) {
-        return cencheckresultinfoMapper.updateByPrimaryKey(record)==1?true:false;
+        return cencheckresultinfoMapper.updateByPrimaryKey(record)==1;
     }
 }

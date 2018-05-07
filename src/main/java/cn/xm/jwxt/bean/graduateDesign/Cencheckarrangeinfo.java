@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+import java.util.List;
+
 /**
  * 毕设中期检查安排表
  */
@@ -14,8 +16,28 @@ public class Cencheckarrangeinfo {
 
     private Integer bookid;
 
+    private List<Cencheckresultinfo> cencheckresultinfoList;
+
+    private Gradesigncheckgroup gradesigncheckgroup;
+
+    public Gradesigncheckgroup getGradesigncheckgroup() {
+        return gradesigncheckgroup;
+    }
+
+    public void setGradesigncheckgroup(Gradesigncheckgroup gradesigncheckgroup) {
+        this.gradesigncheckgroup = gradesigncheckgroup;
+    }
+
     public Integer getCenarrangeinfoid() {
         return cenarrangeinfoid;
+    }
+
+    public void setCencheckresultinfoList(List<Cencheckresultinfo> cencheckresultinfoList) {
+        this.cencheckresultinfoList = cencheckresultinfoList;
+    }
+
+    public List<Cencheckresultinfo> getCencheckresultinfoList() {
+        return cencheckresultinfoList;
     }
 
     public void setCenarrangeinfoid(Integer cenarrangeinfoid) {

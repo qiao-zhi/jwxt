@@ -9,6 +9,8 @@ public class Coursetypeinfo {
 
     private String typename;
 
+    private String trainingschemeid;
+
     private String remark;
 
     public Integer getCoursetypeid() {
@@ -41,6 +43,14 @@ public class Coursetypeinfo {
 
     public void setTypename(String typename) {
         this.typename = typename == null ? null : typename.trim();
+    }
+
+    public String getTrainingschemeid() {
+        return trainingschemeid;
+    }
+
+    public void setTrainingschemeid(String trainingschemeid) {
+        this.trainingschemeid = trainingschemeid == null ? null : trainingschemeid.trim();
     }
 
     public String getRemark() {
