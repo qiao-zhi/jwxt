@@ -10,9 +10,9 @@
         SELECT i.outsideApplyID AS table1ID,i.tableName AS table1Name,i.status AS table1Status,i.isCommit AS table1Commit,
             t.outGraDesignApplyID AS table2ID,t.tableName AS table2Name,t.checkStatus AS table2Status,t.isOk AS table2Commit,
             l.leaveID table3ID,l.tableName AS table3Name,l.checkStatus AS table3Status,l.isOk AS table3Commit,
-            att.attachmentID as table6ID,att.attachmentName as table6Name,att.remark AS table6Commit,
+            att.attachmentID as table6ID,att.attachmentName as table6Name,att.iscommit AS table6Commit,
             agg.agreementID as table4ID,agg.agreementName as table4Name,agg.applyStatus AS table4Status,agg.remark AS table4Commit,
-            s.sureID as table5ID,s.sureName as table5Name,s.sureStatus AS table5Commit
+            s.sureID as table5ID,s.sureName as table5Name,s.iscommit AS table5Commit
         FROM outGraDesignInfo i,outGraDesignTitleApply t,graDesignLeaveApply l,outsideGraDesignAttachment att,
 	        outsideGraDesignAgreemen agg,outGraDesignSureBook s
         WHERE i.outsideApplyID=t.outsideApplyID AND i.outsideApplyID=l.outsideApplyID AND i.outsideApplyID=att.outsideApplyID

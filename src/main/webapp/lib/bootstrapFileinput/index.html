@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!-- release v4.3.6, copyright 2014 - 2017 Kartik Visweswaran -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Krajee JQuery Plugins - &copy; Kartik</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+    <script src="js/fileinput.js" type="text/javascript"></script>
+    <!--简体中文-->
+    <script src="js/locales/zh.js" type="text/javascript"></script>
+    <!--繁体中文-->
+    <script src="js/locales/zh-TW.js" type="text/javascript"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="index.js" type="text/javascript"></script>
+    <style>
+        /***限制图片框的大小**/
+        .kv-file-content {
+            height: 160px;
+            width: 160px !important;
+        }
+
+        .kv-preview-data {
+            height: 90%;
+            width: 90% !important;
+        }
+
+    </style>
+</head>
+<body>
+<div class="htmleaf-container">
+    <div class="container kv-main">
+
+        <!--S       没有用插件的上传功能，与普通文件上传一样-->
+        <form enctype="multipart/form-data" method="post"
+              action="http://localhost/bootstrapFileUpload/upLoadOne.action">
+            <hr>
+            同步单文件上传（类似于普通的表单提交,直接提交）
+            <input id="fileUpOne" class="file" type="file" name="fileName">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-default">Reset</button>
+            <hr>
+        </form>
+
+        <form id="ajaxUpOneForm">
+            <hr>
+            ajax异步上传单文件（类似于普通的ajax上传文件）
+            <input id="ajaxUploadOneFile" class="file" type="file" name="fileName"/>
+            <button type="button" class="btn btn-primary" id="ajaxUploadOneFileBtn">ajax异步上传单文件</button>
+            <hr>
+        </form>
+
+        <form enctype="multipart/form-data" method="post"
+              action="http://localhost/bootstrapFileUpload/upLoadMultiple.action">
+            <hr>
+            同步多文件上传（类似于普通的表单提交,直接提交）
+            <input id="fileUpMultiple" class="file" type="file" multiple name="fileName">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-default">Reset</button>
+            <hr>
+        </form>
+
+        <form enctype="multipart/form-data" id="ajaxUpMultipleForm">
+            <hr>
+            ajax异步上传多文件（类似于普通的ajax上传文件）
+            <input id="ajaxUploadMultiple" class="file" type="file" multiple name="fileName">
+            <button type="button" class="btn btn-primary" id="ajaxUploadMultipeleFileBtn">ajax异步上传单文件</button>
+            <hr>
+        </form>
+        <!--E       没有用插件的上传功能，与普通文件上传一样-->
+
+
+
+
+        <!--S       开始使用插件的上传功能-->
+        <form>
+            <hr>
+            利用插件自带的(上传单个文件)
+            <input id="bootUpOne" class="file-loading" type="file" name="fileName">
+            <hr>
+        </form>
+
+
+        <form enctype="multipart/form-data">
+            <hr>
+            利用插件自带的(上传多个文件)
+            <input id="bootUpMultiple" class="file" multiple type="file" name="fileName">
+            <hr>
+        </form>
+
+
+        <!--E       开始使用插件的上传功能-->
+
+    </div>
+</div>
+</body>
+<script>
+    /*********S 文件上传按钮的样式显示内容设定*****/
+
+/*S           没有使用插件的上传功能*/
+
+//同步单文件上传(类似于普通的表单提交)
+    $("#fileUpOne").fileinput({
+        language: 'zh',
+        uploadUrl:"#",//上传的地址，加上这个才会出现删除按钮
+        showPreview: true, //是否显示预览,不写默认为true
+        allowedPreviewMimeTypes: ['jpg', 'png', 'doc', 'pdf'],//控制被预览的所有mime类型
+        showUpload: false, //是否显示上传按钮
+        dropZoneEnabled: false,//是否显示拖拽区域
+        allowedFileExtensions: ['doc', 'docx', 'pdf'],
+        layoutTemplates:{//预览区域删除按钮与上传按钮的显示
+            actionUpload:''//上传按钮不显示
+        }
+    });
+    //ajax异步上传单文件(类似于普通的ajax上传文件)
+    $("#ajaxUploadOneFile").fileinput({
+        language: 'zh',
+        dropZoneEnabled: false,//是否显示拖拽区域
+        uploadUrl:"#",//上传的地址，加上这个才会出现删除按钮
+        showUpload: false, //是否显示上传按钮
+        allowedFileExtensions: ['doc', 'docx', 'pdf'],
+        layoutTemplates:{//预览区域删除按钮与上传按钮的显示
+            actionUpload:''//上传按钮不显示
+        }
+    });
+    //同步多文件上传(类似于普通的表单提交)
+    $("#fileUpMultiple").fileinput({
+        language: 'zh',
+        uploadUrl:"#",//上传的地址，加上这个才会出现删除按钮
+        dropZoneEnabled: false,//是否显示拖拽区域
+        showUpload: false, //是否显示上传按钮,跟随文本框的那个
+        showRemove : true, //显示移除按钮,跟随文本框的那个
+        showCaption: true,//是否显示标题,就是那个文本框
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        layoutTemplates:{//预览区域删除按钮与上传按钮的显示
+            actionUpload:''//上传按钮不显示
+        }
+    });
+    //ajax异步上传多文件(类似于普通的ajax上传文件)
+    $("#ajaxUploadMultiple").fileinput({
+        language: 'zh',//中文
+        uploadUrl:"#",//上传的地址，加上这个才会出现删除按钮
+        dropZoneEnabled: false,//是否显示拖拽区域
+        showUpload: false, //是否显示上传按钮,跟随文本框的那个
+        showRemove : true, //显示移除按钮,跟随文本框的那个
+        showCaption: true,//是否显示标题,就是那个文本框
+        allowedFileExtensions: ['jpg', 'png', 'gif'],//允许上传问价你的后缀
+        layoutTemplates:{//预览区域删除按钮与上传按钮的显示
+            actionUpload:''//上传按钮不显示
+        }
+    });
+
+    /*E           没有使用插件的上传功能*/
+
+
+    /*S           开始使用插件的上传功能*/
+
+    //利用插件异步上传单文件
+    $("#bootUpOne").fileinput({
+        language: 'zh',//中文
+        uploadUrl:"upLoadOne.action",//上传的地址，加上这个才会出现删除按钮
+        dropZoneEnabled: false,//是否显示拖拽区域
+        showUpload: true, //是否显示上传按钮,跟随文本框的那个
+        showRemove : true, //显示移除按钮,跟随文本框的那个
+        showCaption: true,//是否显示标题,就是那个文本框
+        uploadAsync:true,
+        enctype: 'multipart/form-data',
+
+        previewFileIcon : "<i class='glyphicon glyphicon-king'></i>",
+        uploadExtraData: function (previewId, index) {//携带其他一些数据的格式
+            var data = {
+                ID:"123"
+            };
+            return data;
+        },
+
+        validateInitialCount:true,
+        allowedFileExtensions: ['jpg', 'png', 'gif'],//允许上传问价你的后缀
+    }).on('filepreupload', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+            response = data.response, reader = data.reader;
+    }) .on("fileuploaded", function(event, data) {//上传成功之后的一些处理
+            if(data.response)
+            {
+                alert('处理成功');
+            }
+        });
+    
+    
+    
+    //利用插件异步上传多文件
+    $("#bootUpMultiple").fileinput({
+        language: 'zh',//中文
+        uploadUrl:"upLoadMultiple.action",//上传的地址，加上这个才会出现删除按钮
+        dropZoneEnabled: false,//是否显示拖拽区域
+        showUpload: true, //是否显示上传按钮,跟随文本框的那个
+        showRemove : true, //显示移除按钮,跟随文本框的那个
+        showCaption: true,//是否显示标题,就是那个文本框
+        uploadAsync:true,
+        enctype: 'multipart/form-data',
+
+        previewFileIcon : "<i class='glyphicon glyphicon-king'></i>",
+        uploadExtraData: function (previewId, index) {//携带其他一些数据的格式
+            var data = {
+                ID:"123"
+            };
+            return data;
+        },
+
+        validateInitialCount:true,
+        allowedFileExtensions: ['jpg', 'png', 'gif'],//允许上传文件的后缀
+    }).on('filepreupload', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+            response = data.response, reader = data.reader;
+    }) .on("fileuploaded", function(event, data) {//上传成功之后的一些处理
+            if(data.response)
+            {
+                alert('处理成功');
+            }
+        });
+    /*E           开始使用插件的上传功能*/
+
+
+
+
+    /*********E 文件上传按钮的样式显示内容设定*****/
+    $(".btn-warning").on('click', function () {
+        if ($('#file-4').attr('disabled')) {
+            $('#file-4').fileinput('enable');
+        } else {
+            $('#file-4').fileinput('disable');
+        }
+    });
+    $(".btn-info").on('click', function () {
+        $('#file-4').fileinput('refresh', {previewClass: 'bg-info'});
+    });
+    $(document).ready(function () {
+        $("#test-upload").fileinput({
+            'showPreview': false,
+            'allowedFileExtensions': ['jpg', 'png', 'gif'],
+            'elErrorContainer': '#errorBlock'
+        });
+    });
+</script>
+</html>

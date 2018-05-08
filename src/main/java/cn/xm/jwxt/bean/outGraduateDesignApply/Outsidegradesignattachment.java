@@ -1,6 +1,7 @@
 package cn.xm.jwxt.bean.outGraduateDesignApply;
 
 import java.util.Date;
+import java.util.List;
 
 public class Outsidegradesignattachment {
     private String attachmentid;
@@ -9,17 +10,23 @@ public class Outsidegradesignattachment {
 
     private String attachmentname;
 
-    private String attachmentoldname;
-
-    private String newname;
-
-    private String attachmentaddr;
-
     private Date uploaddate;
+
+    private String iscommit;
 
     private String attachmenttype;
 
     private String remark;
+
+    private List<Outattachmentcontent> oGDAttachmentContent;
+
+    public List<Outattachmentcontent> getoGDAttachmentContent() {
+        return oGDAttachmentContent;
+    }
+
+    public void setoGDAttachmentContent(List<Outattachmentcontent> oGDAttachmentContent) {
+        this.oGDAttachmentContent = oGDAttachmentContent;
+    }
 
     public String getAttachmentid() {
         return attachmentid;
@@ -45,36 +52,20 @@ public class Outsidegradesignattachment {
         this.attachmentname = attachmentname == null ? null : attachmentname.trim();
     }
 
-    public String getAttachmentoldname() {
-        return attachmentoldname;
-    }
-
-    public void setAttachmentoldname(String attachmentoldname) {
-        this.attachmentoldname = attachmentoldname == null ? null : attachmentoldname.trim();
-    }
-
-    public String getNewname() {
-        return newname;
-    }
-
-    public void setNewname(String newname) {
-        this.newname = newname == null ? null : newname.trim();
-    }
-
-    public String getAttachmentaddr() {
-        return attachmentaddr;
-    }
-
-    public void setAttachmentaddr(String attachmentaddr) {
-        this.attachmentaddr = attachmentaddr == null ? null : attachmentaddr.trim();
-    }
-
     public Date getUploaddate() {
         return uploaddate;
     }
 
     public void setUploaddate(Date uploaddate) {
         this.uploaddate = uploaddate;
+    }
+
+    public String getIscommit() {
+        return iscommit;
+    }
+
+    public void setIscommit(String iscommit) {
+        this.iscommit = iscommit == null ? null : iscommit.trim();
     }
 
     public String getAttachmenttype() {

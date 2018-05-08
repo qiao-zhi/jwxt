@@ -24,7 +24,7 @@ function addOneSignInfo(check,collnum){
     }
     $("#"+collnum+" .advice").text(check.checkopinion);
     $("#"+collnum+" .url").attr("src",check.teachersign);
-    $("#"+collnum+" .applydate").val(check.applytime);
+    $("#"+collnum+" .applydate").val(Format(new Date(check.applytime),'yyyy-MM-dd'));
 }
 
 
@@ -37,7 +37,7 @@ function addOneSignInfo1(check,collnum){
     }
     $("#"+collnum+" .advice").text(check.checkadvice);
     $("#"+collnum+" .url").attr("src",check.teachersign);
-    $("#"+collnum+" .applydate").val(check.applytime);
+    $("#"+collnum+" .applydate").val(Format(new Date(check.applytime),'yyyy-MM-dd'));
 }
 
 function addOneSignInfo2(check,collnum){
@@ -49,5 +49,5 @@ function addOneSignInfo2(check,collnum){
     }
     $("#"+collnum+" .advice").text(check.checkopinion);
     $("#"+collnum+" .url").attr("src",check.teachersign);
-    $("#"+collnum+" .applydate").val(check.applytime);
+    $("#"+collnum+" .applydate").val(Format(new Date(check.applytime),'yyyy-MM-dd'));
 }

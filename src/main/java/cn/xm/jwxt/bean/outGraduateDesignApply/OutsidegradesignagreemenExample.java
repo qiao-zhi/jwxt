@@ -315,6 +315,146 @@ public class OutsidegradesignagreemenExample {
             return (Criteria) this;
         }
 
+        public Criteria andCollegenameIsNull() {
+            addCriterion("collegeName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameIsNotNull() {
+            addCriterion("collegeName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameEqualTo(String value) {
+            addCriterion("collegeName =", value, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameNotEqualTo(String value) {
+            addCriterion("collegeName <>", value, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameGreaterThan(String value) {
+            addCriterion("collegeName >", value, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameGreaterThanOrEqualTo(String value) {
+            addCriterion("collegeName >=", value, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameLessThan(String value) {
+            addCriterion("collegeName <", value, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameLessThanOrEqualTo(String value) {
+            addCriterion("collegeName <=", value, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameLike(String value) {
+            addCriterion("collegeName like", value, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameNotLike(String value) {
+            addCriterion("collegeName not like", value, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameIn(List<String> values) {
+            addCriterion("collegeName in", values, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameNotIn(List<String> values) {
+            addCriterion("collegeName not in", values, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameBetween(String value1, String value2) {
+            addCriterion("collegeName between", value1, value2, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollegenameNotBetween(String value1, String value2) {
+            addCriterion("collegeName not between", value1, value2, "collegename");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardIsNull() {
+            addCriterion("studentIdCard is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardIsNotNull() {
+            addCriterion("studentIdCard is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardEqualTo(String value) {
+            addCriterion("studentIdCard =", value, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardNotEqualTo(String value) {
+            addCriterion("studentIdCard <>", value, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardGreaterThan(String value) {
+            addCriterion("studentIdCard >", value, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardGreaterThanOrEqualTo(String value) {
+            addCriterion("studentIdCard >=", value, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardLessThan(String value) {
+            addCriterion("studentIdCard <", value, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardLessThanOrEqualTo(String value) {
+            addCriterion("studentIdCard <=", value, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardLike(String value) {
+            addCriterion("studentIdCard like", value, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardNotLike(String value) {
+            addCriterion("studentIdCard not like", value, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardIn(List<String> values) {
+            addCriterion("studentIdCard in", values, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardNotIn(List<String> values) {
+            addCriterion("studentIdCard not in", values, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardBetween(String value1, String value2) {
+            addCriterion("studentIdCard between", value1, value2, "studentidcard");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentidcardNotBetween(String value1, String value2) {
+            addCriterion("studentIdCard not between", value1, value2, "studentidcard");
+            return (Criteria) this;
+        }
+
         public Criteria andSchoolsignIsNull() {
             addCriterion("schoolSign is null");
             return (Criteria) this;

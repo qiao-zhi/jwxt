@@ -2,6 +2,7 @@ package cn.xm.jwxt.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.junit.Test;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -137,8 +138,9 @@ public class FileHandleUtil {
         String dir = FileHandleUtil.getValue(propertiesFileName, propertiesKey);// 获取文件的基本目录
         try {
             //删除文件
-            FileUtils.forceDeleteOnExit(new File(dir + fileName));
-        } catch (IOException e) {
+//            FileUtils.forceDeleteOnExit(new File(dir + fileName));
+            FileUtils.deleteQuietly(new File(dir + fileName));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
