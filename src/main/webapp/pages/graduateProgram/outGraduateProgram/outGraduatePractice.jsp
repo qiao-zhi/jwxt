@@ -15,8 +15,12 @@
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
+    <%--s bzy--%>
+    <%@include file="/tag.jsp"%>
+    <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script typr="text/javascript" src="../../../js/outsideGraduateDesiner/titleInfo.js"></script>
+    <%--e bzy--%>
 </head>
 
 <body>
@@ -24,7 +28,7 @@
     <button class="btn-primary btn" onclick="basicSave()">保存</button>
     <button class="btn-primary btn" onclick="basicCommit()">提交</button>
    
-    <form action="" class="layui-form">
+    <form action="" class="layui-form" id="form" method="post">
     <table class="table table-bordered ">
         <caption style="text-align: center;">
         	<h1>太原科技大学计算机科学与技术学院</h1>
@@ -34,7 +38,7 @@
                         时间：
                     </label>
                     <div class="layui-input-inline" style="width: 135px">
-                        <input type="datetime" id="applyDate" placeholder="2018-04-25" class="form-control">
+                        <input type="datetime" id="applyDate" readonly  class="form-control">
                     </div>
            	 </div>
            
@@ -44,74 +48,75 @@
                 <td rowspan="8">课程情况</td>
                 <td>课程名称</td>
                 <td colspan="6">
-                    <input  class="form-control" type="text" id="courseName" name="courseName">
+                    <input   type="text" id="outgradesignapplyid" name="outgradesignapplyid" style="display: none">
+                    <input  class="form-control" type="text" id="courseName" name="coursename">
                 </td>
             </tr>
             <tr>
                 <td colspan="1">学生姓名 </td>
-                <td colspan="2"><input type="text" class="form-control" id="studentName" name="studentName"></td>
+                <td colspan="2"><input type="text" class="form-control" id="studentName" readonly></td>
                 <td colspan="1">专业
-                	<td colspan="2"><input type="text" class="form-control" id="studentMajor" name="studentMajor"></td>
+                	<td colspan="2"><input type="text" class="form-control" id="studentMajor" readonly></td>
                 </td>
                 
             </tr>
              <tr>
                 <td colspan="1">班级 </td>
-                <td colspan="2"><input type="text" class="form-control" id="majorClass" name="majorClass"></td>
+                <td colspan="2"><input type="text" class="form-control" id="majorClass" readonly></td>
                 <td colspan="1">学号
-                	<td colspan="2"><input type="text" class="form-control" id="studentNum" name="sttudentNum"></td>
+                	<td colspan="2"><input type="text" class="form-control" id="studentNum" readonly></td>
                 </td>
             </tr>
             <tr>
             	<td>校外单位</td>
                 <td colspan="7">
-                    <input  class="form-control" type="text" id="outUnitName" name="outUnitName">
+                    <input  class="form-control" type="text" id="outUnitName" name="outunitname">
                 </td>
             </tr>
              <tr>
                 <td colspan="1">单位地址 </td>
-                <td colspan="2"><input type="text" class="form-control" id="outUnitAddr" name="outUnitAddr"></td>
+                <td colspan="2"><input type="text" class="form-control" id="outUnitAddr" name="outunitaddr"></td>
                 <td colspan="1">联系方式
-                	<td colspan="2"><input type="text" class="form-control" id="outUnitPhone" name="outUnitPhone"></td>
+                	<td colspan="2"><input type="text" class="form-control" id="outUnitPhone" name="outunitphone"></td>
                 </td>
             </tr>
             <tr>
                 <td colspan="1">学生联系方式 </td>
-                <td colspan="2"><input type="text" class="form-control" id="studentPhone" name="studentPhone"></td>
+                <td colspan="2"><input type="text" class="form-control" id="studentPhone" name="studentphone"></td>
                 <td colspan="1">学生家长联系方式
-                	<td colspan="2"><input type="text" class="form-control" id="stuParentPhone" name="stuParentPhone"></td>
+                	<td colspan="2"><input type="text" class="form-control" id="stuParentPhone" name="stuparentphone"></td>
                 </td>
             </tr>
             <tr>
                 <td colspan="1">校内导师 </td>
-                <td colspan="2"><input type="text" class="form-control" id="inTeacherName" name="inTeacherName"></td>
+                <td colspan="2"><input type="text" class="form-control" id="inTeacherName"  readonly></td>
                 <td colspan="1">导师联系方式
-                	<td colspan="2"><input type="text" class="form-control" id="inTeacherPhone" name="inTeacherPhone"></td>
+                	<td colspan="2"><input type="text" class="form-control" id="inTeacherPhone" name="inteacherphone"></td>
                 </td>
             </tr>
             <tr>
                 <td colspan="1">校外导师 </td>
-                <td colspan="2"><input type="text" class="form-control" id="outTeacherName" name="outTeacherName"></td>
+                <td colspan="2"><input type="text" class="form-control" id="outTeacherName" name="outteachername"></td>
                 <td colspan="1">导师联系方式
-                	<td colspan="2"><input type="text" class="form-control" id="outTeacherPhone" name="outTeacherPhone"></td>
+                	<td colspan="2"><input type="text" class="form-control" id="outTeacherPhone" name="outteacherphone"></td>
                 </td>
             </tr>
              <tr>
                 <td>课题简介</td>
                 <td colspan="6">
-                    <textarea class="layui-textarea form-control" id="courseDescription" name="courseDescription"></textarea>
+                    <textarea class="layui-textarea form-control" id="courseDescription" name="coursedescription"></textarea>
                 </td>
             </tr>
             <tr>
                 <td>实践内容</td>
                 <td colspan="6">
-                    <textarea name="" class="layui-textarea form-control" id="testContent" name="testContent"></textarea>
+                    <textarea  class="layui-textarea form-control" id="testContent" name="testcontent"></textarea>
                 </td>
             </tr>
              <tr>
                 <td>实践要求</td>
                 <td colspan="6">
-                    <textarea name="" class="layui-textarea form-control" id="testStandard" name="testStandard"></textarea>
+                    <textarea  class="layui-textarea form-control" id="testStandard" name="teststandard"></textarea>
                 </td>
             </tr>
             <tr>
@@ -121,31 +126,31 @@
                 	<label for="L_pass" class="layui-form-label">
                         A
                     </label>
-                    <input type="radio" name="resultType" lay-skin="primary" title="论文" id="radio1" value="论文">
+                    <input type="radio" name="resulttype" lay-skin="primary" title="论文" id="radio1" value="论文">
                     </div>
                     <div class="layui-inline">
                     <label for="L_pass" class="layui-form-label">
                         B
                     </label>
-                    <input type="radio" name="resultType" lay-skin="primary" title="软件" id="radio2" value="软件">
+                    <input type="radio" name="resulttype" lay-skin="primary" title="软件" id="radio2" value="软件">
                     </div>
                     <div class="layui-inline">
                     <label for="L_pass" class="layui-form-label">
                         C
                     </label>
-                    <input type="radio" name="resultType" lay-skin="primary" title="实物制作" id="radio3" value="实物制作">
+                    <input type="radio" name="resulttype" lay-skin="primary" title="实物制作" id="radio3" value="实物制作">
                     </div>
                     <div class="layui-inline">
                     <label for="L_pass" class="layui-form-label">
                         D
                     </label>
-                    <input type="radio" name="resultType" lay-skin="primary" title="报告" id="radio4" value="报告">
+                    <input type="radio" name="resulttype" lay-skin="primary" title="报告" id="radio4" value="报告">
                     </div>
                     <div class="layui-inline">
                     <label for="L_pass" class="layui-form-label">
                         E
                     </label>
-                    <input type="radio" name="resultType" lay-skin="primary" title="其它" id="radio5" value="其他">
+                    <input type="radio" name="resulttype" lay-skin="primary" title="其它" id="radio5" value="其他">
                     </div>
                 </td>
             </tr>
@@ -157,7 +162,7 @@
             		<input type="radio" name="opinion1" class="agree"  title="同意"/>
             		<input type="radio" name="opinion1" class="disagree"  title="不同意"/>
             	</div>
-                <textarea name="" cols="100" rows="3" class="form-control advice" ></textarea>
+                <textarea  cols="100" rows="3" class="form-control advice" ></textarea>
             </td>
             <td><div style="height: 50px;">导师签名</div>
             <hr />
@@ -167,7 +172,7 @@
             
             <td colspan="3" >
             	<div style="height: 50px; width: 230px;">
-            		<img src="" width="150px" height="50px" class="url"/>
+            		<img src="../../../images/info.jpg" width="150px" height="50px" class="url"/>
             		<input onclick="tutorSign()" value="签名" type="button" class="layui-btn" style="float: right;"></input>
             	</div>
                 <hr />
@@ -182,7 +187,7 @@
             		<input type="radio" name="opinion2" class="agree" value="" title="同意"/>
             		<input type="radio" name="opinion2" class="disagree" value="" title="不同意"/>
             	</div>
-                <textarea name="" cols="100" rows="3" class="form-control advice"></textarea>
+                <textarea  cols="100" rows="3" class="form-control advice"></textarea>
             </td>
             <td><div style="height: 50px;">主任签名</div>
             <hr />
@@ -190,7 +195,7 @@
             </td>
             <td colspan="3">
             	<div style="height: 50px; width=230px;">
-            		<img src="" width="150px" height="50px" class="url"/>
+            		<img src="../../../images/info.jpg" width="150px" height="50px" class="url"/>
             		<input type="button" value="签字" class="layui-btn" id="test1" style="float: right;"></input>
             	</div>
                 <hr />
@@ -204,14 +209,40 @@
 <script>
 	//保存
     	function basicSave(){
-    		layer.alert("保存成功",function(){
-    			x_admin_close()
-    		})
+            var outgradesignapplyid = getAddressParameter("id");
+            $("#outgradesignapplyid").val(outgradesignapplyid);
+    	    $.ajax({
+                url:contextPath+"/title/updateTitle.do",
+                type:"post",
+                data:$("#form").serialize(),
+                datatype:"text",
+                success:function(result){
+                    $("#applyDate").val(Format(new Date(),"yyyy-MM-dd"));
+                    layer.msg(result);
+                },
+                error:function(){
+                    alert("错误！！！")
+                    x_admin_close();
+                }
+            })
     	}
     	//提交
     	function basicCommit(){
-    		layer.confirm("您确定要提交此次申请吗？",function(){
-    			x_admin_close()
+            var outgradesignapplyid = getAddressParameter("id");
+    		layer.confirm("您确定要提交此次申请吗？一旦提交将无法进行修改。",function(){
+                $.ajax({
+                    url:contextPath+"/title/commit.do",
+                    type:"post",
+                    data:{"outgradesignapplyid":outgradesignapplyid},
+                    datatype:"text",
+                    success:function(result){
+                        layer.msg(result);
+                    },
+                    error:function(){
+                        alert("出错！！！");
+                        x_admin_close();
+                    }
+                });
     		})
     	}
 	//上传签名

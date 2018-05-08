@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDAttCustomMapper" >
+
+    <select id="selectByAttachmentID" parameterType="string" resultMap="attachment">
+        SELECT * FROM outsideGraDesignAttachment a,outattachmentcontent cc WHERE a.attachmentID=cc.attachmentID
+        AND a.attachmentID=#{id}  ORDER BY cc.contentNum
+    </select>
+    <resultMap id="attachment" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment">
+        <id property="attachmentid" column="attachmentid"/>
+        <result property="outsideapplyid" column="outsideapplyid"/>
+        <result property="attachmentname" column="attachmentname"/>
+        <result property="uploaddate" column="uploaddate"/>
+        <result property="attachmenttype" column="attachmenttype"/>
+        <result property="remark" column="remark"/>
+        <result property="iscommit" column="iscommit"/>
+        <collection property="oGDAttachmentContent" javaType="java.util.List" ofType="cn.xm.jwxt.bean.outGraduateDesignApply.Outattachmentcontent">
+            <id property="contentid" column="contentid"/>
+            <result property="attachmentid" column="attachmentid"/>
+            <result property="contentnum" column="contentnum"/>
+            <result property="contenturl" column="contenturl"/>
+            <result property="remark" column="remark"/>
+        </collection>
+    </resultMap>
+
+
+</mapper>

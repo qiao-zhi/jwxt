@@ -315,216 +315,6 @@ public class OutsidegradesignattachmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentoldnameIsNull() {
-            addCriterion("attachmentOldName is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameIsNotNull() {
-            addCriterion("attachmentOldName is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameEqualTo(String value) {
-            addCriterion("attachmentOldName =", value, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameNotEqualTo(String value) {
-            addCriterion("attachmentOldName <>", value, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameGreaterThan(String value) {
-            addCriterion("attachmentOldName >", value, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameGreaterThanOrEqualTo(String value) {
-            addCriterion("attachmentOldName >=", value, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameLessThan(String value) {
-            addCriterion("attachmentOldName <", value, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameLessThanOrEqualTo(String value) {
-            addCriterion("attachmentOldName <=", value, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameLike(String value) {
-            addCriterion("attachmentOldName like", value, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameNotLike(String value) {
-            addCriterion("attachmentOldName not like", value, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameIn(List<String> values) {
-            addCriterion("attachmentOldName in", values, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameNotIn(List<String> values) {
-            addCriterion("attachmentOldName not in", values, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameBetween(String value1, String value2) {
-            addCriterion("attachmentOldName between", value1, value2, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentoldnameNotBetween(String value1, String value2) {
-            addCriterion("attachmentOldName not between", value1, value2, "attachmentoldname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameIsNull() {
-            addCriterion("newName is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameIsNotNull() {
-            addCriterion("newName is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameEqualTo(String value) {
-            addCriterion("newName =", value, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameNotEqualTo(String value) {
-            addCriterion("newName <>", value, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameGreaterThan(String value) {
-            addCriterion("newName >", value, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameGreaterThanOrEqualTo(String value) {
-            addCriterion("newName >=", value, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameLessThan(String value) {
-            addCriterion("newName <", value, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameLessThanOrEqualTo(String value) {
-            addCriterion("newName <=", value, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameLike(String value) {
-            addCriterion("newName like", value, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameNotLike(String value) {
-            addCriterion("newName not like", value, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameIn(List<String> values) {
-            addCriterion("newName in", values, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameNotIn(List<String> values) {
-            addCriterion("newName not in", values, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameBetween(String value1, String value2) {
-            addCriterion("newName between", value1, value2, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andNewnameNotBetween(String value1, String value2) {
-            addCriterion("newName not between", value1, value2, "newname");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrIsNull() {
-            addCriterion("attachmentAddr is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrIsNotNull() {
-            addCriterion("attachmentAddr is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrEqualTo(String value) {
-            addCriterion("attachmentAddr =", value, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrNotEqualTo(String value) {
-            addCriterion("attachmentAddr <>", value, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrGreaterThan(String value) {
-            addCriterion("attachmentAddr >", value, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrGreaterThanOrEqualTo(String value) {
-            addCriterion("attachmentAddr >=", value, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrLessThan(String value) {
-            addCriterion("attachmentAddr <", value, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrLessThanOrEqualTo(String value) {
-            addCriterion("attachmentAddr <=", value, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrLike(String value) {
-            addCriterion("attachmentAddr like", value, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrNotLike(String value) {
-            addCriterion("attachmentAddr not like", value, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrIn(List<String> values) {
-            addCriterion("attachmentAddr in", values, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrNotIn(List<String> values) {
-            addCriterion("attachmentAddr not in", values, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrBetween(String value1, String value2) {
-            addCriterion("attachmentAddr between", value1, value2, "attachmentaddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentaddrNotBetween(String value1, String value2) {
-            addCriterion("attachmentAddr not between", value1, value2, "attachmentaddr");
-            return (Criteria) this;
-        }
-
         public Criteria andUploaddateIsNull() {
             addCriterion("uploadDate is null");
             return (Criteria) this;
@@ -582,6 +372,76 @@ public class OutsidegradesignattachmentExample {
 
         public Criteria andUploaddateNotBetween(Date value1, Date value2) {
             addCriterion("uploadDate not between", value1, value2, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitIsNull() {
+            addCriterion("iscommit is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitIsNotNull() {
+            addCriterion("iscommit is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitEqualTo(String value) {
+            addCriterion("iscommit =", value, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitNotEqualTo(String value) {
+            addCriterion("iscommit <>", value, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitGreaterThan(String value) {
+            addCriterion("iscommit >", value, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitGreaterThanOrEqualTo(String value) {
+            addCriterion("iscommit >=", value, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitLessThan(String value) {
+            addCriterion("iscommit <", value, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitLessThanOrEqualTo(String value) {
+            addCriterion("iscommit <=", value, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitLike(String value) {
+            addCriterion("iscommit like", value, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitNotLike(String value) {
+            addCriterion("iscommit not like", value, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitIn(List<String> values) {
+            addCriterion("iscommit in", values, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitNotIn(List<String> values) {
+            addCriterion("iscommit not in", values, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitBetween(String value1, String value2) {
+            addCriterion("iscommit between", value1, value2, "iscommit");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscommitNotBetween(String value1, String value2) {
+            addCriterion("iscommit not between", value1, value2, "iscommit");
             return (Criteria) this;
         }
 

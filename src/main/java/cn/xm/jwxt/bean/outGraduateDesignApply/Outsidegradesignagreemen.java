@@ -9,6 +9,10 @@ public class Outsidegradesignagreemen {
 
     private String agreementname;
 
+    private String collegename;
+
+    private String studentidcard;
+
     private String schoolsign;
 
     private Date schoolsigndate;
@@ -20,6 +24,16 @@ public class Outsidegradesignagreemen {
     private String applystatus;
 
     private String remark;
+
+    private Outgradesigninfo oGDInfo;
+
+    public Outgradesigninfo getoGDInfo() {
+        return oGDInfo;
+    }
+
+    public void setoGDInfo(Outgradesigninfo oGDInfo) {
+        this.oGDInfo = oGDInfo;
+    }
 
     public String getAgreementid() {
         return agreementid;
@@ -43,6 +57,22 @@ public class Outsidegradesignagreemen {
 
     public void setAgreementname(String agreementname) {
         this.agreementname = agreementname == null ? null : agreementname.trim();
+    }
+
+    public String getCollegename() {
+        return collegename;
+    }
+
+    public void setCollegename(String collegename) {
+        this.collegename = collegename == null ? null : collegename.trim();
+    }
+
+    public String getStudentidcard() {
+        return studentidcard;
+    }
+
+    public void setStudentidcard(String studentidcard) {
+        this.studentidcard = studentidcard == null ? null : studentidcard.trim();
     }
 
     public String getSchoolsign() {

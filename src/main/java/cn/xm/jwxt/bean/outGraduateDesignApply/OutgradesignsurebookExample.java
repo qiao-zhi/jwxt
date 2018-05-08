@@ -445,73 +445,73 @@ public class OutgradesignsurebookExample {
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusIsNull() {
-            addCriterion("sureStatus is null");
+        public Criteria andIscommitIsNull() {
+            addCriterion("iscommit is null");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusIsNotNull() {
-            addCriterion("sureStatus is not null");
+        public Criteria andIscommitIsNotNull() {
+            addCriterion("iscommit is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusEqualTo(String value) {
-            addCriterion("sureStatus =", value, "surestatus");
+        public Criteria andIscommitEqualTo(String value) {
+            addCriterion("iscommit =", value, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusNotEqualTo(String value) {
-            addCriterion("sureStatus <>", value, "surestatus");
+        public Criteria andIscommitNotEqualTo(String value) {
+            addCriterion("iscommit <>", value, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusGreaterThan(String value) {
-            addCriterion("sureStatus >", value, "surestatus");
+        public Criteria andIscommitGreaterThan(String value) {
+            addCriterion("iscommit >", value, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusGreaterThanOrEqualTo(String value) {
-            addCriterion("sureStatus >=", value, "surestatus");
+        public Criteria andIscommitGreaterThanOrEqualTo(String value) {
+            addCriterion("iscommit >=", value, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusLessThan(String value) {
-            addCriterion("sureStatus <", value, "surestatus");
+        public Criteria andIscommitLessThan(String value) {
+            addCriterion("iscommit <", value, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusLessThanOrEqualTo(String value) {
-            addCriterion("sureStatus <=", value, "surestatus");
+        public Criteria andIscommitLessThanOrEqualTo(String value) {
+            addCriterion("iscommit <=", value, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusLike(String value) {
-            addCriterion("sureStatus like", value, "surestatus");
+        public Criteria andIscommitLike(String value) {
+            addCriterion("iscommit like", value, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusNotLike(String value) {
-            addCriterion("sureStatus not like", value, "surestatus");
+        public Criteria andIscommitNotLike(String value) {
+            addCriterion("iscommit not like", value, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusIn(List<String> values) {
-            addCriterion("sureStatus in", values, "surestatus");
+        public Criteria andIscommitIn(List<String> values) {
+            addCriterion("iscommit in", values, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusNotIn(List<String> values) {
-            addCriterion("sureStatus not in", values, "surestatus");
+        public Criteria andIscommitNotIn(List<String> values) {
+            addCriterion("iscommit not in", values, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusBetween(String value1, String value2) {
-            addCriterion("sureStatus between", value1, value2, "surestatus");
+        public Criteria andIscommitBetween(String value1, String value2) {
+            addCriterion("iscommit between", value1, value2, "iscommit");
             return (Criteria) this;
         }
 
-        public Criteria andSurestatusNotBetween(String value1, String value2) {
-            addCriterion("sureStatus not between", value1, value2, "surestatus");
+        public Criteria andIscommitNotBetween(String value1, String value2) {
+            addCriterion("iscommit not between", value1, value2, "iscommit");
             return (Criteria) this;
         }
 

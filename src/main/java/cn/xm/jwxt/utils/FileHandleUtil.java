@@ -2,6 +2,7 @@ package cn.xm.jwxt.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.junit.Test;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.OutattachmentcontentMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outattachmentcontent" >
+    <id column="contentID" property="contentid" jdbcType="VARCHAR" />
+    <result column="attachmentID" property="attachmentid" jdbcType="VARCHAR" />
+    <result column="contentNum" property="contentnum" jdbcType="VARCHAR" />
+    <result column="contentURL" property="contenturl" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    contentID, attachmentID, contentNum, contentURL, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutattachmentcontentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outattachmentcontent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from outattachmentcontent
+    where contentID = #{contentid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from outattachmentcontent
+    where contentID = #{contentid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutattachmentcontentExample" >
+    delete from outattachmentcontent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outattachmentcontent" >
+    insert into outattachmentcontent (contentID, attachmentID, contentNum, 
+      contentURL, remark)
+    values (#{contentid,jdbcType=VARCHAR}, #{attachmentid,jdbcType=VARCHAR}, #{contentnum,jdbcType=VARCHAR}, 
+      #{contenturl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outattachmentcontent" >
+    insert into outattachmentcontent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentid != null" >
+        contentID,
+      </if>
+      <if test="attachmentid != null" >
+        attachmentID,
+      </if>
+      <if test="contentnum != null" >
+        contentNum,
+      </if>
+      <if test="contenturl != null" >
+        contentURL,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentid != null" >
+        #{contentid,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentid != null" >
+        #{attachmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="contentnum != null" >
+        #{contentnum,jdbcType=VARCHAR},
+      </if>
+      <if test="contenturl != null" >
+        #{contenturl,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutattachmentcontentExample" resultType="java.lang.Integer" >
+    select count(*) from outattachmentcontent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update outattachmentcontent
+    <set >
+      <if test="record.contentid != null" >
+        contentID = #{record.contentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentid != null" >
+        attachmentID = #{record.attachmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentnum != null" >
+        contentNum = #{record.contentnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contenturl != null" >
+        contentURL = #{record.contenturl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update outattachmentcontent
+    set contentID = #{record.contentid,jdbcType=VARCHAR},
+      attachmentID = #{record.attachmentid,jdbcType=VARCHAR},
+      contentNum = #{record.contentnum,jdbcType=VARCHAR},
+      contentURL = #{record.contenturl,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outattachmentcontent" >
+    update outattachmentcontent
+    <set >
+      <if test="attachmentid != null" >
+        attachmentID = #{attachmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="contentnum != null" >
+        contentNum = #{contentnum,jdbcType=VARCHAR},
+      </if>
+      <if test="contenturl != null" >
+        contentURL = #{contenturl,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where contentID = #{contentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outattachmentcontent" >
+    update outattachmentcontent
+    set attachmentID = #{attachmentid,jdbcType=VARCHAR},
+      contentNum = #{contentnum,jdbcType=VARCHAR},
+      contentURL = #{contenturl,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where contentID = #{contentid,jdbcType=VARCHAR}
+  </update>
+</mapper>
