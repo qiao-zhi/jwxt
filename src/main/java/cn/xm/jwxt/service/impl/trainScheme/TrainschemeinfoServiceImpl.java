@@ -75,8 +75,36 @@ public class TrainschemeinfoServiceImpl implements TrainschemeinfoService {
     }
 
     @Override
+    public boolean updateTrainschemeinfo(Trainschemeinfo trainschemeinfo, List<Trainningcapacitybaseinfo> trainningcapacitybaseinfos) throws SQLException {
+        //1.修改培养方案基本信息
+        //设置正在使用
+        if(ValidateCheck.isNull(trainschemeinfo.getIsuse())){
+            trainschemeinfo.setIsuse(DefaultValue.IS_USE);
+        }
+        //设置默认状态是保存
+        if(ValidateCheck.isNull(trainschemeinfo.getRemark1())){
+            trainschemeinfo.setRemark1(DefaultValue.SAVE_STATUS);
+        }
+        int i = trainschemeinfoMapper.updateByPrimaryKey(trainschemeinfo);//此方法原理是删掉重新添加
+        //2.删掉培养方案能力后重新添加
+        //2.1删除培养方案能力
+        int i1 = trainningcapacitybaseinfoCustomMapper.deleteTrainningcapacityByTrainSchemeId(trainschemeinfo.getTrainingschemeid());
+        //2.2重新添加培养方案能力
+        if(trainningcapacitybaseinfos !=null && trainningcapacitybaseinfos.size()>0){
+            //2.2.1设置培养方案能力的培养方案主键
+            for(Trainningcapacitybaseinfo tt : trainningcapacitybaseinfos){
+                tt.setTrainingschemeid(trainschemeinfo.getTrainingschemeid());
+            }
+            //2.2.2批量添加
+            int i2 = trainningcapacitybaseinfoCustomMapper.addTrainningcapacitybaseinfoBatch(trainningcapacitybaseinfos);
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean deleteTrainschemeinfoById(String trainschemeinfoId) throws SQLException {
-        return false;
+        return trainschemeinfoCustomMapper.deleteTrainSchemeById(trainschemeinfoId)>0?true:false;
     }
 
     @Override
@@ -91,7 +119,7 @@ public class TrainschemeinfoServiceImpl implements TrainschemeinfoService {
 
     @Override
     public Map<String, Object> getTrainschemeinfoById(String trainschemeinfoId) throws SQLException {
-        return null;
+        return trainschemeinfoCustomMapper.getTrainschemeinfoById(trainschemeinfoId);
     }
 
     @Override

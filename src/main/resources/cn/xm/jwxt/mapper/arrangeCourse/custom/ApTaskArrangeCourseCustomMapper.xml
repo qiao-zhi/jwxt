@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskArrangeCourseCustomMapper" >
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse" >
+        <id column="arrange_course_id" property="arrangeCourseId" jdbcType="VARCHAR" />
+        <result column="arrange_task_id" property="arrangeTaskId" jdbcType="VARCHAR" />
+        <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+        <result column="course_code" property="courseCode" jdbcType="VARCHAR" />
+        <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+        <result column="class_name" property="className" jdbcType="VARCHAR" />
+        <result column="major_students_number" property="majorStudentsNumber" jdbcType="INTEGER" />
+        <result column="total_period" property="totalPeriod" jdbcType="INTEGER" />
+        <result column="campus_code" property="campusCode" jdbcType="CHAR" />
+        <result column="is_use_multimedia" property="isUseMultimedia" jdbcType="CHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--批量插入排课任务分配课程信息-->
+    <insert id="saveTaskArrangeCourseInfoList" parameterType="java.util.List">
+        insert into ap_task_arrange_course (arrange_course_id, arrange_task_id, course_name,
+          course_code, major_name, class_name,
+          major_students_number, total_period, campus_code,
+          is_use_multimedia, remark)
+        values
+          <foreach collection="list" item="courseInfo" separator=",">
+              (#{courseInfo.arrangeCourseId,jdbcType=VARCHAR}, #{courseInfo.arrangeTaskId,jdbcType=VARCHAR}, #{courseInfo.courseName,jdbcType=VARCHAR},
+              #{courseInfo.courseCode,jdbcType=VARCHAR}, #{courseInfo.majorName,jdbcType=VARCHAR}, #{courseInfo.className,jdbcType=VARCHAR},
+              #{courseInfo.majorStudentsNumber,jdbcType=INTEGER}, #{courseInfo.totalPeriod,jdbcType=INTEGER}, #{courseInfo.campusCode,jdbcType=CHAR},
+              #{courseInfo.isUseMultimedia,jdbcType=CHAR}, #{courseInfo.remark,jdbcType=VARCHAR})
+          </foreach>
+    </insert>
+
+</mapper>

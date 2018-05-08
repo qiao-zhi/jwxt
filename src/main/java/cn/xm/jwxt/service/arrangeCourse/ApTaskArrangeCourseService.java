@@ -1,5 +1,6 @@
 package cn.xm.jwxt.service.arrangeCourse;
 
+import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 
 import java.util.List;
@@ -48,11 +49,19 @@ public interface ApTaskArrangeCourseService {
     boolean deleteTaskArrangeCourseListByArrangeId(String arrangeTaskId) throws Exception;
 
     /**
+     *根据排课任务ID查询相关的课程信息用于排课任务详情的显示
+     * @param arrangeTaskId
+     * @return
+     * @throws Exception
+     */
+    List<ApTaskArrangeCourse> findTaskArrangeCourseListInfoByArrangeId(String arrangeTaskId) throws Exception;
+
+    /**
      * 根据排课任务ID查询相关的课程信息及教师信息分页显示
      * @param arrangeTaskId
      * @return
      * @throws Exception
      */
-    List<Map<String,Object>> findTaskArrangeCourseListByArrangeId(String arrangeTaskId) throws Exception;
+    List<Map<String,Object>> findTaskArrangeCourseAndTeacherListByArrangeId(String arrangeTaskId) throws Exception;
 
 }

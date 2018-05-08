@@ -130,10 +130,11 @@ public class DictionaryController {
      * @return
      */
     @RequestMapping("/getDictionaryById")
-    public Dictionary getDictionaryById(String dictionaryId){
-        if(ValidateCheck.isNull(dictionaryId)){
+    public Dictionary getDictionaryById(@RequestParam(defaultValue = "1")String dictionaryId){
+        //下面这句话的作用域注解上的@RequestParam设置默认值的效果一样
+/*        if(ValidateCheck.isNull(dictionaryId)){
             dictionaryId="1";
-        }
+        }*/
         Dictionary dictionary = null;
         try {
             dictionary = dictionaryService.getDictionaryById(dictionaryId);
@@ -150,10 +151,11 @@ public class DictionaryController {
      * @return
      */
     @RequestMapping("/getDictionarysByUpDictId")
-    public List<Dictionary> getDictionaryIdAndNamesByUpId(String upDicId){
-        if(ValidateCheck.isNull(upDicId)){
+    public List<Dictionary> getDictionaryIdAndNamesByUpId(@RequestParam(defaultValue = "1") String upDicId){
+        //下面这句话的作用域注解上的@RequestParam设置默认值的效果一样
+        /*if(ValidateCheck.isNull(upDicId)){
             upDicId = "1";
-        }
+        }*/
         List<Dictionary> dictionarys = null;
         try {
             dictionarys = dictionaryService.getDictionaryIdAndNamesByUpId(upDicId);

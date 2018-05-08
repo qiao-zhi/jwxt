@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskNoticeDetailInfoCustomMapper" >
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo" >
+        <id column="notice_detail_id" property="noticeDetailId" jdbcType="INTEGER" />
+        <result column="notice_book_id" property="noticeBookId" jdbcType="VARCHAR" />
+        <result column="datail_sort" property="datailSort" jdbcType="VARCHAR" />
+        <result column="course_code" property="courseCode" jdbcType="VARCHAR" />
+        <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+        <result column="teach_plan_num" property="teachPlanNum" jdbcType="VARCHAR" />
+        <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+        <result column="campus_code" property="campusCode" jdbcType="VARCHAR" />
+        <result column="class_name" property="className" jdbcType="VARCHAR" />
+        <result column="class_student_num" property="classStudentNum" jdbcType="INTEGER" />
+        <result column="grade" property="grade" jdbcType="VARCHAR" />
+        <result column="major_students_number" property="majorStudentsNumber" jdbcType="INTEGER" />
+        <result column="test_method" property="testMethod" jdbcType="VARCHAR" />
+        <result column="week_period" property="weekPeriod" jdbcType="VARCHAR" />
+        <result column="total_period" property="totalPeriod" jdbcType="VARCHAR" />
+        <result column="start_stop_week" property="startStopWeek" jdbcType="VARCHAR" />
+        <result column="contact_time" property="contactTime" jdbcType="VARCHAR" />
+        <result column="experimental_time" property="experimentalTime" jdbcType="VARCHAR" />
+        <result column="course_character" property="courseCharacter" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+    <!--批量插入通知书明细信息-->
+    <insert id="saveTaskNoticeDetailInfoList" parameterType="java.util.List">
+        insert into ap_task_notice_detail_info (notice_book_id, datail_sort,
+          course_code, course_name, teach_plan_num,
+          major_name, campus_code, class_name,
+          class_student_num, grade, major_students_number,
+          test_method, week_period, total_period,
+          start_stop_week, contact_time, experimental_time,
+          course_character, remark)
+        values
+        <foreach collection="list" item="detailInfo" separator=",">
+          (#{detailInfo.noticeBookId,jdbcType=VARCHAR}, #{detailInfo.datailSort,jdbcType=VARCHAR},
+          #{detailInfo.courseCode,jdbcType=VARCHAR}, #{detailInfo.courseName,jdbcType=VARCHAR}, #{detailInfo.teachPlanNum,jdbcType=VARCHAR},
+          #{detailInfo.majorName,jdbcType=VARCHAR}, #{detailInfo.campusCode,jdbcType=VARCHAR}, #{detailInfo.className,jdbcType=VARCHAR},
+          #{detailInfo.classStudentNum,jdbcType=INTEGER}, #{detailInfo.grade,jdbcType=VARCHAR}, #{detailInfo.majorStudentsNumber,jdbcType=INTEGER},
+          #{detailInfo.testMethod,jdbcType=VARCHAR}, #{detailInfo.weekPeriod,jdbcType=VARCHAR}, #{detailInfo.totalPeriod,jdbcType=VARCHAR},
+          #{detailInfo.startStopWeek,jdbcType=VARCHAR}, #{detailInfo.contactTime,jdbcType=VARCHAR}, #{detailInfo.experimentalTime,jdbcType=VARCHAR},
+          #{detailInfo.courseCharacter,jdbcType=VARCHAR}, #{detailInfo.remark,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <resultMap id="distributeCourseSourceResultMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.DistributeCourseSource">         <result column="course_code" jdbcType="VARCHAR" property="courseCode" />
+        <result column="course_code" jdbcType="VARCHAR" property="courseCode" />
+        <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+        <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+        <result column="campus_code" jdbcType="VARCHAR" property="campusCode" />
+        <result column="major_students_number" jdbcType="INTEGER" property="majorStudentsNumber" />
+        <result column="total_period" jdbcType="VARCHAR" property="totalPeriod" />
+        <result column="class_name" jdbcType="LONGVARCHAR" property="classNames" />
+    </resultMap>
+    <!--查询的列-->
+    <sql id="Base_Column_List">
+        course_code,  course_name,  campus_code,  class_name, major_students_number,  total_period
+    </sql>
+
+    <!--根据任务通知书ID,排课任务ID查询任务书中需要进行排课的课程-->
+    <select id="findUnarrangedCourseInfoByCondition" parameterType="map" resultMap="distributeCourseSourceResultMap">
+        <bind name="courseNames" value="'%'+courseName+'%'"></bind>
+        <bind name="majorNames" value="'%'+majorName+'%'"></bind>
+        SELECT
+        *
+        FROM
+        (
+        SELECT
+            <include refid="Base_Column_List"/>
+            ,major_name
+        FROM
+        `distribute_course_source`
+        <where>
+                <include refid="query_unDistributeCourse_where"></include>
+            </where>
+            UNION ALL
+            SELECT
+              <include refid="Base_Column_List" />
+              ,course.major_name
+            FROM
+            ap_arrange_course_task task,
+            ap_task_arrange_course course
+            <where>
+                <include refid="query_distributeCourse_where"></include>
+            </where>
+        )temp
+        GROUP BY
+            course_name,
+            major_name
+        HAVING
+            count(*) = 1
+    </select>
+    <!--封装查询条件-->
+    <!--所有分配课程查询条件-->
+    <sql id="query_unDistributeCourse_where">
+        <!--任务通知书ID-->
+        <if test="noticeBookId != null and noticeBookId !=''">
+            AND notice_book_id = #{noticeBookId}
+        </if>
+        <!--课程名称-->
+        <if test="courseName != null and courseName !=''">
+            AND course_name LIKE #{courseNames}
+        </if>
+        <!--专业名称-->
+        <if test="majorName != null and majorName !=''">
+            AND major_name LIKE #{majorNames}
+        </if>
+        <!--校区-->
+        <if test="campusCode != null and campusCode !=''">
+            AND campus_code = #{campusCode}
+        </if>
+    </sql>
+    <!--已经分配课程查询条件-->
+    <sql id="query_distributeCourse_where">
+        <if test="0==0">
+            AND task.arrange_task_id = course.arrange_task_id
+            AND task.is_delete = 1
+        </if>
+        <!--任务通知书ID-->
+        <if test="noticeBookId != null and noticeBookId !=''">
+            AND notice_book_id = #{noticeBookId}
+        </if>
+        <!--排课任务ID-->
+        <if test="arrangeTaskId != null and arrangeTaskId !=''">
+            AND course.arrange_task_id != #{arrangeTaskId}
+        </if>
+
+        <!--课程名称-->
+        <if test="courseName != null and courseName !=''">
+            AND course_name LIKE #{courseNames}
+        </if>
+        <!--专业名称-->
+        <if test="majorName != null and majorName !=''">
+            AND course.major_name LIKE #{majorNames}
+        </if>
+        <!--校区-->
+        <if test="campusCode != null and campusCode !=''">
+            AND campus_code = #{campusCode}
+        </if>
+    </sql>
+</mapper>

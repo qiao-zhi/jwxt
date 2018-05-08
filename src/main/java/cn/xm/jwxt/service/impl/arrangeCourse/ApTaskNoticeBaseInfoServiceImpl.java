@@ -4,6 +4,7 @@ import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfo;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfoExample;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.mapper.arrangeCourse.ApTaskNoticeBaseInfoMapper;
+import cn.xm.jwxt.mapper.arrangeCourse.custom.ApArrangeCourseTaskCustomMapper;
 import cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskNoticeBaseInfoCustomMapper;
 import cn.xm.jwxt.service.arrangeCourse.ApTaskNoticeBaseInfoService;
 import cn.xm.jwxt.utils.DefaultValue;
@@ -15,6 +16,7 @@ import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.font.TrueTypeFont;
 
 import javax.annotation.Resource;
 import javax.xml.bind.annotation.XmlType;
@@ -35,6 +37,8 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
     private ApTaskNoticeBaseInfoMapper taskNoticeBaseInfoMapper;
     @Resource
     private ApTaskNoticeBaseInfoCustomMapper taskNoticeBaseInfoCustomMapper;
+    @Resource
+    private ApArrangeCourseTaskCustomMapper arrangeCourseTaskCustomMapper;
     /**
      * 添加教学任务通知书基本信息
      *
@@ -44,6 +48,9 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
      */
     @Override
     public boolean addApTaskNoticeBaseInfo(ApTaskNoticeBaseInfo noticeBaseInfo) throws Exception {
+        if(noticeBaseInfo==null){
+            throw new IllegalArgumentException("通知书基本信息不能为空!");
+        }
         //设置主键
         noticeBaseInfo.setNoticeBookId(UUIDUtil.getUUID2());
         //是否删除字段默认使用
@@ -67,9 +74,27 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
         if(ValidateCheck.isNull(noticeBookId)){
             throw new IllegalArgumentException("通知书编号不能为空!");
         }
+        if(noticeBaseInfo==null){
+            throw new IllegalArgumentException("通知书基本信息不能为空!");
+        }
         //设置通知书编号
         noticeBaseInfo.setNoticeBookId(noticeBookId);
-        int count = taskNoticeBaseInfoMapper.updateByPrimaryKey(noticeBaseInfo);
+        int count = taskNoticeBaseInfoMapper.updateByPrimaryKeySelective(noticeBaseInfo);
+        return count>0?true:false;
+    }
+
+    /**
+     * 根据通知书ID修改是否导入状态为导入状态
+     * @param noticeBookId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean updateIsInputStatus(String noticeBookId) throws Exception {
+        if(ValidateCheck.isNull(noticeBookId)){
+            throw new IllegalArgumentException("通知书编号不能为空!");
+        }
+        int count = taskNoticeBaseInfoCustomMapper.updateIsImportById(noticeBookId, DefaultValue.IS_USE);
         return count>0?true:false;
     }
 
@@ -88,7 +113,25 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
             throw new IllegalArgumentException("通知书编号不能为空!");
         }
         int count = taskNoticeBaseInfoCustomMapper.updateIsDeleteById(noticeBookId, DefaultValue.IS_NOT_USE);
+        //如果有排课任务修改排课任务是否删除字段
+        arrangeCourseTaskCustomMapper.updateIsDeleteByNoticeBookId(noticeBookId,DefaultValue.IS_NOT_USE);
         return count>0?true:false;
+    }
+
+    /**
+     * 根据教学任务通知书ID查询通知书基本信息
+     *
+     * @param noticeBookId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ApTaskNoticeBaseInfo getApTaskNoticeBaseInfoById(String noticeBookId) throws Exception {
+        if(ValidateCheck.isNull(noticeBookId)){
+            throw new IllegalArgumentException("通知书编号不能为空!");
+        }
+        ApTaskNoticeBaseInfo taskNoticeBaseInfo = taskNoticeBaseInfoMapper.selectByPrimaryKey(noticeBookId);
+        return taskNoticeBaseInfo;
     }
 
     /**
@@ -104,10 +147,23 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
         if(currentPage==null||pageSize==null){
             throw new IllegalArgumentException("分页参数传递错误！");
         }
+        if(condition==null){
+            throw new IllegalArgumentException("查询条件参数传递错误!");
+        }
         //采用PageHelper插件进行分页
         PageHelper.startPage(currentPage,pageSize,"create_time DESC");
         List<ApTaskNoticeBaseInfo> listInfo = taskNoticeBaseInfoCustomMapper.findTaskNoticeInfoListByCondition(condition);
         PageInfo<ApTaskNoticeBaseInfo> pageInfo = new PageInfo<ApTaskNoticeBaseInfo>(listInfo);
         return pageInfo;
+    }
+
+    /**
+     * 查询教学任务通知书的名称和ID
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Map<String, Object>> findNoticeNameAndId() throws Exception {
+        return taskNoticeBaseInfoCustomMapper.findNoticeNameAndId();
     }
 }

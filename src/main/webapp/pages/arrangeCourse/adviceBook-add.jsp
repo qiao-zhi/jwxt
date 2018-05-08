@@ -21,7 +21,7 @@
 <body>
 <div class="x-body">
 	
-    <form class="layui-form ">
+    <form class="layui-form">
         <!--3-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
@@ -55,15 +55,15 @@
             
         </div>
          <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-              学年
-            </label>
+             <label for="" class="layui-form-label">
+                 学年
+             </label>
             <div class="layui-input-inline">
-               <select name="academicYear">
-                    <option value="2014-2015学年">2014-2015学年</option>
-                    <option value="2015-2016学年">2015-2016学年</option>
-                    <option value="2016-2017学年">2016-2017学年</option>
-                </select>
+                <input type="datetime" style="width: 100px;float: left" class="layui-input" id="y_year" placeholder="起始学年" lay-verify="required">
+                <div class="layui-form-mid" style="margin-left: 10px">-</div>
+                <input type="datetime"  style="width: 100px;" class="layui-input" id="end_year" readonly placeholder="结束学年" >
+                <%--隐藏学年--%>
+                <input type="hidden" name="academicYear" />
             </div>
              <div class="layui-form-mid layui-word-aux">
                  <span class="x-red">*</span>必须填写
@@ -125,20 +125,11 @@
 
 <script>
 
-    var myDate = new Date();//获取系统当前时间
-    var year = myDate.getFullYear();//获取当前年
-    var month = myDate.getMonth()+1;//获取当前月
-    var date = myDate.getDate();
-    if (month < 10) month = "0" + month;
-    if (date < 10) date = "0" + date;
-    var nowTime = year + "-" + month + "-" + date;
-    $("input[name='createTime']").val(nowTime);
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form;
         var layer = layui.layer;
-
-
+        getNowTime();
         //监听学院下拉框事件
         form.on('select(academic)',function (data) {
             //获取学院的option对象
@@ -156,6 +147,8 @@
                 success:function(response){
                     alert(response)
                     if("添加成功" == response){
+                        //实现父页面的刷新
+                        window.parent.location.reload();
                         // 获得frame索引
                        var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
@@ -167,15 +160,42 @@
             return false;
         });
      });
-     
-     //创建时间
+
+    //日期控件
     layui.use('laydate', function () {
         var laydate = layui.laydate;
+        //创建时间
         laydate.render({
             elem: '#giveTime'//指定元素,
         });
-    });
-
+        //学年
+        laydate.render({
+            elem: '#y_year' //指定元素
+            ,type: 'year'
+            ,done:function(date){
+                //判断date是否有值
+                if(date != null && date !=""){
+                    date = parseInt(date)
+                    $("#end_year").val(date+1)
+                    $("input[name='academicYear']").val(date+'-'+(date+1)+"学年")
+                }else{
+                    $("#end_year").val('')
+                    $("input[name='academicYear']").val('')
+                }
+            }
+        });
+    })
+    //获取当前时间设置到相应字段
+    function getNowTime(){
+        var myDate = new Date();//获取系统当前时间
+        var year = myDate.getFullYear();//获取当前年
+        var month = myDate.getMonth()+1;//获取当前月
+        var date = myDate.getDate();
+        if (month < 10) month = "0" + month;
+        if (date < 10) date = "0" + date;
+        var nowTime = year + "-" + month + "-" + date;
+        $("input[name='createTime']").val(nowTime);
+    }
 </script>
 
 </body>

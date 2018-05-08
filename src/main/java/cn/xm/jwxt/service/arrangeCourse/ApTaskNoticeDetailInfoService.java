@@ -1,6 +1,8 @@
 package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.DistributeCourseSource;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -22,20 +24,22 @@ public interface ApTaskNoticeDetailInfoService {
     boolean saveApTaskNoticeDetailInfoByNoticeId(String noticeId, List<ApTaskNoticeDetailInfo> detailInfoList) throws Exception;
 
     /**
-     * 根据任务通知书ID查询任务书中需要进行排课的课程，供教学秘书分配课程
+     * 根据任务通知书ID,排课任务ID查询任务书中需要进行排课的课程，供教学秘书分配课程
      * 需要查询的信息：未分配课程的
      *  课程代码 课程名称 专业 班级 总人数 总学时 校区
-     * @param noticeId
+     * @param condition
      * @return
      * @throws Exception
      */
-    List<Map<String,Object>> findUnarrangedCourseInfoByNoticeId(String noticeId) throws Exception;
+    List<DistributeCourseSource> findUnarrangedCourseInfoByCondition(Map condition) throws Exception;
 
     /**
      * 根据通知书ID查询通知书明细信息分页显示
      * @param noticeId
+     * @param currentPage
+     * @param pageSize
      * @return
      * @throws Exception
      */
-    List<ApTaskNoticeDetailInfo> findApTaskNoticeDetailInfoByNoticeId(String noticeId) throws Exception;
+    PageInfo<ApTaskNoticeDetailInfo> findApTaskNoticeDetailInfoByNoticeId(String noticeId, Integer currentPage, Integer pageSize) throws Exception;
 }

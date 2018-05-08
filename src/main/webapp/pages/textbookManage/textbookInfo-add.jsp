@@ -1,5 +1,7 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>添加课程</title>
@@ -13,105 +15,121 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+    
 </head>
+
 <body>
 <div class="x-body">
-	
-    <form class="layui-form ">
-        <!--3-->
-        <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-              专业
-            </label>
-            <div class="layui-input-inline">
-                <select name="contrller">
-                	<option>请选择专业</option>
-                    <option>软件工程</option>
-                    <option>物联网</option>
-                    <option>计算机</option>
-                </select>
-            </div>
-            
-        </div>
+    <form class="layui-form" action="addOrderBooks" method="post">
+        <!--1-->
          <div class="layui-form-item">
             <label for="" class="layui-form-label">
-              学年
+                课程名称
             </label>
             <div class="layui-input-inline">
-               <select name="contrller">
-                	<option>请输入学年</option>
-                    <option>2014-2015学年</option>
-                    <option>2015-2016学年</option>
-                    <option>2016-2017学年</option>
+                <select name="courseid" lay-filter="course" >
+                    <option value="1">计算机网络</option>
+                    <option value="2">软件工程</option>
+                    <option value="3">操作系统</option>
+                    <option value="4">数据结构</option>
                 </select>
             </div>
-             <!--<div class="layui-form-mid layui-word-aux">
+            <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
-            </div>-->
-            
+            </div>
         </div>
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-              学期
+                教材编号
             </label>
             <div class="layui-input-inline">
-               <select name="contrller">
-                	<option>请输入学期</option>
-                    <option>第一学期</option>
-                    <option>第二学期</option>
-                </select>
+                <input type="text" id="" name="" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
             </div>
-             <!--<div class="layui-form-mid layui-word-aux">
+            <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
-            </div>-->
-            
+            </div>
         </div>
+        <!--1-1-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-              下达时间
+               教材名称
             </label>
             <div class="layui-input-inline">
-             <input id="giveTime" class="layui-input" />   
+                <input type="" id="" name="" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
             </div>
-            <!--<div class="layui-form-mid layui-word-aux">
+            <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
-            </div>-->
+            </div>
         </div>
-        <!--4-->
+        <!--2-->
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-                接收人
+                出版社
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="" name="" required=""  lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
-            <!--<div class="layui-form-mid layui-word-aux">
+            <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
-            </div>-->
+            </div>
+        </div>
+        <!--3-->
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+              作者
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="" name="" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>必须填写
+            </div>
+        </div>
+        <!--4-->
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+                ISBN
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="" name="" required=""  lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>必须填写
+            </div>
         </div>
         <!--5-->
         <div class="layui-form-item">
-              <!--<label for="L_repass" class="layui-form-label">
-              </label>-->
-              <button class="layui-btn" lay-filter="add" lay-submit="" style="margin-left: 275px;">
-                  确认新增
+            <label for="" class="layui-form-label">
+                单价
+            </label>
+            <div class="layui-input-inline">
+               <input type="text" id="" name="" required=""  lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>必须填写
+            </div>
+        </div>
+        <!--6-->
+       
+       
+        <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button class="layui-btn" lay-filter="add" lay-submit="">
+                  确认添加
               </button>
         </div>
         <!---->
     </form>
 </div>
 
-<script>
-    //出生年月
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
 
-        laydate.render({
-            elem: '#giveTime' //指定元素
-        });
-    });
-</script>
 <script>
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
@@ -136,16 +154,17 @@
         //监听提交
         form.on('submit(add)', function (data) {
             console.log(data);
-            //发异步，把数据提交给
+            //发异步，把数据提交给php
             layer.alert("增加成功", {icon: 6}, function () {
                 // 获得frame索引
-              var index = parent.layer.getFrameIndex(window.name);
+                var index = parent.layer.getFrameIndex(window.name);
                 //关闭当前frame
-             parent.layer.close(index);
+                parent.layer.close(index);
             });
             return false;
         });
-        
+
+
     });
 </script>
 

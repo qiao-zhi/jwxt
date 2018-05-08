@@ -1,21 +1,29 @@
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@include file="/tag.jsp"%>
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <title>添加培养方案</title>
+    <title>培养方案详情</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="../../css/font.css">
-    <link rel="stylesheet" href="../../css/xadmin.css">
-    <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <link rel="stylesheet" href="${baseurl}/css/font.css">
+    <link rel="stylesheet" href="${baseurl}/css/xadmin.css">
+    <script type="text/javascript" src="${baseurl}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${baseurl}/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${baseurl}/js/xadmin.js"></script>
     <!--漂浮导航-->
-    <script src="../../js/demo.js"></script>
+    <script src="${baseurl}/js/demo.js"></script>
+
+
+    <!--S   QLQ引入的JS-->
+    <script type="text/javascript" src="${baseurl}/js/trainScheme/trainScheme-view.js"></script>
+    <!--E   QLQ引入的JS-->
+
+
     <style>
         /*漂浮导航*/
         .box { position:fixed; top:350px; left:870px; min-width:240px; min-height:200px; border:1px solid #ccc; background:#fff; }
@@ -50,139 +58,56 @@
             layedit.build('demo');
             layedit.build('demo2');
             layedit.build('demo3');
-            layedit.build('demo4');
-            layedit.build('demo5');
-            layedit.build('demo6');
-            layedit.build('demo7');
-            layedit.build('demo8');
         });
     </script>
 </head>
 
 <body>
-<!--面包屑-->
-<div class="x-nav">
-      <span class="layui-breadcrumb">
-        <a href="../../welcome.html">首页</a>
-        <a href="">培养方案管理</a>
-        <a>
-          <cite>培养方案</cite></a>
-      </span>
-    <a class="layui-btn layui-btn-small" style="margin-top:3px;float:right"
-       href="javascript:location.replace(location.href);" title="刷新">
-        <i class="iconfont" style="line-height:30px">&#xe6aa;</i>
-    </a>
-    <a class="layui-btn layui-btn-warm layui-btn-small" style="margin-top:3px;float:right;margin-right:3px;"
-       onclick="closeOther()" title="关闭其他">
-        <i class="iconfont" style="line-height:30px">&#xe6b7;</i>
-    </a>
-</div>
 <div class="x-body">
-    <div class="layui-form-item">
-        <a class="layui-btn" href="javascript:history.back(-1)">返回</a>
-        <button class="layui-btn" lay-submit="" lay-filter="demo2">保存</button>
-        <button class="layui-btn" lay-submit="" lay-filter="demo2">提交</button>
-    </div>
+    <%--隐藏一个培养方案编号--%>
+    <input type="hidden" id="hidden_trainSchemeId" value="${trainSchemeId}">
 
     <form class="layui-form layui-form-pane" action="">
 
-        <!--基本信息-->
+        <!--培养方案的基本信息-->
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="zero">基本信息</a></legend>
         </fieldset>
-        <!--1-->
-        <div class="layui-form-item">
-            <label for="classID" class="layui-form-label">
-                培养方案名称
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="classID" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input" placeholder="太原科技大学本科专业人才培养方案">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <!--2-->
-        <div class="layui-form-item">
-            <label for="className" class="layui-form-label">
-                专业名称
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="className" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <!--2-->
-        <div class="layui-form-item">
-            <label for="className" class="layui-form-label">
-                专业代码
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="classNam2e" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <!--3-->
-        <div class="layui-form-item">
-            <label for="majorName" class="layui-form-label">
-                专科门类
-            </label>
-            <div class="layui-input-inline"><!--带搜索的查询-->
-                <select lay-verify="required" name="contrller" id="majorName">
-                    <option value="1">工学</option><!--哲学、经济学、法学、教育学、文学、历史学、理学、工学、农学、医学、管理学-->
-                    <option value="2">法学</option>
-                    <option value="3">农学</option>
-                    <option value="4">医学</option>
-                    <option value="4">经济学</option>
-                    <option value="4">管理学</option>
-                </select>
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须选择
-            </div>
-        </div>
-        <!--3-->
-        <div class="layui-form-item">
-            <label for="classNam2到e" class="layui-form-label">
-                专业负责人
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="classNam2到e" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <!--5-->
-        <div class="layui-form-item">
-            <label for="L_pass" class="layui-form-label">
-                时间
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" class="layui-input" id="L_pass" placeholder="yyyy-MM-dd">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                请选择年月
-            </div>
-        </div>
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <th>培养方案名称</th>
+                    <th>专业名称</th>
+                    <th>专业代码</th>
+                    <th>学科门类</th>
+                    <th>专业负责人</th>
+                    <th>修订人</th>
+                    <th>修订时间</th>
+                </tr>
+            </thead>
+            <tbody id="trainSchemeBaseInfoTbody">
+            <!--动态填充数据-->
+                <%--<tr>
+                    <th>培养方案名称</th>
+                    <th>专业名称</th>
+                    <th>专业代码</th>
+                    <th>专科学科</th>
+                    <th>专业负责人</th>
+                    <th>修订人</th>
+                    <th>修订时间</th>
+                </tr>--%>
+            </tbody>
+        </table>
 
-        <br>
-        <!--基本内容-->
+
+        <br/>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="one">培养目标</a></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">1、培养目标</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="trainingtarget" ></textarea>
             </div>
         </div>
 
@@ -192,7 +117,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">2、培养要求</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="trainingrequire"></textarea>
             </div>
         </div>
 
@@ -201,48 +126,69 @@
         </fieldset>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">3、毕业生能力</label>
-            <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+            <div id="capacityDiv" style="display: none;">
+                <%--能力是一个表格--%>
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="10%">
+                        <col width="90%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>能力描述</th>
+                    </tr>
+                    </thead>
+                    <tbody id="graduateCapacityTbody">
+                    <%--毕业生能力表格，手动往这里添加--%>
+                    <%--<tr>
+                        <td>G1</td>
+                        <td><input type="text"></td>
+                        <td><a class="layui-icon" title="点击删除当前行数据" onclick="deleteTr(this)">&#xe640;</a></td>
+                    </tr>--%>
+
+                    </tbody>
+                </table>
             </div>
+            <div id="capacityProptDiv" style="display: none">
+                <center>
+                    <br/>
+                    <p><span style="font-size: 20px;color: red;">您还没有添加培养能力，请先添加培养方案能力</span></p>
+                </center>
+            </div>
+
         </div>
 
+        <br/>
+        <br/>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="four">修业年限</a></legend>
         </fieldset>
         <div class="layui-form-item">
-            <label for="classNam2到e" class="layui-form-label">
+            <label  class="layui-form-label">
                 4、修业年限
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="classNam2到e" name="email" required="" lay-verify="email"
+                <input type="text" name="trainyears" required="" lay-verify="email"
                        autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
+        </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                5、授予学位
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="traindegree" required="" lay-verify="email"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label for="classNam2到e" class="layui-form-label">
-                5、修业年限
+                6、主干学科
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="classNam2到e" name="email" required="" lay-verify="email"
+                <input type="text" name="maincourse" required="" lay-verify="email"
                        autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须填写
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="classNam2到e" class="layui-form-label">
-                6、授予学位
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="classNam2到e" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                主干学科
             </div>
         </div>
 
@@ -252,7 +198,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">7、核心课程</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="corecourse"></textarea>
             </div>
         </div>
 
@@ -262,7 +208,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">8、专业特色</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="majorfeature"></textarea>
             </div>
         </div>
 
@@ -272,7 +218,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">9、主要实践性教学环节</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="maintestitem"></textarea>
             </div>
         </div>
 
@@ -282,7 +228,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">10、主要专业实验</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea"></textarea>
+                <textarea class="layui-textarea" name="mainmajorexperience"></textarea>
             </div>
         </div>
 
@@ -402,46 +348,17 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">12、主要课程关系结构图</label>
             <div class="layui-input-block">
-                <div class="layui-upload">
-                    <button type="button" class="layui-btn" id="test1">上传图片</button>
-                    <div class="layui-upload-list">
-                        <img class="layui-upload-img" width="100" id="img1">
-                        <p id="demoText"></p>
-                    </div>
+                <!--预留一个预览的img标签-->
+                <div id="imgDiv" style="display: none;margin-top: 10px;">
+                    <img id="imgPreview" width="100%">
+                </div>
+                <div id="promptDiv" style="margin-top: 10px;display: none;text-align: center;color:red;">
+                    <p><font style="font-size: 30px">您还没有上传课程关系结构图，请先上传课程关系结构图!</font></p>
                 </div>
             </div>
         </div>
-        <script>
-            //照片上传
-            layui.use('upload', function () {
-                var $ = layui.jquery, upload = layui.upload;
-                var uploadInst = upload.render({
-                    elem: '#test1'
-                    , url: '/upload/'
-                    , before: function (obj) {
-                        //预读本地文件示例，不支持ie8
-                        obj.preview(function (index, file, result) {
-                            $('#demo1').attr('src', result); //图片链接（base64）
-                        });
-                    }
-                    , done: function (res) {
-                        //如果上传失败
-                        if (res.code > 0) {
-                            return layer.msg('上传失败');
-                        }
-                        //上传成功
-                    }
-                    , error: function () {
-                        //演示失败状态，并实现重传
-                        var demoText = $('#demoText');
-                        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-                        demoText.find('.demo-reload').on('click', function () {
-                            uploadInst.upload();
-                        });
-                    }
-                });
-            })//end 照片上传
-        </script>
+        <br/><br/><br/>
+
 
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="thirteen">毕业总学分及总学时基本要求与分配</a></legend>

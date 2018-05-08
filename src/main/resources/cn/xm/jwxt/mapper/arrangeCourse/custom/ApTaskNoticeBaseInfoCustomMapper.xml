@@ -21,8 +21,20 @@
         UPDATE ap_task_notice_base_info SET is_delete =#{value} WHERE notice_book_id = #{taskNoticeBaseInfo}
     </update>
 
+    <!--根据教学任务通知书ID修改是否导入字段-->
+    <update id="updateIsImportById">
+        UPDATE ap_task_notice_base_info SET is_input =#{value} WHERE notice_book_id =#{noticeBookId}
+    </update>
+
+    <!--查询教学任务通知书的名称和ID-->
+    <select id="findNoticeNameAndId" resultType="map">
+        SELECT notice_book_id as noticeBookId,notice_book_name as noticeBookName from ap_task_notice_base_info
+        WHERE is_delete = "1" AND is_input = "1"
+    </select>
+
     <!--组合条件查询教学任务通知手分页显示-->
     <select id="findTaskNoticeInfoListByCondition" parameterType="cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo" resultMap="BaseResultMap">
+           <bind name="academicYears" value="academicYear+'%'"></bind>
         SELECT * FROM ap_task_notice_base_info
         <where>
             <include refid="query_common_where"></include>
@@ -38,7 +50,7 @@
             and academic_id = #{academicId}
         </if>
         <if test="academicYear != null and academicYear !=''">
-            and academic_year = #{academicYear}
+            and academic_year LIKE #{academicYears}
         </if>
         <if test="term != null and term !=''">
             and term = #{term}

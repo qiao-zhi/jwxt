@@ -38,7 +38,21 @@ public interface TrainschemeinfoCustomMapper {
      */
     public List<Map<String, Object>> getTrainschemeinfoByCondition(Map<String, Object> condition) throws SQLException;
 
+    /**
+     * 根据培养方案编号查询培养方案信息
+     * @param trainschemeinfoId
+     * @return
+     * @throws SQLException
+     */
+    public Map<String, Object> getTrainschemeinfoById(@Param("trainschemeinfoId") String trainschemeinfoId) throws SQLException;
 
+    /**
+     * 根据培养编号删除
+     * @param trainSchemeId
+     * @return
+     * @throws SQLException
+     */
+    public int deleteTrainSchemeById(@Param("trainSchemeId")String trainSchemeId)throws SQLException;
 
 
 

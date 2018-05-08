@@ -6,9 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd ">
 
 
-
     <!-- 0.开启aop，对类代理 -->
-
     <aop:config proxy-target-class="true"></aop:config>
     <!-- 开启shiro注解支持 -->
 
@@ -29,11 +27,9 @@
                         <value>text/html;charset=UTF-8</value>
                     </list>
                 </property>
-
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
 
     <!-- 2.扫描@Controler @Service -->
     <context:component-scan base-package="cn.xm.jwxt.controller" />
