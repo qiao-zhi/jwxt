@@ -1,3 +1,4 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -19,15 +20,19 @@
 
 <body>
 <div class="x-body">
-    <form class="layui-form">
+    <form class="layui-form" action="addOrderBooks" method="post">
         <!--1-->
          <div class="layui-form-item">
             <label for="" class="layui-form-label">
                 课程名称
             </label>
             <div class="layui-input-inline">
-               <input type="text" id="" name="" required=""  lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <select name="courseid" lay-filter="course" >
+                    <option value="1">计算机网络</option>
+                    <option value="2">软件工程</option>
+                    <option value="3">操作系统</option>
+                    <option value="4">数据结构</option>
+                </select>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写

@@ -2,14 +2,17 @@ package cn.xm.jwxt.controller.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.DistributeCourseSource;
 import cn.xm.jwxt.service.arrangeCourse.ApTaskNoticeDetailInfoService;
 import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.ResposeResult;
 import cn.xm.jwxt.utils.ValidateCheck;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：jwxt
@@ -101,5 +105,21 @@ public class ApTaskNoticeDetailInfoController {
             logger.error("查询任务通知书明细失败",e);
         }
         return pageInfo;
+    }
+
+    /**
+     * 根据任务通知书ID,排课任务ID查询任务书中需要进行排课的课程
+     * @param condition
+     * @return
+     */
+    @RequestMapping("/findUnArrangeCourseInfo")
+    public @ResponseBody List<DistributeCourseSource> findUnArrangeCourseInfo(@RequestParam Map condition){
+        List<DistributeCourseSource> unArrangedCourseInfoList = null;
+        try {
+            unArrangedCourseInfoList = taskNoticeDetailInfoService.findUnarrangedCourseInfoByCondition(condition);
+        } catch (Exception e) {
+            logger.error("查询未分配课程失败",e);
+        }
+        return unArrangedCourseInfoList;
     }
 }

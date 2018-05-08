@@ -1,5 +1,6 @@
 package cn.xm.jwxt.queryVo;
 
+import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 import cn.xm.jwxt.bean.trainScheme.Trainningcapacitybaseinfo;
 
 import java.util.List;
@@ -21,5 +22,18 @@ public class ListVo {
 
     public void setTrainningcapacitybaseinfos(List<Trainningcapacitybaseinfo> trainningcapacitybaseinfos) {
         this.trainningcapacitybaseinfos = trainningcapacitybaseinfos;
+    }
+
+    /**
+     * 排课任务分配课程集合
+     */
+    private List<ApTaskArrangeCourse> taskArrangeCourses;
+
+    public List<ApTaskArrangeCourse> getTaskArrangeCourses() {
+        return taskArrangeCourses;
+    }
+
+    public void setTaskArrangeCourses(List<ApTaskArrangeCourse> taskArrangeCourses) {
+        this.taskArrangeCourses = taskArrangeCourses;
     }
 }
