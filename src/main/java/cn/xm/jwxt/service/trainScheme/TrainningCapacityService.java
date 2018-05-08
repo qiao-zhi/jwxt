@@ -45,5 +45,5 @@ public interface TrainningCapacityService {
      * @return  一个培养方案对应的能力集合
      * @throws SQLException
      */
-    public List<Map<String,Object>> getTrainningCapacityByTrainschemeinfoId(String  trainschemeinfoId)throws SQLException;
+    public List<Trainningcapacitybaseinfo> getTrainningCapacityByTrainschemeinfoId(String  trainschemeinfoId)throws SQLException;
 }
