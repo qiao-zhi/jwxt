@@ -37,6 +37,7 @@ public class ListVo {
 
     public void setTrainCourse(List<TrainCourse> trainCourse) {
         this.trainCourse = trainCourse;
+    }
 
     /**
      * 排课任务分配课程集合
