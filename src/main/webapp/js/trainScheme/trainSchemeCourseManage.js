@@ -25,6 +25,17 @@ function getLauiLayer(){
     })
     return layer;
 }
+/**
+ * 获取layui的layer层的函数
+ * @returns {*} layer对象
+ */
+function getLauiElement(){
+    var element;
+    layui.use(['element'],function () {
+        element = layui.layer;
+    })
+    return element;
+}
 
 
 /**
@@ -807,15 +818,13 @@ function toggleTrainSchemeBaseInfoDiv(obj) {
         $("#trainSchemeBaseInfo").show(
             "slow",
             function() {
-                // 删除class属性(切换上下箭头)
-              $(obj).attr("title","点击显示培养方案基本信息");
+              $(obj).attr("title","点击隐藏培养方案基本信息");
             });
     } else {//隱藏条件与分割符
         $("#trainSchemeBaseInfo").hide(
             "slow",
             function() {
-                //删除class属性(切换上下箭头)
-                $(obj).attr("title","点击隐藏培养方案基本信息");
+                $(obj).attr("title","点击显示培养方案基本信息");
             });
     }
 }

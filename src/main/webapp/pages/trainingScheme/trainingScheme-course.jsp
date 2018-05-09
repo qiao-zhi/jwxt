@@ -26,6 +26,7 @@
     <script type="text/javascript" src="../../lib/zTree/jquery.ztree.exedit.js"></script>
 
     <!--S  qlq引入的 -->
+    <%--<link rel="stylesheet" href="${baseurl}/lib/bootstrap/css/bootstrap.css">--%>
     <script type="text/javascript" src="${baseurl}/js/trainScheme/trainSchemeCourseManage.js"></script>
     <% String trainSchemeId = request.getParameter("trainSchemeId"); %>
 
@@ -90,8 +91,8 @@
 <div class="x-body" style="width:80%;float:right">
 
     <!--S   培养方案的基本信息-->
-    <div style="margin-top: 0px;right: 20px;float: right">
-        <i style="right: 20px;" class="layui-icon"  title="点击隐藏培养方案基本信息"  onclick="toggleTrainSchemeBaseInfoDiv(this)">&#xe619;</i>
+    <div style="float: right">
+        <i style="right: 20px;" class="layui-icon"  title="点击隐藏培养方案基本信息"  onclick="toggleTrainSchemeBaseInfoDiv(this)">&#xe63c;</i>
         <i style="right: 20px;" class="layui-icon"  title="点击刷新当前页面"  onclick="javascript:window.location.reload()">&#x1002;</i>
     </div>
 
