@@ -145,10 +145,10 @@ function x_admin_show(title,url,w,h){
         url="404.html";
     };
     if (w == null || w == '') {
-        w=($(window).width()*0.90);
+        w=($(window).width()*1);
     };
     if (h == null || h == '') {
-        h=($(window).height()-50);
+        h=($(window).height());
     };
     layer.open({
         type: 2,
@@ -169,10 +169,10 @@ function x_admin_show_big(title,url,w,h){
         url="404.html";
     };
     if (w == null || w == '') {
-        w=($(window).width()*0.98);
+        w=($(window).width()*1);
     };
     if (h == null || h == '') {
-        h=($(window).height()*0.98);
+        h=($(window).height()*1);
     };
     layer.open({
         type: 2,

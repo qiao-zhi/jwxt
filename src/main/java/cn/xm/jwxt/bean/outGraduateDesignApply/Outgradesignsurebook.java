@@ -13,7 +13,7 @@ public class Outgradesignsurebook {
 
     private Date signtime;
 
-    private String surestatus;
+    private String iscommit;
 
     private String remark;
 
@@ -57,12 +57,12 @@ public class Outgradesignsurebook {
         this.signtime = signtime;
     }
 
-    public String getSurestatus() {
-        return surestatus;
+    public String getIscommit() {
+        return iscommit;
     }
 
-    public void setSurestatus(String surestatus) {
-        this.surestatus = surestatus == null ? null : surestatus.trim();
+    public void setIscommit(String iscommit) {
+        this.iscommit = iscommit == null ? null : iscommit.trim();
     }
 
     public String getRemark() {

@@ -116,44 +116,6 @@
         <button class="layui-btn layui-btn-warm" type="button" id="importCoursesBtn" style="float: right"><i class="layui-icon">&#xe67c;</i>导入课程</button>
     </xblock>
     <!--end 操作区域-->
- <script>
-    	var chooseCourse=0;//判断是否选中课程
-    	function panduan(){
-    		$(".layui-form-checkbox").each(function() {
-				if ($(this).hasClass("layui-form-checked")) {
-					chooseCourse++;
-				}
-			})
-    	}
-    	function copyAdd(){
-    		panduan();//调用判断方法
-    		if (chooseCourse>0) {
-						x_admin_show('复制性新增课程','./addCourse.jsp')
-						}
-    		else{
-    			layer.alert('请先选择需要复制的课程');
-    		}
-    		chooseCourse=0;//清空值
-    	}
-    	//上传教学资料
-    	function importSyllabus(){
-    			x_admin_show('上传教学资料','./courseMaterial-add.jsp')
-    	}
-    	//导出
-    	function exportCourse(){
-    		panduan();//调用判断方法
-    		if (chooseCourse>0) {
-						layer.alert('导出成功');
-						}
-    		else{
-    			layer.alert('请先选择需要导出的课程');
-    		}
-    		chooseCourse=0;//清空值
-
-    	}
-
-
-    </script>
     <!--表格内容-->
     <table class="layui-table">
         <thead>

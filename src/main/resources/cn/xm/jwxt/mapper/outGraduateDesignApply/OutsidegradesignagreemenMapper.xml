@@ -5,6 +5,8 @@
     <id column="agreementID" property="agreementid" jdbcType="VARCHAR" />
     <result column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
     <result column="agreementName" property="agreementname" jdbcType="VARCHAR" />
+    <result column="collegeName" property="collegename" jdbcType="VARCHAR" />
+    <result column="studentIdCard" property="studentidcard" jdbcType="VARCHAR" />
     <result column="schoolSign" property="schoolsign" jdbcType="VARCHAR" />
     <result column="schoolSignDate" property="schoolsigndate" jdbcType="TIMESTAMP" />
     <result column="studentSign" property="studentsign" jdbcType="VARCHAR" />
@@ -71,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    agreementID, outsideApplyID, agreementName, schoolSign, schoolSignDate, studentSign, 
-    studentSignDate, applyStatus, remark
+    agreementID, outsideApplyID, agreementName, collegeName, studentIdCard, schoolSign, 
+    schoolSignDate, studentSign, studentSignDate, applyStatus, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutsidegradesignagreemenExample" >
     select
@@ -106,13 +108,13 @@
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignagreemen" >
     insert into outsidegradesignagreemen (agreementID, outsideApplyID, agreementName, 
-      schoolSign, schoolSignDate, studentSign, 
-      studentSignDate, applyStatus, remark
-      )
+      collegeName, studentIdCard, schoolSign, 
+      schoolSignDate, studentSign, studentSignDate, 
+      applyStatus, remark)
     values (#{agreementid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, #{agreementname,jdbcType=VARCHAR}, 
-      #{schoolsign,jdbcType=VARCHAR}, #{schoolsigndate,jdbcType=TIMESTAMP}, #{studentsign,jdbcType=VARCHAR}, 
-      #{studentsigndate,jdbcType=TIMESTAMP}, #{applystatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
-      )
+      #{collegename,jdbcType=VARCHAR}, #{studentidcard,jdbcType=VARCHAR}, #{schoolsign,jdbcType=VARCHAR}, 
+      #{schoolsigndate,jdbcType=TIMESTAMP}, #{studentsign,jdbcType=VARCHAR}, #{studentsigndate,jdbcType=TIMESTAMP}, 
+      #{applystatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignagreemen" >
     insert into outsidegradesignagreemen
@@ -125,6 +127,12 @@
       </if>
       <if test="agreementname != null" >
         agreementName,
+      </if>
+      <if test="collegename != null" >
+        collegeName,
+      </if>
+      <if test="studentidcard != null" >
+        studentIdCard,
       </if>
       <if test="schoolsign != null" >
         schoolSign,
@@ -154,6 +162,12 @@
       </if>
       <if test="agreementname != null" >
         #{agreementname,jdbcType=VARCHAR},
+      </if>
+      <if test="collegename != null" >
+        #{collegename,jdbcType=VARCHAR},
+      </if>
+      <if test="studentidcard != null" >
+        #{studentidcard,jdbcType=VARCHAR},
       </if>
       <if test="schoolsign != null" >
         #{schoolsign,jdbcType=VARCHAR},
@@ -193,6 +207,12 @@
       <if test="record.agreementname != null" >
         agreementName = #{record.agreementname,jdbcType=VARCHAR},
       </if>
+      <if test="record.collegename != null" >
+        collegeName = #{record.collegename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentidcard != null" >
+        studentIdCard = #{record.studentidcard,jdbcType=VARCHAR},
+      </if>
       <if test="record.schoolsign != null" >
         schoolSign = #{record.schoolsign,jdbcType=VARCHAR},
       </if>
@@ -221,6 +241,8 @@
     set agreementID = #{record.agreementid,jdbcType=VARCHAR},
       outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
       agreementName = #{record.agreementname,jdbcType=VARCHAR},
+      collegeName = #{record.collegename,jdbcType=VARCHAR},
+      studentIdCard = #{record.studentidcard,jdbcType=VARCHAR},
       schoolSign = #{record.schoolsign,jdbcType=VARCHAR},
       schoolSignDate = #{record.schoolsigndate,jdbcType=TIMESTAMP},
       studentSign = #{record.studentsign,jdbcType=VARCHAR},
@@ -239,6 +261,12 @@
       </if>
       <if test="agreementname != null" >
         agreementName = #{agreementname,jdbcType=VARCHAR},
+      </if>
+      <if test="collegename != null" >
+        collegeName = #{collegename,jdbcType=VARCHAR},
+      </if>
+      <if test="studentidcard != null" >
+        studentIdCard = #{studentidcard,jdbcType=VARCHAR},
       </if>
       <if test="schoolsign != null" >
         schoolSign = #{schoolsign,jdbcType=VARCHAR},
@@ -265,6 +293,8 @@
     update outsidegradesignagreemen
     set outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
       agreementName = #{agreementname,jdbcType=VARCHAR},
+      collegeName = #{collegename,jdbcType=VARCHAR},
+      studentIdCard = #{studentidcard,jdbcType=VARCHAR},
       schoolSign = #{schoolsign,jdbcType=VARCHAR},
       schoolSignDate = #{schoolsigndate,jdbcType=TIMESTAMP},
       studentSign = #{studentsign,jdbcType=VARCHAR},

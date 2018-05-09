@@ -304,63 +304,73 @@ public class TrainCourseExample {
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidIsNull() {
-            addCriterion("courseTypeID is null");
+        public Criteria andTypenumIsNull() {
+            addCriterion("typeNum is null");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidIsNotNull() {
-            addCriterion("courseTypeID is not null");
+        public Criteria andTypenumIsNotNull() {
+            addCriterion("typeNum is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidEqualTo(Integer value) {
-            addCriterion("courseTypeID =", value, "coursetypeid");
+        public Criteria andTypenumEqualTo(String value) {
+            addCriterion("typeNum =", value, "typenum");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidNotEqualTo(Integer value) {
-            addCriterion("courseTypeID <>", value, "coursetypeid");
+        public Criteria andTypenumNotEqualTo(String value) {
+            addCriterion("typeNum <>", value, "typenum");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidGreaterThan(Integer value) {
-            addCriterion("courseTypeID >", value, "coursetypeid");
+        public Criteria andTypenumGreaterThan(String value) {
+            addCriterion("typeNum >", value, "typenum");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("courseTypeID >=", value, "coursetypeid");
+        public Criteria andTypenumGreaterThanOrEqualTo(String value) {
+            addCriterion("typeNum >=", value, "typenum");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidLessThan(Integer value) {
-            addCriterion("courseTypeID <", value, "coursetypeid");
+        public Criteria andTypenumLessThan(String value) {
+            addCriterion("typeNum <", value, "typenum");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidLessThanOrEqualTo(Integer value) {
-            addCriterion("courseTypeID <=", value, "coursetypeid");
+        public Criteria andTypenumLessThanOrEqualTo(String value) {
+            addCriterion("typeNum <=", value, "typenum");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidIn(List<Integer> values) {
-            addCriterion("courseTypeID in", values, "coursetypeid");
+        public Criteria andTypenumLike(String value) {
+            addCriterion("typeNum like", value, "typenum");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidNotIn(List<Integer> values) {
-            addCriterion("courseTypeID not in", values, "coursetypeid");
+        public Criteria andTypenumNotLike(String value) {
+            addCriterion("typeNum not like", value, "typenum");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidBetween(Integer value1, Integer value2) {
-            addCriterion("courseTypeID between", value1, value2, "coursetypeid");
+        public Criteria andTypenumIn(List<String> values) {
+            addCriterion("typeNum in", values, "typenum");
             return (Criteria) this;
         }
 
-        public Criteria andCoursetypeidNotBetween(Integer value1, Integer value2) {
-            addCriterion("courseTypeID not between", value1, value2, "coursetypeid");
+        public Criteria andTypenumNotIn(List<String> values) {
+            addCriterion("typeNum not in", values, "typenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypenumBetween(String value1, String value2) {
+            addCriterion("typeNum between", value1, value2, "typenum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypenumNotBetween(String value1, String value2) {
+            addCriterion("typeNum not between", value1, value2, "typenum");
             return (Criteria) this;
         }
 

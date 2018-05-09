@@ -7,7 +7,7 @@ $(function(){
         var index = layer.load();
         /*发送ajax请求查询*/
         $.ajax({
-            url:"/jwxt/outGraduateDesiner/selectOGDTitleInfo.do",
+            url:contextPath+"/outGraduateDesiner/selectOGDTitleInfo.do",
             type:"post",
             data:{"outGraApplyID":outGraApplyID},
             dataType:"json",

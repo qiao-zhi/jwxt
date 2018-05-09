@@ -111,14 +111,6 @@ function deleteNoticeBookInfo(id) {
     });
 }
 
-//设置条件选择框中的学年
-layui.use('laydate', function () {
-    var laydate = layui.laydate;
-    laydate.render({
-        elem: '#y_year' //指定元素
-        ,type: 'year'
-    });
-})
 
 //新增任务
 function addTask(){

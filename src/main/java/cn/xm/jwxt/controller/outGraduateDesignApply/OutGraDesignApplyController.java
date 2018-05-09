@@ -1,12 +1,7 @@
 package cn.xm.jwxt.controller.outGraduateDesignApply;
 
-import cn.xm.jwxt.bean.outGraduateDesignApply.Gradesignleaveapply;
-import cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo;
-import cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigntitleapply;
-import cn.xm.jwxt.service.outGraduateDesignApply.GraDesignLeaveApplyService;
-import cn.xm.jwxt.service.outGraduateDesignApply.OutGraDesignTitleApplyService;
-import cn.xm.jwxt.service.outGraduateDesignApply.OutGraduateDesignApplyService;
-import cn.xm.jwxt.service.outGraduateDesignApply.Outgradesigninfoservice;
+import cn.xm.jwxt.bean.outGraduateDesignApply.*;
+import cn.xm.jwxt.service.outGraduateDesignApply.*;
 import cn.xm.jwxt.utils.ResposeResult;
 import cn.xm.jwxt.utils.TransitionStatusUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@SuppressWarnings("all")
 @RequestMapping("/outGraduateDesiner")
 public class OutGraDesignApplyController {
     private Logger logger = Logger.getLogger(OutGraDesignApplyController.class);
@@ -31,7 +27,75 @@ public class OutGraDesignApplyController {
     private OutGraDesignTitleApplyService oGDTitleService;
     @Autowired
     private GraDesignLeaveApplyService gDesignLeaveService;
+    @Autowired
+    private OutGraDesignAggAndSureService oGDAgreementService;
+    @Autowired
+    private OutsideGraDesignAttachmentService oGDAttachmentService;
 
+    @RequestMapping("/commitOGDAttachment")
+    @ResponseBody
+    public String commitOGDAttachment(String attachmentID,String contentType){
+        try {
+            boolean b = oGDAttachmentService.commitAttachment(attachmentID,contentType);
+            if(b){
+                return "提交成功";
+            }
+        } catch (SQLException e) {
+            logger.error("保存失败，数据库出错",e);
+        }
+        return "提交失败";
+    }
+
+    @RequestMapping("/saveOGDAttachment")
+    @ResponseBody
+    public String saveOGDAttachment(String attachmentID,String contentType){
+        try {
+            boolean b = oGDAttachmentService.updateAttachment(attachmentID,contentType);
+            if(b){
+                return "保存成功";
+            }
+        } catch (SQLException e) {
+            logger.error("保存失败，数据库出错",e);
+        }
+        return "保存失败";
+    }
+
+    @RequestMapping("/selectOGDAttachment")
+    @ResponseBody
+    public Outsidegradesignattachment selectOGDAttachment(String attachmentID){
+        Outsidegradesignattachment oGDAttachment = null;
+        try {
+            oGDAttachment = oGDAttachmentService.selectAttachmentByAttID(attachmentID);
+        } catch (SQLException e) {
+            logger.error("查询学生附件信息失败，数据库异常",e);
+        }
+        return oGDAttachment;
+    }
+
+    @RequestMapping("/selectODGSureBook")
+    @ResponseBody
+    public Outgradesignsurebook selecODGSureBook(String sureID){
+        Outgradesignsurebook oGDSureBook = null;
+        try {
+            oGDSureBook = oGDAgreementService.selectBySureID(sureID);
+        } catch (SQLException e) {
+            logger.error("查询学生保证书信息失败，数据库异常",e);
+        }
+        return oGDSureBook;
+    }
+
+    @RequestMapping("/selectODGSelfAggreement")
+    @ResponseBody
+    public Outsidegradesignagreemen selectODGSelfAggreement(String selfManageId){
+        Outsidegradesignagreemen oGDAgreement = null;
+        try{
+            oGDAgreement = oGDAgreementService.selectByID(selfManageId);
+        } catch(SQLException e){
+            logger.error("查询学生自我管理协议书失败，数据库异常",e);
+        }
+        return oGDAgreement;
+    }
+    /*查询毕设中自我管理协议书*/
     @RequestMapping("/selectOGDLeaveInfo")
     @ResponseBody
     public Gradesignleaveapply selectOGDLeaveInfo(String leaveID){

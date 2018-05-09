@@ -76,7 +76,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/arrangeCourse/scheduleArrange.html">
+                        <a _href="pages/arrangeCourse/scheduleArrange.jsp">
                             <cite>安排课程</cite>
                         </a>
                     </li>

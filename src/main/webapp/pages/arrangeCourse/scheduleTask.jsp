@@ -50,14 +50,10 @@
         	
             <div class="layui-input-inline">
                 <select name="majorId" lay-filter="major">
-                    <%--<option value="">请输入专业</option>
-                    <option value="1">软件工程</option>
-                    <option value="2">物联网</option>
-                    <option value="3">计算机</option>--%>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <input id="y_year" name="academicYear" class="layui-input" placeholder="学年"  lay-key="1"/>
+                <input id="s_year" name="academicYear" class="layui-input" placeholder="学年"  lay-key="1"/>
             </div>
             <div class="layui-input-inline">
                     <select name="term">
@@ -85,14 +81,7 @@
 	<button class="layui-btn" onclick="send()" >发送</button>
     <button class="layui-btn" onclick="accept()" >接收</button>
 	</xblock>
-	<script>
-		//新增任务
-		function addTask(){
-			x_admin_show('新增任务','./scheduleTask-add.jsp')
-		}
 
-
-	</script>
     <!--表格内容-->
     <table class="layui-table">
         <thead>

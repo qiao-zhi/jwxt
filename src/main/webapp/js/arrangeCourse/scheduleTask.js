@@ -13,7 +13,7 @@ layui.use(['layer', 'form', 'element'], function(){
     //初始化表格
     findArrangeCourseTaskInfo();
     //初始化专业下拉框
-    findMajorNameAndId(form);
+    findMajorNameAndIdForSelect(form);
     //查询按钮事件过滤器
     form.on('submit(search)', function(data){
         //清空当前页和页号
@@ -95,15 +95,6 @@ function arrangeCourseTaskInfoListPage(total,pageNum,pageSize){
 }
 
 
-//设置条件选择框中的学年
-layui.use('laydate', function () {
-    var laydate = layui.laydate;
-    laydate.render({
-        elem: '#y_year' //指定元素
-        ,type: 'year'
-    });
-})
-
 /*删除*/
 function deleteArrangeTaskInfo(id) {
     layer.confirm('确认要删除吗？', function (index) {
@@ -122,6 +113,11 @@ function deleteArrangeTaskInfo(id) {
     });
 }
 
+//新增任务
+function addTask(){
+    x_admin_show('新增任务','./scheduleTask-add.jsp')
+}
+
 //分配课程按钮
 function allotCourse(){
     var checked = $("[name='taskRadio']:checked").length>0?true:false;
@@ -137,26 +133,6 @@ function allotCourse(){
     var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
     var noticeBookId = $("[name='taskRadio']:checked + input[name='sel_noticeBookId']").val();
     x_admin_show('分配课程','./scheduleTask-allot.jsp?arrangeTaskId='+arrangeTaskId+'&noticeBookId='+noticeBookId);
-}
-
-//初始化专业下拉框
-function findMajorNameAndId(form){
-    $.ajax({
-        url:contextPath+"/TrainScheme/getMajorNameAndCode.action",
-        dataType:"json",
-        type:"post",
-        success:function (response) {
-            //console.log(response);
-            var optionStr = "<option value=''>请输入专业</option>";
-            $("select[name='majorId']").append(optionStr)
-            for(var i=0;i<response.length;i++){
-                optionStr = "<option value='" + response[i].majorId+"'>"+response[i].majorName+"</option>";
-                $("select[name='majorId']").append(optionStr)
-            }
-            //更新渲染
-            form.render('select');
-        }
-    })
 }
 
 //发送任务
