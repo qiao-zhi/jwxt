@@ -1,3 +1,4 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,8 @@
 	 	 	width: 200px;
 	 	 	}
     </style>
+	<%--公共标签--%>
+	<%@include file="/tag.jsp"%>
 </head>
 <body>
 <div class="x-body">

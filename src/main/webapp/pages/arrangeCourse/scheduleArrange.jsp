@@ -20,8 +20,8 @@
     <%@include file="/tag.jsp"%>
     <%--排课公共方法--%>
     <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
-    <%--引入排课任务管理js文件--%>
-    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/scheduleTask.js"></script>
+    <%--安排课程界面的js--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/scheduleArrange.js"></script>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
         <a href="../../welcome.html">首页</a>
         <a href="">排课管理</a>
         <a>
-          <cite>任务管理</cite></a>
+          <cite>安排课程</cite></a>
       </span>
     <a class="layui-btn layui-btn-small" style="margin-top:3px;float:right"
        href="javascript:location.replace(location.href);" title="刷新">
@@ -56,16 +56,15 @@
                 <input id="s_year" name="academicYear" class="layui-input" placeholder="学年"  lay-key="1"/>
             </div>
             <div class="layui-input-inline">
-                    <select name="term">
-                        <option value="">请输入学期</option>
-                        <option value="1">第一学期</option>
-                        <option value="2">第二学期</option>
-                    </select>
+                <select name="term">
+                    <option value="">请输入学期</option>
+                    <option value="1">第一学期</option>
+                    <option value="2">第二学期</option>
+                </select>
             </div>
             <%--隐藏当前页和当前页显示条数--%>
             <input type="hidden" name="pageSize"/>
             <input type="hidden" name="currentPage"/>
-
             <div class="layui-input-inline">
                  <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
             </div>
@@ -76,21 +75,19 @@
 
     
     <xblock>
-	<button class="layui-btn" onclick="addTask()" >新增</button>
-	<button class="layui-btn" onclick="allotCourse()" >分配</button>
-	<button class="layui-btn" onclick="send()" >发送</button>
-    <button class="layui-btn" onclick="accept()" >接收</button>
+	<button class="layui-btn" onclick="allotCourse_history()" >根据历史排课记录安排</button>
+	<!--<button class="layui-btn" onclick="accept()" >接收</button>-->
+	<!--<button class="layui-btn" onclick="arrangeCourse()" >排课</button>-->
+	<!--<button class="layui-btn" onclick="arrangeCourse()" >审核</button>-->
 	</xblock>
-
     <!--表格内容-->
     <table class="layui-table">
         <thead>
-        	
         	<tr>
-                <th>
-                    <%--<div  class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+    			 <th>
+                   <%-- <div  class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
                     &#xe605;</i></div>--%>
-                </th>
+                 </th>
                 <th>序号</th>
                 <th>任务通知书名称</th>
                 <th>专业</th>
@@ -109,7 +106,7 @@
     <!--end 表格内容-->
 
     <!--分页-->
-    <div id="taskPage"></div>
+    <div id="arrangePage"></div>
     <!--end 分页-->
 </div>
 
