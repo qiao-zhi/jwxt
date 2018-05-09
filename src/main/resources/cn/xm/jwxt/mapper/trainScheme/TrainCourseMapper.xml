@@ -5,7 +5,7 @@
     <id column="trainCourseID" property="traincourseid" jdbcType="INTEGER" />
     <result column="trainningSchemeID" property="trainningschemeid" jdbcType="VARCHAR" />
     <result column="courseID" property="courseid" jdbcType="VARCHAR" />
-    <result column="courseTypeID" property="coursetypeid" jdbcType="INTEGER" />
+    <result column="typeNum" property="typenum" jdbcType="VARCHAR" />
     <result column="semester" property="semester" jdbcType="SMALLINT" />
     <result column="courseType" property="coursetype" jdbcType="VARCHAR" />
   </resultMap>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    trainCourseID, trainningSchemeID, courseID, courseTypeID, semester, courseType
+    trainCourseID, trainningSchemeID, courseID, typeNum, semester, courseType
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.trainScheme.TrainCourseExample" >
     select
@@ -102,10 +102,10 @@
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.trainScheme.TrainCourse" >
     insert into train_course (trainCourseID, trainningSchemeID, 
-      courseID, courseTypeID, semester, 
+      courseID, typeNum, semester, 
       courseType)
     values (#{traincourseid,jdbcType=INTEGER}, #{trainningschemeid,jdbcType=VARCHAR}, 
-      #{courseid,jdbcType=VARCHAR}, #{coursetypeid,jdbcType=INTEGER}, #{semester,jdbcType=SMALLINT}, 
+      #{courseid,jdbcType=VARCHAR}, #{typenum,jdbcType=VARCHAR}, #{semester,jdbcType=SMALLINT}, 
       #{coursetype,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.trainScheme.TrainCourse" >
@@ -120,8 +120,8 @@
       <if test="courseid != null" >
         courseID,
       </if>
-      <if test="coursetypeid != null" >
-        courseTypeID,
+      <if test="typenum != null" >
+        typeNum,
       </if>
       <if test="semester != null" >
         semester,
@@ -140,8 +140,8 @@
       <if test="courseid != null" >
         #{courseid,jdbcType=VARCHAR},
       </if>
-      <if test="coursetypeid != null" >
-        #{coursetypeid,jdbcType=INTEGER},
+      <if test="typenum != null" >
+        #{typenum,jdbcType=VARCHAR},
       </if>
       <if test="semester != null" >
         #{semester,jdbcType=SMALLINT},
@@ -169,8 +169,8 @@
       <if test="record.courseid != null" >
         courseID = #{record.courseid,jdbcType=VARCHAR},
       </if>
-      <if test="record.coursetypeid != null" >
-        courseTypeID = #{record.coursetypeid,jdbcType=INTEGER},
+      <if test="record.typenum != null" >
+        typeNum = #{record.typenum,jdbcType=VARCHAR},
       </if>
       <if test="record.semester != null" >
         semester = #{record.semester,jdbcType=SMALLINT},
@@ -188,7 +188,7 @@
     set trainCourseID = #{record.traincourseid,jdbcType=INTEGER},
       trainningSchemeID = #{record.trainningschemeid,jdbcType=VARCHAR},
       courseID = #{record.courseid,jdbcType=VARCHAR},
-      courseTypeID = #{record.coursetypeid,jdbcType=INTEGER},
+      typeNum = #{record.typenum,jdbcType=VARCHAR},
       semester = #{record.semester,jdbcType=SMALLINT},
       courseType = #{record.coursetype,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -204,8 +204,8 @@
       <if test="courseid != null" >
         courseID = #{courseid,jdbcType=VARCHAR},
       </if>
-      <if test="coursetypeid != null" >
-        courseTypeID = #{coursetypeid,jdbcType=INTEGER},
+      <if test="typenum != null" >
+        typeNum = #{typenum,jdbcType=VARCHAR},
       </if>
       <if test="semester != null" >
         semester = #{semester,jdbcType=SMALLINT},
@@ -220,7 +220,7 @@
     update train_course
     set trainningSchemeID = #{trainningschemeid,jdbcType=VARCHAR},
       courseID = #{courseid,jdbcType=VARCHAR},
-      courseTypeID = #{coursetypeid,jdbcType=INTEGER},
+      typeNum = #{typenum,jdbcType=VARCHAR},
       semester = #{semester,jdbcType=SMALLINT},
       courseType = #{coursetype,jdbcType=VARCHAR}
     where trainCourseID = #{traincourseid,jdbcType=INTEGER}

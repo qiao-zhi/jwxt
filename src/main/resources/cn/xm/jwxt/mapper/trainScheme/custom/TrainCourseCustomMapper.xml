@@ -1,4 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xm.jwxt.mapper.trainScheme.custom.TrainCourseCustomMapper" >
+<mapper namespace="cn.xm.jwxt.mapper.trainScheme.custom.TrainCourseCustomMapper">
+
+
+    <!--1.根据培养方案编号组合条件查询没有安排的课程信息-->
+    <select id="getCoursesBseInfoByCondition" parameterType="map" resultType="TCourseBaseInfo">
+        SELECT * FROM t_course_base_info
+        <where>
+            <!--正在使用的课程和培养方案中未安排的课程信息-->
+            <if test="1 == 1">
+                and remark1 = '1' AND courseId NOT IN (SELECT courseId FROM train_course WHERE trainningSchemeID =
+                #{trainSchemeId})
+            </if>
+            <if test="coursenamecn != null and coursenamecn != ''">
+                and coursenamecn like '%${coursenamecn}%'
+            </if>
+            <if test="courseplatform != null and courseplatform != ''">
+                and courseplatform = #{courseplatform}
+            </if>
+            <if test="coursenature != null and coursenature != ''">
+                and coursenature = #{coursenature}
+            </if>
+        </where>
+    </select>
+
+    <!--2.批量添加培养方案课程信息-->
+    <insert id="addTrainCourseBatch" parameterType="list">
+        INSERT into train_course(trainCourseID, trainningSchemeID,courseID,typeNum,semester,courseType) VALUES
+        <foreach collection="list" item="trainCourse" separator=",">
+            (null,#{trainCourse.trainningschemeid},#{trainCourse.courseid},#{trainCourse.typenum},#{trainCourse.semester},null)
+        </foreach>
+    </insert>
+
+    <!--3.组合条件分页查询培养方案课程信息-->
+    <select id="getTrainCoursesByCondition" parameterType="map" resultType="map">
+        SELECT
+            train.trainingSchemaName,
+            train.majorName,
+            train.createTime,
+            tc.*,
+            course.*,
+            type.*
+        FROM
+            trainschemeinfo train
+        JOIN train_course tc ON train.trainingSchemeID = tc.trainningSchemeID
+        INNER JOIN t_course_base_info course ON tc.courseID = course.courseId
+        inner join coursetypeinfo type on tc.typeNum = type.typeNum
+        <where>
+            <if test="1 == 1">
+                tc.trainningSchemeID=#{trainSchemeId}
+            </if>
+        </where>
+
+    </select>
+
+
 </mapper>
