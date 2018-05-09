@@ -11,19 +11,42 @@ import java.sql.SQLException;
 public interface OutsideGraDesignAttachmentService {
     /**
      * 查询附件详细信息（附件表）
-     * @param outsideApplyID
+     * @param attachmentID
      * @return
      * @throws SQLException
      */
-    public Outsidegradesignattachment selectAttachmentByODGID(String outsideApplyID) throws SQLException;
+    public Outsidegradesignattachment selectAttachmentByAttID(String attachmentID) throws SQLException;
 
     /**
-     * 修改附件信息初始化
-     * @param graDesignLeaveApply
+     * 提交附件信息修改状态为1
+     * @param attachmentID
+     * @param type
      * @return
      * @throws SQLException
      */
-    public int updateAttachment(Outsidegradesignattachment graDesignLeaveApply) throws SQLException;
+    public boolean commitAttachment(String attachmentID,String type) throws SQLException;
 
-    public int deleteAttachment(String outsideApplyID) throws SQLException;
+    /**
+     * 保存附件信息中状态字段
+     * @param attachmentID,type
+     * @return
+     * @throws SQLException
+     */
+    public boolean updateAttachment(String attachmentID,String type) throws SQLException;
+
+    /**
+     * 根据id删除一条附件信息内容
+     * @param contentID
+     * @return
+     * @throws SQLException
+     */
+    public boolean deleteAttachmentContentbyID(String contentID) throws SQLException;
+
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
+    public boolean addAttachmentContent(String attachmentID,String fileName) throws SQLException;
+
 }

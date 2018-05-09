@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public interface GraDesignLeaveApplyService {
     /**
      * 根据校外申请ID查询请假表的信息（请假表审核表和销假表）
-     * @param outsideApplyID
+     * @param leaveID
      * @return
      * @throws SQLException
      */
@@ -23,7 +23,14 @@ public interface GraDesignLeaveApplyService {
      * @return
      * @throws SQLException
      */
-    public boolean updateInfo(Gradesignleaveapply graDesignLeaveApply) throws SQLException;
+    public boolean updateLeave(Gradesignleaveapply graDesignLeaveApply) throws SQLException;
 
-    public boolean deleteInfo(String outsideApplyID) throws SQLException;
+    /**
+     * 提交请假申请表，更改提交字段值为1
+     * @param leaveID
+     * @return
+     * @throws SQLException
+     */
+    public boolean commitLeave(String leaveID) throws  SQLException;
+    public boolean deleteLeave(String outsideApplyID) throws SQLException;
 }

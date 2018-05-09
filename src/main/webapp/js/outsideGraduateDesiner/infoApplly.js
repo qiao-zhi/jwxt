@@ -6,7 +6,7 @@ $(function(){
         var form = layui.form;
         /*发送ajax请求查询*/
         $.ajax({
-            url:"/jwxt/outGraduateDesiner/selectODGApplyInfo.do",
+            url:contextPath+"/outGraduateDesiner/selectODGApplyInfo.do",
             type:"post",
             data:{"outsideApplyID":outsideApplyID},
             dataType:"json",
@@ -16,10 +16,12 @@ $(function(){
                 $("#sex").val(result.sex);
                 $("#majorclass").val(result.majorclass);
                 $("#inteachername").val(result.inteachername);
-                $("#receiveunit").val(result.receiveunit);
+                $("#receiveUnit").val(result.receiveunit);
                 $("#applyreason").val(result.applyreason);
-                $("#stuapplydate").val(result.applydate);
-                $("#stusignurl").attr("src",result.stusignurl);
+                $("#stuapplydate").val(Format(new Date(result.applydate),'yyyy-MM-dd'));
+                if(result.stusignurl!=""){
+                    $("#stusignurl").attr("src",result.stusignurl);
+                }
                 /*获取审核结果集*/
                 var check = result.checkOGDInfo;
                 for(var i=0;i<check.length;i++){
@@ -50,3 +52,45 @@ $(function(){
         });
     });
 });
+
+//上传签名
+function studentSign() {
+    var userID = "1";
+    var outsideApplyID = getAddressParameter("id");
+    layer.prompt({
+        formType: 1,
+        value: '',
+        title: '请输入签名密码',
+        //area: ['800px', '350px'] //自定义文本域宽高
+    }, function (value, index, elem) {
+        //alert(value);
+        $.ajax({
+            url:contextPath+"/baseInfo/studentSign.do",
+            type:"post",
+            data:{"userID":userID,
+                "signPassword":value,
+                "outsideApplyID":outsideApplyID
+            },
+            dataType:"json",
+            success: function(result){
+                var status = result.status;
+                if(status==1){
+                    $("#stusignurl").attr("src",result.signUrl);
+                    $("#stuapplydate").val(Format(new Date(),"yyyy-MM-dd"));
+                    layer.close(index);
+                }
+                if(status==0){
+                    layer.close(index);
+                    layer.msg(result.signUrl);
+                }
+                if(status==2){
+                    layer.close(index);
+                    layer.msg(result.signUrl);
+                }
+            },
+            error:function () {
+                alert("签字失败");
+            }
+        });
+    });
+}

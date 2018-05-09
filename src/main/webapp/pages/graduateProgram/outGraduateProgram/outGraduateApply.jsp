@@ -51,7 +51,7 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('查看校外毕设要求','./outGraduateApply-require.html')">查看校外毕设要求 </button>
+        <button class="layui-btn" onclick="x_admin_show('查看校外毕设要求','./outGraduateApply-require.jsp')">查看校外毕设要求 </button>
         <button class="layui-btn" onclick="applyDownload()">下载申请资料 </button>
         <button class="layui-btn" onclick="outApplyCommit()" style="float: right;">提交 </button>
     </xblock>
@@ -175,7 +175,7 @@
 		  <li class="layui-timeline-item">
 		    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 		    <div class="layui-timeline-content layui-text">
-		      <h3 class="layui-timeline-title">8月18日</h3>
+		      <h3 class="layui-timeline-title"></h3>
 		      <p>
 		        导员审核通过，待指导教师审核
 		      </p>
@@ -184,7 +184,7 @@
 		  <li class="layui-timeline-item">
 		    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 		    <div class="layui-timeline-content layui-text">
-		      <h3 class="layui-timeline-title">8月16日</h3>
+		      <h3 class="layui-timeline-title"></h3>
 		      <p>申请已提交，待导员审核</p>
 		      
 		    </div>
@@ -194,7 +194,6 @@
    
 </div>
 <script>
-    
     //点击关闭其他，触发事件
     function closeOther() {
         var closeTable = $(".layui-tab-title", parent.document).children("li");
@@ -206,9 +205,36 @@
     }
     //提交所有的申请
 	function outApplyCommit(){
-			layer.confirm("您确定要提交此次校外毕设申请信息吗？",function(index){
-				//这里写提交成功的函数
-				layer.close(index)
+			layer.confirm("您确定要提交此次校外毕设申请信息吗？文件一旦提交将无法修改，进入审批流程。",function(index){
+                layer.close(index);
+			    var flag = true;
+			    //获取校外毕设ID
+			    var tr1 = $(".thead-tbody").children("tr:eq(0)");
+                var outsideApplyId = $(tr1).data("id");
+                var trs = $(".thead-tbody").children("tr");
+                for(var i=0;i<trs.length;i++){
+                    var td3 = $(trs[i]).find("td:eq(3)").text();
+                    if(td3!="01"&&td3!="11"){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    $.ajax({
+                        url:contextPath+"/baseInfo/commitODGApply.do",
+                        type:"post",
+                        data:{"outsideApplyId":outsideApplyId},
+                        dataType:"text",
+                        success:function(result){
+                            layer.msg(result);
+                        },
+                        error:function(){
+                            layer.msg("请求失败");
+                        }
+                    })
+                } else{
+                    layer.msg("提交失败：您有未提交的申请，请先提交。")
+                }
+
 			})
 	}
 </script>

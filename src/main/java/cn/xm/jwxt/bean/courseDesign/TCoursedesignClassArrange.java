@@ -7,6 +7,8 @@ public class TCoursedesignClassArrange {
 
     private String classid;
 
+    private String display;
+
     public String getCoursedesignclassarrangeid() {
         return coursedesignclassarrangeid;
     }
@@ -29,5 +31,13 @@ public class TCoursedesignClassArrange {
 
     public void setClassid(String classid) {
         this.classid = classid == null ? null : classid.trim();
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display == null ? null : display.trim();
     }
 }

@@ -15,26 +15,66 @@
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
+    <%--s  bzy--%>
+    <%@include file="/tag.jsp"%>
+    <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/leaveApply.js"></script>
+    <%--e  bzy--%>
 </head>
 
 <body>
 <div class="x-body" style="margin:20px auto 50px auto; width:90%;">
-    <button class="btn-primary btn" onclick="basicSave()">保存</button>
-    <button class="btn-primary btn" onclick="basicCommit()">提交</button>
+    <button class="btn-primary btn" onclick="basicSave()" type="button">保存</button>
+    <button class="btn-primary btn" onclick="basicCommit()" type="button">提交</button>
     <script>
     	//保存
     	function basicSave(){
-    		layer.alert("保存成功",function(){
-    			x_admin_close()
-    		})
+            var leaveid = getAddressParameter("id");
+            var startAndEndTime = $("#applytimeRange").val().trim();
+            var startdate = startAndEndTime.substr(0,10).trim();
+            var enddate = startAndEndTime.substr(13,10).trim();
+            var leavedays = $("#leaveDays").val();
+            var leaveaddress = $("#leaveAddress").val();
+            var studenttel = $("#studentTel").val();
+            var homeaddress = $("#homeAddress").val();
+            var hometel = $("#homeTel").val();
+            var leavereason = $("#leaveReason").val();
+            $.ajax({
+                url:contextPath+"/leave/updateLeaveApply.do",
+                type:"post",
+                data:{"leaveid":leaveid,"startdate":startdate,"enddate":enddate,
+                    "leavedays":leavedays,"leaveaddress":leaveaddress,"studenttel":studenttel
+                    ,"homeaddress":homeaddress,"hometel":hometel,"leavereason":leavereason
+                },
+                datatype:"text",
+                success:function(result){
+                    layer.msg(result);
+                },
+                error:function(){
+                    alert("错误！！！")
+                    x_admin_close();
+                }
+            })
     	}
     	//提交
     	function basicCommit(){
-    		layer.confirm("您确定要提交此次申请吗？",function(){
-    			x_admin_close()
-    		})
+            var leaveid = getAddressParameter("id");
+            layer.confirm("您确定要提交此次申请吗？一旦提交将无法进行修改。",function(){
+                $.ajax({
+                    url:contextPath+"/leave/commitLeave.do",
+                    type:"post",
+                    data:{"leaveid":leaveid},
+                    datatype:"text",
+                    success:function(result){
+                        layer.msg(result,{time:2000 });
+                    },
+                    error:function(){
+                        alert("出错！！！");
+                        x_admin_close();
+                    }
+                });
+            });
     	}
     </script>
     		
@@ -47,25 +87,25 @@
         <tr>
             <td width="100px">学生姓名</td>
             <td width="200px">
-                <input type="text" class="form-control" id="studentName" name="studentName">
+                <input type="text" class="form-control" id="studentName" readonly>
             </td>
             <td width="100px" >学号</td>
             <td width="300px">
-         	           <input type="text" class="form-control" id="studentNum" name="studentNum">
+         	           <input type="text" class="form-control" id="studentNum" readonly>
             </td>
             <td width="100px">专业</td>
             <td width="200px">
-                <input type="text" class="form-control" id="studentMajor" name="studentMajor">
+                <input type="text" class="form-control" id="studentMajor" readonlys readonly>
             </td>
         </tr>
         <tr>
             <td width="100px">请假起止日期</td>
             <td width="450px">
-            	<input id="applytimeRange" type="text" name="applytimeRange" placeholder="点击选择请假日期" autocomplete="off" class="form-control" >
+            	<input id="applytimeRange" type="text" name="startAndEndTime" placeholder="点击选择请假日期" autocomplete="off" class="form-control" >
             </td>
             <td>请假天数</td>
             <td colspan="3">
-            	<input type="text"  class="form-control" id="leaveDays" name="leaveDays"/>
+            	<input type="text"  class="form-control" id="leaveDays" name="leavedays" readonly/>
             </td>
         </tr>
         
@@ -73,11 +113,11 @@
         <tr>
             <td>请假去向</td>
             <td >
-                <input type="text" class="form-control" id="leaveAddress" name="leaveAddress">
+                <input type="text" class="form-control" id="leaveAddress" name="leaveaddress">
             </td>
             <td>个人联系电话</td>
             <td colspan="3">
-                <input type="text" class="form-control" value="" id="studentTel" name="studentTel">
+                <input type="text" class="form-control" value="" id="studentTel" name="studenttel">
             </td>
             
         </tr>
@@ -85,18 +125,18 @@
         <tr>
            <td>家庭地址</td>
             <td >
-                <input type="text" class="form-control" id="homeAddress" name="homeAddress">
+                <input type="text" class="form-control" id="homeAddress" name="homeaddress">
             </td>
             <td>家庭联系电话</td>
             <td colspan="3">
-         	           <input type="text" class="form-control" id="homeTel" name="homeTel">
+         	           <input type="text" class="form-control" id="homeTel" name="hometel">
                 
             </td>
         </tr>
         <tr>
            <td>请假事由</td>
             <td colspan="5" >
-                <textarea name="" cols="100" rows="3" class="form-control" id="leaveReason" name="leaveReason"></textarea>
+                <textarea name="" cols="100" rows="3" class="form-control" id="leaveReason" name="leavereason"></textarea>
             </td>
             
         </tr>
@@ -119,7 +159,7 @@
             
             <td colspan="2">
             	<div style="height: 50px;">
-            		<img src="" width="160px" height="50px" class="url"/>
+            		<img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
             		<button type="button" class="layui-btn"  style="float: right;">签名</button>
             	</div>
                 <hr />
@@ -145,7 +185,7 @@
             
             <td colspan="2">
             	<div style="height: 50px;">
-            		<img src="" width="160px" height="50px" class="url"/>
+            		<img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
             		<button type="button" class="layui-btn"  style="float: right;">签名</button>
             	</div>
                 <hr />
@@ -173,7 +213,7 @@
             
             <td colspan="2">
             	<div style="height: 50px;">
-            		<img src="" width="160px" height="50px" class="url"/>
+            		<img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
             		<button type="button" class="layui-btn"  style="float: right;">签名</button>
             	</div>
                 <hr />
@@ -200,7 +240,7 @@
             
             <td colspan="2">
             	<div style="height: 50px;">
-            		<img src="" width="160px" height="50px" alt="待签字" class="url"/>
+            		<img src="../../../images/info.jpg" width="160px" height="50px" alt="待签字" class="url"/>
             		<button type="button" class="layui-btn"  style="float: right;">签名</button>
             	</div>
                 <hr />
@@ -227,7 +267,7 @@
             
             <td colspan="2">
             	<div style="height: 50px;">
-            		<img src="" width="160px" height="50px" class="url"/>
+            		<img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
             		<button type="button" class="layui-btn" style="float: right;">签名</button>
             	</div>
                 <hr />
@@ -254,7 +294,7 @@
             
             <td colspan="2">
             	<div style="height: 50px; width: 170px;">
-            		<img src="" width="160px" height="50px" class="url"/>
+            		<img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
             		<button type="button" class="layui-btn"  style="float: right;margin-right: -59px;">签名</button>
             	</div>
                 <hr />
@@ -274,7 +314,7 @@
         </tbody>
     </table>
     <span>说明：一式两份，一份装订入学生毕业设计（论文）内，一份交学院（直属系）。</span>
-</form>
+    </form>
 </div>
 <script>
 	
@@ -304,54 +344,6 @@
 			elem:'#applytimeCancel',
 		});
 	});
-	
-	
-	//上传签名
-	function studentSign(){
-		layer.prompt({
-  			  formType: 1,
-			  value: '',
-			  title: '请输入签名密码',
-			  //area: ['800px', '350px'] //自定义文本域宽高
-			}, function(value, index, elem){
-				if(value==''){
-					
-				}else{
-					 layer.close(index);
-				}
-					  	})
-			}
-
-	
-    //照片上传
-    layui.use('upload', function () {
-        var $ = layui.jquery, upload = layui.upload;
-        var uploadInst = upload.render({
-            elem: '#test1'
-            , url: '/upload/'
-            , before: function (obj) {
-                //预读本地文件示例，不支持ie8
-                obj.preview(function (index, file, result) {
-                    $('#demo1').attr('src', result); //图片链接（base64）
-                });
-            }
-            , done: function (res) {
-                //如果上传失败
-                if (res.code > 0) {
-                    return layer.msg('上传失败');
-                }
-                //上传成功
-            }
-            , error: function () {
-                //演示失败状态，并实现重传
-                var demoText = $('#demoText');
-                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function () {
-                    uploadInst.upload();
-                });
-            }
-        });
-    })//end 照片上传
 </script>
 </body>
 

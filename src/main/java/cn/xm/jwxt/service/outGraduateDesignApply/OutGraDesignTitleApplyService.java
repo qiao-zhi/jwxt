@@ -25,6 +25,13 @@ public interface OutGraDesignTitleApplyService {
      */
     public boolean updateTitleApply(Outgradesigntitleapply outGraDesignTitleApply) throws SQLException;
 
-    public boolean deleteTitleApply(String outsideApplyID) throws SQLException;
+    /**
+     * 提交校外毕设题目申请
+     * @param outgradesignapplyid
+     * @return
+     * @throws SQLException
+     */
+    public boolean commitTitle(String outgradesignapplyid) throws SQLException;
+
 
 }

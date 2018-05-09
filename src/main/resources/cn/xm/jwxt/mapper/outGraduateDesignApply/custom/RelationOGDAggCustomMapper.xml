@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDAggCustomMapper" >
+
+    <select id="selectAllAggreementByAID" parameterType="string" resultMap="aggreement">
+        SELECT * FROM outsidegradesignAgreemen a,outgradesignInfo o WHERE a.outsideapplyid=o.outsideapplyid
+        AND a.agreementid=#{id}
+    </select>
+    <resultMap id="aggreement" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignagreemen">
+        <id property="agreementid" column="agreementid"/>
+        <result property="outsideapplyid" column="outsideapplyid"/>
+        <result property="agreementname" column="agreementname"/>
+        <result property="collegename" column="collegename"/>
+        <result property="studentidcard" column="studentidcard"/>
+        <result property="schoolsign" column="schoolsign"/>
+        <result property="schoolsigndate" column="schoolsigndate"/>
+        <result property="studentsign" column="studentsign"/>
+        <result property="studentsigndate" column="studentsigndate"/>
+        <result property="applystatus" column="applystatus"/>
+        <result property="remark" column="remark"/>
+        <association property="oGDInfo" javaType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo">
+            <result property="studentname" column="studentname"/>
+            <result property="majorclass" column="majorclass"/>
+        </association>
+    </resultMap>
+
+
+</mapper>

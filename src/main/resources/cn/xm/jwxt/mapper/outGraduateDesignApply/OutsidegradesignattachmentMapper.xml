@@ -5,10 +5,8 @@
     <id column="attachmentID" property="attachmentid" jdbcType="VARCHAR" />
     <result column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
     <result column="attachmentName" property="attachmentname" jdbcType="VARCHAR" />
-    <result column="attachmentOldName" property="attachmentoldname" jdbcType="VARCHAR" />
-    <result column="newName" property="newname" jdbcType="VARCHAR" />
-    <result column="attachmentAddr" property="attachmentaddr" jdbcType="VARCHAR" />
     <result column="uploadDate" property="uploaddate" jdbcType="TIMESTAMP" />
+    <result column="iscommit" property="iscommit" jdbcType="VARCHAR" />
     <result column="attachmentType" property="attachmenttype" jdbcType="CHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
@@ -71,8 +69,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    attachmentID, outsideApplyID, attachmentName, attachmentOldName, newName, attachmentAddr, 
-    uploadDate, attachmentType, remark
+    attachmentID, outsideApplyID, attachmentName, uploadDate, iscommit, attachmentType, 
+    remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutsidegradesignattachmentExample" >
     select
@@ -106,13 +104,11 @@
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
     insert into outsidegradesignattachment (attachmentID, outsideApplyID, attachmentName, 
-      attachmentOldName, newName, attachmentAddr, 
-      uploadDate, attachmentType, remark
-      )
+      uploadDate, iscommit, attachmentType, 
+      remark)
     values (#{attachmentid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, #{attachmentname,jdbcType=VARCHAR}, 
-      #{attachmentoldname,jdbcType=VARCHAR}, #{newname,jdbcType=VARCHAR}, #{attachmentaddr,jdbcType=VARCHAR}, 
-      #{uploaddate,jdbcType=TIMESTAMP}, #{attachmenttype,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}
-      )
+      #{uploaddate,jdbcType=TIMESTAMP}, #{iscommit,jdbcType=VARCHAR}, #{attachmenttype,jdbcType=CHAR}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignattachment" >
     insert into outsidegradesignattachment
@@ -126,17 +122,11 @@
       <if test="attachmentname != null" >
         attachmentName,
       </if>
-      <if test="attachmentoldname != null" >
-        attachmentOldName,
-      </if>
-      <if test="newname != null" >
-        newName,
-      </if>
-      <if test="attachmentaddr != null" >
-        attachmentAddr,
-      </if>
       <if test="uploaddate != null" >
         uploadDate,
+      </if>
+      <if test="iscommit != null" >
+        iscommit,
       </if>
       <if test="attachmenttype != null" >
         attachmentType,
@@ -155,17 +145,11 @@
       <if test="attachmentname != null" >
         #{attachmentname,jdbcType=VARCHAR},
       </if>
-      <if test="attachmentoldname != null" >
-        #{attachmentoldname,jdbcType=VARCHAR},
-      </if>
-      <if test="newname != null" >
-        #{newname,jdbcType=VARCHAR},
-      </if>
-      <if test="attachmentaddr != null" >
-        #{attachmentaddr,jdbcType=VARCHAR},
-      </if>
       <if test="uploaddate != null" >
         #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iscommit != null" >
+        #{iscommit,jdbcType=VARCHAR},
       </if>
       <if test="attachmenttype != null" >
         #{attachmenttype,jdbcType=CHAR},
@@ -193,17 +177,11 @@
       <if test="record.attachmentname != null" >
         attachmentName = #{record.attachmentname,jdbcType=VARCHAR},
       </if>
-      <if test="record.attachmentoldname != null" >
-        attachmentOldName = #{record.attachmentoldname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.newname != null" >
-        newName = #{record.newname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.attachmentaddr != null" >
-        attachmentAddr = #{record.attachmentaddr,jdbcType=VARCHAR},
-      </if>
       <if test="record.uploaddate != null" >
         uploadDate = #{record.uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.iscommit != null" >
+        iscommit = #{record.iscommit,jdbcType=VARCHAR},
       </if>
       <if test="record.attachmenttype != null" >
         attachmentType = #{record.attachmenttype,jdbcType=CHAR},
@@ -221,10 +199,8 @@
     set attachmentID = #{record.attachmentid,jdbcType=VARCHAR},
       outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
       attachmentName = #{record.attachmentname,jdbcType=VARCHAR},
-      attachmentOldName = #{record.attachmentoldname,jdbcType=VARCHAR},
-      newName = #{record.newname,jdbcType=VARCHAR},
-      attachmentAddr = #{record.attachmentaddr,jdbcType=VARCHAR},
       uploadDate = #{record.uploaddate,jdbcType=TIMESTAMP},
+      iscommit = #{record.iscommit,jdbcType=VARCHAR},
       attachmentType = #{record.attachmenttype,jdbcType=CHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -240,17 +216,11 @@
       <if test="attachmentname != null" >
         attachmentName = #{attachmentname,jdbcType=VARCHAR},
       </if>
-      <if test="attachmentoldname != null" >
-        attachmentOldName = #{attachmentoldname,jdbcType=VARCHAR},
-      </if>
-      <if test="newname != null" >
-        newName = #{newname,jdbcType=VARCHAR},
-      </if>
-      <if test="attachmentaddr != null" >
-        attachmentAddr = #{attachmentaddr,jdbcType=VARCHAR},
-      </if>
       <if test="uploaddate != null" >
         uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iscommit != null" >
+        iscommit = #{iscommit,jdbcType=VARCHAR},
       </if>
       <if test="attachmenttype != null" >
         attachmentType = #{attachmenttype,jdbcType=CHAR},
@@ -265,10 +235,8 @@
     update outsidegradesignattachment
     set outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
       attachmentName = #{attachmentname,jdbcType=VARCHAR},
-      attachmentOldName = #{attachmentoldname,jdbcType=VARCHAR},
-      newName = #{newname,jdbcType=VARCHAR},
-      attachmentAddr = #{attachmentaddr,jdbcType=VARCHAR},
       uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      iscommit = #{iscommit,jdbcType=VARCHAR},
       attachmentType = #{attachmenttype,jdbcType=CHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where attachmentID = #{attachmentid,jdbcType=VARCHAR}

@@ -3,6 +3,7 @@ package cn.xm.jwxt.service.outGraduateDesignApply;
 import cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * 对学生校外申请基本信息表操作
@@ -48,4 +49,12 @@ public interface Outgradesigninfoservice {
      * @throws SQLException
      */
     public boolean insertInfo(Outgradesigninfo outgraDesignInfo) throws SQLException;
+
+    /**
+     * 保存学生的签名到基本信息表
+     * @param outsideAppplyInfoID
+     * @return
+     * @throws SQLException
+     */
+    public boolean saveStudentSign(String outsideAppplyInfoID,String fileurl) throws SQLException;
 }

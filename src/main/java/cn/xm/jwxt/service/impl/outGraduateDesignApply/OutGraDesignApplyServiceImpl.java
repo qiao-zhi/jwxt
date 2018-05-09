@@ -47,6 +47,8 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
     private CheckoutgradesigninfoMapper cOGDInfoMApper;
     @Autowired
     private ProjectcheckMapper projectcheckMapper;
+    @Autowired
+    private OutattachmentcontentMapper outattachmentcontentMapper;
 
 
     @Override
@@ -102,6 +104,8 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 String studentCollege = studentAllInfo.getCollegename();
                 String studentMajorClass = studentAllInfo.getClassname();
                 String studentMajor = studentAllInfo.getMajorname();
+                String studentIdCard = studentAllInfo.getIdnum();
+                String collegeName = studentAllInfo.getCollegename();
                 String resultId = studentAllInfo.getStudenttitleresultid();   //结果ID
                 //向校外毕设基本信息表创建对象并插入数据库
                 Outgradesigninfo info = new Outgradesigninfo();
@@ -141,13 +145,15 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 attachment.setAttachmentid(attachmentID);
                 attachment.setOutsideapplyid(outsideApplyID);
                 attachment.setAttachmentname("附件信息");
-                attachment.setRemark("00");
+                attachment.setIscommit("0");
                 int attachmentResult = oGDAttachmentMapper.insertSelective(attachment);
                 //向自我管理协议中插入初始化数据
                 Outsidegradesignagreemen agreement = new Outsidegradesignagreemen();
                 agreement.setAgreementid(agreementID);
                 agreement.setOutsideapplyid(outsideApplyID);
                 agreement.setAgreementname("自我管理协议书");
+                agreement.setStudentidcard(studentIdCard);
+                agreement.setCollegename(collegeName);
                 agreement.setApplystatus("00");
                 agreement.setRemark("00");
                 int agreementResult = oGDAgreementMapper.insertSelective(agreement);
@@ -156,7 +162,7 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 sureBook.setSureid(sureBookID);
                 sureBook.setOutsideapplyid(outsideApplyID);
                 sureBook.setSurename("保证书");
-                sureBook.setSurestatus("00");
+                sureBook.setIscommit("00");
                 int sureBookResult = oGDSureBookMapper.insertSelective(sureBook);
                 //
                 Cancelleave cancelleave = new Cancelleave();
@@ -178,6 +184,11 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 projectcheck.setCheckId(UUIDUtil.getUUID2());
                 projectcheck.setOutgradesignapplyid(outGraDesignApplyID);
                 int projectResult = projectcheckMapper.insertSelective(projectcheck);
+                //
+                Outattachmentcontent outattachmentcontent = new Outattachmentcontent();
+                outattachmentcontent.setContentid(UUIDUtil.getUUID2());
+                outattachmentcontent.setAttachmentid(attachmentID);
+                int conteneresult = outattachmentcontentMapper.insertSelective(outattachmentcontent);
 
             }
 

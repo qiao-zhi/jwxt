@@ -15,6 +15,13 @@
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
+
+    <%--s    bzy--%>
+    <%@include file="/tag.jsp"%>
+    <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
+    <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
+    <script type="text/javascript" src="../../../js/outsideGraduateDesiner/selfManage.js"></script>
+    <%--e    bzy--%>
 </head>
 
 <body>
@@ -27,27 +34,21 @@
         <caption style="text-align: center;">
         	<h1>计算机科学与技术学院</h1>
             <h3>学生实施校外实践课程自我管理协议书</h3>
-            
-            
-            
-            
-            
-            
         </caption>
          <tbody>
             <tr>
-                <td>甲方</td>
+                <td>甲方：</td>
                 <td colspan="5">
-                    <input  class="form-control" type="text" value="太原科技大学计算机科学与技术学院" disabled="">
+                    <input  class="form-control" type="text" id="collegeName" name="collegeName" disabled="">
                 </td>
             </tr>
             <tr>
-                <td colspan="1">乙方 </td>
+                <td colspan="1">乙方：学生： </td>
                 <td colspan="2">
-                	<input type="text" class="form-control" value="学生：">
+                	<input type="text" class="form-control" id="studentName1" name="studentName" value="" disabled="">
                 </td>
                 <td colspan="1">身份证号</td>
-            	<td colspan="2"><input type="text" class="form-control"></td>
+            	<td colspan="2"><input type="text" class="form-control" id="studentIdCard" name="studentIdCard" disabled=""></td>
                 
                 
             </tr>
@@ -55,7 +56,9 @@
              	<td colspan="6">
              		<div class="layui-form-item">
 		            	<div class="layui-inline">
-		            		学生                 （以下称乙方）为我院                      班学生，学业进入本科毕业实习、毕业设计期间时，
+		            		学生&nbsp;&nbsp;&nbsp;<span id="studentName2" style="color: red"></span>&nbsp;&nbsp;&nbsp;
+                            （以下称乙方）为我院&nbsp;&nbsp;&nbsp;<span id="majorClass" style="color: red"></span>&nbsp;&nbsp;&nbsp;
+                            班学生，学业进入本科毕业实习、毕业设计期间时，
 		            		因个人原因向甲方提出实施校外实践课程申请，
 		            		现将乙方实施校外实践课程期间甲乙双方相关权利义务协议如下：
 					   
@@ -108,27 +111,25 @@
                 	3、其他未尽事宜，双方以书面形式另行协商约定。<br>
                 </td>
             </tr>
-            
-             
             <tr>
             <td>甲方签章</td>
             <td colspan="3">
             	<div style="height: 50px; width: 230px;">
-            		<img src="../../../images/bg.png" width="150px" height="50px"/>
-            		<input onclick="tutorSign()" value="签名" type="button" class="layui-btn" id="test1" ></input>
+            		<img src="../../../images/info.jpg"  width="150px" height="50px" id="schoolUrl"/>
+            		<%--<input onclick="tutorSign()" value="签名" type="button" class="layui-btn"  ></input>--%>
             	</div>
                 <hr />
-                <input type="datetime" id="applytime6" placeholder="2018-04-25" class="form-control">
+                <input type="datetime" readonly class="form-control" id="schoolSignDate">
                 <!--<textarea name="" cols="100" rows="3" class="form-control"></textarea>-->
             </td>
             <td width="100px">乙方签章  </td>
             <td colspan="3" >
             	<div style="height: 50px; width: 230px;">
-            		<img src="../../../images/bg.png" width="150px" height="50px"/>
-            		<input onclick="tutorSign()" value="签名" type="button" class="layui-btn" id="test1" ></input>
+            		<img src="../../../images/info.jpg" width="150px" height="50px" id="stusignUrl"/>
+            		<input onclick="studentSign()" value="签名" type="button" class="layui-btn"></input>
             	</div>
                 <hr />
-                <input type="datetime" id="applytime6" placeholder="2018-04-25" class="form-control">
+                <input type="datetime"  class="form-control" id="studentSignDate" readonly>
             </td>
             
         </tr>
@@ -141,31 +142,27 @@
 <script>
 	//保存
     	function basicSave(){
-    		layer.alert("保存成功",function(){
-    			x_admin_close()
-    		})
+    		layer.msg("保存成功");
     	}
     	//提交
     	function basicCommit(){
-    		layer.confirm("您确定要提交此次申请吗？",function(){
-    			x_admin_close()
-    		})
+            var aggID = getAddressParameter("id");
+            layer.confirm("您确定要提交此次申请吗？一旦提交将无法进行修改。",function(){
+                $.ajax({
+                    url:contextPath+"/aggreement/commitAgg.do",
+                    type:"post",
+                    data:{"aggID":aggID},
+                    datatype:"text",
+                    success:function(result){
+                        layer.msg(result);
+                    },
+                    error:function(){
+                        alert("出错！！！");
+                        x_admin_close();
+                    }
+                });
+            })
     	}
-	//上传签名
-	function tutorSign(){
-		layer.prompt({
-  			  formType: 1,
-			  value: '',
-			  title: '请输入签名密码',
-			  //area: ['800px', '350px'] //自定义文本域宽高
-			}, function(value, index, elem){
-				if(value==''){
-					
-				}else{
-					 layer.close(index);
-				}
-					  	})
-			}
     
 </script>
 </body>

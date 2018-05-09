@@ -29,7 +29,7 @@
     <!--查询教学任务通知书的名称和ID-->
     <select id="findNoticeNameAndId" resultType="map">
         SELECT notice_book_id as noticeBookId,notice_book_name as noticeBookName from ap_task_notice_base_info
-        WHERE is_delete = "1"
+        WHERE is_delete = "1" AND is_input = "1"
     </select>
 
     <!--组合条件查询教学任务通知手分页显示-->

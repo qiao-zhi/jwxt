@@ -12,6 +12,7 @@
     <result column="uploadStatus" property="uploadstatus" jdbcType="VARCHAR" />
     <result column="checkStatus" property="checkstatus" jdbcType="VARCHAR" />
     <result column="checkAdvice" property="checkadvice" jdbcType="VARCHAR" />
+    <result column="display" property="display" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -75,7 +76,7 @@
   <sql id="Base_Column_List" >
     courseDesignTeacherStudentID, courseDesignTeacherArrangeID, studentID, courseDesignArrangeNum, 
     courseDesignReportName, courseDesignReportStore, uploadTime, uploadStatus, checkStatus, 
-    checkAdvice, remark
+    checkAdvice, display, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudentExample" >
     select
@@ -112,12 +113,12 @@
       studentID, courseDesignArrangeNum, courseDesignReportName, 
       courseDesignReportStore, uploadTime, 
       uploadStatus, checkStatus, checkAdvice, 
-      remark)
+      display, remark)
     values (#{coursedesignteacherstudentid,jdbcType=VARCHAR}, #{coursedesignteacherarrangeid,jdbcType=VARCHAR}, 
       #{studentid,jdbcType=VARCHAR}, #{coursedesignarrangenum,jdbcType=VARCHAR}, #{coursedesignreportname,jdbcType=VARCHAR}, 
       #{coursedesignreportstore,jdbcType=VARCHAR}, #{uploadtime,jdbcType=TIMESTAMP}, 
       #{uploadstatus,jdbcType=VARCHAR}, #{checkstatus,jdbcType=VARCHAR}, #{checkadvice,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+      #{display,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.courseDesign.TCoursedesignTeacherstudent" >
     insert into t_coursedesign_teacherstudent
@@ -151,6 +152,9 @@
       </if>
       <if test="checkadvice != null" >
         checkAdvice,
+      </if>
+      <if test="display != null" >
+        display,
       </if>
       <if test="remark != null" >
         remark,
@@ -186,6 +190,9 @@
       </if>
       <if test="checkadvice != null" >
         #{checkadvice,jdbcType=VARCHAR},
+      </if>
+      <if test="display != null" >
+        #{display,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -231,6 +238,9 @@
       <if test="record.checkadvice != null" >
         checkAdvice = #{record.checkadvice,jdbcType=VARCHAR},
       </if>
+      <if test="record.display != null" >
+        display = #{record.display,jdbcType=VARCHAR},
+      </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -251,6 +261,7 @@
       uploadStatus = #{record.uploadstatus,jdbcType=VARCHAR},
       checkStatus = #{record.checkstatus,jdbcType=VARCHAR},
       checkAdvice = #{record.checkadvice,jdbcType=VARCHAR},
+      display = #{record.display,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -286,6 +297,9 @@
       <if test="checkadvice != null" >
         checkAdvice = #{checkadvice,jdbcType=VARCHAR},
       </if>
+      <if test="display != null" >
+        display = #{display,jdbcType=VARCHAR},
+      </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -303,6 +317,7 @@
       uploadStatus = #{uploadstatus,jdbcType=VARCHAR},
       checkStatus = #{checkstatus,jdbcType=VARCHAR},
       checkAdvice = #{checkadvice,jdbcType=VARCHAR},
+      display = #{display,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where courseDesignTeacherStudentID = #{coursedesignteacherstudentid,jdbcType=VARCHAR}
   </update>

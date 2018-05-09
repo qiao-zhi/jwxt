@@ -8,7 +8,7 @@ $(function(){
         var index = layer.load();
         /*发送ajax请求查询*/
         $.ajax({
-            url:"/jwxt/outGraduateDesiner/selectOGDLeaveInfo.do",
+            url:contextPath+"/outGraduateDesiner/selectOGDLeaveInfo.do",
             type:"post",
             data:{"leaveID":leaveID},
             dataType:"json",
@@ -20,17 +20,17 @@ $(function(){
                 /*拼接请假起始日期*/
                 var leaveStart = result.startdate;
                 var leaveEnd = result.enddate;
-                $("#applytimeRange").val("2016-12-13-2019-12-12");
+                $("#applytimeRange").val(Format(new Date(leaveStart),'yyyy-MM-dd')+" - "+Format(new Date(leaveEnd),'yyyy-MM-dd'));
                 $("#leaveDays").val(result.leavedays);
                 $("#leaveAddress").val(result.leaveaddress);
                 $("#studentTel").val(result.studenttel);
                 $("#homeAddress").val(result.homeaddress);
                 $("#homeTel").val(result.hometel);
                 $("#leaveReason").val(result.leavereason);
-                $("#applytimeCancel").val(result.cancelLeave.canceltime);
+                $("#applytimeCancel").val(Format(new Date(result.cancelLeave.canceltime),'yyyy-MM-dd'));
                 var passStartTime = result.cancelLeave.passstarttime;
                 var passEndTime = result.cancelLeave.passendtime;
-                $("#applytimeOut").val(passStartTime+"-"+passEndTime);
+                $("#applytimeOut").val(Format(new Date(passStartTime),'yyyy-MM-dd')+" - "+Format(new Date(passEndTime),'yyyy-MM-dd'));
                 /*获取审核结果集*/
                 var check = result.checkLeaves;
                 for(var i=0;i<check.length;i++){

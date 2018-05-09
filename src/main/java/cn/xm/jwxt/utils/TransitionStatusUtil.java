@@ -7,6 +7,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TransitionStatusUtil {
+    /*将审核状态转化为文字*/
+    public static String commitTransition(String commitNum){
+        if(commitNum!=null){
+            int num = Integer.parseInt(commitNum);
+           switch(num){
+               case 01: return "已提交";
+               case 11: return "申请中";
+               case 00: return "待提交";
+           }
+        }
+        return null;
+    }
     public static Map<String,String> checkTransition(String status) {
         Map<String, String> resultMap = new HashMap<String, String>();
         resultMap.put("status1", "null");
