@@ -123,10 +123,10 @@
             $("tbody").append(tr);
         }
         //开启分页组件
-        DetailInfoListPage(total,pageNum,pageSize);
+        detailInfoListPage(total,pageNum,pageSize);
     }
     //分页函数
-    function DetailInfoListPage(total,pageNum,pageSize){
+    function detailInfoListPage(total,pageNum,pageSize){
         /*分页js*/
         layui.use(['laypage', 'layer'], function(){
             var laypage = layui.laypage,layer = layui.layer;

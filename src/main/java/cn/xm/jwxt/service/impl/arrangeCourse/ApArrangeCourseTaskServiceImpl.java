@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -76,6 +77,11 @@ public class ApArrangeCourseTaskServiceImpl implements ApArrangeCourseTaskServic
             throw new IllegalArgumentException("状态码不能为空!");
         }
         int count = arrangeCourseTaskCustomMapper.updateTaskStatusById(arrangeTaskId, taskStatus);
+        //判断是否是待排课的状态
+        if(taskStatus.equals(ArrangeCourseTaskStatusEnum.WAIT_ARRANGE.getStatus())){
+            //设置接收时间
+            arrangeCourseTaskCustomMapper.updateReceiptTimeById(arrangeTaskId,new Date());
+        }
         return count>0?true:false;
     }
 

@@ -26,7 +26,7 @@
                 任务通知书
             </label>
             <div class="layui-input-inline">
-                <select name="noticeBookId" lay-filter="noticeBook">
+                <select name="noticeBookId" lay-filter="noticeBook" lay-search="">
                 </select>
             </div>
             <%--隐藏任务通知书名称--%>
@@ -42,13 +42,10 @@
               专业
             </label>
             <div class="layui-input-inline">
-                <select name="majorId" lay-filter="major">
-                    <%--<option value="1">软件工程</option>
-                    <option value="2">物联网</option>
-                    <option value="3">计算机</option>--%>
+                <select name="majorId" lay-filter="major" lay-search="">
                 </select>
                 <%--隐藏专业名称--%>
-                <input type="hidden" name="majorName" value="软件工程"/>
+                <input type="hidden" name="majorName"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写

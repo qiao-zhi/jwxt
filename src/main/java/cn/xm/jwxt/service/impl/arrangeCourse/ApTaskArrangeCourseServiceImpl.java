@@ -3,6 +3,7 @@ package cn.xm.jwxt.service.impl.arrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourseExample;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ArrangeCourseTaskStatusEnum;
 import cn.xm.jwxt.mapper.arrangeCourse.ApTaskArrangeCourseMapper;
 import cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskArrangeCourseCustomMapper;
@@ -11,6 +12,8 @@ import cn.xm.jwxt.service.arrangeCourse.ApTaskArrangeCourseService;
 import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.UUIDUtil;
 import cn.xm.jwxt.utils.ValidateCheck;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +39,6 @@ public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseServic
     private ApArrangeCourseTaskService  arrangeCourseTaskService;
     /**
      * 根据排课任务ID批量插入排课任务安排的课程信息
-     *
      * @param arrangeTaskId
      * @param courseList
      * @return
@@ -68,7 +70,6 @@ public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseServic
     /**
      * 根据排课任务ID批量修改排课任务安排的课程信息
      * 先根据排课任务ID将原来的信息删除，然后调用批量插入的方法将课程集合保存到数据库中
-     *
      * @param arrangeTaskId
      * @param courseList
      * @return
@@ -90,7 +91,6 @@ public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseServic
 
     /**
      * 根据任务安排课程ID（主键）修改任务安排课程基本信息
-     *
      * @param taskArrangeCourseId
      * @param taskArrangeCourse
      * @return
@@ -136,7 +136,7 @@ public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseServic
     @Override
     public List<ApTaskArrangeCourse> findTaskArrangeCourseListInfoByArrangeId(String arrangeTaskId) throws Exception {
         if(ValidateCheck.isNull(arrangeTaskId)){
-            throw new IllegalArgumentException("排课任务编号不能为空!");
+                throw new IllegalArgumentException("排课任务编号不能为空!");
         }
         ApTaskArrangeCourseExample taskArrangeCourseExample = new ApTaskArrangeCourseExample();
         ApTaskArrangeCourseExample.Criteria taskArrangeCourseCriteria = taskArrangeCourseExample.createCriteria();
@@ -147,13 +147,36 @@ public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseServic
 
     /**
      * 根据排课任务ID查询相关的课程信息及教师信息分页显示
-     *
      * @param arrangeTaskId
      * @return
      * @throws Exception
      */
     @Override
-    public List<Map<String, Object>> findTaskArrangeCourseAndTeacherListByArrangeId(String arrangeTaskId) throws Exception {
-        return null;
+    public PageInfo<ApTaskArrangeCourseCustom> findTaskArrangeCourseAndTeacherListByArrangeId(String arrangeTaskId, Integer currentPage, Integer pageSize) throws Exception {
+        if(currentPage==null||pageSize==null){
+            throw new IllegalArgumentException("分页参数传递错误！");
+        }
+        if(ValidateCheck.isNull(arrangeTaskId)){
+            throw new IllegalArgumentException("排课任务编号不能为空!");
+        }
+        PageHelper.startPage(currentPage,pageSize,"CONVERT (course_name USING gbk)");
+        List<ApTaskArrangeCourseCustom> arrangeCourseAndTeacherList = taskArrangeCourseCustomMapper.findTaskArrangeCourseAndTeacherListByArrangeId(arrangeTaskId);
+        PageInfo<ApTaskArrangeCourseCustom> pageInfo = new PageInfo<ApTaskArrangeCourseCustom>(arrangeCourseAndTeacherList);
+        return pageInfo;
+    }
+
+    /**
+     * 根据安排课程ID查询查询每一门课程对应的教师课程信息
+     * @param arrangeCourseId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ApTaskArrangeCourseCustom getTaskArrangeCourseAndTeacherClassInfo(String arrangeCourseId) throws Exception {
+        if(ValidateCheck.isNull(arrangeCourseId)){
+            throw new IllegalArgumentException("安排课程编号不能为空!");
+        }
+        ApTaskArrangeCourseCustom taskArrangeCourseAndTeacherClassInfo = taskArrangeCourseCustomMapper.getTaskArrangeCourseAndTeacherClassInfo(arrangeCourseId);
+        return taskArrangeCourseAndTeacherClassInfo;
     }
 }

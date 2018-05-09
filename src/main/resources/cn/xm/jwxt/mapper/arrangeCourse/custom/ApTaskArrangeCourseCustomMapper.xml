@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskArrangeCourseCustomMapper" >
-    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse" >
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom" >
         <id column="arrange_course_id" property="arrangeCourseId" jdbcType="VARCHAR" />
         <result column="arrange_task_id" property="arrangeTaskId" jdbcType="VARCHAR" />
         <result column="course_name" property="courseName" jdbcType="VARCHAR" />
@@ -13,6 +13,22 @@
         <result column="campus_code" property="campusCode" jdbcType="CHAR" />
         <result column="is_use_multimedia" property="isUseMultimedia" jdbcType="CHAR" />
         <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--增加教师名称字段映射-->
+    <resultMap id="addTeacheNamesMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom" extends="BaseResultMap">
+        <result column="teacher_names" property="teacherNames" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--增加教师信息集合映射-->
+    <resultMap id="addTeacherListMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom" extends="BaseResultMap">
+        <!--对应的教师集合-->
+        <collection property="teachers" ofType="cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom">
+            <id column="teacher_course_id" property="teacherCourseId"></id>
+            <result column="teacher_name" property="teacherName"></result>
+            <result column="class_names" property="classNames"></result>
+            <result column="class_size" property="classSize"></result>
+        </collection>
     </resultMap>
 
     <!--批量插入排课任务分配课程信息-->
@@ -30,4 +46,39 @@
           </foreach>
     </insert>
 
+    <!--根据排课任务ID查询对应的教师课程信息-->
+    <select id="findTaskArrangeCourseAndTeacherListByArrangeId" parameterType="String" resultMap="addTeacheNamesMap">
+        SELECT
+            ac.*, (
+                SELECT
+                    GROUP_CONCAT(tc.teacher_name)
+                FROM
+                    ap_teacher_course tc
+                WHERE
+                    ac.arrange_course_id = tc.arrange_course_id
+            ) teacher_names
+        FROM
+            ap_task_arrange_course ac
+        WHERE
+            ac.arrange_task_id = #{value}
+    </select>
+
+    <!--根据安排课程ID查询查询每一门课程对应的教师课程信息-->
+    <select id="getTaskArrangeCourseAndTeacherClassInfo" parameterType="String" resultMap="addTeacherListMap">
+        SELECT
+            ac.*, tc.teacher_name,
+            GROUP_CONCAT(ct.class_name ORDER BY ct.class_name) class_names,
+            SUM(ct.class_size) class_size
+        FROM
+            ap_task_arrange_course ac,
+            ap_teacher_course tc,
+            ap_class_teacher ct
+        WHERE
+            ac.arrange_course_id = #{value}
+        AND
+            ac.arrange_course_id = tc.arrange_course_id
+        AND
+            tc.teacher_course_id = ct.teacher_course_id
+        GROUP BY teacher_name
+    </select>
 </mapper>

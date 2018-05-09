@@ -17,7 +17,6 @@ public class ApArrangeCourseAuditServiceImpl implements ApArrangeCourseAuditServ
     /**
      * 添加审核信息，关联排课任务ID
      * 需要修改排课任务状态
-     *
      * @param arrangeTaskId
      * @param auditInfo
      * @return
