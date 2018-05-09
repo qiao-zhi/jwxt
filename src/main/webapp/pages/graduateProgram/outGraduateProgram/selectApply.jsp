@@ -1,3 +1,4 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -13,6 +14,13 @@
     <script type="text/javascript" src="../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
+
+    <%--s       BZY      --%>
+    <%@include file="/tag.jsp" %>
+    <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
+    <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
+    <script type="text/javascript" src="../../../js/outsideGraduateDesiner/selectApply.js"></script>
+    <%--3       Bzy      --%>
     <style>
         .y_files{
             color:#01AAED;
@@ -46,31 +54,14 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-            <input type="text" name="" class="layui-input" id="y_year" placeholder="学年" autocomplete="off">
-            <input type="text" name="username" placeholder="指导教师名称" autocomplete="off" class="layui-input">
-            <div class="layui-input-inline">
-                <select lay-verify="required" lay-search="" name="contrller" id="clazzName">
-                    <option value="">班级名称</option>
-                    <option value="1">layer</option>
-                    <option value="2">form</option>
-                    <option value="3">layim</option>
-                    <option value="4">element</option>
-                    <option value="5">laytpl</option>
-                    <option value="6">upload</option>
-                    <option value="7">laydate</option>
-                </select>
-            </div>
-            <input type="text" name="username" placeholder="学生名称" autocomplete="off" class="layui-input">
-            <input type="text" name="username" placeholder="学号" autocomplete="off" class="layui-input">
-            <input type="text" name="username"  class="layui-input" id="L_pass" placeholder="审核时间yyyy-MM-dd" autocomplete="off">
+            <input type="text"  class="layui-input" id="y_year" placeholder="学年" autocomplete="off">
+            <input type="text" id="major" placeholder="专业" autocomplete="off" class="layui-input">
+            <input type="text" id="studentNum" placeholder="学号" autocomplete="off" class="layui-input">
 
             <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>审核状态</option>
-                    <option>待教研室审核</option>
-                    <option>待学院审核</option>
-                    <option>审核通过</option>
-                    <option>审核不通过</option>
+                <select name="contrller" id="checkStatus">
+                    <option>未审核</option>
+                    <option>已审核</option>
                 </select>
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -78,44 +69,23 @@
     </div>
     <!--end查询-->
 
-    <!--操作区域-->
-
-    <!--<xblock>
-        <button class="layui-btn" onclick="x_admin_show('辅导员审核','./outGraduateManage-check.html')">辅导员审核 </button>
-        <button class="layui-btn" onclick="x_admin_show('指导教师审批','./outGraduateManage-check.html')">指导教师审批 </button>
-        <button class="layui-btn" onclick="x_admin_show('教研室审批','./outGraduateManage-check.html')">教研室审批 </button>
-        <button class="layui-btn" onclick="x_admin_show('系主任审批','./outGraduateManage-check.html')">系主任审批 </button>
-        <button class="layui-btn" onclick="x_admin_show('学院审批','./outGraduateManage-check.html')">学院审批 </button>
-        <button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>
-    </xblock>-->
-    <!--end 操作区域-->
-
     <!--表格内容-->
     <table class="layui-table">
         <thead>
         <tr>
-            <!--<th>
-                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                    &#xe605;</i></div>
-            </th>-->
             <th>学号</th>
             <th>学生姓名</th>
             <th>专业班级</th>
             <th>指导教师</th>
             <th>接收单位</th>
-            <th>校外指导教师</th>
+            <th>校外导师</th>
             <th>申请时间</th>
+            <th>审核状态</th>
             <th>审核文件</th>
-            <th>审核状态</th><!--通过教研室，通过院长-->
-            <!--<th>操作</th>-->
         </tr>
         </thead>
-        <tbody>
+        <tbody id="thead-tbody">
         <tr>
-            <!--<td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
-                    &#xe605;</i></div>
-            </td>-->
             <td>201700917</td>
             <td>老王</td>
             <td>软12004</td>
@@ -123,14 +93,8 @@
             <td>阿萨德发</td>
             <td>老王</td>
             <td>1854-10-2</td>
-
-            <td class="y_files" title="点击查看审核内容" onclick="x_admin_show_big('相关申请表','./outGraduateManage-table.html')">相关申请表</td>
             <td>通过</td>
-            <!--<td class="td-manage">
-                <a title="校外毕设详细信息" onclick="x_admin_show('校外毕设详细信息','outGraduateManage-view.html')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-            </td>-->
+            <td class="y_files" title="点击查看审核内容" onclick="x_admin_show_big('相关申请表','./outGraduateManage-table.html')">相关申请表</td>
         </tr>
         </tbody>
     </table>
@@ -154,7 +118,6 @@
     //发布时间
     layui.use('laydate', function () {
         var laydate = layui.laydate;
-
         laydate.render({
             elem: '#L_pass' //指定元素
         });

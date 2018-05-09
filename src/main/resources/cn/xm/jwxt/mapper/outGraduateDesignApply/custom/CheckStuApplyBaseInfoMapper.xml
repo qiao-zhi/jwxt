@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.CheckStuApplyBaseInfoMapper" >
+
+    <!--根据用户查询所属学院的基本信息-->
+    <select id="selectCollegeInfoByUserID" parameterType="String" resultType="cn.xm.jwxt.bean.baseInfo.TCollegeBaseInfo">
+      SELECT * FROM t_college_base_info
+      WHERE collegeID=(SELECT collegeID FROM t_teacher_base_info WHERE teacherID=#{id})
+    </select>
+    <!--查询申请校外毕设的学生信息-->
+    <select id="selectCollageODGApplyStuInfo" parameterType="map" resultType="map">
+      SELECT i.outsideApplyID,l.studentNum,l.studentName,i.majorClass,
+        i.inTeacherName,i.receiveUnit,t.outTeacherName,t.remark1 AS applyTime,
+        i.status AS checkstatus
+      FROM outGraDesignInfo i,graDesignLeaveApply l,outGraDesignTitleApply t
+        ,outsideGraDesignAgreemen a
+      <where>
+          i.outsideApplyID=l.outsideApplyID AND l.outsideApplyID=t.outsideApplyID AND t.outsideApplyID=a.outsideApplyID
+          <if test="collageName!=null and collageName!=''">
+              AND a.collegename=#{collageName}
+          </if>
+          <if test="stadyYear!=null and stadyYear!=''">
+              AND i.stadyyear=#{stadyYear}
+          </if>
+          <if test="major!=null and major!=''">
+              AND l.major=#{major}
+          </if>
+          <if test="studentNum!=null and studentNum!=''">
+              AND l.studentNum=#{studentNum}
+          </if>
+          <if test="checkStatus!=null and checkStatus!=''">
+              AND i.iscommit=#{checkStatus}
+          </if>
+      </where>
+    </select>
+
+</mapper>
