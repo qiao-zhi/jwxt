@@ -1,9 +1,8 @@
 /**
  * @author: LL
- * @createtime: 2018/5/4 19:13
- * @description:排课任务管理的js
+ * @createtime: 2018/5/8 17:52
+ * @description:安排课程的js
  */
-
 //初始化加载需要使用的layui模块
 layui.use(['layer', 'form', 'element'], function(){
     $ = layui.jquery;
@@ -23,8 +22,8 @@ layui.use(['layer', 'form', 'element'], function(){
         findArrangeCourseTaskInfo();
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
-
 });
+
 //查询排课任务基本信息
 function findArrangeCourseTaskInfo(){
     $.ajax({
@@ -36,7 +35,6 @@ function findArrangeCourseTaskInfo(){
         success : showArrangeCourseTaskInfo
     });
 }
-
 function showArrangeCourseTaskInfo(pageInfo){
     //console.log(pageInfo) //测试是否有值
     var total = pageInfo.total;//页总数
@@ -58,11 +56,8 @@ function showArrangeCourseTaskInfo(pageInfo){
             +arrangeCourseTaskList[i].taskReceiptName+"</td><td>"
             +(arrangeCourseTaskList[i].taskReceiptTime==null?'--':arrangeCourseTaskList[i].taskReceiptTime)+"</td><td>"
             +arrangeCourseTaskList[i].taskStatus+"</td>"
-            +"<td class='td-manage'><a title='点击查看任务分配详细信息' onclick=x_admin_show('教学任务分配详细信息','scheduleTask-view.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
-            if(arrangeCourseTaskList[i].taskStatus=='未分配'){
-                tr += "<a title='点击修改任务信息'  onclick=x_admin_show('修改任务','scheduleTask-edit.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>";
-            }
-            tr +=" <a title='删除' onclick=deleteArrangeTaskInfo('"+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
+            +"<td class='td-manage'><a title='点击排课' onclick=x_admin_show('排课','scheduleArrange-detail.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
+            +"</td></tr>"
         $("tbody").append(tr);
     }
     //开启分页组件
@@ -77,7 +72,7 @@ function arrangeCourseTaskInfoListPage(total,pageNum,pageSize){
 
         //完整功能
         laypage.render({
-            elem: 'taskPage', //注意，这里的 test1 是 ID，不用加 # 号
+            elem: 'arrangePage', //注意，这里的 test1 是 ID，不用加 # 号
             count: total, //数据总数，从服务端得到
             limit:pageSize,//每页显示的条数。laypage将会借助 count 和 limit 计算出分页数。
             curr:pageNum,//当前页号
@@ -94,95 +89,20 @@ function arrangeCourseTaskInfoListPage(total,pageNum,pageSize){
     });
 }
 
-
-/*删除*/
-function deleteArrangeTaskInfo(id) {
-    layer.confirm('确认要删除吗？', function (index) {
-        $.ajax({
-            url:contextPath+"/arrangeCourse/deleteArrangeCourseTaskInfo.action",
-            type:"post",
-            dataType:"text",
-            data:{"arrangeTaskId":id},
-            success:function (response) {
-                layer.msg(response, {icon: 1, time: 1000},function (){
-                    //刷新父页面
-                    window.location.reload();
-                })
-            }
-        })
-    });
-}
-
-//新增任务
-function addTask(){
-    x_admin_show('新增任务','./scheduleTask-add.jsp')
-}
-
-//分配课程按钮
-function allotCourse(){
+//根据历史排课记录安排按钮
+function allotCourse_history(){
     var checked = $("[name='taskRadio']:checked").length>0?true:false;
     if(!checked){
-        layer.alert('请先选择需要分配课程的任务！');
+        layer.alert('请先选择需要安排课程的任务！');
         return;
     }
-    var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
+    /*var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
     if (!(sel_taskStatus == "未发送" || sel_taskStatus == "未分配")) {
         layer.alert('该排课任务已经发送，不能再分配课程！');
         return;
-    }
+    }*/
     var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
     var noticeBookId = $("[name='taskRadio']:checked + input[name='sel_noticeBookId']").val();
-    x_admin_show('分配课程','./scheduleTask-allot.jsp?arrangeTaskId='+arrangeTaskId+'&noticeBookId='+noticeBookId);
-}
-
-//发送任务
-function send(){
-    var checked = $("[name='taskRadio']:checked").length>0?true:false;
-    if(!checked){
-        layer.alert('请先选择需要发送的任务！');
-        return;
-    }
-    var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
-    if (sel_taskStatus != "未发送") {
-        layer.alert('请选择正确的排课任务！');
-        return;
-    }
-    var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
-    layer.confirm("您确定发送选中的教学任务？",function () {
-        changeTaskStatus(arrangeTaskId,"3");
-    })
-}
-
-//接收任务
-function accept(){
-    var checked = $("[name='taskRadio']:checked").length>0?true:false;
-    if(!checked){
-        layer.alert('请先选择需要接收的任务！');
-        return;
-    }
-    var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
-    if (sel_taskStatus != "未接收") {
-        layer.alert('请选择正确的排课任务！');
-        return;
-    }
-    var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
-    layer.confirm("您确定接收选中的教学任务？",function () {
-        changeTaskStatus(arrangeTaskId,"4");
-    })
-}
-//修改排课任务状态
-function changeTaskStatus(arrangeTaskId,status){
-    $.ajax({
-        url:contextPath+"/arrangeCourse/updateArrangeCourseTaskStatus.action",
-        type:"post",
-        dataType:"text",
-        async:false,
-        data:{"arrangeTaskId":arrangeTaskId,"status":status},
-        success:function(response){
-            layer.alert(response,function () {
-                //实现父页面的刷新
-                window.location.reload();
-            })
-        }
-    })
+    //x_admin_show('分配课程','./scheduleTask-allot.jsp?arrangeTaskId='+arrangeTaskId+'&noticeBookId='+noticeBookId);
+    x_admin_show_big('根据历史记录排课','./scheduleArrange-history.jsp')
 }

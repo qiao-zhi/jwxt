@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 
 /**
  * 项目名称：jwxt
- * 类描述：
+ * 类描述：排课任务基本信息的Controller
  * 创建人：LL
  * 创建时间：2018/5/4 16:31
  */

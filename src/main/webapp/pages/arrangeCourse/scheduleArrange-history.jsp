@@ -1,3 +1,4 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -15,30 +16,16 @@
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
 
+    <%--公共标签--%>
+    <%@include file="/tag.jsp"%>
 </head>
 
 <body>
-<!--面包屑-->
-<div class="x-nav">
-      <span class="layui-breadcrumb">
-        <a href="../../welcome.html">首页</a>
-        <a href="">排课管理</a>
-        <a>
-          <cite>安排课程</cite></a>
-      </span>
-    <a class="layui-btn layui-btn-small" style="margin-top:3px;float:right"
-       href="javascript:location.replace(location.href);" title="刷新">
-        <i class="iconfont" style="line-height:30px">&#xe6aa;</i>
-    </a>
-    <a class="layui-btn layui-btn-warm layui-btn-small" style="margin-top:3px;float:right;margin-right:3px;"
-       onclick="closeOther()" title="关闭其他">
-        <i class="iconfont" style="line-height:30px">&#xe6b7;</i>
-    </a>
-</div>
+
 <!--主体-->
 <div class="x-body">
     <!--查询-->
-    <div class="layui-row">
+    <!--<div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
         	
             <div class="layui-input-inline">
@@ -71,19 +58,22 @@
             </div>
            
         </form>
-    </div>
+    </div>-->
     <!--end查询-->
 
-    
+    <!--操作区域-->
     <xblock>
-	<!--<button class="layui-btn" onclick="addTask()" >新增</button>-->
-	<button class="layui-btn" onclick="allotCourse_history()" >根据历史排课记录安排</button>
-	<!--<button class="layui-btn" onclick="accept()" >接收</button>-->
-	<!--<button class="layui-btn" onclick="arrangeCourse()" >排课</button>-->
-	<!--<button class="layui-btn" onclick="arrangeCourse()" >审核</button>-->
-	</xblock>
+    	<button class="layui-btn" onclick="arrangeCourse()">使用</button>
+    	 
+    </xblock>
+    <!--<h4 style="text-align: center; font-size: 18px;">太原科技大学教师排课计划表</h4>-->
+    <!--<hr />-->
+    <!--<h4 style="text-align: center; font-size: 14px;">计算机学院&nbsp;&nbsp;软件工程专业&nbsp;&nbsp;2016/2017学年&nbsp;&nbsp;第二学期</h4>-->
+    <!--end 操作区域-->
+    <!--<hr /><br/><br/>-->
+    <!--<button class="layui-btn" onclick="arrangeCourseAdd()" style="margin-top: -27px;">新增 </button>-->
+	
 	<script>
-		
 		var chooseCourse=0;//判断是否选中课程
     	function panduan(){
     		$(".layui-form-checkbox").each(function() { 
@@ -92,22 +82,22 @@
 				}
 			})
     	}
-    	//分配课程
-    	function allotCourse_history(){
+    	function arrangeCourse(){
     		panduan();//调用判断方法
     		if (chooseCourse>0) {
-    			if(chooseCourse===1){
-    				x_admin_show_big('根据历史记录排课','./scheduleArrange-history.html')
-    			}else{
-    				layer.alert('每次只可选择一个教学任务');
-    			}
-					}
+//							x_admin_show('使用历史排课计划','./useHistoryArrange.html')
+							layer.confirm('您确定使用选中的历史排课记录至当前的排课任务中？',function(){
+								x_admin_close()
+							});
+						}
     		else{
-    			layer.alert('请先选择需要安排课程的任务');
+    			layer.alert('请先选择需要使用的历史排课计划');
     		}
     		chooseCourse=0;//清空值
     	}
-    	
+    	/*function arrangeCourseAdd(){
+    		x_admin_show('新增排课计划','./scheduleManage-add.html')
+    	}*/
 	</script>
     <!--表格内容-->
     <table class="layui-table">
@@ -119,14 +109,17 @@
                     &#xe605;</i></div>
             </th>
          	<th>序号</th>
-            <th>专业</th>
-            <th>学年</th>
-            <th>学期</th>
-            <th>下达时间</th>
-            <th>接收时间</th>
-            <th>接收人</th>
-            <th>状态</th>
-            <th>操作</th>
+            <th>任助课教师</th>
+            <th>教师编号</th>
+            <th>教师职称</th>
+            <th>所任课程</th>
+            <th>课程编号</th>
+            
+            <th>所任班级</th>
+            <th>上课周数</th>
+            <th>周学时数</th>
+            <th>是否使用多媒体</th>
+            <!--<th>操作</th>-->
 		    </tr>
         </thead>
         <tbody>
@@ -135,25 +128,27 @@
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
                     &#xe605;</i></div>
             </td>
-            <td>1</td>
-            <td>软件工程</td>
-            <td>2014-2015学年</td>
-            <td>第一学期</td>
-            <td>1995-07-12</td>
-            <td>1995-07-12</td>
-            <td>王五</td>
-            <td>已接收</td>
-            <td class="td-manage">
-                <a title="点击排课" onclick="x_admin_show_big('排课','scheduleArrange-detail.html')">
+            <td>2</td>
+            <td>201</td>
+            <td>老王</td>
+            <td>男</td>
+            <td>1854-10-2</td>
+            <td>软12004</td>
+            <td>学生</td>
+            <td>1854-10-2</td>
+            <td>软12004</td>
+            <td>学生</td>
+            <!--<td class="td-manage">
+                <a title="点击查看排课详细信息" onclick="x_admin_show('详细信息','scheduleManage-view.html')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>
-                <!--<a title="点击修改任务信息"  onclick="x_admin_show('修改','scheduleTask-edit.jsp')" href="javascript:;">
+                <a title="点击修改排课计划"  onclick="x_admin_show('修改','scheduleManage-edit.html')" href="javascript:;">
                     <i class="layui-icon">&#xe642;</i>
-                </a>-->
-                <!--<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                </a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
-                </a>-->
-            </td>
+                </a>
+            </td>-->
         </tr>
         </tbody>
     </table>

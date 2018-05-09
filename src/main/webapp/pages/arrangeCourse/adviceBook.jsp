@@ -18,6 +18,8 @@
 
     <%--公共标签--%>
     <%@include file="/tag.jsp"%>
+    <%--排课公共方法--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
     <%--ll 通知书管理的js--%>
     <script type="text/javascript" src="${baseurl}/js/arrangeCourse/adviceBook.js"></script>
 
@@ -57,7 +59,7 @@
                 </select>
             </div>
 
-            <input id="y_year" name="academicYear" class="layui-input" placeholder="学年"  lay-key="1"/>
+            <input id="s_year" name="academicYear" class="layui-input" placeholder="学年"  lay-key="1"/>
 
             <div class="layui-input-inline">
                 <select name="term">

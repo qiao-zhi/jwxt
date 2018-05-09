@@ -4,6 +4,37 @@
  * @description:公共方法排课
  */
 
+/** 公共查询条件 S**/
+//设置条件选择框中的学年
+layui.use('laydate', function () {
+    var laydate = layui.laydate;
+    laydate.render({
+        elem: '#s_year' //指定元素
+        ,type: 'year'
+    });
+})
+
+//初始化专业下拉框
+function findMajorNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/TrainScheme/getMajorNameAndCode.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response);
+            var optionStr = "<option value=''>请输入专业</option>";
+            $("select[name='majorId']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].majorId+"'>"+response[i].majorName+"</option>";
+                $("select[name='majorId']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+/** 公共查询条件 **/
+
 //状态码转换
 function replaceStatus(status){
     var campus = '';

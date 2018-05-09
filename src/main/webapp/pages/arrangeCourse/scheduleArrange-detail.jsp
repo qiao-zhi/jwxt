@@ -1,3 +1,4 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -15,6 +16,8 @@
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
 
+    <%--公共标签--%>
+    <%@include file="/tag.jsp"%>
 </head>
 
 <body>
@@ -125,10 +128,10 @@
              <td>张三，王五</td>
              <td>未排</td>
             <td class="td-manage">
-                <a title="点击查看排课详细信息" onclick="x_admin_show('详细信息','scheduleArrange-view.html')" href="javascript:;">
+                <a title="点击查看排课详细信息" onclick="x_admin_show('详细信息','scheduleArrange-view.jsp')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>
-                <a title="修改"  onclick="x_admin_show('修改','scheduleArrange-edit.html')" href="javascript:;">
+                <a title="修改"  onclick="x_admin_show('修改','scheduleArrange-edit.jsp')" href="javascript:;">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
