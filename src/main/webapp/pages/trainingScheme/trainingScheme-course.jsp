@@ -1,6 +1,6 @@
 <!--培养方案课程类别和培养方案课程管理界面-->
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
-<%@include file="/tag.jsp"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@include file="/tag.jsp" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -31,34 +31,46 @@
 
     <!--E  qlq引入的 -->
 
-    <style>
-        .el_leftTree{
-            width:15%;
-            float:left;
-        }
-        .el_treeTitle{
-            display: block;
-            font-size:15px;
-            padding:20px;
-            padding-bottom:0;
-        }
-        ul.ztree {
-            width: 100%;
-            background-color: white;
-            height: auto;
-            border:0;
-            padding-bottom:30px;
-            overflow-y: auto;
-            text-align:center;
-        }
-
-        /*树对应的相关按钮*/
-        .ztree li span.button.add {
-            margin-left:2px; margin-right: -1px;
-            background-position:-144px 0; vertical-align:top; *vertical-align:middle
-        }
-    </style>
 </head>
+<style>
+    <%--S  QLQ--%>
+    .semesterInput {
+        width: 60px;
+    }
+
+    <%--E  QLQ--%>
+
+    .el_leftTree {
+        width: 15%;
+        float: left;
+    }
+
+    .el_treeTitle {
+        display: block;
+        font-size: 15px;
+        padding: 20px;
+        padding-bottom: 0;
+    }
+
+    ul.ztree {
+        width: 100%;
+        background-color: white;
+        height: auto;
+        border: 0;
+        padding-bottom: 30px;
+        overflow-y: auto;
+        text-align: center;
+    }
+
+    /*树对应的相关按钮*/
+    .ztree li span.button.add {
+        margin-left: 2px;
+        margin-right: -1px;
+        background-position: -144px 0;
+        vertical-align: top;
+        *vertical-align: middle
+    }
+</style>
 
 <body>
 <!--隐藏培养方案编号到这里-->
@@ -68,123 +80,120 @@
 <div style="width:16%;float:left;">
     <br/>
     <span>&nbsp;&nbsp;课程类别&nbsp;&nbsp;&nbsp; <i class="layui-icon" title="点击刷新树" onclick="javascript:getTypeTree()">&#x1002;</i></span>
+    &nbsp;&nbsp;
+    <button class="layui-btn layui-btn-sm layui-btn-radius" type="button" onclick="openArrangeCourseModal()">排课</button>
     <hr>
     <ul id="treeDiv" class="ztree"></ul>
 </div>
 
 <!--主体-->
 <div class="x-body" style="width:80%;float:right">
+
+    <!--S   培养方案的基本信息-->
+    <div style="margin-top: 0px;right: 20px;float: right">
+        <i style="right: 20px;" class="layui-icon"  title="点击隐藏培养方案基本信息"  onclick="toggleTrainSchemeBaseInfoDiv(this)">&#xe619;</i>
+        <i style="right: 20px;" class="layui-icon"  title="点击刷新当前页面"  onclick="javascript:window.location.reload()">&#x1002;</i>
+    </div>
+
+
+    <div id="trainSchemeBaseInfo">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
+            <legend>
+                <a name="zero" style="font-size: 14px">培养方案基本信息</a>
+            </legend>
+        </fieldset>
+        <table class="layui-table">
+            <thead>
+            <tr>
+                <th>培养方案名称</th>
+                <th>专业名称</th>
+                <th>专业代码</th>
+                <th>学科门类</th>
+                <th>专业负责人</th>
+                <th>修订人</th>
+                <th>修订时间</th>
+            </tr>
+            </thead>
+            <tbody id="trainSchemeBaseInfoTbody">
+            <!--动态填充数据-->
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <!--E   培养方案的基本信息-->
+
+
+    <!--S   培养方案课程的信息-->
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
+        <legend><a name="one" style="font-size: 14px">培养方案课程信息</a></legend>
+    </fieldset>
+
+
     <!--查询-->
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-            <input type="text" name="username" placeholder="课程名称" autocomplete="off" class="layui-input">
+        <form class="layui-form layui-col-md12 x-so" id="queryTrainCourseForm">
+            <%--S 隐藏一些信息--%>
+            <input type="hidden" name="trainSchemeId" value="<%= trainSchemeId%>">
+            <input type="hidden" name="pageNum"  id="pageNum_0"/>
+            <input type="hidden" name="pageSize" id="pageSize_0"/>
+            <%--E 隐藏一些信息--%>
+            <input type="text" name="coursename" placeholder="课程名称" title="请输入课程名称" autocomplete="off"
+                   class="layui-input">
+            <input type="text" name="couesenum" placeholder="课程编号" title="请输入课程编号" autocomplete="off"
+                   class="layui-input">
             <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>课程性质</option>
-                    <option>男</option>
-                    <option>女</option>
+                <select name="coursenature">
+                    <option value="">课程性质</option>
+                    <option value="选修">选修</option>
+                    <option value="必修">必修</option>
                 </select>
             </div>
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-            <button class="layui-btn layui-btn-sm" title="点击刷新页面" type="button" onclick="javascript:window.location.reload()" style="float: right"><i class="layui-icon" style="font-size: 15px;">&#x1002;</i></button>
+            <div class="layui-input-inline">
+                <select name="courseplatform">
+                    <option value="">请选择课程平台</option>
+                    <option value="通识教育">通识教育</option>
+                    <option value="学科基础课">学科基础课</option>
+                    <option value="专业课程">专业课程</option>
+                    <option value="个性培养">个性培养</option>
+                    <option value="教学环节">教学环节</option>
+                </select>
+            </div>
+            <%--一个查询按钮--%>
+            <button class="layui-btn"><i class="layui-icon">&#xe615;</i></button>
+            <%--一个清空条件查询牛--%>
+            <button class="layui-btn"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
-    <!--end查询-->
-
-    <!--操作区域-->
-    <!--<xblock>
-        <button class="layui-btn" onclick="if(clickRes == 1){x_admin_show('添加学生','./student-add.html')}else{alert('请选择班级！')}">添加学生 </button>
-    </xblock>-->
-    <!--end 操作区域-->
 
     <!--表格内容-->
     <table class="layui-table">
         <thead>
         <tr>
             <th>
-                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                    &#xe605;</i></div>
+                <input type="checkbox">
             </th>
+            <th>序号</th>
+            <th>课程编号</th>
             <th>课程名称</th>
-            <th>学分</th>
-            <th>学时</th>
-            <th>学时分配方式及时长</th>
-            <th>每周学时分配</th>
-            <th>计分方式</th>
+            <th>所属类别</th>
+            <th>学期</th>
+            <th>课程平台</th>
+            <th>课程性质</th>
+            <th>学分/学时</th>
             <th>操作</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
-                    &#xe605;</i></div>
-            </td>
-            <td>201700917</td>
-            <td>老王</td>
-            <td>男</td>
-            <td>1854-10-2</td>
-            <td>软12004</td>
-            <td>学生</td>
-            <td>校外</td>
-            <td class="td-manage">
-                <a title="查看" onclick="x_admin_show('详细信息','student-view.html')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-                <a title="修改学生信息"  onclick="x_admin_show('修改学生信息','student-modify.html')" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i>
-                </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
-        </tr>
+        <tbody id="trainCourseTbody">
+        <%--动态JS填充数据--%>
         </tbody>
     </table>
     <!--分页-->
-    <div id="demo7"></div>
+    <div id="trainCoursePage"></div>
     <!--end 分页-->
-
-    <ul class="info">
-        <li class="title">
-                <ul id="log" class="log"></ul></p>
-                </li>
-            </ul>
-        </li>
-    </ul>
+    <!--S   培养方案课程的信息-->
 </div>
 
-<SCRIPT type="text/javascript">
-    /*分页js*/
-    layui.use(['laypage', 'layer'], function(){
-        var laypage = layui.laypage
-            ,layer = layui.layer;
-
-        //完整功能
-        laypage.render({
-            elem: 'demo7'
-            ,count: 100
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            ,jump: function(obj){
-                console.log(obj)
-            }
-        });
-    });
-
-    //点击关闭其他，触发事件
-    function closeOther() {
-        var closeTable = $(".layui-tab-title", parent.document).children("li");
-        closeTable.each(function () {
-            if ($(this).attr("class") == "") {
-                $(this).children("i").trigger("click");
-            }
-        })
-    }
-
-</SCRIPT>
-
 </body>
-
 </html>
 
 
@@ -207,7 +216,8 @@
                 上级类别
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="addType_upTypeName" name="upTypeName" disabled  class="layui-input clear-input" value="">
+                <input type="text" id="addType_upTypeName" name="upTypeName" disabled class="layui-input clear-input"
+                       value="">
             </div>
         </div>
 
@@ -230,7 +240,7 @@
                 类别描述
             </label>
             <div class="layui-input-inline">
-                <input type="text"  name="remark" lay-verify="required" id="addType_remark"
+                <input type="text" name="remark" lay-verify="required" id="addType_remark"
                        autocomplete="off" class="layui-input clear-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -246,6 +256,135 @@
 
 <%--E添加课程类别模态框--%>
 
+
+<%--2.S       安排课程模态框--%>
+<input type="hidden" id="hidden_arrangeCourse_index">
+<div class="x-body layui-col-md10" style="display: none" id="arrangeCourseModal">
+    <div class="layui-row">
+        <!--隐藏培养方案课程类别Num,用于最后提交数据-->
+        <input type="hidden" name="trainCourseTypeNum" id="trainCourseTypeNum">
+        <input type="hidden" name="trainCourseTypeName" id="trainCourseTypeName">
+        <form id="add_trainCourseForm">
+            <!--动态往这里写数据-->
+        </form>
+        <form class="layui-form layui-col-md12 x-so" id="queryCourseForm">
+            <%--隐藏两个，一个当前页，一个页号--%>
+            <%--当前页--%>
+            <input type="hidden" name="pageNum" id="pageNum_1"/>
+            <input type="hidden" name="pageSize" id="pageSize_1"/>
+            <%--培养方案编号--%>
+            <input type="hidden" name="trainSchemeId" id="trainSchemeId_queryCourse" value="<%= trainSchemeId%>"/>
+
+
+            <div class="layui-input-inline">
+                <input type="text" name="coursenamecn" placeholder="请输入课程中文名称" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select name="courseplatform">
+                    <option value="">请选择课程平台</option>
+                    <option value="通识教育">通识教育</option>
+                    <option value="学科基础课">学科基础课</option>
+                    <option value="专业课程">专业课程</option>
+                    <option value="个性培养">个性培养</option>
+                    <option value="教学环节">教学环节</option>
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <select name="coursenature">
+                    <option value="">请选择课程性质</option>
+                    <option value="必修">必修</option>
+                    <option value="选修">选修</option>
+                </select>
+            </div>
+            <button class="layui-btn" type="button" onclick="queryCourseFYBtn()"><i class="layui-icon">&#xe615;</i>
+            </button>
+            <button class="layui-btn layui-btn-normal" type="button" onclick='clearQueryCondition(this)'
+                    title="点击重置查询条件"><i class="layui-icon">&#xe639;</i></button>
+        </form>
+    </div>
+    <!--end查询-->
+
+    <div class="layui-row">
+        <button class="layui-btn" type="button" onclick="openCourse2addModal()">分配课程</button>
+    </div>
+
+
+    <!--表格内容-->
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>
+                <input type="checkbox" onclick="selectAllCheckbox(this)">
+            </th>
+            <th>序号</th>
+            <th>课程编号</th>
+            <th>课程平台</th>
+            <th>课程性质</th>
+            <th>中文名称</th>
+            <th>学分/学时</th>
+            <th>周学时分配</th>
+            <th>计分方式</th>
+        </tr>
+        </thead>
+        <tbody id="courseTbody">
+        <%--动态往这里写数据--%>
+        </tbody>
+    </table>
+    <!--end 表格内容-->
+
+    <!--分页-->
+    <div id="pageDiv"></div>
+    <!--end 分页-->
+</div>
+
+
+<%--2.E       安排课程模态框--%>
+
+
+<%--3.S       存放选好的课程的模态框(最后提交)--%>
+<input type="hidden" id="hidden_courses_2add">
+<div class="x-body layui-col-md10" style="display: none" id="course2addModal">
+    <%--最后需要提交的大表单，需要动态提交--%>
+    <form id="Course2AddForm">
+        <!--动态往这里写数据-->
+    </form>
+
+    <div class="layui-row">
+        <button class="layui-btn" type="button" onclick="allocateCourse()">确认分配</button>
+    </div>
+
+    <!--表格内容-->
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>课程名称</th>
+            <th>课程编号</th>
+            <th>学期
+                <select name="" id="" style="width: 80px;height: auto" onchange="changeSemester(this)">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+            </th>
+        </tr>
+        </thead>
+        <tbody id="course2AddTbody">
+        <%--动态往这里写数据--%>
+        </tbody>
+    </table>
+    <!--end 表格内容-->
+</div>
+
+
+<%--3.E       安排课程模态框--%>
 
 
 

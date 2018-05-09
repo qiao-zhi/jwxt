@@ -7,7 +7,7 @@ public class TrainCourse {
 
     private String courseid;
 
-    private Integer coursetypeid;
+    private String typenum;
 
     private Short semester;
 
@@ -37,12 +37,12 @@ public class TrainCourse {
         this.courseid = courseid == null ? null : courseid.trim();
     }
 
-    public Integer getCoursetypeid() {
-        return coursetypeid;
+    public String getTypenum() {
+        return typenum;
     }
 
-    public void setCoursetypeid(Integer coursetypeid) {
-        this.coursetypeid = coursetypeid;
+    public void setTypenum(String typenum) {
+        this.typenum = typenum == null ? null : typenum.trim();
     }
 
     public Short getSemester() {
