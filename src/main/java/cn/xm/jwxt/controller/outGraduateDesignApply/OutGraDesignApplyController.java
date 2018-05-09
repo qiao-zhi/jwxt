@@ -148,12 +148,38 @@ public class OutGraDesignApplyController {
                 Map<String,Object> oldResult = oGDApplyService.checkFile(userID);
                 //对结果进行处理
                 newResult = oldResult;
+                /*对审核字段进行处理*/
                 newResult.put("table1Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table1Status")));
                 newResult.put("table2Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table2Status")));
                 newResult.put("table3Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table3Status")));
                 newResult.put("table4Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table4Status")));
                 //newResult.put("table1Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table1Status")));
                 //newResult.put("table1Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table1Status")));
+                /*对提交字段进行处理*/
+                String checkStatus = (String)oldResult.get("table1Commit");
+                if("11".equals(checkStatus)){
+                    newResult.put("table1Commit","申请中");
+                    newResult.put("table2Commit","申请中");
+                    newResult.put("table3Commit","申请中");
+                    newResult.put("table4Commit","申请中");
+                    newResult.put("table5Commit","申请中");
+                    newResult.put("table6Commit","申请中");
+                } else if("21".equals(checkStatus)){
+                    newResult.put("table1Commit","已申请");
+                    newResult.put("table2Commit","已申请");
+                    newResult.put("table3Commit","已申请");
+                    newResult.put("table4Commit","已申请");
+                    newResult.put("table5Commit","已申请");
+                    newResult.put("table6Commit","已申请");
+                } else{
+                    newResult.put("table1Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table1Commit")));
+                    newResult.put("table2Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table2Commit")));
+                    newResult.put("table3Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table3Commit")));
+                    newResult.put("table4Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table4Commit")));
+                    newResult.put("table5Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table5Commit")));
+                    newResult.put("table6Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table6Commit")));
+                }
+
                 result.setSuccess(b);
                 result.setData(newResult);
             }

@@ -254,12 +254,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateManage.html">
+                                <a _href="pages/graduateProgram/outGraduateProgram/selectApply.jsp">
                                     <cite>校外毕设审核管理</cite><!-- 上传资料，教研室主任审核及意见，院长审核意见-->
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateStatistics.html">
+                                <a _href="pages/graduateProgram/outGraduateProgram/outGraduateStatistics.jsp">
                                     <cite>校外毕设统计</cite><!-- 上传资料，教研室主任审核及意见，院长审核意见-->
                                 </a>
                             </li>

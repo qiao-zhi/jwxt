@@ -1,3 +1,5 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@include file="/tag.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -62,7 +64,7 @@
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select lay-verify="required" lay-search="" name="contrller" id="clazzName">
+                <select lay-verify="required" lay-search="" name="contrller" >
                     <option value="">班级名称</option>
                     <option value="1">layer</option>
                     <option value="2">form</option>
@@ -95,7 +97,7 @@
             <td>2017-2018学年</td>
             <td>老王</td>
             <td>软12004</td>
-            <td class="y_files" title="点击查看校外毕设人员详细信息" onclick="x_admin_show_big('校外毕设人员详细信息','./outGraduateStaNum.html')">23</td>
+            <td class="y_files" title="点击查看校外毕设人员详细信息" onclick="x_admin_show_big('校外毕设人员详细信息','./outGraduateStaNum.jsp')">23</td>
         </tr>
         </tbody>
     </table>

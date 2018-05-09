@@ -56,39 +56,39 @@
         <button class="layui-btn" onclick="outApplyCommit()" style="float: right;">提交 </button>
     </xblock>
     <!--end 操作区域-->
-<script>
-//	
-		var chooseCourse=0;
-		function panduan(){
-	    		$(".layui-form-checkbox").each(function() { 
-					if ($(this).hasClass("layui-form-checked")) {
-						chooseCourse++;
-					}
-				})
-	    	}
-    	//下载资料
-    	function applyDownload(){
-    		panduan();//调用判断方法
-    		if (chooseCourse>0) {
+    <script>
+        //
+        var chooseCourse=0;
+        function panduan(){
+            $(".layui-form-checkbox").each(function() {
+                if ($(this).hasClass("layui-form-checked")) {
+                    chooseCourse++;
+                }
+            })
+        }
+        //下载资料
+        function applyDownload(){
+            panduan();//调用判断方法
+            if (chooseCourse>0) {
 //  			x_admin_show('下载模板','./outGraduateApply-download.html')
-				layer.confirm("确定下载选中的校外课设申请资料",function(index){
-					layer.close(index)
-				})
-					}
-    		else{
-    			layer.alert('请先选择需要下载的的申请信息');
-    		}
-    		chooseCourse=0;//清空值
-    	}
-	
-</script>
+                layer.confirm("确定下载选中的校外课设申请资料",function(index){
+                    layer.close(index)
+                })
+            }
+            else{
+                layer.alert('请先选择需要下载的的申请信息');
+            }
+            chooseCourse=0;//清空值
+        }
+
+    </script>
     <!--表格内容-->
     <table class="layui-table">
         <thead>
         <tr>
             <!--文件名称，上传成功，还能点击，-->
-            <tr>
-    			 <th>
+        <tr>
+            <th>
                 <div  class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
                     &#xe605;</i></div>
             </th>
@@ -168,30 +168,30 @@
         </tr>
         </tbody>--%>
     </table>
-    
-		<hr />
-		<blockquote class="layui-elem-quote">申请进度</blockquote>
-			<ul class="layui-timeline">
-		  <li class="layui-timeline-item">
-		    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-		    <div class="layui-timeline-content layui-text">
-		      <h3 class="layui-timeline-title"></h3>
-		      <p>
-		        导员审核通过，待指导教师审核
-		      </p>
-		    </div>
-		  </li>
-		  <li class="layui-timeline-item">
-		    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-		    <div class="layui-timeline-content layui-text">
-		      <h3 class="layui-timeline-title"></h3>
-		      <p>申请已提交，待导员审核</p>
-		      
-		    </div>
-		  </li>
-		</ul>
-		</div>
-   
+
+    <hr />
+    <blockquote class="layui-elem-quote">申请进度</blockquote>
+    <ul class="layui-timeline">
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+            <div class="layui-timeline-content layui-text">
+                <h3 class="layui-timeline-title"></h3>
+                <p>
+                    导员审核通过，待指导教师审核
+                </p>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+            <div class="layui-timeline-content layui-text">
+                <h3 class="layui-timeline-title"></h3>
+                <p>申请已提交，待导员审核</p>
+
+            </div>
+        </li>
+    </ul>
+</div>
+
 </div>
 <script>
     //点击关闭其他，触发事件
@@ -204,39 +204,46 @@
         })
     }
     //提交所有的申请
-	function outApplyCommit(){
-			layer.confirm("您确定要提交此次校外毕设申请信息吗？文件一旦提交将无法修改，进入审批流程。",function(index){
-                layer.close(index);
-			    var flag = true;
-			    //获取校外毕设ID
-			    var tr1 = $(".thead-tbody").children("tr:eq(0)");
-                var outsideApplyId = $(tr1).data("id");
-                var trs = $(".thead-tbody").children("tr");
-                for(var i=0;i<trs.length;i++){
-                    var td3 = $(trs[i]).find("td:eq(3)").text();
-                    if(td3!="01"&&td3!="11"){
-                        flag = false;
+    function outApplyCommit(){
+        layer.confirm("您确定要提交此次校外毕设申请信息吗？文件一旦提交将无法修改，进入审批流程。",function(index){
+            layer.close(index);
+            var flag = true;
+            var flag1 = true;
+            //获取校外毕设ID
+            var tr1 = $(".thead-tbody").children("tr:eq(0)");
+            var outsideApplyId = $(tr1).data("id");
+            var trs = $(".thead-tbody").children("tr");
+            for(var i=0;i<trs.length;i++){
+                var td3 = $(trs[i]).find("td:eq(3)").text();
+                if(td3!="已提交"){
+                    flag = false;
+                }
+                if(td3!="申请中"){
+                    flag1 = false;
+                }
+            }
+            if(flag){
+                $.ajax({
+                    url:contextPath+"/baseInfo/commitODGApply.do",
+                    type:"post",
+                    data:{"outsideApplyId":outsideApplyId},
+                    dataType:"text",
+                    success:function(result){
+                        layer.msg(result);
+                    },
+                    error:function(){
+                        layer.msg("请求失败");
                     }
-                }
-                if(flag){
-                    $.ajax({
-                        url:contextPath+"/baseInfo/commitODGApply.do",
-                        type:"post",
-                        data:{"outsideApplyId":outsideApplyId},
-                        dataType:"text",
-                        success:function(result){
-                            layer.msg(result);
-                        },
-                        error:function(){
-                            layer.msg("请求失败");
-                        }
-                    })
-                } else{
-                    layer.msg("提交失败：您有未提交的申请，请先提交。")
-                }
+                })
+            } else{
+                if(flag1){
+                    layer.msg("您已经提交，无需重复提交。")
+                }else
+                    layer.msg("提交失败：您有未提交的申请（或者你已经提交）。")
+            }
 
-			})
-	}
+        })
+    }
 </script>
 </body>
 

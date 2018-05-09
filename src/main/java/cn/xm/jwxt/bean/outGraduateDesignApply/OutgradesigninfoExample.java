@@ -245,6 +245,76 @@ public class OutgradesigninfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andStadyyearIsNull() {
+            addCriterion("stadyyear is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearIsNotNull() {
+            addCriterion("stadyyear is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearEqualTo(String value) {
+            addCriterion("stadyyear =", value, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearNotEqualTo(String value) {
+            addCriterion("stadyyear <>", value, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearGreaterThan(String value) {
+            addCriterion("stadyyear >", value, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearGreaterThanOrEqualTo(String value) {
+            addCriterion("stadyyear >=", value, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearLessThan(String value) {
+            addCriterion("stadyyear <", value, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearLessThanOrEqualTo(String value) {
+            addCriterion("stadyyear <=", value, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearLike(String value) {
+            addCriterion("stadyyear like", value, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearNotLike(String value) {
+            addCriterion("stadyyear not like", value, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearIn(List<String> values) {
+            addCriterion("stadyyear in", values, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearNotIn(List<String> values) {
+            addCriterion("stadyyear not in", values, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearBetween(String value1, String value2) {
+            addCriterion("stadyyear between", value1, value2, "stadyyear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStadyyearNotBetween(String value1, String value2) {
+            addCriterion("stadyyear not between", value1, value2, "stadyyear");
+            return (Criteria) this;
+        }
+
         public Criteria andTablenameIsNull() {
             addCriterion("tableName is null");
             return (Criteria) this;
