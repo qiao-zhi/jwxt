@@ -1,8 +1,12 @@
 package cn.xm.jwxt.controller.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
+import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.queryVo.ListVo;
 import cn.xm.jwxt.service.arrangeCourse.ApTaskArrangeCourseService;
+import cn.xm.jwxt.utils.DefaultValue;
+import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,5 +76,45 @@ public class ApTaskArrangeCourseController {
             logger.error("查询排课任务分配课程信息失败",e);
         }
         return taskArrangeCourseList;
+    }
+
+    /**
+     * 根据排课任务ID查询相关的课程和教师信息分页显示
+     * @param condition
+     * @param arrangeTaskId
+     * @return
+     */
+    @RequestMapping("/findTaskArrangeCourseAndTeacherList")
+    public @ResponseBody
+    PageInfo<ApTaskArrangeCourseCustom> findTaskArrangeCourseAndTeacherList(CommonQueryVo condition,String arrangeTaskId){
+        if(condition.getPageSize()==null){
+            condition.setPageSize(DefaultValue.PAGE_SIZE);
+        }
+        if(condition.getCurrentPage()==null){
+            condition.setCurrentPage(1);
+        }
+        PageInfo<ApTaskArrangeCourseCustom> pageInfo = null;
+        try {
+            pageInfo = taskArrangeCourseService.findTaskArrangeCourseAndTeacherListByArrangeId(arrangeTaskId, condition.getCurrentPage(), condition.getPageSize());
+        } catch (Exception e) {
+            logger.error("查询排课任务分配课程和教师信息失败",e);
+        }
+        return pageInfo;
+    }
+
+    /**
+     * 根据安排课程ID查询查询每一门课程对应的教师课程信息
+     * @param arrangeCourseId
+     * @return
+     */
+    @RequestMapping("/getTaskArrangeCourseAndTeacherClassInfo")
+    public @ResponseBody ApTaskArrangeCourseCustom getTaskArrangeCourseAndTeacherClassInfo(String arrangeCourseId){
+        ApTaskArrangeCourseCustom info = null;
+        try {
+            info = taskArrangeCourseService.getTaskArrangeCourseAndTeacherClassInfo(arrangeCourseId);
+        } catch (Exception e) {
+            logger.error("查询课程和教师班级信息失败",e);
+        }
+        return info;
     }
 }

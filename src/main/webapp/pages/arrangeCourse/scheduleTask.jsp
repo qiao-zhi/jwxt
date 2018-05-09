@@ -49,7 +49,7 @@
         <form class="layui-form layui-col-md12 x-so">
         	
             <div class="layui-input-inline">
-                <select name="majorId" lay-filter="major">
+                <select name="majorId" lay-filter="major" lay-search="">
                 </select>
             </div>
             <div class="layui-input-inline">

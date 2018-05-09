@@ -96,7 +96,7 @@
     		chooseCourse=0;//清空值
     	}
     	/*function arrangeCourseAdd(){
-    		x_admin_show('新增排课计划','./scheduleManage-add.html')
+    		x_admin_show('新增排课计划','./scheduleManage-add.jsp')
     	}*/
 	</script>
     <!--表格内容-->

@@ -2,6 +2,8 @@ package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -59,9 +61,15 @@ public interface ApTaskArrangeCourseService {
     /**
      * 根据排课任务ID查询相关的课程信息及教师信息分页显示
      * @param arrangeTaskId
+     * @retur @throws Exception
+     */
+    PageInfo<ApTaskArrangeCourseCustom> findTaskArrangeCourseAndTeacherListByArrangeId(String arrangeTaskId, Integer currentPage, Integer pageSize) throws Exception;
+
+    /**
+     * 根据安排课程ID查询查询每一门课程对应的教师课程信息
+     * @param arrangeCourseId
      * @return
      * @throws Exception
      */
-    List<Map<String,Object>> findTaskArrangeCourseAndTeacherListByArrangeId(String arrangeTaskId) throws Exception;
-
+    ApTaskArrangeCourseCustom getTaskArrangeCourseAndTeacherClassInfo(String arrangeCourseId) throws Exception;
 }
