@@ -37,30 +37,30 @@ public interface TrainCourseService {
     /**
      * 根据培养方案编号删除培养方案课程
      *
-     * @param trainSchemeId 培养方案编号
+     * @param trainCourseId 培养方案课程编号
      * @return
      * @throws SQLException
      */
-    public boolean deleteTrainCourseByTrainSchemeId(String trainSchemeId) throws SQLException;
+    public boolean deleteTrainCourseByTrainCourseIds(int trainCourseId) throws SQLException;
 
     /**
-     * 根据培养方案课程类别删除培养方案课程
+     * 根据培养方案课程编号集合批量删除培养方案课程
      *
-     * @param courseTypeId 培养方案课程类别编号
+     * @param trainCourseIds 培养方案课程类别编号集合
      * @return 是否删除成功
      * @throws SQLException
      */
-    public boolean deleteTrainCourseByCoureseTypeId(String courseTypeId) throws SQLException;
+    public boolean deleteTrainCourseBatch(List<Integer> trainCourseIds) throws SQLException;
+
 
     /**
-     * 更新培养方案课程(1.根据培养方案编号先删除。2.重新添加培养方案)
+     * 更新培养方案课程(修改培养方案课程学期)
      *
-     * @param courseTypeId 根据培养方案编号先删除
-     * @param trainCourses 重新添加的课程集合
+     * @param trainCourse 重新添加的课程
      * @return
      * @throws SQLException
      */
-    public boolean updateTrainCourseByID(String courseTypeId, List<TrainCourse> trainCourses) throws SQLException;
+    public boolean updateTrainCourseSemesterByID(TrainCourse trainCourse) throws SQLException;
 
     /**
      * 查询单个培养方案课程(根据培养方案课程编号关联查出培养方案课程类别以及课程详细信息)

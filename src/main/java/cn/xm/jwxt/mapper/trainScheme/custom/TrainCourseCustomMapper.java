@@ -38,4 +38,13 @@ public interface TrainCourseCustomMapper {
     public List<Map<String,Object>> getTrainCoursesByCondition(Map<String,Object> condition)throws SQLException;
 
 
+    /**
+     *批量删除培养方案课程(实际是修改培养方案课程性质为0)
+     * @param ids:id集合
+     * @return  影响行数
+     * @throws SQLException
+     */
+    public int  deleteTrainCoursesBatch(List<Integer> ids)throws SQLException;
+
+
 }
