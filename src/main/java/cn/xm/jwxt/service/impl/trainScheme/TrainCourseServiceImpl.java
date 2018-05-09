@@ -2,6 +2,7 @@ package cn.xm.jwxt.service.impl.trainScheme;
 
 import cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo;
 import cn.xm.jwxt.bean.trainScheme.TrainCourse;
+import cn.xm.jwxt.mapper.trainScheme.TrainCourseMapper;
 import cn.xm.jwxt.mapper.trainScheme.custom.TrainCourseCustomMapper;
 import cn.xm.jwxt.service.trainScheme.TrainCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class TrainCourseServiceImpl implements TrainCourseService {
     @Autowired
     private TrainCourseCustomMapper trainCourseCustomMapper;//培养方案课程手写的mapper
+    @Autowired
+    private TrainCourseMapper trainCourseMapper;//培养方案课程手写的mapper
     @Override
     public boolean addTrainCourse(List<TrainCourse> trainCourses) throws SQLException {
         return false;
@@ -31,18 +34,22 @@ public class TrainCourseServiceImpl implements TrainCourseService {
     }
 
     @Override
-    public boolean deleteTrainCourseByTrainSchemeId(String trainSchemeId) throws SQLException {
+    public boolean deleteTrainCourseByTrainCourseIds(int trainCourseId) throws SQLException {
         return false;
     }
 
     @Override
-    public boolean deleteTrainCourseByCoureseTypeId(String courseTypeId) throws SQLException {
-        return false;
+    public boolean deleteTrainCourseBatch(List<Integer> trainCourseIds) throws SQLException {
+        if(trainCourseIds == null || trainCourseIds.size()==0){
+            return true;
+        }
+        //将培养方案课程的课程性质置为0(标记为删除)
+        return trainCourseCustomMapper.deleteTrainCoursesBatch(trainCourseIds)>0?true:false;
     }
 
     @Override
-    public boolean updateTrainCourseByID(String courseTypeId, List<TrainCourse> trainCourses) throws SQLException {
-        return false;
+    public boolean updateTrainCourseSemesterByID(TrainCourse trainCourse) throws SQLException {
+        return trainCourseMapper.updateByPrimaryKeySelective(trainCourse)>0?true:false;
     }
 
     @Override
