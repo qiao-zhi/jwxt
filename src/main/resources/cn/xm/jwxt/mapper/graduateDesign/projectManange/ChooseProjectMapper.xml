@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper" >
+
+  <select id="selectProject_ACInfo" parameterType="map" resultType="map">
+    查询条件：
+    teacherName，titlename，checkStatus，projectType
+
+    select teacherTitleID,titlename,titleOrigin,projectType,reqireStudentNum,year,checkStatus
+    teacherName,majorName
+    from teacherGreDesignTitle t,t_teacher_base_info teacher,t_major_base_info m where t.teacherID=teacher.teacherID and teacher.majorID=m.majorID
+    and teacherName=''
+    and titlename=''
+    and checkStatus=''
+    and projectType=''
+    ;
+  </select>
+</mapper>

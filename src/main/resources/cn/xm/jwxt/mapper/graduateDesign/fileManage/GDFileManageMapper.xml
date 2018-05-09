@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.fileManage.GDFileManageMapper" >
+  <!--S    查询专业信息的代码-->
+  <!--1.  获取所有的专业名称和专业代码-->
+  <select id="getMajorNameAndCode" resultType="map">
+    SELECT majorId,majorNum,majorName FROM t_major_base_info
+  </select>
+  <!--2.  根据专业代码获取专业信息用于添加培养方案的时候给专业信息赋值-->
+  <select id="getMajorInfoByMajorCode" resultType="map">
+    select * from t_major_base_info where majorId = #{majorCode}
+  </select>
+
+  <!--S    分页查fileManage表格信息-->
+  <select id="selectFileCheckinfoByCondition" parameterType="map" resultType="map">
+    select f.auditResult,f.auditContent,b.gdTitle,s.teacherID,s.studentId
+    from
+    gdFileCheck f,taskBookInfo b,
+    (select t1.studentId,t1.StudentTitleresultID,t1.teacherTitleID,t2.teacherID
+    from studentTitleResult t1,teacherGreDesignTitle t2
+    where t1.teacherTitleID=t2.teacherTitleID) s
+    where f.StudentTitleresultID=s.StudentTitleresultID and s.StudentTitleresultID=b.StudentTitleresultID
+    select * from trainschemeinfo
+
+  </select>
+
+</mapper>

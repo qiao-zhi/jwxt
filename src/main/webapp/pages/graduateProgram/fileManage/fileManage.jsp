@@ -15,7 +15,7 @@
     <%@include file="/tag.jsp"%>
     <%@ include file="/cssJs.jsp"%>
 
-    <script src="${baseurl}/js/graduateProgram/projectManage/fileManage.js"></script>
+    <script src="${baseurl}/js/graduateProgram/fileManage/fileManage.js"></script>
 </head>
 
 <body>
@@ -39,13 +39,13 @@
 <div class="x-body">
     <!--查询-->
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
+        <form class="layui-form layui-col-md12 x-so" id="y_form">
             <input type="text" name="studentNum" placeholder="学号" autocomplete="off" class="layui-input">
             <input type="text" name="studentName" placeholder="学生名称" autocomplete="off" class="layui-input">
             <input type="text" name="teacherName" placeholder="指导教师" autocomplete="off" class="layui-input">
             <input type="text" name="gdTitle" placeholder="毕设题目" autocomplete="off" class="layui-input">
             <div class="layui-input-inline"><%--默认显示审核不通过的内容--%>
-                <select name="auditCesult">
+                <select name="auditResult">
                     <option value="-1">未审核</option>
                     <option value="0">审核不通过</option>
                     <option value="1">审核通过</option>
@@ -80,28 +80,12 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${pageInfo}" var="sk">
-            <tr>
-                <td>
-                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
-                        &#xe605;</i></div>
-                    <input type="hidden" value="${pageInfo.StudentTitleresultID}">
-                </td>
-                <td>${pageInfo.studentName}</td>
-                <td>${pageInfo.studentNum}</td>
-                <td>${pageInfo.className}</td>
-                <td>${pageInfo.gdTitle}</td>
-                <td>${pageInfo.teacherName}</td>
-                <td>${pageInfo.auditCesult}</td>
-                <td>${pageInfo.auditContent}</td>
-            </tr>
-        </c:forEach>
         </tbody>
     </table>
     <!--end 表格内容-->
 
     <!--分页-->
-    <div id="demo7"></div>
+    <div id="y_page"></div>
     <!--end 分页-->
 </div>
 

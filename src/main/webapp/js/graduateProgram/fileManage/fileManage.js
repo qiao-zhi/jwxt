@@ -21,8 +21,8 @@ findTaskNoticeBaseInfo();
 
 function findTaskNoticeBaseInfo(){
     $.ajax({
-        url : contextPath+'/arrangeCourse/findTaskNoticeInfoList.action',
-        data : $("#selectNoticeInfoForm").serialize(),
+        url : contextPath+'/gdfilemanage/getFileCheckInfo.do',
+        data : $("#y_form").serialize(),
         type : 'POST',
         dataType : 'json',
         async:true,
@@ -30,16 +30,7 @@ function findTaskNoticeBaseInfo(){
     });
 }
 
-//点击关闭其他，触发事件
-function closeOther() {
-    var closeTable = $(".layui-tab-title", parent.document).children("li");
-    closeTable.each(function () {
-        if ($(this).attr("class") == "") {
-            $(this).children("i").trigger("click");
-        }
-    })
-}
-
+//查询成功后执行
 function showTaskNoticeBaseInfo(pageInfo){
     // console.log(pageInfo) //测试是否有值
     var total = pageInfo.total;//页总数
@@ -58,7 +49,7 @@ function showTaskNoticeBaseInfo(pageInfo){
             '<td>'+ baseInfoList[i].className +'</td>' +
             '<td>'+ baseInfoList[i].gdTitle +'</td>' +
             '<td>'+ baseInfoList[i].teacherName +'</td>' +
-            '<td>'+ baseInfoList[i].auditCesult +'</td>' +
+            '<td>'+ baseInfoList[i].auditResult +'</td>' +
             '<td>'+ baseInfoList[i].auditContent +'</td>' +
             '</tr>';
         $("tbody").append(tr);
@@ -66,7 +57,6 @@ function showTaskNoticeBaseInfo(pageInfo){
 
     //开启分页组件
     noticeInfoListPage(total,pageNum,pageSize);
-
 }
 
 //分页函数
@@ -77,7 +67,7 @@ function noticeInfoListPage(total,pageNum,pageSize){
 
         //完整功能
         laypage.render({
-            elem: 'noticePage', //注意，这里的 test1 是 ID，不用加 # 号
+            elem: 'y_page', //注意，这里的 test1 是 ID，不用加 # 号
             count: total, //数据总数，从服务端得到
             limit:pageSize,//每页显示的条数。laypage将会借助 count 和 limit 计算出分页数。
             curr:pageNum,//当前页号
@@ -96,4 +86,14 @@ function noticeInfoListPage(total,pageNum,pageSize){
             }
         });
     });
+}
+
+//点击关闭其他，触发事件
+function closeOther() {
+    var closeTable = $(".layui-tab-title", parent.document).children("li");
+    closeTable.each(function () {
+        if ($(this).attr("class") == "") {
+            $(this).children("i").trigger("click");
+        }
+    })
 }

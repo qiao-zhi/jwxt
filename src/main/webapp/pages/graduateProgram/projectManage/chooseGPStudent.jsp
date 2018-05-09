@@ -10,12 +10,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="../../../css/font.css">
-    <link rel="stylesheet" href="../../../css/xadmin.css">
-    <script type="text/javascript" src="../../../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../../../js/xadmin.js"></script>
+
+    <%-- qlq引入的公共的JSP --%>
+    <%@include file="/tag.jsp"%>
+    <%@ include file="/cssJs.jsp"%>
+
+    <script src="${baseurl}/js/graduateProgram/projectManage/chooseGPStudent.js"></script>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
 <div class="x-body">
     <!--查询-->
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
+        <form class="layui-form layui-col-md12 x-so" id="y_form">
             <input type="text" name="username" placeholder="课题名称" autocomplete="off" class="layui-input">
             <input type="text" name="" class="layui-input" id="L_pass" placeholder="学年" autocomplete="off">
             <div class="layui-input-inline">
@@ -126,47 +126,10 @@
     <!--end 表格内容-->
 
     <!--分页-->
-    <div id="demo7"></div>
+    <div id="y_page"></div>
     <!--end 分页-->
 </div>
-<script>
-    /*学年*/
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
 
-        laydate.render({
-            elem: '#L_pass' //指定元素
-            ,type: 'year'
-        });
-    })
-
-    /*分页js*/
-    layui.use(['laypage', 'layer'], function(){
-        var laypage = layui.laypage
-            ,layer = layui.layer;
-
-        //完整功能
-        laypage.render({
-            elem: 'demo7'
-            ,count: 100
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            ,jump: function(obj){
-                console.log(obj)
-            }
-        });
-    });
-
-    //点击关闭其他，触发事件
-    function closeOther() {
-        var closeTable = $(".layui-tab-title", parent.document).children("li");
-        closeTable.each(function () {
-            if ($(this).attr("class") == "") {
-                $(this).children("i").trigger("click");
-            }
-        })
-    }
-
-</script>
 </body>
 
 </html>

@@ -10,12 +10,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="../../../css/font.css">
-    <link rel="stylesheet" href="../../../css/xadmin.css">
-    <script type="text/javascript" src="../../../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../../../js/xadmin.js"></script>
+
+    <%-- qlq引入的公共的JSP --%>
+    <%@include file="/tag.jsp"%>
+    <%@ include file="/cssJs.jsp"%>
+
+    <script src="${baseurl}/js/graduateProgram/projectManage/chooseProject.js"></script>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
     <!--根据课题学生专业和登录学生学生专业进行比较，显示相关信息-->
     <!--查询-->
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
+        <form class="layui-form layui-col-md12 x-so" id="y_form">
             <input type="text" name="username" placeholder="教师名称" autocomplete="off" class="layui-input">
             <input type="text" name="username" placeholder="课题名称" autocomplete="off" class="layui-input">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -87,7 +87,7 @@
     <!--end 表格内容-->
 
     <!--分页-->
-    <div id="demo7"></div>
+    <div id="y_page"></div>
     <!--end 分页-->
 
     <!--操作区域-->
@@ -148,68 +148,7 @@
     </table>
     <!--end 表格内容-->
 </div>
-<script>
-    //发布时间
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
 
-        laydate.render({
-            elem: '#L_pass' //指定元素
-        });
-    });
-</script>
-<script>
-    /*分页js*/
-    layui.use(['laypage', 'layer'], function(){
-        var laypage = layui.laypage
-            ,layer = layui.layer;
-
-        //完整功能
-        laypage.render({
-            elem: 'demo7'
-            ,count: 100
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            ,jump: function(obj){
-                console.log(obj)
-            }
-        });
-    });
-
-    //点击关闭其他，触发事件
-    function closeOther() {
-        var closeTable = $(".layui-tab-title", parent.document).children("li");
-        closeTable.each(function () {
-            if ($(this).attr("class") == "") {
-                $(this).children("i").trigger("click");
-            }
-        })
-    }
-
-    /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
-        });
-    }
-</script>
-<script>
-    //???
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-    });
-</script>
 </body>
 
 </html>
