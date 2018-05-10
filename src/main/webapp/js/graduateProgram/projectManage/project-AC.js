@@ -16,8 +16,9 @@ layui.use('form', function(){
     });
 });
 
-//初始化表格
-findTaskNoticeBaseInfo();
+$(function () {
+    findTaskNoticeBaseInfo();//初始化表格
+});
 
 function findTaskNoticeBaseInfo(){
     $.ajax({
