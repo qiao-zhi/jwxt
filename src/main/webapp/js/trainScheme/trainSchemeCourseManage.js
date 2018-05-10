@@ -205,11 +205,16 @@ function beforeRemove(treeId, treeNode) {
         layer.msg("您不可以删除根节点!请从二级节点开始操作!",{icon:2,shade: [0.8, '#393D49']})
         return false;
     }
-    if(confirm("确认删除?\n将会删除下面的所有课程信息!!!")){
-        if(treeNode.isParent){
-            layer.msg("该目录下面还有子目录，请从最底层目录开始删除!",{icon:2,shade: [0.8, '#393D49']})
-            return false;
-        }
+    if(treeNode.isParent){
+        layer.msg("该目录下面还有子目录，请从最底层目录开始删除!",{icon:2,shade: [0.8, '#393D49']})
+        return false;
+    }
+    //如果表格中有数据就不让删除
+    if($("#trainCourseTbody").children("tr").length>0){
+        layer.msg("该节点已经排有课程，不允许删除课程类别!先删除培养方案课程!",{icon:2,time:2*1000,shade: [0.8, '#393D49']});
+        return false;
+    }
+    if(confirm("确认删除?")){
         return true;
     }
     return false;
@@ -223,7 +228,21 @@ function beforeRemove(treeId, treeNode) {
  */
 function onRemove(e, treeId,treeNode) {
     var layer = getLauiLayer();
-    layer.msg("开始删除")
+    var trainSchemeId = getTrainSchemeId();//培养方案编号
+    var typeNum = treeNode.typenum;//类别num
+    $.post(contextPath+"/courseType/deleteCourseType.do",{"trainSchemeId":trainSchemeId,"typeNum":typeNum},function (response) {
+        layer.msg(response,{time:2*1000,shade: [0.8, '#393D49']},function () {
+            if("删除成功" == response){
+                getTypeTree();//重新生成树
+                //1.清空条件
+                var form = $("#queryTrainCourseForm");
+                form.find("input").not("#queryTrainCourseTrainshemeId").val("");
+                form.find("select").val("");
+                //2.重新查询一次
+                queryTrainCourseByCondition();
+            }
+        })
+    },'text')
 }
 /******E  删除*******/
 
@@ -324,7 +343,8 @@ function clickNode(e, treeId,treeNode) {
     $("#trainCourseTypeNum").val(treeNode.typenum);//向隐藏的课程类别编号赋值(最后添加到表单中传到后台保存)
     $("#trainCourseTypeName").val(treeNode.typename);//
     $("#typeNum_0").val(treeNode.typenum);//向隐藏的课程类别编号赋值
-    queryTrainCourseByCondition();//分页查询培养方案课程信息
+    // queryTrainCourseByCondition();//分页查询培养方案课程信息
+    clearConditionAndQueryTrainCourse();
 }
 /************E   点击事件*********/
 
@@ -349,7 +369,12 @@ function addHoverDom(treeId,treeNode) {
     if (btn)btn.bind("click",function() {//增加的业务逻辑写在这里
         var name = treeNode.typename ; //获取到当前的节点的名称
         var typenum = treeNode.typenum ; //获取到当前的节点的编号
-
+        var layer = getLauiLayer();
+        //如果是叶子节点并且排有课程不允许再添加
+        if(!treeNode.isParent &&$("#trainCourseTbody").children("tr").length>0){
+            layer.msg("该节点已经排有课程，不允许添加课程类别!",{icon:2,time:2*1000,shade: [0.8, '#393D49']});
+            return;
+        }
         if(confirm("确认在类别  "+name+"  下添加新的类别?")){
             //1.向隐藏的地方赋值
             $(".clear-input").val("");//清空残留的数据
@@ -719,6 +744,15 @@ function validateSemester() {
 /*******************E   最后选中之后点击分配**************************/
 
 /****************S   分页查询培养方案课程信息相关操作********************/
+
+function clearConditionAndQueryTrainCourse(){
+    //1.清空条件
+    var form = $("#queryTrainCourseForm");
+    form.find("input").not("#queryTrainCourseTrainshemeId").not("#typeNum_0").val("");
+    form.find("select").val("");
+    //2.重新查询一次
+    queryTrainCourseByCondition();
+}
 /**
  * 分页查询培养方案课程信息
  */
@@ -743,7 +777,7 @@ function showTraincourseTable(pageInfo) {
     $("#trainCourseTbody").html("");//清空表格中数据并重新填充数据
     for(var i=0,length_1 = traincourses.length;i<length_1;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
-        var tr = "<tr><td>"+'<input type="checkbox" name="trainCourseCheckbox" class="trainCourseCheckbox" value="'+traincourses[i].trainCourseID+'"></td>'
+        var tr = "<tr><td><input type='hidden' value='"+traincourses[i].courseId+"'/>"+'<input type="checkbox" name="trainCourseCheckbox" class="trainCourseCheckbox" value="'+traincourses[i].trainCourseID+'"></td>'
             +'<td>'+index+'</td>'
             +'<td>'+replaceNull(traincourses[i].courseNum)+'</td>'
             +'<td>'+replaceNull(traincourses[i].courseNameCN)+'</td>'
@@ -753,7 +787,7 @@ function showTraincourseTable(pageInfo) {
             +'<td>'+replaceNull(traincourses[i].courseNature)+'</td>'
             +'<td>'+replaceNull(traincourses[i].credit)+"/"+replaceNull(traincourses[i].courseHour)+'</td>'
             +'<td>'
-            +'<a title="点击查看课培养方案课程详细信息" onclick="openDetailLayer(this)" href=javascript:void(0)><i class="layui-icon">&#xe615;</i></a>'
+            +'<a title="点击查看课培养方案课程详细信息" onclick="openTrainCourseDetailModal(this)" href=javascript:void(0)><i class="layui-icon">&#xe615;</i></a>'
             +'</td></tr>'
         $("#trainCourseTbody").append(tr);
     }
@@ -961,6 +995,16 @@ function deleteTrainCourseBatch() {
  */
 function openAddCourseCapacityModal() {
     var layer = getLauiLayer();
+    //1.验证是否选中培养方案课程
+    var length = $(".trainCourseCheckbox:checked").length;
+    if(length==0){
+        layer.msg("请选择培养方案课程",{icon:2,time:2*1000,shade: [0.8, '#393D49']});
+        return;
+    }
+    //2.填充表格数据(1.填充表头，2填充表体，3.判断哪些复选框该选上)
+    getTrainSchemeCapacityInfos();
+    //3.开启模态框
+    var layer = getLauiLayer();
     var  width=($(window).width()*0.80);
     var height=($(window).height()*0.70);
     var index = layer.open({
@@ -977,6 +1021,231 @@ function openAddCourseCapacityModal() {
     //向页面隐藏index
     $("#hidden_courses_capacity_index").val(index);
 }
+
+
+/**
+ * 1.  根据培养方案编号查询到培养方案能力，并且填充到表头
+ */
+function getTrainSchemeCapacityInfos(){
+    var trainSchemeId = getTrainSchemeId();//获取培养方案编号
+    $.post(contextPath+"/TrainSchemeCapacity/getCapacitysByTrainId.do",{"trainSchemeId":trainSchemeId},initTrainSchemeCapacity2Table,'json')
+}
+
+/**
+ * 将ajax查到的能力填充到表格
+ * @param response  ajax返回的能力信息
+ */
+function initTrainSchemeCapacity2Table(response) {
+    if(response == null ){
+        $("#capacityProptDiv").css("display","");//显示提示语
+        $("#capacityDiv").css("display","none");//隐藏表格
+        return;
+    }
+    // alert(JSON.stringify(response))
+    $("#capacity2addDr").find("th:gt(2)").remove();//先删掉从能力开始的表头
+    for(var i=0,length_1 = response.length;i<length_1;i++){
+        $("#capacity2addDr").append("<th title='"+response[i].capacitydescription+"'>"+"<input type='hidden' value='"+response[i].capacityid+"'>"+response[i].capacitysort+"</th>");
+    }
+    initTrainCourseCapacityTbody();
+}
+
+/**
+ * 2.初始化表体
+ */
+function initTrainCourseCapacityTbody() {
+    $("#courseCapacity2AddTbody").html("");//先清空表体
+    $(".trainCourseCheckbox:checked").each(function (index) {//遍历选中的多选框
+        var trainCourseId = $(this).val();//培养方案课程ID
+        var tr = $(this).parent().parent();
+        var courseNum = tr.children("td:eq(2)").text();//课程编号
+        var courseName = tr.children("td:eq(3)").text();//课程姓名
+        var tr = "<tr><td>"+(index+1)+"<input type='hidden' class='trainCourseId4Delete' value='"+trainCourseId+"'/></td><td>"+courseNum+"</td><td>"+courseName+"</td>";
+        //获取表头的数据填充到表体中
+        var head_tr = $("#capacity2addDr");
+        for(var i=3,length_1 = head_tr.children("th").length;i<length_1;i++){
+            var value = head_tr.children("th:eq("+i+")").find("input").val();
+            tr += "<td><input type='checkbox' class='traincousrse"+trainCourseId+"' value='"+value+"'/></td>";
+        }
+        tr += "</tr>";
+        $("#courseCapacity2AddTbody").append(tr);
+    })
+    getTrainCourseCapacity();
+}
+
+
+/**
+ * 3.根据选中的培养方案课程编号查询培养方案课程能力集合
+ */
+function getTrainCourseCapacity() {
+    //1.拼接集合，访问后台进行查询
+    var ids = [];
+    $(".trainCourseCheckbox:checked").each(function (index) {//遍历选中的多选框
+        ids[index] = $(this).val();
+    });
+    $.post(contextPath+"/TrainCourseCapacity/getTrainCourseByTrainCourseIds.do",{"ids":ids.toString()},selectTraincapacity,'json');
+}
+
+
+/**
+ * 根据查到的结果将已经选择的打上对勾
+ * @param response  数据集合
+ */
+function selectTraincapacity(response) {
+    if(response == null || response.length == 0){
+        return;
+    }
+    for(var i=0;i<response.length;i++){
+        var tcourseCapacity = response[i];
+        $(".traincousrse"+response[i].traincourseid+"[value='"+response[i].capacityid+"']").prop("checked","checked");
+    }
+}
+
+/**
+ * 4.批量添加培养方案课程能力
+ * (1)遍历多选框
+ * (2)动态创建一表单进行提交
+ */
+function addTrainCourseCapacityBatch() {
+    //1.验证是否可以分
+    var layer = getLauiLayer();
+    var checkedCheckbox = $("[class^='traincousrse']:checkbox:checked");//选择到已经选择的多选框
+    if(checkedCheckbox==null || checkedCheckbox.length ==0){
+        layer.msg("没有可以分配的课程能力",{icon:2,time:2*1000,shade: [0.8, '#393D49']});
+        return;
+    }
+    //2.动态添加一个表单提交信息
+    var form = $("<form></form>");//动态创建一个form元素
+    //2.1遍历所有选中的元素多选框添加元素
+    $("[class^='traincousrse']:checkbox:checked").each(function (index) {
+        var trainCourseId = $(this).parent().parent().children("td:eq(0)").find("input").val();//培养方案课程编号
+        var trainSchemeId = getTrainSchemeId();//培养方案课程编号
+        var capacityId = $(this).val();//能力编号
+        form.append("<input type='hidden' name='coursecapacityrequireinfos["+index+"].traincourseid' value='"+trainCourseId+"'/>");
+        form.append("<input type='hidden' name='coursecapacityrequireinfos["+index+"].trainningschemeid' value='"+trainSchemeId+"'/>");
+        form.append("<input type='hidden' name='coursecapacityrequireinfos["+index+"].capacityid' value='"+capacityId+"'/>");
+    })
+    //2.2遍历表格中的第一列创建一个集合，用于先根据培养方案课程编号删除
+    var trainCourseIds=[];
+    $(".trainCourseId4Delete").each(function(index){
+        trainCourseIds[index] = $(this).val();
+    });
+    form.append("<input type='hidden' name='trainCourseIds' value='"+trainCourseIds.toString()+"'/>")
+    //3.提交数据进行先删除后添加
+    $.post(contextPath+"/TrainCourseCapacity/addTrainCapacityBatch.do",form.serialize(),function (response) {
+        layer.msg(response,{time:2*1000,shade: [0.8, '#393D49']},function () {
+            if("添加成功" == response){
+                layer.close($("#hidden_courses_capacity_index").val());
+            }
+        })
+    },'text');
+}
 /****************E    安排课程能力对应的模态框****************/
 
+/********** S 查看培养方案课程详情的相关操作***/
+/**
+ * 打开培养方案课程详情的模态框
+ * 1.查询数据
+ * 2.打开模态框
+ * @param obj 将按钮自己传下来
+ */
+function openTrainCourseDetailModal(obj){
+    var tr = $(obj).parent().parent();
+    var courseId = tr.children("td:eq(0)").find("input:eq(0)").val();//课程编号
+    var trainCourseId = tr.children("td:eq(0)").find(":checkbox").val();//培养方案课程编号
+    //1.查询数据
+    //1.1查询课程基本信息
+    $("#courseTypeName").text(tr.children("td:eq(4)").text());//所属课程类别
+    $("#courseSemester").text(tr.children("td:eq(5)").text());//上课学期
+    queryCourseBaseInfoByCourseId(courseId);
+    //1.2查询课程资料信息
+    queryCourseFileInfo(courseId);
+    //1.3查询课程培养方案能力信息
+    queryCourseCapacityByTrainCourseId(trainCourseId);
 
+    //2.开启模态框
+    var width=($(window).width()*0.80);
+    var height=($(window).height()*0.70);
+    var index = layer.open({
+        title:'课程详细信息',
+        area: [width+'px', height +'px'],//大小
+        fix: false, //不固定
+        maxmin: false,
+        zIndex:500,
+        shadeClose: false,
+        shade:0.4,
+        type:1,
+        content:$('#hidden_course_detail_modal')
+    });
+    //向页面隐藏index
+    $("#hidden_course_detail_index").val(index);
+}
+
+
+/**
+ * 根据课程编号查看课程基本信息(前提是页面隐藏课程主键)
+ * @param courseId  课程编号
+ */
+function queryCourseBaseInfoByCourseId(courseId){
+    $.post(contextPath+'/courseLibrary/getCourseBaseInfoById.do',{"courseId":courseId},function (courseInfoBack) {
+        $("#coursenum").text(courseInfoBack.coursenum);//课程编号
+        $("#courseplatform").text(courseInfoBack.courseplatform);//课程平台
+        $("#coursenamecn").text(courseInfoBack.coursenamecn);//中文名称
+        $("#coursenameen").text(courseInfoBack.coursenameen);//英文名称
+        $("#coursenature").text(courseInfoBack.coursenature);//课程性质
+        $("#credit").text(courseInfoBack.credit+"/"+courseInfoBack.coursehour);//学分/学时
+        $("#teachhour").text(courseInfoBack.teachhour);//讲课时长
+        $("#experimenthour").text(courseInfoBack.experimenthour);//实验时长
+        $("#computerhour").text(courseInfoBack.computerhour);//上机时长
+        $("#practicehour").text(courseInfoBack.practicehour);//实践时长
+        $("#weeklyhour").text(courseInfoBack.weeklyhour);//周学时
+        $("#scoringway").text(courseInfoBack.scoringway);//积分方式
+    },'json')
+}
+
+
+/**
+ * 查询课程教学资料信息(前提是页面隐藏课程主键)
+ * @param courseId  课程编号
+ */
+function queryCourseFileInfo(courseId){
+    $.post(contextPath+'/teachingFile/getTeachingFile.do',{"courseId":courseId},function (teachingProgramInfos) {
+        if(teachingProgramInfos == null){//如果为null就结束方法
+            return;
+        }
+
+        if(teachingProgramInfos.length>0 ){
+            // alert(JSON.stringify(teachingProgramInfos));//打印字符串信息
+            $("#courseFileTbody").html("");//清空表格
+            for(var i=0,length_1 =teachingProgramInfos.length;i<length_1;i++ ){
+                var tr = "<tr><td>"+teachingProgramInfos[i].filetype
+                    +"</td><td>"+"<a title='点击预览课程资料' href='/file/teachingFile/"+teachingProgramInfos[i].filenowname+"' target='_blank'>"+teachingProgramInfos[i].fileoriname
+                    +"</a></td></tr>";
+                $("#courseFileTbody").append(tr);
+            }
+            $("#courseFileTable").css("display","");//设置表格可见
+            $("#promptLabel").css("display","none");//长度为0提示没有课程资料(设置提示语可见)
+        }else{
+            $("#promptLabel").css("display","");
+            $("#courseFileTable").css("display","none");
+        }
+    },'json')
+}
+
+/**
+ * 根据培养方案课程编号查询培养方案课程能力
+ * @param trainCourseId 培养方案课程能力
+ */
+function queryCourseCapacityByTrainCourseId(trainCourseId) {
+    $.post(contextPath+"/TrainCourseCapacity/getTrainCourseCapacityByTrainCourseId.do",{"trainCourseID":trainCourseId},function (response) {
+        if(response == null ||response.length == 0){
+            return;
+        }
+        // alert(JSON.stringify(response))
+        $("#courseCapacityTbody").html("");
+        for(var i=0,length_1 =response.length;i<length_1;i++){
+            $("#courseCapacityTbody").append("<tr><td>"+(i+1)+"</td><td>"+response[i].capacitySort+"</td><td>"+response[i].capacityDescription+"</td></tr>")
+        }
+    },'json')
+}
+
+/********** E 查看培养方案课程详情的相关操作***/

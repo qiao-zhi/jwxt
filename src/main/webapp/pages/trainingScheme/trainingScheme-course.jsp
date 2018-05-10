@@ -408,29 +408,27 @@
     </form>
 
     <div class="layui-row">
-        <button class="layui-btn" type="button" onclick="allocateCourse()">确认分配</button>
+        <button class="layui-btn" type="button" onclick="addTrainCourseCapacityBatch()">确认分配课程能力</button>
     </div>
 
     <!--表格内容-->
     <table class="layui-table">
         <thead>
-            <tr>
+            <tr id="capacity2addDr">
                 <th>序号</th>
                 <th>课程名称</th>
                 <th>课程编号</th>
-                <th title="XXXX能力">G1</th>
-                <th title="xxx能力2">G2</th>
             </tr>
         </thead>
         <tbody id="courseCapacity2AddTbody">
             <%--动态往这里写数据--%>
-            <tr>
-                <td>1 <input type="hidden" ></td>
-                <td>英语课</td>
+           <%-- <tr>
+                <td>&lt;%&ndash;隐藏培养方案课程编号到这里&ndash;%&gt;</td>
+                <td>&lt;%&ndash;&ndash;%&gt;</td>
                 <td>数学课</td>
                 <td><input type="checkbox" name="" class="XX"></td>
                 <td><input type="checkbox" name=""></td>
-            </tr>
+            </tr>--%>
         </tbody>
     </table>
     <!--end 表格内容-->
@@ -486,9 +484,105 @@
             <button class="layui-btn"  type="button" onclick="updateTrainCourse()">确认修改</button>
         </div>
     </form>
-
 </div>
 <%--5.E       修改培养方案课程学期--%>
+
+
+<%--S   6.查看课程详情模态框--%>
+<input type="hidden" id="hidden_course_detail_index">
+<div class="x-body" style="display: none" id="hidden_course_detail_modal">
+    <%--0.隐藏一个课程编号--%>
+    <%--<input type="hidden" name="courseid" value="<%= courseId %>"/>--%>
+
+    <%--1.课程基本信息--%>
+    <h3>课程基本信息</h3>
+    <table  lay-skin="line" class="layui-table">
+        <tr>
+            <td class="layui-bg-gray">课程编号</td>
+            <td id="coursenum"></td>
+            <td class="layui-bg-gray">课程平台</td>
+            <td id="courseplatform"></td>
+        </tr>
+        <tr>
+            <td class="layui-bg-gray">中文名称</td>
+            <td id="coursenamecn"></td>
+            <td class="layui-bg-gray">英文名称</td>
+            <td id="coursenameen"></td>
+        </tr>
+        <tr>
+            <td class="layui-bg-gray">课程性质</td>
+            <td id="coursenature"></td>
+            <td class="layui-bg-gray">学分/学时</td>
+            <td id="credit"></td>
+        </tr>
+        <tr>
+            <td class="layui-bg-gray">讲课时长</td>
+            <td id="teachhour"></td>
+            <td class="layui-bg-gray">实验时长</td>
+            <td id="experimenthour"></td>
+        </tr>
+        <tr>
+            <td class="layui-bg-gray">上机时长</td>
+            <td id="computerhour"></td>
+            <td class="layui-bg-gray">实践时长</td>
+            <td id="practicehour"></td>
+        </tr>
+        <tr>
+            <td class="layui-bg-gray">周学时分配</td>
+            <td id="weeklyhour"></td>
+            <td class="layui-bg-gray">计分方式</td>
+            <td id="scoringway"></td>
+        </tr>
+        <tr>
+            <td class="layui-bg-cyan">课程类别</td>
+            <td id="courseTypeName"></td>
+            <td class="layui-bg-cyan">上课学期</td>
+            <td id="courseSemester"></td>
+        </tr>
+    </table>
+
+
+    <%--2.教学资料信息--%>
+    <br>
+    <hr>
+    <h3>教学资料信息</h3>
+    <%--开始的时候表格不显示，只有当表格有数据才显示表格--%>
+    <center id="promptLabel" style="display: none;">
+        <h1>您还没有课程资料，请先上传培训资料</h1>
+    </center>
+    <table class="layui-table" style="display: none" id="courseFileTable">
+        <thead>
+        <tr>
+            <th>资料类型</th>
+            <th>资料名称</th>
+        </tr>
+        </thead>
+        <tbody id="courseFileTbody">
+        <%--异步往这里填充数据--%>
+        </tbody>
+    </table>
+
+
+    <%--3.培养方案课程能力信息--%>
+    <br>
+    <hr>
+    <h3>课程能力要求信息</h3>
+    <table class="layui-table" id="courseCapacityTable">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>编号</th>
+                <th>能力要求</th>
+            </tr>
+        </thead>
+        <tbody id="courseCapacityTbody">
+        <%--异步往这里填充数据--%>
+        </tbody>
+    </table>
+
+
+</div>
+<%--S   6.查看课程详情模态框--%>
 
 
 

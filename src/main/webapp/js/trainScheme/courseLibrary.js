@@ -503,8 +503,10 @@ function queryCourseFileInfo(){
                 $("#courseFileTbody").append(tr);
             }
             $("#courseFileTable").css("display","");//设置表格可见
+            $("#promptLabel").css("display","none");//设置提示语不可见
         }else{
             $("#promptLabel").css("display","");//长度为0提示没有课程资料(设置提示语可见)
+            $("#courseFileTable").css("display","none");//设置表格不可见
         }
     },'json')
 }
