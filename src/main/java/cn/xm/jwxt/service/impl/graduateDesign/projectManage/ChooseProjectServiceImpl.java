@@ -11,6 +11,7 @@
 package cn.xm.jwxt.service.impl.graduateDesign.projectManage;
 
 import cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper;
+import cn.xm.jwxt.service.graduateDesign.projectManage.ChooseProjectService;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ChooseProjectServiceImpl implements Project_ACService {
+public class ChooseProjectServiceImpl implements ChooseProjectService {
 
     private Project_ACMapper project_ACMapper;
     @Override

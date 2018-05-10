@@ -67,11 +67,11 @@
                 <td>课题来源</td>
                 <td colspan="5">
                     <select name="titleOrigin" class="small" id="">
-                        <option value="">--请选择--</option>
-                        <option value="">科研</option>
-                        <option value="">生产</option>
-                        <option value="">理论</option>
-                        <option value="">其他</option>
+                        <option value="0">--请选择--</option>
+                        <option value="科研">科研</option>
+                        <option value="生产">生产</option>
+                        <option value="理论">理论</option>
+                        <option value="其他">其他</option>
                     </select>
                 </td>
             </tr>
@@ -79,9 +79,9 @@
                 <td>课题类别</td>
                 <td>
                     <select name="titleType" class="small">
-                        <option value="">--请选择--</option>
-                        <option value="">设计</option>
-                        <option value="">论文</option>
+                        <option value="0">--请选择--</option>
+                        <option value="设计">设计</option>
+                        <option value="论文">论文</option>
                     </select>
                 </td>
                 <td>设计时间</td>
@@ -93,11 +93,11 @@
                 <td>学生专业</td>
                 <td>
                     <select name="majorID" class="small">
-                        <option value="">--请选择--</option>
-                        <option value="">软件工程</option>
-                        <option value="">计算机</option>
-                        <option value="">物联网</option>
-                        <option value="">网络工程</option>
+                        <option value="0">--请选择--</option>
+                        <option value="软件工程">软件工程</option>
+                        <option value="计算机">计算机</option>
+                        <option value="物联网">物联网</option>
+                        <option value="网络工程">网络工程</option>
                     </select>
                 </td>
                 <td>学生人数</td>

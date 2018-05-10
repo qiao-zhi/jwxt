@@ -12,6 +12,7 @@ package cn.xm.jwxt.service.impl.graduateDesign.studentGPM;
 
 import cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
+import cn.xm.jwxt.service.graduateDesign.studentGPM.StudentGPMService;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class StudentGPMServiceImpl implements Project_ACService {
+public class StudentGPMServiceImpl implements StudentGPMService {
 
     private Project_ACMapper project_ACMapper;
     @Override

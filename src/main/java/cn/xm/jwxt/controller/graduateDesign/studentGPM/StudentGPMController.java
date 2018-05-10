@@ -11,6 +11,7 @@
 package cn.xm.jwxt.controller.graduateDesign.studentGPM;
 
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
+import cn.xm.jwxt.service.graduateDesign.studentGPM.StudentGPMService;
 import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.ValidateCheck;
 import com.github.pagehelper.PageHelper;
@@ -39,7 +40,7 @@ public class StudentGPMController {
     public Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
-    private Project_ACService project_ACService;
+    private StudentGPMService studentGPMService;
 
     /**
      * 分页组合条件查询课题添加基本信息
@@ -62,7 +63,7 @@ public class StudentGPMController {
         //上面pagehelper的设置对此查询有效，查到数据总共8条
         List<Map<String, String>> projectInfo = null;
         try {
-            projectInfo = project_ACService.getprojectInfoByCondition(condition);
+            projectInfo = studentGPMService.getprojectInfoByCondition(condition);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("分页查询答辩秘书审核信息失败",e);
