@@ -2,6 +2,7 @@ package cn.xm.jwxt.service.impl.orderBooks;
 
 import cn.xm.jwxt.bean.orderBooks.TTextbookBaseInfo;
 import cn.xm.jwxt.mapper.orderBooks.TTextbookBaseInfoMapper;
+import cn.xm.jwxt.mapper.orderBooks.custom.TTextbookBaseInfoCustomMapper;
 import cn.xm.jwxt.service.orderBooks.TextbookRepositoryService;
 
 import cn.xm.jwxt.utils.UUIDUtil;
@@ -22,12 +23,24 @@ import java.util.Map;
 @Transactional
 public class TextbookRepositoryServiceImpl implements TextbookRepositoryService {
 
-    @Resource
-    private TTextbookBaseInfoMapper textbookBaseInfoMapper;
+    @Autowired
+    private TTextbookBaseInfoMapper tTextbookBaseInfoMapper;
+    @Autowired
+    private TTextbookBaseInfoCustomMapper tTextbookBaseInfoCustomMapper;
 
     @Override
     public List<TTextbookBaseInfo> findTextbook(Map findcondition)throws SQLException {
         return null;
+    }
+
+    @Override
+    public List<Map> findAllCourse() throws SQLException {
+        return tTextbookBaseInfoCustomMapper.findAllCourse();
+    }
+
+    @Override
+    public int getCountByTextbookNum(String textbookNum)throws SQLException{
+        return tTextbookBaseInfoCustomMapper.getCountByTextbookNum(textbookNum);
     }
     @Override
     public boolean addTextbook(TTextbookBaseInfo textbook)throws SQLException  {
@@ -36,7 +49,7 @@ public class TextbookRepositoryServiceImpl implements TextbookRepositoryService 
         }
         //设置主键
         textbook.setTextbookid(UUIDUtil.getUUID2());
-        int count = textbookBaseInfoMapper.insertSelective(textbook);
+        int count = tTextbookBaseInfoMapper.insertSelective(textbook);
         return count>0?true:false;
     }
     @Override
