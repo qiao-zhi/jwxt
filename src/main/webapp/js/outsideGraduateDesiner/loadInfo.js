@@ -1,6 +1,8 @@
+/*获取当前用户校外申请ID*/
+var outsideApplyID = getAddressParameter("id");
 /*页面加载查询申请的详细信息*/
 $(function(){
-    var outsideApplyID = getAddressParameter("id");
+    alert(outsideApplyID);
     layui.use(['layer','form'], function(){
         var layer = layui.layer;
         var form = layui.form;
@@ -19,7 +21,7 @@ $(function(){
                 $("#receiveUnit").val(result.receiveunit);
                 $("#applyreason").val(result.applyreason);
                 $("#stuapplydate").val(Format(new Date(result.applydate),'yyyy-MM-dd'));
-                if(result.stusignur!=null&&result.stusignurl!=""){
+                if(result.stusignurl!=""){
                     $("#stusignurl").attr("src",result.stusignurl);
                 }
                 /*获取审核结果集*/
@@ -28,16 +30,16 @@ $(function(){
                     var checknum = check[i].checkpeople;
                     /*指导员教师*/
                     if(checknum=="指导教师"){
-                        addOneSignInfo1(check[i],1);
+                        loadSign(check[i],1);
                     }
                     if(checknum=="主管书记"){
-                        addOneSignInfo1(check[i],2);
+                        loadSign(check[i],2);
                     }
                     if(checknum=="教研室主任"){
-                        addOneSignInfo1(check[i],3);
+                        loadSign(check[i],3);
                     }
                     if(checknum=="主管院长"){
-                        addOneSignInfo1(check[i],4);
+                        loadSign(check[i],4);
                     }
 
                 }
@@ -53,44 +55,14 @@ $(function(){
     });
 });
 
-//上传签名
-function studentSign() {
-    var userID = "1";
-    var outsideApplyID = getAddressParameter("id");
-    layer.prompt({
-        formType: 1,
-        value: '',
-        title: '请输入签名密码',
-        //area: ['800px', '350px'] //自定义文本域宽高
-    }, function (value, index, elem) {
-        //alert(value);
-        $.ajax({
-            url:contextPath+"/baseInfo/studentSign.do",
-            type:"post",
-            data:{"userID":userID,
-                "signPassword":value,
-                "outsideApplyID":outsideApplyID
-            },
-            dataType:"json",
-            success: function(result){
-                var status = result.status;
-                if(status==1){
-                    $("#stusignurl").attr("src",result.signUrl);
-                    $("#stuapplydate").val(Format(new Date(),"yyyy-MM-dd"));
-                    layer.close(index);
-                }
-                if(status==0){
-                    layer.close(index);
-                    layer.msg(result.signUrl);
-                }
-                if(status==2){
-                    layer.close(index);
-                    layer.msg(result.signUrl);
-                }
-            },
-            error:function () {
-                alert("签字失败");
-            }
-        });
-    });
+function loadSign(check,collnum){
+    var result1 = check.result;
+    if(result1==1){
+        $("#"+collnum+" .agree").attr("checked","checked");
+    } else{
+        $("#"+collnum+" .disagree").attr("checked","checked");
+    }
+    $("#Applyinfo #"+collnum+" .advice").text(check.checkadvice);
+    $("#Applyinfo #"+collnum+" .url").attr("src",check.teachersign);
+    $("#Applyinfo #"+collnum+" .applydate").val(Format(new Date(check.applytime),'yyyy-MM-dd'));
 }

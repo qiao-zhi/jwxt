@@ -11,13 +11,15 @@
     <select id="selectCollageODGApplyStuInfo" parameterType="map" resultType="map">
       SELECT i.outsideApplyID,l.studentNum,l.studentName,i.majorClass,
         i.inTeacherName,i.receiveUnit,t.outTeacherName,t.remark1 AS applyTime,
-        i.status AS checkstatus
+        i.iscommit AS checkstatus
       FROM outGraDesignInfo i,graDesignLeaveApply l,outGraDesignTitleApply t
         ,outsideGraDesignAgreemen a
       <where>
           i.outsideApplyID=l.outsideApplyID AND l.outsideApplyID=t.outsideApplyID AND t.outsideApplyID=a.outsideApplyID
-          <if test="collageName!=null and collageName!=''">
-              AND a.collegename=#{collageName}
+          AND i.iscommit IN ("11","21")
+          <if test="userId!=null and userId!=''">
+              AND a.collegename=(SELECT collegeName FROM t_college_base_info
+              WHERE collegeID=(SELECT collegeID FROM t_teacher_base_info WHERE teacherID=#{userId}))
           </if>
           <if test="stadyYear!=null and stadyYear!=''">
               AND i.stadyyear=#{stadyYear}

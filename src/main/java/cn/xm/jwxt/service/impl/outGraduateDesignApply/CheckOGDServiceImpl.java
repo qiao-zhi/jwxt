@@ -32,10 +32,11 @@ public class CheckOGDServiceImpl implements CheckOGDService {
         map.put("studentNum",studentNum);
         map.put("checkStatus",checkStatus);
         //根据用户信息获取该用户所属的学院名称
-        TCollegeBaseInfo collegeBaseInfo = checkStuApplyInfoMapper.selectCollegeInfoByUserID(userID);
-        if(collegeBaseInfo!=null){
-            collageName = collegeBaseInfo.getCollegename();
-        }
+//        TCollegeBaseInfo collegeBaseInfo = checkStuApplyInfoMapper.selectCollegeInfoByUserID(userID);
+//        if(collegeBaseInfo!=null){
+//            collageName = collegeBaseInfo.getCollegename();
+//        }
+        map.put("userId",userID);
         map.put("collageName",collageName);
         //查询校外毕设学生的信息
         resultList = checkStuApplyInfoMapper.selectCollageODGApplyStuInfo(map);

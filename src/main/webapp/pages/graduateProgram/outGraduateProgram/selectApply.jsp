@@ -54,17 +54,19 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
+            <input type="hidden" name="pageNum"><input type="hidden" name="pageSize">
             <input type="text"  class="layui-input" id="y_year" placeholder="学年" autocomplete="off">
             <input type="text" id="major" placeholder="专业" autocomplete="off" class="layui-input">
             <input type="text" id="studentNum" placeholder="学号" autocomplete="off" class="layui-input">
 
             <div class="layui-input-inline">
-                <select name="contrller" id="checkStatus">
-                    <option>未审核</option>
-                    <option>已审核</option>
+                <select name="contrller" id="checkStatus" >
+                    <option value="">全部</option>
+                    <option value="未审核">未审核</option>
+                    <option value="已审核">已审核</option>
                 </select>
             </div>
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn" lay-submit="" lay-filter="sreach" type="button" onclick="serachStudentInfoByValue()"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
     <!--end查询-->
@@ -85,7 +87,7 @@
         </tr>
         </thead>
         <tbody id="thead-tbody">
-        <tr>
+        <%--<tr>
             <td>201700917</td>
             <td>老王</td>
             <td>软12004</td>
@@ -95,13 +97,13 @@
             <td>1854-10-2</td>
             <td>通过</td>
             <td class="y_files" title="点击查看审核内容" onclick="x_admin_show_big('相关申请表','./outGraduateManage-table.html')">相关申请表</td>
-        </tr>
+        </tr>--%>
         </tbody>
     </table>
     <!--end 表格内容-->
 
     <!--分页-->
-    <div id="demo7"></div>
+    <div id="pagediv" style="margin-left: 200px"></div>
     <!--end 分页-->
 </div>
 <script>
@@ -123,20 +125,7 @@
         });
     });
 
-    /*分页js*/
-    layui.use(['laypage', 'layer'], function(){
-        var laypage = layui.laypage
-            ,layer = layui.layer;
-        //完整功能
-        laypage.render({
-            elem: 'demo7'
-            ,count: 100
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            ,jump: function(obj){
-                console.log(obj)
-            }
-        });
-    });
+
 
     //点击关闭其他，触发事件
     function closeOther() {

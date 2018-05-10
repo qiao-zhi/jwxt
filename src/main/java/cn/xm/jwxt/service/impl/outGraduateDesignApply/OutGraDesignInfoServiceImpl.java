@@ -11,6 +11,7 @@ import cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDInfoCustomMapp
 import cn.xm.jwxt.service.outGraduateDesignApply.Outgradesigninfoservice;
 import cn.xm.jwxt.utils.DateHandler;
 import cn.xm.jwxt.utils.FileHandleUtil;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +44,7 @@ public class OutGraDesignInfoServiceImpl implements Outgradesigninfoservice {
         //获取签名图片的访问路径
         String path = FileHandleUtil.getValue("path","signPicturePath");
         String name = oGDInfo.getStusignurl();
-        if(!name.isEmpty()){
+        if(name!= null&&!name.equals("")){
             oGDInfo.setStusignurl(path+name);
         }
         return oGDInfo;

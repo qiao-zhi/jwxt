@@ -1,6 +1,6 @@
 /*页面加载查询学生校外毕设信息得提交情况*/
 $(function(){
-    var userID = 1;   //获取当前学生用户ID
+    var userID = 2;   //获取当前学生用户ID
     layui.use(['layer','form'], function(){
         var layer = layui.layer;
         var form = layui.form;
