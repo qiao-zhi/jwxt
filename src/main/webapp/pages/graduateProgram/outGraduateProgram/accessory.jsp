@@ -1,5 +1,4 @@
 <%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
-<%@include file="/tag.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -93,7 +92,7 @@
                                         <button onclick="deleteImg($(this))" class="layui-btn">
                                             <i    class="layui-icon" ></i>
                                         </button>
-                                        <img src="test1.png">
+                                        <img src="">
                                     </div>
                                 </dd>
                                 <hr/>
@@ -103,7 +102,7 @@
                                         <button onclick="deleteImg($(this))" class="layui-btn">
                                             <i    class="layui-icon" ></i>
                                         </button>
-                                        <img src="test1.png">
+                                        <img src="">
                                     </div>
                                 </dd>
                                 <hr/>--%>
@@ -113,7 +112,7 @@
                                         <button onclick="deleteImg($(this))" class="layui-btn">
                                             <i    class="layui-icon" ></i>
                                         </button>
-                                        <img src="test1.png">
+                                        <img src="">
                                     </div>
                                 </dd>--%>
                             </div>

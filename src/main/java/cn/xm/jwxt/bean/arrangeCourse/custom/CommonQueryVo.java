@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.arrangeCourse.custom;
 
+import java.util.List;
+
 /**
  * 项目名称：jwxt
  * 类描述：公共查询条件映射类
@@ -19,6 +21,8 @@ public class CommonQueryVo {
     private String academicYear;
     //学期
     private String term;
+    //排课任务状态
+    private List<String> taskStatus;
 
     public Integer getCurrentPage() {
         return currentPage;
@@ -66,5 +70,13 @@ public class CommonQueryVo {
 
     public void setTerm(String term) {
         this.term = term;
+    }
+
+    public List<String> getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(List<String> taskStatus) {
+        this.taskStatus = taskStatus;
     }
 }

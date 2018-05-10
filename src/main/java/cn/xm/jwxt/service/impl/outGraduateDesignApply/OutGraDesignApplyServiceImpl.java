@@ -2,6 +2,7 @@ package cn.xm.jwxt.service.impl.outGraduateDesignApply;
 
 import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfoExample;
+import cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo;
 import cn.xm.jwxt.bean.graduateDesign.Studenttitleresult;
 import cn.xm.jwxt.bean.graduateDesign.StudenttitleresultExample;
 import cn.xm.jwxt.bean.outGraduateDesignApply.*;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -85,17 +87,20 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
         String outGraDesignApplyID = UUIDUtil.getUUID2();
 
         Map<String,Object> resultList = new HashMap<String,Object>();     //返回结果集
-
+        //查看学生是否申请校外
         Outgradesigninfo outgradesigninfo = baseInfoCustomMapper.selectIsApplyByStudentID(studentID);
         //未查询到校外毕设申请信息，初始化各个表
         if(outgradesigninfo==null){
+            //查询学生毕设基本信息
+            Gradeuatebaseinfo gradeuatebaseinfo = baseInfoCustomMapper.selectGradeuateBaseInfoBystudentID(studentID);
             //通过视图查询学生毕设得基本信息
             OgdResultTitleapplyTeacherinfoExample oGDRTTIExample = new OgdResultTitleapplyTeacherinfoExample();
             OgdResultTitleapplyTeacherinfoExample.Criteria criteria1 = oGDRTTIExample.createCriteria();
             criteria1.andStudentidEqualTo(studentID);
             List<OgdResultTitleapplyTeacherinfo> studentAllInfos = ogdResultTitleapplyTeacherinfoMapper.selectByExample(oGDRTTIExample);
-            if(studentAllInfos!=null){
+            if(studentAllInfos!=null&&gradeuatebaseinfo!=null){
                 OgdResultTitleapplyTeacherinfo studentAllInfo = studentAllInfos.get(0);
+                String stadyYear = gradeuatebaseinfo.getYearnum();
                 //获取学生信息
                 String studentName = studentAllInfo.getStudentname();
                 String studentSex = studentAllInfo.getStudentsex();
@@ -107,6 +112,7 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 String studentIdCard = studentAllInfo.getIdnum();
                 String collegeName = studentAllInfo.getCollegename();
                 String resultId = studentAllInfo.getStudenttitleresultid();   //结果ID
+
                 //向校外毕设基本信息表创建对象并插入数据库
                 Outgradesigninfo info = new Outgradesigninfo();
                 info.setOutsideapplyid(outsideApplyID);
@@ -116,6 +122,8 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 info.setSex(studentSex);
                 info.setMajorclass(studentMajorClass);
                 info.setInteachername(teacherName);
+
+                info.setStadyyear(stadyYear);
                 info.setStatus("00");
                 info.setIscommit("00");
                 int infoResult = oGDInfoMapper.insertSelective(info);

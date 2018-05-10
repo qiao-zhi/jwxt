@@ -87,8 +87,7 @@
     <!--操作区域-->
     <xblock>
         <button class="layui-btn" type="button" onclick="openAddPictureModal()">上传课程结构图</button>
-        <button class="layui-btn" onclick="arrangeTrainschemeCourse()">安排课程</button>
-        <button class="layui-btn" onclick="">安排课程能力</button>
+        <button class="layui-btn" onclick="arrangeTrainschemeCourse()">安排课程与课程能力</button>
         <button class="layui-btn layui-btn-normal" onclick="">下载培养方案 </button>
     </xblock>
     <!--end 操作区域-->

@@ -3,8 +3,10 @@ package cn.xm.jwxt.mapper.arrangeCourse.custom;
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +24,15 @@ public interface ApArrangeCourseTaskCustomMapper {
      * @throws SQLException
      */
     int updateTaskStatusById(@Param("arrangeTaskId") String arrangeTaskId, @Param("taskStatus") String taskStatus) throws SQLException;
+
+    /**
+     * 根据排课任务ID设置时间
+     * @param arrangeTaskId
+     * @param receiptTime
+     * @return
+     * @throws SQLException
+     */
+    int updateReceiptTimeById(@Param("arrangeTaskId") String arrangeTaskId,@Param("receiptTime") Date receiptTime) throws SQLException;
 
     /**
      * 根据排课任务ID修改是否删除字段

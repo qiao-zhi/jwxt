@@ -8,6 +8,8 @@ public class Outgradesigninfo {
 
     private String studenttitleresultid;
 
+    private String stadyyear;
+
     private String tablename;
 
     private String studentname;
@@ -56,6 +58,14 @@ public class Outgradesigninfo {
 
     public void setStudenttitleresultid(String studenttitleresultid) {
         this.studenttitleresultid = studenttitleresultid == null ? null : studenttitleresultid.trim();
+    }
+
+    public String getStadyyear() {
+        return stadyyear;
+    }
+
+    public void setStadyyear(String stadyyear) {
+        this.stadyyear = stadyyear == null ? null : stadyyear.trim();
     }
 
     public String getTablename() {

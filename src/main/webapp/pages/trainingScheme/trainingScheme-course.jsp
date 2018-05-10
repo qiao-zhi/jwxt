@@ -130,27 +130,29 @@
     </fieldset>
 
 
-    <!--查询-->
+    <!--S    查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="queryTrainCourseForm">
             <%--S 隐藏一些信息--%>
-            <input type="hidden" name="trainSchemeId" value="<%= trainSchemeId%>">
+            <input type="hidden" name="trainSchemeId" value="<%= trainSchemeId%>" id="queryTrainCourseTrainshemeId"/>
             <input type="hidden" name="pageNum"  id="pageNum_0"/>
             <input type="hidden" name="pageSize" id="pageSize_0"/>
+            <%--课程类别编号信息--%>
+            <input type="hidden" name="typeNum" id="typeNum_0"/>
             <%--E 隐藏一些信息--%>
-            <input type="text" name="coursename" placeholder="课程名称" title="请输入课程名称" autocomplete="off"
+            <input type="text" name="courseNameCN" placeholder="课程名称" title="请输入课程名称" autocomplete="off"
                    class="layui-input">
-            <input type="text" name="couesenum" placeholder="课程编号" title="请输入课程编号" autocomplete="off"
+            <input type="text" name="courseNum" placeholder="课程编号" title="请输入课程编号" autocomplete="off"
                    class="layui-input">
             <div class="layui-input-inline">
-                <select name="coursenature">
+                <select name="courseNature">
                     <option value="">课程性质</option>
                     <option value="选修">选修</option>
                     <option value="必修">必修</option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="courseplatform">
+                <select name="coursePlatform">
                     <option value="">请选择课程平台</option>
                     <option value="通识教育">通识教育</option>
                     <option value="学科基础课">学科基础课</option>
@@ -160,18 +162,27 @@
                 </select>
             </div>
             <%--一个查询按钮--%>
-            <button class="layui-btn"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn layui-btn-sm" type="button" onclick="queryTrainCourseByCondition()"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn layui-btn-sm" type="button" title="清空条件重新查询" onclick="clearConAndQueryTrainCourse(this)"><i class="layui-icon">&#xe639;</i></button>
             <%--一个清空条件查询牛--%>
-            <button class="layui-btn"><i class="layui-icon">&#xe615;</i></button>
+            <%--<button class="layui-btn"><i class="layui-icon">&#xe615;</i></button>--%>
         </form>
     </div>
+    <!--E    查询-->
+
+    <!--S    按钮-->
+    <div class="layui-row">
+        <button class="layui-btn layui-btn-sm" type="button" onclick="openAddCourseCapacityModal()">安排课程能力</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger" type="button" onclick="deleteTrainCourseBatch()">批量删除</button>
+    </div>
+    <!--E    按钮-->
 
     <!--表格内容-->
     <table class="layui-table">
         <thead>
         <tr>
             <th>
-                <input type="checkbox">
+                <input type="checkbox" onclick="toggleSelectAndNotSelect(this)">
             </th>
             <th>序号</th>
             <th>课程编号</th>
@@ -383,9 +394,106 @@
     </table>
     <!--end 表格内容-->
 </div>
-
-
 <%--3.E       安排课程模态框--%>
+
+
+
+
+<%--4.S       安排课程能力模态框--%>
+<input type="hidden" id="hidden_courses_capacity_index">
+<div class="x-body layui-col-md10" style="display: none" id="courses_capacity_add_modal">
+    <%--最后需要提交的大表单，需要动态提交--%>
+    <form id="CourseCapacity2AddForm">
+        <!--动态往这里写数据-->
+    </form>
+
+    <div class="layui-row">
+        <button class="layui-btn" type="button" onclick="allocateCourse()">确认分配</button>
+    </div>
+
+    <!--表格内容-->
+    <table class="layui-table">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>课程名称</th>
+                <th>课程编号</th>
+                <th title="XXXX能力">G1</th>
+                <th title="xxx能力2">G2</th>
+            </tr>
+        </thead>
+        <tbody id="courseCapacity2AddTbody">
+            <%--动态往这里写数据--%>
+            <tr>
+                <td>1 <input type="hidden" ></td>
+                <td>英语课</td>
+                <td>数学课</td>
+                <td><input type="checkbox" name="" class="XX"></td>
+                <td><input type="checkbox" name=""></td>
+            </tr>
+        </tbody>
+    </table>
+    <!--end 表格内容-->
+</div>
+<%--4.E       安排课程能力模态框--%>
+
+
+
+<%--5.S       修改培养方案课程学期--%>
+<input type="hidden" id="hidden_update_semester_index">
+<div class="x-body layui-col-md10" style="display: none" id="hidden_update_semester_modal">
+    <form class="layui-form" id="updateSemesterForm" >
+        <!--隐藏一些信息-->
+        <%--隐藏培养方案课程编号--%>
+        <input type="hidden" name="traincourseid" id="update_traincourseid" class="clear-input">
+
+        <!--1.课程编号-->
+        <div class="layui-form-item">
+            <label for="typename" class="layui-form-label">
+                课程编号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="updateCourseNum" disabled readonly lay-verify="required"
+                       autocomplete="off" class="layui-input clear-input">
+            </div>
+        </div>
+
+
+        <!--2.课程名称-->
+        <div class="layui-form-item">
+            <label for="typename" class="layui-form-label">
+                课程名称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="updateCourseName" disabled readonly lay-verify="required"
+                       autocomplete="off" class="layui-input clear-input">
+            </div>
+        </div>
+
+        <!--3.学期-->
+        <div class="layui-form-item">
+            <label for="typename" class="layui-form-label">
+                学期
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="updatesemester" name="semester" lay-verify="required"
+                       autocomplete="off" class="layui-input clear-input">
+            </div>
+        </div>
+
+        <%--提交按钮--%>
+        <div class="layui-form-item">
+            <button class="layui-btn"  type="button" onclick="updateTrainCourse()">确认修改</button>
+        </div>
+    </form>
+
+</div>
+<%--5.E       修改培养方案课程学期--%>
+
+
+
+
+
 
 
 

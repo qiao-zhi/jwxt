@@ -23,4 +23,11 @@
         SELECT * FROM studentTitleResult where studentID=#{studentID}
     </select>
 
+    <select id="selectGradeuateBaseInfoBystudentID" parameterType="String" resultType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo">
+        SELECT * FROM gradeuateBaseInfo
+        WHERE (
+        graDesignID = (SELECT graDesignID FROM studentTitleResult WHERE studentID=#{id})
+        )
+    </select>
+
 </mapper>

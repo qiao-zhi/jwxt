@@ -15,6 +15,7 @@ public class TransitionStatusUtil {
                case 01: return "已提交";
                case 11: return "申请中";
                case 00: return "待提交";
+               case 02: return "已审核";
            }
         }
         return null;

@@ -1,8 +1,9 @@
 /*页面加载查询学生校外毕设信息得提交情况*/
 $(function(){
     var userID = 1;   //获取当前学生用户ID
-    layui.use('layer', function(){
+    layui.use(['layer','form'], function(){
         var layer = layui.layer;
+        var form = layui.form;
         var index1 = layer.load();
         $.ajax({
             url:contextPath+"/outGraduateDesiner/loadApplyFile.do",
@@ -20,6 +21,7 @@ $(function(){
                     appendTD('4',data.table4Name,'selfManageAgreement.jsp',data.table4ID,data.table4Commit,data.table4Result.status1,data.table4Result.result1);
                     appendTD('5',data.table5Name,'guarantee.jsp',data.table5ID,data.table5Commit);
                     appendTD('6',data.table6Name,'accessory.jsp',data.table6ID,data.table6Commit);
+                    form.render('select');   //更新渲染
                 }
                 else {
                     layer.alert('没有毕设分配结果，无法申请',
@@ -28,6 +30,7 @@ $(function(){
                             layer.close(index);
                 });
                 }
+
             },
             error:function () {
                 layer.msg("本次请求失败");

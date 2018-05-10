@@ -49,7 +49,7 @@
         <form class="layui-form layui-col-md12 x-so">
         	
             <div class="layui-input-inline">
-                <select name="majorId" lay-filter="major">
+                <select name="majorId" lay-filter="major" lay-search="">
                 </select>
             </div>
             <div class="layui-input-inline">
@@ -65,6 +65,11 @@
             <%--隐藏当前页和当前页显示条数--%>
             <input type="hidden" name="pageSize"/>
             <input type="hidden" name="currentPage"/>
+            <%--需要查询的排课状态--%>
+            <input type="hidden" name="taskStatus[0]" value="4"/>
+            <input type="hidden" name="taskStatus[1]" value="5"/>
+            <input type="hidden" name="taskStatus[2]" value="6"/>
+            <input type="hidden" name="taskStatus[3]" value="7"/>
             <div class="layui-input-inline">
                  <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
             </div>

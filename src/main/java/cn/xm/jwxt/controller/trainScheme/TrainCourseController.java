@@ -1,6 +1,7 @@
 package cn.xm.jwxt.controller.trainScheme;
 
 import cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo;
+import cn.xm.jwxt.bean.trainScheme.TrainCourse;
 import cn.xm.jwxt.queryVo.ListVo;
 import cn.xm.jwxt.service.trainScheme.TrainCourseService;
 import cn.xm.jwxt.utils.DefaultValue;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.ws.soap.Addressing;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -107,6 +109,44 @@ public class TrainCourseController {
         return pageInfo;
     }
 
+    /**
+     * 批量删除培养方案课程信息
+     * @param trainCourseIds
+     * @return
+     */
+    @RequestMapping("/deleteTrainCourseBatch")
+    public String deleteTrainCourseBatch(@RequestParam(defaultValue = "100000,200000") String trainCourseIds){
+        //转换为String数组
+        String[] ids_str = trainCourseIds.split(",");
+        List<Integer> ids = new ArrayList<Integer>();
+        for(String id : ids_str){
+            ids.add(Integer.parseInt(id));
+        }
+        String result = null;
+        try {
+            result = trainCourseService.deleteTrainCourseBatch(ids)?"删除成功":"删除失败";
+        } catch (SQLException e) {
+            logger.error("删除培养方案课程出错",e);
+            return "删除失败";
+        }
+        return result;
+    }
 
+    /**
+     * 修改培养方案课程信息
+     * @param trainCourse   修改后的培养方案信息(主要是修改培养方案课程学期)
+     * @return
+     */
+    @RequestMapping("/updateTrainCourse")
+    public  String updateTrainCourse(TrainCourse trainCourse){
+        String result = null;
+        try {
+            result = trainCourseService.updateTrainCourseSemesterByID(trainCourse)?"修改成功":"修改失败";
+        } catch (SQLException e) {
+            logger.error("修改培养方案课程学期出错",e);
+            return "修改失败";
+        }
+        return result;
+    }
 
 }

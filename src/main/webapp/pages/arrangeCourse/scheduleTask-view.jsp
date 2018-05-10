@@ -78,7 +78,7 @@
         //第一次执行
         findTaskArrangeCourseInfo();
     });
-    //查询任务通知书基本信息
+    //查询任务课程信息
     function findTaskArrangeCourseInfo(){
         $.ajax({
             url : contextPath+'/arrangeCourse/findTaskArrangeCourseInfoList.action',

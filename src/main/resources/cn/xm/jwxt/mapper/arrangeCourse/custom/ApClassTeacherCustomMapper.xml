@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.custom.ApClassTeacherCustomMapper" >
+
+    <!--批量插入教师班级信息-->
+    <insert id="saveClassTeacherListInfo" parameterType="java.util.List">
+        insert into ap_class_teacher (class_teacher_id, teacher_course_id,
+          class_name, class_size, remark
+          )
+        values
+        <foreach collection="list" item="classTeacherInfo" separator=",">
+          (#{classTeacherInfo.classTeacherId,jdbcType=VARCHAR}, #{classTeacherInfo.teacherCourseId,jdbcType=VARCHAR},
+          #{classTeacherInfo.className,jdbcType=VARCHAR}, #{classTeacherInfo.classSize,jdbcType=INTEGER}, #{classTeacherInfo.remark,jdbcType=VARCHAR}
+          )
+        </foreach>
+    </insert>
+</mapper>

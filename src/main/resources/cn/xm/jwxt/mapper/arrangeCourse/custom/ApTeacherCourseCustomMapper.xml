@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.custom.ApTeacherCourseCustomMapper" >
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.ApTeacherCourse" >
+        <id column="teacher_course_id" property="teacherCourseId" jdbcType="VARCHAR" />
+        <result column="arrange_course_id" property="arrangeCourseId" jdbcType="VARCHAR" />
+        <result column="term" property="term" jdbcType="CHAR" />
+        <result column="academic_year" property="academicYear" jdbcType="VARCHAR" />
+        <result column="course_code" property="courseCode" jdbcType="VARCHAR" />
+        <result column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+        <result column="teacher_number" property="teacherNumber" jdbcType="VARCHAR" />
+        <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--增加班级字段映射-->
+    <resultMap id="addClassInfoMap" type="cn.xm.jwxt.bean.arrangeCourse.ApTeacherCourse" extends="BaseResultMap">
+        <result column="class_names" property="classNames"></result>
+        <result column="class_size" property="classSize"></result>
+    </resultMap>
+
+    <!--根据任务安排课程ID查询这门课对应的教师和班级信息-->
+    <select id="findTeacherCourseCustomInfoByTaskArrangeCourseId" parameterType="String" resultMap="addClassInfoMap">
+        SELECT
+            tc.*, GROUP_CONCAT(ct.class_name ORDER BY ct.class_name) class_names,
+            SUM(ct.class_size) class_size
+        FROM
+            ap_teacher_course tc,
+            ap_class_teacher ct
+        WHERE
+            tc.teacher_course_id = ct.teacher_course_id
+        AND arrange_course_id = #{value}
+        GROUP BY
+            tc.teacher_course_id
+    </select>
+
+    <!--根据排课任务ID查询教师课程信息集合-->
+    <select id="findTeacherCourseIdsByTaskArrangeCourseID" parameterType="String" resultType="String">
+        SELECT teacher_course_id FROM `ap_teacher_course` WHERE arrange_course_id=#{value}
+    </select>
+</mapper>
