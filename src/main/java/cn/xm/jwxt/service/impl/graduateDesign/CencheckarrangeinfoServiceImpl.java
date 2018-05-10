@@ -37,7 +37,7 @@ public class CencheckarrangeinfoServiceImpl implements CencheckarrangeinfoServic
 
     @Override
     public boolean deleteByExample(CencheckarrangeinfoExample example) {
-        return cencheckarrangeinMapper.deleteByExample(example)==1;
+        return cencheckarrangeinMapper.deleteByExample(example)>=0;
     }
 
     @Override

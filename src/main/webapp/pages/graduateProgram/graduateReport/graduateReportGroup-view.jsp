@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>中期答辩小组-详细信息</title>
+    <title>毕业答辩小组详细信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -16,7 +16,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
 
     <%--引入公共的标签--%>
-    <%@ include file="/tag.jsp" %>
+<%@ include file="/tag.jsp" %>
 </head>
 <body>
 <div class="x-body">
@@ -30,8 +30,8 @@
             <td>${groupLeader}</td>
             <td>答辩地点</td>
             <td>${tTeacherInfoVo.replyaddress}</td>
-            <td>检查时间</td>
-            <td>${tTeacherInfoVo.arrangetime}</td>
+            <td>答辩时间</td>
+            <td>${tTeacherInfoVo.replytime}</td>
         </tr>
         <tr style="background-color: #f2f2f2;">
             <td>序号</td>

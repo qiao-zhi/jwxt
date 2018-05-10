@@ -1,8 +1,6 @@
 package cn.xm.jwxt.service.graduateDesign;
 
-import cn.xm.jwxt.bean.graduateDesign.Checkgroupperson;
-import cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonExample;
-import cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonVo;
+import cn.xm.jwxt.bean.graduateDesign.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -37,9 +35,23 @@ public interface CheckgrouppersonService {
 
     Checkgroupperson selectOneCheckgroupperson(int grppersonid);
 
+    TTeacherInfoVo selectOneCheckgroupperson2(int grppersonid);
+
     List<Checkgroupperson> selectCheckgrouppersonList(Map<String,Object> map);
+
+    List<TTeacherInfoVo> selectCheckgrouppersonList2(Map<String,Object> map);
+
+    List<CheckgrouppersonVo> selectTeacherAndStudentCountBygroupid(String groupid);
 
     String selectGroupLeader (String groupid);
 
     int selectCheckgrouppersonCount(Map<String,Object> map);
+
+    boolean insertArrangeTeacherResult(ArrangeTeacherResult arrangeTeacherResult);
+
+    List<ArrangeTeacherResult> selectArrangeTeacherResult(Map<String,Object> map);
+
+    boolean deleteArrangeTeacherResultByPrimaryKey(String arrangeresultid);
+
+    boolean deleteArrangeTeacherResultByGroupid(String groupid);
 }

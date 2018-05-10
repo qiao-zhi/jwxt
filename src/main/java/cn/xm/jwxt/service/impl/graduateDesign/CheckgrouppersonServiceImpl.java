@@ -10,8 +10,8 @@
  */
 package cn.xm.jwxt.service.impl.graduateDesign;
 
-import cn.xm.jwxt.bean.graduateDesign.Checkgroupperson;
-import cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonExample;
+import cn.xm.jwxt.bean.graduateDesign.*;
+import cn.xm.jwxt.mapper.graduateDesign.ArrangeTeacherResultMapper;
 import cn.xm.jwxt.mapper.graduateDesign.CheckgrouppersonMapper;
 import cn.xm.jwxt.mapper.graduateDesign.custom.CheckGroupPersonCustomMapper;
 import cn.xm.jwxt.service.graduateDesign.CheckgrouppersonService;
@@ -31,6 +31,9 @@ public class CheckgrouppersonServiceImpl implements  CheckgrouppersonService {
     @Autowired
     private CheckGroupPersonCustomMapper checkGroupPersonCustomMapper;
 
+    @Autowired
+    private ArrangeTeacherResultMapper arrangeTeacherResultMapper;
+
     @Override
     public int countByExample(CheckgrouppersonExample example) {
         return checkgrouppersonMapper.countByExample(example);
@@ -38,7 +41,7 @@ public class CheckgrouppersonServiceImpl implements  CheckgrouppersonService {
 
     @Override
     public boolean deleteByExample(CheckgrouppersonExample example) {
-        return checkgrouppersonMapper.deleteByExample(example)>=1;
+        return checkgrouppersonMapper.deleteByExample(example)>=0;
     }
 
     @Override
@@ -92,13 +95,28 @@ public class CheckgrouppersonServiceImpl implements  CheckgrouppersonService {
     }
 
     @Override
+    public TTeacherInfoVo selectOneCheckgroupperson2(int grppersonid) {
+        return checkGroupPersonCustomMapper.selectOneCheckgroupperson2(grppersonid);
+    }
+
+    @Override
     public List<Checkgroupperson> selectCheckgrouppersonList(Map<String, Object> map) {
         return checkGroupPersonCustomMapper.selectCheckgrouppersonList(map);
     }
 
     @Override
+    public List<TTeacherInfoVo> selectCheckgrouppersonList2(Map<String, Object> map) {
+        return checkGroupPersonCustomMapper.selectCheckgrouppersonList2(map);
+    }
+
+    @Override
+    public List<CheckgrouppersonVo> selectTeacherAndStudentCountBygroupid(String groupid) {
+        return checkGroupPersonCustomMapper.selectTeacherAndStudentCountBygroupid(groupid);
+    }
+
+    @Override
     public String selectGroupLeader(String groupid) {
-        List<String> groupLeaders = new ArrayList<String>();
+        List<String> groupLeaders = new ArrayList<>();
         //查询出小组的组长信息，若没有小组，则组长未空
         CheckgrouppersonExample checkgrouppersonExample = new CheckgrouppersonExample();
         CheckgrouppersonExample.Criteria criteria = checkgrouppersonExample.createCriteria();
@@ -116,6 +134,26 @@ public class CheckgrouppersonServiceImpl implements  CheckgrouppersonService {
     @Override
     public int selectCheckgrouppersonCount(Map<String, Object> map) {
         return checkGroupPersonCustomMapper.selectCheckgrouppersonCount(map);
+    }
+
+    @Override
+    public boolean insertArrangeTeacherResult(ArrangeTeacherResult arrangeTeacherResult) {
+        return arrangeTeacherResultMapper.insertArrangeTeacherResult(arrangeTeacherResult)==1;
+    }
+
+    @Override
+    public List<ArrangeTeacherResult> selectArrangeTeacherResult(Map<String, Object> map) {
+        return arrangeTeacherResultMapper.selectArrangeTeacherResult(map);
+    }
+
+    @Override
+    public boolean deleteArrangeTeacherResultByPrimaryKey(String arrangeresultid) {
+        return arrangeTeacherResultMapper.deleteArrangeTeacherResultByPrimaryKey(arrangeresultid)==1;
+    }
+
+    @Override
+    public boolean deleteArrangeTeacherResultByGroupid(String groupid) {
+        return arrangeTeacherResultMapper.deleteArrangeTeacherResultByGroupid(groupid)>=0;
     }
 
 }

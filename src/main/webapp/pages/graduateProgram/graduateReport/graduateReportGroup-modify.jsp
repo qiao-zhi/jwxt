@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>修改中期答辩小组</title>
+    <title>修改毕业答辩小组</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -57,10 +57,10 @@
         <!--4-->
         <div class="layui-form-item">
             <label class="layui-form-label">
-                检查时间
+                答辩时间
             </label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" name="arrangetime" value="${tTeacherInfoVo.arrangetime}" id="L_pass" placeholder="yyyy-MM-dd HH:mm:ss"/>
+                <input type="text" class="layui-input" name="replytime" value="${tTeacherInfoVo.replytime}" id="L_pass" placeholder="yyyy-MM-dd HH:mm:ss"/>
             </div>
         </div>
         <!--5-->

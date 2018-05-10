@@ -55,11 +55,25 @@
         LEFT JOIN checkGroupPerson cg ON t.teacherid = cg.teacherid
         LEFT JOIN graDesignCheckGroup g ON cg.groupid = g.groupid
         <where>
-            <if test="teachername != null">
-                AND t.teachername like CONCAT('%', #{teachername}, '%')
+            <if test="groupid == 2">
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
             </if>
-            <if test="groupname != null">
-                AND g.groupname like CONCAT('%', #{groupname}, '%')
+            <if test="groupid == 0">
+                AND cg.groupid IS NOT NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+                <if test="groupname != null">
+                    AND g.groupname like CONCAT('%', #{groupname}, '%')
+                </if>
+            </if>
+            <if test="groupid == 1">
+                AND cg.groupid IS NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
             </if>
         </where>
         <if test="page != null and limit != null">
@@ -75,12 +89,104 @@
         LEFT JOIN checkGroupPerson cg ON t.teacherid = cg.teacherid
         LEFT JOIN graDesignCheckGroup g ON cg.groupid = g.groupid
         <where>
-            <if test="teachername != null">
-                AND t.teachername like CONCAT('%', #{teachername}, '%')
+            <if test="groupid == 2">
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
             </if>
-            <if test="groupname != null">
-                AND g.groupname like CONCAT('%', #{groupname}, '%')
+            <if test="groupid == 0">
+                AND cg.groupid IS NOT NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+                <if test="groupname != null">
+                    AND g.groupname like CONCAT('%', #{groupname}, '%')
+                </if>
+            </if>
+            <if test="groupid == 1">
+                AND cg.groupid IS NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
             </if>
         </where>
     </select>
+
+    <select id="selectOneCheckgroupperson2" resultType="cn.xm.jwxt.bean.graduateDesign.TTeacherInfoVo">
+        SELECT
+        t.teacherid,t.teachername,
+        cg.gropersonid,cg.teacherid,cg.teachername,cg.groupid,cg.grouprole,cg.remark,
+        g.groupid,g.groupname,g.replyaddress,g.remark,
+        ccb.arrangetime as arrangetime,
+        fp.arrangetime as replytime
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkGroupPerson cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroup g ON cg.groupid = g.groupid
+        LEFT JOIN cenCheckArrangeInfo cca ON cca.groupid = g.groupid
+        LEFT JOIN cenCheckBaseInfo ccb ON ccb.cenCheckInfoid = cca.cenCheckInfoid
+        LEFT JOIN pleaArrangeInfo pai ON pai.groupid = g.groupid
+        LEFT JOIN finallyPleaInfo fp ON fp.pleaid = pai.pleaid
+        WHERE
+        cg.gropersonid = #{gropersonid}
+    </select>
+
+    <select id="selectCheckgrouppersonList2" resultType="cn.xm.jwxt.bean.graduateDesign.TTeacherInfoVo">
+        SELECT
+        t.teacherid,t.teachername,
+        cg.gropersonid,cg.teacherid,cg.teachername,cg.groupid,cg.grouprole,cg.remark,
+        g.groupid,g.groupname,g.replyaddress,g.remark,
+        ccb.arrangetime as arrangetime,
+        fp.arrangetime as replytime
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkGroupPerson cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroup g ON cg.groupid = g.groupid
+        LEFT JOIN cenCheckArrangeInfo cca ON cca.groupid = g.groupid
+        LEFT JOIN cenCheckBaseInfo ccb ON ccb.cenCheckInfoid = cca.cenCheckInfoid
+        LEFT JOIN pleaArrangeInfo pai ON pai.groupid = g.groupid
+        LEFT JOIN finallyPleaInfo fp ON fp.pleaid = pai.pleaid
+        <where>
+            <if test="groupid == 2">
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+            </if>
+            <if test="groupid == 0">
+                AND cg.groupid IS NOT NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+                <if test="groupname != null">
+                    AND g.groupname like CONCAT('%', #{groupname}, '%')
+                </if>
+            </if>
+            <if test="groupid == 1">
+                AND cg.groupid IS NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+            </if>
+        </where>
+        <if test="page != null and limit != null">
+            limit ${(page-1)*limit},#{limit}
+        </if>
+    </select>
+
+    <!--查询小组内老师和老师所带学生信息-->
+    <select id="selectTeacherAndStudentCountBygroupid" resultType="cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonVo">
+        SELECT
+        t.teacherid,t.teachername,
+        g.groupid
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkGroupPerson cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroup g ON cg.groupid = g.groupid
+        LEFT JOIN cenCheckArrangeInfo cca ON cca.groupid = g.groupid
+        LEFT JOIN cenCheckBaseInfo ccb ON ccb.cenCheckInfoid = cca.cenCheckInfoid
+        LEFT JOIN pleaArrangeInfo pai ON pai.groupid = g.groupid
+        LEFT JOIN finallyPleaInfo fp ON fp.pleaid = pai.pleaid
+        WHERE g.groupid = #{groupid}
+    </select>
+
 </mapper>

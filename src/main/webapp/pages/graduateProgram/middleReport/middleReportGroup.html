@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>中期检查安排</title>
+    <title>中期检查小组管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -21,10 +21,10 @@
 <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="../../../welcome.jsp">首页</a>
-        <a href="">毕业设计管理</a>
-        <a href="">中期检查管理</a>
+        <a href="javascript:void(0)">毕业设计管理</a>
+        <a href="javascript:void(0)">中期检查管理</a>
         <a>
-          <cite>中期检查安排</cite>
+          <cite>中期检查小组管理</cite>
         </a>
       </span>
     <a class="layui-btn layui-btn-small" style="margin-top:3px;float:right"
@@ -41,11 +41,8 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-            <input type="text" class="layui-input" id="L_pass" placeholder="发布时间">
             <input type="text" name="username" placeholder="教师名称" autocomplete="off" class="layui-input">
-            <input type="text" name="username" placeholder="教师编号" autocomplete="off" class="layui-input">
             <input type="text" name="username" placeholder="答辩小组名称" autocomplete="off" class="layui-input">
-            <input type="text" name="username" placeholder="答辩小组编号" autocomplete="off" class="layui-input">
             <div class="layui-input-inline">
                 <select name="contrller">
                     <option>是否分配答辩小组</option>
@@ -60,9 +57,10 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="reportGroup_add()">添加答辩小组</button><!--把所选择的行，做为一组， 同时选择组长-->
-        <button class="layui-btn" onclick="reportGroup_mofidy()">修改小组信息</button>
-        <!--<button class="layui-btn" onclick="reportGroup_allocation()">分配答辩小组 </button>--><!--把一个老师，分配到其他小组中-->
+        <!--把所选择的行，做为一组， 同时选择组长-->
+        <button class="layui-btn" onclick="reportGroup_add()">添加答辩小组</button>
+        <!--点击前，需要需要判断该教师是否分组，若没分组，提示。-->
+        <button class="layui-btn" onclick="x_admin_show('修改小组基本信息','./middleReportGroup-modifybaseinfo.html')">修改小组基本信息</button>
         <button class="layui-btn layui-btn-normal" onclick="">导出数据</button>
     </xblock>
     <!--end 操作区域-->
@@ -75,12 +73,10 @@
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
                     &#xe605;</i></div>
             </th>
-            <th>教师编号</th>
             <th>教师名称</th>
-            <th>答辩小组编号</th>
             <th>答辩小组名称</th>
             <th>小组组长</th>
-            <th>检查学生所属教师</th>
+            <th>负责学生人数</th>
             <th>答辩地点</th>
             <th>答辩时间</th>
             <th>操作</th>
@@ -92,17 +88,19 @@
                 <div class="layui-unselect layui-form-checkbox y-row" lay-skin="primary"><i class="layui-icon">
                     &#xe605;</i></div>
             </td>
-            <td>201700917</td>
             <td>老王</td>
-            <td class="y_groupId">201700917</td>
-            <td>老王小组</td>
+            <td class="y_groupId">老王小组</td>
             <td>老王</td>
-            <td>老王2</td>
+            <td>12</td>
             <td>软件园</td>
             <td>2018-44-44</td>
             <td class="td-manage">
-                <a title="查看" onclick="x_admin_show('详细信息','order-view.html')" href="javascript:;">
+                <a title="查看" onclick="x_admin_show('详细信息','middleReportGroup-view.html')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i><!--查看该小组中，三个教师负责的信息-->
+                </a>
+                <!--修改小组学生的归属。当前老师可以显示同组内其他老师管理的学生。-->
+                <a title="修改分组成员"  onclick="x_admin_show('修改分组成员','middleReportGroup-modify.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
                 </a>
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
@@ -118,13 +116,14 @@
             <td>老王</td>
             <td class="y_groupId"></td>
             <td></td>
-            <td>老王</td>
-            <td>老王2</td>
             <td>软件园</td>
             <td>2018-44-44</td>
             <td class="td-manage">
                 <a title="查看" onclick="x_admin_show('详细信息','order-view.html')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i><!--查看该小组中，三个教师负责的信息-->
+                </a>
+                <a title="修改分组成员"  onclick="x_admin_show('修改分组成员','middleReportGroup-modify.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
                 </a>
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
@@ -140,13 +139,14 @@
             <td>老王</td>
             <td class="y_groupId"></td>
             <td></td>
-            <td>老王</td>
-            <td>老王2</td>
             <td>软件园</td>
             <td>2018-44-44</td>
             <td class="td-manage">
                 <a title="查看" onclick="x_admin_show('详细信息','order-view.html')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i><!--查看该小组中，三个教师负责的信息-->
+                </a>
+                <a title="修改分组成员"  onclick="x_admin_show('修改分组成员','middleReportGroup-modify.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
                 </a>
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
@@ -162,13 +162,14 @@
             <td>老王</td>
             <td class="y_groupId"></td>
             <td></td>
-            <td>老王</td>
-            <td>老王2</td>
             <td>软件园</td>
             <td>2018-44-44</td>
             <td class="td-manage">
                 <a title="查看" onclick="x_admin_show('详细信息','order-view.html')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i><!--查看该小组中，三个教师负责的信息-->
+                </a>
+                <a title="修改分组成员"  onclick="x_admin_show('修改分组成员','middleReportGroup-modify.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
                 </a>
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
@@ -194,17 +195,6 @@
             layer.alert('选择的教师，包含已被分组的教师！');
         } else {
             x_admin_show('添加答辩小组', './middleReportGroup-add.html')
-        }
-    }
-
-    /*分配答辩小组*/
-    function reportGroup_mofidy(obj, id) {
-        if ($(".layui-form-checked").length != 1) {
-            layer.alert('只能选择一个指导教师！');
-        } else if ($(".layui-form-checked").parents("tr").children(".y_groupId").text() != "") {
-            layer.alert('选择的教师，包含已被分组的教师！');
-        } else {
-            x_admin_show('分配答辩小组', './middleReportGroup-allocation.html')
         }
     }
 
@@ -242,22 +232,6 @@
             layer.msg('已删除!', {icon: 1, time: 1000});
         });
     }
-</script>
-<script>
-    //???
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-    });
 </script>
 </body>
 

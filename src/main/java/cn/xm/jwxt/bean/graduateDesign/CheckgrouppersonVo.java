@@ -40,6 +40,8 @@ public class CheckgrouppersonVo {
 
     private String replyaddress;
 
+    private String arrangetime;
+
     private String replytime;
 
     private String groupremark;
@@ -53,6 +55,14 @@ public class CheckgrouppersonVo {
     private String searchTeachername;
 
     private String searchGroupname;
+
+    public String getArrangetime() {
+        return arrangetime;
+    }
+
+    public void setArrangetime(String arrangetime) {
+        this.arrangetime = arrangetime;
+    }
 
     public Integer getGouppersonCount() {
         return gouppersonCount;
@@ -167,10 +177,6 @@ public class CheckgrouppersonVo {
         this.replyaddress = replyaddress;
     }
 
-    public String getReplytime() {
-        return replytime;
-    }
-
     public String getGroupremark() {
         return groupremark;
     }
@@ -179,8 +185,11 @@ public class CheckgrouppersonVo {
         this.groupremark = groupremark;
     }
 
+    public String getReplytime() {
+        return replytime;
+    }
+
     public void setReplytime(String replytime) {
         this.replytime = replytime;
-
     }
 }

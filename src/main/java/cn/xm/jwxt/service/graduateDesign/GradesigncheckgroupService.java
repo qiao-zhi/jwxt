@@ -2,6 +2,8 @@ package cn.xm.jwxt.service.graduateDesign;
 
 import cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup;
 import cn.xm.jwxt.bean.graduateDesign.GradesigncheckgroupExample;
+import cn.xm.jwxt.bean.graduateDesign.GradesigncheckgroupVo;
+import cn.xm.jwxt.bean.graduateDesign.TTeacherInfoVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -36,5 +38,9 @@ public interface GradesigncheckgroupService {
 
     Gradesigncheckgroup selectOneGradesigncheckgroup(String groupid);
 
+    TTeacherInfoVo selectOneGradesigncheckgroup2(String groupid);
+
     List<Gradesigncheckgroup> selectGradesigncheckgroupList(Map<String,Object> map);
+
+    List<GradesigncheckgroupVo> selectGradesigncheckgroupList2(Map<String,Object> map);
 }

@@ -23,17 +23,18 @@
             width: 300px !important;
         }
 
-        .y_left {
-            float: right;
-            width: 43%;
-            height: 200px;
-            background-color: #eee;
-        }
+        /*.y_left {*/
+            /*float: right;*/
+            /*width: 43%;*/
+            /*height: 200px;*/
+            /*background-color: #eee;*/
+            /*position: fixed;*/
+            /*margin-left: 500px;*/
+        /*}*/
 
-        .y_left table {
-            margin-top: 200px;
-            box-shadow: 0 -2px 2px #ccc;
-        }
+        /*.y_left table {*/
+            /*box-shadow: 0 -2px 2px #ccc;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -68,7 +69,7 @@
         <!--4-->
         <div class="layui-form-item">
             <label for="replaytime" class="layui-form-label">
-                答辩时间
+                检查时间
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="replaytime" name="replaytime" class="layui-input" id="L_pass" placeholder="yyyy-MM-dd">
@@ -81,7 +82,7 @@
             </label>
             <div class="layui-input-inline">
                 <div class="layui-input-inline">
-                    <select name="teacherid" id="teacherid">
+                    <select name="groupleader" id="teacherid">
                         <option>请选择</option>
                         <c:forEach var="tTeacherBaseInfo" items="${tTeacherBaseInfos}">
                             <option value="${tTeacherBaseInfo.teacherid}">${tTeacherBaseInfo.teachername}</option>
@@ -96,14 +97,15 @@
         <!--4-->
         <div class="layui-form-item">
             <label class="layui-form-label">
-                设置检查教师
+                检查教师
             </label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 100px">
                 <c:forEach var="tTeacherBaseInfo" items="${tTeacherBaseInfos}">
-                    <div><span>${tTeacherBaseInfo.teachername}</span>
-                        <button class="layui-btn layui-btn-sm">添加学生</button>
-                        <textarea class="layui-textarea" name="" rows="5"></textarea>
-                    </div>
+                    <input type="hidden" class="layui-input" name="teacherid" value="${tTeacherBaseInfo.teacherid}"/>
+                    <input type="text" disabled class="layui-input" name="teachername" value="${tTeacherBaseInfo.teachername}"/>
+                    <%--<span>${tTeacherBaseInfo.teachername}</span>--%>
+                    <%--<button class="layui-btn layui-btn-sm" onclick="addStudent(${tTeacherBaseInfo.teacherid})">添加学生</button>--%>
+                    <%--<textarea class="layui-textarea" name=""></textarea>--%>
                 </c:forEach>
             </div>
         </div>
@@ -111,78 +113,14 @@
         <!--10-->
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
-            <button class="layui-btn" lay-submit="" lay-filter="add">增加</button>
+            <button class="layui-btn" lay-submit="" lay-filter="addGroup">增加</button>
         </div>
     </form>
 
-    <div class="y_left">
-        <table class="layui-table">
-            <thead>
-            <tr>
-                <th>
-                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                        &#xe605;</i></div>
-                </th>
-                <th>学生姓名</th>
-                <th>班级</th>
-                <th>毕设题目</th>
-                <th>指导教师</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                        &#xe605;</i></div>
-                </td>
-                <td>学生1</td>
-                <td>软件工程1</td>
-                <td>8888</td>
-                <td>教师1</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                        &#xe605;</i></div>
-                </td>
-                <td>学生1</td>
-                <td>软件工程1</td>
-                <td>8888</td>
-                <td>教师1</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                        &#xe605;</i></div>
-                </td>
-                <td>学生1</td>
-                <td>软件工程1</td>
-                <td>8888</td>
-                <td>教师1</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                        &#xe605;</i></div>
-                </td>
-                <td>学生1</td>
-                <td>软件工程1</td>
-                <td>8888</td>
-                <td>教师1</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                        &#xe605;</i></div>
-                </td>
-                <td>学生1</td>
-                <td>软件工程1</td>
-                <td>8888</td>
-                <td>教师1</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <%--<div class="y_left">--%>
+        <%--<!--展示数据的表格-->--%>
+        <%--<table class="layui-hide" id="studentInfo" lay-filter="studentInfo"></table>--%>
+    <%--</div>--%>
 </div>
 <script>
     //答辩时间
@@ -194,47 +132,79 @@
         });
     });
 
-    layui.use(['form', 'layer'], function () {
+    layui.use(['form', 'layer','table'], function () {
         $ = layui.jquery;
         var form = layui.form
+            , table = layui.table
             , layer = layui.layer;
 
-        //自定义验证规则
-        form.verify({
-            nikename: function (value) {
-                if (value.length < 5) {
-                    return '昵称至少得5个字符啊';
-                }
-            }
-            , pass: [/(.+){6,12}$/, '密码必须6到12位']
-            , repass: function (value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }
-        });
-
         //监听提交
-        form.on('submit(add)', function (data) {
-            console.log(data);
+        form.on('submit(addGroup)', function (data) {
+            //页面上的老师id
+            var pageteacherids = $("input[name='teacherid']");
+            var teacherids = [];
+            for(var i = 0;i<pageteacherids.length;i++){
+                teacherids[i] = pageteacherids[i].value;
+            }
+
+            //页面上的老师名称
+            var pageteachernames = $("input[name='teachername']");
+            var teachernames = [];
+            for(var i = 0;i<pageteachernames.length;i++){
+                teachernames[i] = pageteachernames[i].value;
+            }
+            teacherids = JSON.stringify(teacherids);
+            teachernames = JSON.stringify(teachernames);
+
             $.ajax({
-                type:"POST",
-                url:"${pageContext.request.contextPath}/gradesigncheckgroup/add.action",
-                data:JSON.stringify(data.field),
-                dataType:"json",
-                success:function(){
-                    layer.alert("增加成功", {icon: 6}, function () {
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
-                    });
-                    return false;
+                type:'POST',
+                url:"${pageContext.request.contextPath}/gradesigncheckgroup/add.action?data="+JSON.stringify(data.field)+"&teacherids="+teacherids+"&teachernames="+teachernames,
+                success:function(msg){
+                    if(msg == "0"){
+                        layer.alert("添加成功", {icon: 6}, function () {
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                        });
+                    }else if (msg == "1"){
+                        layer.alert("添加失败", {icon: 7}, function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        });
+                    }else{
+                        layer.alert("未知的错误，请联系管理员", {icon: 7}, function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        });
+                    }
                 }
             });
-            //发异步，把数据提交给php
+            return false;
         });
+
+        active = {
+
+        }
+
+        //渲染学生表格
+        <%--var studentInfo = table.render({--%>
+            <%--elem: '#studentInfo'--%>
+            <%--,width: 400--%>
+            <%--,height: 400--%>
+            <%--,url: '${pageContext.request.contextPath}/checkgroupperson/selectPage.action'--%>
+            <%--,cols:[[--%>
+                <%--{checkbox:true, fixed: true}--%>
+                <%--,{field:'studentid', width:90, title: '学生ID'}--%>
+                <%--,{field:'studentname', width:90, title: '学生姓名'}--%>
+                <%--,{field:'classname', width:60, title: '班级'}--%>
+                <%--,{field:'gratitle', width:100, title: '毕设题目'}--%>
+                <%--,{field:'leaderteacher', width:100, title: '指导老师'}--%>
+            <%--]]--%>
+            <%--,id:'studentInfo'--%>
+        <%--})--%>
     });
+
 </script>
 </body>
 
