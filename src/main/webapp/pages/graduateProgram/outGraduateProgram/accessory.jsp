@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@include file="/tag.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -30,7 +31,7 @@
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
 
     <%--s      bzy--%>
-    <%@include file="/tag.jsp" %>
+
     <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/attachment.js"></script>
