@@ -11,7 +11,7 @@
 package cn.xm.jwxt.controller.graduateDesign;
 
 import cn.xm.jwxt.bean.graduateDesign.ArrangeTeacherResult;
-import cn.xm.jwxt.bean.graduateDesign.Checkgroupperson;
+import cn.xm.jwxt.bean.graduateDesign.ArrangeTeacherResultNew;
 import cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonVo;
 import cn.xm.jwxt.bean.graduateDesign.TTeacherInfoVo;
 import cn.xm.jwxt.service.graduateDesign.CheckgrouppersonService;
@@ -81,7 +81,7 @@ public class CheckgrouppersonController {
 //    }
 
     /*
-    查询出互审安排结果信息
+    查询出中期检查互审安排结果信息
      */
     @RequestMapping("selectArrangeResult")
     @ResponseBody
@@ -95,7 +95,21 @@ public class CheckgrouppersonController {
     }
 
     /*
-    删除互审信息
+    查询出毕业答辩互审安排结果信息
+     */
+    @RequestMapping("selectArrangeResultNew")
+    @ResponseBody
+    public String selectArrangeResultNew(){
+        StringBuffer result = new StringBuffer();
+        //暂时定为没有条件的查询
+        Map<String ,Object> map = new HashMap<String ,Object>();
+        List<ArrangeTeacherResultNew> arrangeTeacherResultNewList = checkgrouppersonService.selectArrangeTeacherResultNew(map);
+        result.append("{\"code\":0,\"msg\":\"\",\"count\":\"\",\"data\":"+JSON.toJSON(arrangeTeacherResultNewList)+"}");
+        return result.toString();
+    }
+
+    /*
+    删除中期检查互审信息
      */
     @RequestMapping("deleteArrangeResult")
     @ResponseBody
@@ -110,7 +124,22 @@ public class CheckgrouppersonController {
     }
 
     /*
-    安排互审老师
+    删除毕业答辩互审信息
+     */
+    @RequestMapping("deleteArrangeResultNew")
+    @ResponseBody
+    public String deleteArrangeResultNew(String arrangeresultid){
+        String msg = null;
+        try {
+            msg = checkgrouppersonService.deleteArrangeTeacherResultNewByPrimaryKey(arrangeresultid)?"0":"1";
+        }catch (Exception e){
+            msg = "error";
+        }
+        return msg;
+    }
+
+    /*
+    安排中期检查互审老师
      */
     @RequestMapping("arrangeTeacher")
     @ResponseBody
@@ -124,7 +153,7 @@ public class CheckgrouppersonController {
             //准备要插入的对象
             ArrangeTeacherResult arrangeTeacherResult = new ArrangeTeacherResult();
             //互审id
-            arrangeTeacherResult.setArrangeresultid(UUIDUtil.getUUID());
+            arrangeTeacherResult.setArrangeresultid(UUIDUtil.getUUID2());
             //左侧老师的信息
             for (TTeacherInfoVo tTeacherInfoVo:tTeacherInfoVoList1){
                 //拼接老师名师
@@ -172,7 +201,69 @@ public class CheckgrouppersonController {
     }
 
     /*
-    查询一条检查小组下老师和老师所带学生信息
+    安排毕业答辩互审老师
+     */
+    @RequestMapping("arrangeTeacherNew")
+    @ResponseBody
+    public String arrangeTeacherNew(String data1,String data2){
+        String result = null;
+        try {
+            //页面上选中的两个table中的值
+            List<TTeacherInfoVo> tTeacherInfoVoList1 = JSON.parseArray(data1,TTeacherInfoVo.class);
+            List<TTeacherInfoVo> tTeacherInfoVoList2 = JSON.parseArray(data2,TTeacherInfoVo.class);
+            List<ArrangeTeacherResultNew> arrangeTeacherResultNewList = new ArrayList<ArrangeTeacherResultNew>();
+            //准备要插入的对象
+            ArrangeTeacherResultNew arrangeTeacherResultNew = new ArrangeTeacherResultNew();
+            //互审id
+            arrangeTeacherResultNew.setArrangeresultid(UUIDUtil.getUUID2());
+            //左侧老师的信息
+            for (TTeacherInfoVo tTeacherInfoVo:tTeacherInfoVoList1){
+                //拼接老师名师
+                if(arrangeTeacherResultNew.getTeachernameone()!=null){
+                    arrangeTeacherResultNew.setTeachernameone(arrangeTeacherResultNew.getTeachernameone()+","+tTeacherInfoVo.getTeachername());
+                }else {
+                    arrangeTeacherResultNew.setTeachernameone(tTeacherInfoVo.getTeachername());
+                }
+                //拼接负责学生人数
+                if(arrangeTeacherResultNew.getStudentCountInTeacherOne()!=null){
+                    arrangeTeacherResultNew.setStudentCountInTeacherOne(arrangeTeacherResultNew.getStudentCountInTeacherOne()+","+tTeacherInfoVo.getStudentcount());
+                }else {
+                    arrangeTeacherResultNew.setStudentCountInTeacherOne(tTeacherInfoVo.getStudentcount());
+                }
+                //所在小组id
+                if(arrangeTeacherResultNew.getTeacheronegroupid() == null){
+                    arrangeTeacherResultNew.setTeacheronegroupid(tTeacherInfoVo.getGroupid());
+                }
+            }
+            //右侧老师的信息
+            for (TTeacherInfoVo tTeacherInfoVo:tTeacherInfoVoList2){
+                if(arrangeTeacherResultNew.getTeachernametwo()!=null){
+                    arrangeTeacherResultNew.setTeachernametwo(arrangeTeacherResultNew.getTeachernametwo()+","+tTeacherInfoVo.getTeachername());
+                }else {
+                    arrangeTeacherResultNew.setTeachernametwo(tTeacherInfoVo.getTeachername());
+                }
+                if(arrangeTeacherResultNew.getStudentCountInTeacherTwo()!=null){
+                    arrangeTeacherResultNew.setStudentCountInTeacherTwo(arrangeTeacherResultNew.getStudentCountInTeacherTwo()+","+tTeacherInfoVo.getStudentcount());
+                }else {
+                    arrangeTeacherResultNew.setStudentCountInTeacherTwo(tTeacherInfoVo.getStudentcount());
+                }
+                //所在小组id
+                if(arrangeTeacherResultNew.getTeachertwogroupid() == null){
+                    arrangeTeacherResultNew.setTeachertwogroupid(tTeacherInfoVo.getGroupid());
+                }
+            }
+            //安排时间
+            arrangeTeacherResultNew.setArrangetime(new Date());
+            result = checkgrouppersonService.insertArrangeTeacherResultNew(arrangeTeacherResultNew)?"0":"1";
+        }catch (Exception e){
+            result = "error";
+        }
+
+        return result;
+    }
+
+    /*
+    查询一条中期检查小组下老师和老师所带学生信息
      */
     @RequestMapping("selectTeacherAndStudentCount")
     @ResponseBody
@@ -180,6 +271,23 @@ public class CheckgrouppersonController {
         StringBuffer result = new StringBuffer();
         //查询出检查小组成员及其老师信息，老师负责学生人数
         List<CheckgrouppersonVo> checkgrouppersonVoList = checkgrouppersonService.selectTeacherAndStudentCountBygroupid(groupid);
+        for(CheckgrouppersonVo checkgrouppersonVo:checkgrouppersonVoList){
+            checkgrouppersonVo.setStudentcount(10);
+//            checkgrouppersonVo.setStudentcount(projectManageService.getSelfStudentNum(null,checkgrouppersonVo.getTeacherid()));
+        }
+        result.append("{\"code\":0,\"msg\":\"\",\"count\":\"\",\"data\":"+JSON.toJSON(checkgrouppersonVoList)+"}");
+        return result.toString();
+    }
+
+    /*
+    查询一条毕业答辩检查小组下老师和老师所带学生信息
+     */
+    @RequestMapping("selectTeacherAndStudentCountNew")
+    @ResponseBody
+    public String selectOneCheckgrouppersonNew(String groupid) throws Exception {
+        StringBuffer result = new StringBuffer();
+        //查询出毕业答辩检查小组成员及其老师信息，老师负责学生人数
+        List<CheckgrouppersonVo> checkgrouppersonVoList = checkgrouppersonService.selectTeacherAndStudentCountNewBygroupid(groupid);
         for(CheckgrouppersonVo checkgrouppersonVo:checkgrouppersonVoList){
             checkgrouppersonVo.setStudentcount(10);
 //            checkgrouppersonVo.setStudentcount(projectManageService.getSelfStudentNum(null,checkgrouppersonVo.getTeacherid()));
@@ -246,6 +354,73 @@ public class CheckgrouppersonController {
             checkgrouppersonVo.setReplyaddress(checkgrouppersoninfo.getReplyaddress());
             //检查时间取中期检查时间
             checkgrouppersonVo.setArrangetime(checkgrouppersoninfo.getArrangetime());
+            checkgrouppersonVo.setReplytime(checkgrouppersoninfo.getReplytime());
+
+            checkgrouppersonVoList.add(checkgrouppersonVo);
+        }
+
+        //返回数据
+        StringBuffer result = new StringBuffer();
+        result.append("{\"code\":0,\"msg\":\"\",\"count\":"+checkgrouppersonCount+",\"data\":"+JSON.toJSON(checkgrouppersonVoList)+"}");
+
+        return result.toString();
+    }
+
+    /*
+    毕业答辩检查小组管理：页面初始化及其条件查询（已完成）
+     */
+    @RequestMapping("selectPageNew")
+    @ResponseBody
+    public String selectCheckgrouppersonListPageNew(String teachername,String groupname,String groupidIsNull,Integer page,Integer limit) throws Exception {
+
+        //初始化参数
+        teachername = teachername == null ? "":teachername;
+        groupname = groupname == null ? "":groupname;
+        groupidIsNull = groupidIsNull == null?"2":groupidIsNull;
+        page = page == null?1:page;
+        limit = limit == null?10:limit;
+
+        //准备对象，存放数据和回调页面
+        ModelAndView modelAndView = new ModelAndView();
+        //前台显示的数据存放在CheckgrouppersonVo中
+        List<CheckgrouppersonVo> checkgrouppersonVoList = new ArrayList<CheckgrouppersonVo>();
+        //查询条件及分页条件存放在Map中
+        Map<String,Object> map = new HashMap<String, Object>();
+        //存放条件
+        map.put("teachername",teachername);
+        map.put("groupname",groupname);
+        map.put("groupid",groupidIsNull);
+        map.put("page",page);
+        map.put("limit", limit);
+
+        //查询出小组信息
+        List<TTeacherInfoVo> checkgrouppersonList = checkgrouppersonService.selectCheckgrouppersonList2New(map);
+
+        //小组数量
+        int checkgrouppersonCount = checkgrouppersonService.selectCheckgrouppersonNewCount(map);
+
+
+        //将小组及其附带信息组合，放到checkgrouppersonVoList中
+        for (TTeacherInfoVo checkgrouppersoninfo:checkgrouppersonList){
+            CheckgrouppersonVo checkgrouppersonVo = new CheckgrouppersonVo();
+            checkgrouppersonVo.setGropersonid(checkgrouppersoninfo.getGropersonid());
+            checkgrouppersonVo.setTeacherid(checkgrouppersoninfo.getTeacherid());
+            checkgrouppersonVo.setGroupid(checkgrouppersoninfo.getGroupid());
+            checkgrouppersonVo.setTeachername(checkgrouppersoninfo.getTeachername());
+            checkgrouppersonVo.setGroupname(checkgrouppersoninfo.getGroupname());
+
+            //小组组长，没有组为空，有组则查
+            String groupLeader = null;
+            if("".equals(checkgrouppersoninfo.getGroupid()) || checkgrouppersoninfo.getGroupid() == null){
+                groupLeader = "";
+            }else {
+                groupLeader = checkgrouppersonService.selectGroupLeaderNew(checkgrouppersoninfo.getGroupid());
+            }
+            checkgrouppersonVo.setGroupleader(groupLeader);
+            checkgrouppersonVo.setStudentcount(10);
+//            checkgrouppersonVo.setStudentcount(projectManageService.getSelfStudentNum(null,checkgrouppersoninfo.getTeacherid()));
+
+            checkgrouppersonVo.setReplyaddress(checkgrouppersoninfo.getReplyaddress());
             checkgrouppersonVo.setReplytime(checkgrouppersoninfo.getReplytime());
 
             checkgrouppersonVoList.add(checkgrouppersonVo);

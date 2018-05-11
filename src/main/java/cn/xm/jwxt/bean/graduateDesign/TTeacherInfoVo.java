@@ -44,6 +44,14 @@ public class TTeacherInfoVo {
 
     private String replytime;
 
+    public String getPleaid() {
+        return pleaid;
+    }
+
+    public void setPleaid(String pleaid) {
+        this.pleaid = pleaid;
+    }
+
     public String getStudentcount() {
         return studentcount;
     }

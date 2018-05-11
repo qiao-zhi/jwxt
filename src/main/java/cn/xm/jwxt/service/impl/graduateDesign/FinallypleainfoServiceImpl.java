@@ -77,6 +77,6 @@ public class FinallypleainfoServiceImpl implements FinallypleainfoService {
 
     @Override
     public boolean updateByPrimaryKey(Finallypleainfo record) {
-        return finallypleainfoMapper.updateByPrimaryKey(record)==1;
+        return finallypleainfoMapper.updateByPrimaryKey(record)>=0;
     }
 }

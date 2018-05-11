@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 中期和后期毕设答辩检查小组表和其他表的关系
+ * 中期检查小组表和其他表的关系
  */
 public interface GradesigncheckgroupCustomMapper {
 

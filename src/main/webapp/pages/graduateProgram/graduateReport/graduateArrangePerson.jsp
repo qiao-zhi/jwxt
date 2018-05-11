@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>中期检查小组成员互审</title>
+    <title>毕业答辩检查小组成员互审</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -26,40 +26,40 @@
     </style>
 </head>
 <body>
-    <xblock>
-        <div class="layui-btn-group demoTable">
-            <button class="layui-btn" data-type="arrangeteacher">分配</button>
-            <button class="layui-btn" data-type="downloadArrangeResult">导出互审结果表</button>
-        </div>
-    </xblock>
+<xblock>
+    <div class="layui-btn-group demoTable">
+        <button class="layui-btn" data-type="arrangeteacher">分配</button>
+        <button class="layui-btn" data-type="downloadArrangeResult">导出互审结果表</button>
+    </div>
+</xblock>
 
 <%
     String groupid1=request.getParameter("groupid1");
     String groupid2=request.getParameter("groupid2");
 %>
-    <input type="hidden" id="groupid1" value="<%=groupid1%>"/>
-    <input type="hidden" id="groupid2" value="<%=groupid2%>"/>
-    <%--左边表格--%>
-    <div class="floatleft">
-        <table class="layui-table" id="leftTeacherInfo" lay-filter="leftTeacherInfo"></table>
-    </div>
+<input type="hidden" id="groupid1" value="<%=groupid1%>"/>
+<input type="hidden" id="groupid2" value="<%=groupid2%>"/>
+<%--左边表格--%>
+<div class="floatleft">
+    <table class="layui-table" id="leftTeacherInfo" lay-filter="leftTeacherInfo"></table>
+</div>
 
-    <%--右边表格--%>
-    <div class="floatleft">
-        <table class="layui-table" id="rightTeacherInfo" lay-filter="rightTeacherInfo"></table>
-    </div>
+<%--右边表格--%>
+<div class="floatleft">
+    <table class="layui-table" id="rightTeacherInfo" lay-filter="rightTeacherInfo"></table>
+</div>
 
-    <%--下面表格--%>
-    <table class="layui-table" id="arrangeResult" lay-filter="arrangeResult">
-        <caption style="font-size: 18px">互审安排表</caption>
-    </table>
+<%--下面表格--%>
+<table class="layui-table" id="arrangeResult" lay-filter="arrangeResult">
+    <caption style="font-size: 18px">互审安排表</caption>
+</table>
 
-    <%--操作部分--%>
-    <script type="text/html" id="barDemo">
-        <a lay-event="del">
-            <i class="layui-icon">&#xe640;</i>
-        </a>
-    </script>
+<%--操作部分--%>
+<script type="text/html" id="barDemo">
+    <a lay-event="del">
+        <i class="layui-icon">&#xe640;</i>
+    </a>
+</script>
 <script>
     layui.use('table', function(){
         var table = layui.table
@@ -73,7 +73,7 @@
         var leftTeacherInfo = table.render({
             elem: '#leftTeacherInfo'
             ,width: 413
-            ,url: '${pageContext.request.contextPath}/checkgroupperson/selectTeacherAndStudentCount.action?groupid='+groupid1
+            ,url: '${pageContext.request.contextPath}/checkgroupperson/selectTeacherAndStudentCountNew.action?groupid='+groupid1
             ,cols:[[
                 {checkbox:true, fixed: true}
                 ,{field:'teacherid',width:100, title: '老师ID'}
@@ -87,7 +87,7 @@
         var rightTeacherInfo = table.render({
             elem: '#rightTeacherInfo'
             ,width: 413
-            ,url: '${pageContext.request.contextPath}/checkgroupperson/selectTeacherAndStudentCount.action?groupid='+groupid2
+            ,url: '${pageContext.request.contextPath}/checkgroupperson/selectTeacherAndStudentCountNew.action?groupid='+groupid2
             ,cols:[[
                 {checkbox:true, fixed: true}
                 ,{field:'teacherid',width:100, title: '老师ID'}
@@ -100,7 +100,7 @@
         //渲染下面小组成员表格，初始化数据
         var arrangeResult = table.render({
             elem: '#arrangeResult'
-            ,url: '${pageContext.request.contextPath}/checkgroupperson/selectArrangeResult.action'
+            ,url: '${pageContext.request.contextPath}/checkgroupperson/selectArrangeResultNew.action'
             ,cols:[[
                 {type:'checkbox'}
                 ,{field:'teachernameone',width:300, title: '老师名称'}
@@ -129,7 +129,7 @@
                 layer.confirm('真的删除行么', function(){
                     $.ajax({
                         type:'POST',
-                        url:'${pageContext.request.contextPath}/checkgroupperson/deleteArrangeResult.action?arrangeresultid='+data.arrangeresultid,
+                        url:'${pageContext.request.contextPath}/checkgroupperson/deleteArrangeResultNew.action?arrangeresultid='+data.arrangeresultid,
                         success:function (msg) {
                             if(msg == '0'){
                                 layer.msg("删除成功");
@@ -164,7 +164,7 @@
                 }else {
                     $.ajax({
                         type:'POST',
-                        url:'${pageContext.request.contextPath}/checkgroupperson/arrangeTeacher.action?data1='+param1+'&data2='+param2,
+                        url:'${pageContext.request.contextPath}/checkgroupperson/arrangeTeacherNew.action?data1='+param1+'&data2='+param2,
                         success:function (msg) {
                             if(msg=='0'){
                                 layer.msg("安排成功");

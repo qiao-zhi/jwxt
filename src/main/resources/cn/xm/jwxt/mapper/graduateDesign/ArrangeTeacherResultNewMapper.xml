@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.ArrangeTeacherResultMapper" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.ArrangeTeacherResultNewMapper" >
 
-    <insert id="insertArrangeTeacherResult" parameterType="cn.xm.jwxt.bean.graduateDesign.ArrangeTeacherResult" >
-        insert into ArrangeTeacherResult (arrangeresultid, teachernameone,
+    <insert id="insertArrangeTeacherResult" parameterType="cn.xm.jwxt.bean.graduateDesign.ArrangeTeacherResultNew" >
+        insert into ArrangeTeacherResultNew (arrangeresultid, teachernameone,
         teachernametwo, studentCountInTeacherOne, studentCountInTeacherTwo,
         arrangetime,teacheronegroupid,teachertwogroupid
         )
@@ -14,19 +14,19 @@
         )
     </insert>
     <delete id="deleteArrangeTeacherResultByPrimaryKey">
-        DELETE FROM ArrangeTeacherResult
+        DELETE FROM ArrangeTeacherResultNew
         WHERE arrangeresultid = #{arrangeresultid}
     </delete>
-    <delete id="deleteArrangeTeacherResultByGroupid">
-        DELETE FROM ArrangeTeacherResult
+    <delete id="deleteArrangeTeacherResultNewByGroupid">
+        DELETE FROM ArrangeTeacherResultNew
         WHERE teacheronegroupid = #{groupid} OR teachertwogroupid = #{groupid}
     </delete>
-    <select id="selectArrangeTeacherResult" resultType="cn.xm.jwxt.bean.graduateDesign.ArrangeTeacherResult">
+    <select id="selectArrangeTeacherResult" resultType="cn.xm.jwxt.bean.graduateDesign.ArrangeTeacherResultNew">
         select arrangeresultid,
         teachernameone,studentCountInTeacherOne,
         teachernametwo,studentCountInTeacherTwo,
         arrangetime
-        FROM ArrangeTeacherResult
+        FROM ArrangeTeacherResultNew
         <where>
             <if test="arrangetime != null">
                 arrangetime = #{arrangetime}

@@ -32,7 +32,7 @@ public class PleafilerecordinfoServiceImpl implements PleafilerecordinfoService 
 
     @Override
     public boolean deleteByExample(PleafilerecordinfoExample example) {
-        return pleafilerecordinfoMapper.deleteByExample(example)==1;
+        return pleafilerecordinfoMapper.deleteByExample(example)>=0;
     }
 
     @Override

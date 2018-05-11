@@ -1,11 +1,27 @@
+/**
+ * Copyright (C), 2015-2018, XXX有限公司
+ * FileName: GraDesignCheckGroupNew
+ * Author:   xuexiaolei
+ * Date:     2018/5/10 21:43
+ * Description: 毕设答辩小组
+ * History:
+ * <author>          <time>          <version>          <desc>
+ * 作者姓名           修改时间           版本号              描述
+ */
 package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.List;
 
 /**
- * 中期检查小组表
+ * 〈一句话功能简述〉<br> 
+ * 〈毕设答辩小组〉
+ *
+ * @author xuexiaolei
+ * @create 2018/5/10
+ * @since 1.0.0
  */
-public class Gradesigncheckgroup {
+public class GraDesignCheckGroupNew {
+
     private String groupid;
 
     private String groupname;
@@ -65,4 +81,5 @@ public class Gradesigncheckgroup {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
 }

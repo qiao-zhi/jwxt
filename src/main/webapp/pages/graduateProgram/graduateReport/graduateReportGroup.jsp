@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>毕业答辩安排</title>
+    <title>毕业答辩检查小组管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -19,70 +19,77 @@
     <%@ include file="/tag.jsp" %>
 </head>
 <body>
-<!--面包屑-->
-<div class="x-nav">
-      <span class="layui-breadcrumb">
-        <a href="../../../welcome.html">首页</a>
-        <a href="javascript:void(0)">毕业设计管理</a>
-        <a href="javascript:void(0)">毕业答辩管理</a>
-        <a>
-          <cite>毕业答辩安排</cite>
-        </a>
-      </span>
-    <a class="layui-btn layui-btn-small" style="margin-top:3px;float:right"
-       href="javascript:location.replace(location.href);" title="刷新">
-        <i class="iconfont" style="line-height:30px">&#xe6aa;</i>
-    </a>
-    <a class="layui-btn layui-btn-warm layui-btn-small" style="margin-top:3px;float:right;margin-right:3px;"
-       onclick="closeOther()" title="关闭其他">
-        <i class="iconfont" style="line-height:30px">&#xe6b7;</i>
-    </a>
-</div>
-<!--主体-->
+<div class="layui-tab">
+    <ul class="layui-tab-title">
+        <li class="layui-this">小组互审分配</li>
+        <li>成员互审分配</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <!--查询-->
+            <div class="x-body">
+                <div class="demoTable" style="text-align: center;">
+                    <div class="layui-inline">
+                        <input class="layui-input" name="searchTeachername" placeholder="教师名称" id="searchTeachername" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <input class="layui-input" name="searchGroupname" placeholder="小组名称" id="searchGroupname" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <select class="layui-input" name="groupidIsNull" id="groupidIsNull">
+                            <option value="2">是否分配答辩小组</option>
+                            <option value="0">已分配</option>
+                            <option value="1">未分配</option>
+                        </select>
+                    </div>
+                    <button class="layui-btn" data-type="searchCheckgrouppersonInfo"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+            </div>
+            <!--end查询-->
 
-<!--查询-->
-<div class="x-body">
-    <div class="demoTable" style="text-align: center;">
-        <div class="layui-inline">
-            <input class="layui-input" name="searchTeachername" placeholder="教师名称" id="searchTeachername" autocomplete="off">
+            <!--操作区域-->
+            <xblock>
+                <div class="layui-btn-group demoTable">
+                    <!--把所选择的行，做为一组， 同时选择组长-->
+                    <button class="layui-btn" data-type="addGradesigngroupInfo">添加答辩小组</button>
+                    <!--点击前，需要需要判断该教师是否分组，若没分组，提示。-->
+                    <button class="layui-btn" data-type="changeGradesigngroupInfo">修改小组基本信息</button>
+                    <button class="layui-btn" onclick="x_admin_show('修改小组成员','./middleReportGroup-modifystudent.html')">修改小组成员</button>
+                    <button class="layui-btn layui-btn-normal" onclick="download();">导出数据</button>
+                </div>
+            </xblock>
+            <!--end 操作区域-->
+
+            <!--展示数据的表格-->
+            <table class="layui-hide" id="checkgrouppersonInfo" lay-filter="checkgrouppersonInfo"></table>
+
+
         </div>
-        <div class="layui-inline">
-            <input class="layui-input" name="searchGroupname" placeholder="小组名称" id="searchGroupname" autocomplete="off">
+        <div class="layui-tab-item">
+
+            <!--操作区域-->
+            <xblock>
+                <div class="layui-btn-group demoTable">
+                    <!--把所选择的行，做为一组， 同时选择组长-->
+                    <button class="layui-btn" data-type="hushenanpai">互审安排</button>
+
+                    <button class="layui-btn" data-type="refreshTable">刷新表格</button>
+                </div>
+            </xblock>
+            <!--end 操作区域-->
+
+            <!--展示数据的表格-->
+            <table class="layui-hide" id="gradesigncheckgroupInfo" lay-filter="gradesigncheckgroupInfo"></table>
         </div>
-        <div class="layui-inline">
-            <select class="layui-input" name="groupidIsNull" id="groupidIsNull">
-                <option value="2">是否分配答辩小组</option>
-                <option value="0">已分配</option>
-                <option value="1">未分配</option>
-            </select>
-        </div>
-        <button class="layui-btn" data-type="searchCheckgrouppersonInfo"><i class="layui-icon">&#xe615;</i></button>
     </div>
 </div>
-<!--end查询-->
 
-<!--操作区域-->
-<xblock>
-    <div class="layui-btn-group demoTable">
-        <!--把所选择的行，做为一组， 同时选择组长-->
-        <button class="layui-btn" data-type="addGradesigngroupInfo">添加答辩小组</button>
-        <!--点击前，需要需要判断该教师是否分组，若没分组，提示。-->
-        <button class="layui-btn" data-type="changeGradesigngroupInfo">修改小组基本信息</button>
-        <button class="layui-btn layui-btn-normal" onclick="download();">导出数据</button>
-    </div>
-</xblock>
-<!--end 操作区域-->
 
-<!--展示数据的表格-->
-<table class="layui-hide" id="checkgrouppersonInfo" lay-filter="checkgrouppersonInfo"></table>
 
 <!--操作数据的图标-->
 <script type="text/html" id="operColumn">
     <a lay-event="detail">
         <i class="layui-icon">&#xe63c;</i>
-    </a>
-    <a lay-event="edit">
-        <i class="layui-icon">&#xe642;</i>
     </a>
     <a lay-event="del">
         <i class="layui-icon">&#xe640;</i>
@@ -94,16 +101,15 @@
         var table = layui.table
             ,$ = layui.$;
 
-        //渲染表格，初始化数据
+        //渲染小组详细信息表格，初始化数据，整个大界面
         var checkgrouppersonInfoTable = table.render({
             elem: '#checkgrouppersonInfo'
-            ,url: '${pageContext.request.contextPath}/checkgroupperson/selectPage.action'
+            ,url: '${pageContext.request.contextPath}/checkgroupperson/selectPageNew.action'
             ,width: 1140
-            ,height: 350
+            ,height: 470
             ,cols:[[
                 {checkbox:true, fixed: true}
                 ,{field:'teacherid', width:90, sort: true, fixed: true, title: '老师ID'}
-                ,{field:'groupid', width:100, sort: true, fixed: true, title: '答辩小组ID'}
                 ,{field:'teachername', width:100, sort: true, title: '老师名称'}
                 ,{field:'groupname', width:140, sort: true, title: '答辩小组名称'}
                 ,{field:'groupleader', width:80, sort: true, title: '组长'}
@@ -112,19 +118,33 @@
                 ,{field:'replytime', width:160, sort: true, title: '答辩时间'}
                 ,{fixed: 'right', width:123, align:'center', toolbar: '#operColumn', title: '操作'}
             ]]
-            ,id:'selectcheckgrouppersonInfo'
+            ,id:'checkgrouppersonInfo'
             ,page: true
-            ,limits: 10
         })
 
-
-        //监听表格复选框选择
-        table.on('checkbox(checkgrouppersonInfo)', function(obj){
-//            console.log(obj)
-        });
+        //渲染小组及其成员表格，互审大界面
+        var gradesigncheckgroupInfoTable = table.render({
+            elem: '#gradesigncheckgroupInfo'
+            ,url: '${pageContext.request.contextPath}/gradesigncheckgroup/selectListNew.action'
+            ,width: 1140
+            ,height: 470
+            ,cols:[[
+                {checkbox:true, fixed: true}
+//                ,{field:'groupid', width:100, title: '答辩小组ID'}
+                ,{field:'groupname', width:150, title: '答辩小组名称'}
+                ,{field:'teachernameSum', width:550, title: '老师名称'}
+                ,{field:'studentCountInGroup', width:150, sort: true, title: '小组内学生总人数'}
+            ]]
+            ,id:'gradesigncheckgroupInfo'
+            ,page: true
+        })
 
         //layui的方法
         active = {
+            //刷新互审安排表
+            refreshTable:function () {
+                gradesigncheckgroupInfoTable.reload({});
+            },
             //条件查询
             searchCheckgrouppersonInfo:function () {
                 var searchTeachername = $('#searchTeachername').val();
@@ -144,13 +164,12 @@
             },
             //修改小组信息
             changeGradesigngroupInfo: function () {
-                var checkStatus = table.checkStatus('selectcheckgrouppersonInfo')
+                var checkStatus = table.checkStatus('checkgrouppersonInfo')
                     ,data = checkStatus.data;
-                console.log(checkStatus)
                 if(data.length != 1){
-                    layer.alert('请选择一个教师！');
+                    layer.msg('请选择一个教师！');
                 }else if(data[0].groupid == null){
-                    layer.alert('请选择一个已经分组的教师！');
+                    layer.msg('请选择一个已经分组的教师！');
                 }else {
                     layer.open({
                         type:2,
@@ -160,22 +179,26 @@
                         fix: false, //不固定
                         shadeClose: true,
                         maxmin: true,
-                        content:'${pageContext.request.contextPath}/gradesigncheckgroup/selectBeforeUpdate2.action?groupid='+data[0].groupid
+                        content:'${pageContext.request.contextPath}/gradesigncheckgroup/selectBeforeUpdateNew.action?groupid='+data[0].groupid
                     })
                 }
             },
             //添加答辩小组信息
             addGradesigngroupInfo:function () {
-                //获取选中行数据
-                var checkStatus = table.checkStatus('selectcheckgrouppersonInfo')
+                var checkStatus = table.checkStatus('checkgrouppersonInfo')
                     ,data = checkStatus.data;
+                for(var i=0;i< data.length;i++){
+                    if(data[i].groupid != null){
+                        layer.msg("包含已分配的教师，请重新选择！");
+                        return;
+                    }
+                }
                 if(data.length < 3){
-                    layer.alert('至少选择三个指导教师！');
+                    layer.msg('至少选择三个指导教师！');
                 }else {
                     //参数解码
                     var param = encodeURIComponent(JSON.stringify(data));
-                    var url = "${pageContext.request.contextPath}/gradesigncheckgroup/selectBeforeAddGradesigncheckgroup.action?checkgrouppersonVoList="+param;
-                    //发送请求
+                    var url = "${pageContext.request.contextPath}/gradesigncheckgroup/selectBeforeAddGradesigncheckgroupNew.action?checkgrouppersonVoList="+param;
                     layer.open({
                         type: 2,
                         title:'添加小组基本信息',
@@ -188,11 +211,33 @@
                         content:url
                     })
                 }
+            },
+
+            //互审安排
+            hushenanpai: function () {
+                var checkStatus = table.checkStatus('gradesigncheckgroupInfo')
+                    ,data = checkStatus.data;
+                if(data.length != 2){
+                    layer.msg('请选择两个互审小组！');
+                }else {
+                    var url = "graduateArrangePerson.jsp?groupid1="+data[0].groupid+"&groupid2="+data[1].groupid;
+                    layer.open({
+                        type: 2,
+                        title: '互审安排',
+                        aim: 1,
+                        area: [$(window).width() * 0.90, ($(window).height() - 50)],
+                        shade: 0.4,
+                        fix: false, //不固定
+                        shadeClose: true,
+                        maxmin: true,
+                        content: url
+                    })
+                }
             }
 
         };
 
-        //监听工具条,表格中的数据操作
+        //监听工具条,上面表格中的数据操作
         table.on('tool(checkgrouppersonInfo)', function(obj){
             var data = obj.data;
             //查看详情
@@ -205,30 +250,30 @@
                     fix: false, //不固定
                     shadeClose: true,
                     maxmin: true,
-                    content:'${pageContext.request.contextPath}/gradesigncheckgroup/selectOneGradesigncheckgroup2.action?groupid='+data.groupid
+                    content:'${pageContext.request.contextPath}/gradesigncheckgroup/selectOneGradesigncheckgroupNew.action?groupid='+data.groupid
                 })
-
             } else if(obj.event === 'del'){     //删除小组信息
                 layer.confirm('真的删除小组信息么?', function(index){
                     $.ajax({
                         type:'POST',
-                        url:"${pageContext.request.contextPath}/gradesigncheckgroup/deleteGroup.action",
+                        url:"${pageContext.request.contextPath}/gradesigncheckgroup/deleteGroupNew.action",
                         data:{"groupId":data.groupid},
                         dataType:"JSON",
                         success:function(msg){
                             if(msg == "0"){
-                                layer.alert("删除成功!");
-                                location.replace(location.href);
+                                layer.msg("删除成功!");
                             }else if(msg == "1"){
-                                layer.alert("删除失败!");
+                                layer.msg("删除失败!");
                             }else{
-                                layer.alert("未知的错误发生，请联系管理员!");
+                                layer.msg("错误发生!");
                             }
+                            checkgrouppersonInfoTable.reload({});
+                        },
+                        error:function () {
+                            layer.msg("错误发生了！！")
                         }
                     })
                 });
-            } else if(obj.event === 'edit'){    //编辑信息
-                layer.alert('传给后台的值:'+ JSON.stringify(data))
             }
         });
 
@@ -238,20 +283,10 @@
         });
     });
 
-    //点击关闭其他，触发事件
-    function closeOther() {
-        var closeTable = $(".layui-tab-title", parent.document).children("li");
-        closeTable.each(function () {
-            if ($(this).attr("class") == "") {
-                $(this).children("i").trigger("click");
-            }
-        })
-    }
-
+    //导出所有小组成员信息
     function download() {
-        location.href = "${pageContext.request.contextPath}/checkgroupperson/downloadExcel2.action";
+        location.href = "${pageContext.request.contextPath}/checkgroupperson/downloadExcel.action";
     }
-
 </script>
 </body>
 </html>

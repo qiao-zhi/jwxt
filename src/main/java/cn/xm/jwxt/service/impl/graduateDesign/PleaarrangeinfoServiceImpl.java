@@ -13,17 +13,22 @@ package cn.xm.jwxt.service.impl.graduateDesign;
 import cn.xm.jwxt.bean.graduateDesign.Pleaarrangeinfo;
 import cn.xm.jwxt.bean.graduateDesign.PleaarrangeinfoExample;
 import cn.xm.jwxt.mapper.graduateDesign.PleaarrangeinfoMapper;
+import cn.xm.jwxt.mapper.graduateDesign.custom.PleaarrangeinfoCustomMapper;
 import cn.xm.jwxt.service.graduateDesign.PleaarrangeinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PleaarrangeinfoServiceImpl implements PleaarrangeinfoService {
 
     @Autowired
     private PleaarrangeinfoMapper pleaarrangeinfoMapper;
+
+    @Autowired
+    private PleaarrangeinfoCustomMapper pleaarrangeinfoCustomMapper;
 
     @Override
     public int countByExample(PleaarrangeinfoExample example) {
@@ -32,7 +37,7 @@ public class PleaarrangeinfoServiceImpl implements PleaarrangeinfoService {
 
     @Override
     public boolean deleteByExample(PleaarrangeinfoExample example) {
-        return pleaarrangeinfoMapper.deleteByExample(example)==1;
+        return pleaarrangeinfoMapper.deleteByExample(example)>=0;
     }
 
     @Override
@@ -78,5 +83,10 @@ public class PleaarrangeinfoServiceImpl implements PleaarrangeinfoService {
     @Override
     public boolean updateByPrimaryKey(Pleaarrangeinfo record) {
         return pleaarrangeinfoMapper.updateByPrimaryKey(record)==1;
+    }
+
+    @Override
+    public List<Pleaarrangeinfo> selectPleaarrangeinfoList(Map<String, Object> map) {
+        return pleaarrangeinfoCustomMapper.selectPleaarrangeinfoList(map);
     }
 }

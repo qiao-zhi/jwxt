@@ -16,28 +16,38 @@ public class Pleaarrangeinfo {
 
     private Integer bookid;
 
-    private Gradesigncheckgroup gradesigncheckgroup;
+    private GraDesignCheckGroupNew graDesignCheckGroupNew;
 
-    private List<Finallypleainfo> finallypleainfoList;
+    private Finallypleainfo finallypleainfo;
+
+    private List<Plearesultinfo> plearesultinfoList;
 
     private List<Pleafilerecordinfo> pleafilerecordinfoList;
 
     private List<Pleafileuploadinfo> pleafileuploadinfoList;
 
-    public Gradesigncheckgroup getGradesigncheckgroup() {
-        return gradesigncheckgroup;
+    public GraDesignCheckGroupNew getGraDesignCheckGroupNew() {
+        return graDesignCheckGroupNew;
     }
 
-    public void setGradesigncheckgroup(Gradesigncheckgroup gradesigncheckgroup) {
-        this.gradesigncheckgroup = gradesigncheckgroup;
+    public void setGraDesignCheckGroupNew(GraDesignCheckGroupNew graDesignCheckGroupNew) {
+        this.graDesignCheckGroupNew = graDesignCheckGroupNew;
     }
 
-    public List<Finallypleainfo> getFinallypleainfoList() {
-        return finallypleainfoList;
+    public Finallypleainfo getFinallypleainfo() {
+        return finallypleainfo;
     }
 
-    public void setFinallypleainfoList(List<Finallypleainfo> finallypleainfoList) {
-        this.finallypleainfoList = finallypleainfoList;
+    public void setFinallypleainfo(Finallypleainfo finallypleainfo) {
+        this.finallypleainfo = finallypleainfo;
+    }
+
+    public List<Plearesultinfo> getPlearesultinfoList() {
+        return plearesultinfoList;
+    }
+
+    public void setPlearesultinfoList(List<Plearesultinfo> plearesultinfoList) {
+        this.plearesultinfoList = plearesultinfoList;
     }
 
     public List<Pleafilerecordinfo> getPleafilerecordinfoList() {
