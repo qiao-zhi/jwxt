@@ -46,9 +46,14 @@ public class CourseTypeInfoServiceImpl implements CourseTypeInfoService {
     }
 
     @Override
-    public boolean deleteCourseTypeInfoById(int courseId) throws SQLException {
-        return false;
+    public boolean deleteCourseTypeInfoByTrainSchemeIdAndTypeNum(String trainSchemeId, String typeNum) throws SQLException {
+        CoursetypeinfoExample example = new CoursetypeinfoExample();
+        CoursetypeinfoExample.Criteria criteria = example.createCriteria();
+        criteria.andTrainingschemeidEqualTo(trainSchemeId);
+        criteria.andTypenumEqualTo(typeNum);
+        return coursetypeinfoMapper.deleteByExample(example)>0?true:false;
     }
+
 
     @Override
     public boolean updateCourseTypeInfoById(Coursetypeinfo coursetypeinfo) throws SQLException {

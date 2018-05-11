@@ -2,5 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.trainScheme.custom.CoursecapacityrequireinfoCustomMapper" >
 
+    <!--1.根据培养方案课程ID查询培养方案能力信息-->
+    <select id="getTrainCourseCapacityByTrainCourseIds" parameterType="list" resultType="cn.xm.jwxt.bean.trainScheme.Coursecapacityrequireinfo">
+        SELECT  * FROM coursecapacityrequireinfo WHERE trainCourseID IN
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+
+    <!--2.根据培养方案课ID批量删除培养方案课程能力集合-->
+    <delete id="deleteCoursecapacitByTrainCourseId" parameterType="list">
+        DELETE  FROM coursecapacityrequireinfo WHERE trainCourseID IN
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <!--3.批量添加培养方案课程能力集合-->
+    <insert id="addCoursecapacitBatch" parameterType="list">
+        INSERT INTO `coursecapacityrequireinfo`(`courseCapacityId`,`trainningSchemeID`,`trainCourseID`,`capacityId`,`remark`) VALUES
+        <foreach collection="list" separator="," item="coursecapacityrequireinfo">
+            (NULL,#{coursecapacityrequireinfo.trainningschemeid},#{coursecapacityrequireinfo.traincourseid},#{coursecapacityrequireinfo.capacityid},'1')
+        </foreach>
+    </insert>
+
+    <!--4.根据培养方案课程能力编号查询培养方案课程能力-->
+    <select id="getCapacityByTrainCourseId" resultType="map" parameterType="int">
+        SELECT   tc.*
+        FROM
+            trainningcapacitybaseinfo tc
+        INNER JOIN coursecapacityrequireinfo courseCa ON tc.capacityId = courseCa.capacityId
+        where courseCa.trainCourseID=#{trainCourseID}
+    </select>
 
 </mapper>

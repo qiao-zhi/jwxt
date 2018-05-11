@@ -14,12 +14,13 @@ import java.util.Map;
  */
 public interface CourseCapacityRequireInfoService {
     /**
-     * 批量添加培养方案课程能力对应关系
+     * 批量添加培养方案课程能力对应关系(1.删除培养方案能力，2重新添加)
      * @param coursecapacityrequireinfos    培养方案课程能力对应集合
+     * @param trainCourseIds    需要删除的能力集合
      * @return  是否添加成功
      * @throws SQLException
      */
-    public boolean addCoursecapacityrequireinfoBatch(List<Coursecapacityrequireinfo> coursecapacityrequireinfos)throws SQLException;
+    public boolean addCoursecapacityrequireinfoBatch(List<Coursecapacityrequireinfo> coursecapacityrequireinfos,List<Integer> trainCourseIds)throws SQLException;
 
     /**
      * 添加单个培养方案能力对应关系
@@ -68,5 +69,21 @@ public interface CourseCapacityRequireInfoService {
      * @throws SQLException
      */
     public List<Map<String,Object>> getCourseCapacityByCondition(Map condition)throws SQLException;
+
+
+    /**
+     * 根据培养方案课程比俺还查询培养方案能力集合
+     * @param trainCourseIds    培养方案课程ID集合
+     * @return
+     * @throws SQLException
+     */
+    public List<Coursecapacityrequireinfo> getTrainCourseCapacityByTrainCourseIds(List<Integer> trainCourseIds)throws SQLException;
+    /**
+     * 根据培养方案课程ID查询培养方案课程能力
+     * @param trainCourseId
+     * @return
+     * @throws SQLException
+     */
+    public List<Map<String,Object>> getCapacityByTrainCourseId(Integer trainCourseId)throws SQLException;
 
 }

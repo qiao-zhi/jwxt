@@ -1,6 +1,7 @@
 package cn.xm.jwxt.service.orderBooks;
 
 import cn.xm.jwxt.bean.orderBooks.TTextbookBaseInfo;
+import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,6 +16,21 @@ public interface TextbookRepositoryService {
      * @throws SQLException
      */
     public List<TTextbookBaseInfo> findTextbook(Map findcondition)throws SQLException;
+
+    /**
+     * 从课程基本信息表查找所有课程
+     * @return
+     * @throws SQLException
+     */
+    public List<Map> findAllCourse()throws SQLException;
+
+    /**
+     * 根据教材编号查找教材总数，判断是否存在相同编号的教材
+     * @param textbookNum
+     * @return
+     * @throws SQLException
+     */
+    public int getCountByTextbookNum(String textbookNum)throws SQLException;
 
     /**
      * 根据教材基本信息表添加教材

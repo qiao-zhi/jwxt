@@ -83,5 +83,17 @@ public class TrainschemeCourseTypeController {
         return result;
     }
 
+    @RequestMapping("/deleteCourseType")
+    public String deleteTrainCourseType(@RequestParam(defaultValue = "1") String trainSchemeId,@RequestParam(defaultValue="0")String typeNum){
+        String result = null;
+        try {
+            result = courseTypeInfoService.deleteCourseTypeInfoByTrainSchemeIdAndTypeNum(trainSchemeId,typeNum)?"删除成功":"删除失败";
+        } catch (SQLException e) {
+            logger.error("删除失败",e);
+            return "删除失败";
+        }
+        return result;
+    }
+
 
 }
