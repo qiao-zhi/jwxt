@@ -1,15 +1,15 @@
 package cn.xm.jwxt.bean.graduateDesign;
-
 import java.util.Date;
 /**
  * 教师毕业课题题目申请表
  */
-public class Teachergredesigntitle {
-    private String teachertitleid;
+public class TeachergredesigntitleDetailVo {
 
-    private String gradesignid;
+    private String teacherName;
 
-    private String teacherid;
+    private String positionalTitle;
+
+    private String degree;
 
     private String titlename;
 
@@ -29,11 +29,27 @@ public class Teachergredesigntitle {
 
     private String checkstatus;
 
+    private String checkFirstResult;
+
+    private String checkFirstDesc;
+
+    private String checkSecondResult;
+
+    private String checkSecondDesc;
+
     private Date gdTime;
 
-    private String majorID;
+    private String majorName;
 
     private Date applyTime;
+
+    public String getMajorName() {
+        return majorName;
+    }
+
+    public void setMajorName(String majorName) {
+        this.majorName = majorName;
+    }
 
     public Date getGdTime() {
         return gdTime;
@@ -51,36 +67,60 @@ public class Teachergredesigntitle {
         this.applyTime = applyTime;
     }
 
-    public String getMajorID() {
-        return majorID;
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setMajorID(String majorID) {
-        this.majorID = majorID;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
-    public String getTeachertitleid() {
-        return teachertitleid;
+    public String getPositionalTitle() {
+        return positionalTitle;
     }
 
-    public void setTeachertitleid(String teachertitleid) {
-        this.teachertitleid = teachertitleid == null ? null : teachertitleid.trim();
+    public void setPositionalTitle(String positionalTitle) {
+        this.positionalTitle = positionalTitle;
     }
 
-    public String getGradesignid() {
-        return gradesignid;
+    public String getDegree() {
+        return degree;
     }
 
-    public void setGradesignid(String gradesignid) {
-        this.gradesignid = gradesignid == null ? null : gradesignid.trim();
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 
-    public String getTeacherid() {
-        return teacherid;
+    public String getCheckFirstResult() {
+        return checkFirstResult;
     }
 
-    public void setTeacherid(String teacherid) {
-        this.teacherid = teacherid == null ? null : teacherid.trim();
+    public void setCheckFirstResult(String checkFirstResult) {
+        this.checkFirstResult = checkFirstResult;
+    }
+
+    public String getCheckFirstDesc() {
+        return checkFirstDesc;
+    }
+
+    public void setCheckFirstDesc(String checkFirstDesc) {
+        this.checkFirstDesc = checkFirstDesc;
+    }
+
+    public String getCheckSecondResult() {
+        return checkSecondResult;
+    }
+
+    public void setCheckSecondResult(String checkSecondResult) {
+        this.checkSecondResult = checkSecondResult;
+    }
+
+    public String getCheckSecondDesc() {
+        return checkSecondDesc;
+    }
+
+    public void setCheckSecondDesc(String checkSecondDesc) {
+        this.checkSecondDesc = checkSecondDesc;
     }
 
     public String getTitlename() {

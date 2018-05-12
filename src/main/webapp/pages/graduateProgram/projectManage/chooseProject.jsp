@@ -24,7 +24,7 @@
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a href="../../../welcome.jsp">首页</a>
+        <a href="${baseurl}/welcome.jsp">首页</a>
         <a href="javascript:void(0)">毕业设计管理</a>
         <a href="javascript:void(0)">课题管理</a>
         <a>
@@ -46,8 +46,8 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_form">
-            <input type="text" name="username" placeholder="教师名称" autocomplete="off" class="layui-input">
-            <input type="text" name="username" placeholder="课题名称" autocomplete="off" class="layui-input">
+            <input type="text" name="teacherName" placeholder="教师名称" autocomplete="off" class="layui-input">
+            <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>

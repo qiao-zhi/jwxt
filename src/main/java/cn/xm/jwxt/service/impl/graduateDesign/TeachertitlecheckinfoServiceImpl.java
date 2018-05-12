@@ -10,7 +10,7 @@
  */
 package cn.xm.jwxt.service.impl.graduateDesign;
 
-import cn.xm.jwxt.bean.graduateDesign.Teachertitlecheckinfo;
+import cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo;
 import cn.xm.jwxt.bean.graduateDesign.TeachertitlecheckinfoExample;
 import cn.xm.jwxt.mapper.graduateDesign.TeachertitlecheckinfoMapper;
 import cn.xm.jwxt.service.graduateDesign.TeachertitlecheckinfoService;
@@ -41,42 +41,42 @@ public class TeachertitlecheckinfoServiceImpl implements TeachertitlecheckinfoSe
     }
 
     @Override
-    public boolean insert(Teachertitlecheckinfo record) {
+    public boolean insert(TeachertitleFirstcheckinfo record) {
         return teachertitlecheckinfoMapper.insert(record)==1;
     }
 
     @Override
-    public boolean insertSelective(Teachertitlecheckinfo record) {
+    public boolean insertSelective(TeachertitleFirstcheckinfo record) {
         return teachertitlecheckinfoMapper.insertSelective(record)==1;
     }
 
     @Override
-    public List<Teachertitlecheckinfo> selectByExample(TeachertitlecheckinfoExample example) {
+    public List<TeachertitleFirstcheckinfo> selectByExample(TeachertitlecheckinfoExample example) {
         return teachertitlecheckinfoMapper.selectByExample(example);
     }
 
     @Override
-    public Teachertitlecheckinfo selectByPrimaryKey(String checkid) {
+    public TeachertitleFirstcheckinfo selectByPrimaryKey(String checkid) {
         return teachertitlecheckinfoMapper.selectByPrimaryKey(checkid);
     }
 
     @Override
-    public boolean updateByExampleSelective(Teachertitlecheckinfo record, TeachertitlecheckinfoExample example) {
+    public boolean updateByExampleSelective(TeachertitleFirstcheckinfo record, TeachertitlecheckinfoExample example) {
         return teachertitlecheckinfoMapper.updateByExampleSelective(record, example)==1;
     }
 
     @Override
-    public boolean updateByExample(Teachertitlecheckinfo record, TeachertitlecheckinfoExample example) {
+    public boolean updateByExample(TeachertitleFirstcheckinfo record, TeachertitlecheckinfoExample example) {
         return teachertitlecheckinfoMapper.updateByExample(record, example)==1;
     }
 
     @Override
-    public boolean updateByPrimaryKeySelective(Teachertitlecheckinfo record) {
+    public boolean updateByPrimaryKeySelective(TeachertitleFirstcheckinfo record) {
         return teachertitlecheckinfoMapper.updateByPrimaryKeySelective(record)==1;
     }
 
     @Override
-    public boolean updateByPrimaryKey(Teachertitlecheckinfo record) {
+    public boolean updateByPrimaryKey(TeachertitleFirstcheckinfo record) {
         return teachertitlecheckinfoMapper.updateByPrimaryKey(record)==1;
     }
 }

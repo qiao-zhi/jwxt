@@ -7,6 +7,7 @@ layui.use('laydate', function () {
     });
 });
 
+
 /**
  * 页面加载完成后执行一些函数
  */
@@ -70,9 +71,10 @@ function resultType() {
 function initData() {
     //初始化教师信息：teacherID，teacherName，职称positionalTitle，学位degree
     // 学院collegeName
+    var teacherTitleID = ""
     $.ajax({
-        url : contextPath+'/projectManage/addProjectInfo.do',
-        date: teacherTitleID,
+        url : contextPath+'/projectManage/getAddInfo.do',
+        data: teacherTitleID,
         type : 'POST',
         dataType : 'json',
         async:true,

@@ -15,4 +15,137 @@
     and projectType=''
     ;
   </select>
+
+  <insert id="insertAuditFirstInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo" >
+    insert into teacherTitleFirstCheckInfo (checkID, teatherTitleID, checkTime,
+    checkPerson, checkResult, checkDesc)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.checkID,jdbcType=VARCHAR},
+      #{item.teatherTitleID,jdbcType=VARCHAR},
+      #{item.checkTime,jdbcType=VARCHAR},
+      #{item.checkPerson,jdbcType=VARCHAR}
+      #{item.checkResult,jdbcType=VARCHAR}
+      #{item.checkDesc,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="insertAuditFirstInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo" >
+    insert into teacherTitleFirstCheckInfo (checkID, teatherTitleID, checkTime,
+    checkPerson, checkResult, checkDesc)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.checkID,jdbcType=VARCHAR},
+      #{item.teatherTitleID,jdbcType=VARCHAR},
+      #{item.checkTime,jdbcType=VARCHAR},
+      #{item.checkPerson,jdbcType=VARCHAR}
+      #{item.checkResult,jdbcType=VARCHAR}
+      #{item.checkDesc,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="insertAuditSecondInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo" >
+    insert into teacherTitleSecondCheckInfo (checkID, teatherTitleID, checkTime,
+    checkPerson, checkResult, checkDesc)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.checkID,jdbcType=VARCHAR},
+      #{item.teatherTitleID,jdbcType=VARCHAR},
+      #{item.checkTime,jdbcType=VARCHAR},
+      #{item.checkPerson,jdbcType=VARCHAR}
+      #{item.checkResult,jdbcType=VARCHAR}
+      #{item.checkDesc,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectList" parameterType="java.util.List" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM t_user
+    WHERE id IN
+    <foreach collection="array" index="index" item="item"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+  <update id="updateAuditStatus">
+    update teacherGreDesignTitle set checkStatus = #{checkStatus}
+    where teacherTitleID in
+    <foreach collection="array" index="index" item="item"
+             open="(" separator="," close=")">
+        #{teacherTitleID}
+    </foreach>
+  </update>
+
+  <insert id="insertProjectInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
+    insert into teacherGreDesignTitle (teacherTitleID, graDesignID, teacherId,titlename,resultType,projectType,targetRequire,
+    researchContent,titleOrigin,titleType,reqireStudentNum,checkStatus,syear,applyTime,gdTime,majorID)
+    VALUES
+    (#{teacherTitleID}},#{graDesignID},#{teacherId},#{titlename},#{resultType},#{projectType},#{targetRequire},
+    #{researchContent},#{titleOrigin},#{titleType},#{reqireStudentNum},#{checkStatus},#{syear},#{applyTime},#{gdTime},#{majorID})
+  </insert>
+
+  <select id="selectProjectTeacherInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo">
+    SELECT * FROM t_teacher_base_info
+    WHERE teacherID = #{teacherID}
+  </select>
+
+  <select id="selectProjectInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
+    SELECT * FROM Teachergredesigntitle
+    WHERE teacherTitleID = #{teacherTitleID}
+  </select>
+
+  <update id="updateProjectInfo" parameterType="java.lang.String">
+    update teacherGreDesignTitle set
+    <if test="auditTime != null" >graDesignID = #{graDesignID,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >titlename = #{titlename,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >resultType = #{resultType,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >projectType = #{projectType,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >targetRequire = #{targetRequire,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >researchContent = #{researchContent,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >titleOrigin = #{titleOrigin,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >titleType = #{titleType,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >reqireStudentNum = #{reqireStudentNum,jdbcType=INTEGER},</if>
+    <if test="auditTime != null" >checkStatus = #{checkStatus,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >syear = #{syear,jdbcType=DATE},</if>
+    <if test="auditTime != null" >applyTime = #{applyTime,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >gdTime = #{gdTime,jdbcType=VARCHAR},</if>
+    <if test="auditTime != null" >majorID = #{majorID,jdbcType=VARCHAR},</if>
+    where teacherTitleID=#{teacherTitleID}
+  </update>
+
+  <delete id="deleteProjectInfo" parameterType="java.lang.String" >
+    delete from teacherGreDesignTitle
+    teacherTitleID=#{teacherTitleID}
+  </delete>
+
+  <delete id="deleteAuditFisrtInfo" parameterType="java.lang.String" >
+    delete from teacherTitleFirstCheckInfo
+    teacherTitleID=#{teacherTitleID}
+  </delete>
+
+  <delete id="selectAuditFisrtInfo" parameterType="java.lang.String">
+    delete from teacherTitleSecondCheckInfo
+    teacherTitleID=#{teacherTitleID}
+  </delete>
+
+  <select id="selectAuditFisrtInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo">
+    SELECT * FROM teacherTitleFirstCheckInfo
+    WHERE teacherTitleID = #{teacherTitleID}
+  </select>
+
+  <select id="selectAuditSecondInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo">
+    SELECT * FROM teacherTitleSecondCheckInfo
+    WHERE teacherTitleID = #{teacherTitleID}
+  </select>
+
+  <select id="selectMajorInfo" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT majorName FROM t_major_base_info
+    WHERE majorID = #{majorID}
+  </select>
 </mapper>

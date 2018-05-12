@@ -1,6 +1,6 @@
 package cn.xm.jwxt.mapper.graduateDesign;
 
-import cn.xm.jwxt.bean.graduateDesign.Teachertitlecheckinfo;
+import cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo;
 import cn.xm.jwxt.bean.graduateDesign.TeachertitlecheckinfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -12,19 +12,19 @@ public interface TeachertitlecheckinfoMapper {
 
     int deleteByPrimaryKey(String checkid);
 
-    int insert(Teachertitlecheckinfo record);
+    int insert(TeachertitleFirstcheckinfo record);
 
-    int insertSelective(Teachertitlecheckinfo record);
+    int insertSelective(TeachertitleFirstcheckinfo record);
 
-    List<Teachertitlecheckinfo> selectByExample(TeachertitlecheckinfoExample example);
+    List<TeachertitleFirstcheckinfo> selectByExample(TeachertitlecheckinfoExample example);
 
-    Teachertitlecheckinfo selectByPrimaryKey(String checkid);
+    TeachertitleFirstcheckinfo selectByPrimaryKey(String checkid);
 
-    int updateByExampleSelective(@Param("record") Teachertitlecheckinfo record, @Param("example") TeachertitlecheckinfoExample example);
+    int updateByExampleSelective(@Param("record") TeachertitleFirstcheckinfo record, @Param("example") TeachertitlecheckinfoExample example);
 
-    int updateByExample(@Param("record") Teachertitlecheckinfo record, @Param("example") TeachertitlecheckinfoExample example);
+    int updateByExample(@Param("record") TeachertitleFirstcheckinfo record, @Param("example") TeachertitlecheckinfoExample example);
 
-    int updateByPrimaryKeySelective(Teachertitlecheckinfo record);
+    int updateByPrimaryKeySelective(TeachertitleFirstcheckinfo record);
 
-    int updateByPrimaryKey(Teachertitlecheckinfo record);
+    int updateByPrimaryKey(TeachertitleFirstcheckinfo record);
 }

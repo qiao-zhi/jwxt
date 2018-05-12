@@ -27,8 +27,8 @@
 <%-- qlq引入的公共的JSP --%>
 <%@include file="/tag.jsp"%>
 <div class="x-body" style="margin:20px auto 50px auto; width:70%;">
-    <form action="" class="layui-form">
-        <button class="layui-btn" lay-submit="" id="y_save">保存</button>
+    <form class="layui-form" id="y_from">
+        <button class="layui-btn" id="y_save">保存</button>
         <button class="layui-btn" lay-submit="" id="y_sumit">提交</button>
 
         <table class="table table-bordered">
@@ -50,7 +50,7 @@
                 <td rowspan="5">课题情况</td>
                 <td>课题名称</td>
                 <td colspan="5">
-                    <input  class="layui-input" name="titlename" type="text" lay-verify="titlename">
+                    <input  class="layui-input" name="titlename" type="text" lay-verify="required">
                 </td>
             </tr>
             <tr>
@@ -66,8 +66,8 @@
             <tr>
                 <td>课题来源</td>
                 <td colspan="5">
-                    <select name="titleOrigin" class="small" id="">
-                        <option value="0">--请选择--</option>
+                    <select name="titleOrigin" class="small" id="" lay-verify="required">
+                        <option value="">--请选择--</option>
                         <option value="科研">科研</option>
                         <option value="生产">生产</option>
                         <option value="理论">理论</option>
@@ -78,22 +78,22 @@
             <tr>
                 <td>课题类别</td>
                 <td>
-                    <select name="titleType" class="small">
-                        <option value="0">--请选择--</option>
+                    <select name="titleType" class="small" lay-verify="required">
+                        <option value="">--请选择--</option>
                         <option value="设计">设计</option>
                         <option value="论文">论文</option>
                     </select>
                 </td>
                 <td>设计时间</td>
                 <td colspan="3">
-                    <input type="text" placeholder="14" name="gdTime" class="layui-input layui-input-inline" style="width:60px" value="14"> 周
+                    <input type="text" lay-verify="required|number" name="gdTime" class="layui-input layui-input-inline" style="width:60px" value="14"> 周
                 </td>
             </tr>
             <tr>
                 <td>学生专业</td>
                 <td>
-                    <select name="majorID" class="small">
-                        <option value="0">--请选择--</option>
+                    <select name="majorID" class="small" lay-verify="required">
+                        <option value="">--请选择--</option>
                         <option value="软件工程">软件工程</option>
                         <option value="计算机">计算机</option>
                         <option value="物联网">物联网</option>
@@ -102,13 +102,13 @@
                 </td>
                 <td>学生人数</td>
                 <td colspan="3">
-                    <input class="layui-input" name="reqireStudentNum" type="text">
+                    <input class="layui-input" name="reqireStudentNum" type="text" lay-verify="required|number">
                 </td>
             </tr>
             <tr>
                 <td>课题类型</td>
                 <td colspan="6">
-                    <input type="radio" name="projectType" lay-skin="primary" value="纵向科研课题" title="纵向科研课题">
+                    <input type="radio" name="projectType" checked lay-skin="primary" value="纵向科研课题" title="纵向科研课题">
                     <input type="radio" name="projectType" lay-skin="primary" value="横向科研课题" title="横向科研课题">
                     <input type="radio" name="projectType" lay-skin="primary" value="教师预研课题" title="教师预研课题">
                     <input type="radio" name="projectType" lay-skin="primary" value="自选课题" title="自选课题">
@@ -117,23 +117,23 @@
             <tr>
                 <td>成果形式</td>
                 <td colspan="6">
-                    <input type="radio" name="resultType" lay-skin="primary" value="论文" title="论文">
-                    <input type="radio" name="resultType" lay-skin="primary" value="软件"  title="软件">
-                    <input type="radio" name="resultType" lay-skin="primary" value="实物制作"  title="实物制作">
-                    <input type="radio" name="resultType" lay-skin="primary" value="图纸"  title="图纸">
-                    <input type="radio" name="resultType" lay-skin="primary" value="其它"  title="其它">
+                    <input type="checkbox" name="resultType" disabled checked lay-skin="primary" value="论文" title="论文" lay-verify="resultType">
+                    <input type="checkbox" name="resultType" checked lay-skin="primary" value="软件"  title="软件" lay-verify="resultType">
+                    <input type="checkbox" name="resultType" lay-skin="primary" value="实物制作"  title="实物制作" lay-verify="resultType">
+                    <input type="checkbox" name="resultType" lay-skin="primary" value="图纸"  title="图纸" lay-verify="resultType">
+                    <input type="checkbox" name="resultType" lay-skin="primary" value="其它"  title="其它" lay-verify="resultType">
                 </td>
             </tr>
             <tr>
                 <td>主要研究内容</td>
                 <td colspan="6">
-                    <textarea class="layui-textarea" name="researchContent"></textarea>
+                    <textarea class="layui-textarea" name="researchContent" lay-verify="required"></textarea>
                 </td>
             </tr>
             <tr>
                 <td>设计目标要求</td>
                 <td colspan="6">
-                    <textarea name="targetRequire" class="layui-textarea"></textarea>
+                    <textarea name="targetRequire" class="layui-textarea" lay-verify="required"></textarea>
                 </td>
             </tr>
             </tbody>

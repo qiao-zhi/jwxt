@@ -22,7 +22,7 @@
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a href="../../../welcome.jsp">首页</a>
+        <a href="${baseurl}/welcome.jsp">首页</a>
         <a href="javascript:void(0)">毕业设计管理</a>
         <a><cite>文件管理</cite></a>
       </span>

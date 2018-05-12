@@ -5,17 +5,18 @@ import java.util.Date;
 /**
  * 教师毕设课题审核表
  */
-public class Teachertitlecheckinfo {
+public class TeachertitleFirstcheckinfo {
+    /**教师课题审核ID*/
     private String checkid;
-
+    /**教师题目ID*/
     private String teathertitleid;
-
+    /**审核时间*/
     private Date checktime;
-
+    /**审核人*/
     private String checkperson;
-
+    /**审核结果*/
     private String checkresult;
-
+    /**描述*/
     private String checkdesc;
 
     public String getCheckid() {

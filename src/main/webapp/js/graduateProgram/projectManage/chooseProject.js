@@ -16,12 +16,35 @@ layui.use('form', function(){
     });
 });
 
-//初始化表格
-findTaskNoticeBaseInfo();
+//院长审核
+function auditSecond() {
+    var checkedTr = $("td").children(".layui-form-checked");
+    if (checkedTr.length == 0) {
+        layer.alert('请选择一条数据！');
+    }else if (checkedTr.length > 1) {
+        layer.alert('只能选择一条数据！');
+    } else {
+        var teacherTitleID = "";
+
+        var auditStatus = checkedTr.parents("tr").find(".y_auditStatus").text();
+        if(auditStatus != "待院长审核") {
+            layer.alert('审核状态只能为待院长审核！');
+            return false;
+        } else {
+            teacherTitleID = checkedTr.parent().find(".y_id").val()
+        }
+
+        x_admin_show('院长审核','./project-AC-checkSecond.jsp?teacherTitleID='+teacherTitleID)
+    }
+}
+
+$(function () {
+    findTaskNoticeBaseInfo();//初始化表格
+});
 
 function findTaskNoticeBaseInfo(){
     $.ajax({
-        url : contextPath+'/projectManage/getProject_ACInfo.do',
+        url : contextPath+ '/chooseProject/getProject_ACInfo.do',
         data : $("#y_form").serialize(),
         type : 'POST',
         dataType : 'json',
@@ -41,26 +64,17 @@ function showTaskNoticeBaseInfo(pageInfo){
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr =
-            '<tr><td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>' +
-            '<i class="layui-icon">&#xe605;</i></div>' +
-            '<input type="hidden" value="${pageInfo.StudentTitleresultID}" value="'+ baseInfoList[i].teacherTitleID + '"></td>' +
-            '<td>'+ baseInfoList[i].teacherName +'</td>' +
-            '<td>'+ baseInfoList[i].titlename +'</td>' +
-            '<td>'+ baseInfoList[i].titleOrigin +'</td>' +
-            '<td>'+ baseInfoList[i].projectType +'</td>' +
-            '<td>'+ baseInfoList[i].major +'</td>' +
-            '<td>'+ baseInfoList[i].reqireStudentNum +'</td>' +
-            '<td>'+ baseInfoList[i].year +'</td>' +
-            '<td>'+ baseInfoList[i].checkStatus +'</td>' +
-            '<td class="td-manage">'+
-                '<a title="详细信息" onclick="x_admin_show(\'详细信息\',\'project-AC-view.jsp\')" href="javascript:;">'+
-                '<i class="layui-icon">&#xe63c;</i></a>'+
-                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',\'project-AC-modify.jsp\')" href="javascript:;">'+
-                '<i class="layui-icon">&#xe642;</i></a>'+
-                '<a title="删除" onclick="member_del(this,\'要删除的id\')" href="javascript:;">'+
-                '<i class="layui-icon">&#xe640;</i></a>'+
-            '</td>'+
-            '</tr>';
+            '<tr><td><button class="layui-btn layui-btn-warm layui-btn-sm">选择</button></td>' +
+            '<td>'+ pageInfo[i].teacherName + '</td>' +
+            '<td>'+ pageInfo[i].titlename + '</td>' +
+            '<td>'+ pageInfo[i].projectType + '</td>' +
+            '<td>'+ pageInfo[i].titleOrigin + '</td>' +
+            '<td>'+ pageInfo[i].reqireStudentNum + '</td>' +
+            '<td class="td-manage">' +
+            '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseProject-view.jsp?teacherTitleID='+ pageInfo[i].teacherTitleID+ '\')" href="javascript:;">' +
+            '        <i class="layui-icon">&#xe63c;</i>' +
+            '    </a>' +
+            '</td></tr>';
         $("tbody").append(tr);
     }
 
@@ -114,6 +128,7 @@ function member_del(obj, id) {
         layer.msg('已删除!', {icon: 1, time: 1000});
     });
 }
+
 
 
 //点击关闭其他，触发事件

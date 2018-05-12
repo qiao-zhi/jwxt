@@ -3,3 +3,4 @@
 <script type="text/javascript" src="${baseurl}/js/jquery.min.js"></script>
 <script type="text/javascript" src="${baseurl}/lib/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="${baseurl}/js/xadmin.js"></script>
+<script type="text/javascript" src="${baseurl}/js/y_public.js"></script>

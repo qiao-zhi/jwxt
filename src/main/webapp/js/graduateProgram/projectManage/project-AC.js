@@ -16,6 +16,48 @@ layui.use('form', function(){
     });
 });
 
+//教研室审核
+function auditFirst() {
+    var checkedTr = $("td").children(".layui-form-checked");
+    if (checkedTr.length == 0) {
+        layer.alert('请选择一条数据！');
+    } else {
+        var teacherTitleIDs = "";
+        checkedTr.each(function () {
+            var auditStatus = $(this).parents("tr").find(".y_auditStatus").text();
+            if(auditStatus != "待教研室审核") {
+                layer.alert('审核状态只能为，待教研室审核！');
+                return false;
+            }
+            teacherTitleIDs = teacherTitleIDs + $(this).parent().find(".y_id").val() + ",";
+        });
+        teacherTitleIDs = teacherTitleIDs.substring(0,teacherTitleIDs.Length-1);
+        x_admin_show('教研室审核','./project-AC-checkFirst.jsp?teacherTitleIDs='+teacherTitleIDs)
+    }
+}
+
+//院长审核
+function auditSecond() {
+    var checkedTr = $("td").children(".layui-form-checked");
+    if (checkedTr.length == 0) {
+        layer.alert('请选择一条数据！');
+    }else if (checkedTr.length > 1) {
+        layer.alert('只能选择一条数据！');
+    } else {
+        var teacherTitleID = "";
+
+        var auditStatus = checkedTr.parents("tr").find(".y_auditStatus").text();
+        if(auditStatus != "待院长审核") {
+            layer.alert('审核状态只能为待院长审核！');
+            return false;
+        } else {
+            teacherTitleID = checkedTr.parent().find(".y_id").val()
+        }
+
+        x_admin_show('院长审核','./project-AC-checkSecond.jsp?teacherTitleID='+teacherTitleID)
+    }
+}
+
 $(function () {
     findTaskNoticeBaseInfo();//初始化表格
 });
@@ -44,7 +86,7 @@ function showTaskNoticeBaseInfo(pageInfo){
         var tr =
             '<tr><td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>' +
             '<i class="layui-icon">&#xe605;</i></div>' +
-            '<input type="hidden" value="${pageInfo.StudentTitleresultID}" value="'+ baseInfoList[i].teacherTitleID + '"></td>' +
+            '<input type="hidden" class="y_id" value="'+ baseInfoList[i].StudentTitleresultID + '"></td>' +
             '<td>'+ baseInfoList[i].teacherName +'</td>' +
             '<td>'+ baseInfoList[i].titlename +'</td>' +
             '<td>'+ baseInfoList[i].titleOrigin +'</td>' +
@@ -52,13 +94,14 @@ function showTaskNoticeBaseInfo(pageInfo){
             '<td>'+ baseInfoList[i].major +'</td>' +
             '<td>'+ baseInfoList[i].reqireStudentNum +'</td>' +
             '<td>'+ baseInfoList[i].year +'</td>' +
-            '<td>'+ baseInfoList[i].checkStatus +'</td>' +
+            '<td class="y_auditStatus">'+ getAuditStatusName(baseInfoList[i].checkStatus) +'</td>' +
             '<td class="td-manage">'+
-                '<a title="详细信息" onclick="x_admin_show(\'详细信息\',\'project-AC-view.jsp\')" href="javascript:;">'+
+                '<a title="详细信息" onclick="x_admin_show(\'详细信息\',\'project-AC-view.jsp?teacherTitleID=\'+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
                 '<i class="layui-icon">&#xe63c;</i></a>'+
-                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',\'project-AC-modify.jsp\')" href="javascript:;">'+
+                /*修改完后，审核状态至为0*/
+                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',\'project-AC-modify.jsp?teacherTitleID=\'+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
                 '<i class="layui-icon">&#xe642;</i></a>'+
-                '<a title="删除" onclick="member_del(this,\'要删除的id\')" href="javascript:;">'+
+                '<a title="删除" onclick="member_del(this,baseInfoList[i].teacherTitleID)" href="javascript:;">'+
                 '<i class="layui-icon">&#xe640;</i></a>'+
             '</td>'+
             '</tr>';
@@ -67,6 +110,22 @@ function showTaskNoticeBaseInfo(pageInfo){
 
     //开启分页组件
     noticeInfoListPage(total,pageNum,pageSize);
+}
+
+//根据审核状态代码获取审核状态名称
+function getAuditStatusName(AuditStatusCode) {
+    var AuditStatusNamme = "";
+    if (AuditStatusCode == 0) {
+        AuditStatusNamme = "待教研室审核"
+    } else if (AuditStatusCode == 1) {
+        AuditStatusNamme = "待院长审核"
+    }else if (AuditStatusCode == 2) {
+        AuditStatusNamme = "审核通过"
+    }else if (AuditStatusCode == 3) {
+        AuditStatusNamme = "审核不通过"
+    }
+
+    return AuditStatusNamme;
 }
 
 //分页函数
@@ -115,6 +174,7 @@ function member_del(obj, id) {
         layer.msg('已删除!', {icon: 1, time: 1000});
     });
 }
+
 
 
 //点击关闭其他，触发事件
