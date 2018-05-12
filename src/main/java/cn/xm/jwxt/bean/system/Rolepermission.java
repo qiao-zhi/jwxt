@@ -1,11 +1,15 @@
 package cn.xm.jwxt.bean.system;
 
+import java.util.List;
+
 public class Rolepermission {
     private Integer rolepermissionid;
 
     private String roleid;
 
     private String permissionid;
+
+    private Permission permission;
 
     public Integer getRolepermissionid() {
         return rolepermissionid;
@@ -29,5 +33,13 @@ public class Rolepermission {
 
     public void setPermissionid(String permissionid) {
         this.permissionid = permissionid == null ? null : permissionid.trim();
+    }
+
+    public Permission getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Permission permission) {
+        this.permission = permission;
     }
 }

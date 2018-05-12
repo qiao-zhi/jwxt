@@ -368,17 +368,17 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/user.html">
+                        <a _href="pages/system/user.jsp">
                             <cite>用户管理</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/role.html">
+                        <a _href="pages/system/role.jsp">
                             <cite>角色管理</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/authority.html">
+                        <a _href="pages/system/authority.jsp">
                             <cite>权限管理</cite>
                         </a>
                     </li>

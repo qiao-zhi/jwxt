@@ -454,6 +454,76 @@ public class RoleExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsuseIsNull() {
+            addCriterion("isUse is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseIsNotNull() {
+            addCriterion("isUse is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseEqualTo(String value) {
+            addCriterion("isUse =", value, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseNotEqualTo(String value) {
+            addCriterion("isUse <>", value, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseGreaterThan(String value) {
+            addCriterion("isUse >", value, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseGreaterThanOrEqualTo(String value) {
+            addCriterion("isUse >=", value, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseLessThan(String value) {
+            addCriterion("isUse <", value, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseLessThanOrEqualTo(String value) {
+            addCriterion("isUse <=", value, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseLike(String value) {
+            addCriterion("isUse like", value, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseNotLike(String value) {
+            addCriterion("isUse not like", value, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseIn(List<String> values) {
+            addCriterion("isUse in", values, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseNotIn(List<String> values) {
+            addCriterion("isUse not in", values, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseBetween(String value1, String value2) {
+            addCriterion("isUse between", value1, value2, "isuse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsuseNotBetween(String value1, String value2) {
+            addCriterion("isUse not between", value1, value2, "isuse");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarkIsNull() {
             addCriterion("remark is null");
             return (Criteria) this;

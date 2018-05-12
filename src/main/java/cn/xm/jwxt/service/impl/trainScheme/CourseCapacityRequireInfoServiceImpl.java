@@ -1,6 +1,8 @@
 package cn.xm.jwxt.service.impl.trainScheme;
 
 import cn.xm.jwxt.bean.trainScheme.Coursecapacityrequireinfo;
+import cn.xm.jwxt.bean.trainScheme.CoursecapacityrequireinfoExample;
+import cn.xm.jwxt.mapper.trainScheme.CoursecapacityrequireinfoMapper;
 import cn.xm.jwxt.mapper.trainScheme.custom.CoursecapacityrequireinfoCustomMapper;
 import cn.xm.jwxt.service.trainScheme.CourseCapacityRequireInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ import java.util.Map;
 public class CourseCapacityRequireInfoServiceImpl implements CourseCapacityRequireInfoService {
     @Autowired
     private CoursecapacityrequireinfoCustomMapper coursecapacityrequireinfoCustomMapper;
+    @Autowired
+    private CoursecapacityrequireinfoMapper coursecapacityrequireinfoMapper;
     @Override
     public boolean addCoursecapacityrequireinfoBatch(List<Coursecapacityrequireinfo> coursecapacityrequireinfos,List<Integer> trainCourseIds) throws SQLException {
         //1.根据培养方案课程编号删除培养方案能力
@@ -58,8 +62,11 @@ public class CourseCapacityRequireInfoServiceImpl implements CourseCapacityRequi
     }
 
     @Override
-    public List<Map<String, Object>> getCourseCapacityByCondition(Map condition) throws SQLException {
-        return null;
+    public List<Coursecapacityrequireinfo> getCourseCapacityByTrainSchemeId(String trainSchemeId) throws SQLException {
+        CoursecapacityrequireinfoExample example = new CoursecapacityrequireinfoExample();
+        CoursecapacityrequireinfoExample.Criteria criteria = example.createCriteria();
+        criteria.andTrainningschemeidEqualTo(trainSchemeId);
+        return coursecapacityrequireinfoMapper.selectByExample(example);
     }
 
     @Override

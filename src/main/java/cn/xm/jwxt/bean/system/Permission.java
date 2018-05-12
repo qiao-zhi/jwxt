@@ -1,23 +1,23 @@
 package cn.xm.jwxt.bean.system;
 
 public class Permission {
-    private String permissionid;
+    private String permissionid;//主键
 
-    private String permissionname;
+    private String permissionname;//权限名称
 
-    private String permissionstatus;
+    private String permissionstatus;//权限状态
 
-    private String permissiontype;
+    private String permissiontype;//权限类型(菜单，权限还是其他)
 
-    private String url;
+    private String url;//对应的URL地址
 
-    private String permissioncode;
+    private String permissioncode;//权限码
 
-    private String parentid;
+    private String parentid;//父全选编号
 
-    private String sortnum;
+    private String sortnum;//排序码(用于菜单排序)
 
-    private String description;
+    private String description;//描述
 
     public String getPermissionid() {
         return permissionid;
