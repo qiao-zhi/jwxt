@@ -2,6 +2,7 @@ package cn.xm.jwxt.mapper.arrangeCourse.custom;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
+import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.sql.SQLException;
@@ -37,4 +38,20 @@ public interface ApTaskArrangeCourseCustomMapper {
      * @throws SQLException
      */
     ApTaskArrangeCourseCustom getTaskArrangeCourseAndTeacherClassInfo(String arrangeCourseId) throws SQLException;
+
+    /**
+     * 根据安排课程ID查询查询每一门课程的信息包括学年和学期
+     * @param arrangeCourseId
+     * @return
+     * @throws SQLException
+     */
+    ApTaskArrangeCourseCustom getTaskArrangeCourseAndYearTermInfo(String arrangeCourseId) throws SQLException;
+
+    /**
+     * 根据排课任务ID和学年学期查询历史排课记录
+     * @param condition
+     * @return
+     * @throws SQLException
+     */
+    List<ApTaskArrangeCourseCustom> findHistoryArrangeCourseInfoByCondition(HistoryArrangeCourseQueryVo condition) throws SQLException;
 }

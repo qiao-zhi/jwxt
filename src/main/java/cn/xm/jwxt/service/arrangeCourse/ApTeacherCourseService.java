@@ -1,7 +1,9 @@
 package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTeacherCourse;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
+import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 
 import java.util.List;
@@ -21,7 +23,24 @@ public interface ApTeacherCourseService {
      * @return
      * @throws Exception
      */
-    boolean addTeacherCourseInfo(String arrangeCourseId, ApTeacherCourse teacherCourseInfo) throws Exception;
+    boolean addTeacherCourseInfo(String arrangeCourseId, ApTeacherCourseCustom teacherCourseInfo) throws Exception;
+
+    /**
+     * 根据任务安排课程ID批量插入教师信息
+     * @param arrangeCourseId
+     * @param listInfo
+     * @return
+     * @throws Exception
+     */
+    boolean saveTeacherCourseInfoList(String arrangeCourseId,List<ApTeacherCourseCustom> listInfo) throws Exception;
+
+    /**
+     * 批量设置课程教师班级信息用于根据历史记录排课
+     * @param listInfo
+     * @return
+     * @throws Exception
+     */
+    boolean saveTeacherCourseInfoList(List<ApTaskArrangeCourseCustom> listInfo) throws Exception;
 
     /**
      * 根据任务安排课程ID删除对应的教师和班级信息
@@ -46,4 +65,12 @@ public interface ApTeacherCourseService {
      * @throws Exception
      */
     List<TTeacherBaseInfo> findTeacherBaseInfoByAcademicId(String academicId) throws Exception;
+
+    /**
+     * 根据课程编号查询历史任课教师
+     * @param courseNumber
+     * @return
+     * @throws Exception
+     */
+    List<Map<String,Object>> findHistoryTeacherInfoByNumber(String courseNumber) throws Exception;
 }

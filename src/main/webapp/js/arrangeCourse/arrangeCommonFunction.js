@@ -78,6 +78,27 @@ function closeOther() {
     })
 }
 
+//初始化在职教师下拉框
+function findTeacherBaseInfoForSelect(form){
+    $.ajax({
+        url:contextPath+"/arrangeCourse/findTeacherBaseInfo.action",
+        dataType:"json",
+        data:{"academicId":"jisuanjikexueyujishuxueyuan"},
+        type:"post",
+        success:function (response) {
+            var optionStr = "<option value=''>请输入教师姓名</option>";
+            $("select[name='allTeacherInfo']").append(optionStr);
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].teachernum+"'>"+response[i].teachername+"</option>";
+                $("select[name='allTeacherInfo']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+
 /* S            弹出层相关操作 */
 /*
     参数解释：

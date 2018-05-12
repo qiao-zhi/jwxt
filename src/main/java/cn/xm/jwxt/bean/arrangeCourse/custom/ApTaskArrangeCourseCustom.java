@@ -15,6 +15,14 @@ public class ApTaskArrangeCourseCustom extends ApTaskArrangeCourse {
     private String teacherNames;
     //教师信息集合
     private List<ApTeacherCourseCustom> teachers;
+    //学年
+    private String academicYear;
+    //学期
+    private String term;
+    //教师名称
+    private String teacherName;
+    //教师编号
+    private String teacherNumber;
 
     public String getTeacherNames() {
         return teacherNames;
@@ -30,5 +38,37 @@ public class ApTaskArrangeCourseCustom extends ApTaskArrangeCourse {
 
     public void setTeachers(List<ApTeacherCourseCustom> teachers) {
         this.teachers = teachers;
+    }
+
+    public String getAcademicYear() {
+        return academicYear;
+    }
+
+    public void setAcademicYear(String academicYear) {
+        this.academicYear = academicYear;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    public String getTeacherNumber() {
+        return teacherNumber;
+    }
+
+    public void setTeacherNumber(String teacherNumber) {
+        this.teacherNumber = teacherNumber;
     }
 }

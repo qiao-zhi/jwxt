@@ -3,6 +3,7 @@ package cn.xm.jwxt.controller.arrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
 import cn.xm.jwxt.queryVo.ListVo;
 import cn.xm.jwxt.service.arrangeCourse.ApTaskArrangeCourseService;
 import cn.xm.jwxt.utils.DefaultValue;
@@ -116,5 +117,37 @@ public class ApTaskArrangeCourseController {
             logger.error("查询课程和教师班级信息失败",e);
         }
         return info;
+    }
+
+    /**
+     * 根据安排课程ID查询课程的基本信息包括学年学期
+     * @param arrangeCourseId
+     * @return
+     */
+    @RequestMapping("/getTaskArrangeCourse")
+    public @ResponseBody ApTaskArrangeCourse getTaskArrangeCourse(String arrangeCourseId){
+        ApTaskArrangeCourseCustom arrangeCourseInfo = null;
+        try {
+            arrangeCourseInfo = taskArrangeCourseService.getTaskArrangeCourseInfoById(arrangeCourseId);
+        } catch (Exception e) {
+            logger.error("查询课程信息失败",e);
+        }
+        return arrangeCourseInfo;
+    }
+
+    /**
+     * 根据排课任务ID和学年学期查询历史排课记录
+     * @param condition
+     * @return
+     */
+    @RequestMapping("/findHistroyTeacherCourse")
+    public @ResponseBody List<ApTaskArrangeCourseCustom> findHistroyTeacherCourse(HistoryArrangeCourseQueryVo condition){
+        List<ApTaskArrangeCourseCustom> histroyTeacherCourses = null;
+        try {
+            histroyTeacherCourses = taskArrangeCourseService.findHistroyTeacherCourseByCodition(condition);
+        } catch (Exception e) {
+            logger.error("查询历史排课记录失败",e);
+        }
+        return histroyTeacherCourses;
     }
 }
