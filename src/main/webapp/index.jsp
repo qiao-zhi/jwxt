@@ -208,7 +208,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/middleReport/middleReportManage.html">
+                                <a _href="pages/graduateProgram/middleReport/middleReportManage.jsp">
                                     <cite>中期检查审核管理</cite><!--教师 查看中期答辩所负责的学生情况，填写答辩结果-->
                                 </a>
                             </li>

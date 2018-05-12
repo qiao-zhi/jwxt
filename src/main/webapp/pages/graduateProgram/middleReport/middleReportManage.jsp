@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>中期检查审核管理</title>
+    <title>添加中期检查表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -49,30 +49,30 @@
             <input type="text" name="searchClassname" id="searchClassname" placeholder="班级名称" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-inline">
-            <input type="text" name="searchGradesigntitle" id="searchGradesigntitle" placeholder="毕设题目" autocomplete="off" class="layui-input">
+            <input type="text" name="searchTitlename" id="searchTitlename" placeholder="毕设题目" autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-inline">
-            <select class="layui-input" name="">
-                <option value="2">答辩状态</option>
-                <option value="0">已答辩</option>
-                <option value="1">未答辩</option>
+        <div class="layui-input-inline">
+            <select class="layui-input" name="searchCheckedstate" id="searchCheckedstate">
+                <option value="2">检查状态</option>
+                <option value="1">已检查</option>
+                <option value="0">未检查</option>
             </select>
         </div>
-        <div class="layui-inline">
-            <select class="layui-input" name="">
+        <div class="layui-input-inline">
+            <select class="layui-input" name="searchIsout" id="searchIsout">
                 <option value="2">毕设类型</option>
-                <option value="0">校外毕设</option>
                 <option value="1">校内毕设</option>
+                <option value="0">校外毕设</option>
             </select>
         </div>
-        <div class="layui-inline">
-            <select class="layui-input" name="">
-                <option>检查表填写情况</option>
-                <option>已填写</option>
-                <option>未填写</option>
+        <div class="layui-input-inline">
+            <select class="layui-input" name="searchChecktablefilled" id="searchChecktablefilled">
+                <option value="2">检查表填写情况</option>
+                <option value="1">已填写</option>
+                <option value="0">未填写</option>
             </select>
         </div>
-        <button class="layui-btn" data-type="searchCheckgrouppersonInfo"><i class="layui-icon">&#xe615;</i></button>
+        <button class="layui-btn" data-type="searchStudentInfo"><i class="layui-icon">&#xe615;</i></button>
     </div>
 
     <!--end查询-->
@@ -98,28 +98,27 @@
     </script>
 </div>
 <script>
-    /*分页js*/
     layui.use(['table'], function(){
         var table = layui.table
             ,$ = layui.$;
 
-        //渲染小组详细信息表格，初始化数据
+        //渲染表格详细信息表格，初始化数据
         var studentInfo = table.render({
             elem: '#studentInfo'
-            ,url: ''
+            ,url: '${pageContext.request.contextPath}/cencheckresultinfo/selectPage.action'
             ,width: 1140
             ,height: 470
             ,cols:[[
                 {checkbox:true, fixed: true}
-                ,{field:'', width:70, fixed: true, title: '学生'}
-                ,{field:'', width:120, fixed: true, title: '班级'}
-                ,{field:'', width:250, title: '毕设题目'}
-                ,{field:'', width:80, title: '指导老师'}
-                ,{field:'', width:120, title: '中期检查教师'}
-                ,{field:'', width:120, title: '是否进行答辩'}
-                ,{field:'', width:120, title: '检查表填写情况'}
-                ,{field:'', width:100, title: '毕设类型'}
-                ,{fixed: '', width:70, align:'center', toolbar: '#operColumn', title: '操作'}
+                ,{field:'studentname', width:70, fixed: true, title: '学生'}
+                ,{field:'classname', width:100, fixed: true, title: '班级'}
+                ,{field:'titlename', width:250, title: '毕设题目'}
+                ,{field:'leaderteacher', width:80, title: '指导老师'}
+                ,{field:'cencheckteacher', width:120, title: '中期检查教师'}
+                ,{field:'ischecked', width:120, title: '是否进行检查'}
+                ,{field:'checktablefilled', width:120, title: '检查表填写情况'}
+                ,{field:'isout', width:100, title: '毕设类型'}
+                ,{ width:70, align:'center', toolbar: '#operColumn', title: '操作'}
             ]]
             ,id:'studentInfo'
             ,page: true
@@ -127,24 +126,43 @@
 
         active = {
             fillInCenterCheckTable:function(){
-                layer.open({
-                    type:2,
-                    title:'详细信息',
-                    area:[$(window).width()*0.90,($(window).height()-50)],
-                    shade: 0.4,
-                    fix: false, //不固定
-                    shadeClose: true,
-                    maxmin: true,
-                    content:'./middleReportManage-addResult.html'
-                })
+                var checkStatus = table.checkStatus('studentInfo')
+                    ,data = checkStatus.data;
+                if(data.length != 1){
+                    layer.msg("请选择一个学生！");
+                }else{
+                    layer.open({
+                        type:2,
+                        title:'填写中期检查表',
+                        area:[$(window).width()*0.90,($(window).height()-50)],
+                        shade: 0.4,
+                        fix: false, //不固定
+                        shadeClose: true,
+                        maxmin: true,
+                        content:'${pageContext.request.contextPath}/cencheckresultinfo/selectcencheckresultByStudentId.action?studentid='+data[0].studentid
+                    })
+                }
             },
-            searchCheckgrouppersonInfo:function () {
-                layer.msg("开始搜索");
+            searchStudentInfo:function () {
+                    var searchStudentname = $('#searchStudentname').val();
+                    var searchClassname = $("#searchClassname").val();
+                    var searchTitlename = $("#searchTitlename").val();
+                    //执行重载
+                    studentInfo.reload({
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: {   //查询的条件
+                            studentname: searchStudentname,
+                            classname: searchClassname,
+                            titlename:searchTitlename
+                        }
+                    });
             }
         }
 
         //监听工具条,上面表格中的数据操作
-        table.on('tool(checkgrouppersonInfo)', function(obj){
+        table.on('tool(studentInfo)', function(obj){
             var data = obj.data;
             //查看详情
             if(obj.event === 'detail'){
@@ -156,7 +174,7 @@
                     fix: false, //不固定
                     shadeClose: true,
                     maxmin: true,
-                    content:''
+                    content:'middleReportManage-view.jsp'
                 })
             }
         });

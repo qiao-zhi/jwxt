@@ -12,18 +12,24 @@ package cn.xm.jwxt.service.impl.graduateDesign;
 
 import cn.xm.jwxt.bean.graduateDesign.Cencheckresultinfo;
 import cn.xm.jwxt.bean.graduateDesign.CencheckresultinfoExample;
+import cn.xm.jwxt.bean.graduateDesign.MiddleReportManage;
 import cn.xm.jwxt.mapper.graduateDesign.CencheckresultinfoMapper;
+import cn.xm.jwxt.mapper.graduateDesign.custom.MiddleReportManageCustomMapper;
 import cn.xm.jwxt.service.graduateDesign.CencheckresultinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CencheckresultinfoServiceImpl implements CencheckresultinfoService {
 
     @Autowired
     private CencheckresultinfoMapper cencheckresultinfoMapper;
+
+    @Autowired
+    private MiddleReportManageCustomMapper middleReportManageCustomMapper;
 
     @Override
     public int countByExample(CencheckresultinfoExample example) {
@@ -78,5 +84,20 @@ public class CencheckresultinfoServiceImpl implements CencheckresultinfoService 
     @Override
     public boolean updateByPrimaryKey(Cencheckresultinfo record) {
         return cencheckresultinfoMapper.updateByPrimaryKey(record)==1;
+    }
+
+    @Override
+    public List<MiddleReportManage> selectMiddleReportManageList(Map<String, Object> map) {
+        return middleReportManageCustomMapper.selectMiddleReportManageList(map);
+    }
+
+    @Override
+    public Integer selectMiddleReportManageCount(Map<String, Object> map) {
+        return middleReportManageCustomMapper.selectMiddleReportManageCount(map);
+    }
+
+    @Override
+    public MiddleReportManage selectcenCheckResultInfoByStudentId(String studentid) {
+        return middleReportManageCustomMapper.selectcenCheckResultInfoByStudentId(studentid);
     }
 }
