@@ -3,6 +3,7 @@ package cn.xm.jwxt.controller.arrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseAudit;
 import cn.xm.jwxt.service.arrangeCourse.ApArrangeCourseAuditService;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
  * 创建人：LL
  * 创建时间：2018/5/11 19:31
  */
+@Controller
 @RequestMapping("/arrangeCourse")
 public class ApArrangeCourseAuditController {
     Logger logger = Logger.getLogger(ApArrangeCourseAuditController.class);
@@ -42,6 +44,7 @@ public class ApArrangeCourseAuditController {
      * @param arrangeTaskId
      * @return
      */
+    @RequestMapping("/getLastArrangeCourseAudit")
     public @ResponseBody ApArrangeCourseAudit getLastArrangeCourseAudit(String arrangeTaskId){
         ApArrangeCourseAudit arrangeCourseAudit = null;
         try {

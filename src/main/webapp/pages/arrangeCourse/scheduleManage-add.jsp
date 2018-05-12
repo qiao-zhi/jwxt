@@ -84,11 +84,7 @@
               历史任课教师
             </label>
             <div class="layui-input-inline">
-                <select name=""  id="selectcalss" lay-search lay-filter="selectTeacher" >
-				  <option value="">点击查看历史任课教师</option>
-				  <option value="张三">张三</option>
-				  <option value="李四">李四</option>
-                  <option value="王二麻子">王二麻子</option>
+                <select name="historyTeacherInfo"  lay-search lay-filter="selectTeacher" >
 				</select>
             </div>
             <label for="" class="layui-form-label">
