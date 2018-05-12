@@ -1,5 +1,9 @@
 package cn.xm.jwxt.bean.system;
 
+import org.apache.shiro.authz.permission.RolePermissionResolver;
+
+import java.util.List;
+
 public class Role {
     private String roleid;
 
@@ -11,7 +15,11 @@ public class Role {
 
     private String insituteid;
 
+    private String isuse;
+
     private String remark;
+
+    private List<Rolepermission> rolepermissions;//角色权限集合
 
     public String getRoleid() {
         return roleid;
@@ -53,11 +61,27 @@ public class Role {
         this.insituteid = insituteid == null ? null : insituteid.trim();
     }
 
+    public String getIsuse() {
+        return isuse;
+    }
+
+    public void setIsuse(String isuse) {
+        this.isuse = isuse == null ? null : isuse.trim();
+    }
+
     public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public List<Rolepermission> getRolepermissions() {
+        return rolepermissions;
+    }
+
+    public void setRolepermissions(List<Rolepermission> rolepermissions) {
+        this.rolepermissions = rolepermissions;
     }
 }

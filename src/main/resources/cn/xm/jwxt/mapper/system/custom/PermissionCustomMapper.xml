@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.system.custom.PermissionCustomMapper" >
+
+    <!--1.查询权限树-->
+    <select id="getPermissionTree" resultType="map">
+        select permissionID,parentId,permissionName from permission where permissiontype like 'menu%' and permissionStatus = '1'
+    </select>
+
+    <!--2.查询完整的权限树，用于给角色分配权限-->
+    <select id="getPermissionTree4Role" resultType="map">
+        select permissionID,parentId,permissionName from permission WHERE permissionStatus = '1'
+    </select>
+
+
+    <!--3.分页查询权限信息-->
+    <select id="getPermissionByCondition" parameterType="map" resultType="cn.xm.jwxt.bean.system.Permission">
+        SELECT *
+        FROM permission
+        <where>
+            <if test="1 == 1">
+                and permissionID != '0'
+            </if>
+            <if test="parentid != null and parentid != ''">
+                AND parentId like '${parentid}%'
+            </if>
+            <if test="permissionname != null and permissionname != ''">
+                AND permissionname like '%${permissionname}%'
+            </if>
+            <if test="permissionstatus != null and permissionstatus != ''">
+                AND permissionstatus = #{permissionstatus}
+            </if>
+        </where>
+    </select>
+
+</mapper>

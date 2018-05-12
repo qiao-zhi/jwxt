@@ -67,7 +67,7 @@
     <%--隐藏一个培养方案编号--%>
     <input type="hidden" id="hidden_trainSchemeId" value="${trainSchemeId}">
 
-    <form class="layui-form layui-form-pane" action="">
+    <form class="layui-form-pane" action="">
 
         <!--培养方案的基本信息-->
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
@@ -349,8 +349,8 @@
             <label class="layui-form-label" style="font-weight: bolder">12、主要课程关系结构图</label>
             <div class="layui-input-block">
                 <!--预留一个预览的img标签-->
-                <div id="imgDiv" style="display: none;margin-top: 10px;">
-                    <img id="imgPreview" width="100%">
+                <div id="imgDiv" style="display: none;margin-top: 10px;text-align: center">
+                    <img id="imgPreview" width="80%" height="40%">
                 </div>
                 <div id="promptDiv" style="margin-top: 10px;display: none;text-align: center;color:red;">
                     <p><font style="font-size: 30px">您还没有上传课程关系结构图，请先上传课程关系结构图!</font></p>
@@ -363,97 +363,22 @@
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="thirteen">毕业总学分及总学时基本要求与分配</a></legend>
         </fieldset>
-        <div class="layui-form-item layui-form-text">
+        <div class="layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">13、课程与毕业生能力要求的对应关系 </label>
-            <div class="layui-input-block">
+            <div>
                 <table class="layui-table">
                     <caption>毕业生能力要求的对应关系表</caption>
                     <thead>
-                    <tr>
-                        <th>课程或环节</th>
-                        <th>G1</th>
-                        <th>G2</th>
-                        <th>G3</th>
-                        <th>G4</th>
-                        <th>G5</th>
-                        <th>G6</th>
-                        <th>G7</th>
-                        <th>G8</th>
-                        <th>G9</th>
-                        <th>G10</th>
-                        <th>G11</th>
-                        <th>G12</th>
-                    </tr>
+                        <tr id="courseCapacityThead">
+                            <th>序号</th>
+                            <th>课程或环节</th>
+                            <%--<th>G1</th>
+                            <th>G2</th>--%>
+                            <%--动态往这里填充表格--%>
+                        </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <th>思想道德修养与法律基础</th>
-                        <th></th>
-                        <th>
-                            <span class="layui-badge layui-bg-black"></span>
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th>思想道德修养与法律基础</th>
-                        <th></th>
-                        <th>
-                            <span class="layui-badge layui-bg-black"></span>
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th>思想道德修养与法律基础</th>
-                        <th></th>
-                        <th>
-                            <span class="layui-badge layui-bg-black"></span>
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th>思想道德修养与法律基础</th>
-                        <th></th>
-                        <th>
-                            <span class="layui-badge layui-bg-black"></span>
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
+                    <tbody id="courseCapacityTbody">
+                        <%--动态往这里填充数据--%>
                     </tbody>
                 </table>
             </div>

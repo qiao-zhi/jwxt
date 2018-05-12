@@ -64,11 +64,11 @@ public interface CourseCapacityRequireInfoService {
 
     /**
      * 根据条件组合查询培养方案课设能力(可能根据培养方案编号或者培养方案课程编号)
-     * @param condition
-     * @return
+     * @param trainSchemeId 培养方案编号
+     * @return  某个培养方案的课程能力集合
      * @throws SQLException
      */
-    public List<Map<String,Object>> getCourseCapacityByCondition(Map condition)throws SQLException;
+    public List<Coursecapacityrequireinfo> getCourseCapacityByTrainSchemeId(String trainSchemeId)throws SQLException;
 
 
     /**
