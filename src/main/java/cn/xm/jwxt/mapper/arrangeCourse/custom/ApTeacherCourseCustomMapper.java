@@ -4,6 +4,7 @@ import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：jwxt
@@ -27,4 +28,12 @@ public interface ApTeacherCourseCustomMapper {
      * @throws SQLException
      */
     List<String> findTeacherCourseIdsByTaskArrangeCourseID(String taskArrangeCourseId) throws SQLException;
+
+    /**
+     * 根据课程编号查询历史任课教师
+     * @param courseNumber
+     * @return
+     * @throws SQLException
+     */
+    List<Map<String,Object>> findHistoryTeacherInfoByNumber(String courseNumber) throws SQLException;
 }

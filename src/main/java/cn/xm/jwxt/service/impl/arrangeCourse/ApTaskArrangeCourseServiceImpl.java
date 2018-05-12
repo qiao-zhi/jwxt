@@ -4,7 +4,9 @@ import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourseExample;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ArrangeCourseTaskStatusEnum;
+import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
 import cn.xm.jwxt.mapper.arrangeCourse.ApTaskArrangeCourseMapper;
 import cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskArrangeCourseCustomMapper;
 import cn.xm.jwxt.service.arrangeCourse.ApArrangeCourseTaskService;
@@ -166,6 +168,32 @@ public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseServic
     }
 
     /**
+     * 根据排课任务ID和学年学期查询历史排课记录
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<ApTaskArrangeCourseCustom> findHistroyTeacherCourseByCodition(HistoryArrangeCourseQueryVo condition) throws Exception {
+        if(condition==null){
+            throw new IllegalArgumentException("查询条件参数传递错误!");
+        }
+        //学年
+        String academicYear = condition.getAcademicYear();
+        //处理学年条件，查询他的上一学年的信息
+        String[] years = academicYear.split("-");
+        Integer year = Integer.valueOf(years[0]);
+        condition.setAcademicYear(String.valueOf(year-1));
+        List<ApTaskArrangeCourseCustom> historyArrangeCourseList = taskArrangeCourseCustomMapper.findHistoryArrangeCourseInfoByCondition(condition);
+        //将学年学期设置到集合中返回到页面上
+        for(ApTaskArrangeCourseCustom taskArrangeCourseCustom:historyArrangeCourseList){
+            taskArrangeCourseCustom.setAcademicYear(academicYear);
+            taskArrangeCourseCustom.setTerm(condition.getTerm());
+        }
+        return historyArrangeCourseList;
+    }
+
+    /**
      * 根据安排课程ID查询查询每一门课程对应的教师课程信息
      * @param arrangeCourseId
      * @return
@@ -178,5 +206,20 @@ public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseServic
         }
         ApTaskArrangeCourseCustom taskArrangeCourseAndTeacherClassInfo = taskArrangeCourseCustomMapper.getTaskArrangeCourseAndTeacherClassInfo(arrangeCourseId);
         return taskArrangeCourseAndTeacherClassInfo;
+    }
+
+    /**
+     * 根据安排课程ID查询课程的基本信息包括学年学期
+     * @param arrangeCourseId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ApTaskArrangeCourseCustom getTaskArrangeCourseInfoById(String arrangeCourseId) throws Exception {
+        if(ValidateCheck.isNull(arrangeCourseId)){
+            throw new IllegalArgumentException("安排课程编号不能为空!");
+        }
+        ApTaskArrangeCourseCustom taskArrangeCourseAndYearTermInfo = taskArrangeCourseCustomMapper.getTaskArrangeCourseAndYearTermInfo(arrangeCourseId);
+        return taskArrangeCourseAndYearTermInfo;
     }
 }

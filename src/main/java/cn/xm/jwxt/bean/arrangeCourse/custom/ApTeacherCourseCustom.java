@@ -1,6 +1,9 @@
 package cn.xm.jwxt.bean.arrangeCourse.custom;
 
+import cn.xm.jwxt.bean.arrangeCourse.ApClassTeacher;
 import cn.xm.jwxt.bean.arrangeCourse.ApTeacherCourse;
+
+import java.util.List;
 
 /**
  * 项目名称：jwxt
@@ -13,6 +16,8 @@ public class ApTeacherCourseCustom extends ApTeacherCourse {
     private String classNames;
     //所带班级的总人数
     private String classSize;
+    //班级教师信息集合
+    private List<ApClassTeacher> classTeachers;
 
     public String getClassNames() {
         return classNames;
@@ -28,5 +33,13 @@ public class ApTeacherCourseCustom extends ApTeacherCourse {
 
     public void setClassSize(String classSize) {
         this.classSize = classSize;
+    }
+
+    public List<ApClassTeacher> getClassTeachers() {
+        return classTeachers;
+    }
+
+    public void setClassTeachers(List<ApClassTeacher> classTeachers) {
+        this.classTeachers = classTeachers;
     }
 }

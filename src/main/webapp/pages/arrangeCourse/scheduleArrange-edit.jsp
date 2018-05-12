@@ -18,273 +18,331 @@
     	.layui-table-wang-info tr td:nth-child(2n){
 	 	 	width: 200px;
 	 	 	}
+        .layui-form-item .layui-input-inline {
+            width: 200px !important;
+        }
     </style>
     <%--公共标签--%>
     <%@include file="/tag.jsp"%>
+    <%--排课公共方法--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
+
 </head>
 <body>
 <div class="x-body">
-	<table class="layui-table-wang-info">
-			<tr>
-		      <td>课程名称</td>
-		      <td>Java高级程序语言设计</td>
-		      <td>课程编号</td>
-		      <td>Y12476417</td>
-		    </tr> 
-		    <tr>
-		      <td>学分</td>
-		      <td>3</td>
-		      <td>学时</td>
-		      <td id="totalXueshi">48</td>
-		    </tr> 
-	</table>
+    <table class="layui-table-wang-info">
+        <tr>
+            <td>课程名称</td>
+            <td id="v_courseName"></td>
+            <td>课程编号</td>
+            <td id="v_courseCode"></td>
+        </tr>
+        <tr>
+            <td>学年</td>
+            <td id="v_academicYear"></td>
+            <td>学期</td>
+            <td id="v_term"></td>
+        </tr>
+        <tr>
+            <td>校区</td>
+            <td id="v_campus"></td>
+            <td>学时</td>
+            <td id="v_totalPeriod"></td>
+        </tr>
+        <tr>
+            <td>专业名称</td>
+            <td id="v_majorName"></td>
+            <td>专业人数</td>
+            <td id="v_majorStudentsNumber"></td>
+        </tr>
+    </table>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>教师名称</th>
+            <th>教师编号</th>
+            <th>所任班级</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="addTeacherAndClass">
+        </tbody>
+    </table>
     <form class="layui-form ">
-    	<div class="layui-form-item">
-            <label for="" class="layui-form-label">
-                上课周数
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="weekNum" name="" required=""  lay-verify="required" value="16" onkeyup="calWeekPeriod()"
-                       autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
-            </div>
-            
-        </div>
-        <!--5-->
+
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
-                周学时数
+                任课教师
             </label>
             <div class="layui-input-inline">
-               <input type="text" id="weekPeriod" name="" required=""  lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="teacherName"  lay-verify="required" readonly  autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
+            <label class="layui-form-label">
+                教师编号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text"  id="teacherNumber" readonly lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <!--6-->
+
         <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-                是否用多媒体
+            <label class="layui-form-label">
+                历史任课教师
             </label>
             <div class="layui-input-inline">
-                <select name="" lay-verify="">
-				  <option value="010">是</option>
-				  <option value="021">否</option>
-				</select>
+                <select name=""  id="selectcalss" lay-search lay-filter="selectTeacher" >
+                    <option value="">点击查看历史任课教师</option>
+                    <option value="张三">张三</option>
+                    <option value="李四">李四</option>
+                    <option value="王二麻子">王二麻子</option>
+                </select>
             </div>
-            <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
+            <label for="" class="layui-form-label">
+                在职教师查询
+            </label>
+            <div class="layui-input-inline">
+                <select name="allTeacherInfo"  lay-search="" lay-filter="selectTeacher">
+                </select>
             </div>
+
         </div>
         <!--3-->
         <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-              历史任课教师
-            </label>
+            <label class="layui-form-label">所任班级</label>
+            <div class="layui-input-block" id="classNames">
+            </div>
             <div class="layui-input-inline">
-                <select name="" lay-verify="" id="selectcalss" lay-search lay-filter="selectTeacher" >
-				  <option value="">点击查看历史任课教师</option>
-				  <option value="张三">张三</option>
-				  <option value="李四">李四</option>
-				   <option value="王二麻子">王二麻子</option>
-				  
-				</select>
-            </div>
-            
-        </div>
-         <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-              任课教师
-            </label>
-            <div class="layui-input-inline">
-               <input type="text" id="courseTeacher" name="" required=""  lay-verify="required"
-                       autocomplete="off" class="layui-input">
-            </div>
-             <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
-            </div>
-            
-        </div>
-        <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-              教师编号
-            </label>
-            <div class="layui-input-inline">
-               <input type="text" id="teacherNume" name="" required=""  lay-verify="required"
-                       autocomplete="off" class="layui-input">
-            </div>
-             <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
-            </div>
-            
-        </div>
-        <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-              所任班级
-            </label>
-            <div class="layui-input-inline">
-                <select name="" lay-verify="" id="selectcalss" lay-search  lay-filter="selectGrade">
-				  <option value="">请选择班级</option>
-				  <option value="软件工程142001">软件工程142001</option>
-				  <option value="软件工程142002">软件工程142002</option>
-				   <option value="软件工程142003">软件工程142003</option>
-				  
-				</select>
-				 <textarea id="appendGrade" name="" required lay-verify="required" placeholder="" class="layui-textarea" style="height: 50px !important;"></textarea>
-               <input type="hidden" id="hiddenValue" />
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
+                <button class="layui-btn" lay-filter="addTeacher" lay-submit=""  style="margin-left: 44px;" >
+                    <i class="layui-icon">&#xe608;</i> 添加至表格
+                </button>
+
             </div>
         </div>
-        <!--4-->
-        <!---->
     </form>
-    <button class="layui-btn" onclick="addToTable()"  style="margin-left: 650px;margin-top: -186px;">
-                  添加
-    </button>
-    <button class="layui-btn" lay-filter="add" lay-submit="" style="margin-left: 500px;">
-                  确认修改
-     </button>
-    <table class="layui-table">
-        	<thead>
-		    <tr>
-		      <th>教师名称</th>
-		      <th>教师编号</th>
-		      <th>所任班级</th>
-		      <th>操作</th>
-		    </tr> 
-		  </thead>
-		  <tbody id="filterTeacher">
-		    <tr>
-		      <td>王五</td>
-		      <td>2016-11-29</td>
-		      <td>人生就像是一场修行</td>
-		      <td class="td-manage">
-                <!--<a title="点击查看排课详细信息" onclick="x_admin_show('详细信息','scheduleManage-view.html')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-                <a title="修改"  onclick="x_admin_show('修改','scheduleManage-edit.html')" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i>
-                </a>-->
-                <a title="删除" onclick="member_del(this,'要删除的id')">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
-		    </tr>
-		    
-  			</tbody>
-        </table>
-        
+    <xblock>
+        <button class="layui-btn" lay-filter="updateArrange" style="margin-left: 275px;" lay-submit="">
+            确认修改
+        </button>
+    </xblock>
+
+
+
+    <form id="saveTeacherCourseClassForm">
+        <%--隐藏任务安排课程ID--%>
+        <input type="hidden" name="arrangeCourseId" value="${param.arrangeCourseId}"/>
+
+    </form>
+
+
 </div>
-<script>
-	function addToTable(){
-		var teacherNametotable=$("#courseTeacher").val();
-		var teacherNumber=$("#teacherNume").val();
-		var className=$("#appendGrade").val();
-		console.log(teacherNametotable)
-		console.log(teacherNumber)
-		console.log(className)
-		
-	}
-	
-</script>
 
 <script>
-	/*用户-删除*/
-    function member_del(obj, id) {
+    //layui
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form;
+        //查询任务课程信息
+        getTaskArrangeCourseAndTeacherClassInfo(form);
+        //初始化在职教师下拉框
+        findTeacherBaseInfoForSelect(form);
+        //监听教师下拉框事件
+        form.on('select(selectTeacher)', function (data) {
+            var teacherNumber = data.value;
+            var teacherName = data.elem[data.elem.selectedIndex].text;
+            form.render('select');
+            if(""!=teacherNumber){
+                $("#teacherName").val(teacherName);
+                $("#teacherNumber").val(teacherNumber);
+            }
+        });
+        //监听提交
+        form.on('submit(addTeacher)', function (data) {
+            //添加一条教师班级信息
+            addTeacherAndClassInfo(form);
+            //阻止表单跳转
+            return false;
+        });
+        //监听提交
+        form.on('submit(updateArrange)', function (data) {
+            getAllTeacherAndClassInfo();
+            saveTaskArrangeCourseInfo();
+            //阻止表单跳转
+            return false;
+        });
+    });
+
+    //查询任务课程信息
+    function getTaskArrangeCourseAndTeacherClassInfo(form){
+        $.ajax({
+            url : contextPath+'/arrangeCourse/getTaskArrangeCourseAndTeacherClassInfo.action',
+            data : {"arrangeCourseId":'${param.arrangeCourseId}'},
+            type : 'POST',
+            dataType : 'json',
+            success : function(response){
+                showTaskArrangeCourseAndTeacherInfo(response,form);
+            }
+        });
+    }
+    function showTaskArrangeCourseAndTeacherInfo(response,form){
+        var courseAndTeacherInfo = response;
+        var teacherClassInfoList = response.teachers;
+        $("#v_courseName").text(courseAndTeacherInfo.courseName);
+        $("#v_courseCode").text(courseAndTeacherInfo.courseCode);
+        $("#v_academicYear").text(teacherClassInfoList[0].academicYear);
+        $("#v_term").text(teacherClassInfoList[0].term);
+        $("#v_campus").text(replaceStatus(courseAndTeacherInfo.campusCode));
+        $("#v_totalPeriod").text(courseAndTeacherInfo.totalPeriod);
+        $("#v_majorName").text(courseAndTeacherInfo.majorName);
+        $("#v_majorStudentsNumber").text(courseAndTeacherInfo.majorStudentsNumber);
+
+        $("#addTeacherAndClass").html("");//清空表格中数据并重新填充数据
+        for(var i=0,length_l = teacherClassInfoList.length; i<length_l; i++){
+            var tr ="<tr><td>"
+                +teacherClassInfoList[i].teacherName+"</td><td>"
+                +teacherClassInfoList[i].teacherNumber+"</td><td>"
+                +teacherClassInfoList[i].classNames+"</td><td>"
+                +"<a title='删除' onclick='delTeacherClass(this)'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
+            $("#addTeacherAndClass").append(tr);
+        }
+        var classNames = courseAndTeacherInfo.className;
+        var classNameArr = classNames.split(",");
+        $("#classNames").empty();//清空表格中数据并重新填充数据
+        for(var i=0,length_l = classNameArr.length; i<length_l; i++){
+            var inputCheck = "<input type='checkbox' name='className' disabled value='"+classNameArr[i]+"' lay-skin='primary' title='"+classNameArr[i]+"'>";
+            $("#classNames").append(inputCheck);
+        }
+        form.render('checkbox');
+    }
+
+    /*删除*/
+    function delTeacherClass(obj) {
         layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
+            var classNames = $(obj).parents("tr").children("td").eq(2).text();
+            var classNameArr = classNames.split(",");
+            var $checkBox = $("input[name='className']");
+            $checkBox.each(function () {
+                var className = $(this).val();
+                for(var i=0, length_l = classNameArr.length; i<length_l; i++){
+                    if(className==classNameArr[i]){
+                        $(this).prop("disabled",false);
+                        break;
+                    }
+                }
+            })
+            layui.use(['form', 'layer'], function () {
+                var form = layui.form;
+                form.render('checkbox');
+            })
+            //删除行
             $(obj).parents("tr").remove();
             layer.msg('已删除!', {icon: 1, time: 1000});
         });
     }
-	//页面初始话计算学分学时
-	$(document).ready(function(){
-		calWeekPeriod()
-	});
-	function calWeekPeriod(){
-		var xueshi=parseInt($("#totalXueshi").text());
-		var weeknum=$("#weekNum").val();
-		var weekxuesgi=xueshi/weeknum;
-		$("#weekPeriod").val(weekxuesgi)
-		checkRe(weeknum)
-	}
-	function checkRe(val){
-		if(""==val)
-		$("#weekPeriod").val("上课周数不能为空");
-	}
-	//layui
-    layui.use(['form', 'layer'], function () {
-        $ = layui.jquery;
-        var form = layui.form
-            , layer = layui.layer;
 
-        //自定义验证规则
-        form.verify({
-            nikename: function (value) {
-                if (value.length < 5) {
-                    return '昵称至少得5个字符啊';
-                }
+    //添加一条教师班级信息
+    function addTeacherAndClassInfo(form){
+        var teacherName = $("#teacherName").val();
+        var teacherNumber = $("#teacherNumber").val();
+        //判断教师是否已经分配
+        var hasArrange = checkTeacherInfo(teacherNumber);
+        if(hasArrange){
+            layer.alert("该教师已经分配班级，请重新选择教师！");
+            return;
+        }
+        //判断是否已经选择班级
+        if(!hasCheckClass()){
+            layer.alert("请选择班级！")
+            return;
+        }
+        //获取复选框的值
+        var checkBoxValue = getCheckBoxValue(form);
+        var tr ="<tr><td>"
+            +teacherName+"</td><td>"
+            +teacherNumber+"</td><td>"
+            +checkBoxValue+"</td><td>"
+            +"<a title='删除' onclick='delTeacherClass(this)'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
+        $("#addTeacherAndClass").append(tr);
+        //清空教师信息
+        clearTeacherInfo();
+    }
+    //清空教师信息
+    function clearTeacherInfo(){
+        $("#teacherName").val("");
+        $("#teacherNumber").val("");
+    }
+    //判断教师是否存在
+    function checkTeacherInfo(teacherNumber){
+        var hasArrange = false;
+        var $trs = $("#addTeacherAndClass").children("tr");
+        $trs.each(function(){
+            var number = $(this).children("td").eq(1).text();
+            if(teacherNumber == number){
+                hasArrange = true;
+                return false;
             }
-            , pass: [/(.+){6,12}$/, '密码必须6到12位']
-            , repass: function (value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
+        })
+        return hasArrange;
+    }
+    //判断是否有选中的班级
+    function hasCheckClass(){
+        return $("input[name='className']:checked").length>0;
+    }
+    //获取复选框选中的值
+    function getCheckBoxValue(form){
+        var test = $("input[name='className']:checked");
+        var checkBoxValue = "";
+        test.each(function(){
+            checkBoxValue += $(this).val()+",";
+            $(this).prop("checked", false);
+            $(this).prop("disabled",true);
+            form.render('checkbox');
+        })
+        //将最后一个逗号删除掉
+        checkBoxValue = checkBoxValue.substring(0,checkBoxValue.length-1);
+        return checkBoxValue;
+    }
+    //获取排课教师课程信息设置到提交表单中
+    function getAllTeacherAndClassInfo(){
+        var courseCode = $("#v_courseCode").text();
+        var academicYear = $("#v_academicYear").text();
+        var term = $("#v_term").text();
+        var $trs = $("#addTeacherAndClass").children("tr");
+        $trs.each(function(i){
+            $tds = $(this).children("td");
+            var teacherAndClassInfo = "<input name='teacherCourseCustoms["+i+"].courseCode' type='hidden' value='" +courseCode+ "'/>"
+                + "<input name='teacherCourseCustoms["+i+"].academicYear' type='hidden' value='" + academicYear + "'/>"
+                + "<input name='teacherCourseCustoms["+i+"].term' type='hidden' value='" + term + "'/>"
+                + "<input name='teacherCourseCustoms["+i+"].teacherName' type='hidden' value='" + $tds.eq(0).html() + "'/>"
+                + "<input name='teacherCourseCustoms["+i+"].teacherNumber' type='hidden' value='" + $tds.eq(1).html() + "'/>";
+            //获取班级名称
+            var classNames = $tds.eq(2).html();
+            var classNameArr = classNames.split(",");
+            for(var j=0,length_l = classNameArr.length; j<length_l; j++){
+                teacherAndClassInfo += "<input name='teacherCourseCustoms["+i+"].classTeachers["+j+"].className' type='hidden' value='" + classNameArr[j] + "'/>";
             }
-        });
+            $("#saveTeacherCourseClassForm").append(teacherAndClassInfo);
+        })
+    }
 
-        //监听提交
-        form.on('submit(add)', function (data) {
-            console.log(data);
-            //发异步，把数据提交给
-            layer.alert("增加成功", {icon: 6}, function () {
-                // 获得frame索引
-              var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-             parent.layer.close(index);
-            });
-            return false;
-        });
-        //监听选择教师事件
-        var category = 0;  
-		var teacherName = '';  
-		var teacherNume=213;
-		form.on('select(selectTeacher)', function (data) {  
-		    category = data.value;  
-		    teacherName = data.elem[data.elem.selectedIndex].text;  
-		    form.render('select');
-		    $("#courseTeacher").val(teacherName);
-		    $("#teacherNume").val(teacherNume);
-			});  
-		//监听选择班级事件
-        var category = 0;  
-		var categoryName = '';  
-		form.on('select(selectGrade)', function (data) {  
-		    category = data.value;  
-		    categoryName = data.elem[data.elem.selectedIndex].text;  
-		    form.render('select');
-		    var before = $("#hiddenValue").val();//之前的    隐藏域中的
-			$("#hiddenValue").val(categoryName);//将现在选中的添加
-			if(before==""){
-				var laterTextArea = $("#hiddenValue").val();
-				$("#hiddenValue").val(laterTextArea);
-				$("#appendGrade").val($("#hiddenValue").val());//添加到文本框中
-			}else{
-				var laterTextArea = $("#hiddenValue").val()+" / "+before;
-				$("#hiddenValue").val(laterTextArea);
-				$("#appendGrade").val($("#hiddenValue").val());//添加到文本框中
-			}
-				});  
-			
+    //将排课教师课程信息提交到后台
+    function saveTaskArrangeCourseInfo(){
+        $.ajax({
+            url:contextPath+"/arrangeCourse/saveTeacherCourseCustomInfoList.action",
+            data:$("#saveTeacherCourseClassForm").serialize(),
+            type:"POST",
+            async:false,
+            datatype:"text",
+            success:function(response){
+                layer.alert(response, function(index){
+                    //实现父页面的刷新
+                    window.parent.location.reload();
+                    //x_admin_close()
+                    //layer.close(index);
+                });
+            }
+        })
+    }
 
-
-    });
 </script>
 
 </body>

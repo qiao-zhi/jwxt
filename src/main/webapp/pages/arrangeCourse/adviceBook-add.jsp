@@ -90,7 +90,7 @@
                 创建人
             </label>
             <div class="layui-input-inline">
-                <input type="text"  name="createrName" required=""  lay-verify="required"
+                <input type="text"  name="createrName"  lay-verify="required"
                      value="正陈宫"  autocomplete="off" class="layui-input">
                 <%--隐藏创建人ID--%>
                 <input type="hidden" value="asdfwiefjiwenxhuwe" name="createrId"/>

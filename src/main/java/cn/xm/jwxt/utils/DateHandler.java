@@ -1,5 +1,6 @@
 package cn.xm.jwxt.utils;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -104,6 +105,25 @@ public class DateHandler {
 				ex.printStackTrace();
 				throw new RuntimeException(ex);
 			}
+		}
+		return t;
+	}
+
+	/**
+	 * 为日期类型添加时分秒
+	 * @param date
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Date addHourMinuteSecToDate(Date date) throws ParseException{
+		Date t = null;
+		if (date != null) {
+			String dateToString = dateToString(date);
+			//获取当前的时分秒
+			Date nowDate = new Date();
+			String hourMinuteSec = dateToString(nowDate, "hh:mm:ss");
+			dateToString = dateToString+" "+hourMinuteSec;
+			t = changeStringToDate(dateToString, "yyyy-MM-dd HH:mm:ss");
 		}
 		return t;
 	}

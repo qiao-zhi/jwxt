@@ -23,10 +23,10 @@ public interface ApArrangeCourseAuditService {
     boolean addArrangeCourseAuditInfoByArrangeTaskId(String arrangeTaskId, ApArrangeCourseAudit auditInfo) throws Exception;
 
     /**
-     * 根据排课任务ID查询对应的排课信息
+     * 根据排课任务ID查询最新的审核信息
      * @param ArrangeCourseTaskId
      * @return
      * @throws Exception
      */
-    ApArrangeCourseAudit findArrangeCourseAuditInfoByCondition(String ArrangeCourseTaskId) throws Exception;
+    ApArrangeCourseAudit getArrangeCourseAuditInfoByCondition(String ArrangeCourseTaskId) throws Exception;
 }

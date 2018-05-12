@@ -39,10 +39,10 @@ public class ApClassTeacherServiceImpl implements ApClassTeacherService {
         if(ValidateCheck.isNull(teacherCourseId)){
             throw new IllegalArgumentException("教师课程编号不能为空!");
         }
-        int total = listInfo.size();
-        if(total <= 0){
+        if(listInfo == null || listInfo.size() <= 0){
             throw new IllegalArgumentException("班级教师信息集合参数传递错误!");
         }
+        int total = listInfo.size();
         for(ApClassTeacher classTeacher:listInfo){
             classTeacher.setClassTeacherId(UUIDUtil.getUUID2());
             classTeacher.setTeacherCourseId(teacherCourseId);
@@ -78,8 +78,11 @@ public class ApClassTeacherServiceImpl implements ApClassTeacherService {
      */
     @Override
     public boolean deleteClassTeacherListInfoByTeacherCourseIds(List<String> teacherCourseIds) throws Exception {
-        if(teacherCourseIds.size()<=0){
+        if(teacherCourseIds == null){
             throw new IllegalArgumentException("教师课程编号不能为空!");
+        }
+        if(teacherCourseIds.size()<=0){
+            return true;
         }
         ApClassTeacherExample classTeacherExample = new ApClassTeacherExample();
         ApClassTeacherExample.Criteria criteria = classTeacherExample.createCriteria();
