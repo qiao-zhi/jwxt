@@ -121,7 +121,7 @@ public class DateHandler {
 			String dateToString = dateToString(date);
 			//获取当前的时分秒
 			Date nowDate = new Date();
-			String hourMinuteSec = dateToString(nowDate, "hh:mm:ss");
+			String hourMinuteSec = dateToString(nowDate, "HH:mm:ss");
 			dateToString = dateToString+" "+hourMinuteSec;
 			t = changeStringToDate(dateToString, "yyyy-MM-dd HH:mm:ss");
 		}

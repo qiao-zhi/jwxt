@@ -11,7 +11,6 @@ layui.use(['form', 'layer'], function () {
     findTeacherBaseInfoForSelect(form);
     //查询任务课程信息
     getTaskArrangeCourseInfo(form);
-
     //监听提交
     form.on('submit(addTeacher)', function (data) {
         //添加一条教师班级信息
@@ -70,6 +69,8 @@ function showTaskArrangeCourseInfo(response,form){
         $("#classNames").append(inputCheck);
     }
     form.render('checkbox');
+    //初始化历史教师下拉框
+    findHistoryTeacherInfoForSelect(courseAndYearTerm.courseCode,form);
 }
 
 //添加一条教师班级信息

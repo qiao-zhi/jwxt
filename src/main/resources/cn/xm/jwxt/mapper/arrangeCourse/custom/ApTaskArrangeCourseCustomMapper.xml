@@ -44,7 +44,7 @@
     <!--增加教师名称,教师编号字段映射-->
     <resultMap id="addTeacheNameAndNumberMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom" extends="BaseResultMap">
         <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
-        <result column="teacher_number" property="teacherName" jdbcType="VARCHAR" />
+        <result column="teacher_number" property="teacherNumber" jdbcType="VARCHAR" />
     </resultMap>
     <!--批量插入排课任务分配课程信息-->
     <insert id="saveTaskArrangeCourseInfoList" parameterType="java.util.List">
@@ -152,9 +152,10 @@
                 FROM
                     ap_task_arrange_course tac
                 WHERE
-                    tac.arrange_task_id = #{arrangeCourseId}
+                    tac.arrange_task_id = #{arrangeTaskId}
             ) temp
         WHERE
             temp.teacher_number IS NOT NULL
+        ORDER BY CONVERT(course_name USING gbk)
     </select>
 </mapper>

@@ -1,7 +1,7 @@
 /**
  * @author: LL
- * @createtime: 2018/5/8 17:52
- * @description:安排课程的js
+ * @createtime: 2018/5/12 20:16
+ * @description:任务审核的js
  */
 //初始化加载需要使用的layui模块
 layui.use(['layer', 'form', 'element'], function(){
@@ -90,21 +90,35 @@ function arrangeCourseTaskInfoListPage(total,pageNum,pageSize){
     });
 }
 
-//根据历史排课记录安排按钮
-function allotCourse_history(){
+//审核任务
+function check(){
     var checked = $("[name='taskRadio']:checked").length>0?true:false;
     if(!checked){
-        layer.alert('请先选择需要安排课程的任务！');
+        layer.alert('请先选择需要审核的任务！');
         return;
     }
     var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
-    if (!(sel_taskStatus == "待排课" || sel_taskStatus == "审核不通过")) {
-        layer.alert('该排课任务已经结束，不能进行排课操作！');
+    if (!(sel_taskStatus == "待审核")) {
+        layer.alert('该排课任务已经审核！');
         return;
     }
     var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
-    var academicYear = $("[name='taskRadio']:checked + input[name='sel_academicYear']").val();
-    var term = $("[name='taskRadio']:checked ~ input[name='sel_term']").val();
-    //x_admin_show('分配课程','./scheduleTask-allot.jsp?arrangeTaskId='+arrangeTaskId+'&noticeBookId='+noticeBookId);
-    x_admin_show('根据历史记录排课','./scheduleArrange-history.jsp?arrangeTaskId='+arrangeTaskId+'&academicYear='+academicYear+'&term='+term);
+    x_admin_show('审核排课情况','./scheduleManage-checkDetail.jsp?arrangeTaskId='+arrangeTaskId);
+}
+
+//查看审核结果
+function checkView(){
+    var checked = $("[name='taskRadio']:checked").length>0?true:false;
+    if(!checked){
+        layer.alert('请先选择需要查看审核结果的任务！');
+        return;
+    }
+    var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
+    if (sel_taskStatus == "待审核") {
+        layer.alert('该排课任务还未审核！');
+        return;
+    }
+    var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
+    x_admin_show('查看审核结果','./scheduleCheck-result.jsp?arrangeTaskId='+arrangeTaskId);
+
 }

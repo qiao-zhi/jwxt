@@ -91,7 +91,7 @@ public class ApTeacherCourseServiceImpl implements ApTeacherCourseService {
     }
 
     /**
-     * 批量设置课程教师班级信息用于根据历史记录排课
+     * 批量设置课程教师班级信息用于根据历史记录排课,一门课对应一个老师
      * @param listInfo
      * @return
      * @throws Exception
@@ -101,8 +101,8 @@ public class ApTeacherCourseServiceImpl implements ApTeacherCourseService {
         if(listInfo == null || listInfo.size() <= 0){
             throw new IllegalArgumentException("课程集合参数传递错误!");
         }
-        for(ApTaskArrangeCourseCustom arrangeCourseCustom : listInfo){
-            saveTeacherCourseInfoList(arrangeCourseCustom.getArrangeCourseId(),arrangeCourseCustom.getTeachers());
+        for(ApTaskArrangeCourseCustom teacherCourseCustom : listInfo){
+            saveTeacherCourseInfoList(teacherCourseCustom.getArrangeCourseId(),teacherCourseCustom.getTeachers());
         }
         return true;
     }

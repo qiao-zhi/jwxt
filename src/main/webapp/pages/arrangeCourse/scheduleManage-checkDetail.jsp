@@ -1,3 +1,4 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -22,6 +23,11 @@
     		border-right-width: 1.66px;
     	}
     </style>
+    <%--公共标签--%>
+    <%@include file="/tag.jsp"%>
+    <%--排课公共方法--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
+
 </head>
 
 <body>
@@ -35,15 +41,19 @@
               审核人
             </label>
             <div class="layui-input-inline">
-                 <input type="text" name="" required  lay-verify="required"   class="layui-input" value="张三" disabled> 
+                 <input type="text" name="auditorName" required  lay-verify="required" class="layui-input" value="张三" readonly>
             </div>
+            <%--隐藏审核人ID--%>
+            <input type="hidden" value="asdfwiefjiwenxhuwe" name="auditorId"/>
+            <%--隐藏排课任务ID--%>
+            <input type="hidden" value="${param.arrangeTaskId}" name="arrangeTaskId"/>
         </div>
         <div class="layui-form-item" >
             <label for="" class="layui-form-label">
               审核时间
             </label>
             <div class="layui-input-inline">
-                 <input type="text" id="checkTime" name="" required  lay-verify="required"   class="layui-input" value="2018-03-28" > 
+                 <input type="text" id="checkTime" name="auditTime" readonly  lay-verify="required" class="layui-input">
             </div>
         </div>
         <!--3-->
@@ -52,15 +62,11 @@
               审核结果
             </label>
             <div class="layui-input-inline">
-                <select name="" lay-verify="" id="selectcalss" lay-search lay-filter="selectTeacher" >
-				  <option value="">点击选择审核结果</option>
-				  <option>审核通过</option>
-               		 <option>审核不通过</option>
+                <select name="auditResult" lay-verify=""  lay-filter="selectTeacher" >
+				  <option value="1">审核通过</option>
+                  <option value="0">审核不通过</option>
 				</select>
-				
-				
             </div>
-            
         </div>
          
         
@@ -69,7 +75,7 @@
               审核意见
             </label>
             <div class="layui-input-inline">
-                <textarea name="" required lay-verify="required" placeholder="请输入审核意见" class="layui-textarea"></textarea>
+                <textarea name="auditSuggestion" required lay-verify="required" placeholder="请输入审核意见" class="layui-textarea"></textarea>
 				 
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -92,43 +98,40 @@
 
 
 <script>
-	
-	
+
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
-        var form = layui.form
-            , layer = layui.layer;
-         
-
-        //自定义验证规则
-        form.verify({
-            nikename: function (value) {
-                if (value.length < 5) {
-                    return '昵称至少得5个字符啊';
-                }
-            }
-            , pass: [/(.+){6,12}$/, '密码必须6到12位']
-            , repass: function (value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }
-        });
-
+        var form = layui.form;
+        getNowTime();
         //监听提交
         form.on('submit(check)', function (data) {
-            console.log(data);
-            //发异步，把数据提交给
-            layer.alert("审核成功", {icon: 6}, function () {
-                // 获得frame索引
-              var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-             parent.layer.close(index);
-            });
+            $.ajax({
+                url:contextPath+"/arrangeCourse/addArrangeCourseAuditInfo.action",
+                data:data.field,
+                type:"POST",
+                datatype:"text",
+                success:function(response){
+                    layer.alert(response, {icon: 6}, function () {
+                        //实现父页面的刷新
+                        window.parent.location.reload();
+                    });
+                }
+            })
             return false;
         });
-        
     });
+
+    //获取当前时间设置到相应字段
+    function getNowTime(){
+        var myDate = new Date();//获取系统当前时间
+        var year = myDate.getFullYear();//获取当前年
+        var month = myDate.getMonth()+1;//获取当前月
+        var date = myDate.getDate();
+        if (month < 10) month = "0" + month;
+        if (date < 10) date = "0" + date;
+        var nowTime = year + "-" + month + "-" + date;
+        $("input[name='auditTime']").val(nowTime);
+    }
 </script>
 
 </body>

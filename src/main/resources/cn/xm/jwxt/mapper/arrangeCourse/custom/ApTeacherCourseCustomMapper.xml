@@ -42,5 +42,6 @@
     <!--根据课程编号查询历史任课教师-->
     <select id="findHistoryTeacherInfoByNumber" parameterType="String" resultType="map">
         SELECT DISTINCT teacher_number,teacher_name from ap_teacher_course  WHERE course_code = #{value}
+        ORDER BY CONVERT (teacher_name USING gbk)
     </select>
 </mapper>

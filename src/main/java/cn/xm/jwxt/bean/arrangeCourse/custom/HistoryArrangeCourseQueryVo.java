@@ -12,7 +12,7 @@ public class HistoryArrangeCourseQueryVo {
     //学期
     private String term;
     //排课任务ID
-    private String arrangeCourseId;
+    private String arrangeTaskId;
 
     public String getAcademicYear() {
         return academicYear;
@@ -30,11 +30,11 @@ public class HistoryArrangeCourseQueryVo {
         this.term = term;
     }
 
-    public String getArrangeCourseId() {
-        return arrangeCourseId;
+    public String getArrangeTaskId() {
+        return arrangeTaskId;
     }
 
-    public void setArrangeCourseId(String arrangeCourseId) {
-        this.arrangeCourseId = arrangeCourseId;
+    public void setArrangeTaskId(String arrangeTaskId) {
+        this.arrangeTaskId = arrangeTaskId;
     }
 }

@@ -81,7 +81,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/arrangeCourse/scheduleCheck.html">
+                        <a _href="pages/arrangeCourse/scheduleCheck.jsp">
                             <cite>任务审核</cite>
                         </a>
                     </li>

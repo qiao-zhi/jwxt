@@ -5,13 +5,18 @@
  */
 
 /** 公共查询条件 S**/
-//设置条件选择框中的学年
+//日期控件
 layui.use('laydate', function () {
     var laydate = layui.laydate;
+    //设置条件选择框中的学年
     laydate.render({
         elem: '#s_year' //指定元素
         ,type: 'year'
     });
+    //审核时间
+    laydate.render({
+        elem:"#checkTime"
+    })
 })
 
 //初始化专业下拉框
@@ -98,6 +103,42 @@ function findTeacherBaseInfoForSelect(form){
     })
 }
 
+//初始化在职教师下拉框
+function findHistoryTeacherInfoForSelect(courseNumber,form){
+    $.ajax({
+        url:contextPath+"/arrangeCourse/findHistoryTeacherInfo.action",
+        dataType:"json",
+        data:{"courseNumber":courseNumber},
+        type:"post",
+        success:function (response) {
+            var optionStr = "<option value=''>请输入教师姓名</option>";
+            $("select[name='historyTeacherInfo']").append(optionStr);
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].teacher_number+"'>"+response[i].teacher_name+"</option>";
+                $("select[name='historyTeacherInfo']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+//修改排课任务状态
+function changeTaskStatus(arrangeTaskId,status){
+    $.ajax({
+        url:contextPath+"/arrangeCourse/updateArrangeCourseTaskStatus.action",
+        type:"post",
+        dataType:"text",
+        async:false,
+        data:{"arrangeTaskId":arrangeTaskId,"status":status},
+        success:function(response){
+            layer.alert(response,function () {
+                //实现父页面的刷新
+                window.location.reload();
+            })
+        }
+    })
+}
 
 /* S            弹出层相关操作 */
 /*

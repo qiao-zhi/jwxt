@@ -35,7 +35,7 @@ public interface ApTeacherCourseService {
     boolean saveTeacherCourseInfoList(String arrangeCourseId,List<ApTeacherCourseCustom> listInfo) throws Exception;
 
     /**
-     * 批量设置课程教师班级信息用于根据历史记录排课
+     * 批量设置课程教师班级信息用于根据历史记录排课,一门课对应一个老师
      * @param listInfo
      * @return
      * @throws Exception

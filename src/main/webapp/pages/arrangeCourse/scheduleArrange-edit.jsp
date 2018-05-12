@@ -90,11 +90,7 @@
                 历史任课教师
             </label>
             <div class="layui-input-inline">
-                <select name=""  id="selectcalss" lay-search lay-filter="selectTeacher" >
-                    <option value="">点击查看历史任课教师</option>
-                    <option value="张三">张三</option>
-                    <option value="李四">李四</option>
-                    <option value="王二麻子">王二麻子</option>
+                <select name="historyTeacherInfo"  lay-search lay-filter="selectTeacher" >
                 </select>
             </div>
             <label for="" class="layui-form-label">
@@ -206,12 +202,14 @@
         }
         var classNames = courseAndTeacherInfo.className;
         var classNameArr = classNames.split(",");
-        $("#classNames").empty();//清空表格中数据并重新填充数据
+        $("#classNames").empty();//清空复选框数据
         for(var i=0,length_l = classNameArr.length; i<length_l; i++){
             var inputCheck = "<input type='checkbox' name='className' disabled value='"+classNameArr[i]+"' lay-skin='primary' title='"+classNameArr[i]+"'>";
             $("#classNames").append(inputCheck);
         }
         form.render('checkbox');
+        //初始化历史教师下拉框
+        findHistoryTeacherInfoForSelect(courseAndTeacherInfo.courseCode,form);
     }
 
     /*删除*/

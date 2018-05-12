@@ -65,10 +65,10 @@
         //提交按钮事件
         function commit(){
             layer.confirm('您确认要提交此次课设分配信息吗？',function(){
-                x_admin_close()
+                changeTaskStatus("${param.arrangeTaskId}","5");
             });
         }
-    	
+
     </script>
    
 

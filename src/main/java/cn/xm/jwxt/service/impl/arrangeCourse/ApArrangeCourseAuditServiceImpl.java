@@ -2,9 +2,12 @@ package cn.xm.jwxt.service.impl.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseAudit;
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseAuditExample;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ArrangeCourseTaskStatusEnum;
 import cn.xm.jwxt.mapper.arrangeCourse.ApArrangeCourseAuditMapper;
 import cn.xm.jwxt.service.arrangeCourse.ApArrangeCourseAuditService;
+import cn.xm.jwxt.service.arrangeCourse.ApArrangeCourseTaskService;
 import cn.xm.jwxt.utils.DateHandler;
+import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.UUIDUtil;
 import cn.xm.jwxt.utils.ValidateCheck;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,8 @@ import java.util.List;
 public class ApArrangeCourseAuditServiceImpl implements ApArrangeCourseAuditService {
     @Resource
     private ApArrangeCourseAuditMapper arrangeCourseAuditMapper;
+    @Resource
+    private ApArrangeCourseTaskService arrangeCourseTaskService;
     /**
      * 添加审核信息，关联排课任务ID
      * 需要修改排课任务状态
@@ -45,6 +50,14 @@ public class ApArrangeCourseAuditServiceImpl implements ApArrangeCourseAuditServ
         //为审核时间增加时分秒
         auditInfo.setAuditTime(DateHandler.addHourMinuteSecToDate(auditInfo.getAuditTime()));
         int count = arrangeCourseAuditMapper.insertSelective(auditInfo);
+        //如果审核通过
+        if(DefaultValue.IS_USE.equals(auditInfo.getAuditResult())){
+            //设置排课任务状态为通过审核
+            arrangeCourseTaskService.updateArrangeCourseTaskStatus(arrangeTaskId, ArrangeCourseTaskStatusEnum.PASS_AUDIT.getStatus());
+        }else{
+            //设置排课任务状态为不通过审核
+            arrangeCourseTaskService.updateArrangeCourseTaskStatus(arrangeTaskId, ArrangeCourseTaskStatusEnum.NOT_PASS_AUDIT.getStatus());
+        }
         return count>0?true:false;
     }
 
