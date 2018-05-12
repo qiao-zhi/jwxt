@@ -1,8 +1,11 @@
 package cn.xm.jwxt.queryVo;
 
 
+
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
+import cn.xm.jwxt.bean.trainScheme.Coursecapacityrequireinfo;
+
 import cn.xm.jwxt.bean.trainScheme.TrainCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 import cn.xm.jwxt.bean.trainScheme.Trainningcapacitybaseinfo;
@@ -23,6 +26,10 @@ public class ListVo {
      * 培养方案课程集合
      */
     private List<TrainCourse> trainCourse;
+    /**
+     * 培养方案课程能力集合
+     */
+    private List<Coursecapacityrequireinfo> coursecapacityrequireinfos;
 
     public List<Trainningcapacitybaseinfo> getTrainningcapacitybaseinfos() {
         return trainningcapacitybaseinfos;
@@ -54,6 +61,7 @@ public class ListVo {
     public void setTaskArrangeCourses(List<ApTaskArrangeCourse> taskArrangeCourses) {
         this.taskArrangeCourses = taskArrangeCourses;
     }
+
     /**
      * 教师课程信息扩展类集合
      */
@@ -79,4 +87,14 @@ public class ListVo {
         this.taskArrangeCourseCustoms = taskArrangeCourseCustoms;
     }
     /*******ll end********/
+
+
+    public List<Coursecapacityrequireinfo> getCoursecapacityrequireinfos() {
+        return coursecapacityrequireinfos;
+    }
+
+    public void setCoursecapacityrequireinfos(List<Coursecapacityrequireinfo> coursecapacityrequireinfos) {
+        this.coursecapacityrequireinfos = coursecapacityrequireinfos;
+    }
+
 }

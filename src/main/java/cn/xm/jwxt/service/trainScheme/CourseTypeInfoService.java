@@ -37,12 +37,13 @@ public interface CourseTypeInfoService {
     public boolean addcourseTypeInfo(Coursetypeinfo coursetypeinfo)throws SQLException;
 
     /**
-     * 删除培训课程类别(如果有下级不允许删除，删除的时候将对应的培养方案课程也删除)
-     * @param courseId
+     * 删除培训课程类别(根据培养方案编号和类别num删除)
+     * @param trainSchemeId 培养方案编号
+     * @param typeNum   类别num
      * @return
      * @throws SQLException
      */
-    public boolean deleteCourseTypeInfoById(int courseId)throws SQLException;
+    public boolean deleteCourseTypeInfoByTrainSchemeIdAndTypeNum(String trainSchemeId,String typeNum)throws SQLException;
 
     /**
      * 修改培养方案课程类别(主要是修改培养方案课程的名称)

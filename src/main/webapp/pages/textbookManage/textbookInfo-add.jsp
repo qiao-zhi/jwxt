@@ -15,23 +15,29 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
-    
+
+
+    <%--公共标签--%>
+    <%@include file="/tag.jsp"%>
+    <%--新增教材的js--%>
+    <script type="text/javascript" src="${baseurl}/js/orderBooks/TextbookRepository.js"></script>
+
 </head>
 
 <body>
 <div class="x-body">
-    <form class="layui-form" action="addOrderBooks" method="post">
+    <form class="layui-form">
         <!--1-->
          <div class="layui-form-item">
             <label for="" class="layui-form-label">
                 课程名称
             </label>
             <div class="layui-input-inline">
-                <select name="courseid" lay-filter="course" >
-                    <option value="1">计算机网络</option>
-                    <option value="2">软件工程</option>
-                    <option value="3">操作系统</option>
-                    <option value="4">数据结构</option>
+                <select name="courseid" id="allCourse" lay-filter="course" >
+                    <%--<option value="1">计算机网络</option>--%>
+                    <%--<option value="2">软件工程</option>--%>
+                    <%--<option value="3">数据库原理</option>--%>
+                    <%--<option value="4">操作系统</option>--%>
                 </select>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -43,7 +49,7 @@
                 教材编号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text"  name="textbooknum" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -56,7 +62,7 @@
                教材名称
             </label>
             <div class="layui-input-inline">
-                <input type="" id="" name="" required="" lay-verify="required"
+                <input type=""  name="textbookname" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -69,7 +75,7 @@
                 出版社
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required=""  lay-verify="required"
+                <input type="text"  name="publishinghouse" required=""  lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -82,7 +88,7 @@
               作者
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text"  name="author" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -95,7 +101,7 @@
                 ISBN
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required=""  lay-verify="required"
+                <input type="text"  name="isbn" required=""  lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -108,7 +114,7 @@
                 单价
             </label>
             <div class="layui-input-inline">
-               <input type="text" id="" name="" required=""  lay-verify="required"
+               <input type="text"  name="price" required=""  lay-verify="required|number"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -121,7 +127,7 @@
         <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
-              <button class="layui-btn" lay-filter="add" lay-submit="">
+              <button class="layui-btn" lay-filter="addTextbook" lay-submit="">
                   确认添加
               </button>
         </div>
@@ -136,33 +142,19 @@
         var form = layui.form
             , layer = layui.layer;
 
-        //自定义验证规则
-        form.verify({
-            nikename: function (value) {
-                if (value.length < 5) {
-                    return '昵称至少得5个字符啊';
-                }
-            }
-            , pass: [/(.+){6,12}$/, '密码必须6到12位']
-            , repass: function (value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }
-        });
 
-        //监听提交
-        form.on('submit(add)', function (data) {
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6}, function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-        });
+//        //监听提交
+//        form.on('submit(add)', function (data) {
+//            console.log(data);
+//            //发异步，把数据提交给php
+//            layer.alert("增加成功", {icon: 6}, function () {
+//                // 获得frame索引
+//                var index = parent.layer.getFrameIndex(window.name);
+//                //关闭当前frame
+//                parent.layer.close(index);
+//            });
+//            return false;
+//        });
 
 
     });
