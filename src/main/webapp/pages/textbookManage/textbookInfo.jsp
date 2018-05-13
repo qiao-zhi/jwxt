@@ -1,3 +1,4 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -14,6 +15,14 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+
+
+    <%--引入公共的标签--%>
+    <%@ include file="/tag.jsp" %>
+    <!--引入的教材库管理的JS-->
+    <script type="text/javascript" src="../../js/orderBooks/TextbookRepository.js" charset="utf-8"></script>
+
+
 </head>
 <body>
 <!--面包屑-->
@@ -37,9 +46,14 @@
 <div class="x-body">
     <!--查询-->
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-            <input type="" name="" placeholder="请输入教材名称" autocomplete="off" class="layui-input">
-            <input type="" name="" placeholder="请输入课程名称" autocomplete="off" class="layui-input">
+        <form class="layui-form layui-col-md12 x-so" id="findTextbookForm">
+
+            <%--S 隐藏一些信息--%>
+            <input type="hidden" name="pageNum"  id="pageNum_0"/>
+            <input type="hidden" name="pageSize" id="pageSize_0"/>
+
+            <input type="" name="textbookName" placeholder="请输入教材名称" autocomplete="off" class="layui-input">
+            <input type="" name="courseName" placeholder="请输入课程名称" autocomplete="off" class="layui-input">
             <!--<div class="layui-input-inline">
                 <select name="" lay-verify="">
 				  <option value="">请选择资料类别</option>
@@ -47,7 +61,7 @@
 				  <option value="021">video</option>
 				</select>
             </div>-->
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn" type="button" onclick="findTextbookFYBtn()"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
     <!--end查询-->
@@ -61,7 +75,6 @@
     <!--end 操作区域-->
 
     <!--表格内容-->
-    <form>
     <table class="layui-table">
         <thead>
         <tr>
@@ -82,60 +95,45 @@
             <th>操作</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <!--<td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
-                    &#xe605;</i></div>
-            </td>-->
-            <td>201700917</td>
-            <td>201700917</td>
-            <td>老王</td>
-            <td>1854-10-2</td>
-            <td>201700917</td>
-            <td>201700917</td>
-            <td>201700917</td>
-            <td>201700917</td>
-            
-            
-            <td class="td-manage">
-                <!--<a title="点击查看教材详细信息" onclick="x_admin_show('详细信息','textbookInfo-view.html')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>-->
-                <a title="点击修改教材信息"  onclick="x_admin_show('修改','textbookInfo-edit.html')" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i>
-                </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
-        </tr>
+        <tbody id="textbookTbody">
+        <%--<tr>--%>
+            <%--<!--<td>--%>
+                <%--<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">--%>
+                    <%--&#xe605;</i></div>--%>
+            <%--</td>-->--%>
+            <%--<td>201700917</td>--%>
+            <%--<td>201700917</td>--%>
+            <%--<td>老王</td>--%>
+            <%--<td>1854-10-2</td>--%>
+            <%--<td>201700917</td>--%>
+            <%--<td>201700917</td>--%>
+            <%--<td>201700917</td>--%>
+            <%--<td>201700917</td>--%>
+            <%----%>
+            <%----%>
+            <%--<td class="td-manage">--%>
+                <%--<!--<a title="点击查看教材详细信息" onclick="x_admin_show('详细信息','textbookInfo-view.html')" href="javascript:;">--%>
+                    <%--<i class="layui-icon">&#xe63c;</i>--%>
+                <%--</a>-->--%>
+                <%--<a title="点击修改教材信息"  onclick="x_admin_show('修改','textbookInfo-edit.html')" href="javascript:;">--%>
+                    <%--<i class="layui-icon">&#xe642;</i>--%>
+                <%--</a>--%>
+                <%--<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">--%>
+                    <%--<i class="layui-icon">&#xe640;</i>--%>
+                <%--</a>--%>
+            <%--</td>--%>
+        <%--</tr>--%>
         </tbody>
     </table>
-    </form>
     <!--end 表格内容-->
 
     <!--分页-->
-    <div id="demo7"></div>
+    <div id="pageDiv"></div>
     <!--end 分页-->
 </div>
 
 <script>
-    /*分页js*/
-    layui.use(['laypage', 'layer'], function(){
-        var laypage = layui.laypage
-            ,layer = layui.layer;
 
-        //完整功能
-        laypage.render({
-            elem: 'demo7'
-            ,count: 100
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            ,jump: function(obj){
-                console.log(obj)
-            }
-        });
-    });
 
     //点击关闭其他，触发事件
     function closeOther() {
@@ -155,23 +153,6 @@
             layer.msg('已删除!', {icon: 1, time: 1000});
         });
     }
-</script>
-<script>
-    //???
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-    });
-    
 </script>
 
 </body>

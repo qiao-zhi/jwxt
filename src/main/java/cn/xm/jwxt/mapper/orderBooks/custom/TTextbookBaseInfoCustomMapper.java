@@ -24,6 +24,18 @@ public interface TTextbookBaseInfoCustomMapper {
     @Select("select count(textbookID) from t_textbook_base_info where textbookNUM=#{textbookNum}")
     public int getCountByTextbookNum(@Param("textbookNum") String textbookNum)throws SQLException;
 
+    /**
+     * 从课程基本信息表中查找所有课程，用于课程名称下拉列表的遍历
+     * @return
+     */
     @Select(("select courseId,courseNameCN from t_course_base_info order by CONVERT(courseNameCN USING gbk)"))
     public List<Map> findAllCourse();
+
+    /**
+     * 分页组合条件查询教材基本信息
+     * @param findcondition
+     * @return
+     * @throws SQLException
+     */
+    public List<Map<String,Object>> findTextbook(Map findcondition)throws SQLException;
 }

@@ -95,7 +95,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/textbookManage/textbookInfo.html">
+                        <a _href="pages/textbookManage/textbookInfo.jsp">
                             <cite>教材库管理</cite>
                         </a>
                     </li>

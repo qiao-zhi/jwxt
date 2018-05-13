@@ -15,7 +15,7 @@ public interface TextbookRepositoryService {
      * @return
      * @throws SQLException
      */
-    public List<TTextbookBaseInfo> findTextbook(Map findcondition)throws SQLException;
+    public List<Map<String,Object>> findTextbook(Map findcondition)throws SQLException;
 
     /**
      * 从课程基本信息表查找所有课程

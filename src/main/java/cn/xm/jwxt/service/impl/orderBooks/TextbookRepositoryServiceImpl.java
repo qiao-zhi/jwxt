@@ -29,8 +29,8 @@ public class TextbookRepositoryServiceImpl implements TextbookRepositoryService 
     private TTextbookBaseInfoCustomMapper tTextbookBaseInfoCustomMapper;
 
     @Override
-    public List<TTextbookBaseInfo> findTextbook(Map findcondition)throws SQLException {
-        return null;
+    public List<Map<String,Object>> findTextbook(Map findcondition)throws SQLException {
+        return tTextbookBaseInfoCustomMapper.findTextbook(findcondition);
     }
 
     @Override
