@@ -2,28 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.system.custom.UserCustomMapper" >
 
-  <!--S   分页查询用户信息-->
-  <!--查询条件-->
-  <sql id="getUserByConditionWhere">
-      <if test="name != null and name !=''">
-          and username like "%${name}%"
-      </if>
-      <if test="usercode != null and usercode !=''">
-          and usercode like =#{usercode}
-      </if>
-  </sql>
-  <!--分页查询语句-->
-  <select id="getUserByCondition" parameterType="map" resultType="cn.xm.jwxt.bean.system.User">
-    select * from USER
-    <where>
-      <include refid="getUserByConditionWhere"/>
-    </where>
-  </select>
-  <!--E   分页查询用户信息-->
-<!---->
-    <update id="updateUserByUsercode">
-      update user set username=#{username} where userCode=${usercode}
-    </update>
+    <!--1.   分页查询用户信息-->
+    <select id="getUsersByCondition" resultType="map" parameterType="map">
+        SELECT
+          user.*,
+          (CASE (SELECT COUNT(userid) FROM user_role WHERE userid = user.userid) WHEN 0 THEN '未配置' ELSE '已配置' END )    hasRole
+        FROM user
+        <where>
+            <if test="username != null and username != ''">
+                and username like '%${username}%'
+            </if>
+            <if test="usersort != null and usersort != ''">
+                and usersort = #{usersort}
+            </if>
+            <if test="userstuteanum != null and userstuteanum != ''">
+                and userstuteanum like '%${userstuteanum}%'
+            </if>
+            <if test="userunitname != null and userunitname != ''">
+                and userunitname like '%${userunitname}%'
+            </if>
+            <if test="isuse != null and isuse != ''">
+                and isuse = #{isuse}
+            </if>
+        </where>
+    </select>
+
 
 
 </mapper>

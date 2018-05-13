@@ -9,6 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../../lib/zTree/demo.css" type="text/css">
+    <link rel="stylesheet" href="../../lib/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="../../css/font.css">
     <link rel="stylesheet" href="../../css/xadmin.css">
@@ -18,8 +20,6 @@
 
     <%--S  QLQ--%>
     <!--树-->
-    <link rel="stylesheet" href="../../lib/zTree/demo.css" type="text/css">
-    <link rel="stylesheet" href="../../lib/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
     <script type="text/javascript" src="../../lib/zTree/jquery.ztree.core.js"></script>
     <script type="text/javascript" src="../../lib/zTree/jquery.ztree.excheck.js"></script>
     <script type="text/javascript" src="../../lib/zTree/jquery.ztree.exedit.js"></script>

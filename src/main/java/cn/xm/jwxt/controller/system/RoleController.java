@@ -48,7 +48,7 @@ public class RoleController {
     }
 
     /**
-     * 分页查询培养方案基本信息
+     * 分页查询角色信息
      * @param condition 自动映射的查询条件
      * @return  分页信息
      */
@@ -87,6 +87,26 @@ public class RoleController {
         }
         return rolepermissions;
     }
+
+
+    /**
+     * 查询所有启用的和未删除的角色
+     * @return
+     * @throws SQLException
+     */
+    @RequestMapping("/getAllRolesIsUse")
+    public List<Role> getAllRolesIsUse(){
+        List<Role> allRolesIsUse = null;
+        try {
+            allRolesIsUse = roleService.getAllRolesIsUse();
+        } catch (SQLException e) {
+            logger.error("查询所有角色出错",e);
+            return null;
+        }
+        return allRolesIsUse;
+
+    }
+
 
     @RequestMapping("/deleteRoleBatch")
     public String deleteRoleBatch(@RequestParam(defaultValue = "1,1") String roleIds){

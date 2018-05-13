@@ -19,7 +19,7 @@ public class User {
 
     private String isuse;//是否在用
 
-    private String remark1;//白术
+    private String remark1;//备注
 
     public String getUserid() {
         return userid;

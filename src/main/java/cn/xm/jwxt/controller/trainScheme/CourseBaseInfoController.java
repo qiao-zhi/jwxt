@@ -1,7 +1,6 @@
 package cn.xm.jwxt.controller.trainScheme;
 
 import cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo;
-import cn.xm.jwxt.controller.system.UserAction;
 import cn.xm.jwxt.service.trainScheme.CourseBaseInfoService;
 import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.ValidateCheck;
@@ -9,7 +8,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
