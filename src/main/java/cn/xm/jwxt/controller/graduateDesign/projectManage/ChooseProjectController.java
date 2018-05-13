@@ -11,10 +11,7 @@
 package cn.xm.jwxt.controller.graduateDesign.projectManage;
 
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
-import cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle;
-import cn.xm.jwxt.bean.graduateDesign.TeachergredesigntitleDetailVo;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo;
+import cn.xm.jwxt.bean.graduateDesign.*;
 import cn.xm.jwxt.service.graduateDesign.projectManage.ChooseProjectService;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
 import cn.xm.jwxt.service.impl.graduateDesign.projectManage.ChooseProjectServiceImpl;
@@ -51,141 +48,21 @@ public class ChooseProjectController {
     private ChooseProjectService chooseProjectService;
 
     /**
-     * 添加审核信息
-     *
-     * @param firstCheckInfo
-     * @return
-     */
-    @RequestMapping("/addAuditFirst")
-    public @ResponseBody
-    String addAuditFirstInfo(TeachertitleFirstcheckinfo firstCheckInfo) {
-        try {
-            Boolean res = project_ACService.addAuditFirstInfo(firstCheckInfo);
-            if (!res) {
-                return "审核失败";
-            }
-        } catch (Exception e) {
-            logger.error("教研室审核失败", e);
-            return "审核失败";
-        }
-        return "审核成功";
-    }
-
-    /**
-     * 添加院长审核信息
-     *
-     * @param secondCheckInfo
-     * @return
-     */
-    @RequestMapping("/addAuditSecond")
-    public @ResponseBody
-    String addAuditSecondInfo(TeachertitleSecondcheckinfo secondCheckInfo) {
-        try {
-            Boolean res = project_ACService.addAuditSecondInfo(secondCheckInfo);
-            if (!res) {
-                return "审核失败";
-            }
-        } catch (Exception e) {
-            logger.error("院长审核失败", e);
-            return "审核失败";
-        }
-        return "审核成功";
-    }
-
-    /**
-     * 添加课题信息
-     *
-     * @param teachergredesigntitle
-     * @return
-     */
-    @RequestMapping("/addAuditFirst")
-    public @ResponseBody
-    String addProjectInfo(Teachergredesigntitle teachergredesigntitle) {
-        try {
-            Boolean res = project_ACService.addProjectInfo(teachergredesigntitle);
-            if (!res) {
-                return "添加失败";
-            }
-        } catch (Exception e) {
-            logger.error("课题申请细信息添加失败", e);
-            return "添加失败";
-        }
-        return "添加成功";
-    }
-
-    /**
-     * 在添加课题前，要先获取教师信息，初始化申请表
-     *
-     * @param teacherID 当前登录用户的教师id
-     * @return
-     */
-    public @ResponseBody
-    TTeacherBaseInfo getProjectTeacherInfo(String teacherID) {
-        TTeacherBaseInfo tTeacherBaseInfo = null;
-        try {
-            tTeacherBaseInfo = project_ACService.getProjectTeacherInfo(teacherID);
-        } catch (Exception e) {
-            logger.error("课题申请细信息添加失败", e);
-        }
-        return tTeacherBaseInfo;
-    }
-
-    /**
      * 修改申请表之前，初始化页面
      *
-     * @param teacherTitleID 教师题目id
+     * @param studentID //获取登录的学生信息
      * @return
      */
-    public @ResponseBody
-    Teachergredesigntitle initProjectInfo(String teacherTitleID) {
-        Teachergredesigntitle teachergredesigntitle = null;
+    public @ResponseBody List<ChooseProjectVo> getChooseProjectInfo(String studentID) {
+
+        List<ChooseProjectVo> chooseProjectVo = null;
         try {
-            teachergredesigntitle = project_ACService.initProjectInfo(teacherTitleID);
+            chooseProjectVo = chooseProjectService.getChooseProjectInfo(studentID);
         } catch (Exception e) {
-            logger.error("课题申请细信息添加失败", e);
+            logger.error("选择课题，选择情况初始化", e);
         }
 
-        return teachergredesigntitle;
-    }
-
-    /**
-     * 修改申请表
-     *
-     * @param teachergredesigntitle
-     * @return
-     */
-    public @ResponseBody
-    String modifyProjectInfo(Teachergredesigntitle teachergredesigntitle) {
-        try {
-            Boolean res = project_ACService.modifyProjectInfo(teachergredesigntitle);
-            if (!res) {
-                return "修改失败";
-            }
-        } catch (Exception e) {
-            logger.error("课题申请细信息修改失败", e);
-            return "修改失败";
-        }
-        return "修改成功";
-    }
-
-    /**
-     * 删除课题信息
-     *
-     * @param teacherTitleID 教师题目id
-     * @return
-     */
-    public @ResponseBody
-    String removeProjectInfo(String teacherTitleID) {
-        try {
-            Boolean res = project_ACService.removeProjectInfo(teacherTitleID);
-            if (!res) {
-                return "删除失败";
-            }
-        } catch (Exception e) {
-            logger.error("课题申请细信息删除失败", e);
-            return "删除失败";
-        }
-        return "删除成功";
+        return chooseProjectVo;
     }
 
     /**
@@ -194,9 +71,8 @@ public class ChooseProjectController {
      * @param condition 组合条件
      * @return 查询到的数据
      */
-    @RequestMapping("/getProject_ACInfo")
-    public @ResponseBody
-    PageInfo<Map<String, String>> getProject_ACInfo(@RequestParam Map<String, String> condition) {
+    @RequestMapping("/getProjectInfo")
+    public @ResponseBody PageInfo<Map<String, String>> getProjectInfo(@RequestParam Map<String, String> condition) {
         int pageSize = DefaultValue.PAGE_SIZE;
         if (ValidateCheck.isNotNull(condition.get("pageSize"))) {//如果不为空的话改变当前页大小
             pageSize = Integer.valueOf(condition.get("pageSize"));
@@ -210,7 +86,7 @@ public class ChooseProjectController {
         //上面pagehelper的设置对此查询有效，查到数据总共8条
         List<Map<String, String>> projectInfo = null;
         try {
-            projectInfo = project_ACService.getprojectInfoByCondition(condition);
+            projectInfo = chooseProjectService.getprojectInfoByCondition(condition);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("分页查询答辩秘书审核信息失败", e);
@@ -226,8 +102,7 @@ public class ChooseProjectController {
      * @return
      */
     @RequestMapping("/getProjectInfoDetail")
-    public @ResponseBody
-    TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID) {
+    public @ResponseBody TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID) {
         TeachergredesigntitleDetailVo teachergredesigntitledetail = null;
         try {
             teachergredesigntitledetail = chooseProjectService.getProjectInfoDetail(teacherTitleID);
@@ -239,22 +114,55 @@ public class ChooseProjectController {
     }
 
     /**
-     * 获取教研室审核信息
-     *
-     * @param teacherTitleID 审核标题id
+     * 保存选择课题
+     * @param choose_titleIDstr
      * @return
      */
-    @RequestMapping("/getAuditFirstInfo")
-    public @ResponseBody
-    TeachertitleFirstcheckinfo getAuditFirstInfo(String teacherTitleID) {
-        TeachertitleFirstcheckinfo teachertitleFirstcheckinfo = null;
+    @RequestMapping("/submitChooseProject")
+    public @ResponseBody String saveChooseProject(String choose_titleIDstr) {
+
+        boolean res = false;
         try {
-            teachertitleFirstcheckinfo = project_ACService.getTeachertitleFirstcheckinfo(teacherTitleID);
+            res = chooseProjectService.saveChooseProject(choose_titleIDstr);
         } catch (Exception e) {
-            logger.error("课题申请详细信息获取失败", e);
+            e.printStackTrace();
         }
 
-        return teachertitleFirstcheckinfo;
+        return res ? "success" : "false";
     }
 
+    /**
+     * 提交选择课题
+     * @param choose_titleIDstr
+     * @return
+     */
+    @RequestMapping("/submitChooseProject")
+    public @ResponseBody String submitChooseProject(String choose_titleIDstr) {
+
+        boolean res = false;
+        try {
+            res = chooseProjectService.submitChooseProject(choose_titleIDstr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res ? "success" : "false";
+    }
+
+    /**
+     * 查询该学生是否提交
+     * @return
+     */
+    @RequestMapping("/findIsChoose")
+    public @ResponseBody boolean findIsChoose() {
+
+        boolean res = false;
+        try {
+            res = chooseProjectService.findIsChoose();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
 }

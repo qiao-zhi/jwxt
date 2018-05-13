@@ -45,17 +45,19 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_form">
-            <input type="text" name="username" placeholder="课题名称" autocomplete="off" class="layui-input">
-            <input type="text" name="" class="layui-input" id="L_pass" placeholder="学年" autocomplete="off">
+            <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
+            <input type="text" name="syear" class="layui-input" id="L_pass" placeholder="学年" autocomplete="off">
             <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>是否确认完成</option><!--通过判断是否有审核结果-->
+                <!--通过判断是否被老师确认  判断学生选题最终结果表中的信息是否有该学生的id信息-->
+                <select name="isChoose">
+                    <option>是否确认完成</option>
                     <option>是</option>
                     <option>否</option>
                 </select>
             </div>
-            <div class="layui-input-inline"><!--未完成 是判断是否填写了一部门-->
-                <select name="contrller">
+            <div class="layui-input-inline">
+                <!--未完成 是判断是否填写了任务书     毕设课题任务书,判断学生选题结果ID-->
+                <select name="hasAssignment">
                     <option>是否填写任务书</option>
                     <option>未填写</option>
                     <option>未完成</option>
@@ -70,8 +72,8 @@
     <!--操作区域-->
     <xblock>
         <!--若申请人数小于 需要人数，则自动确认，不需要确认学生。 提交后不可修改-->
-        <button class="layui-btn layui-btn-normal" onclick="x_admin_show('确认学生','./chooseGPStudent-confirm.jsp')">确认学生 </button>
-        <button class="layui-btn" onclick="x_admin_show('填写任务书','./chooseGPStudent-addAssignment.jsp')">填写任务书 </button>
+        <button class="layui-btn layui-btn-normal" onclick="confirmChooose()">确认学生 </button>
+        <button class="layui-btn" onclick="fillAssignment()">填写任务书 </button>
         <button class="layui-btn">上传考勤表 </button>
     </xblock>
     <!--end 操作区域-->
@@ -87,7 +89,6 @@
             </th>
             <th>学年</th>
             <th>课题名称</th>
-            <th>教师</th>
             <th>专业</th>
             <th>所需人数</th>
             <th>申请人数</th>
@@ -98,29 +99,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
-                    &#xe605;</i></div>
-            </td>
-            <td>2014</td>
-            <td>阿萨德发</td>
-            <td>王丽</td>
-            <td>软件工程</td>
-            <td>3</td>
-            <td>3</td>
-            <td>3</td>
-            <td>是</td>
-            <td>未填写</td>
-            <td class="td-manage">
-                <a title="详细信息" onclick="x_admin_show('详细信息','chooseGPStudent-view.jsp')">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-                <a title="修改任务书" onclick="x_admin_show('修改任务书','./chooseGPStudent-modifyAssignment.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i>
-                </a>
-            </td>
-        </tr>
         </tbody>
     </table>
     <!--end 表格内容-->

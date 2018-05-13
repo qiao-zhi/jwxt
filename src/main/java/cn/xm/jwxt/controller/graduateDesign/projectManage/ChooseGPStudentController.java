@@ -1,13 +1,3 @@
-/**
- * Copyright (C), 2015-2018, XXX有限公司
- * FileName: CenCheckBaseInfoController
- * Author:   xuexiaolei
- * Date:     2018/4/20 21:27
- * Description: 中期检查基本信息表控制层
- * History:
- * <author>          <time>          <version>          <desc>
- * 作者姓名           修改时间           版本号              描述
- */
 package cn.xm.jwxt.controller.graduateDesign.projectManage;
 
 import cn.xm.jwxt.service.graduateDesign.projectManage.ChooseGPStudentService;
@@ -26,14 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author xuexiaolei
- * @create 2018/4/20
- * @since 1.0.0
- */
 @Controller
-@RequestMapping("projectManage")
+@RequestMapping("chooseGPStudent")
 public class ChooseGPStudentController {
 
     //log4j日志打印
@@ -47,9 +31,9 @@ public class ChooseGPStudentController {
      * @param condition 组合条件
      * @return  查询到的数据
      */
-    @RequestMapping("/getProject_ACInfo")
+    @RequestMapping("/getProjectInfo")
     public @ResponseBody
-    PageInfo<Map<String,String>> getProject_ACInfo(@RequestParam Map<String,String> condition){
+    PageInfo<Map<String,String>> getProjectInfo(@RequestParam Map<String,String> condition){
         int pageSize = DefaultValue.PAGE_SIZE;
         if(ValidateCheck.isNotNull(condition.get("pageSize"))){//如果不为空的话改变当前页大小
             pageSize = Integer.valueOf(condition.get("pageSize"));
@@ -66,7 +50,7 @@ public class ChooseGPStudentController {
             projectInfo = chooseGPStudentService.getprojectInfoByCondition(condition);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("分页查询答辩秘书审核信息失败",e);
+            logger.error("分页查询信息失败",e);
         }
         PageInfo<Map<String,String>> pageInfo = new PageInfo<Map<String,String>>(projectInfo);
         return pageInfo;

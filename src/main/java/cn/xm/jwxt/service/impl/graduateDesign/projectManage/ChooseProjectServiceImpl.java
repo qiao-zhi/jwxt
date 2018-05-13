@@ -12,9 +12,12 @@ package cn.xm.jwxt.service.impl.graduateDesign.projectManage;
 
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.graduateDesign.*;
+import cn.xm.jwxt.mapper.graduateDesign.projectManage.ChooseProjectMapper;
 import cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper;
 import cn.xm.jwxt.service.graduateDesign.projectManage.ChooseProjectService;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
+import cn.xm.jwxt.utils.UUIDUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -24,53 +27,22 @@ import java.util.Map;
 @Service
 public class ChooseProjectServiceImpl implements ChooseProjectService {
 
+    @Autowired
     private Project_ACMapper project_ACMapper;
+    @Autowired
+    private ChooseProjectMapper chooseProjectMapper;
+
     @Override
     public List<Map<String, String>> getprojectInfoByCondition(Map<String, String> condition) throws SQLException{
-        return project_ACMapper.selectProject_ACInfo(condition);
+        return chooseProjectMapper.selectProjectInfo(condition);
     }
 
     @Override
-    public boolean addAuditFirstInfo(TeachertitleFirstcheckinfo firstCheckInfo) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public boolean addAuditSecondInfo(TeachertitleSecondcheckinfo secondCheckInfo) throws Exception {
-        return false;
-    }
-
-    @Override
-    public Boolean addProjectInfo(Teachergredesigntitle teachergredesigntitle) throws Exception {
-        return null;
-    }
-
-    @Override
-    public TTeacherBaseInfo getProjectTeacherInfo(String teacherID) throws Exception {
-        return null;
-    }
-
-    @Override
-    public Teachergredesigntitle initProjectInfo(String teacherTitleID) throws Exception {
-        return null;
-    }
-
-    @Override
-    public Boolean modifyProjectInfo(Teachergredesigntitle teachergredesigntitle) throws Exception {
-        return null;
-    }
-
-    @Override
-    public Boolean removeProjectInfo(String teacherTitleID) throws Exception {
-        return null;
-    }
-
-    @Override
-    public ChooseProjectDetailVo getProjectInfoDetail(String teacherTitleID) {
-        ChooseProjectDetailVo chooseProjectDetailVo = null;
+    public TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID) throws Exception{
+        TeachergredesigntitleDetailVo chooseProjectDetailVo = null;
 
         //获取申请课题信息
-        Teachergredesigntitle gredesigntitle = chooseProjectMapper.selectGreDesignTitleInfo(teacherTitleID);
+        Teachergredesigntitle gredesigntitle = project_ACMapper.selectGreDesignTitleInfo(teacherTitleID);
 
         chooseProjectDetailVo.setTitlename(gredesigntitle.getTitlename());//课题名称
         chooseProjectDetailVo.setProjecttype(gredesigntitle.getProjecttype());//课题类型
@@ -86,7 +58,75 @@ public class ChooseProjectServiceImpl implements ChooseProjectService {
     }
 
     @Override
-    public TeachertitleFirstcheckinfo getTeachertitleFirstcheckinfo(String teacherTitleID) {
-        return null;
+    public List<ChooseProjectVo> getChooseProjectInfo(String studentID) throws Exception{
+
+        //根据学生id，查询学生选题表，再从表中获取数据，查课题信息和教师信息
+        List<ChooseProjectVo> chooseProjectInfo = chooseProjectMapper.selectChooseProjectInfo(studentID);
+
+        return chooseProjectInfo;
+    }
+
+    @Override
+    public boolean saveChooseProject(String choose_titleIDstr)  throws Exception{
+        //获取用户信息
+        String studentID = "";
+
+        //判断是否提交,如果已提交，直接返回false
+        if(!findIsChoose()) {
+            return false;
+        }
+
+        //删除旧数据，原来选择的课题信息
+        chooseProjectMapper.deleteChooseProjectInfo(studentID);
+
+        //生成随机ID
+        String studentTitleID = UUIDUtil.getUUID2();
+
+        //用，拆分字符串
+        String[] choose_titleID = choose_titleIDstr.split(",");
+
+        Gradesignstudenttitleinfo gradesignstudenttitleinfo = new Gradesignstudenttitleinfo(
+                studentTitleID,studentID,choose_titleID[0],choose_titleID[1],"0","","0");
+
+        int res = chooseProjectMapper.insertChooseProject(gradesignstudenttitleinfo);
+
+        return res > 0 ? true : false;
+    }
+
+    @Override
+    public boolean submitChooseProject(String choose_titleIDstr)  throws Exception{
+        //获取用户信息
+        String studentID = "";
+
+        //判断是否提交,如果已提交，直接返回false
+        if(!findIsChoose()) {
+            return false;
+        }
+
+        //删除旧数据，原来选择的课题信息
+        chooseProjectMapper.deleteChooseProjectInfo(studentID);
+
+        //生成随机ID
+        String studentTitleID = UUIDUtil.getUUID2();
+
+        //用，拆分字符串
+        String[] choose_titleID = choose_titleIDstr.split(",");
+
+        Gradesignstudenttitleinfo gradesignstudenttitleinfo = new Gradesignstudenttitleinfo(
+                studentTitleID,studentID,choose_titleID[0],choose_titleID[1],"0","","1");
+
+        int res = chooseProjectMapper.insertChooseProject(gradesignstudenttitleinfo);
+
+        return res > 0 ? true : false;
+    }
+
+    @Override
+    public boolean findIsChoose() throws Exception {
+        //获取用户信息
+        String studentID = "";
+
+        String res = chooseProjectMapper.selectIsChoose(studentID);
+
+        return res.equals("0") ? true : false;
     }
 }

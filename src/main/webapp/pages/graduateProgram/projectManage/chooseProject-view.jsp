@@ -15,7 +15,6 @@
     <script type="text/javascript" src="${baseurl}/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${baseurl}/js/xadmin.js"></script>
     <script type="text/javascript" src="${baseurl}/js/graduateProgram/projectManage/chooseProject-view.js"></script>
-
 </head>
 
 <body>
@@ -27,7 +26,6 @@
         <tbody>
         </tbody>
     </table>
-
 </div>
 
 </body>

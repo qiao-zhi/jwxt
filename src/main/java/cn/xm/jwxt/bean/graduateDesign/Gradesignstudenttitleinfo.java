@@ -16,6 +16,29 @@ public class Gradesignstudenttitleinfo {
 
     private String remark;
 
+    private String isSubmit;
+
+    public Gradesignstudenttitleinfo() {
+    }
+
+    public Gradesignstudenttitleinfo(String studenttitleid, String studentid, String firstteachertitleid, String secteachertitleid, String ischecked, String remark, String isSubmit) {
+        this.studenttitleid = studenttitleid;
+        this.studentid = studentid;
+        this.firstteachertitleid = firstteachertitleid;
+        this.secteachertitleid = secteachertitleid;
+        this.ischecked = ischecked;
+        this.remark = remark;
+        this.isSubmit = isSubmit;
+    }
+
+    public String getIsSubmit() {
+        return isSubmit;
+    }
+
+    public void setIsSubmit(String isSubmit) {
+        this.isSubmit = isSubmit;
+    }
+
     public String getStudenttitleid() {
         return studenttitleid;
     }

@@ -13,6 +13,7 @@ package cn.xm.jwxt.service.impl.graduateDesign.studentGPM;
 import cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
 import cn.xm.jwxt.service.graduateDesign.studentGPM.StudentGPMService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ import java.util.Map;
 
 @Service
 public class StudentGPMServiceImpl implements StudentGPMService {
-
+    @Autowired
     private Project_ACMapper project_ACMapper;
     @Override
     public List<Map<String, String>> getprojectInfoByCondition(Map<String, String> condition) throws SQLException{

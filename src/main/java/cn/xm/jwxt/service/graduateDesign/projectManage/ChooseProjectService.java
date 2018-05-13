@@ -1,10 +1,7 @@
 package cn.xm.jwxt.service.graduateDesign.projectManage;
 
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
-import cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle;
-import cn.xm.jwxt.bean.graduateDesign.TeachergredesigntitleDetailVo;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo;
+import cn.xm.jwxt.bean.graduateDesign.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,72 +9,43 @@ import java.util.Map;
 
 public interface ChooseProjectService {
     /**
-     * 查询选择了课题的学生信息
-     * @param condition 课题名称、学年、
-     * @return
+     * 根据条件，查询课题信息
+     * @param condition 课题名称、教师名称
+     * @return 教师名称、课题id、课题名称、课题类型、课题来源、学生人数
      */
-    List<Map<String,String>> getprojectInfoByCondition(Map<String, String> condition) throws SQLException;
-
-    /**
-     * 添加教研室审核信息
-     * @param firstCheckInfo
-     * @return
-     */
-    public boolean addAuditFirstInfo(TeachertitleFirstcheckinfo firstCheckInfo) throws SQLException;
-
-    /**
-     * 添加院长审核信息
-     * @param secondCheckInfo
-     * @return
-     */
-    public boolean addAuditSecondInfo(TeachertitleSecondcheckinfo secondCheckInfo) throws Exception;
-
-    /**
-     * 添加课题申请信息
-     * @param teachergredesigntitle
-     * @return
-     */
-    public Boolean addProjectInfo(Teachergredesigntitle teachergredesigntitle) throws Exception;
-
-    /**
-     * 在添加课题前，要先获取教师信息，初始化申请表
-     * @param teacherID
-     * @return
-     */
-    public TTeacherBaseInfo getProjectTeacherInfo(String teacherID) throws Exception;
-
-    /**
-     * 修改申请表是，初始化页面
-     * @param teacherTitleID
-     * @return
-     */
-    public Teachergredesigntitle initProjectInfo(String teacherTitleID) throws Exception;
-
-    /**
-     * 修改申请表
-     * @param teachergredesigntitle
-     * @return
-     */
-    public Boolean modifyProjectInfo(Teachergredesigntitle teachergredesigntitle) throws Exception;
-
-    /**
-     * 删除课题信息
-     * @param teacherTitleID
-     * @return
-     */
-    public Boolean removeProjectInfo(String teacherTitleID) throws Exception;
+    List<Map<String,String>> getprojectInfoByCondition(Map<String, String> condition) throws Exception;
 
     /**
      * 获取课题申请详细信息
      * @param teacherTitleID
      * @return
      */
-    public TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID);
+    public TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID) throws Exception;
 
     /**
-     * 获取教研室审核信息
-     * @param teacherTitleID
+     * 初始化选择课题信息
+     * @param studentID
      * @return
      */
-    public TeachertitleFirstcheckinfo getTeachertitleFirstcheckinfo(String teacherTitleID);
+    public List<ChooseProjectVo> getChooseProjectInfo(String studentID) throws Exception;
+
+    /**
+     * 保存选择课题
+     * @param choose_titleIDstr
+     * @return
+     */
+    public boolean saveChooseProject(String choose_titleIDstr) throws Exception;
+
+    /**
+     * 提交选择课题
+     * @param choose_titleIDstr
+     * @return
+     */
+    public boolean submitChooseProject(String choose_titleIDstr) throws Exception;
+
+    /**
+     * 查询该学生是否提交
+     * @return
+     */
+    public boolean findIsChoose() throws Exception;
 }

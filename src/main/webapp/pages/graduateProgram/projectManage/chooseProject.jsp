@@ -66,22 +66,7 @@
             <th>操作</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>
-                <button class="layui-btn layui-btn-warm layui-btn-sm">选择</button>
-            </td>
-            <td>老王</td>
-            <td>课题名称</td>
-            <td>课题类型</td>
-            <td>课题类型</td>
-            <td>4</td>
-            <td class="td-manage">
-                <a title="详细信息" onclick="x_admin_show('详细信息','chooseProject-view.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-            </td>
-        </tr>
+        <tbody id="y_tbody">
         </tbody>
     </table>
     <!--end 表格内容-->
@@ -92,8 +77,8 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn">保存 </button>
-        <button class="layui-btn">提交 </button>
+        <button class="layui-btn" onclick="chooseProject_save()">保存 </button>
+        <button class="layui-btn" onclick="chooseProject_submit()">提交 </button>
         &nbsp;<span class="layui-badge-dot"></span><span> 请选择两项，作为毕设题目。</span>
     </xblock>
     <!--end 操作区域-->
@@ -111,39 +96,7 @@
             <th>操作</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>第一志愿</td>
-            <td>老王</td>
-            <td>课题名称</td>
-            <td>课题类型</td>
-            <td>成果形式</td>
-            <td>004</td>
-            <td class="td-manage">
-                <a title="详细信息" onclick="x_admin_show('详细信息','chooseProject-view.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>第二志愿</td>
-            <td>老王</td>
-            <td>课题名称</td>
-            <td>课题类型</td>
-            <td>004</td>
-            <td>成果形式</td>
-            <td class="td-manage">
-                <a title="详细信息" onclick="x_admin_show('详细信息','chooseProject-view.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
-        </tr>
+        <tbody id="choose_tbody">
         </tbody>
     </table>
     <!--end 表格内容-->

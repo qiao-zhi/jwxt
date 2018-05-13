@@ -8,6 +8,7 @@ $(function () {
         dataType: 'json',
         async: true,
         success: function (data) {
+            $("tbody").html("");
             var tbodyContent =
                 '<tr><td>课题名称</td><td colspan="5">'
                 + data.titlename + '</td></tr> ' +

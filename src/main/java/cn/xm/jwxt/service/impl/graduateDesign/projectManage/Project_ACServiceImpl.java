@@ -18,6 +18,7 @@ import cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo;
 import cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
 import cn.xm.jwxt.utils.UUIDUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,7 @@ import java.util.Map;
 @Transactional
 public class Project_ACServiceImpl implements Project_ACService {
 
+    @Autowired
     private Project_ACMapper project_ACMapper;
     @Override
 

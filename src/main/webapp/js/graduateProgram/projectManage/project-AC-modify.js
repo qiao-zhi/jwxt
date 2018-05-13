@@ -51,17 +51,6 @@ layui.use(['form','layer'], function () {
     });
 })
 /***********E              layui相关方法  *******************/
-/*
-function resultType() {
-    var num = 0;
-    $("input[name=resultType]").each(function() {
-        num ++;
-    });
-    if (num == 0 || num == "") {
-        return '必须选择成果形式'
-    }
-}
-*/
 
 /**********S 添加培养方案相关JS  *****************/
 

@@ -16,6 +16,10 @@
     ;
   </select>
 
+  <select id="selectGreDesignTitleInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
+    select * from teacherGreDesignTitle where teacherTitleID = #{teacherTitleID}
+  </select>
+
   <insert id="insertAuditFirstInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo" >
     insert into teacherTitleFirstCheckInfo (checkID, teatherTitleID, checkTime,
     checkPerson, checkResult, checkDesc)
@@ -120,18 +124,17 @@
   </update>
 
   <delete id="deleteProjectInfo" parameterType="java.lang.String" >
-    delete from teacherGreDesignTitle
+    delete from teacherGreDesignTitle where
     teacherTitleID=#{teacherTitleID}
   </delete>
 
   <delete id="deleteAuditFisrtInfo" parameterType="java.lang.String" >
-    delete from teacherTitleFirstCheckInfo
+    delete from teacherTitleFirstCheckInfo where
     teacherTitleID=#{teacherTitleID}
   </delete>
 
   <delete id="selectAuditFisrtInfo" parameterType="java.lang.String">
-    delete from teacherTitleSecondCheckInfo
-    teacherTitleID=#{teacherTitleID}
+    delete from teacherTitleSecondCheckInfo where teacherTitleID=#{teacherTitleID}
   </delete>
 
   <select id="selectAuditFisrtInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo">
