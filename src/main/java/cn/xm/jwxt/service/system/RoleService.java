@@ -30,6 +30,14 @@ public interface RoleService {
     public List<Map<String,Object>> getRolesByCondition(Map condition)throws SQLException;
 
     /**
+     * 查询所有启用的和未删除的角色
+     * @return
+     * @throws SQLException
+     */
+    public List<Role> getAllRolesIsUse()throws SQLException;
+
+
+    /**
      * 根据角色编号查询角色权限信息
      * @param roleId
      * @return

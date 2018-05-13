@@ -1,6 +1,7 @@
 package cn.xm.jwxt.service.impl.system;
 
 import cn.xm.jwxt.bean.system.Role;
+import cn.xm.jwxt.bean.system.RoleExample;
 import cn.xm.jwxt.bean.system.Rolepermission;
 import cn.xm.jwxt.bean.system.RolepermissionExample;
 import cn.xm.jwxt.mapper.system.RoleMapper;
@@ -49,6 +50,15 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Map<String, Object>> getRolesByCondition(Map condition) throws SQLException {
         return roleCustomMapper.getRolesByCondition(condition);
+    }
+
+    @Override
+    public List<Role> getAllRolesIsUse() throws SQLException {
+        RoleExample example = new RoleExample();
+        RoleExample.Criteria criteria = example.createCriteria();
+        criteria.andIsuseEqualTo(DefaultValue.IS_USE);//正在使用的(未删除的)
+        criteria.andRolestatusEqualTo("1");//启用的
+        return roleMapper.selectByExample(example);
     }
 
     @Override

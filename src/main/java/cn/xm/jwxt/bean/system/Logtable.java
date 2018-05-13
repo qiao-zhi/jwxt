@@ -19,7 +19,7 @@ public class Logtable {
 
     private String operatemethod;//操作的方法
 
-    private String remark;//备注
+    private String remark;//备注(可以用于保存访问的IP地址)
 
     public Integer getLogid() {
         return logid;
