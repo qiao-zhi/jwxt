@@ -138,6 +138,18 @@ public class TextbookRepositoryController {
         }
         return result;
     }
+
+    @RequestMapping("/deleteTextbook")
+    public @ResponseBody String deleteTextbook(String textbookId) {
+        String result = null;
+        try {
+            result = textbookRepositoryService.deleteTextbook(textbookId)?"删除成功":"删除失败";
+        } catch (SQLException e) {
+            result = "删除失败";
+            logger.error("删除教材信息失败", e);
+        }
+        return result;
+    }
     }
 
 

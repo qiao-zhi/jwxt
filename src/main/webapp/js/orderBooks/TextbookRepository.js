@@ -1,12 +1,9 @@
 /**
- * 页面加载完
+ * 页面加载完执行的函数，最好写在对应的jsp里面
  */
-$(function () {
-    findAllCourse();
-    findTextbookFY();
-    initUpdateForm();
-    updateTextbookBaseInfo();
-});
+// $(function () {
+//
+// });
 
 /*****************S   增加教材相关操作*****************/
 
@@ -67,15 +64,19 @@ function checkoutTextbookNum(){
 }
 
 //查找所有课程定义到课程名称下拉列表
-function findAllCourse() {
+function findAllCourse(courseId) {
     $.post(
         contextPath+"/TextbookRepository/findAllCourse.do",
         {},
     function (response) {
         // alert(response)
         for (var i=0;i<response.length;i++){
-            $("#allCourse").append('<option value="'+response[i].courseId
-                +'">'+response[i].courseNameCN+'</option>')
+            if(courseId!=null&&courseId==response[i].courseId)
+                $("#allCourse").append('<option value="' + response[i].courseId+'" selected >'
+                     + response[i].courseNameCN + '</option>')
+            else
+                $("#allCourse").append('<option value="' + response[i].courseId
+                    + '">' + response[i].courseNameCN + '</option>')
         }
         //layui渲染
         layui.use('form',function () {
@@ -120,7 +121,7 @@ function showTextbookInfo(pageInfo) {
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr = '<tr>'
             + '<td>' + index
-            +"<input type='hidden' name='hiddden_TextbookId' value='"+textbooks[i].textbookID+"'>"//隐藏主键到序号中
+            +"<input type='hidden' name='textbookid' value='"+textbooks[i].textbookID+"'>"//隐藏主键到序号中
             + '</td>'
             + '<td>' + textbooks[i].textbookNUM + '</td>'
             + '<td>' + textbooks[i].textbookName + '</td>'
@@ -131,7 +132,7 @@ function showTextbookInfo(pageInfo) {
             + '<td>' + textbooks[i].courseNameCN + '</td>'
             + '<td>'
             + '<a href=javascript:void(0) title="点击修改教材基本信息" onclick="openUpdateLayer(this)"><i class="layui-icon">&#xe642;</i></a>'
-            + '<a href=javascript:void(0) title="点击删除教材" onclick="deleteCourseByCourseId(this)"><i class="layui-icon">&#xe640;</i></a>'
+            + '<a href=javascript:void(0) title="点击删除教材" onclick="deleteTextbookByTextbookId(this)"><i class="layui-icon">&#xe640;</i></a>'
             + '</td></tr>'
         $("#textbookTbody").append(tr);
     }
@@ -197,7 +198,7 @@ function showTextbookInfo(pageInfo) {
 //根据教材编号查看课程基本信息
 function findTextbookBaseInfo(textbookId){
     $.post(contextPath+'/TextbookRepository/findTextbookByTextbookId.do',{"textbookId":textbookId},function (textbookInfoBack) {
-        $("[name='coursename'] option[value='"+textbookInfoBack.textbookid+"']").attr("selected","true");
+        // $("[name='coursename'] option[value='"+textbookInfoBack.courseid+"']").attr("selected","true");//写死的下拉列表才使用这个，动态查询的下拉列表使用见75行selected
         $("[name='textbooknum']").val(textbookInfoBack.textbooknum);
         $("[name='textbookname']").val(textbookInfoBack.textbookname);
         $("[name='publishinghouse']").val(textbookInfoBack.publishinghouse);
@@ -211,7 +212,11 @@ function findTextbookBaseInfo(textbookId){
             form.render(); //刷新select选择框渲染
         });
 
-    },'json')
+        //初始化修改课程名称
+        findAllCourse(textbookInfoBack.courseid);
+
+
+        },'json')
 }
 
 
@@ -221,7 +226,7 @@ function findTextbookBaseInfo(textbookId){
  */
 function openUpdateLayer(obj) {
     var tr_s = $(obj).parents("tr");//obj是当前对象，$(obj).parents("tr")是当前行
-    var copyTextbookID = tr_s.children("td").eq(0).children("input").val();//定位到表格中的教材编号
+    var copyTextbookID = tr_s.children("td").eq(0).children("input").val();//定位到表格中的教材ID
     //alert(copyTextbookID)
     textbook_tab_show('修改教材基本信息','./textbookInfo-edit.jsp?textbookId='+copyTextbookID);//打开修改教材基本信息层
 }
@@ -245,6 +250,7 @@ function initUpdateForm(){
 
         //监听提交
         form.on('submit(updateTextbook)', function (data) {
+
             //第一种($.ajax提交)
             $.ajax({
                 url: contextPath+"/TextbookRepository/updateTextbook.do",
@@ -254,7 +260,7 @@ function initUpdateForm(){
                 dataType:'text',
                 success:function (response) {
                     alert(response)
-                    window.parent.location.reload();//刷新父窗口
+                    window.parent.location.reload();//刷新父窗口，重新查询了一次
                     var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                     parent.layer.close(index); //再执行关闭
                 },
@@ -306,3 +312,56 @@ function textbook_tab_show(title,url,w,h){
 
 
 /*****************E   修改教材相关操作*****************/
+
+
+/*****************S   删除教材相关操作*****************/
+
+
+/**
+* 根据教材ID删除教材信息
+* @param obj
+*/
+function deleteTextbookByTextbookId(obj){
+    var tr = $(obj).parents("tr");//obj是当前对象，$(obj).parents("tr")是当前行
+    var copyTextbookID = tr.children("td").eq(0).children("input").val();//定位到表格中的教材ID
+
+    /*    layer.open({
+            title: '确认删除教材信息',
+            content: '确定要删除教材信息?删除后不可以恢复!',
+            btn: ['确定', '取消'],
+            yes: function(index, layero){//确定按钮的事件
+                //post请求删除
+                $.post(contextPath+"//TextbookRepository/deleteTextbook.do",{"textbookid":copyTextbookID},function(response) {
+                    //如果你想关闭最新弹出的层，直接获取layer.index即可
+                },'json')
+                layer.close(layer.index);
+                layer.msg("删除成功!",{time:1.5*1000},function () {
+                    queryCourseFY();//消息框淡出之后重新加载
+                });
+            }
+        });   */
+
+    layer.open({
+        title: '确认删除教材信息',
+        content: '确定要删除教材信息?删除后不可以恢复!',
+        btn: ['确定', '取消'],
+        yes: function(index, layero){//确定按钮的事件
+            //post请求删除
+            $.ajax({
+                url:contextPath+"/TextbookRepository/deleteTextbook.do",
+                type:'POST',
+                async:true,
+                data:{"textbookId":copyTextbookID},//textbookId是Controller对应函数的形参，copyTextbookID是对应值
+                success:function(response) {
+                    //如果你想关闭最新弹出的层，直接获取layer.index即可
+                    layer.close(layer.index);
+                },
+                dataType:'json'
+            });
+            layer.msg("删除成功!",{time:1.5*1000},function () {
+                findTextbookFY();//消息框淡出之后重新加载
+            });
+        }
+    });
+}
+/*****************E   删除教材相关操作*****************/

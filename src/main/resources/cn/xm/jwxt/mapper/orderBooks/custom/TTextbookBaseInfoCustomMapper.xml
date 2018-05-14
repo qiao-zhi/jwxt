@@ -13,6 +13,10 @@
             <if test="courseName!=null and courseName!=''">
                 and courseNameCN like '%${courseName}%'
             </if>
+            <!--查询正在使用的课程信息-->
+            <if test="1==1">
+            and remark='1'
+            </if>
         </where>
     </select>
 
