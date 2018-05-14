@@ -57,10 +57,10 @@ public interface TextbookRepositoryService {
     public boolean updateTextbook(TTextbookBaseInfo textbook)throws SQLException;
 
     /**
-     * 根据教材ID删除
-     * @param textbookid
+     * 根据教材ID删除,将remark置为0，并不删除数据库
+     * @param textbookId
      * @return
      * @throws SQLException
      */
-    public boolean deleteTextbook(String textbookid)throws SQLException;
+    public boolean deleteTextbook(String textbookId)throws SQLException;
 }

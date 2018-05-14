@@ -22,6 +22,12 @@
     <!--引入的教材库管理的JS-->
     <script type="text/javascript" src="../../js/orderBooks/TextbookRepository.js" charset="utf-8"></script>
 
+    <script>
+        //页面加载完成执行一些操作
+        $(function () {
+            findTextbookFY();
+        })
+    </script>
 
 </head>
 <body>

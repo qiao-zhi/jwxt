@@ -23,7 +23,7 @@
     <script type="text/javascript" src="${baseurl}/js/orderBooks/TextbookRepository.js"></script>
 
     <%
-        String textbookId=request.getParameter("textbookId");
+        String textbookId=request.getParameter("textbookId");//TextbookRepository.js文件231行中的自定义变量textbookId，值为copyTextbookID
     %>
     <% if (textbookId != null) { %>
     <script type="text/javascript" charset="utf-8">
@@ -31,19 +31,30 @@
     </script>
     <% }%>
 
+    <script>
+        //页面加载完成执行一些操作
+        $(function () {
+            updateTextbookBaseInfo();//修改基本信息相关操作
+            initUpdateForm();//初始化layui的修改的提交表单
+        })
+    </script>
 
 </head>
 
 <body>
 <div class="x-body">
     <form class="layui-form">
+
+        <%--隐藏教材主键--%>
+        <input type="hidden" name="textbookid" value="<%=textbookId %>"><!--将隐藏的主键传给实体类-->
+
         <!--1-->
          <div class="layui-form-item">
             <label for="" class="layui-form-label">
                 课程名称
             </label>
             <div class="layui-input-inline">
-                <select name="coursename" id="allCourse" lay-filter="course" >
+                <select name="courseid" id="allCourse" lay-filter="course" >
                     <%--<option value="1">计算机网络</option>--%>
                     <%--<option value="2">软件工程</option>--%>
                     <%--<option value="3">数据库原理</option>--%>
@@ -59,7 +70,8 @@
                 教材编号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="textbooknum" required="" lay-verify="required"
+                <!--readonly只读-->
+                <input type="text" id="" name="textbooknum"  readonly required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -167,18 +179,18 @@
             }
         });
 
-        //监听提交
-        form.on('submit(add)', function (data) {
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6}, function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-        });
+//        //监听提交
+//        form.on('submit(add)', function (data) {
+//            console.log(data);
+//            //发异步，把数据提交给php
+//            layer.alert("增加成功", {icon: 6}, function () {
+//                // 获得frame索引
+//                var index = parent.layer.getFrameIndex(window.name);
+//                //关闭当前frame
+//                parent.layer.close(index);
+//            });
+//            return false;
+//        });
 
 
     });
