@@ -27,6 +27,38 @@
         </where>
     </select>
 
+    <!--2.用户登录查看用户的所有的权限信息-->
+    <select id="selectPermissionsByUserId" parameterType="string" resultType="cn.xm.jwxt.bean.system.Permission">
+        SELECT *
+        FROM permission
+        WHERE permissionid IN(SELECT
+                                permissionid
+                              FROM rolepermission
+                              WHERE roleid IN(SELECT
+                                                roleid
+                                              FROM user_role
+                                              WHERE userid = #{userId}))
+    </select>
+
+
+    <!--3.组合条件查询该用户所有的权限信息-->
+    <select id="getUserPermissionsByCondition" parameterType="map" resultType="cn.xm.jwxt.bean.system.Permission">
+        SELECT distinct *
+        FROM permission
+        WHERE permissionid IN(SELECT
+                                permissionid
+                              FROM rolepermission
+                              WHERE roleid IN(SELECT
+                                                roleid
+                                              FROM user_role
+                                              WHERE userid = #{userId}))
+        <!--如果是查询所有的菜单-->
+        <if test="menu != null and menu !=''">
+            AND permissionType LIKE 'menu%'  AND permissionType > 'menu0'
+        </if>
+        <!--按菜单顺序升序查询-->
+        ORDER by sortNum
+    </select>
 
 
 </mapper>

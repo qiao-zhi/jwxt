@@ -11,6 +11,8 @@
     <result column="operateResult" property="operateresult" jdbcType="VARCHAR" />
     <result column="operateClass" property="operateclass" jdbcType="VARCHAR" />
     <result column="operateMethod" property="operatemethod" jdbcType="VARCHAR" />
+    <result column="operateDate" property="operatedate" jdbcType="TIMESTAMP" />
+    <result column="operateIP" property="operateip" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -73,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List" >
     logid, operatorName, operatorId, operatorType, operatorUnitName, operateDescription, 
-    operateResult, operateClass, operateMethod, remark
+    operateResult, operateClass, operateMethod, operateDate, operateIP, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.system.LogtableExample" >
     select
@@ -109,11 +111,13 @@
     insert into logtable (logid, operatorName, operatorId, 
       operatorType, operatorUnitName, operateDescription, 
       operateResult, operateClass, operateMethod, 
-      remark)
+      operateDate, operateIP, remark
+      )
     values (#{logid,jdbcType=INTEGER}, #{operatorname,jdbcType=VARCHAR}, #{operatorid,jdbcType=VARCHAR}, 
       #{operatortype,jdbcType=VARCHAR}, #{operatorunitname,jdbcType=VARCHAR}, #{operatedescription,jdbcType=VARCHAR}, 
       #{operateresult,jdbcType=VARCHAR}, #{operateclass,jdbcType=VARCHAR}, #{operatemethod,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+      #{operatedate,jdbcType=TIMESTAMP}, #{operateip,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.system.Logtable" >
     insert into logtable
@@ -144,6 +148,12 @@
       </if>
       <if test="operatemethod != null" >
         operateMethod,
+      </if>
+      <if test="operatedate != null" >
+        operateDate,
+      </if>
+      <if test="operateip != null" >
+        operateIP,
       </if>
       <if test="remark != null" >
         remark,
@@ -176,6 +186,12 @@
       </if>
       <if test="operatemethod != null" >
         #{operatemethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operatedate != null" >
+        #{operatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateip != null" >
+        #{operateip,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -218,6 +234,12 @@
       <if test="record.operatemethod != null" >
         operateMethod = #{record.operatemethod,jdbcType=VARCHAR},
       </if>
+      <if test="record.operatedate != null" >
+        operateDate = #{record.operatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operateip != null" >
+        operateIP = #{record.operateip,jdbcType=VARCHAR},
+      </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -237,6 +259,8 @@
       operateResult = #{record.operateresult,jdbcType=VARCHAR},
       operateClass = #{record.operateclass,jdbcType=VARCHAR},
       operateMethod = #{record.operatemethod,jdbcType=VARCHAR},
+      operateDate = #{record.operatedate,jdbcType=TIMESTAMP},
+      operateIP = #{record.operateip,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -269,6 +293,12 @@
       <if test="operatemethod != null" >
         operateMethod = #{operatemethod,jdbcType=VARCHAR},
       </if>
+      <if test="operatedate != null" >
+        operateDate = #{operatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateip != null" >
+        operateIP = #{operateip,jdbcType=VARCHAR},
+      </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -285,6 +315,8 @@
       operateResult = #{operateresult,jdbcType=VARCHAR},
       operateClass = #{operateclass,jdbcType=VARCHAR},
       operateMethod = #{operatemethod,jdbcType=VARCHAR},
+      operateDate = #{operatedate,jdbcType=TIMESTAMP},
+      operateIP = #{operateip,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where logid = #{logid,jdbcType=INTEGER}
   </update>

@@ -57,8 +57,7 @@
         <constructor-arg ref="redisCacheManager"/>
     </bean>
 
-    <!---->
-    <bean id="keyGenerator" class="cn.xm.jwxt.utils.KeyGenerator"></bean>
+    <bean id="keyGenerator" class="cn.xm.jwxt.utils.KeyGenerator"/>
 
 	<!-- 下面这个是整合Mybatis的二级缓存使用的 -->
 <!--	<bean id="redisCacheTransfer" class="cn.qlq.jedis.RedisCacheTransfer">

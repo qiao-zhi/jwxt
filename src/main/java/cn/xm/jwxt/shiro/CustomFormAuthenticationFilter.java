@@ -14,28 +14,28 @@ import javax.servlet.http.HttpSession;
  * @Date: 22:04 2018/5/6
  */
 public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
+
+    private String usersort;//用户类型
+
     //原FormAuthenticationFilter的认证方法
     @Override
     protected boolean onAccessDenied(ServletRequest request,
                                      ServletResponse response) throws Exception {
-        //在这里进行验证码的校验
-
-        //从session获取正确验证码
+        //在这里进行用户身份的校验(验证身份是0和1否)
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        HttpSession session =httpServletRequest.getSession();
-        //取出session的验证码（正确的验证码）
-        String validateCode = (String) session.getAttribute("validateCode");
 
-        //取出页面的验证码
-        //输入的验证和session中的验证进行对比
-        String randomcode = httpServletRequest.getParameter("randomcode");
-        if(randomcode!=null && validateCode!=null && !randomcode.equals(validateCode)){
-            //如果校验失败，将验证码错误失败信息，通过shiroLoginFailure设置到request中
-            httpServletRequest.setAttribute("shiroLoginFailure", "randomCodeError");
-            //拒绝访问，不再校验账号和密码
-            return true;
+        String usersort = httpServletRequest.getParameter("usersort");
+        if(usersort != null &&usersort != "0" && usersort != "1"){
+            httpServletRequest.setAttribute("shiroLoginFailure", "userSortError");//设置一个错误消息(身份错误)
         }
         return super.onAccessDenied(request, response);
     }
 
+    public String getUsersort() {
+        return usersort;
+    }
+
+    public void setUsersort(String usersort) {
+        this.usersort = usersort;
+    }
 }

@@ -1,5 +1,6 @@
 package cn.xm.jwxt.controller.trainScheme;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo;
 import cn.xm.jwxt.service.trainScheme.CourseBaseInfoService;
 import cn.xm.jwxt.utils.DefaultValue;
@@ -54,6 +55,7 @@ public class CourseBaseInfoController {
      * @param tCourseBaseInfo
      * @return
      */
+    @MyLogAnnotation(operateDescription = "添加了一条课程信息")
     @RequestMapping("/addCourse")
     public @ResponseBody
     String addCourseBaseInfo(TCourseBaseInfo tCourseBaseInfo){
@@ -115,6 +117,8 @@ public class CourseBaseInfoController {
         return courseBaseInfo;
     }
 
+
+    @MyLogAnnotation(operateDescription = "修改了一条课程信息")
     @RequestMapping("/updateCourseBaseInfo")
     public @ResponseBody String updateCourse(TCourseBaseInfo courseBaseInfo){
         String result = null;
@@ -127,6 +131,7 @@ public class CourseBaseInfoController {
         return result;
     }
 
+    @MyLogAnnotation(operateDescription = "删除了一条课程信息")
     @RequestMapping("/deleteCourseById")
     public @ResponseBody String deleteCourseById(String courseid){
         String result = null;

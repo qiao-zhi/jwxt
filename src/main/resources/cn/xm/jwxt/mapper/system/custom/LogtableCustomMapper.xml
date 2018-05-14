@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.system.custom.LogtableCustomMapper" >
+
+    <select id="getLogtableFY" resultType="cn.xm.jwxt.bean.system.Logtable" parameterType="map">
+        select * from logtable 
+        <where>
+            <if test="operatorName !=null and operatorName !=''">
+                and operatorName like '%${operatorName}%'
+            </if>
+            <if test="operatorId !=null and operatorId !=''">
+                and operatorId like '%${operatorId}%'
+            </if>
+            <if test="operatorType !=null and operatorType !=''">
+                and operatorType = #{operatorType}
+            </if>
+            <if test="operatorUnitName !=null and operatorUnitName !=''">
+                and operatorUnitName like '%${operatorUnitName}%'
+            </if>
+            <if test="operateDate !=null and operateDate !=''">
+                and DATE_FORMAT(operateDate,'%Y-%m-%d') = #{operateDate}
+            </if>
+            <if test="operateResult !=null and operateResult !=''">
+                and operateResult = #{operateResult}
+            </if>
+            <if test="operateDescription !=null and operateDescription !=''">
+                and operateDescription like '%${operateDescription}%'
+            </if>
+        </where>
+    </select>
+    
+
+</mapper>

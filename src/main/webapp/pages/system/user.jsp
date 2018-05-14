@@ -188,7 +188,7 @@
             <div class="layui-input-inline">
                 <select name="usersort">
                     <option value="学生">学生</option>
-                    <option value="老师">教师</option>
+                    <option value="教师">教师</option>
                 </select>
             </div>
             <div class="layui-form-mid layui-word-aux">

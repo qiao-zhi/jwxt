@@ -1,5 +1,6 @@
 package cn.xm.jwxt.service.impl.trainScheme;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.bean.trainScheme.Coursecapacityrequireinfo;
 import cn.xm.jwxt.bean.trainScheme.CoursecapacityrequireinfoExample;
 import cn.xm.jwxt.mapper.trainScheme.CoursecapacityrequireinfoMapper;
@@ -26,6 +27,7 @@ public class CourseCapacityRequireInfoServiceImpl implements CourseCapacityRequi
     private CoursecapacityrequireinfoCustomMapper coursecapacityrequireinfoCustomMapper;
     @Autowired
     private CoursecapacityrequireinfoMapper coursecapacityrequireinfoMapper;
+    @MyLogAnnotation(operateDescription = "批量添加课程能力")
     @Override
     public boolean addCoursecapacityrequireinfoBatch(List<Coursecapacityrequireinfo> coursecapacityrequireinfos,List<Integer> trainCourseIds) throws SQLException {
         //1.根据培养方案课程编号删除培养方案能力

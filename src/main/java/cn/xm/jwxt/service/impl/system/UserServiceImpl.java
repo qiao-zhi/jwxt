@@ -1,9 +1,7 @@
 package cn.xm.jwxt.service.impl.system;
 
-import cn.xm.jwxt.bean.system.User;
-import cn.xm.jwxt.bean.system.UserExample;
-import cn.xm.jwxt.bean.system.UserRole;
-import cn.xm.jwxt.bean.system.UserRoleExample;
+import cn.xm.jwxt.annotation.MyLogAnnotation;
+import cn.xm.jwxt.bean.system.*;
 import cn.xm.jwxt.mapper.system.UserMapper;
 import cn.xm.jwxt.mapper.system.UserRoleMapper;
 import cn.xm.jwxt.mapper.system.custom.UserCustomMapper;
@@ -19,8 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: qlq
@@ -76,6 +73,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUserCode(String userCode) throws SQLException {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsercodeEqualTo(userCode);
+        List<User> users = userMapper.selectByExample(userExample);
+        if(users == null || users.size() == 0){
+            return null;
+        }
+        return users.get(0);
+    }
+
+    @Override
     public boolean deleteUserBatch(String[] ids) throws SQLException {
         UserRoleExample example_1 = null;
         UserRoleExample.Criteria criteria_1 = null;
@@ -112,6 +121,90 @@ public class UserServiceImpl implements UserService {
 
         }
         return true;
+    }
+
+    @Override
+    public List<Permission> selectPermissionsByUserId(String userId) throws SQLException {
+        return userCustomMapper.selectPermissionsByUserId(userId);
+    }
+
+    @Override
+    public List<Permission> getUserPermissionsByCondition(Map condition) throws SQLException {
+        return userCustomMapper.getUserPermissionsByCondition(condition);
+    }
+
+    @Override
+    public Map<String, Object> getUserLoginInfo(String usercode, String password, String usersort) throws SQLException {
+        Map<String,Object> result= new HashMap<String,Object>();
+        String loginInfo = null;//登录信息
+        List<Permission> permissions = null;//所有权限
+        Set<String> permissionCodes = null;//所有权限码
+        //1.进行登录(分别根据usercode，password，usersort进行判断)
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsercodeEqualTo(usercode);
+        List<User> users = userMapper.selectByExample(userExample);
+        //1.1判断账户
+        if(users == null || users.size()==0){
+            loginInfo = "账户不存在!";
+            result.put("loginInfo",loginInfo);
+            return result;
+        }
+        User user = users.get(0);
+        //1.2判断密码
+        String password_sql = user.getPassword();
+        if(password_sql == null || !password_sql.equals(password)){
+            loginInfo = "密码错误!";
+            result.put("loginInfo",loginInfo);
+            return result;
+        }
+        //1.3 判断类型
+        String usersort_sql = user.getUsersort();
+        if(usersort_sql == null || !usersort_sql.equals(usersort)){
+            loginInfo = "账户类型错误!";
+            result.put("loginInfo",loginInfo);
+            return result;
+        }
+        //1.4判断账户状态
+        String userStatus_sql = user.getIsuse();
+        if(userStatus_sql == null || userStatus_sql.equals("0")){
+            loginInfo = "账户已锁定，请联系管理员开启账户!";
+            result.put("loginInfo",loginInfo);
+            return result;
+        }
+        //2.查询该用户的所有的权限List<Permission> permissions
+        permissions = this.selectPermissionsByUserId(user.getUserid());
+        if(permissions == null || permissions.size() == 0){
+            loginInfo = "该账户还没有任何权限，请联系管理员分配权限!";
+            result.put("loginInfo",loginInfo);
+            return result;
+        }
+        //3.提取该用户的所有的权限码Set<String> permissionCodes
+        permissionCodes = new HashSet<>();
+        for(Permission permission:permissions){
+            if(ValidateCheck.isNotNull(permission.getPermissioncode())){
+                permissionCodes.add(permission.getPermissioncode());
+            }
+        }
+        //4.提取该用户所有的菜单:
+        Map condition = new HashMap();
+        condition.put("userId",user.getUserid());
+        condition.put("menu","1");
+        List<Permission> menus = this.getUserPermissionsByCondition(condition);
+        //5.将登录信息设为登录成功
+        loginInfo = "登录成功";
+        result.put("loginInfo",loginInfo);
+        user.setPermissions(permissions);//所有权限
+        user.setPermissionCodes(permissionCodes);//所有权限码
+        user.setMenuPermissions(menus);//所有菜单权限
+        result.put("user",user);
+        return result;
+    }
+
+    @MyLogAnnotation(operateDescription = "成功登录系统")
+    @Override
+    public void logSuccess(){
+
     }
 
 }

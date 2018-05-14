@@ -3,19 +3,21 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd ">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd ">
 
-
-    <!-- 0.开启aop，对类代理 -->
-    <aop:config proxy-target-class="true"></aop:config>
-    <!-- 开启shiro注解支持 -->
+    <!--1.扫描controller注解(只是扫描@Controller)-->
+    <context:component-scan base-package="cn.xm.jwxt.controller" />
+    <!-- 2.开启aop，对类代理强制使用cglib代理 -->
+    <aop:config proxy-target-class="true"/>
+    <!-- 3开启注解AOP (前提是引入aop命名空间和相关jar包) 暴露代理类-->
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
 
 
     <!-- 处理器映射器 -->
     <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
     <!-- 处理器适配器 -->
     <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
-    <!-- 1.注解驱动，代替上面两个,配置JSON转换器与防止中文乱码 -->
+    <!-- 4.注解驱动，代替上面两个,配置JSON转换器与防止中文乱码 -->
     <mvc:annotation-driven conversion-service="conversionServiceFactoryBean" >
         <mvc:message-converters>
             <!--把ByteArray加在Json前面-->
@@ -33,13 +35,8 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!-- 2.扫描@Controler @Service -->
-    <context:component-scan base-package="cn.xm.jwxt.controller" />
-    <context:component-scan base-package="cn.xm.jwxt.service" />
-    <context:component-scan base-package="cn.xm.jwxt.utils" />
 
-
-    <!-- 3.视图解释器 -->
+    <!-- 5.视图解释器 -->
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/" />
@@ -48,7 +45,7 @@
 
 
 
-    <!-- 4.配置Conveter转换器 转换工厂 （日期、去掉前后空格）。。 -->
+    <!-- 6.配置Conveter转换器 转换工厂 （日期、去掉前后空格）。。 -->
     <bean id="conversionServiceFactoryBean"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <!-- 配置 多个转换器 -->
@@ -63,9 +60,7 @@
     </bean>
 
 
-
-
-    <!--文件上传配置-->
+    <!--7.文件上传配置-->
     <!-- 注意：CommonsMultipartResolver的id是固定不变的，一定是multipartResolver，不可修改 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- 如果上传后出现文件名中文乱码可以使用该属性解决 -->
@@ -75,7 +70,6 @@
         <!-- 跟maxUploadSize差不多，不过maxUploadSizePerFile是限制每个上传文件的大小，而maxUploadSize是限制总的上传文件大小 -->
         <property name="maxUploadSizePerFile" value="104857600"/>
     </bean>
-
 
 
 </beans>

@@ -1,5 +1,6 @@
 package cn.xm.jwxt.controller.system;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.bean.system.User;
 import cn.xm.jwxt.service.system.UserService;
 import cn.xm.jwxt.utils.DefaultValue;
@@ -49,6 +50,7 @@ public class UserController {
      * @param user ()
      * @return
      */
+    @MyLogAnnotation(operateDescription = "增加了一个用户")
     @RequestMapping("/addUser")
     public String addUser(User user) {
         String result = null;
@@ -68,6 +70,7 @@ public class UserController {
      * @param user ()
      * @return
      */
+    @MyLogAnnotation(operateDescription = "修改了用户信息")
     @RequestMapping("/updateUser")
     public String updateUser(User user) {
         String result = null;
@@ -132,6 +135,7 @@ public class UserController {
      * @param userIds 用户ID集合数组
      * @return
      */
+    @MyLogAnnotation(operateDescription = "批量删除信息")
     @RequestMapping("/deleteUserBatch")
     public String deleteUserBatch(@RequestParam(defaultValue = "1") String userIds){
         String[] ids = userIds.split(",");

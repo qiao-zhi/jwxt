@@ -1,5 +1,6 @@
 package cn.xm.jwxt.controller.trainScheme;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.utils.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
