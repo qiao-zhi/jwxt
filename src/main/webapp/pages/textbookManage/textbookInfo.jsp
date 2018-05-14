@@ -115,7 +115,7 @@
                 <%--<!--<a title="点击查看教材详细信息" onclick="x_admin_show('详细信息','textbookInfo-view.html')" href="javascript:;">--%>
                     <%--<i class="layui-icon">&#xe63c;</i>--%>
                 <%--</a>-->--%>
-                <%--<a title="点击修改教材信息"  onclick="x_admin_show('修改','textbookInfo-edit.html')" href="javascript:;">--%>
+                <%--<a title="点击修改教材信息"  onclick="x_admin_show('修改','textbookInfo-edit.jsp')" href="javascript:;">--%>
                     <%--<i class="layui-icon">&#xe642;</i>--%>
                 <%--</a>--%>
                 <%--<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">--%>

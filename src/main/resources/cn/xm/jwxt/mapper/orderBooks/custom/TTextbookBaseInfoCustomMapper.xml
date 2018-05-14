@@ -4,13 +4,14 @@
 
     <!--组合条件分页查询教材信息-->
     <select id="findTextbook" resultType="map" parameterType="map">
-        SELECT * from t_textbook_base_info
+        SELECT * from t_textbook_base_info a,t_course_base_info b
         <where>
+            a.courseID=b.courseId
             <if test="textbookName!=null and textbookName!=''">
                 and textbookName <!--数据库中的字段名称-->like '%${textbookName}%'
             </if>
             <if test="courseName!=null and courseName!=''">
-                and courseID <!--数据库中的字段名称-->like '%${courseName}%'
+                and courseNameCN like '%${courseName}%'
             </if>
         </where>
     </select>

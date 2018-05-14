@@ -4,6 +4,8 @@
 $(function () {
     findAllCourse();
     findTextbookFY();
+    initUpdateForm();
+    updateTextbookBaseInfo();
 });
 
 /*****************S   增加教材相关操作*****************/
@@ -64,7 +66,7 @@ function checkoutTextbookNum(){
     return result;
 }
 
-//查找所有教材定义到课程名称下拉列表
+//查找所有课程定义到课程名称下拉列表
 function findAllCourse() {
     $.post(
         contextPath+"/TextbookRepository/findAllCourse.do",
@@ -117,14 +119,16 @@ function showTextbookInfo(pageInfo) {
     for (var i = 0, length = textbooks.length; i < length; i++) {
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr = '<tr>'
-            + '<td>' + index + '</td>'
+            + '<td>' + index
+            +"<input type='hidden' name='hiddden_TextbookId' value='"+textbooks[i].textbookID+"'>"//隐藏主键到序号中
+            + '</td>'
             + '<td>' + textbooks[i].textbookNUM + '</td>'
             + '<td>' + textbooks[i].textbookName + '</td>'
             + '<td>' + textbooks[i].publishingHouse + '</td>'
             + '<td>' + textbooks[i].author + '</td>'
             + '<td>' + textbooks[i].isbn + '</td>'
             + '<td>' + textbooks[i].price + '</td>'
-            + '<td>' + textbooks[i].courseID + '</td>'
+            + '<td>' + textbooks[i].courseNameCN + '</td>'
             + '<td>'
             + '<a href=javascript:void(0) title="点击修改教材基本信息" onclick="openUpdateLayer(this)"><i class="layui-icon">&#xe642;</i></a>'
             + '<a href=javascript:void(0) title="点击删除教材" onclick="deleteCourseByCourseId(this)"><i class="layui-icon">&#xe640;</i></a>'
@@ -186,3 +190,119 @@ function showTextbookInfo(pageInfo) {
 
 /*****************E   查找教材相关操作*****************/
 
+
+/*****************S   修改教材相关操作*****************/
+
+
+//根据教材编号查看课程基本信息
+function findTextbookBaseInfo(textbookId){
+    $.post(contextPath+'/TextbookRepository/findTextbookByTextbookId.do',{"textbookId":textbookId},function (textbookInfoBack) {
+        $("[name='coursename'] option[value='"+textbookInfoBack.textbookid+"']").attr("selected","true");
+        $("[name='textbooknum']").val(textbookInfoBack.textbooknum);
+        $("[name='textbookname']").val(textbookInfoBack.textbookname);
+        $("[name='publishinghouse']").val(textbookInfoBack.publishinghouse);
+        $("[name='author']").val(textbookInfoBack.author);
+        $("[name='isbn']").val(textbookInfoBack.isbn);
+        $("[name='price']").val(textbookInfoBack.price);
+        //最后必须重新更新渲染(使用layui的form模块)
+        layui.use(['form'], function () {
+            $ = layui.jquery;
+            var form = layui.form;//获取layui的form模块
+            form.render(); //刷新select选择框渲染
+        });
+
+    },'json')
+}
+
+
+/**
+ * 打开修改页面
+ * @param pageInfo
+ */
+function openUpdateLayer(obj) {
+    var tr_s = $(obj).parents("tr");//obj是当前对象，$(obj).parents("tr")是当前行
+    var copyTextbookID = tr_s.children("td").eq(0).children("input").val();//定位到表格中的教材编号
+    //alert(copyTextbookID)
+    textbook_tab_show('修改教材基本信息','./textbookInfo-edit.jsp?textbookId='+copyTextbookID);//打开修改教材基本信息层
+}
+
+
+/**
+ * 修改页面赋予旧值
+ */
+function updateTextbookBaseInfo(){
+        findTextbookBaseInfo(textbookId);//获取页面的全局变量
+}
+
+
+/**
+ * 初始化layui的修改的提交表单
+ */
+function initUpdateForm(){
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form , layer = layui.layer;//获取所需要的模块
+
+        //监听提交
+        form.on('submit(updateTextbook)', function (data) {
+            //第一种($.ajax提交)
+            $.ajax({
+                url: contextPath+"/TextbookRepository/updateTextbook.do",
+                data:data.field,
+                type:"POST",
+                async:false,
+                dataType:'text',
+                success:function (response) {
+                    alert(response)
+                    window.parent.location.reload();//刷新父窗口
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                },
+
+            });
+            //修改成功之后关闭当前弹出层并且重新执行一次查询
+
+
+        });
+    });
+}
+
+/* S            弹出层相关操作 */
+/*
+    参数解释：
+    title   标题
+    url     请求的url
+    id      需要操作的数据id
+    // w       弹出层宽度（缺省调默认值）
+    // h       弹出层高度（缺省调默认值）
+*/
+function textbook_tab_show(title,url,w,h){
+    if (title == null || title == '') {
+        title=false;
+    };
+    if (url == null || url == '') {
+        url="404.html";
+    };
+    if (w == null || w == '') {
+        w=($(window).width()*0.90);
+    };
+    if (h == null || h == '') {
+        h=($(window).height()-50);
+    };
+    layer.open({
+        type: 2,
+        area: [w+'px', h +'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,
+        shade:0.4,
+        title: title,
+        content: url
+    });
+}
+/* E            弹出层相关操作 */
+
+
+
+
+/*****************E   修改教材相关操作*****************/

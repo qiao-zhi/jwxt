@@ -1,9 +1,10 @@
+<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <title>添加课程</title>
+    <title>修改课程</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -14,6 +15,23 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+
+
+    <%--公共标签--%>
+    <%@include file="/tag.jsp"%>
+    <%--新增教材的js--%>
+    <script type="text/javascript" src="${baseurl}/js/orderBooks/TextbookRepository.js"></script>
+
+    <%
+        String textbookId=request.getParameter("textbookId");
+    %>
+    <% if (textbookId != null) { %>
+    <script type="text/javascript" charset="utf-8">
+        var textbookId = "<%=textbookId %>";//将传过来的教材ID赋给JS的全局变量
+    </script>
+    <% }%>
+
+
 </head>
 
 <body>
@@ -25,8 +43,12 @@
                 课程名称
             </label>
             <div class="layui-input-inline">
-               <input type="text" id="" name="" required=""  lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <select name="coursename" id="allCourse" lay-filter="course" >
+                    <%--<option value="1">计算机网络</option>--%>
+                    <%--<option value="2">软件工程</option>--%>
+                    <%--<option value="3">数据库原理</option>--%>
+                    <%--<option value="4">操作系统</option>--%>
+                </select>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
@@ -37,7 +59,7 @@
                 教材编号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text" id="" name="textbooknum" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -50,7 +72,7 @@
                教材名称
             </label>
             <div class="layui-input-inline">
-                <input type="" id="" name="" required="" lay-verify="required"
+                <input type="" id="" name="textbookname" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -63,7 +85,7 @@
                 出版社
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required=""  lay-verify="required"
+                <input type="text" id="" name="publishinghouse" required=""  lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -76,7 +98,7 @@
               作者
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required="" lay-verify="required"
+                <input type="text" id="" name="author" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -89,7 +111,7 @@
                 ISBN
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="" required=""  lay-verify="required"
+                <input type="text" id="" name="isbn" required=""  lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -102,7 +124,7 @@
                 单价
             </label>
             <div class="layui-input-inline">
-               <input type="text" id="" name="" required=""  lay-verify="required"
+               <input type="text" id="" name="price" required=""  lay-verify="required|number"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -115,8 +137,8 @@
         <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
-              <button class="layui-btn" lay-filter="add" lay-submit="">
-                  确认添加
+              <button class="layui-btn" lay-filter="updateTextbook" lay-submit="">
+                  确认修改
               </button>
         </div>
         <!---->
