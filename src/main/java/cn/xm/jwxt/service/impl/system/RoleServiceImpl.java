@@ -1,11 +1,9 @@
 package cn.xm.jwxt.service.impl.system;
 
-import cn.xm.jwxt.bean.system.Role;
-import cn.xm.jwxt.bean.system.RoleExample;
-import cn.xm.jwxt.bean.system.Rolepermission;
-import cn.xm.jwxt.bean.system.RolepermissionExample;
+import cn.xm.jwxt.bean.system.*;
 import cn.xm.jwxt.mapper.system.RoleMapper;
 import cn.xm.jwxt.mapper.system.RolepermissionMapper;
+import cn.xm.jwxt.mapper.system.UserRoleMapper;
 import cn.xm.jwxt.mapper.system.custom.RoleCustomMapper;
 import cn.xm.jwxt.service.system.RoleService;
 import cn.xm.jwxt.utils.DefaultValue;
@@ -32,6 +30,8 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
     @Autowired
     private RolepermissionMapper rolepermissionMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
     @Autowired
     private RoleCustomMapper roleCustomMapper;
     @Override
@@ -68,7 +68,25 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public boolean deleteRoleBatch(List<String> roleIds) throws SQLException {
-        return roleCustomMapper.deleteRoleBatch(roleIds)>0?true:false;
+        UserRoleExample example_1 = null;
+        RolepermissionExample example_2 = null;
+        UserRoleExample.Criteria criteria_1 = null;
+        RolepermissionExample.Criteria criteria_2 = null;
+        for(String roleId : roleIds){
+            //1.根据角色ID删除userRole表
+            example_1 = new UserRoleExample();
+            criteria_1 = example_1.createCriteria();
+            criteria_1.andRoleidEqualTo(roleId);
+            userRoleMapper.deleteByExample(example_1);
+            //2.根据角色ID删除rolePermission表
+            example_2 = new RolepermissionExample();
+            criteria_2 = example_2.createCriteria();
+            criteria_2.andRoleidEqualTo(roleId);
+            rolepermissionMapper.deleteByExample(example_2);
+            //3.删除role自己
+            roleMapper.deleteByPrimaryKey(roleId);
+        }
+        return true;
     }
 
     @Override

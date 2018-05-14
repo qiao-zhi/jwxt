@@ -1,5 +1,6 @@
 package cn.xm.jwxt.mapper.system.custom;
 
+import cn.xm.jwxt.bean.system.Permission;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
@@ -39,4 +40,21 @@ public interface UserCustomMapper {
      */
     @Select("select count(userId) from user where userCode=#{userCode}")
     public int selectUserCountByUserCode(@Param("userCode") String userCode)throws SQLException;
+
+    /**
+     * 根据userId查询用户所有的permission
+     * @param userId
+     * @return
+     * @throws SQLException
+     */
+    public List<Permission> selectPermissionsByUserId(@Param("userId") String userId)throws SQLException;
+
+    /**
+     * 组合条件查询该用户所有的权限
+     * @param condition
+     * @return
+     * @throws SQLException
+     */
+    public List<Permission> getUserPermissionsByCondition(Map condition) throws SQLException;
+
 }

@@ -1,5 +1,6 @@
 package cn.xm.jwxt.service.impl.common;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.bean.common.Dictionary;
 import cn.xm.jwxt.bean.common.DictionaryExample;
 import cn.xm.jwxt.mapper.common.DictionaryMapper;
@@ -32,6 +33,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         return typeId;
     }
 
+    @MyLogAnnotation(operateDescription = "添加了一个注解")
     @Override
     public boolean addDictionary(Dictionary dictionary) throws SQLException {
         //1.先给传下来的字典赋值一个字典编号

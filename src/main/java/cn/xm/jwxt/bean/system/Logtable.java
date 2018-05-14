@@ -1,25 +1,31 @@
 package cn.xm.jwxt.bean.system;
 
+import java.util.Date;
+
 public class Logtable {
-    private Integer logid;//记录主键(自增)
+    private Integer logid;
 
-    private String operatorname;//操作人姓名
+    private String operatorname;//操操作人姓名
 
-    private String operatorid;//操作人编号(学生学号或者教师编号)
+    private String operatorid;//操作人ID
 
-    private String operatortype;//操作人类型(学生或者老师)
+    private String operatortype;//操作人类型型(学生还是老师)
 
-    private String operatorunitname;//操作人所属部门名称(班级名称或者教研室名称)
+    private String operatorunitname;//操作人所属单位
 
     private String operatedescription;//操作描述
 
-    private String operateresult;//操作结果
+    private String operateresult;//操作结果(正常，异常)
 
     private String operateclass;//操作的类
 
     private String operatemethod;//操作的方法
 
-    private String remark;//备注(可以用于保存访问的IP地址)
+    private Date operatedate;//操作日期
+
+    private String operateip;//操作的IP地址
+
+    private String remark;//备注
 
     public Integer getLogid() {
         return logid;
@@ -91,6 +97,22 @@ public class Logtable {
 
     public void setOperatemethod(String operatemethod) {
         this.operatemethod = operatemethod == null ? null : operatemethod.trim();
+    }
+
+    public Date getOperatedate() {
+        return operatedate;
+    }
+
+    public void setOperatedate(Date operatedate) {
+        this.operatedate = operatedate;
+    }
+
+    public String getOperateip() {
+        return operateip;
+    }
+
+    public void setOperateip(String operateip) {
+        this.operateip = operateip == null ? null : operateip.trim();
     }
 
     public String getRemark() {

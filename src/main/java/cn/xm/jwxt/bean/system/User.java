@@ -1,5 +1,8 @@
 package cn.xm.jwxt.bean.system;
 
+import java.util.List;
+import java.util.Set;
+
 public class User {
     private String userid;//用户ID
 
@@ -20,6 +23,12 @@ public class User {
     private String isuse;//是否在用
 
     private String remark1;//备注
+
+    private List<Permission> permissions;//所有权限
+
+    private Set<String> permissionCodes;//所有权限码
+
+    private List<Permission> menuPermissions;//所有菜单权限(按序号排列)
 
     public String getUserid() {
         return userid;
@@ -99,5 +108,30 @@ public class User {
 
     public void setRemark1(String remark1) {
         this.remark1 = remark1 == null ? null : remark1.trim();
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
+    public Set<String> getPermissionCodes() {
+        return permissionCodes;
+    }
+
+    public void setPermissionCodes(Set<String> permissionCodes) {
+
+        this.permissionCodes = permissionCodes;
+    }
+
+    public List<Permission> getMenuPermissions() {
+        return menuPermissions;
+    }
+
+    public void setMenuPermissions(List<Permission> menuPermissions) {
+        this.menuPermissions = menuPermissions;
     }
 }

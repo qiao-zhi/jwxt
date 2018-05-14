@@ -1,7 +1,8 @@
 package cn.xm.jwxt.service.system;
 
+import cn.xm.jwxt.bean.system.Permission;
 import cn.xm.jwxt.bean.system.User;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -36,7 +37,7 @@ public interface UserService {
 
 
     /**
-     * 增加用户
+     * 修改用户
      *
      * @param user
      * @return
@@ -61,6 +62,14 @@ public interface UserService {
     public List<Map<String,Object>> getUserRoleByUserId(String userId)throws SQLException;
 
     /**
+     * 根据UserCode查询user
+     * @param userCode
+     * @return
+     * @throws SQLException
+     */
+    public User getUserByUserCode(String userCode)throws SQLException;
+
+    /**
      * 批量删除用户
      * @param ids   用户id集合
      * @return
@@ -76,6 +85,44 @@ public interface UserService {
      * @throws SQLException
      */
     public boolean setUserRoleBatch(String []userIds,String []roleIds)throws SQLException;
+
+    /**
+     * 根据userId查询用户所有的permission
+     * @param userId
+     * @return
+     * @throws SQLException
+     */
+    public List<Permission> selectPermissionsByUserId(String userId)throws SQLException;
+
+
+    /**
+     * 根据条件获取该用户所有的权限信息
+     * @param condition
+     * @return
+     * @throws SQLException
+     */
+    public List<Permission> getUserPermissionsByCondition(Map condition)throws SQLException;
+
+
+    /**
+     * 进行登录
+     * map中包含下列信息:
+     *              loginInfo   登录信息
+     *              List<String> permissioncodes   权限码
+     *              List<permission>  该用户的所有的权限。包括菜单
+     * @param usercode
+     * @param password
+     * @param usersort
+     * @return
+     * @throws SQLException
+     */
+    public Map<String,Object> getUserLoginInfo(String usercode,String password,String usersort)throws SQLException;
+
+    /**
+     * 标记登录成功的service
+     * @throws SQLException
+     */
+    public void logSuccess();
 
 
 }
