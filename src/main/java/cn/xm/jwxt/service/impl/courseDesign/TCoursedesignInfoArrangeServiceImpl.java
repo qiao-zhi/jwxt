@@ -2,15 +2,11 @@ package cn.xm.jwxt.service.impl.courseDesign;
 
 import cn.xm.jwxt.bean.courseDesign.ListVo;
 import cn.xm.jwxt.bean.courseDesign.TCourseDesignVo;
-import cn.xm.jwxt.bean.courseDesign.TCoursedesignInfoArrange;
-import cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo;
-import cn.xm.jwxt.mapper.courseDesign.TCoursedesignInfoArrangeMapper;
 import cn.xm.jwxt.mapper.courseDesign.custom.TCoursedesignInfoArrangeCustomMapper;
 import cn.xm.jwxt.mapper.courseDesign.custom.TCoursedesignToolMapper;
 import cn.xm.jwxt.service.courseDesign.TCoursedesignInfoArrangeService;
 import cn.xm.jwxt.service.courseDesign.TCoursedesignToolService;
 import cn.xm.jwxt.utils.UUIDUtil;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +26,7 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
     private TCoursedesignToolService toolService;
 
     @Override
-    public List<Map<String,Object>> findNeedArrangeCourseDesign(Map<String, Object> condition) {
+    public List<Map<String,Object>> findNeedArrangeCourseDesign(Map<String, Object> condition)  throws SQLException{
 
         // 查询培养方案的课设
         List<Map<String,Object>> courseDesignList = new ArrayList<Map<String,Object>>();
@@ -42,13 +38,15 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
            String trainCourseID =  courseDesignList.get(i).get("trainCourseID").toString();
            String majorID = courseDesignList.get(i).get("majorID").toString();
            String grade = courseDesignList.get(i).get("grade").toString();
-            int nextyearNum =Integer.parseInt(grade) + (Integer.parseInt(courseDesignList.get(i).get("semester").toString()))/2 + (Integer.parseInt(courseDesignList.get(i).get("semester").toString()))%2;
-            String yearNumStr = nextyearNum-1+"-"+nextyearNum;
+           int nextyearNum =Integer.parseInt(grade) + (Integer.parseInt(courseDesignList.get(i).get("semester").toString()))/2 + (Integer.parseInt(courseDesignList.get(i).get("semester").toString()))%2;
+           String yearNumStr = nextyearNum-1+"-"+nextyearNum;
+           String nowSemester = (Integer.parseInt(courseDesignList.get(i).get("semester").toString())%2) ==0?"2":"1";
            Map<String,Object> map = new HashMap<String,Object>();
                 map.put("trainCourseID",trainCourseID);
                 map.put("yearNum",yearNumStr);
                 map.put("majorID",majorID);
                 map.put("grade",grade);
+                map.put("semester",nowSemester);
             List<Map<String,Object>> arrangeList = new ArrayList<Map<String,Object>>();
           // arrangeMap = toolMapper.findCourseDesignArrangeInfoBytrainCourseID(trainCourseID);
             arrangeList =  toolService.findCourseDesignArrangeInfoBytrainCourseIDAndYearNumAndMajorID(map);
@@ -56,30 +54,32 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
             String display = "";
             String teacherName = "";
             String yearNum = "";
+            String courseDesignArrangeID = "";
             if(arrangeList.size()>0){
                 for (int j=0;j<arrangeList.size();j++){
                     teacherName = teacherName + " / " + (String) arrangeList.get(j).get("teacherName");
                 }
-                CourseArrangeTime =arrangeList.get(0).get("CourseArrangeTime").toString();
+                CourseArrangeTime = arrangeList.get(0).get("CourseArrangeTime").toString();
                 display = (String) arrangeList.get(0).get("display");
                 yearNum = (String) arrangeList.get(0).get("yearNum");
+                courseDesignArrangeID = (String)arrangeList.get(0).get("courseDesignArrangeID");
             }
             courseDesignList.get(i).put("CourseArrangeTime",CourseArrangeTime);
             courseDesignList.get(i).put("display",display);
             courseDesignList.get(i).put("teacherName",teacherName);
             courseDesignList.get(i).put("yearNum",yearNum);
+            courseDesignList.get(i).put("courseDesignArrangeID",courseDesignArrangeID);
         }
 
         return courseDesignList;
     }
 
     @Override
-    public boolean addCourseDesignerinfo(ListVo listVo){
+    public boolean addCourseDesignerinfo(ListVo listVo) throws SQLException{
+        boolean result = false;
         List<TCourseDesignVo> list = listVo.getTCourseDesignVos();
         // infoArrange的id
         String courseDesignArrangeID= UUIDUtil.getUUID2();
-        // classArrange的id
-        String courseDesignClassArrangeID = UUIDUtil.getUUID2();
         for(int i=0;i<list.size();i++){
             // 获取数据
             Map<String,Object> condition = new HashMap<String,Object>();
@@ -88,7 +88,8 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
             String startTime = list.get(i).getStartTime();
             String endTime = list.get(i).getEndTime();
             String grade = list.get(i).getYear();
-            String semester = (Integer.parseInt(list.get(i).getSemester()))%2+1+"";
+          //  String semester = (Integer.parseInt(list.get(i).getSemester()))%2+1+"";
+            String semester = (Integer.parseInt(list.get(i).getSemester()))%2==0?"2":"1";
             int nextyearNum = Integer.parseInt(list.get(i).getYear())+(Integer.parseInt(list.get(i).getSemester()))/2+(Integer.parseInt(list.get(i).getSemester()))%2;
             String yearNum = nextyearNum-1+"-"+nextyearNum;
             String courseDesignName = list.get(i).getCourseDesignName();
@@ -118,55 +119,70 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
             condition.put("grade",grade);
             condition.put("uploadStatus","0");
             condition.put("checkStatus","0");
-            condition.put("courseDesignClassArrangeID",courseDesignClassArrangeID);
             // 向infoArrange表中插入
             if(i==0){
                 // 向infoArrange表插入
-                csaCustomMapper.addCourseDesignerinfoArrange(condition);
-                // 向classArrange表插入
-                csaCustomMapper.addCourseDesignClassArrange(condition);
+                result = csaCustomMapper.addCourseDesignerinfoArrange(condition);
             }
             // 封装 teacherArrange Map
             String courseDesignTeacherArrangeID = UUIDUtil.getUUID2();
             String teacherNum = list.get(i).getTeacherNum();
-            String teacherID = toolService.getTeacherID(teacherNum);
+           // String teacherID = toolService.getTeacherID(teacherNum);
+            String teacherID = list.get(i).getTeacherID();
             condition.put("courseDesignTeacherArrangeID",courseDesignTeacherArrangeID);
             condition.put("teacherID",teacherID);
+            //获取学生id数组
+            String[] stuArr = list.get(i).getStuArr();
+            //得到学生人数
+            String stuCount = stuArr.length+"";
+            condition.put("stuCount",stuCount);
             // 向teacherArrange表插入
-            csaCustomMapper.addCourseDesignTeacherArrange(condition);
+            result = csaCustomMapper.addCourseDesignTeacherArrange(condition);
+
+            //获取班级id
+            String[] classArr = list.get(i).getClassArr();
+            for(int z = 0; z < classArr.length; z++){
+                // classArrange的id
+                String courseDesignClassArrangeID = UUIDUtil.getUUID2();
+                condition.put("courseDesignClassArrangeID",courseDesignClassArrangeID);
+                String classID = classArr[z];
+                condition.put("classID",classID);
+                result = csaCustomMapper.addCourseDesignClassArrange(condition);
+            }
 
             //  获取学生id
-            String[] stuArr = list.get(i).getStuArr();
             // 向studetnTeacher表插数据
             for(int j = 0; j < stuArr.length; j++){
                 String courseDesignTeacherStudentID = UUIDUtil.getUUID2();
                 condition.put("courseDesignTeacherStudentID",courseDesignTeacherStudentID);
                 String studentID = stuArr[j];
                 condition.put("studentID",studentID);
-                csaCustomMapper.addCourseDesignTeacherStudent(condition);
+                result = csaCustomMapper.addCourseDesignTeacherStudent(condition);
             }
         }
-        return true;
+        return result;
     }
 
     @Override
-    public boolean deleteTCoursedesignInfo(Map<String,Object> condition ){    // trainCourseID yearNum majorid grade
-        List<String> courseDesignArrangeIDList = new ArrayList<String>();
-         courseDesignArrangeIDList = toolService.findcourseDesignArrangeIDBytrainCourseIDAndYearNumAndMajorID(condition);
-         for(String courseDesignArrangeID:courseDesignArrangeIDList){
+    public boolean deleteTCoursedesignInfo(String courseDesignArrangeID) throws SQLException{    // trainCourseID yearNum majorid grade
+
              //先删除 studentTeacher表的信息
              List<String> courseDesignTeacherArrangeIDList = new ArrayList<String>();
                  courseDesignTeacherArrangeIDList = toolService.getcourseDesignTeacherArrangeID(courseDesignArrangeID);
-             for (String courseDesignTeacherArrangeID : courseDesignTeacherArrangeIDList ){
-                 csaCustomMapper.deleteCourseDesignTeacherStudent(courseDesignTeacherArrangeID);
+            boolean result1= false;
+            for (String courseDesignTeacherArrangeID : courseDesignTeacherArrangeIDList ){
+                 result1 = csaCustomMapper.deleteCourseDesignTeacherStudent(courseDesignTeacherArrangeID);
              }
              // 再删除 teacherArrange表的信息
-             csaCustomMapper.deleteCourseDesignTeacherArrange(courseDesignArrangeID);
-             csaCustomMapper.deleteCourseDesignClassArrange(courseDesignArrangeID);
+            boolean result2 = csaCustomMapper.deleteCourseDesignTeacherArrange(courseDesignArrangeID);
+            // 再删除 CourseDesignClassArrange信息
+            boolean result3 = csaCustomMapper.deleteCourseDesignClassArrange(courseDesignArrangeID);
              // 最后删除 infoArrange表的信息
-             csaCustomMapper.deleteCourseDesignerinfoArrange(courseDesignArrangeID);
-         }
-
+            boolean result4 = csaCustomMapper.deleteCourseDesignerinfoArrange(courseDesignArrangeID);
+            boolean result =false;
+            if(result1&&result2&&result3&&result4){
+                result = true;
+            }
         return true;
     }
 
@@ -177,39 +193,42 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
      * @return
      */
     @Override
-    public boolean modifyInfoDisplay(String display,String finallyDisplay) {
-        Map<String,Object> imap = new HashMap<String,Object>();
+    public boolean modifyInfoDisplay(List<String> list,String display)  throws SQLException{
+
+      //  Map<String,Object> imap = new HashMap<String,Object>();
         // 获取infoArrange表的id集合
-        List<String> ilist = new ArrayList<String>();
-            ilist = toolService.getcourseDesignArrangeIDByDisplay(display);
-            imap.put("ilist",ilist);
-            imap.put("display",finallyDisplay);
-        csaCustomMapper.modifyCourseDesignerinfoArrange(imap);
+        //List<String> ilist = toolService.getcourseDesignArrangeIDByDisplay(display);
 
-        Map<String,Object> tmap = new HashMap<String,Object>();
-        // 获取teacherArrange表的id集合
-        List<String> tlist = new ArrayList<String>();
-            tlist = toolService.getcourseDesignTeacherArrangeIDByDisplay(display);
+//            imap.put("ilist",ilist);
+//            imap.put("display",finallyDisplay);
+        Map<String,Object> imap = new HashMap<String,Object>();
+            imap.put("display",display);
+            imap.put("list",list);
+            csaCustomMapper.modifyCourseDesignerinfoArrange(imap);
+        for(int i = 0;i<list.size();i++){
+            Map<String,Object> tmap = new HashMap<String,Object>();
+            // 获取teacherArrange表的id集合
+            List<String> tlist = toolService.getcourseDesignTeacherArrangeIDByDisplay((String)list.get(i));
             tmap.put("tlist",tlist);
-            tmap.put("display",finallyDisplay);
-        csaCustomMapper.modifyCourseDesignTeacherArrange(tmap);
-
-        Map<String,Object> cmap = new HashMap<String,Object>();
-        // 获取classArrange表的id集合
-        List<String> clist = new ArrayList<String>();
-        clist = toolService.getcourseDesignClassArrangeIDByDisplay(display);
-        cmap.put("clist",clist);
-        cmap.put("display",finallyDisplay);
-        csaCustomMapper.modifyCourseDesignClassArrange(cmap);
-
-        Map<String,Object> tsmap = new HashMap<String,Object>();
-        // 获取teacherStudent表的id集合
-        List<String> tslist = new ArrayList<String>();
-            tslist = toolService.getcourseDesignTeacherStudentIDByDisplay(display);
+            tmap.put("display",display);
+            csaCustomMapper.modifyCourseDesignTeacherArrange(tmap);
+        }
+        for(int i = 0;i<list.size();i++){
+            Map<String,Object> cmap = new HashMap<String,Object>();
+            //获取classArrange表的id集合
+            List<String> clist = toolService.getcourseDesignClassArrangeIDByDisplay((String)list.get(i));
+            cmap.put("clist",clist);
+            cmap.put("display",display);
+            csaCustomMapper.modifyCourseDesignClassArrange(cmap);
+        }
+        for(int i=0;i<list.size();i++){
+            Map<String,Object> tsmap = new HashMap<String,Object>();
+            // 获取teacherStudent表的id集合
+            List<String> tslist = toolService.getcourseDesignTeacherStudentIDByDisplay((String)list.get(i));
             tsmap.put("tslist",tslist);
-            tsmap.put("display",finallyDisplay);
-        csaCustomMapper.modifyCourseDesignTeacherStudent(tsmap);
-
+            tsmap.put("display",display);
+            csaCustomMapper.modifyCourseDesignTeacherStudent(tsmap);
+        }
         return true;
     }
 
@@ -219,9 +238,9 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
      * @return
      */
     @Override
-    public List<Map<String, Object>> findArrangeInfoDetailByCondition(Map<String, Object> condition) {
+    public List<Map<String, Object>> findArrangeInfoDetailByCondition(String courseDesignArrangeID) throws SQLException {
         List<Map<String, Object>> infoList = new ArrayList<Map<String,Object>>();
-        infoList = csaCustomMapper.findArrangeInfoDetailByCondition(condition);
+        infoList = csaCustomMapper.findArrangeInfoDetailByCondition(courseDesignArrangeID);
         for(int i=0;i<infoList.size();i++){
             List<String> stuList = new ArrayList<String>(); // 用于存放学生列表
             String courseDesignTeacherArrangeID = (String) infoList.get(i).get("courseDesignTeacherArrangeID");
@@ -232,13 +251,4 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
     }
 
 
-    @Override
-    public boolean updateCourseDesigninfo(String courseDesignArrangeID, Map<String, Object> map) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public List<Map<String, Object>> findAllTCoursedesignInfo(Map<String, Object> condition) throws SQLException {
-        return null;
-    }
 }

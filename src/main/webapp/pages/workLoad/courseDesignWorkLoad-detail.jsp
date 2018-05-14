@@ -1,3 +1,4 @@
+<%@page pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -56,6 +57,51 @@
 	 	 	}
 	 	 	
  </style>
+
+	<script type="text/javascript">
+		var courseDesignTeacherArrangeID;
+		$(function () {
+			<%
+				String courseDesignTeacherArrangeID = request.getParameter("courseDesignTeacherArrangeID");
+			%>
+            courseDesignTeacherArrangeID = "<%=courseDesignTeacherArrangeID%>";
+
+            showDetailInfo();
+        })
+
+		function showDetailInfo() {
+			$.ajax({
+				url:"/jwxt/teachingWorkLoad/findOneTeacherCourseDesignInfo.do",
+				type:"post",
+				data:{"courseDesignTeacherArrangeID":courseDesignTeacherArrangeID},
+				dataType:"json",
+				success:function (mapInfo) {
+				    $("#courseDesignName").html(mapInfo.courseDesignName);
+				    $("#courseDesignNum").html(mapInfo.courseDesignNum);
+                    $("#teacherName").html(mapInfo.teacherName);
+                    $("#teacherNum").html(mapInfo.teacherNum);
+                    $("#startTime").html(mapInfo.startTime);
+                    $("#endTime").html(mapInfo.endTime);
+                    $("#classNames").val(mapInfo.classNames)
+					var stuList = mapInfo.stuList;  // 学生信息list
+					//alert(stuList[0].studentName)
+					for(var i=0;i<stuList.length;i++){
+						$("#stuDiv").append(
+						//    "<input type='checkbox' name='' title='"+stuList[i].studentName+"' checked='checked'  >"
+                            "<div class='layui-unselect layui-form-checkbox layui-form-checked' lay-skin=''>" +
+                            "<a style='display: none;'>"+stuList[i].studentID+"</a>" +
+                            "<span>"+stuList[i].studentName+"</span><i class='layui-icon'></i></div>"
+						);
+					}
+                },
+				error:function () {
+					layer.alert("详细信息加载失败")
+                }
+			})
+        }
+
+	</script>
+
 </head>
 
 <body>
@@ -63,41 +109,32 @@
 	<table class="layui-table-wang-info">
 		<tr>
 			<td>课程名称</td>
-			<td>计算机组织与结构</td>
+			<td id="courseDesignName"></td>
 			<td>课程编号</td>
-			<td>Y32453553254</td>
+			<td id="courseDesignNum"></td>
 		</tr>
 		<tr>
 			<td>教师名称</td>
-			<td>王五</td>
+			<td id="teacherName"></td>
 			<td>教师编号</td>
-			<td>888888888</td>
+			<td id="teacherNum"></td>
 		</tr>
 		<tr>
 			<td>开始时间</td>
-			<td>第一周</td>
+			<td id="startTime"></td>
 			<td>结束时间</td>
-			<td>第八周</td>
+			<td id="endTime"></td>
 		</tr>
 	</table>
     <form class="layui-form layui-form-pane">
-        <!--1-->
-       
-        <!--4-->
-      
-        
-        
-        
-        
-        
-        
+
          <div class="layui-form-item">
             <label for="" class="layui-form-label">
               所带班级
             </label>
             <div class="layui-input-inline">
             	
-				<input type="" id="" name="" required="" lay-verify="required" disabled  style="width: 575px;" value="软件一班，软件二班"
+				<input type="" id="classNames" name="" required="" lay-verify="required" disabled  style="width: 575px;" value=""
                        autocomplete="off" class="layui-input">
             </div>
             
@@ -106,32 +143,11 @@
         
          <div class="layui-form-item">
             <label for="" class="layui-form-label">
-               软件一班
+               学生列表
             </label>
-            <div class="layui-input-block">
-		      <input type="checkbox" name="" title="张三" checked="" >
-		      <input type="checkbox" name="" title="李四" checked="" >
-		      <input type="checkbox" name="" title="王二麻子" checked="" >
-		      <input type="checkbox" name="" title="张三" checked="" >
-		      <input type="checkbox" name="" title="王二麻子" checked="" >
-		      <input type="checkbox" name="" title="张三" checked="">
-		      <input type="checkbox" name="" title="李四" >
-		      <input type="checkbox" name="" title="王二麻子">
-		      <input type="checkbox" name="" title="张三">
-		      <input type="checkbox" name="" title="李四">
-		      <input type="checkbox" name="" title="王二麻子">
-		      <input type="checkbox" name="" title="张三">
-		      <input type="checkbox" name="" title="李四" >
-		      <input type="checkbox" name="" title="王二麻子">
-		      <input type="checkbox" name="" title="张三">
-		      <input type="checkbox" name="" title="李四" >
-		      <input type="checkbox" name="" title="王二麻子">
-		      <input type="checkbox" name="" title="张三">
-		      <input type="checkbox" name="" title="李四" >
-		      <input type="checkbox" name="" title="王二麻子">
-		      <input type="checkbox" name="" title="张三">
-		      <input type="checkbox" name="" title="李四">
-		      <input type="checkbox" name="" title="王二麻子">
+            <div class="layui-input-block" id="stuDiv">
+		      <%--<input type="checkbox" name="" title="张三" checked="" >--%>
+
 		    </div>
             
         </div>

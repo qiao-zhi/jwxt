@@ -7,6 +7,7 @@ import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.ValidateCheck;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,8 @@ import java.util.Map;
 @RequestMapping("/findcourseDesign")
 public class FindNeendArrangeCourseDesignController {
 
+    private Logger logger = Logger.getLogger(FindNeendArrangeCourseDesignController.class);
+
     @Autowired
     private TCoursedesignToolService cdToolService;
     @Autowired
@@ -34,15 +37,23 @@ public class FindNeendArrangeCourseDesignController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/yearAndMajot.do")
+    @RequestMapping("/yearAndMajor.do")
     public Map<String,Object> getMajorListAndYearList(){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         //生成 年 的列表
         List<String> yearList = new ArrayList<String>();
-        yearList = cdToolService.getYearList();
+        try {
+            yearList = cdToolService.getYearList();
+        } catch (SQLException e) {
+            logger.error("获取当前 年 失败",e);
+        }
         // 查询专业种类
-        List<String> majorList = new ArrayList<String>();
-        majorList =  cdToolService.getMajorList("1");
+        List<Map<String,Object>> majorList = new ArrayList<Map<String,Object>>();
+        try {
+            majorList =  cdToolService.getMajorList("1");
+        } catch (SQLException e) {
+            logger.error("根据学院id获取专业信息失败",e);
+        }
         resultMap.put("majorList",majorList);
         resultMap.put("yearList",yearList);
         return resultMap;
@@ -69,21 +80,30 @@ public class FindNeendArrangeCourseDesignController {
         PageHelper.startPage(pageNum,pageSize,"trainingSchemeID"); //CONVERT(courseNameCN USING gbk)
         // 查询需要安排的课设
         List<Map<String,Object>> courseDesignList = new ArrayList<Map<String,Object>>();
+        try {
             courseDesignList = cdInfoArrangeService.findNeedArrangeCourseDesign(condition);
+        } catch (SQLException e) {
+            logger.error("查询需要安排的课设信息失败",e);
+        }
         PageInfo<Map<String,Object>> pageInfo = new PageInfo<>(courseDesignList);
         return pageInfo;
     }
 
     @ResponseBody
     @RequestMapping("/deleteCourseDesignArrangeInfo.do")
-    public boolean deleteCourseDesignArrangeInfo(String trainCourseID,String yearNum,String majorID,String grade){
-        Map<String,Object> condition = new HashMap<String,Object>();
-        condition.put("trainCourseID",trainCourseID);
-        condition.put("yearNum",yearNum);
-        condition.put("majorID",majorID);
-        condition.put("grade",grade);
-        boolean result = cdInfoArrangeService.deleteTCoursedesignInfo(condition);
-        return true;
+    public boolean deleteCourseDesignArrangeInfo(String courseDesignArrangeID){
+//        Map<String,Object> condition = new HashMap<String,Object>();
+//        condition.put("trainCourseID",trainCourseID);
+//        condition.put("yearNum",yearNum);
+//        condition.put("majorID",majorID);
+//        condition.put("grade",grade);
+        boolean result = false;
+        try {
+            result = cdInfoArrangeService.deleteTCoursedesignInfo(courseDesignArrangeID);
+        } catch (SQLException e) {
+            logger.error("删除安排的课设信息失败",e);
+        }
+        return result;
     }
 
 }
