@@ -170,15 +170,4 @@ public class ApArrangeCourseTaskServiceImpl implements ApArrangeCourseTaskServic
         return pageInfo;
     }
 
-    /**
-     * 根据排课任务ID查询有关排课任务的所有信息用于Excel文件的导出
-     *
-     * @param arrangeCourseTaskId
-     * @return
-     * @throws Exception
-     */
-    @Override
-    public Map<String, Object> getArrangeCourseAllInfoByArrangeCourseTaskId(String arrangeCourseTaskId) throws Exception {
-        return null;
-    }
 }

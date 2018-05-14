@@ -57,7 +57,7 @@ function showArrangeCourseTaskInfo(pageInfo){
             +arrangeCourseTaskList[i].taskReceiptName+"</td><td>"
             +(arrangeCourseTaskList[i].taskReceiptTime==null?'--':arrangeCourseTaskList[i].taskReceiptTime)+"</td><td>"
             +arrangeCourseTaskList[i].taskStatus+"</td>"
-            +"<td class='td-manage'><a title='点击排课' onclick=x_admin_show('排课','scheduleArrange-detail.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
+            +"<td class='td-manage'><a title='点击查看排课详情' onclick=x_admin_show('排课','scheduleArrange-detail.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
             +"</td></tr>"
         $("tbody").append(tr);
     }
@@ -107,4 +107,59 @@ function allotCourse_history(){
     var term = $("[name='taskRadio']:checked ~ input[name='sel_term']").val();
     //x_admin_show('分配课程','./scheduleTask-allot.jsp?arrangeTaskId='+arrangeTaskId+'&noticeBookId='+noticeBookId);
     x_admin_show('根据历史记录排课','./scheduleArrange-history.jsp?arrangeTaskId='+arrangeTaskId+'&academicYear='+academicYear+'&term='+term);
+}
+
+//提交审核按钮事件
+function commitToCheck(){
+    var checked = $("[name='taskRadio']:checked").length>0?true:false;
+    if(!checked){
+        layer.alert('请先选择需要提交审核的任务！');
+        return;
+    }
+    var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
+    if (sel_taskStatus == "待审核" || sel_taskStatus == "审核通过") {
+        layer.alert('该排课任务已经提交审核！');
+        return;
+    }
+    var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
+    layer.confirm('您确认要提交此次课设分配信息进行审核吗？\r\n提交审核后将不能进行修改！',function(){
+        changeTaskStatus(arrangeTaskId,"5");
+    });
+}
+//手动排课
+function arrangeCourse(){
+    var checked = $("[name='taskRadio']:checked").length>0?true:false;
+    if(!checked){
+        layer.alert('请先选择需要提交审核的任务！');
+        return;
+    }
+    var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
+    if (sel_taskStatus == "待审核" || sel_taskStatus == "审核通过") {
+        layer.alert('该排课任务已经提交审核,不能进行排课！');
+        return;
+    }
+    var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
+    layer.confirm('您确认要为该排课任务手动排课吗？',function(index){
+        x_admin_show('排课','scheduleArrange-handArrange.jsp?arrangeTaskId='+arrangeTaskId)
+        layer.close(index);
+    });
+}
+
+//导出排课信息
+function arrangeCourseExport(){
+    var checked = $("[name='taskRadio']:checked").length>0?true:false;
+    if(!checked){
+        layer.alert('请先选择需要导出排课信息的任务！');
+        return;
+    }
+    var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
+    if (sel_taskStatus != "审核通过") {
+        layer.alert('该排课任务还未通过审核，不能进行导出！');
+        return;
+    }
+    var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
+    layer.confirm('您确认要导出排课信息吗？',function(index){
+        window.location.href=contextPath+"/arrangeCourse/exportArrangeCourseInfo.action?arrangeCourseTaskId="+arrangeTaskId
+        layer.close(index);
+    });
 }

@@ -128,7 +128,6 @@
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form;
-        var layer = layui.layer;
         getNowTime();
         //监听学院下拉框事件
         form.on('select(academic)',function (data) {
@@ -145,15 +144,10 @@
                 type:"POST",
                 datatype:"text",
                 success:function(response){
-                    alert(response)
-                    if("添加成功" == response){
+                    layer.alert(response,function(){
                         //实现父页面的刷新
                         window.parent.location.reload();
-                        // 获得frame索引
-                       var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
-                    }
+                    })
                 }
             })
             //阻止表单跳转。如果需要表单跳转，去掉这段即可。

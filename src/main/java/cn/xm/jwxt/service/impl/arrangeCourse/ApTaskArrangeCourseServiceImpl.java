@@ -3,10 +3,7 @@ package cn.xm.jwxt.service.impl.arrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourseExample;
-import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
-import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
-import cn.xm.jwxt.bean.arrangeCourse.custom.ArrangeCourseTaskStatusEnum;
-import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.*;
 import cn.xm.jwxt.mapper.arrangeCourse.ApTaskArrangeCourseMapper;
 import cn.xm.jwxt.mapper.arrangeCourse.custom.ApTaskArrangeCourseCustomMapper;
 import cn.xm.jwxt.service.arrangeCourse.ApArrangeCourseTaskService;
@@ -21,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -221,5 +219,29 @@ public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseServic
         }
         ApTaskArrangeCourseCustom taskArrangeCourseAndYearTermInfo = taskArrangeCourseCustomMapper.getTaskArrangeCourseAndYearTermInfo(arrangeCourseId);
         return taskArrangeCourseAndYearTermInfo;
+    }
+
+    /**
+     * 根据排课任务ID查询有关排课任务的所有信息用于Excel文件的导出
+     * @param arrangeCourseTaskId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map<String, List<ApTaskArrangeCourseCustom>> getArrangeCourseAllInfoByArrangeCourseTaskId(String arrangeCourseTaskId) throws Exception {
+        if(ValidateCheck.isNull(arrangeCourseTaskId)){
+            throw new IllegalArgumentException("排课任务编号不能为空!");
+        }
+        //主校区教师信息
+        List<ApTaskArrangeCourseCustom> courseAndTeacherListMainCampus = taskArrangeCourseCustomMapper.findTaskArrangeCourseAndTeacherListForExport(arrangeCourseTaskId, CampusCodeEnum.MAIN_CAMPUS.getStatus());
+        //华科学院教师信息
+        List<ApTaskArrangeCourseCustom> courseAndTeacherListHuaKeCampus = taskArrangeCourseCustomMapper.findTaskArrangeCourseAndTeacherListForExport(arrangeCourseTaskId, CampusCodeEnum.HUAKE_CAMPUS.getStatus());
+        //晋城校区教师信息
+        List<ApTaskArrangeCourseCustom> courseAndTeacherListJinChengCampus = taskArrangeCourseCustomMapper.findTaskArrangeCourseAndTeacherListForExport(arrangeCourseTaskId, CampusCodeEnum.JINCHENG_CAMPUS.getStatus());
+        Map<String,List<ApTaskArrangeCourseCustom>> mapInfo = new HashMap<String, List<ApTaskArrangeCourseCustom>>();
+        mapInfo.put(CampusCodeEnum.MAIN_CAMPUS.getStatus(),courseAndTeacherListMainCampus);
+        mapInfo.put(CampusCodeEnum.HUAKE_CAMPUS.getStatus(),courseAndTeacherListHuaKeCampus);
+        mapInfo.put(CampusCodeEnum.JINCHENG_CAMPUS.getStatus(),courseAndTeacherListJinChengCampus);
+        return mapInfo;
     }
 }

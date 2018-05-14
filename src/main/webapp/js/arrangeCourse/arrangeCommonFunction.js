@@ -103,7 +103,7 @@ function findTeacherBaseInfoForSelect(form){
     })
 }
 
-//初始化在职教师下拉框
+//初始化历史教师下拉框
 function findHistoryTeacherInfoForSelect(courseNumber,form){
     $.ajax({
         url:contextPath+"/arrangeCourse/findHistoryTeacherInfo.action",

@@ -67,9 +67,9 @@
             <input type="hidden" name="pageSize"/>
             <input type="hidden" name="currentPage"/>
             <%--需要查询的排课状态--%>
-            <input type="hidden" name="taskStatus[1]" value="5"/>
-            <input type="hidden" name="taskStatus[2]" value="6"/>
-            <input type="hidden" name="taskStatus[3]" value="7"/>
+            <input type="hidden" name="taskStatus[0]" value="5"/>
+            <input type="hidden" name="taskStatus[1]" value="6"/>
+            <input type="hidden" name="taskStatus[2]" value="7"/>
             <div class="layui-input-inline">
                 <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
             </div>
@@ -81,8 +81,8 @@
 
     
     <xblock>
-	<button class="layui-btn" onclick="check()" >审核</button>
-	<button class="layui-btn" onclick="checkView()" >查看审核结果</button>
+        <button class="layui-btn" onclick="check()" ><i class="layui-icon">&#xe6b2;</i>审核</button>
+        <button class="layui-btn" onclick="checkView()" ><i class="layui-icon">&#xe615;</i>查看审核结果</button>
 	</xblock>
 
     <!--表格内容-->

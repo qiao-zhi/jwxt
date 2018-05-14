@@ -77,6 +77,26 @@
         WHERE
             ac.arrange_task_id = #{value}
     </select>
+    <!--根据排课任务ID和校区编号查询对应的教师课程信息用于导出-->
+    <select id="findTaskArrangeCourseAndTeacherListForExport" resultMap="addTeacheNamesMap">
+       SELECT
+            ac.*, (
+                SELECT
+                    GROUP_CONCAT(tc.teacher_name)
+                FROM
+                    ap_teacher_course tc
+                WHERE
+                    ac.arrange_course_id = tc.arrange_course_id
+            ) teacher_names
+        FROM
+            ap_task_arrange_course ac
+        WHERE
+            ac.arrange_task_id = #{arrangeTaskId}
+        AND campus_code = #{campusCode}
+        ORDER BY
+            CONVERT (course_name USING gbk)
+    </select>
+
 
     <!--根据安排课程ID查询查询每一门课程对应的教师课程信息-->
     <select id="getTaskArrangeCourseAndTeacherClassInfo" parameterType="String" resultMap="addTeacherListMap">

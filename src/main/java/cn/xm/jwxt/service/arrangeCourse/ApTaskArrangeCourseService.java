@@ -90,4 +90,12 @@ public interface ApTaskArrangeCourseService {
      * @throws Exception
      */
     ApTaskArrangeCourseCustom getTaskArrangeCourseInfoById(String arrangeCourseId) throws Exception;
+
+    /**
+     * 根据排课任务ID查询有关排课任务的所有信息用于Excel文件的导出
+     * @param arrangeCourseTaskId
+     * @return Map<String,List<ApTaskArrangeCourseCustom>> 校区的状态码，对应的课程信息集合
+     * @throws Exception
+     */
+    Map<String,List<ApTaskArrangeCourseCustom>> getArrangeCourseAllInfoByArrangeCourseTaskId(String arrangeCourseTaskId) throws Exception;
 }
