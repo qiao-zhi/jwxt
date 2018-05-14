@@ -38,4 +38,5 @@ public interface TTextbookBaseInfoCustomMapper {
      * @throws SQLException
      */
     public List<Map<String,Object>> findTextbook(Map findcondition)throws SQLException;
+
 }

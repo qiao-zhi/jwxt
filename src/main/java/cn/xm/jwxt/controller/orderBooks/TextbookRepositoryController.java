@@ -83,9 +83,25 @@ public class TextbookRepositoryController {
         try {
             allCourse = textbookRepositoryService.findAllCourse();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error( "查找失败",e);
         }
         return  allCourse;
+    }
+
+    /**
+     * 根据教材ID查找教材基本信息
+     * @param textbookId
+     * @return
+     */
+    @RequestMapping("/findTextbookByTextbookId")
+    public @ResponseBody TTextbookBaseInfo findTextbookByTextbookId(@RequestParam String textbookId){
+        TTextbookBaseInfo textbook=null;
+        try {
+            textbook=textbookRepositoryService.findTextbookByTextbookId(textbookId);
+        } catch (SQLException e) {
+            logger.error( "查找教材失败",e);
+        }
+        return  textbook;
     }
 
     @RequestMapping("/findTextbook")
@@ -109,6 +125,18 @@ public class TextbookRepositoryController {
         }
         PageInfo<Map<String,Object>> pageInfo = new PageInfo<Map<String,Object>>(textbook);
         return pageInfo;
+    }
+
+    @RequestMapping("/updateTextbook")
+    public @ResponseBody String updateTextbook(TTextbookBaseInfo tTextbookBaseInfo){
+        String result=null;
+        try {
+            result=textbookRepositoryService.updateTextbook(tTextbookBaseInfo)?"修改成功":"修改失败";
+        } catch (SQLException e) {
+            logger.error("修改教材基本信息失败",e);
+            result="修改出错了！！！";
+        }
+        return result;
     }
     }
 

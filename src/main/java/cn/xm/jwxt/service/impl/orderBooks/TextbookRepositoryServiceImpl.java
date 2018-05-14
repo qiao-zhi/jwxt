@@ -29,6 +29,11 @@ public class TextbookRepositoryServiceImpl implements TextbookRepositoryService 
     private TTextbookBaseInfoCustomMapper tTextbookBaseInfoCustomMapper;
 
     @Override
+    public TTextbookBaseInfo findTextbookByTextbookId(String textbookId)throws SQLException{
+        return tTextbookBaseInfoMapper.selectByPrimaryKey(textbookId);
+    }
+
+    @Override
     public List<Map<String,Object>> findTextbook(Map findcondition)throws SQLException {
         return tTextbookBaseInfoCustomMapper.findTextbook(findcondition);
     }
@@ -54,7 +59,7 @@ public class TextbookRepositoryServiceImpl implements TextbookRepositoryService 
     }
     @Override
     public boolean updateTextbook(TTextbookBaseInfo textbook)throws SQLException {
-        return false;
+        return tTextbookBaseInfoMapper.updateByPrimaryKeySelective(textbook)>0?true:false;
     }
     @Override
     public boolean deleteTextbook(String textbookid)throws SQLException {

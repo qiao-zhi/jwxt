@@ -10,6 +10,14 @@ import java.util.Map;
 public interface TextbookRepositoryService {
 
     /**
+     * 根据教材ID查找教材
+     * @param textbookId
+     * @return
+     * @throws SQLException
+     */
+    public TTextbookBaseInfo findTextbookByTextbookId(String textbookId)throws SQLException;
+
+    /**
      * by 教材名称&课程名称：一本教材对应一门课程，一门课程对应多本教材
      * @param findcondition
      * @return
