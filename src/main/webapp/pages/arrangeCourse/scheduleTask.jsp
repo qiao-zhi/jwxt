@@ -76,10 +76,10 @@
 
     
     <xblock>
-	<button class="layui-btn" onclick="addTask()" >新增</button>
-	<button class="layui-btn" onclick="allotCourse()" >分配</button>
-	<button class="layui-btn" onclick="send()" >发送</button>
-    <button class="layui-btn" onclick="accept()" >接收</button>
+	<button class="layui-btn" onclick="addTask()" >新增排课任务</button>
+	<button class="layui-btn" onclick="allotCourse()" >分配课程</button>
+	<button class="layui-btn" onclick="send()" >发送任务</button>
+    <button class="layui-btn" onclick="accept()" >接收任务</button>
 	</xblock>
 
     <!--表格内容-->

@@ -18,6 +18,8 @@
     <!-- 1.注解驱动，代替上面两个,配置JSON转换器与防止中文乱码 -->
     <mvc:annotation-driven conversion-service="conversionServiceFactoryBean" >
         <mvc:message-converters>
+            <!--把ByteArray加在Json前面-->
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8" />
             </bean>

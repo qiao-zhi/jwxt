@@ -57,7 +57,7 @@ function showArrangeCourseTaskInfo(pageInfo){
             +arrangeCourseTaskList[i].taskReceiptName+"</td><td>"
             +(arrangeCourseTaskList[i].taskReceiptTime==null?'--':arrangeCourseTaskList[i].taskReceiptTime)+"</td><td>"
             +arrangeCourseTaskList[i].taskStatus+"</td>"
-            +"<td class='td-manage'><a title='点击排课' onclick=x_admin_show('排课','scheduleArrange-detail.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
+            +"<td class='td-manage'><a title='点击查看排课详情' onclick=x_admin_show('排课','scheduleArrange-detail.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
             +"</td></tr>"
         $("tbody").append(tr);
     }
@@ -120,5 +120,6 @@ function checkView(){
     }
     var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
     x_admin_show('查看审核结果','./scheduleCheck-result.jsp?arrangeTaskId='+arrangeTaskId);
-
 }
+
+
