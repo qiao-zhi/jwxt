@@ -266,7 +266,7 @@ function save(){
     $(".checkdiv").each(function() {
         if ($(this).hasClass("layui-form-checked")) {
             var status = $(this).parents("tr").find("td").eq(8).text();
-            if(status=="已保存，未提交" || status=="已提交"){
+            if(status=="已保存，未提交" || status=="已提交"||status == "----"){
                 indexx++;
                 return;
             }
@@ -320,7 +320,7 @@ function commit(){
     $(".checkdiv").each(function() {
         if ($(this).hasClass("layui-form-checked")) {
             var status = $(this).parents("tr").find("td").eq(8).text();
-            if(status=="已提交" || status=="未保存"){
+            if(status=="已提交" || status=="未保存" || status == "----"){
                 indexx++;
                 return;
             }
