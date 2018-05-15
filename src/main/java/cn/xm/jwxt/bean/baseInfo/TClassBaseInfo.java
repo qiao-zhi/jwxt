@@ -7,11 +7,13 @@ public class TClassBaseInfo {
 
     private String majorid;
 
-    private String trainingschemeid;
+    private String trainingschemeid;//培养方案编号
 
     private String classname;
 
     private Integer classpeoplenum;
+
+    private String grade;//年级编号，例如2014,2015
 
     private String remark1;
 
@@ -63,6 +65,14 @@ public class TClassBaseInfo {
 
     public void setClasspeoplenum(Integer classpeoplenum) {
         this.classpeoplenum = classpeoplenum;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade == null ? null : grade.trim();
     }
 
     public String getRemark1() {

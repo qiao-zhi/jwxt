@@ -10,6 +10,7 @@
     <result column="classPeopleNum" property="classpeoplenum" jdbcType="INTEGER" />
     <result column="remark1" property="remark1" jdbcType="VARCHAR" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,7 +72,7 @@
   </sql>
   <sql id="Base_Column_List" >
     classID, classNum, majorID, trainingSchemeID, className, classPeopleNum, remark1, 
-    remark2
+    remark2,grade
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfoExample" >
     select
@@ -106,10 +107,10 @@
   <insert id="insert" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfo" >
     insert into t_class_base_info (classID, classNum, majorID, 
       trainingSchemeID, className, classPeopleNum, 
-      remark1, remark2)
+      remark1, remark2,grade)
     values (#{classid,jdbcType=VARCHAR}, #{classnum,jdbcType=VARCHAR}, #{majorid,jdbcType=VARCHAR}, 
       #{trainingschemeid,jdbcType=VARCHAR}, #{classname,jdbcType=VARCHAR}, #{classpeoplenum,jdbcType=INTEGER}, 
-      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR})
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}), #{grade,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.baseInfo.TClassBaseInfo" >
     insert into t_class_base_info
@@ -138,6 +139,9 @@
       <if test="remark2 != null" >
         remark2,
       </if>
+      <if test="grade != null" >
+        grade,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="classid != null" >
@@ -163,6 +167,9 @@
       </if>
       <if test="remark2 != null" >
         #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -199,6 +206,9 @@
       <if test="record.remark2 != null" >
         remark2 = #{record.remark2,jdbcType=VARCHAR},
       </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -214,6 +224,7 @@
       classPeopleNum = #{record.classpeoplenum,jdbcType=INTEGER},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR}
+    grade = #{record.grade,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -242,6 +253,9 @@
       <if test="remark2 != null" >
         remark2 = #{remark2,jdbcType=VARCHAR},
       </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
     </set>
     where classID = #{classid,jdbcType=VARCHAR}
   </update>
@@ -254,6 +268,7 @@
       classPeopleNum = #{classpeoplenum,jdbcType=INTEGER},
       remark1 = #{remark1,jdbcType=VARCHAR},
       remark2 = #{remark2,jdbcType=VARCHAR}
+      grade = #{grade,jdbcType=VARCHAR}
     where classID = #{classid,jdbcType=VARCHAR}
   </update>
 </mapper>

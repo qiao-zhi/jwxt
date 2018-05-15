@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.baseInfo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class TTeacherBaseInfo {
@@ -86,7 +88,7 @@ public class TTeacherBaseInfo {
     public void setTeachersex(String teachersex) {
         this.teachersex = teachersex == null ? null : teachersex.trim();
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getTeacherbirth() {
         return teacherbirth;
     }
@@ -150,7 +152,7 @@ public class TTeacherBaseInfo {
     public void setPositionaltitle(String positionaltitle) {
         this.positionaltitle = positionaltitle == null ? null : positionaltitle.trim();
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getJoinschooltime() {
         return joinschooltime;
     }

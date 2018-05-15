@@ -334,22 +334,22 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/baseinfo/major.html">
+                        <a _href="pages/baseinfo/major.jsp">
                             <cite>专业信息</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/baseinfo/clazz.html">
+                        <a _href="pages/baseinfo/clazz.jsp">
                             <cite>班级信息</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/baseinfo/teacher.html">
+                        <a _href="pages/baseinfo/teacher.jsp">
                             <cite>教师信息</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/baseinfo/student.html">
+                        <a _href="pages/baseinfo/student.jsp">
                             <cite>学生信息</cite>
                         </a>
                     </li>
@@ -363,7 +363,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/system/college.html">
+                        <a _href="pages/system/college.jsp">
                             <cite>学院初始化</cite>
                         </a>
                     </li>

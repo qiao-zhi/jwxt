@@ -3,15 +3,15 @@ package cn.xm.jwxt.bean.baseInfo;
 public class TMajorBaseInfo {
     private String majorid;
 
-    private String majornum;
+    private String majornum;//专业代码
 
-    private String collegeid;
+    private String collegeid;//学院id
 
     private String majorname;
 
-    private String majorshortname;
+    private String majorshortname;//专业简称
 
-    private String majorsort;
+    private String majorsort;//专业门类
 
     private String majormanager;
 
