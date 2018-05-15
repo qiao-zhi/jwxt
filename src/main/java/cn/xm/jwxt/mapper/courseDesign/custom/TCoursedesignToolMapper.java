@@ -1,8 +1,6 @@
 package cn.xm.jwxt.mapper.courseDesign.custom;
 
-import cn.xm.jwxt.bean.baseInfo.TClassBaseInfo;
-import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
-
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,90 +16,84 @@ public interface TCoursedesignToolMapper {
      * @param collegeID
      * @return
      */
-    public List<String> getMajorList(String collegeID);
+    public List<Map<String,Object>> getMajorList(String collegeID) throws SQLException;
 
     /**
      * 根据专业id,grade获取班级名称列表
      * @param condition
      * @return
      */
-    public List<String> getClassNameByMajor(Map<String,Object> condition);
+    public List<Map<String,Object>> getClassNameByMajor(Map<String,Object> condition) throws SQLException;
 
     /**
-     * 根据专业id查询教师姓名
+     * 根据专业id查询教师姓名  id
      * @param majorID
      * @return
      */
-    public List<String> getTeacherName(String majorID);
+    public List<Map<String,Object>> getTeacherNameid(String majorID) throws SQLException;
 
     /**
-     *  根据班级名称,专业id获取学生列表
+     *  根据班级id获取学生列表
      * @param condition
      * @return
      */
-    public List<Map<String,Object>> getStudentListByClassNameAndMajorId(Map<String,Object> condition);
+    public List<Map<String,Object>> getStudentListByClassId(Map<String,Object> condition) throws SQLException;
 
     /**
-     * 根据教师姓名和专业id获取教师编号
+     * 根据教师id获取教师编号
      * @param condition
      * @return
      */
-    public String getTeacherNum(Map<String,Object> condition);
+    public String getTeacherNum(Map<String,Object> condition) throws SQLException;
 
-    /**
-     * 根据老师编号获取老师id
-     * @param teacherNum
-     * @return
-     */
-    public String getTeacherID(String teacherNum);
 
     /**
      *  根据安排id获取教师安排id
      * @param courseDesignArrangeID
      * @return
      */
-    public List<String> getcourseDesignTeacherArrangeID(String courseDesignArrangeID);
+    public List<String> getcourseDesignTeacherArrangeID(String courseDesignArrangeID) throws SQLException;
 
     /**
      *  从infoArrange表中根据display查询id
      * @param display
      * @return
      */
-    public List<String> getcourseDesignArrangeIDByDisplay(String display);
+    public List<String> getcourseDesignArrangeIDByDisplay(String display) throws SQLException;
 
     /**
      * classArrange表 根据display查id
      * @param display
      * @return
      */
-    public List<String> getcourseDesignClassArrangeIDByDisplay(String display);
+    public List<String> getcourseDesignClassArrangeIDByDisplay(String display) throws SQLException;
 
     /**
      *  teacherArrange表 根据display查询id
      * @param display
      * @return
      */
-    public List<String> getcourseDesignTeacherArrangeIDByDisplay(String display);
+    public List<String> getcourseDesignTeacherArrangeIDByDisplay(String display) throws SQLException;
 
     /**
      *  teacherStudent表根据display查询id
      * @param display
      * @return
      */
-    public List<String> getcourseDesignTeacherStudentIDByDisplay(String display);
+    public List<String> getcourseDesignTeacherStudentIDByDisplay(String display) throws SQLException;
 
     /**
      *  根据培养方案课程编号学年专业查询已安排的课设信息
      * @param condition
      * @return
      */
-    public List<Map<String,Object>> findCourseDesignArrangeInfoBytrainCourseIDAndYearNumAndMajorID(Map<String,Object> condition);
+    public List<Map<String,Object>> findCourseDesignArrangeInfoBytrainCourseIDAndYearNumAndMajorID(Map<String,Object> condition) throws SQLException;
 
     /**
      * 通过培养方案课程编号,学年 专业查询课设安排id
      * @param  condition trainCourseID ，yearNum ,grade ,yearNum
      * @return
      */
-    public List<String> findcourseDesignArrangeIDBytrainCourseIDAndYearNumAndMajorID(Map<String,Object> condition);
+    public List<String> findcourseDesignArrangeIDBytrainCourseIDAndYearNumAndMajorID(Map<String,Object> condition) throws SQLException;
 
 }

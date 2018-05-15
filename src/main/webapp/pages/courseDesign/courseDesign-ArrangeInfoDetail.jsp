@@ -30,28 +30,36 @@
     // 自动加载
     $(function(){
         // 获取git请求的参数
+        <%--<%--%>
+            <%--String yearNum = request.getParameter("yearNum");--%>
+            <%--String majorID = request.getParameter("majorID");--%>
+            <%--String trainCourseID = request.getParameter("trainCourseID");--%>
+            <%--String courseNum = request.getParameter("courseNum");--%>
+            <%--String grade = request.getParameter("grade");--%>
+        <%--%>--%>
+        <%--courseNum = "<%=courseNum%>";--%>
+        <%--trainCourseID = "<%=trainCourseID%>";--%>
+        <%--majorID = "<%=majorID%>";--%>
+        <%--yearNum = "<%=yearNum%>";--%>
+        <%--grade = "<%=grade%>";--%>
+
+        var courseDesignArrangeID;
         <%
-            String yearNum = request.getParameter("yearNum");
-            String majorID = request.getParameter("majorID");
-            String trainCourseID = request.getParameter("trainCourseID");
-            String courseNum = request.getParameter("courseNum");
-            String grade = request.getParameter("grade");
+            String courseDesignArrangeID = request.getParameter("courseDesignArrangeID");
         %>
-        courseNum = "<%=courseNum%>";
-        trainCourseID = "<%=trainCourseID%>";
-        majorID = "<%=majorID%>";
-        yearNum = "<%=yearNum%>";
-        grade = "<%=grade%>";
+        courseDesignArrangeID = "<%=courseDesignArrangeID%>";
 
         $.ajax({
             url:"/jwxt/arrangeCourseDesign/findArrangeInfoDetail.do",
             type:"post",
-            data:{"trainCourseID":trainCourseID,"majorID":majorID,"yearNum":yearNum,"grade":grade},
+            //data:{"trainCourseID":trainCourseID,"majorID":majorID,"yearNum":yearNum,"grade":grade},
+            data:{"courseDesignArrangeID":courseDesignArrangeID},
             async:false,
             dataType:"json",
             success:function (infoList) {
                 for(var i=0;i<infoList.length;i++){
                     var courseDesignName = infoList[i].courseDesignName;
+                    var courseDesignNum = infoList[i].courseDesignNum;
                     var startTime = infoList[i].startTime;
                     var endTime = infoList[i].endTime;
                     var CourseArrangeInfo = infoList[i].CourseArrangeInfo;
@@ -67,7 +75,7 @@
                         "<td>课程名称</td>" +
                         "<td>"+courseDesignName+"</td>" +
                         "<td>课程编号</td>" +
-                        "<td>"+courseNum+"</td>" +
+                        "<td>"+courseDesignNum+"</td>" +
                         "</tr>" +
                         "<tr>" +
                         "<td>教师名称</td>" +

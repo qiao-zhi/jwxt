@@ -1,18 +1,13 @@
 package cn.xm.jwxt.service.impl.courseDesign;
 
-import cn.xm.jwxt.bean.baseInfo.TClassBaseInfo;
-import cn.xm.jwxt.bean.baseInfo.TClassBaseInfoExample;
-import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
-import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfoExample;
 import cn.xm.jwxt.mapper.baseInfo.TClassBaseInfoMapper;
-import cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper;
 import cn.xm.jwxt.mapper.courseDesign.custom.TCoursedesignToolMapper;
 import cn.xm.jwxt.service.courseDesign.TCoursedesignToolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +27,7 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<String> getYearList() {
+    public List<String> getYearList()  throws SQLException {
         String nowYear = cdToolMapper.getNowYear();
         int maxYear = Integer.parseInt(nowYear);
         List<String> yearList = new ArrayList<String>();
@@ -50,8 +45,8 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<String> getMajorList(String collegeID) {
-        List<String> list = new ArrayList<String>();
+    public List<Map<String,Object>> getMajorList(String collegeID) throws SQLException{
+        List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
             list = cdToolMapper.getMajorList("1");
         return list;
     }
@@ -63,7 +58,7 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<Map<String,Object>> findCourseDesignArrangeInfoBytrainCourseIDAndYearNumAndMajorID(Map<String,Object> condition) {
+    public List<Map<String,Object>> findCourseDesignArrangeInfoBytrainCourseIDAndYearNumAndMajorID(Map<String,Object> condition) throws SQLException {
         List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
         list = cdToolMapper.findCourseDesignArrangeInfoBytrainCourseIDAndYearNumAndMajorID(condition);
         return list;
@@ -76,9 +71,9 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<String> getTeacheName(String majorID) {
-        List<String> teaherNameList = new ArrayList<String>();
-        teaherNameList = cdToolMapper.getTeacherName(majorID);
+    public List<Map<String,Object>> getTeacherNameid(String majorID)  throws SQLException{
+        List<Map<String,Object>> teaherNameList = new ArrayList<Map<String,Object>>();
+        teaherNameList = cdToolMapper.getTeacherNameid(majorID);
         return teaherNameList;
     }
 
@@ -89,42 +84,30 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<String> getClassNameByMajor(Map<String,Object> condition) {
-        List<String> classNameList = new ArrayList<String>();
+    public List<Map<String,Object>> getClassNameByMajor(Map<String,Object> condition)  throws SQLException{
+        List<Map<String,Object>> classNameList = new ArrayList<Map<String,Object>>();
                classNameList = cdToolMapper.getClassNameByMajor(condition);
         return classNameList;
     }
 
 
     /**
-     * 根据班级名称，专业id获取学生列表
+     * 根据班级id获取学生列表
      *
      * @param className
      * @return
      */
     @Override
-    public List<Map<String,Object>> getStudentListByClassNameAndMajorid(Map<String,Object> condition) {
+    public List<Map<String,Object>> getStudentListByClassid(Map<String,Object> condition)  throws SQLException{
         List<Map<String,Object>> studentlist = new ArrayList<Map<String,Object>>();
-        studentlist = cdToolMapper.getStudentListByClassNameAndMajorId(condition);
+        studentlist = cdToolMapper.getStudentListByClassId(condition);
         return studentlist;
     }
 
     @Override
-    public String getTeacherNum(Map<String, Object> condition) {
+    public String getTeacherNum(Map<String, Object> condition)  throws SQLException{
         String teacherNum = cdToolMapper.getTeacherNum(condition);
         return teacherNum;
-    }
-
-    /**
-     * 根据老师编号获取老师id
-     *
-     * @param teacherNum
-     * @return
-     */
-    @Override
-    public String getTeacherID(String teacherNum) {
-        String teacherID = cdToolMapper.getTeacherID(teacherNum);
-        return teacherID;
     }
 
     /**
@@ -134,7 +117,7 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<String> getcourseDesignArrangeIDByDisplay(String display) {
+    public List<String> getcourseDesignArrangeIDByDisplay(String display) throws SQLException {
         List<String> list = new ArrayList<String>();
         list = cdToolMapper.getcourseDesignArrangeIDByDisplay(display);
         return list;
@@ -147,7 +130,7 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<String> getcourseDesignTeacherArrangeIDByDisplay(String display) {
+    public List<String> getcourseDesignTeacherArrangeIDByDisplay(String display)  throws SQLException{
         List<String> list = new ArrayList<String>();
         list = cdToolMapper.getcourseDesignTeacherArrangeIDByDisplay(display);
         return list;
@@ -158,7 +141,7 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<String> getcourseDesignClassArrangeIDByDisplay(String display) {
+    public List<String> getcourseDesignClassArrangeIDByDisplay(String display)  throws SQLException{
         List<String> list = new ArrayList<String>();
         list = cdToolMapper.getcourseDesignClassArrangeIDByDisplay(display);
         return list;
@@ -169,7 +152,7 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @param courseDesignArrangeID
      * @return
      */
-    public List<String> getcourseDesignTeacherArrangeID(String courseDesignArrangeID){
+    public List<String> getcourseDesignTeacherArrangeID(String courseDesignArrangeID) throws SQLException{
         List<String> courseDesignTeacherArrangeIDList = new ArrayList<String>();
         courseDesignTeacherArrangeIDList = cdToolMapper.getcourseDesignTeacherArrangeID(courseDesignArrangeID);
         return courseDesignTeacherArrangeIDList;
@@ -181,7 +164,7 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<String> getcourseDesignTeacherStudentIDByDisplay(String display) {
+    public List<String> getcourseDesignTeacherStudentIDByDisplay(String display) throws SQLException {
         List<String> list = new ArrayList<String>();
         list = cdToolMapper.getcourseDesignTeacherStudentIDByDisplay(display);
         return list;
@@ -193,7 +176,7 @@ public class TCoursedesignToolServiceImpl implements TCoursedesignToolService {
      * @return
      */
     @Override
-    public List<String> findcourseDesignArrangeIDBytrainCourseIDAndYearNumAndMajorID(Map<String,Object> condition) {
+    public List<String> findcourseDesignArrangeIDBytrainCourseIDAndYearNumAndMajorID(Map<String,Object> condition) throws SQLException {
         List<String> list = cdToolMapper.findcourseDesignArrangeIDBytrainCourseIDAndYearNumAndMajorID(condition);
         return list;
     }

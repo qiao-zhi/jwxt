@@ -36,11 +36,10 @@ create table t_courseDesign_teacher_arrange
    courseDesignArrangeID varchar(40),
    teacherID            varchar(40),
    classNames           varchar(40),
+   stuCount             VARCHAR(10),
    display              varchar(10),
    primary key (courseDesignTeacherArrangeID)
 );
-
-
 
 
 drop table if exists t_courseDesign_TeacherStudent;

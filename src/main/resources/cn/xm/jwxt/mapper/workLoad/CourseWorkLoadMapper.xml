@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.workLoad.CourseWorkLoadMapper" >
+
+    <select id="findCourseWorkLoad" parameterType="map" resultType="map">
+          SELECT
+              tc.teacher_course_id, <!--  用于查询班级与学生信息 -->
+              tc.teacher_name,
+              tc.teacher_number,
+              tc.academic_year,
+              tc.term,
+              ac.course_name
+            FROM
+              ap_teacher_course tc
+              JOIN ap_task_arrange_course ac
+                ON tc.arrange_course_id = ac.arrange_course_id
+              <where>
+                <if test="yearNum!=null and yearNum!=''">
+                    AND tc.academic_year = #{yearNum}
+                </if>
+                <if test="semester!=null and semester!=''">
+                    AND tc.term = #{semester}
+                </if>
+                <if test="teacherID!=null and teacherID!=''">
+                    AND tc.teacher_id = #{teacherID}
+                </if>
+                <if test="teacherName!=null and teacherName!=''">
+                    AND tc.teacher_name = #{teacherName}
+                </if>
+              </where>
+    </select>
+    <select id="findClassInfoByteacher_course_id" parameterType="String" resultType="map">
+        SELECT
+            class_name,
+            class_size
+          FROM
+            ap_class_teacher
+            WHERE
+              teacher_course_id = #{teacher_course_id}
+    </select>
+
+    <!-- 查询详细的课程信息-->
+        <select id="findCourseDetail" parameterType="String" resultType="map">
+            SELECT
+            tc.teacher_name,
+            tc.teacher_number,
+            tc.academic_year,
+            tc.term,
+            ac.course_name,
+            ac.course_code
+            FROM
+            ap_teacher_course tc
+            JOIN ap_task_arrange_course ac
+              ON tc.arrange_course_id = ac.arrange_course_id
+            WHERE
+              tc.teacher_course_id = #{teacher_course_id}
+
+        </select>
+    <!-- 根据班级查询学生列表 -->
+        <select id="findStuListByClassName" parameterType="String" resultType="String">
+            SELECT
+              si.studentName
+                FROM
+                  t_student_base_info si
+                  JOIN t_class_base_info ci
+                    ON si.classID = ci.classID
+                  WHERE
+                    ci.className = #{className}
+        </select>
+
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.workLoad.GrduateDesignWorkLoadMapper" >
+
+    <!-- 查询教师带的毕设信息 -->
+    <select id="findGraduateDesignWork" parameterType="map" resultType="map">
+        SELECT
+            ti.teacherNum,
+            ti.teacherName,
+            tt.teacherTitleID,           <!--  可用于查询学生列表 -->
+            bi.yearNum,
+            bi.semesterNum,
+            bi.graduateDesignName       <!-- 毕设名称-->
+          FROM
+            gradeuateBaseInfo bi
+            JOIN teacherGreDesignTitle tt
+              ON bi.graDesignID = tt.graDesignID
+            JOIN t_teacher_base_info ti
+              ON tt.teacherId = ti.teacherID
+            <where>
+                <if test="yearNum!=null and yearNum!=''">
+                    AND bi.yearNum = #{yearNum}
+                </if>
+                <if test="semester!=null and semester!=''">
+                    AND bi.semesterNum = #{semester}
+                </if>
+                <if test="teacherID!=null and teacherID!=''">
+                    AND tt.teacherId = #{teacherID}
+                </if>
+                <if test="teacherName!=null and teacherName!=''">
+                    AND ti.teacherName = #{teacherName}
+                </if>
+            </where>
+    </select>
+    <select id="findGraStuNum" parameterType="String" resultType="String">
+        SELECT
+          COUNT(*)
+          FROM studentTitleResult
+          WHERE
+            teacherTitleID = #{teacherTitleID}
+    </select>
+
+    <!-- 查询毕设详细信息 -->
+    <select id="findGraDesignDetail" parameterType="String" resultType="map">
+        SELECT
+          ti.teacherNum,
+          ti.teacherName,
+          bi.yearNum,
+          bi.semesterNum,
+          bi.graduateDesignName
+          FROM
+            gradeuateBaseInfo bi
+            JOIN teacherGreDesignTitle tt
+             ON bi.graDesignID = tt.graDesignID
+            JOIN t_teacher_base_info ti
+              ON tt.teacherId = ti.teacherID
+            WHERE
+              tt.teacherTitleID = #{teacherTitleID}
+    </select>
+    <select id="findGraStu" parameterType="String" resultType="map">
+        SELECT
+          str.studentID,
+          str.finallyName,
+          si.studentName
+        FROM
+          studentTitleResult str
+          JOIN t_student_base_info si
+            ON str.studentID = si.studentID
+        WHERE
+          str.teacherTitleID = #{teacherTitleID}
+    </select>
+
+</mapper>

@@ -2,6 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.courseDesign.custom.TCoursedesignTeacherstudentCustomMapper" >
 
+    <!-- 查询课设报告名称   学生姓名 -->
+    <select id="getCourseDesignFileInfo" parameterType="String" resultType="map">
+        SELECT
+          ts.courseDesignReportStore,
+          si.studentName
+          FROM
+            t_courseDesign_TeacherStudent ts
+            JOIN t_student_base_info si
+              ON ts.studentID = si.studentID
+            WHERE
+              ts.courseDesignTeacherStudentID = #{courseDesignTeacherStudentID}
+    </select>
+
+    <!-- 查询课设审核信息 -->
+    <select id="getCourseDesignCheckResult" parameterType="String" resultType="map">
+        SELECT
+            ts.checkStatus,
+            ts.checkAdvice,
+            ti.teacherName
+          FROM
+            t_courseDesign_TeacherStudent ts
+            JOIN t_courseDesign_teacher_arrange ta
+              ON ts.courseDesignTeacherArrangeID = ta.courseDesignTeacherArrangeID
+            JOIN  t_teacher_base_info ti
+              ON ti.teacherID = ta.teacherID
+            WHERE
+              ts.courseDesignTeacherStudentID = #{courseDesignTeacherStudentID}
+    </select>
+
+    <!-- 学生要上传课设的信息 -->
+    <select id="findUploadCourseDesignInfo" parameterType="String" resultType="map">
+        SELECT
+          ia.courseDesignName,
+          ia.courseDesignNum,
+          ti.teacherName,
+          ti.teacherNum
+          FROM
+            t_courseDesign_TeacherStudent ts
+            JOIN t_courseDesign_teacher_arrange ta
+              ON ts.courseDesignTeacherArrangeID = ta.courseDesignTeacherArrangeID
+            JOIN t_teacher_base_info ti
+              ON ta.teacherID = ti.teacherID
+            JOIN t_courseDesign_info_arrange ia
+              ON ta.courseDesignArrangeID = ia.courseDesignArrangeID
+            WHERE
+              ts.courseDesignTeacherStudentID = #{courseDesignTeacherStudentID}
+    </select>
     <!-- 学生上传课设报告 -->
     <update id="addCourseDesignFileInfo" parameterType="map">
         UPDATE
@@ -12,13 +59,14 @@
               uploadTime = #{uploadTime},
               uploadStatus = #{uploadStatus}
             WHERE
-              studentID = #{studentID}
-
+              courseDesignTeacherStudentID = #{courseDesignTeacherStudentID}
     </update>
+
 
     <!--  查询需要上传课设报告的课设  -->
     <select id="findNeedUploadCoursedesignFile" parameterType="map" resultType="map">
         SELECT
+            ts.courseDesignTeacherStudentID,
             ia.courseDesignName,
             ia.courseDesignNum,
             ti.teacherNum,
@@ -35,7 +83,7 @@
               ON ta.courseDesignArrangeID = ia.courseDesignArrangeID
             WHERE
               ts.studentID = #{studentID}
-              AND ts.uploadStatus = #{uploadStatus}
+          <!--    AND ts.uploadStatus = #{uploadStatus}  -->
               AND ts.display = #{display}
     </select>
 </mapper>

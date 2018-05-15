@@ -127,17 +127,17 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/courseDesign/courseDesign.html">
+                        <a _href="pages/courseDesign/courseDesign.jsp">
                             <cite>课设分配</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/courseDesign/courseDesignReport.html">
+                        <a _href="pages/courseDesign/courseDesignReport.jsp">
                             <cite>上传课设报告</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/courseDesign/courseDesignReport-progress.html">
+                        <a _href="pages/courseDesign/courseDesignReport-progress.jsp">
                             <cite>报告上传情况</cite>
                         </a>
                     </li>
@@ -151,7 +151,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/workLoad/statistics.html">
+                        <a _href="pages/workLoad/statistics.jsp">
                             <cite>工作量统计</cite>
                         </a>
                     </li>
