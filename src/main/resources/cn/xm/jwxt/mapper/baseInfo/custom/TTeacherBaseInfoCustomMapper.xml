@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.baseInfo.custom.TTeacherBaseInfoCustomMapper" >
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo" >
+        <id column="teacherID" property="teacherid" jdbcType="VARCHAR" />
+        <result column="teacherNum" property="teachernum" jdbcType="VARCHAR" />
+        <result column="collegeID" property="collegeid" jdbcType="VARCHAR" />
+        <result column="majorID" property="majorid" jdbcType="VARCHAR" />
+        <result column="teacherName" property="teachername" jdbcType="VARCHAR" />
+        <result column="teacherSex" property="teachersex" jdbcType="VARCHAR" />
+        <result column="teacherBirth" property="teacherbirth" jdbcType="DATE" />
+        <result column="education" property="education" jdbcType="VARCHAR" />
+        <result column="degree" property="degree" jdbcType="VARCHAR" />
+        <result column="graduateSchool" property="graduateschool" jdbcType="VARCHAR" />
+        <result column="graduateMajor" property="graduatemajor" jdbcType="VARCHAR" />
+        <result column="teacherPhoto" property="teacherphoto" jdbcType="VARCHAR" />
+        <result column="teacherTel" property="teachertel" jdbcType="VARCHAR" />
+        <result column="positionalTitle" property="positionaltitle" jdbcType="VARCHAR" />
+        <result column="joinSchoolTime" property="joinschooltime" jdbcType="DATE" />
+        <result column="teacherPosition" property="teacherposition" jdbcType="VARCHAR" />
+        <result column="inPosition" property="inposition" jdbcType="VARCHAR" />
+        <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <!--查询教师的名称和ID-->
+    <select id="findTeacherNameAndId" resultType="map">
+        SELECT teacherId as teacherid,teacherName as teachername from t_teacher_base_info
+
+    </select>
+
+    <!--组合条件查询教师分页显示-->
+    <select id="findTeacherInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultMap="BaseResultMap">
+        SELECT * FROM t_teacher_base_info
+        <where>
+            <include refid="query_common_where"></include>
+        </where>
+    </select>
+
+
+    <!--封装查询条件-->
+    <sql id="query_common_where">
+        <if test="teachernum != null and teachernum !=''">
+            and teacherId = #{teacherid}
+        </if>
+        <if test="teachername != null and teachername !=''">
+            and teacherName LIKE '%${teachername}%'
+        </if>
+        <if test="collegenum != null and collegenum !=''">
+            and collegeNum = #{collegenum}
+        </if>
+        <if test="majorname != null and majorname !=''">
+            and majorName = #{majorname }
+        </if>
+    </sql>
+</mapper>

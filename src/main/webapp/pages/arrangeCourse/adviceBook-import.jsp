@@ -29,7 +29,7 @@
             通知书名称
         </label>
         <div class="layui-input-inline">
-            <input type="" value="${param.noticeBookName}" readonly required="" lay-verify="required"
+            <input type="" value="2018年5月8日通知书" readonly required="" lay-verify="required"
                    autocomplete="off" class="layui-input">
         </div>
     </div>

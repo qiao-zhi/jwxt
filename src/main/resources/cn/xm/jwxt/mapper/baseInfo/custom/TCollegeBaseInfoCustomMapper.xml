@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.baseInfo.custom.TCollegeBaseInfoCustomMapper" >
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.baseInfo.TCollegeBaseInfo" >
+        <id column="collegeId" property="collegeid" jdbcType="VARCHAR" />
+        <result column="collegeNum" property="collegenum" jdbcType="VARCHAR" />
+        <result column="collegeName" property="collegename" jdbcType="VARCHAR" />
+        <result column="collegeShortName" property="collegeshortname" jdbcType="VARCHAR" />
+        <result column="collegeIntroduction" property="collegeintroduction" jdbcType="VARCHAR" />
+        <result column="collegePresident" property="collegepresident" jdbcType="VARCHAR" />
+        <result column="collegePresidentF" property="collegepresidentf" jdbcType="VARCHAR" />
+        <result column="upCollegeNum" property="upcollegenum" jdbcType="VARCHAR" />
+        <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+        <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <!--查询学院的名称和ID-->
+    <select id="findCollegeNameAndId" resultType="map">
+        SELECT collegeId as collegeid,collegeName as collegename from t_college_base_info
+
+    </select>
+
+    <!--组合条件查询学院页显示-->
+    <select id="findCollegeInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultMap="BaseResultMap">
+        SELECT * FROM t_college_base_info
+        <where>
+            <include refid="query_common_where"></include>
+        </where>
+    </select>
+
+
+    <!--封装查询条件-->
+    <sql id="query_common_where">
+        <if test="collegenum != null and collegenum !=''">
+            and collegeNum = #{collegenum}
+        </if>
+        <if test="collegename != null and collegename !=''">
+            and collegeName LIKE '%${collegename}%'
+        </if>
+    </sql>
+</mapper>
