@@ -10,12 +10,20 @@ import java.util.Map;
 public interface TextbookRepositoryService {
 
     /**
+     * 根据教材ID查找教材
+     * @param textbookId
+     * @return
+     * @throws SQLException
+     */
+    public TTextbookBaseInfo findTextbookByTextbookId(String textbookId)throws SQLException;
+
+    /**
      * by 教材名称&课程名称：一本教材对应一门课程，一门课程对应多本教材
      * @param findcondition
      * @return
      * @throws SQLException
      */
-    public List<TTextbookBaseInfo> findTextbook(Map findcondition)throws SQLException;
+    public List<Map<String,Object>> findTextbook(Map findcondition)throws SQLException;
 
     /**
      * 从课程基本信息表查找所有课程
@@ -49,10 +57,10 @@ public interface TextbookRepositoryService {
     public boolean updateTextbook(TTextbookBaseInfo textbook)throws SQLException;
 
     /**
-     * 根据教材ID删除
-     * @param textbookid
+     * 根据教材ID删除,将remark置为0，并不删除数据库
+     * @param textbookId
      * @return
      * @throws SQLException
      */
-    public boolean deleteTextbook(String textbookid)throws SQLException;
+    public boolean deleteTextbook(String textbookId)throws SQLException;
 }

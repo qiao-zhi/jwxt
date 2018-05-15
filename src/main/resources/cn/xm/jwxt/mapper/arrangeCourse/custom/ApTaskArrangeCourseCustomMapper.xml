@@ -26,11 +26,26 @@
         <collection property="teachers" ofType="cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom">
             <id column="teacher_course_id" property="teacherCourseId"></id>
             <result column="teacher_name" property="teacherName"></result>
+            <result column="teacher_id" property="teacherId"></result>
+            <result column="teacher_number" property="teacherNumber"></result>
+            <result column="academic_year" property="academicYear" jdbcType="VARCHAR" />
+            <result column="term" property="term" jdbcType="VARCHAR" />
             <result column="class_names" property="classNames"></result>
             <result column="class_size" property="classSize"></result>
         </collection>
     </resultMap>
 
+    <!--增加学年学期字段映射-->
+    <resultMap id="addYearTermMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom" extends="BaseResultMap">
+        <result column="academic_year" property="academicYear" jdbcType="VARCHAR" />
+        <result column="term" property="term" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--增加教师名称,教师编号字段映射-->
+    <resultMap id="addTeacheNameAndNumberMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom" extends="BaseResultMap">
+        <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+        <result column="teacher_number" property="teacherNumber" jdbcType="VARCHAR" />
+    </resultMap>
     <!--批量插入排课任务分配课程信息-->
     <insert id="saveTaskArrangeCourseInfoList" parameterType="java.util.List">
         insert into ap_task_arrange_course (arrange_course_id, arrange_task_id, course_name,
@@ -62,11 +77,31 @@
         WHERE
             ac.arrange_task_id = #{value}
     </select>
+    <!--根据排课任务ID和校区编号查询对应的教师课程信息用于导出-->
+    <select id="findTaskArrangeCourseAndTeacherListForExport" resultMap="addTeacheNamesMap">
+       SELECT
+            ac.*, (
+                SELECT
+                    GROUP_CONCAT(tc.teacher_name)
+                FROM
+                    ap_teacher_course tc
+                WHERE
+                    ac.arrange_course_id = tc.arrange_course_id
+            ) teacher_names
+        FROM
+            ap_task_arrange_course ac
+        WHERE
+            ac.arrange_task_id = #{arrangeTaskId}
+        AND campus_code = #{campusCode}
+        ORDER BY
+            CONVERT (course_name USING gbk)
+    </select>
+
 
     <!--根据安排课程ID查询查询每一门课程对应的教师课程信息-->
     <select id="getTaskArrangeCourseAndTeacherClassInfo" parameterType="String" resultMap="addTeacherListMap">
         SELECT
-            ac.*, tc.teacher_name,
+            ac.*, tc.teacher_name,tc.teacher_id,tc.teacher_number,tc.academic_year,tc.term,
             GROUP_CONCAT(ct.class_name ORDER BY ct.class_name) class_names,
             SUM(ct.class_size) class_size
         FROM
@@ -80,5 +115,67 @@
         AND
             tc.teacher_course_id = ct.teacher_course_id
         GROUP BY teacher_name
+    </select>
+
+    <!--根据安排课程ID查询查询每一门课程的信息包括学年和学期-->
+    <select id="getTaskArrangeCourseAndYearTermInfo" parameterType="String" resultMap="addYearTermMap">
+        SELECT
+            ac.*, (
+                SELECT
+                    academic_year
+                FROM
+                    `ap_arrange_course_task`
+                WHERE
+                    arrange_task_id = ac.arrange_task_id
+            ) academic_year,
+            (SELECT term FROM `ap_arrange_course_task` WHERE arrange_task_id = ac.arrange_task_id) term
+        FROM
+            ap_task_arrange_course ac
+        WHERE
+            ac.arrange_course_id = #{value}
+    </select>
+
+    <!--根据排课任务ID和学年学期查询历史排课记录-->
+    <select id="findHistoryArrangeCourseInfoByCondition" parameterType="cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo" resultMap="addTeacheNameAndNumberMap">
+        <bind name="academicYears" value="academicYear+'%'"></bind>
+        SELECT
+            *
+        FROM
+            (
+                SELECT
+                    tac.*, (
+                        SELECT
+                            teacher_number
+                        FROM
+                            ap_teacher_course tc
+                        WHERE
+                            academic_year LIKE #{academicYears}
+                        AND term = #{term}
+                        AND tc.course_code = tac.course_code
+                        ORDER BY
+                            CONVERT (teacher_name USING gbk)
+                        LIMIT 1
+                    ) teacher_number,
+                    (
+                        SELECT
+                            teacher_name
+                        FROM
+                            ap_teacher_course tc
+                        WHERE
+                            academic_year LIKE #{academicYears}
+                        AND term = #{term}
+                        AND tc.course_code = tac.course_code
+                        ORDER BY
+                            CONVERT (teacher_name USING gbk)
+                        LIMIT 1
+                    ) teacher_name
+                FROM
+                    ap_task_arrange_course tac
+                WHERE
+                    tac.arrange_task_id = #{arrangeTaskId}
+            ) temp
+        WHERE
+            temp.teacher_number IS NOT NULL
+        ORDER BY CONVERT(course_name USING gbk)
     </select>
 </mapper>

@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.baseInfo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class TStudentBaseInfo {
@@ -17,15 +19,15 @@ public class TStudentBaseInfo {
 
     private String studentphoto;
 
-    private String idnum;
+    private String idnum;//身份证号
 
-    private Date enrollmenttime;
+    private Date enrollmenttime;//入学时间
 
-    private Date endtime;
+    private Date endtime;//毕业时间
 
     private String isgraduate;
 
-    private String isdelete;
+    private String isdelete;//是否毕业
 
     private String remark1;
 
@@ -70,7 +72,7 @@ public class TStudentBaseInfo {
     public void setStudentsex(String studentsex) {
         this.studentsex = studentsex == null ? null : studentsex.trim();
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getStudentbirth() {
         return studentbirth;
     }
@@ -94,7 +96,7 @@ public class TStudentBaseInfo {
     public void setIdnum(String idnum) {
         this.idnum = idnum == null ? null : idnum.trim();
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getEnrollmenttime() {
         return enrollmenttime;
     }
@@ -102,7 +104,7 @@ public class TStudentBaseInfo {
     public void setEnrollmenttime(Date enrollmenttime) {
         this.enrollmenttime = enrollmenttime;
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getEndtime() {
         return endtime;
     }

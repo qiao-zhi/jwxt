@@ -45,6 +45,7 @@
                 <input type="hidden" name="arrangeTaskId" value="${param.arrangeTaskId}"/>
                 <input type="hidden" name="noticeBookId" value="${param.noticeBookId}"/>
                 <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
+                <button class="layui-btn layui-btn-normal" type="button" onclick="clearQueryCondition()"  lay-filter="clean" ><i class="layui-icon">&#xe639;</i></button>
             </form>
         </div>
         <!--end查询-->
@@ -211,13 +212,12 @@
                 + "<input name='taskArrangeCourses[" + i+ "].majorStudentsNumber' type='hidden' value='" + $tds.eq(7).html() + "'/>"
                 + "<input name='taskArrangeCourses[" + i+ "].totalPeriod' type='hidden' value='" + $tds.eq(8).html() + "'/>"
                 + "<input name='taskArrangeCourses[" + i+ "].campusCode' type='hidden' value='" + changeStatus($tds.eq(4).html()) + "'/>";
-            $("form").append(arrangeCourse);
+            $("#saveArrangeCourseForm").append(arrangeCourse);
         })
     }
 
     //将需要分配的课程信息提交到后台
     function saveTaskArrangeCourseInfo(){
-        var success = false;
         $.ajax({
             url:contextPath+"/arrangeCourse/updateTaskArrangeCourseInfoList.action",
             data:$("#saveArrangeCourseForm").serialize(),
@@ -233,7 +233,21 @@
                 });
             }
         })
-        return success;
+    }
+    /**
+     * 清空查询条件的按钮
+     */
+    function clearQueryCondition(){
+        //1.清空条件
+        $("input[name='courseName']").val('');
+        $("input[name='majorName']").val('');
+        $("select[name='campusCode'] option:selected").prop("selected",false);
+        layui.use(['form'], function () {
+            var form = layui.form;
+            form.render("select")
+        })
+        //2.重新查询一次
+        findUnDistributeCourse();
     }
 
 </script>

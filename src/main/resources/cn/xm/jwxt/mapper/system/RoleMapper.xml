@@ -7,6 +7,7 @@
     <result column="roleStatus" property="rolestatus" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="InsituteID" property="insituteid" jdbcType="VARCHAR" />
+    <result column="isUse" property="isuse" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    roleID, roleName, roleStatus, description, InsituteID, remark
+    roleID, roleName, roleStatus, description, InsituteID, isUse, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.system.RoleExample" >
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.system.Role" >
     insert into role (roleID, roleName, roleStatus, 
-      description, InsituteID, remark
-      )
+      description, InsituteID, isUse, 
+      remark)
     values (#{roleid,jdbcType=VARCHAR}, #{rolename,jdbcType=VARCHAR}, #{rolestatus,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{insituteid,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
-      )
+      #{description,jdbcType=VARCHAR}, #{insituteid,jdbcType=VARCHAR}, #{isuse,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.system.Role" >
     insert into role
@@ -125,6 +126,9 @@
       </if>
       <if test="insituteid != null" >
         InsituteID,
+      </if>
+      <if test="isuse != null" >
+        isUse,
       </if>
       <if test="remark != null" >
         remark,
@@ -145,6 +149,9 @@
       </if>
       <if test="insituteid != null" >
         #{insituteid,jdbcType=VARCHAR},
+      </if>
+      <if test="isuse != null" >
+        #{isuse,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -175,6 +182,9 @@
       <if test="record.insituteid != null" >
         InsituteID = #{record.insituteid,jdbcType=VARCHAR},
       </if>
+      <if test="record.isuse != null" >
+        isUse = #{record.isuse,jdbcType=VARCHAR},
+      </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -190,6 +200,7 @@
       roleStatus = #{record.rolestatus,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       InsituteID = #{record.insituteid,jdbcType=VARCHAR},
+      isUse = #{record.isuse,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -210,6 +221,9 @@
       <if test="insituteid != null" >
         InsituteID = #{insituteid,jdbcType=VARCHAR},
       </if>
+      <if test="isuse != null" >
+        isUse = #{isuse,jdbcType=VARCHAR},
+      </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -222,6 +236,7 @@
       roleStatus = #{rolestatus,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       InsituteID = #{insituteid,jdbcType=VARCHAR},
+      isUse = #{isuse,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where roleID = #{roleid,jdbcType=VARCHAR}
   </update>

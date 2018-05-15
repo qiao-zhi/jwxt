@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>添加课程</title>
+    <title>修改课程</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -147,8 +147,7 @@
 
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
-        var form = layui.form
-            , layer = layui.layer;
+        var form = layui.form;
         //查询任务通知书基本信息
         getTaskNoticeBaseInfo('${param.noticeId}',form);
         //监听学院下拉框事件
@@ -166,25 +165,12 @@
                 type:"POST",
                 datatype:"text",
                 success:function(response){
-                    alert(response)
-                    if("修改成功！" == response){
+                    layer.alert(response,function(){
                         //实现父页面的刷新
                         window.parent.location.reload();
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
-                    }
+                    })
                 }
             })
-
-            /*//发异步，把数据提交给
-            layer.alert("增加成功", {icon: 6}, function () {
-                // 获得frame索引
-              var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-             parent.layer.close(index);
-            });*/
             return false;
         });
      });

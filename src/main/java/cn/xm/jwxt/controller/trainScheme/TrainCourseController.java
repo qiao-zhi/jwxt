@@ -109,6 +109,24 @@ public class TrainCourseController {
         return pageInfo;
     }
 
+
+    /**
+     * 根据培养方案编号已经排好的培养方案课程信息
+     * @param condition 包含一个条件(trainningSchemeID)
+     * @return  以JSON的形式返回这些数据
+     */
+    @RequestMapping("/getAllTrainCoursesTrainSchemeId")
+    public List<Map<String,Object>> getAllTrainCoursesTrainSchemeId(@RequestParam Map<String,Object> condition){
+        List<Map<String, Object>> trainCourses = null;
+        try {
+            trainCourses = trainCourseService.getTrainCoursesByCondition(condition);
+        } catch (SQLException e) {
+            logger.error("查询培养方案课程失败",e);
+        }
+        return trainCourses;
+    }
+
+
     /**
      * 批量删除培养方案课程信息
      * @param trainCourseIds

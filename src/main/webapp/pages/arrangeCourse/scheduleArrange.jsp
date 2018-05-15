@@ -80,10 +80,10 @@
 
     
     <xblock>
-	<button class="layui-btn" onclick="allotCourse_history()" >根据历史排课记录安排</button>
-	<!--<button class="layui-btn" onclick="accept()" >接收</button>-->
-	<!--<button class="layui-btn" onclick="arrangeCourse()" >排课</button>-->
-	<!--<button class="layui-btn" onclick="arrangeCourse()" >审核</button>-->
+        <button class="layui-btn" onclick="allotCourse_history()" >根据历史排课记录安排</button>
+        <button class="layui-btn" onclick="arrangeCourse()" >手动排课</button>
+        <button class="layui-btn" onclick="commitToCheck()" >提交审核</button>
+        <button class="layui-btn layui-btn-normal" style="float: right;" onclick="arrangeCourseExport()"><i class="layui-icon">&#xe601;</i>导出排课信息</button>
 	</xblock>
     <!--表格内容-->
     <table class="layui-table">

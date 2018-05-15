@@ -1,5 +1,6 @@
 package cn.xm.jwxt.controller.trainScheme;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.service.trainScheme.CourseBaseInfoService;
 import cn.xm.jwxt.utils.*;
 import com.github.pagehelper.PageHelper;
@@ -204,6 +205,7 @@ public class ExtCourseExcel {
     }
 
     //3.打开流提供下载
+    @MyLogAnnotation(operateDescription = "下载了课程信息")
     @RequestMapping("/downCourses")
     public void down(HttpServletRequest request, HttpServletResponse response,@RequestParam Map condition){
         //1.查询数据

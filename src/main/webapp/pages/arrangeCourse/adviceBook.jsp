@@ -82,8 +82,8 @@
 
     
     <xblock>
-	<button class="layui-btn" onclick="addTask()" >新增</button>
-	<button class="layui-btn" onclick="importNoticeBook()" >导入任务通知书</button>
+	<button class="layui-btn" onclick="addTask()" ><i class="layui-icon">&#xe608;</i>新增通知书</button>
+	<button class="layui-btn layui-btn-warm" onclick="importNoticeBook()" style="float: right;" ><i class="layui-icon">&#xe681;</i>导入任务通知书</button>
 	</xblock>
     <!--表格内容-->
     <table class="layui-table">

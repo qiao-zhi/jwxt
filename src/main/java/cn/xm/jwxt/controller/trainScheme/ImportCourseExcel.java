@@ -1,5 +1,6 @@
 package cn.xm.jwxt.controller.trainScheme;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo;
 import cn.xm.jwxt.service.trainScheme.CourseBaseInfoService;
 import cn.xm.jwxt.utils.FileHandleUtil;
@@ -48,6 +49,7 @@ public class ImportCourseExcel {
      * @param file
      * @return
      */
+    @MyLogAnnotation(operateDescription = "导入课程信息Excel文件")
     @RequestMapping("/uploadCourseExcel")
     public @ResponseBody
     ResposeResult uploadCourseExcel(MultipartFile file){

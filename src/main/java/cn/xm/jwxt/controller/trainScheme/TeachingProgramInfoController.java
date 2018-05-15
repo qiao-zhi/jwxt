@@ -1,5 +1,6 @@
 package cn.xm.jwxt.controller.trainScheme;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfo;
 import cn.xm.jwxt.service.trainScheme.TeachingProgramInfoService;
 import cn.xm.jwxt.utils.FileHandleUtil;
@@ -36,6 +37,7 @@ public class TeachingProgramInfoController {
      * @param file
      * @return
      */
+    @MyLogAnnotation(operateDescription = "上传课程教学资料信息")
     @RequestMapping("/upload")
     public @ResponseBody
     ResposeResult uploadTeachingProgramFile(TTeachingprogramInfo teachingprogramInfo, MultipartFile file){
@@ -86,6 +88,7 @@ public class TeachingProgramInfoController {
     }
 
 
+    @MyLogAnnotation(operateDescription = "删除课程教学资料")
     @RequestMapping("/deleteTeachingFile")
     public @ResponseBody String deleteTeachingFileByFileId(int fileId){
         String result = null;

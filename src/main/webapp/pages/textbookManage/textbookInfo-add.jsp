@@ -22,6 +22,14 @@
     <%--新增教材的js--%>
     <script type="text/javascript" src="${baseurl}/js/orderBooks/TextbookRepository.js"></script>
 
+    <script>
+        //页面加载完成执行一些操作
+        $(function () {
+            findAllCourse();
+        })
+    </script>
+
+
 </head>
 
 <body>

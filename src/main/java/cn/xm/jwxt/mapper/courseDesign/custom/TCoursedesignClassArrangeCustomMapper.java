@@ -1,5 +1,6 @@
 package cn.xm.jwxt.mapper.courseDesign.custom;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,6 @@ public interface TCoursedesignClassArrangeCustomMapper {
      * @param condition
      * @return  map是几个表的字段的组合
      */
-    List<Map<String,Object>> findCourseDesignerByStudentId(Map<String, Object> condition);
+    List<Map<String,Object>> findCourseDesignerByStudentId(Map<String, Object> condition) throws SQLException;
 
 }

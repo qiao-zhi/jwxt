@@ -1,5 +1,6 @@
 package cn.xm.jwxt.service.impl.trainScheme;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.bean.trainScheme.TCourseBaseInfo;
 import cn.xm.jwxt.mapper.trainScheme.TCourseBaseInfoMapper;
 import cn.xm.jwxt.mapper.trainScheme.custom.TCourseBaseInfoCustomMapper;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.Map;
  * CourseBaseInfoService实现类
  */
 @Service//service层
+@Transactional
 @SuppressWarnings("all")//压制警告
 public class   CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     @Autowired
@@ -85,6 +88,7 @@ public class   CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     public boolean updateCourseBaseInfoById(TCourseBaseInfo courseBaseInfo) throws SQLException {
         return tCourseBaseInfoMapper.updateByPrimaryKeySelective(courseBaseInfo)>0?true:false;
     }
+
 
     @Cacheable(value = "courseBaseInfo",key = "'courseBaseInfo_'+#courseId.toString()")//添加缓存到redis缓存中
     @Override

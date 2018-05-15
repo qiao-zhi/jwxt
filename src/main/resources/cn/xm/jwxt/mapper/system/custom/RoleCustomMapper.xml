@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.system.custom.RoleCustomMapper" >
+
+    <!--1.组合条件分页查询角色信息-->
+    <!--1.1结果集映射-->
+    <resultMap id="RolePermissionResultMap" type="cn.xm.jwxt.bean.system.Role">
+        <!--(1)角色信息-->
+        <id column="roleID" property="roleid"></id>
+        <result column="roleName" property="rolename"/>
+        <result column="roleStatus" property="rolestatus"/>
+        <result column="description" property="description"/>
+        <!--(2)角色权限信息-->
+        <collection property="rolepermissions" ofType="cn.xm.jwxt.bean.system.Rolepermission">
+            <id column="rolePermissionId" property="rolepermissionid"></id>
+            <!--(3)权限信息-->
+            <association property="permission" javaType="cn.xm.jwxt.bean.system.Permission">
+                <id column="permissionID" property="permissionname"></id>
+                <result column="permissionStatus" property="permissionstatus"/>
+            </association>
+        </collection>
+    </resultMap>
+    <!--2.查询数据-->
+    <select id="getRoleByCondition" parameterType="map" resultMap="RolePermissionResultMap">
+        SELECT *
+        FROM role
+          LEFT JOIN rolepermission
+            ON role.roleID = rolepermission.roleId
+          LEFT JOIN permission
+            ON rolepermission.permissionId = permission.permissionID
+    </select>
+
+
+    <!--2.分页组合条件查询角色信息（多一列是否已经配置角色）-->
+    <select id="getRolesByCondition" parameterType="map" resultType="map">
+        SELECT
+          role.*,
+          (CASE (SELECT COUNT(rolepermissionid) FROM rolepermission WHERE roleid = role.roleID) WHEN 0 THEN '未配置' ELSE '已配置' END )    hasPermission
+        FROM role
+        <where>
+            <!--正在使用的角色-->
+            <if test="1 == 1">
+                isUse = '1'
+            </if>
+            <if test="rolename != null and rolename != ''">
+                and rolename like '%${rolename}%'
+            </if>
+            <if test="rolestatus != null and rolestatus != ''">
+                and rolestatus = #{rolestatus}
+            </if>
+        </where>
+    </select>
+
+    <!--3.根据角色编号查询角色权限信息-->
+    <select id="getRolePermissionByRoleId" parameterType="string" resultType="map">
+        SELECT *
+        FROM permission
+        WHERE permissionid IN(SELECT
+                                permissionid
+                              FROM rolepermission
+                              WHERE roleid = #{roleId})
+    </select>
+
+    <!--4.批量删除角色（将角色的isUse置为0）-->
+    <update id="deleteRoleBatch" parameterType="list">
+        update role set isuse = '0' where roleid in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+    
+</mapper>

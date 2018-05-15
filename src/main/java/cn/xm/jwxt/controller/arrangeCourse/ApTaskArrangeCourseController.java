@@ -3,17 +3,29 @@ package cn.xm.jwxt.controller.arrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
 import cn.xm.jwxt.queryVo.ListVo;
 import cn.xm.jwxt.service.arrangeCourse.ApTaskArrangeCourseService;
 import cn.xm.jwxt.utils.DefaultValue;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：jwxt
@@ -116,5 +128,56 @@ public class ApTaskArrangeCourseController {
             logger.error("查询课程和教师班级信息失败",e);
         }
         return info;
+    }
+
+    /**
+     * 根据安排课程ID查询课程的基本信息包括学年学期
+     * @param arrangeCourseId
+     * @return
+     */
+    @RequestMapping("/getTaskArrangeCourse")
+    public @ResponseBody ApTaskArrangeCourse getTaskArrangeCourse(String arrangeCourseId){
+        ApTaskArrangeCourseCustom arrangeCourseInfo = null;
+        try {
+            arrangeCourseInfo = taskArrangeCourseService.getTaskArrangeCourseInfoById(arrangeCourseId);
+        } catch (Exception e) {
+            logger.error("查询课程信息失败",e);
+        }
+        return arrangeCourseInfo;
+    }
+
+    /**
+     * 根据排课任务ID和学年学期查询历史排课记录
+     * @param condition
+     * @return
+     */
+    @RequestMapping("/findHistroyTeacherCourse")
+    public @ResponseBody List<ApTaskArrangeCourseCustom> findHistroyTeacherCourse(HistoryArrangeCourseQueryVo condition){
+        List<ApTaskArrangeCourseCustom> histroyTeacherCourses = null;
+        try {
+            histroyTeacherCourses = taskArrangeCourseService.findHistroyTeacherCourseByCodition(condition);
+        } catch (Exception e) {
+            logger.error("查询历史排课记录失败",e);
+        }
+        return histroyTeacherCourses;
+    }
+
+    @RequestMapping("/exportArrangeCourseInfo")
+    public ResponseEntity<byte[]> exportArrangeCourseInfo(HttpSession session, String arrangeCourseTaskId, Model model)throws Exception {
+        String filename = "排课信息.xls";
+        //下载文件路径
+        String path = session.getServletContext().getRealPath(filename);
+        Map<String, List<ApTaskArrangeCourseCustom>> mapInfo = taskArrangeCourseService.getArrangeCourseAllInfoByArrangeCourseTaskId(arrangeCourseTaskId);
+        GenerateArrangeCourseExcel.generateArrangeCourseExcelInfo(mapInfo,path);
+        File file = new File(path);
+        HttpHeaders headers = new HttpHeaders();
+        //下载显示的文件名，解决中文名称乱码问题
+        String downloadFielName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
+        //通知浏览器以attachment（下载方式）打开文件
+        headers.setContentDispositionFormData("attachment", downloadFielName);
+        //application/octet-stream ： 二进制流数据（最常见的文件下载）。
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
+                headers, HttpStatus.CREATED);
     }
 }

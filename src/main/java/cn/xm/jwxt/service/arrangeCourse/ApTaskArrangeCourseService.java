@@ -3,6 +3,8 @@ package cn.xm.jwxt.service.arrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskArrangeCourse;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
+import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -66,10 +68,34 @@ public interface ApTaskArrangeCourseService {
     PageInfo<ApTaskArrangeCourseCustom> findTaskArrangeCourseAndTeacherListByArrangeId(String arrangeTaskId, Integer currentPage, Integer pageSize) throws Exception;
 
     /**
+     * 根据排课任务ID和学年学期查询历史排课记录
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    List<ApTaskArrangeCourseCustom> findHistroyTeacherCourseByCodition(HistoryArrangeCourseQueryVo condition) throws Exception;
+
+    /**
      * 根据安排课程ID查询查询每一门课程对应的教师课程信息
      * @param arrangeCourseId
      * @return
      * @throws Exception
      */
     ApTaskArrangeCourseCustom getTaskArrangeCourseAndTeacherClassInfo(String arrangeCourseId) throws Exception;
+
+    /**
+     * 根据安排课程ID查询课程的基本信息包括学年学期
+     * @param arrangeCourseId
+     * @return
+     * @throws Exception
+     */
+    ApTaskArrangeCourseCustom getTaskArrangeCourseInfoById(String arrangeCourseId) throws Exception;
+
+    /**
+     * 根据排课任务ID查询有关排课任务的所有信息用于Excel文件的导出
+     * @param arrangeCourseTaskId
+     * @return Map<String,List<ApTaskArrangeCourseCustom>> 校区的状态码，对应的课程信息集合
+     * @throws Exception
+     */
+    Map<String,List<ApTaskArrangeCourseCustom>> getArrangeCourseAllInfoByArrangeCourseTaskId(String arrangeCourseTaskId) throws Exception;
 }

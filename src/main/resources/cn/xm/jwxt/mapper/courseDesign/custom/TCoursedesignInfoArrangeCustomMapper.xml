@@ -6,9 +6,9 @@
     <!--查询需要安排的课设-->
     <select id="findNeedArrangeCourseDesign" parameterType="hashmap" resultType="map">
         SELECT
-        Distinct
+          DISTINCT
             cbi.courseId,
-            tc.trainCourseID,   <!-- 唯一区分,做  '主键 ' -->
+            tc.trainCourseID,
             cbi.courseNum,
             cbi.courseNameCN,
             cbi.credit,
@@ -23,14 +23,12 @@
                 ON class.trainingSchemeID = tc.trainningSchemeID
             JOIN t_course_base_info cbi
                 ON tc.courseID = cbi.courseID
-            JOIN t_major_base_info mbi
-                ON class.majorID = mbi.majorID
            WHERE
                   <if test="grade!=null and grade!=''">
                        class.grade = #{grade} AND
                   </if>
-                  <if test="majorName!=null and majorName!=''">
-                      mbi.majorName = #{majorName } AND
+                  <if test="majorID!=null and majorID!=''">
+                      class.majorID = #{majorID } AND
                   </if>
                   <if test="semester!=null and semester!=''">
                       tc.semester = #{semester } AND
@@ -52,8 +50,8 @@
     <insert id="addCourseDesignTeacherArrange" parameterType="map">
         INSERT INTO
             t_courseDesign_teacher_arrange
-            (courseDesignTeacherArrangeID,courseDesignArrangeID,teacherID,classNames,display)
-            VALUES (#{courseDesignTeacherArrangeID},#{courseDesignArrangeID},#{teacherID},#{classNames},#{display})
+            (courseDesignTeacherArrangeID,courseDesignArrangeID,teacherID,classNames,stuCount,display)
+            VALUES (#{courseDesignTeacherArrangeID},#{courseDesignArrangeID},#{teacherID},#{classNames},#{stuCount},#{display})
     </insert>
     <insert id="addCourseDesignTeacherStudent" parameterType="map">
         INSERT INTO
@@ -64,8 +62,8 @@
     <insert id="addCourseDesignClassArrange" parameterType="map">
         INSERT INTO
           t_courseDesign_class_arrange
-            (courseDesignClassArrangeID,courseDesignArrangeID,grade,display)
-            VALUES (#{courseDesignClassArrangeID},#{courseDesignArrangeID},#{grade},#{display})
+            (courseDesignClassArrangeID,courseDesignArrangeID,classID,grade,display)
+            VALUES (#{courseDesignClassArrangeID},#{courseDesignArrangeID},#{classID},#{grade},#{display})
     </insert>
 
     <!-- 删除安排信息 -->
@@ -106,11 +104,14 @@
             display = #{display}
           WHERE
             courseDesignArrangeID IN
-            <foreach collection="ilist" item="courseDesignArrangeID" open="(" separator="," close=")" index="index">
+            <foreach collection="list" item="courseDesignArrangeID" open="(" separator="," close=")" index="index">
                 #{courseDesignArrangeID}
             </foreach>
 
     </update>
+
+
+
     <update id="modifyCourseDesignClassArrange" parameterType="map">
         UPDATE
         t_courseDesign_class_arrange
@@ -145,29 +146,35 @@
             </foreach>
     </update>
 
-    <select id="findArrangeInfoDetailByCondition" parameterType="map" resultType="map">
+    <!-- 查看详细安排信息 -->
+    <select id="findArrangeInfoDetailByCondition" parameterType="String" resultType="map">
         SELECT
-          ia.courseDesignName,
-          ia.startTime,
-          ia.endTime,
-          ia.CourseArrangeInfo,
-          ti.teacherName,
-          ti.teacherNum,
-          ta.classNames,
-          ta.courseDesignTeacherArrangeID        <!--  用于查询学生列表 -->
-          FROM
-            t_courseDesign_info_arrange ia
-            JOIN t_courseDesign_teacher_arrange ta
-              ON ia.courseDesignArrangeID = ta.courseDesignArrangeID
-            JOIN t_teacher_base_info ti
-              ON  ti.teacherID = ta.teacherID
-            JOIN t_courseDesign_class_arrange ca
-              ON ca.courseDesignArrangeID = ia.courseDesignArrangeID
-          WHERE
-                ia.trainCourseID = #{trainCourseID}
-                AND ia.yearNum = #{yearNum}
-                AND ia.majorID = #{majorID}
-                AND ca.grade = #{grade}
+        ia.courseDesignName,
+        ia.courseDesignNum,
+        ia.startTime,
+        ia.endTime,
+        ia.CourseArrangeInfo,
+        ti.teacherName,
+        ti.teacherNum,
+        ta.classNames,
+        ta.courseDesignTeacherArrangeID        <!--  用于查询学生列表 -->
+        FROM
+        t_courseDesign_info_arrange ia
+        JOIN t_courseDesign_teacher_arrange ta
+        ON ia.courseDesignArrangeID = ta.courseDesignArrangeID
+        JOIN t_teacher_base_info ti
+        ON  ti.teacherID = ta.teacherID
+        WHERE
+          ia.courseDesignArrangeID = #{courseDesignArrangeID}
+        <!--
+        JOIN t_courseDesign_class_arrange ca
+        ON ca.courseDesignArrangeID = ia.courseDesignArrangeID
+        WHERE
+        ia.trainCourseID = #{trainCourseID}
+        AND ia.yearNum = #{yearNum}
+        AND ia.majorID = #{majorID}
+        AND ca.grade = #{grade}
+        -->
     </select>
 
     <!-- 根据findStudentListBycourseDesignTeacherArrangeID查询学生列表 -->

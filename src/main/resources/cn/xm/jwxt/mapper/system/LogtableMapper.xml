@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.system.LogtableMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.system.Logtable" >
+    <id column="logid" property="logid" jdbcType="INTEGER" />
+    <result column="operatorName" property="operatorname" jdbcType="VARCHAR" />
+    <result column="operatorId" property="operatorid" jdbcType="VARCHAR" />
+    <result column="operatorType" property="operatortype" jdbcType="VARCHAR" />
+    <result column="operatorUnitName" property="operatorunitname" jdbcType="VARCHAR" />
+    <result column="operateDescription" property="operatedescription" jdbcType="VARCHAR" />
+    <result column="operateResult" property="operateresult" jdbcType="VARCHAR" />
+    <result column="operateClass" property="operateclass" jdbcType="VARCHAR" />
+    <result column="operateMethod" property="operatemethod" jdbcType="VARCHAR" />
+    <result column="operateDate" property="operatedate" jdbcType="TIMESTAMP" />
+    <result column="operateIP" property="operateip" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    logid, operatorName, operatorId, operatorType, operatorUnitName, operateDescription, 
+    operateResult, operateClass, operateMethod, operateDate, operateIP, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.system.LogtableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from logtable
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from logtable
+    where logid = #{logid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from logtable
+    where logid = #{logid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.system.LogtableExample" >
+    delete from logtable
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.system.Logtable" >
+    insert into logtable (logid, operatorName, operatorId, 
+      operatorType, operatorUnitName, operateDescription, 
+      operateResult, operateClass, operateMethod, 
+      operateDate, operateIP, remark
+      )
+    values (#{logid,jdbcType=INTEGER}, #{operatorname,jdbcType=VARCHAR}, #{operatorid,jdbcType=VARCHAR}, 
+      #{operatortype,jdbcType=VARCHAR}, #{operatorunitname,jdbcType=VARCHAR}, #{operatedescription,jdbcType=VARCHAR}, 
+      #{operateresult,jdbcType=VARCHAR}, #{operateclass,jdbcType=VARCHAR}, #{operatemethod,jdbcType=VARCHAR}, 
+      #{operatedate,jdbcType=TIMESTAMP}, #{operateip,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.system.Logtable" >
+    insert into logtable
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        logid,
+      </if>
+      <if test="operatorname != null" >
+        operatorName,
+      </if>
+      <if test="operatorid != null" >
+        operatorId,
+      </if>
+      <if test="operatortype != null" >
+        operatorType,
+      </if>
+      <if test="operatorunitname != null" >
+        operatorUnitName,
+      </if>
+      <if test="operatedescription != null" >
+        operateDescription,
+      </if>
+      <if test="operateresult != null" >
+        operateResult,
+      </if>
+      <if test="operateclass != null" >
+        operateClass,
+      </if>
+      <if test="operatemethod != null" >
+        operateMethod,
+      </if>
+      <if test="operatedate != null" >
+        operateDate,
+      </if>
+      <if test="operateip != null" >
+        operateIP,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        #{logid,jdbcType=INTEGER},
+      </if>
+      <if test="operatorname != null" >
+        #{operatorname,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorid != null" >
+        #{operatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatortype != null" >
+        #{operatortype,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorunitname != null" >
+        #{operatorunitname,jdbcType=VARCHAR},
+      </if>
+      <if test="operatedescription != null" >
+        #{operatedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="operateresult != null" >
+        #{operateresult,jdbcType=VARCHAR},
+      </if>
+      <if test="operateclass != null" >
+        #{operateclass,jdbcType=VARCHAR},
+      </if>
+      <if test="operatemethod != null" >
+        #{operatemethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operatedate != null" >
+        #{operatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateip != null" >
+        #{operateip,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.system.LogtableExample" resultType="java.lang.Integer" >
+    select count(*) from logtable
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update logtable
+    <set >
+      <if test="record.logid != null" >
+        logid = #{record.logid,jdbcType=INTEGER},
+      </if>
+      <if test="record.operatorname != null" >
+        operatorName = #{record.operatorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorid != null" >
+        operatorId = #{record.operatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatortype != null" >
+        operatorType = #{record.operatortype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorunitname != null" >
+        operatorUnitName = #{record.operatorunitname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatedescription != null" >
+        operateDescription = #{record.operatedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateresult != null" >
+        operateResult = #{record.operateresult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateclass != null" >
+        operateClass = #{record.operateclass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatemethod != null" >
+        operateMethod = #{record.operatemethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatedate != null" >
+        operateDate = #{record.operatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operateip != null" >
+        operateIP = #{record.operateip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update logtable
+    set logid = #{record.logid,jdbcType=INTEGER},
+      operatorName = #{record.operatorname,jdbcType=VARCHAR},
+      operatorId = #{record.operatorid,jdbcType=VARCHAR},
+      operatorType = #{record.operatortype,jdbcType=VARCHAR},
+      operatorUnitName = #{record.operatorunitname,jdbcType=VARCHAR},
+      operateDescription = #{record.operatedescription,jdbcType=VARCHAR},
+      operateResult = #{record.operateresult,jdbcType=VARCHAR},
+      operateClass = #{record.operateclass,jdbcType=VARCHAR},
+      operateMethod = #{record.operatemethod,jdbcType=VARCHAR},
+      operateDate = #{record.operatedate,jdbcType=TIMESTAMP},
+      operateIP = #{record.operateip,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.system.Logtable" >
+    update logtable
+    <set >
+      <if test="operatorname != null" >
+        operatorName = #{operatorname,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorid != null" >
+        operatorId = #{operatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatortype != null" >
+        operatorType = #{operatortype,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorunitname != null" >
+        operatorUnitName = #{operatorunitname,jdbcType=VARCHAR},
+      </if>
+      <if test="operatedescription != null" >
+        operateDescription = #{operatedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="operateresult != null" >
+        operateResult = #{operateresult,jdbcType=VARCHAR},
+      </if>
+      <if test="operateclass != null" >
+        operateClass = #{operateclass,jdbcType=VARCHAR},
+      </if>
+      <if test="operatemethod != null" >
+        operateMethod = #{operatemethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operatedate != null" >
+        operateDate = #{operatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateip != null" >
+        operateIP = #{operateip,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.system.Logtable" >
+    update logtable
+    set operatorName = #{operatorname,jdbcType=VARCHAR},
+      operatorId = #{operatorid,jdbcType=VARCHAR},
+      operatorType = #{operatortype,jdbcType=VARCHAR},
+      operatorUnitName = #{operatorunitname,jdbcType=VARCHAR},
+      operateDescription = #{operatedescription,jdbcType=VARCHAR},
+      operateResult = #{operateresult,jdbcType=VARCHAR},
+      operateClass = #{operateclass,jdbcType=VARCHAR},
+      operateMethod = #{operatemethod,jdbcType=VARCHAR},
+      operateDate = #{operatedate,jdbcType=TIMESTAMP},
+      operateIP = #{operateip,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+</mapper>

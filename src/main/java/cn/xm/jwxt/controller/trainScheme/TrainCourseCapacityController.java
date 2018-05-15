@@ -90,6 +90,19 @@ public class TrainCourseCapacityController {
     }
 
 
+    @RequestMapping("/getTrainCourseCapacityByTrainSchemeId")
+    public List<Coursecapacityrequireinfo> getTrainCourseCapacityByTrainSchemeId(@RequestParam(defaultValue = "0")String  trainSchemeId){
+        List<Coursecapacityrequireinfo> capacitys = null;
+        try {
+            capacitys =    courseCapacityRequireInfoService.getCourseCapacityByTrainSchemeId(trainSchemeId);
+        } catch (SQLException e) {
+            logger.error("查询培养方案课程能力集合出错",e);
+            return null;
+        }
+        return capacitys;
+    }
+
+
 
 
 

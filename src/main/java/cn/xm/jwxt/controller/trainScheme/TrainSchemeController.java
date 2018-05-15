@@ -1,5 +1,6 @@
 package cn.xm.jwxt.controller.trainScheme;
 
+import cn.xm.jwxt.annotation.MyLogAnnotation;
 import cn.xm.jwxt.bean.trainScheme.Trainningcapacitybaseinfo;
 import cn.xm.jwxt.bean.trainScheme.Trainpicture;
 import cn.xm.jwxt.bean.trainScheme.Trainschemeinfo;
@@ -75,6 +76,7 @@ public class TrainSchemeController {
      * @param listVo    包装培养方案能力的信息
      * @return  添加结果
      */
+    @MyLogAnnotation(operateDescription = "增加了一条培养方案信息")
     @RequestMapping("/addTrainScheme")
     public String addTrainschemeinfo(Trainschemeinfo trainschemeinfo, ListVo listVo){
         List<Trainningcapacitybaseinfo> trainningcapacitybaseinfos = null;
@@ -91,7 +93,7 @@ public class TrainSchemeController {
         return result;
     }
 
-
+    @MyLogAnnotation(operateDescription = "修改了一条培养方案信息")
     @RequestMapping("/updateTrainScheme")
     public String updateTrainschemeinfo(Trainschemeinfo trainschemeinfo, ListVo listVo){
         List<Trainningcapacitybaseinfo> trainningcapacitybaseinfos = null;
@@ -157,6 +159,7 @@ public class TrainSchemeController {
      * @param trainSchemeId
      * @return
      */
+    @MyLogAnnotation(operateDescription = "删除了一条培养方案信息")
     @RequestMapping("/deleteTrainSchemeById")
     public String deleteTrainSchemeByTrainSchemeId(@RequestParam(defaultValue = "1")String trainSchemeId){
         String result = null;

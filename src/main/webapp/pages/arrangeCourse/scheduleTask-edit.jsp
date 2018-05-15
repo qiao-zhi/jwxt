@@ -212,15 +212,10 @@
                 type:"POST",
                 datatype:"text",
                 success:function(response){
-                    alert(response)
-                    if("修改成功！" == response){
+                    layer.alert(response,function(){
                         //实现父页面的刷新
                         window.parent.location.reload();
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
-                    }
+                    })
                 }
             })
             return false;

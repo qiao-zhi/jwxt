@@ -6,9 +6,10 @@
         select year(NOW());
     </select>
 
-    <select id="getMajorList" parameterType="String" resultType="String">
+    <select id="getMajorList" parameterType="String" resultType="map">
         SELECT
-            majorName
+            majorName,
+            majorID
           FROM
             t_major_base_info
           WHERE
@@ -16,28 +17,26 @@
 
     </select>
 
-    <select id="getStudentListByClassNameAndMajorId" parameterType="map" resultType="map">
+    <select id="getStudentListByClassId" parameterType="map" resultType="map">
         SELECT
-              student.studentID,student.studentName
+              studentID,
+              studentName
             FROM
-                t_class_base_info class
-              JOIN t_student_base_info student
-                ON  class.classID = student.classID
+                t_student_base_info
 
               <where>
-                  <if test="className!=null and className!=''">
-                      AND class.className = #{className}
+                  <if test="classID!=null and classID!=''">
+                      AND classID = #{classID}
                   </if>
-                  <if test="majorID!=null and majorID!=''">
-                      AND class.majorID = #{majorID}
-                  </if>
+
               </where>
 
     </select>
 
-    <select id="getClassNameByMajor" parameterType="map" resultType="String">
+    <select id="getClassNameByMajor" parameterType="map" resultType="map">
         SELECT
-            className
+            className,
+            classID
           FROM
             t_class_base_info
         <where>
@@ -51,9 +50,10 @@
 
     </select>
 
-    <select id="getTeacherName" parameterType="String" resultType="String">
+    <select id="getTeacherNameid" parameterType="String" resultType="map">
         SELECT
-          teacherName
+          teacherName,
+          teacherID
         FROM
           t_teacher_base_info
         <where>
@@ -64,21 +64,19 @@
 
     </select>
 
-    <!-- 根据教师姓名和专业查询教师编号 -->
+    <!-- 根据教师id查询教师编号 -->
     <select id="getTeacherNum" parameterType="hashmap" resultType="String">
       SELECT
           teacherNum
         FROM
           t_teacher_base_info
           <where>
-              <if test="majorID!=null and majorID!=''">
-                 AND  majorID = #{majorID}
-              </if>
-              <if test="teacherName!=null and teacherName!=''">
-                  AND teacherName = #{teacherName}
+              <if test="teacherID!=null and teacherID!=''">
+                  AND teacherID = #{teacherID}
               </if>
           </where>
     </select>
+    <!--
     <select id="getTeacherID" parameterType="String" resultType="String">
         SELECT
           teacherID
@@ -90,6 +88,7 @@
             </if>
         </where>
     </select>
+    -->
 
     <select id="getcourseDesignTeacherArrangeID" parameterType="String" resultType="String">
         SELECT
@@ -115,7 +114,7 @@
         FROM
           t_courseDesign_teacher_arrange
         WHERE
-        display = #{display}
+        courseDesignArrangeID = #{courseDesignArrangeID}
     </select>
     <select id="getcourseDesignClassArrangeIDByDisplay" parameterType="String" resultType="String">
         SELECT
@@ -123,20 +122,24 @@
         FROM
           t_courseDesign_class_arrange
         WHERE
-        display = #{display}
+        courseDesignArrangeID = #{courseDesignArrangeID}
     </select>
     <select id="getcourseDesignTeacherStudentIDByDisplay" parameterType="String" resultType="String">
         SELECT
-          courseDesignTeacherStudentID
+          ts.courseDesignTeacherStudentID
         FROM
-          t_courseDesign_TeacherStudent
+          t_courseDesign_TeacherStudent ts
+          JOIN t_courseDesign_teacher_arrange ta
+            ON ts.courseDesignTeacherArrangeID = ta.courseDesignTeacherArrangeID
         WHERE
-        display = #{display}
+            ta.courseDesignArrangeID = #{courseDesignArrangeID}
     </select>
 
     <!-- 根据培养方案编号查已经安排的课设信息-->
     <select id="findCourseDesignArrangeInfoBytrainCourseIDAndYearNumAndMajorID" parameterType="map" resultType="map">
         SELECT
+        DISTINCT
+            ia.courseDesignArrangeID,
             ia.CourseArrangeTime,
             ta.display,
             ti.teacherName,
@@ -157,6 +160,8 @@
               ia.majorID = #{majorID}
               AND
               ca.grade = #{grade}
+              AND
+               ia.semester = #{semester}
     </select>
 
     <select id="findcourseDesignArrangeIDBytrainCourseIDAndYearNumAndMajorID" parameterType="map" resultType="String">

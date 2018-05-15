@@ -7,7 +7,11 @@
     <result column="userName" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="userSort" property="usersort" jdbcType="VARCHAR" />
-    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="userStuTeaNum" property="userstuteanum" jdbcType="VARCHAR" />
+    <result column="userUnitName" property="userunitname" jdbcType="VARCHAR" />
+    <result column="userUnitNum" property="userunitnum" jdbcType="VARCHAR" />
+    <result column="isUse" property="isuse" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    userID, userCode, userName, password, userSort, remark2
+    userID, userCode, userName, password, userSort, userStuTeaNum, userUnitName, userUnitNum, 
+    isUse, remark1
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.system.UserExample" >
     select
@@ -102,11 +107,13 @@
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.system.User" >
     insert into user (userID, userCode, userName, 
-      password, userSort, remark2
-      )
+      password, userSort, userStuTeaNum, 
+      userUnitName, userUnitNum, isUse, 
+      remark1)
     values (#{userid,jdbcType=VARCHAR}, #{usercode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{usersort,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}
-      )
+      #{password,jdbcType=VARCHAR}, #{usersort,jdbcType=VARCHAR}, #{userstuteanum,jdbcType=VARCHAR}, 
+      #{userunitname,jdbcType=VARCHAR}, #{userunitnum,jdbcType=VARCHAR}, #{isuse,jdbcType=VARCHAR}, 
+      #{remark1,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.system.User" >
     insert into user
@@ -126,8 +133,20 @@
       <if test="usersort != null" >
         userSort,
       </if>
-      <if test="remark2 != null" >
-        remark2,
+      <if test="userstuteanum != null" >
+        userStuTeaNum,
+      </if>
+      <if test="userunitname != null" >
+        userUnitName,
+      </if>
+      <if test="userunitnum != null" >
+        userUnitNum,
+      </if>
+      <if test="isuse != null" >
+        isUse,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -146,8 +165,20 @@
       <if test="usersort != null" >
         #{usersort,jdbcType=VARCHAR},
       </if>
-      <if test="remark2 != null" >
-        #{remark2,jdbcType=VARCHAR},
+      <if test="userstuteanum != null" >
+        #{userstuteanum,jdbcType=VARCHAR},
+      </if>
+      <if test="userunitname != null" >
+        #{userunitname,jdbcType=VARCHAR},
+      </if>
+      <if test="userunitnum != null" >
+        #{userunitnum,jdbcType=VARCHAR},
+      </if>
+      <if test="isuse != null" >
+        #{isuse,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -175,8 +206,20 @@
       <if test="record.usersort != null" >
         userSort = #{record.usersort,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark2 != null" >
-        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      <if test="record.userstuteanum != null" >
+        userStuTeaNum = #{record.userstuteanum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userunitname != null" >
+        userUnitName = #{record.userunitname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userunitnum != null" >
+        userUnitNum = #{record.userunitnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuse != null" >
+        isUse = #{record.isuse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -190,7 +233,11 @@
       userName = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       userSort = #{record.usersort,jdbcType=VARCHAR},
-      remark2 = #{record.remark2,jdbcType=VARCHAR}
+      userStuTeaNum = #{record.userstuteanum,jdbcType=VARCHAR},
+      userUnitName = #{record.userunitname,jdbcType=VARCHAR},
+      userUnitNum = #{record.userunitnum,jdbcType=VARCHAR},
+      isUse = #{record.isuse,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,8 +257,20 @@
       <if test="usersort != null" >
         userSort = #{usersort,jdbcType=VARCHAR},
       </if>
-      <if test="remark2 != null" >
-        remark2 = #{remark2,jdbcType=VARCHAR},
+      <if test="userstuteanum != null" >
+        userStuTeaNum = #{userstuteanum,jdbcType=VARCHAR},
+      </if>
+      <if test="userunitname != null" >
+        userUnitName = #{userunitname,jdbcType=VARCHAR},
+      </if>
+      <if test="userunitnum != null" >
+        userUnitNum = #{userunitnum,jdbcType=VARCHAR},
+      </if>
+      <if test="isuse != null" >
+        isUse = #{isuse,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
       </if>
     </set>
     where userID = #{userid,jdbcType=VARCHAR}
@@ -222,7 +281,11 @@
       userName = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       userSort = #{usersort,jdbcType=VARCHAR},
-      remark2 = #{remark2,jdbcType=VARCHAR}
+      userStuTeaNum = #{userstuteanum,jdbcType=VARCHAR},
+      userUnitName = #{userunitname,jdbcType=VARCHAR},
+      userUnitNum = #{userunitnum,jdbcType=VARCHAR},
+      isUse = #{isuse,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR}
     where userID = #{userid,jdbcType=VARCHAR}
   </update>
 </mapper>

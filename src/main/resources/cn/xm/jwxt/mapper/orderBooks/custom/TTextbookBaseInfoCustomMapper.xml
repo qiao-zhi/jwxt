@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.orderBooks.custom.TTextbookBaseInfoCustomMapper" >
+
+    <!--组合条件分页查询教材信息-->
+    <select id="findTextbook" resultType="map" parameterType="map">
+        SELECT * from t_textbook_base_info a,t_course_base_info b
+        <where>
+            a.courseID=b.courseId
+            <if test="textbookName!=null and textbookName!=''">
+                and textbookName <!--数据库中的字段名称-->like '%${textbookName}%'
+            </if>
+            <if test="courseName!=null and courseName!=''">
+                and courseNameCN like '%${courseName}%'
+            </if>
+            <!--查询正在使用的课程信息-->
+            <if test="1==1">
+            and remark='1'
+            </if>
+        </where>
+    </select>
+
+</mapper>

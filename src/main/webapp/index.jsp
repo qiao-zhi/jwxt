@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@include file="/tag.jsp"%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,14 +11,16 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
+     <link rel="stylesheet" href="./css/xadmin.css">
+
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script src="${baseurl}/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
+
 </head>
 <body>
 <%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
+
 <!-- 顶部开始 -->
 <div class="container">
     <div class="logo"><a href="./index.jsp">教研室管理系统</a></div>
@@ -26,22 +29,22 @@
     </div>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <a href="javascript:;">${userinfo.username}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
-                <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
-                <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">帮助</a></dd>
-                <dd><a href="./login.html">退出</a></dd>
+<%--                <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>--%>
+                <dd><a onclick="javascript:alert('就不帮助你')">帮助</a></dd>
+                <dd><a href="javascript:void(0)" onclick="logoutSystem()">退出</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item to-index"><a href="index.jsp">首页</a></li>
+        <%--<li class="layui-nav-item to-index"><a href="index.jsp">首页</a></li>--%>
     </ul>
 </div>
 <!-- 顶部结束 -->
 
 <!-- 中部开始 -->
 <!-- 左侧菜单开始 -->
-<div class="left-nav">
+<%--<div class="left-nav">
     <div id="side-nav">
         <ul id="nav">
             <!--课程管理-->
@@ -81,7 +84,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/arrangeCourse/scheduleCheck.html">
+                        <a _href="pages/arrangeCourse/scheduleCheck.jsp">
                             <cite>任务审核</cite>
                         </a>
                     </li>
@@ -95,7 +98,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/textbookManage/textbookInfo.html">
+                        <a _href="pages/textbookManage/textbookInfo.jsp">
                             <cite>教材库管理</cite>
                         </a>
                     </li>
@@ -124,17 +127,17 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/courseDesign/courseDesign.html">
+                        <a _href="pages/courseDesign/courseDesign.jsp">
                             <cite>课设分配</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/courseDesign/courseDesignReport.html">
+                        <a _href="pages/courseDesign/courseDesignReport.jsp">
                             <cite>上传课设报告</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/courseDesign/courseDesignReport-progress.html">
+                        <a _href="pages/courseDesign/courseDesignReport-progress.jsp">
                             <cite>报告上传情况</cite>
                         </a>
                     </li>
@@ -148,7 +151,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/workLoad/statistics.html">
+                        <a _href="pages/workLoad/statistics.jsp">
                             <cite>工作量统计</cite>
                         </a>
                     </li>
@@ -334,22 +337,22 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/baseinfo/major.html">
+                        <a _href="pages/baseinfo/major.jsp">
                             <cite>专业信息</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/baseinfo/clazz.html">
+                        <a _href="pages/baseinfo/clazz.jsp">
                             <cite>班级信息</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/baseinfo/teacher.html">
+                        <a _href="pages/baseinfo/teacher.jsp">
                             <cite>教师信息</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/baseinfo/student.html">
+                        <a _href="pages/baseinfo/student.jsp">
                             <cite>学生信息</cite>
                         </a>
                     </li>
@@ -363,22 +366,22 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="pages/system/college.html">
+                        <a _href="pages/system/college.jsp">
                             <cite>学院初始化</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/user.html">
+                        <a _href="pages/system/user.jsp">
                             <cite>用户管理</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/role.html">
+                        <a _href="pages/system/role.jsp">
                             <cite>角色管理</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/authority.html">
+                        <a _href="pages/system/authority.jsp">
                             <cite>权限管理</cite>
                         </a>
                     </li>
@@ -388,7 +391,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/system/loginfo.html">
+                        <a _href="pages/system/loginfo.jsp">
                             <cite>日志管理</cite>
                         </a>
                     </li>
@@ -396,7 +399,64 @@
             </li>
         </ul>
     </div>
+</div>--%>
+
+
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            <!--遍历一级菜单-->
+            <c:forEach var="menu1" items="${userinfo.menuPermissions}">
+                <c:if test="${menu1.permissiontype=='menu1' }">
+                    <li>
+                        <a href=javascript:void(0)>
+                            <cite>${menu1.permissionname}</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <!--遍历二级菜单-->
+                            <c:forEach var="menu2" items="${userinfo.menuPermissions}">
+                                <c:if test="${menu2.permissiontype=='menu2' and menu2.parentid == menu1.permissionid}">
+                                    <!--如果url不为空就是二级菜单-->
+                                    <c:if test="${menu2.url != '' && menu2.url != null}">
+                                        <li>
+                                            <a _href="${menu2.url}">
+                                                <cite>${menu2.permissionname}</cite>
+                                            </a>
+                                        </li>
+                                    </c:if>
+                                    <!--如果url为空就是三级菜单-->
+                                    <c:if test="${menu2.url == null || menu2.url == ''}">
+                                        <li>
+                                            <a href="javascript:;">
+                                                <cite>${menu2.permissionname}</cite>
+                                                <i class="iconfont nav_right">&#xe697;</i>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <%--遍历获取三级菜单--%>
+                                                <c:forEach var="menu3" items="${userinfo.menuPermissions}">
+                                                    <c:if test="${menu3.permissiontype=='menu3' and menu3.parentid == menu2.permissionid}">
+                                                        <li>
+                                                            <a _href="${menu3.url}">
+                                                                <cite>${menu3.permissionname}</cite>
+                                                            </a>
+                                                        </li>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </ul>
+                                        </li>
+                                    </c:if>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </c:if>
+            </c:forEach>
+        </ul>
+    </div>
 </div>
+
+
 <!-- 左侧菜单结束 -->
 
 <!-- 右侧主体开始 -->
@@ -421,5 +481,26 @@
     <div class="copyright" style="text-align: center"><span>2018 &copy;</span>太原科技大学--软件教研室,版权所有</div>
 </div>
 <!-- 底部结束 -->
+
+
+
+
+
+
+
 </body>
 </html>
+<script>
+    /**
+     * 退出系统相关操作
+     */
+    function logoutSystem(){
+        layui.use(['layer'],function () {
+            var layer = layui.layer;
+            layer.confirm("确认退出系统?",{icon:3,shade: [0.8, '#393D49']},function () {
+                window.location.href=contextPath+"/logout.do";
+            })
+        })
+    }
+</script>
+

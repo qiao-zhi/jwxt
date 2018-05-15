@@ -13,7 +13,7 @@ public class TCollegeBaseInfo {
 
     private String collegepresident;
 
-    private String collegepresidentf;
+    private String collegepresidentf;//副院长
 
     private String upcollegenum;
 

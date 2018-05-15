@@ -2,7 +2,9 @@ package cn.xm.jwxt.service.impl.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTeacherCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApTeacherCourseExample;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
+import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfoExample;
 import cn.xm.jwxt.mapper.arrangeCourse.ApTeacherCourseMapper;
@@ -10,6 +12,7 @@ import cn.xm.jwxt.mapper.arrangeCourse.custom.ApTeacherCourseCustomMapper;
 import cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper;
 import cn.xm.jwxt.service.arrangeCourse.ApClassTeacherService;
 import cn.xm.jwxt.service.arrangeCourse.ApTeacherCourseService;
+import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.UUIDUtil;
 import cn.xm.jwxt.utils.ValidateCheck;
 import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
@@ -46,18 +49,62 @@ public class ApTeacherCourseServiceImpl implements ApTeacherCourseService {
      * @throws Exception
      */
     @Override
-    public boolean addTeacherCourseInfo(String arrangeCourseId,ApTeacherCourse teacherCourseInfo) throws Exception {
+    public boolean addTeacherCourseInfo(String arrangeCourseId,ApTeacherCourseCustom teacherCourseInfo) throws Exception {
         if(ValidateCheck.isNull(arrangeCourseId)){
             throw new IllegalArgumentException("任务安排课程编号不能为空!");
         }
         if(teacherCourseInfo==null){
             throw new IllegalArgumentException("教师课程信息不能为空!");
         }
-        teacherCourseInfo.setTeacherCourseId(UUIDUtil.getUUID2());
+        //教师课程ID
+        String teacherCourseId = UUIDUtil.getUUID2();
+        teacherCourseInfo.setTeacherCourseId(teacherCourseId);
         //设置任务安排课程ID
         teacherCourseInfo.setArrangeCourseId(arrangeCourseId);
         int count = teacherCourseMapper.insertSelective(teacherCourseInfo);
+        //批量添加课程教师信息
+        classTeacherService.saveClassTeacherListInfoByTeacherCourseId(teacherCourseId,teacherCourseInfo.getClassTeachers());
         return count>0?true:false;
+    }
+
+    /**
+     * 根据任务安排课程ID批量插入教师信息
+     * @param arrangeCourseId
+     * @param listInfo
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean saveTeacherCourseInfoList(String arrangeCourseId, List<ApTeacherCourseCustom> listInfo) throws Exception {
+        if(ValidateCheck.isNull(arrangeCourseId)){
+            throw new IllegalArgumentException("任务安排课程编号不能为空!");
+        }
+        if(listInfo == null || listInfo.size() <= 0){
+            throw new IllegalArgumentException("教师信息集合参数传递错误!");
+        }
+        //先将之前的排课记录删除
+        deleteTeacherCourseInfoByTaskArrangeCourseId(arrangeCourseId);
+        for(ApTeacherCourseCustom teacherCourseCustom:listInfo){
+            addTeacherCourseInfo(arrangeCourseId,teacherCourseCustom);
+        }
+        return true;
+    }
+
+    /**
+     * 批量设置课程教师班级信息用于根据历史记录排课,一门课对应一个老师
+     * @param listInfo
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean saveTeacherCourseInfoList(List<ApTaskArrangeCourseCustom> listInfo) throws Exception {
+        if(listInfo == null || listInfo.size() <= 0){
+            throw new IllegalArgumentException("课程集合参数传递错误!");
+        }
+        for(ApTaskArrangeCourseCustom teacherCourseCustom : listInfo){
+            saveTeacherCourseInfoList(teacherCourseCustom.getArrangeCourseId(),teacherCourseCustom.getTeachers());
+        }
+        return true;
     }
 
     /**
@@ -111,8 +158,23 @@ public class ApTeacherCourseServiceImpl implements ApTeacherCourseService {
         TTeacherBaseInfoExample teacherBaseInfoExample = new TTeacherBaseInfoExample();
         TTeacherBaseInfoExample.Criteria criteria = teacherBaseInfoExample.createCriteria();
         criteria.andCollegeidEqualTo(academicId);
-        criteria.andInpositionEqualTo("1");
+        criteria.andInpositionEqualTo(DefaultValue.IS_USE);
         List<TTeacherBaseInfo> listInfo = teacherBaseInfoMapper.selectByExample(teacherBaseInfoExample);
         return listInfo;
+    }
+
+    /**
+     * 根据课程编号查询历史任课教师
+     * @param courseNumber
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Map<String,Object>> findHistoryTeacherInfoByNumber(String courseNumber) throws Exception {
+        if(ValidateCheck.isNull(courseNumber)){
+            throw new IllegalArgumentException("课程编号不能为空!");
+        }
+        List<Map<String, Object>> historyTeacherInfo = teacherCourseCustomMapper.findHistoryTeacherInfoByNumber(courseNumber);
+        return historyTeacherInfo;
     }
 }

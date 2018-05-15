@@ -26,63 +26,11 @@
 
 <!--主体-->
 <div class="x-body">
-    <!--查询-->
-   
-    <!--end查询-->
-
-    <!--操作区域-->
-    <xblock>
-    	 <!--<button class="layui-btn" onclick="historyTeacher()">历史任课教师 </button>-->
-        <button class="layui-btn" onclick="arrangeCourse()">排课 </button>
-        <button class="layui-btn" onclick="arrangeCourseExport()">导出 </button>
-        <button class="layui-btn" onclick="commit()" style="float: right;">提交 </button>
-        <button class="layui-btn" onclick="save()" style="float: right;">保存 </button>
-    </xblock>
-    <!--end 操作区域-->
-    <script>
-    	var chooseCourse=0;//判断是否选中课程
-    	function panduan(){
-    		$(".layui-form-checkbox").each(function() { 
-				if ($(this).hasClass("layui-form-checked")) {
-					chooseCourse++;
-				}
-			})
-    	}
-    	function arrangeCourseExport(){
-    			layer.confirm('确认导出排课信息？',function(){
-    				x_admin_close()
-    			});
-    	}
-    	function arrangeCourse(){
-            var checked = $("[name='courseRadio']:checked").length>0?true:false;
-            if(!checked){
-                layer.alert('请先选择需要排课的课程！');
-                return;
-            }
-            x_admin_show_big('新增排课','./scheduleManage-add.jsp')
-
-    	}
-    	//保存按钮事件
-		  		function save(){
-		  			layer.alert('保存成功');
-		  		}
-		  		//提交按钮事件
-		  		function commit(){
-		  			layer.confirm('您确认要提交此次课设分配信息吗？',function(){
-		  				x_admin_close()
-		  			});
-		  		}
-    	
-    </script>
-   
-
     <!--表格内容-->
     <table class="layui-table">
         <thead>
         	
         	<tr>
-    			<th lay-data="{field:'', width:80}" rowspan="2">选择
-    			</th>
                 <th lay-data="{field:'', width:80}">序号</th>
                 <th lay-data="{field:'', width:80}">课程代码</th>
                 <th lay-data="{field:'', width:120}">课程名称</th>
@@ -130,7 +78,7 @@
         $("tbody").html("");//清空表格中数据并重新填充数据
         for(var i=0,length_l = taskArrangeCourseList.length;i<length_l;i++){
             var index = (pageNum - 1) * pageSize + i + 1;
-            var tr ="<tr><td><input type='radio' name='courseRadio' value='"+taskArrangeCourseList[i].arrangeTaskId+"'/></td><td>"
+            var tr ="<tr><td>"
                 +index+"</td><td>"
                 +taskArrangeCourseList[i].courseCode+"</td><td>"
                 +taskArrangeCourseList[i].courseName+"</td><td>"
@@ -138,11 +86,15 @@
                 +taskArrangeCourseList[i].majorName+"</td><td>"
                 +taskArrangeCourseList[i].className+"</td><td>"
                 +taskArrangeCourseList[i].majorStudentsNumber+"</td><td>"
-                +taskArrangeCourseList[i].totalPeriod+"</td><td>"
-                +(taskArrangeCourseList[i].teacherNames==null?'--':taskArrangeCourseList[i].teacherNames)+"</td>"
-                +"<td class='td-manage'><a title='点击查看排课详细信息' onclick=x_admin_show('详细信息','scheduleArrange-view.jsp?arrangeCourseId="+taskArrangeCourseList[i].arrangeCourseId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
-                +"<a title='修改'  onclick=x_admin_show('修改','scheduleArrange-edit.jsp?arrangeTaskId="+taskArrangeCourseList[i].arrangeTaskId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a></td></tr>";
-                $("tbody").append(tr);
+                +taskArrangeCourseList[i].totalPeriod+"</td>"
+                 if(taskArrangeCourseList[i].teacherNames==null){
+                    tr +="<td>--</td><td>--</td></tr>" ;
+                 }else{
+                     tr += "<td>"+taskArrangeCourseList[i].teacherNames+"</td>"
+                     +"<td class='td-manage'><a title='点击查看排课详细信息' onclick=x_admin_show('详细信息','scheduleArrange-view.jsp?arrangeCourseId="+taskArrangeCourseList[i].arrangeCourseId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
+                     +"</td></tr>";
+                 }
+            $("tbody").append(tr);
         }
         //开启分页组件
         teacherCourseInfoPage(total,pageNum,pageSize);
