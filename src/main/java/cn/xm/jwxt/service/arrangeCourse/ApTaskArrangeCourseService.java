@@ -7,6 +7,7 @@ import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
 import com.github.pagehelper.PageInfo;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -98,4 +99,12 @@ public interface ApTaskArrangeCourseService {
      * @throws Exception
      */
     Map<String,List<ApTaskArrangeCourseCustom>> getArrangeCourseAllInfoByArrangeCourseTaskId(String arrangeCourseTaskId) throws Exception;
+
+    /**
+     * 根据排课任务ID统计还未排课的数量
+     * @param arrangeTaskId
+     * @return
+     * @throws Exception
+     */
+    int getNotArrangeCourseCount(String arrangeTaskId) throws Exception;
 }

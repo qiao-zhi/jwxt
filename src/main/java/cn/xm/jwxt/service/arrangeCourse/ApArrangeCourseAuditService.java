@@ -1,6 +1,7 @@
 package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseAudit;
+import cn.xm.jwxt.bean.orderBooks.Textbookorderinfo;
 
 import java.util.List;
 import java.util.Map;
@@ -29,4 +30,12 @@ public interface ApArrangeCourseAuditService {
      * @throws Exception
      */
     ApArrangeCourseAudit getArrangeCourseAuditInfoByCondition(String ArrangeCourseTaskId) throws Exception;
+
+    /**
+     * 初始化教材订购总表
+     * @param baseInfo
+     * @return
+     * @throws Exception
+     */
+    boolean addTextbookOrderInfo(Textbookorderinfo baseInfo) throws Exception;
 }

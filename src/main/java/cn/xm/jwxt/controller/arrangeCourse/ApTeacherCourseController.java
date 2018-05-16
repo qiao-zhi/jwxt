@@ -1,11 +1,16 @@
 package cn.xm.jwxt.controller.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
+import cn.xm.jwxt.bean.arrangeCourse.custom.CollegeTeacherArrangeCourseInfo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.queryVo.ListVo;
 import cn.xm.jwxt.service.arrangeCourse.ApTeacherCourseService;
+import cn.xm.jwxt.utils.DefaultValue;
+import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresUser;
+import org.omg.CORBA.Current;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,4 +98,28 @@ public class ApTeacherCourseController {
         }
         return "添加成功";
     }
+
+    /**
+     * 根据条件查询一个学院某一学年学期的教师排课信息分页显示
+     * @param condition
+     * @return
+     */
+    @RequestMapping("/findCollegeTeacherArrangeCourseInfoList")
+    public @ResponseBody
+    PageInfo<CollegeTeacherArrangeCourseInfo> findCollegeTeacherArrangeCourseInfoList(CommonQueryVo condition){
+        if(condition.getPageSize()==null){
+            condition.setPageSize(DefaultValue.PAGE_SIZE);
+        }
+        if(condition.getCurrentPage()==null){
+            condition.setCurrentPage(1);
+        }
+        PageInfo<CollegeTeacherArrangeCourseInfo> pageInfo = null;
+        try {
+            pageInfo = teacherCourseService.findCollegeTeacherArrangeCourseInfoList(condition, condition.getCurrentPage(), condition.getPageSize());
+        } catch (Exception e) {
+            logger.error("查询教师排课信息失败",e);
+        }
+        return pageInfo;
+    }
+
 }

@@ -1,10 +1,9 @@
 package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTeacherCourse;
-import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
-import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
-import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.*;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -73,4 +72,14 @@ public interface ApTeacherCourseService {
      * @throws Exception
      */
     List<Map<String,Object>> findHistoryTeacherInfoByNumber(String courseNumber) throws Exception;
+
+    /**
+     * 根据条件查询一个学院某一学年学期的教师排课信息分页显示
+     * @param condition
+     * @param currentPage
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
+    PageInfo<CollegeTeacherArrangeCourseInfo> findCollegeTeacherArrangeCourseInfoList(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception;
 }

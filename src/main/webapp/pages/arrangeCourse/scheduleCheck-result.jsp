@@ -64,12 +64,10 @@
     </form>
 </div>
 
-
 <script>
     layui.use([], function () {
         getLastArrangeCourseAudit();
     });
-
     //根据通知书ID查询通知书信息
     function getLastArrangeCourseAudit(){
         $.ajax({

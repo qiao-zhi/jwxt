@@ -30,8 +30,13 @@ layui.use(['form', 'layer'], function () {
     });
     //监听提交
     form.on('submit(add)', function (data) {
-        getAllTeacherAndClassInfo();
-        saveTaskArrangeCourseInfo();
+        //判断班级是否全部分配
+        if(!hasArrangedClass()){
+            layer.alert("班级尚未全部分配，不能提交！");
+        }else{
+            getAllTeacherAndClassInfo();
+            saveTaskArrangeCourseInfo();
+        }
         //阻止表单跳转
         return false;
     });
@@ -121,6 +126,12 @@ function checkTeacherInfo(teacherNumber){
 function hasCheckClass(){
     return $("input[name='className']:checked").length>0;
 }
+
+//判断班级是否全部分配
+function hasArrangedClass(){
+    return $("input[name='className']:disabled").length==$("input[name='className']").length;
+}
+
 //获取复选框选中的值
 function getCheckBoxValue(form){
     var test = $("input[name='className']:checked");
@@ -143,7 +154,7 @@ function getAllTeacherAndClassInfo(){
     var term = $("#v_term").text();
     var $trs = $("#addTeacherAndClass").children("tr");
     $trs.each(function(i){
-        $tds = $(this).children("td");
+        var $tds = $(this).children("td");
         var teacherAndClassInfo = "<input name='teacherCourseCustoms["+i+"].courseCode' type='hidden' value='" +courseCode+ "'/>"
             + "<input name='teacherCourseCustoms["+i+"].academicYear' type='hidden' value='" + academicYear + "'/>"
             + "<input name='teacherCourseCustoms["+i+"].term' type='hidden' value='" + term + "'/>"
@@ -166,7 +177,7 @@ function saveTaskArrangeCourseInfo(){
         data:$("#saveTeacherCourseClassForm").serialize(),
         type:"POST",
         async:false,
-        datatype:"text",
+        dataType:"text",
         success:function(response){
             layer.alert(response, function(index){
                 //实现父页面的刷新

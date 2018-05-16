@@ -43,5 +43,8 @@ public class DefaultValue {
      */
     public static final String COURSE_TYPE_ROOT_NAME = "课程类别";
 
-
+    /**
+     * 默认的排课任务导出的Excel文件名称
+     */
+    public static final String ARRANGE_COURSE_FILENAME = "排课信息.xls";
 }

@@ -31,7 +31,7 @@
     <%--排课公共方法--%>
     <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
     <%--安排课程添加的js--%>
-    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/scheduleManage-add.js"></script>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/scheduleArranage-add.js"></script>
 
 </head>
 <body>
@@ -131,7 +131,6 @@
     <form id="saveTeacherCourseClassForm">
         <%--隐藏任务安排课程ID--%>
         <input type="hidden" name="arrangeCourseId" value="${param.arrangeCourseId}"/>
-
     </form>
 
 </div>

@@ -58,6 +58,7 @@ function showArrangeCourseTaskInfo(pageInfo){
             +(arrangeCourseTaskList[i].taskReceiptTime==null?'--':arrangeCourseTaskList[i].taskReceiptTime)+"</td><td>"
             +arrangeCourseTaskList[i].taskStatus+"</td>"
             +"<td class='td-manage'><a title='点击查看排课详情' onclick=x_admin_show('排课','scheduleArrange-detail.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
+            +"<a title='点击查看教师排课信息' onclick=x_admin_show('教师排课信息','scheduleArrange-teacherCourseInfo.jsp?academicYear="+arrangeCourseTaskList[i].academicYear+"&term="+arrangeCourseTaskList[i].term+"') href='javascript:void(0);')><i class='layui-icon'>&#xe606;</i></a>"
             +"</td></tr>"
         $("tbody").append(tr);
     }
@@ -105,7 +106,6 @@ function allotCourse_history(){
     var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
     var academicYear = $("[name='taskRadio']:checked + input[name='sel_academicYear']").val();
     var term = $("[name='taskRadio']:checked ~ input[name='sel_term']").val();
-    //x_admin_show('分配课程','./scheduleTask-allot.jsp?arrangeTaskId='+arrangeTaskId+'&noticeBookId='+noticeBookId);
     x_admin_show('根据历史记录排课','./scheduleArrange-history.jsp?arrangeTaskId='+arrangeTaskId+'&academicYear='+academicYear+'&term='+term);
 }
 
@@ -122,7 +122,12 @@ function commitToCheck(){
         return;
     }
     var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
-    layer.confirm('您确认要提交此次课设分配信息进行审核吗？\r\n提交审核后将不能进行修改！',function(){
+    var count = getNotArrangeCourseCount(arrangeTaskId);
+    if(count>0){
+        layer.alert('该排课任务还有尚未安排的课程，不能进行提交审核的操作！');
+        return;
+    }
+    layer.confirm('您确认要提交此次课设分配信息进行审核吗？提交审核后将不能进行修改！',function(){
         changeTaskStatus(arrangeTaskId,"5");
     });
 }
@@ -162,4 +167,19 @@ function arrangeCourseExport(){
         window.location.href=contextPath+"/arrangeCourse/exportArrangeCourseInfo.action?arrangeCourseTaskId="+arrangeTaskId
         layer.close(index);
     });
+}
+//查询没有排课的数量
+function getNotArrangeCourseCount(arrangeTaskId){
+    var count = 0;
+    $.ajax({
+        url : contextPath+'/arrangeCourse/getNotArrangeCourseCount.action',
+        data : {"arrangeTaskId":arrangeTaskId},
+        type : 'POST',
+        dataType : 'json',
+        async:false,
+        success : function(response){
+            count = response;
+        }
+    });
+    return count;
 }

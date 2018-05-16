@@ -2,9 +2,7 @@ package cn.xm.jwxt.service.impl.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTeacherCourse;
 import cn.xm.jwxt.bean.arrangeCourse.ApTeacherCourseExample;
-import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
-import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
-import cn.xm.jwxt.bean.arrangeCourse.custom.HistoryArrangeCourseQueryVo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.*;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfoExample;
 import cn.xm.jwxt.mapper.arrangeCourse.ApTeacherCourseMapper;
@@ -16,6 +14,8 @@ import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.UUIDUtil;
 import cn.xm.jwxt.utils.ValidateCheck;
 import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -176,5 +176,27 @@ public class ApTeacherCourseServiceImpl implements ApTeacherCourseService {
         }
         List<Map<String, Object>> historyTeacherInfo = teacherCourseCustomMapper.findHistoryTeacherInfoByNumber(courseNumber);
         return historyTeacherInfo;
+    }
+
+    /**
+     * 根据条件查询一个学院某一学年学期的教师排课信息分页显示
+     * @param condition
+     * @param currentPage
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public PageInfo<CollegeTeacherArrangeCourseInfo> findCollegeTeacherArrangeCourseInfoList(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception {
+        if(currentPage==null||pageSize==null){
+            throw new IllegalArgumentException("分页参数传递错误！");
+        }
+        if(condition==null){
+            throw new IllegalArgumentException("查询条件参数传递错误!");
+        }
+        PageHelper.startPage(currentPage,pageSize,"CONVERT(teacher_name USING gbk)");
+        List<CollegeTeacherArrangeCourseInfo> listInfo = teacherCourseCustomMapper.findCollegeTeacherArrangeCourseInfoList(condition);
+        PageInfo<CollegeTeacherArrangeCourseInfo> pageInfo = new PageInfo<>(listInfo);
+        return pageInfo;
     }
 }

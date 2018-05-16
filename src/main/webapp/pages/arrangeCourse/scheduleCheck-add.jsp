@@ -43,6 +43,9 @@
             <div class="layui-input-inline">
                  <input type="text" name="auditorName" required  lay-verify="required" class="layui-input" value="张三" readonly>
             </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>必须填写
+            </div>
             <%--隐藏审核人ID--%>
             <input type="hidden" value="asdfwiefjiwenxhuwe" name="auditorId"/>
             <%--隐藏排课任务ID--%>
@@ -53,7 +56,10 @@
               审核时间
             </label>
             <div class="layui-input-inline">
-                 <input type="text" id="checkTime" name="auditTime" readonly  lay-verify="required" class="layui-input">
+                 <input type="text" id="nowTime" name="auditTime" readonly  lay-verify="required" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>必须填写
             </div>
         </div>
         <!--3-->
@@ -66,6 +72,9 @@
 				  <option value="1">审核通过</option>
                   <option value="0">审核不通过</option>
 				</select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>必须填写
             </div>
         </div>
          
@@ -95,10 +104,7 @@
         <!---->
     </form>
 </div>
-
-
 <script>
-
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form;
@@ -109,7 +115,7 @@
                 url:contextPath+"/arrangeCourse/addArrangeCourseAuditInfo.action",
                 data:data.field,
                 type:"POST",
-                datatype:"text",
+                dataType:"text",
                 success:function(response){
                     layer.alert(response, {icon: 6}, function () {
                         //实现父页面的刷新
@@ -121,17 +127,6 @@
         });
     });
 
-    //获取当前时间设置到相应字段
-    function getNowTime(){
-        var myDate = new Date();//获取系统当前时间
-        var year = myDate.getFullYear();//获取当前年
-        var month = myDate.getMonth()+1;//获取当前月
-        var date = myDate.getDate();
-        if (month < 10) month = "0" + month;
-        if (date < 10) date = "0" + date;
-        var nowTime = year + "-" + month + "-" + date;
-        $("input[name='auditTime']").val(nowTime);
-    }
 </script>
 
 </body>

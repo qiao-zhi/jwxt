@@ -162,9 +162,17 @@ public class ApTaskArrangeCourseController {
         return histroyTeacherCourses;
     }
 
+    /**
+     * 根据排课任务ID导出相应的排课信息
+     * @param session
+     * @param arrangeCourseTaskId
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/exportArrangeCourseInfo")
     public ResponseEntity<byte[]> exportArrangeCourseInfo(HttpSession session, String arrangeCourseTaskId, Model model)throws Exception {
-        String filename = "排课信息.xls";
+        String filename = DefaultValue.ARRANGE_COURSE_FILENAME;
         //下载文件路径
         String path = session.getServletContext().getRealPath(filename);
         Map<String, List<ApTaskArrangeCourseCustom>> mapInfo = taskArrangeCourseService.getArrangeCourseAllInfoByArrangeCourseTaskId(arrangeCourseTaskId);
@@ -179,5 +187,21 @@ public class ApTaskArrangeCourseController {
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
                 headers, HttpStatus.CREATED);
+    }
+
+    /**
+     * 根据排课任务ID统计还未排课的数量
+     * @param arrangeTaskId
+     * @return
+     */
+    @RequestMapping("/getNotArrangeCourseCount")
+    public @ResponseBody String getNotArrangeCourseCount(String arrangeTaskId){
+        int count = 0;
+        try {
+            count = taskArrangeCourseService.getNotArrangeCourseCount(arrangeTaskId);
+        } catch (Exception e) {
+            logger.error("统计还未排课的数量失败",e);
+        }
+        return String.valueOf(count);
     }
 }

@@ -15,7 +15,7 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
-
+    <%--公共标签--%>
     <%@include file="/tag.jsp"%>
 </head>
 
@@ -29,7 +29,7 @@
             通知书名称
         </label>
         <div class="layui-input-inline">
-            <input type="" value="2018年5月8日通知书" readonly required="" lay-verify="required"
+            <input type="text" value="${param.noticeBookName}" readonly required="" lay-verify="required"
                    autocomplete="off" class="layui-input">
         </div>
     </div>
