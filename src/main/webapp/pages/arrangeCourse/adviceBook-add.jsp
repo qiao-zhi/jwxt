@@ -16,6 +16,8 @@
     <script type="text/javascript" src="../../js/xadmin.js"></script>
     <%--公共标签--%>
     <%@include file="/tag.jsp"%>
+    <%--排课公共方法--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
 
 </head>
 <body>
@@ -104,7 +106,7 @@
               创建时间
             </label>
             <div class="layui-input-inline">
-             <input id="giveTime" class="layui-input" name="createTime"  lay-verify="required" />
+             <input id="nowTime" class="layui-input" name="createTime"  lay-verify="required" />
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
@@ -122,9 +124,7 @@
     </form>
 </div>
 
-
 <script>
-
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form;
@@ -142,7 +142,7 @@
                 url:contextPath+"/arrangeCourse/addTaskNoticeBaseInfo.action",
                 data:data.field,
                 type:"POST",
-                datatype:"text",
+                dataType:"text",
                 success:function(response){
                     layer.alert(response,function(){
                         //实现父页面的刷新
@@ -155,41 +155,6 @@
         });
      });
 
-    //日期控件
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-        //创建时间
-        laydate.render({
-            elem: '#giveTime'//指定元素,
-        });
-        //学年
-        laydate.render({
-            elem: '#y_year' //指定元素
-            ,type: 'year'
-            ,done:function(date){
-                //判断date是否有值
-                if(date != null && date !=""){
-                    date = parseInt(date)
-                    $("#end_year").val(date+1)
-                    $("input[name='academicYear']").val(date+'-'+(date+1)+"学年")
-                }else{
-                    $("#end_year").val('')
-                    $("input[name='academicYear']").val('')
-                }
-            }
-        });
-    })
-    //获取当前时间设置到相应字段
-    function getNowTime(){
-        var myDate = new Date();//获取系统当前时间
-        var year = myDate.getFullYear();//获取当前年
-        var month = myDate.getMonth()+1;//获取当前月
-        var date = myDate.getDate();
-        if (month < 10) month = "0" + month;
-        if (date < 10) date = "0" + date;
-        var nowTime = year + "-" + month + "-" + date;
-        $("input[name='createTime']").val(nowTime);
-    }
 </script>
 
 </body>

@@ -68,10 +68,7 @@
         </table>
         
 </div>
-
-
 <script>
-	
 	//layui
     layui.use([], function () {
         $ = layui.jquery;

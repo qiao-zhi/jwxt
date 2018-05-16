@@ -62,7 +62,10 @@ function showArrangeCourseTaskInfo(pageInfo){
             if(arrangeCourseTaskList[i].taskStatus=='未分配'){
                 tr += "<a title='点击修改任务信息'  onclick=x_admin_show('修改任务','scheduleTask-edit.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>";
             }
-            tr +=" <a title='删除' onclick=deleteArrangeTaskInfo('"+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
+            if(arrangeCourseTaskList[i].taskStatus=='未分配'||arrangeCourseTaskList[i].taskStatus=='未发送'){
+                tr +=" <a title='删除' onclick=deleteArrangeTaskInfo('"+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a>";
+            }
+            tr +="</td></tr>";
         $("tbody").append(tr);
     }
     //开启分页组件
@@ -168,21 +171,5 @@ function accept(){
     var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
     layer.confirm("您确定接收选中的教学任务？",function () {
         changeTaskStatus(arrangeTaskId,"4");
-    })
-}
-//修改排课任务状态
-function changeTaskStatus(arrangeTaskId,status){
-    $.ajax({
-        url:contextPath+"/arrangeCourse/updateArrangeCourseTaskStatus.action",
-        type:"post",
-        dataType:"text",
-        async:false,
-        data:{"arrangeTaskId":arrangeTaskId,"status":status},
-        success:function(response){
-            layer.alert(response,function () {
-                //实现父页面的刷新
-                window.location.reload();
-            })
-        }
     })
 }

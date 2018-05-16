@@ -244,4 +244,19 @@ public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseServic
         mapInfo.put(CampusCodeEnum.JINCHENG_CAMPUS.getStatus(),courseAndTeacherListJinChengCampus);
         return mapInfo;
     }
+
+    /**
+     * 根据排课任务ID统计还未排课的数量
+     * @param arrangeTaskId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int getNotArrangeCourseCount(String arrangeTaskId) throws Exception {
+        if(ValidateCheck.isNull(arrangeTaskId)){
+            throw new IllegalArgumentException("排课任务编号不能为空!");
+        }
+        int count = taskArrangeCourseCustomMapper.selectNotArrangeCourseCount(arrangeTaskId);
+        return count;
+    }
 }

@@ -1,6 +1,8 @@
 package cn.xm.jwxt.mapper.arrangeCourse.custom;
 
 import cn.xm.jwxt.bean.arrangeCourse.custom.ApTeacherCourseCustom;
+import cn.xm.jwxt.bean.arrangeCourse.custom.CollegeTeacherArrangeCourseInfo;
+import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,7 +24,7 @@ public interface ApTeacherCourseCustomMapper {
     List<ApTeacherCourseCustom> findTeacherCourseCustomInfoByTaskArrangeCourseId(String taskArrangeCourseId) throws SQLException;
 
     /**
-     * 根据排课任务ID查询教师课程信息集合
+     * 根据排课任务ID查询教师课程ID集合
      * @param taskArrangeCourseId
      * @return
      * @throws SQLException
@@ -36,4 +38,12 @@ public interface ApTeacherCourseCustomMapper {
      * @throws SQLException
      */
     List<Map<String,Object>> findHistoryTeacherInfoByNumber(String courseNumber) throws SQLException;
+
+    /**
+     * 根据条件查询一个学院某一学年学期的教师排课信息
+     * @param condition
+     * @return
+     * @throws SQLException
+     */
+    List<CollegeTeacherArrangeCourseInfo> findCollegeTeacherArrangeCourseInfoList(CommonQueryVo condition) throws SQLException;
 }

@@ -14,4 +14,20 @@
           )
         </foreach>
     </insert>
+
+    <!--根据教师课程ID设置班级教师表中的人数-->
+    <update id="updateClassSizeByTeacherCourseId" parameterType="String">
+        UPDATE ap_class_teacher ct
+        SET class_size = (
+            SELECT
+                class_student_num
+            FROM
+                `ap_task_notice_detail_info`
+            WHERE
+                class_name = ct.class_name
+            LIMIT 1
+        )
+        WHERE
+            teacher_course_id = #{VALUE}
+    </update>
 </mapper>

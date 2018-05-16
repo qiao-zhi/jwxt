@@ -40,6 +40,13 @@ public interface ApTaskArrangeCourseCustomMapper {
      */
     List<ApTaskArrangeCourseCustom> findTaskArrangeCourseAndTeacherListByArrangeId(String arrangeTaskId) throws SQLException;
 
+    /**
+     * 根据排课任务ID统计还未排课的数量
+     * @param arrangeTaskId
+     * @return
+     * @throws SQLException
+     */
+    int selectNotArrangeCourseCount(String arrangeTaskId) throws SQLException;
 
     /**
      * 根据安排课程ID查询查询每一门课程对应的教师课程信息

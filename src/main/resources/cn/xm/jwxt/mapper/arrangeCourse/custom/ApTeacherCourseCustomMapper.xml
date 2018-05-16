@@ -34,7 +34,7 @@
             tc.teacher_course_id
     </select>
 
-    <!--根据排课任务ID查询教师课程信息集合-->
+    <!--根据排课任务ID查询教师课程ID集合-->
     <select id="findTeacherCourseIdsByTaskArrangeCourseID" parameterType="String" resultType="String">
         SELECT teacher_course_id FROM `ap_teacher_course` WHERE arrange_course_id=#{value}
     </select>
@@ -43,5 +43,41 @@
     <select id="findHistoryTeacherInfoByNumber" parameterType="String" resultType="map">
         SELECT DISTINCT teacher_number,teacher_name from ap_teacher_course  WHERE course_code = #{value}
         ORDER BY CONVERT (teacher_name USING gbk)
+    </select>
+
+    <!--映射学院教师课程信息-->
+    <resultMap id="collegeTeacherArrangeCourseMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.CollegeTeacherArrangeCourseInfo" >
+        <result column="college_id" property="collegeId" jdbcType="VARCHAR" />
+        <result column="major_id" property="majorId" jdbcType="VARCHAR" />
+        <result column="teacher_major_name" property="teacherMajorName" jdbcType="VARCHAR" />
+        <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+        <result column="teacher_num" property="teacherNum" jdbcType="VARCHAR" />
+        <result column="academic_year" property="academicYear" jdbcType="VARCHAR" />
+        <result column="term" property="term" jdbcType="CHAR" />
+        <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+        <result column="arrange_course_id" property="arrangeCourseId" jdbcType="VARCHAR" />
+        <result column="course_code" property="courseCode" jdbcType="VARCHAR" />
+        <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--根据条件查询一个学院某一学年学期的教师排课信息-->
+    <select id="findCollegeTeacherArrangeCourseInfoList" parameterType="cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo" resultMap="collegeTeacherArrangeCourseMap">
+      SELECT
+            tbi.collegeID college_id,
+            tbi.majorID major_id,
+            (select mbi.majorName from t_major_base_info mbi WHERE mbi.majorID = tbi.majorID ) teacher_major_name,
+            tbi.teacherName teacher_name,
+            tbi.teacherNum teacher_num,
+            tc.academic_year,
+            tc.term,
+            (select major_name from ap_task_arrange_course tac WHERE tac.arrange_course_id = tc.arrange_course_id) major_name,
+            tc.arrange_course_id,
+            tc.course_code,
+            (select course_name from ap_task_arrange_course tac WHERE tac.course_code = tc.course_code LIMIT 1) course_name
+        FROM
+            t_teacher_base_info tbi LEFT JOIN
+            ap_teacher_course tc
+        ON tbi.teacherNum = tc.teacher_number AND tbi.collegeID =#{academicId} AND
+        tc.academic_year =#{academicYear} AND tc.term=#{term}
     </select>
 </mapper>

@@ -44,7 +44,8 @@
         </foreach>
     </insert>
 
-    <resultMap id="distributeCourseSourceResultMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.DistributeCourseSource">         <result column="course_code" jdbcType="VARCHAR" property="courseCode" />
+    <!--分配课程来源显示封装的实体类映射-->
+    <resultMap id="distributeCourseSourceResultMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.DistributeCourseSource">
         <result column="course_code" jdbcType="VARCHAR" property="courseCode" />
         <result column="course_name" jdbcType="VARCHAR" property="courseName" />
         <result column="major_name" jdbcType="VARCHAR" property="majorName" />
