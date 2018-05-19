@@ -35,8 +35,8 @@
         <if test="collegenum != null and collegenum !=''">
             and collegeNum = #{collegenum}
         </if>
-        <if test="collegename != null and collegename !=''">
-            and collegeName LIKE '%${collegename}%'
+        <if test="collegeid != null and collegeid !=''">
+            and collegeId = #{collegeid}
         </if>
     </sql>
 </mapper>

@@ -81,10 +81,10 @@ public class TeacherinfoController {
         try {
             teacherinfoService.deleteTeacherInfoById(teacherId);
         } catch (Exception e) {
-            logger.error("删除学生信息失败",e);
-            return "删除学生信息失败！";
+            logger.error("删除教师信息失败",e);
+            return "删除教师信息失败！";
         }
-        return "删除学生信息成功！";
+        return "删除教师信息成功！";
     }
 
     /**
@@ -133,7 +133,7 @@ public class TeacherinfoController {
         try {
             teacherNameAndIdList = teacherinfoService.findTeacherNameAndId();
         } catch (Exception e) {
-            logger.error("查询任务通知书失败",e);
+            logger.error("查询教师失败",e);
         }
         return teacherNameAndIdList;
     }

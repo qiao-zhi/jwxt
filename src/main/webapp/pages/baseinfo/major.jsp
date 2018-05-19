@@ -58,28 +58,20 @@
             <div class="layui-input-inline"><!--带搜索的查询-->
                 <select  lay-search="" name="majorsort" id="majorsort">
                     <option value="">学科门类</option>
-                    <option value="1">工学</option>
-                    <option value="2">理科</option>
-                    <option value="3">文科</option>
+                    <option value="工科">工科</option>
+                    <option value="理科">理科</option>
+                    <option value="文科">文科</option>
                 </select>
             </div>
             <div class="layui-input-inline"><!--带搜索的查询-->
                 <select  lay-search="" name="majorid" id="majorName">
-                    <option value="">专业名称</option>
-                    <option value="1">软件工程</option>
-                    <option value="2">网络工程</option>
-                    <option value="3">物联网</option>
-                    <option value="4">计算机</option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="collegeid">
-                    <option value="">学院名称</option>
-                    <option value="1">计算机科学与技术</option>
-                    <option value="2">机械</option>
+                <select lay-search="" name="collegeid">
                 </select>
             </div>
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
     <!--end查询-->
@@ -99,7 +91,7 @@
             <th>专业简称</th>
             <th>专业门类</th>
             <th>专业负责人</th>
-            <th>所属学院</th>
+           <th>所属学院</th>
             <th>操作</th>
         </tr>
         </thead>

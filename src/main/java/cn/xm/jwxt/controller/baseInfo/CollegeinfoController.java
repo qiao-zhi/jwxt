@@ -127,7 +127,7 @@ public class CollegeinfoController {
         try {
             collegeNameAndIdList = collegeinfoService.findCollegeNameAndId();
         } catch (Exception e) {
-            logger.error("查询任务通知书失败",e);
+            logger.error("查询学院失败",e);
         }
         return collegeNameAndIdList;
     }

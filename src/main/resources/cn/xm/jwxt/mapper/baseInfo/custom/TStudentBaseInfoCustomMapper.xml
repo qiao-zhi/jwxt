@@ -17,6 +17,8 @@
         <result column="remark1" property="remark1" jdbcType="VARCHAR" />
         <result column="remark2" property="remark2" jdbcType="VARCHAR" />
         <result column="classname" property="classname" jdbcType="VARCHAR" />
+        <result column="majorname" property="majorname" jdbcType="VARCHAR" />
+        <result column="collegename" property="collegename" jdbcType="VARCHAR" />
     </resultMap>
 
     <!--查询学生的名称和ID-->
@@ -27,7 +29,11 @@
 
     <!--组合条件查询学生分页显示-->
     <select id="findStudentInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultMap="BaseResultMap">
-        SELECT st.*,(SELECT className FROM t_class_base_info c WHERE c.classId=st.classID ) classname FROM t_student_base_info st
+        SELECT st.*,(SELECT className FROM class_major_college v WHERE v.classId=st.classID ) className
+        ,(SELECT majorName FROM class_major_college v WHERE v.classId=st.classID ) majorName
+        ,(SELECT collegeName FROM class_major_college v WHERE v.classId=st.classID ) collegeName
+        FROM t_student_base_info st,class_major_college v
+
         <where>
             <include refid="query_common_where"></include>
         </where>
@@ -43,11 +49,14 @@
         <if test="studentname != null and studentname !=''">
             and studentName LIKE '%${studentname}%'
         </if>
-        <if test="collegenum != null and collegenum !=''">
-            and collegeNum = #{collegenum}
+        <if test="collegeid != null and collegeid !=''">
+            and v.collegeId = #{collegeid}
         </if>
-        <if test="majorname != null and majorname !=''">
-            and majorName = #{majorname}
+        <if test="majorid != null and majorid !=''">
+            and v.majorId = #{majorid}
+        </if>
+        <if test="0==0">
+            and v.classId = st.classId
         </if>
     </sql>
 

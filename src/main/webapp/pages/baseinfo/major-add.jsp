@@ -40,7 +40,7 @@
             </label>
             <div class="layui-input-inline">
                 <div class="layui-input-inline">
-                    <select name="collegeid" id="collegeName">
+                    <select name="collegeid" id="collegeName" lay-verify="required">
                     </select>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                 专业名称
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="majorName" name="majorname" required=""
+                <input type="text" id="majorName" name="majorname" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -81,11 +81,11 @@
             </label>
             <div class="layui-input-inline">
                 <div class="layui-input-inline">
-                    <select name="contrller" id="phone" name="majorsort">
+                    <select name="majorsort" id="phone" name="majorsort" lay-verify="required">
                         <option value="">请选择</option>
-                        <option value="1">工科</option>
-                        <option value="2">理科</option>
-                        <option value="3">文科</option>
+                        <option value="工科">工科</option>
+                        <option value="理科">理科</option>
+                        <option value="文科">文科</option>
                     </select>
                 </div>
             </div>
@@ -102,9 +102,6 @@
                 <input type="text" id="majorShortName" name="majorshortname" required=""
                        autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须选择
-            </div>
         </div>
         <!--4-->
         <div class="layui-form-item">
@@ -112,7 +109,7 @@
                 专业负责人
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="majorManager" name="majormanager" required=""
+                <input type="text" id="majorManager" name="majormanager" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">

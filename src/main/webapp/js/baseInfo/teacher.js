@@ -5,6 +5,9 @@ layui.use(['layer', 'form', 'element'], function(){
         ,form = layui.form
         ,element = layui.element;
     //初始化表格
+
+    findCollegeNameAndIdForSelect(form);
+    findMajorNameAndIdForSelect(form);
     findTeacherBaseInfo();
 
     //查询按钮事件过滤器
@@ -44,8 +47,8 @@ function showTeacherBaseInfo(pageInfo){
             +(baseInfoList[i].teachersex>1?"女":"男")+"</td><td>"
             +baseInfoList[i].positionaltitle+"</td><td>"
             +baseInfoList[i].teacherposition+"</td><td>"
-            +baseInfoList[i].joinschooltime+"</td><td>"
-            +baseInfoList[i].teachertel+"</td>"
+            +baseInfoList[i].majorname+"</td><td>"
+            +baseInfoList[i].collegename+"</td>"
             +"<td class='td-manage'><a title='点击查看教师详细信息' onclick=notice_tab_show('教师详细信息','teacher-view.jsp?tId="+baseInfoList[i].teacherid+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
             +"<a title='点击修改教师信息'  onclick=notice_tab_show('修改教师','teacher-modify.jsp?tId="+baseInfoList[i].teacherid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
             +" <a title='删除' onclick=deleteTeacherInfo('"+baseInfoList[i].teacherid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
@@ -150,3 +153,43 @@ function notice_tab_show(title,url,w,h){
 }
 
 /* E            弹出层相关操作 */
+
+//初始化学院下拉框
+function findCollegeNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/collegeInfo/findCollegeNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入学院</option>";
+            $("select[name='collegeid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].collegeid+"'>"+response[i].collegename+"</option>";
+                $("select[name='collegeid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+//初始化专业下拉框
+function findMajorNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/majorInfo/findMajorNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入专业</option>";
+            $("select[name='majorid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].majorid+"'>"+response[i].majorname+"</option>";
+                $("select[name='majorid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}

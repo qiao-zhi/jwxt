@@ -154,9 +154,9 @@
                 <div class="layui-input-inline">
                     <select name="degree" id="degree">
                         <option value=" ">请选择</option>
-                        <option value="1">学士</option>
-                        <option value="2">硕士</option>
-                        <option value="3">博士</option>
+                        <option value="0">学士</option>
+                        <option value="1">硕士</option>
+                        <option value="2">博士</option>
                     </select>
                 </div>
             </div>
@@ -169,10 +169,10 @@
                 <div class="layui-input-inline">
                     <select name="positionaltitle" id="positionalTitle">
                         <option value=" ">请选择</option>
-                        <option value="1">助教</option>
-                        <option value="2">讲师</option>
-                        <option value="3">副教授</option>
-                        <option value="4">教授</option>
+                        <option value="0">助教</option>
+                        <option value="1">讲师</option>
+                        <option value="2">副教授</option>
+                        <option value="3">教授</option>
                     </select>
                 </div>
             </div>

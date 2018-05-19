@@ -20,8 +20,8 @@
     </select>
 
     <!--组合条件查询专业分页显示-->
-    <select id="findMajorInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultMap="BaseResultMap">
-        SELECT * FROM t_major_base_info
+    <select id="findMajorInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultType="map">
+        SELECT m.*,g.collegeName FROM t_major_base_info m,t_college_base_info g
         <where>
             <include refid="query_common_where"></include>
         </where>
@@ -30,17 +30,20 @@
 
     <!--封装查询条件-->
     <sql id="query_common_where">
-        <if test="majorname != null and majorname !=''">
-            and majorName = #{majorname}
+        <if test="majorid != null and majorid !=''">
+            and majorId = #{majorid}
         </if>
         <if test="majorsort != null and majorsort !=''">
-            and majorSort LIKE #{majorsort}
+            and majorSort = #{majorsort}
         </if>
-        <if test="collegenum != null and collegenum !=''">
-            and collegeNum = #{collegenum}
+        <if test="collegeid != null and collegeid !=''">
+            and m.collegeID = #{collegeid}
         </if>
         <if test="majornum != null and majornum !=''">
             and majorNum = #{majornum}
+        </if>
+        <if test="0==0">
+            and m.collegeID=g.collegeId
         </if>
     </sql>
 </mapper>

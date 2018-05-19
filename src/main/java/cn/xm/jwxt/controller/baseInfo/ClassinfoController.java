@@ -64,7 +64,7 @@ public class ClassinfoController {
         try {
             pageInfo = classinfoService.findClassInfoByCondition(condition, condition.getCurrentpage(),condition.getPagesize());
         } catch (Exception e) {
-            logger.error("查询教师失败",e);
+            logger.error("查询班级失败",e);
         }
         return pageInfo;
     }
@@ -131,7 +131,7 @@ public class ClassinfoController {
         try {
             classNameAndIdList = classinfoService.findClassNameAndId();
         } catch (Exception e) {
-            logger.error("查询任务通知书失败",e);
+            logger.error("查询班级失败",e);
         }
         return classNameAndIdList;
     }
