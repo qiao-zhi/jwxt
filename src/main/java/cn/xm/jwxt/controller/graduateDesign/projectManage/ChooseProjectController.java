@@ -150,7 +150,7 @@ public class ChooseProjectController {
     }
 
     /**
-     * 查询该学生是否提交
+     * 检查学生提交信息   校内校外选择信息。
      * @return
      */
     @RequestMapping("/findIsChoose")
@@ -164,5 +164,21 @@ public class ChooseProjectController {
         }
 
         return res;
+    }
+
+    /**
+     * 提交学生选择校外毕设的指导老师
+     * @return
+     */
+    @RequestMapping("/submitChooseTeacher") public @ResponseBody String submitChooseTeacher() {
+
+        boolean res = false;
+        try {
+            res = chooseProjectService.submitChooseTeacher();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res ? "success" : "false";
     }
 }

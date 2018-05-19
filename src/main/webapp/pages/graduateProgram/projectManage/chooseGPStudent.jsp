@@ -45,23 +45,14 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_form">
+            <input type="hidden" name="teacherID" value="${user.teacherID}+">
             <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
-            <input type="text" name="syear" class="layui-input" id="L_pass" placeholder="学年" autocomplete="off">
             <div class="layui-input-inline">
                 <!--通过判断是否被老师确认  判断学生选题最终结果表中的信息是否有该学生的id信息-->
                 <select name="isChoose">
-                    <option>是否确认完成</option>
-                    <option>是</option>
-                    <option>否</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <!--未完成 是判断是否填写了任务书     毕设课题任务书,判断学生选题结果ID-->
-                <select name="hasAssignment">
-                    <option>是否填写任务书</option>
-                    <option>未填写</option>
-                    <option>未完成</option>
-                    <option>已完成</option>
+                    <option value="">是否确认完成</option>
+                    <option value="1">是</option>
+                    <option value="0">否</option>
                 </select>
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -73,8 +64,6 @@
     <xblock>
         <!--若申请人数小于 需要人数，则自动确认，不需要确认学生。 提交后不可修改-->
         <button class="layui-btn layui-btn-normal" onclick="confirmChooose()">确认学生 </button>
-        <button class="layui-btn" onclick="fillAssignment()">填写任务书 </button>
-        <button class="layui-btn">上传考勤表 </button>
     </xblock>
     <!--end 操作区域-->
 
@@ -87,14 +76,12 @@
                     &#xe605;</i>
                 </div>
             </th>
-            <th>学年</th>
             <th>课题名称</th>
             <th>专业</th>
             <th>所需人数</th>
             <th>申请人数</th>
             <th>确认人数</th>
             <th>是否确认完成</th>
-            <th>是否填写任务书</th>
             <th>操作</th>
         </tr>
         </thead>

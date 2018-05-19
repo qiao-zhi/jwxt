@@ -5,11 +5,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>添加任务书</title>
+    <title>修改任务书</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <%-- qlq引入的公共的JSP --%>
+    <%@include file="/tag.jsp"%>
     <link rel="stylesheet" href="../../../lib/layui/css/layui.css">
     <link rel="stylesheet" href="../../../css/font.css">
     <link rel="stylesheet" href="../../../lib/bootstrap/bootstrap.min.css">

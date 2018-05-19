@@ -104,22 +104,22 @@
     WHERE teacherTitleID = #{teacherTitleID}
   </select>
 
-  <update id="updateProjectInfo" parameterType="java.lang.String">
+  <update id="updateProjectInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
     update teacherGreDesignTitle set
-    <if test="auditTime != null" >graDesignID = #{graDesignID,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >titlename = #{titlename,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >resultType = #{resultType,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >projectType = #{projectType,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >targetRequire = #{targetRequire,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >researchContent = #{researchContent,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >titleOrigin = #{titleOrigin,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >titleType = #{titleType,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >reqireStudentNum = #{reqireStudentNum,jdbcType=INTEGER},</if>
-    <if test="auditTime != null" >checkStatus = #{checkStatus,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >syear = #{syear,jdbcType=DATE},</if>
-    <if test="auditTime != null" >applyTime = #{applyTime,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >gdTime = #{gdTime,jdbcType=VARCHAR},</if>
-    <if test="auditTime != null" >majorID = #{majorID,jdbcType=VARCHAR},</if>
+    <if test="graDesignID != null" >graDesignID = #{graDesignID,jdbcType=VARCHAR},</if>
+    <if test="titlename != null" >titlename = #{titlename,jdbcType=VARCHAR},</if>
+    <if test="resultType != null" >resultType = #{resultType,jdbcType=VARCHAR},</if>
+    <if test="projectType != null" >projectType = #{projectType,jdbcType=VARCHAR},</if>
+    <if test="targetRequire != null" >targetRequire = #{targetRequire,jdbcType=VARCHAR},</if>
+    <if test="researchContent != null" >researchContent = #{researchContent,jdbcType=VARCHAR},</if>
+    <if test="titleOrigin != null" >titleOrigin = #{titleOrigin,jdbcType=VARCHAR},</if>
+    <if test="titleType != null" >titleType = #{titleType,jdbcType=VARCHAR},</if>
+    <if test="reqireStudentNum != null" >reqireStudentNum = #{reqireStudentNum,jdbcType=INTEGER},</if>
+    <if test="checkStatus != null" >checkStatus = #{checkStatus,jdbcType=VARCHAR},</if>
+    <if test="syear != null" >syear = #{syear,jdbcType=DATE},</if>
+    <if test="applyTime != null" >applyTime = #{applyTime,jdbcType=VARCHAR},</if>
+    <if test="gdTime != null" >gdTime = #{gdTime,jdbcType=VARCHAR},</if>
+    <if test="majorID != null" >majorID = #{majorID,jdbcType=VARCHAR},</if>
     where teacherTitleID=#{teacherTitleID}
   </update>
 

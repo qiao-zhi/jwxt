@@ -12,7 +12,16 @@
     and teacherName=''
     and titlename=''
     and checkStatus=''
-    and projectType=''
-    ;
+    and projectType='';
+  </select>
+
+  <select id="selectStudentInfo" resultType="cn.xm.jwxt.bean.graduateDesign.StudentInfoVo" parameterType="java.lang.Sting">
+    select studentID,studentName,studentNum,studentSex,className from t_student_base_info s,t_class_base_info t,
+    (select StudentTitleresultID,studentID from studentTitleResult where teacherTitleID = #{teacherTitleID}) r
+     where s.studentID=r.studentID and s.classID=t.classID
+  </select>
+
+  <select id="selectProjectInfo" resultType="cn.xm.jwxt.bean.graduateDesign.TeachergredesigntitleDetailVo" parameterType="java.lang.Sting">
+    select * from teacherGreDesignTitle where teacherTitleID = #{teacherTitleID}
   </select>
 </mapper>

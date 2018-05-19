@@ -16,14 +16,14 @@ public interface Project_ACService {
      * @param condition 课题名称、学年、
      * @return
      */
-    List<Map<String,String>> getprojectInfoByCondition(Map<String, String> condition) throws SQLException;
+    List<Map<String,String>> getprojectInfoByCondition(Map<String, String> condition) throws Exception;
 
     /**
      * 添加教研室审核信息
      * @param firstCheckInfo
      * @return
      */
-    public boolean addAuditFirstInfo(TeachertitleFirstcheckinfo firstCheckInfo) throws SQLException;
+    public boolean addAuditFirstInfo(TeachertitleFirstcheckinfo firstCheckInfo) throws Exception;
 
     /**
      * 添加院长审核信息
@@ -72,12 +72,12 @@ public interface Project_ACService {
      * @param teacherTitleID
      * @return
      */
-    public TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID);
+    public TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID) throws Exception;
 
     /**
      * 获取教研室审核信息
      * @param teacherTitleID
      * @return
      */
-    public TeachertitleFirstcheckinfo getTeachertitleFirstcheckinfo(String teacherTitleID);
+    public TeachertitleFirstcheckinfo getTeachertitleFirstcheckinfo(String teacherTitleID) throws Exception;
 }

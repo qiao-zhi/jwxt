@@ -129,4 +129,15 @@ public class ChooseProjectServiceImpl implements ChooseProjectService {
 
         return res.equals("0") ? true : false;
     }
+
+    @Override
+    public boolean submitChooseTeacher() throws Exception {
+
+        //获取用户信息
+        String studentID = "";
+
+        Boolean res = chooseProjectMapper.insertChooseTeacher(studentID);
+
+        return res;
+    }
 }

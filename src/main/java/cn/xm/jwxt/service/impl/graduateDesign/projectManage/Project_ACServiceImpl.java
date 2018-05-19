@@ -34,12 +34,13 @@ public class Project_ACServiceImpl implements Project_ACService {
 
     @Autowired
     private Project_ACMapper project_ACMapper;
-    @Override
 
+    @Override
     public List<Map<String, String>> getprojectInfoByCondition(Map<String, String> condition) throws SQLException{
         return project_ACMapper.selectProject_ACInfo(condition);
     }
 
+    @Override
     public boolean addAuditFirstInfo(TeachertitleFirstcheckinfo firstCheckInfo) throws SQLException {
         if(firstCheckInfo==null){
             throw new IllegalArgumentException("审核信息不能为空!");
@@ -82,7 +83,7 @@ public class Project_ACServiceImpl implements Project_ACService {
 
         return false;
     }
-
+    @Override
     public boolean addAuditSecondInfo(TeachertitleSecondcheckinfo secondCheckInfo) throws SQLException {
         if(secondCheckInfo == null){
             throw new IllegalArgumentException("审核信息不能为空!");
@@ -169,7 +170,7 @@ public class Project_ACServiceImpl implements Project_ACService {
     }
 
     @Override
-    public TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID) {
+    public TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID) throws Exception {
 
         //获取教研室审核信息
         TeachertitleFirstcheckinfo firstcheckinfo = getTeachertitleFirstcheckinfo(teacherTitleID);
@@ -210,7 +211,7 @@ public class Project_ACServiceImpl implements Project_ACService {
     }
 
     @Override
-    public TeachertitleFirstcheckinfo getTeachertitleFirstcheckinfo(String teacherTitleID) {
+    public TeachertitleFirstcheckinfo getTeachertitleFirstcheckinfo(String teacherTitleID) throws Exception {
         return project_ACMapper.selectAuditFisrtInfo(teacherTitleID);
     }
 

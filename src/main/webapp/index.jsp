@@ -193,6 +193,11 @@
 							发布结果  查看任务书填写情况 -->
                                 </a>
                             </li>
+                            <li>
+                                <a _href="pages/graduateProgram/projectManage/assignmentManage.jsp">
+                                    <cite>任务书管理</cite>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <!--中期答辩管理  设定答辩，答辩结果统计-->

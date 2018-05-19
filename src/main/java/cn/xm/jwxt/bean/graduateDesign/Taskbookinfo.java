@@ -6,7 +6,7 @@ import java.util.Date;
  * 毕设课题任务书
  */
 public class Taskbookinfo {
-    private Integer bookid;
+    private String bookid;
 
     private String studenttitleresultid;
 
@@ -28,11 +28,11 @@ public class Taskbookinfo {
 
     private String remark;
 
-    public Integer getBookid() {
+    public String getBookid() {
         return bookid;
     }
 
-    public void setBookid(Integer bookid) {
+    public void setBookid(String bookid) {
         this.bookid = bookid;
     }
 

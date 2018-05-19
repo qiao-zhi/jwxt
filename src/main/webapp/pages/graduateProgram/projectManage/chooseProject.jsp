@@ -77,8 +77,8 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="chooseProject_save()">保存 </button>
-        <button class="layui-btn" onclick="chooseProject_submit()">提交 </button>
+        <button class="layui-btn" id="saveButton" onclick="chooseProject_save()">保存 </button>
+        <button class="layui-btn" id="submitButton" onclick="chooseProject_submit()">提交 </button>
         &nbsp;<span class="layui-badge-dot"></span><span> 请选择两项，作为毕设题目。</span>
     </xblock>
     <!--end 操作区域-->

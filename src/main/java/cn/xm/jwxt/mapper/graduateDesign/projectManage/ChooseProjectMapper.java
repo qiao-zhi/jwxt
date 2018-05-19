@@ -46,4 +46,11 @@ public interface ChooseProjectMapper {
      * @return
      */
     public String selectIsChoose(String studentID) throws SQLException;
+
+    /**
+     * 提交学生选择校外毕设的指导老师
+     * @param studentID
+     * @return
+     */
+    Boolean insertChooseTeacher(String studentID) throws SQLException;
 }

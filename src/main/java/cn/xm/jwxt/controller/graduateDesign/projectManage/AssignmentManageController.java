@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("chooseGPStudent")
-public class ChooseGPStudentController {
+@RequestMapping("/assignmentManage")
+public class AssignmentManageController {
 
     //log4j日志打印
     public Logger logger = Logger.getLogger(this.getClass().getName());
@@ -61,15 +61,16 @@ public class ChooseGPStudentController {
     }
 
     /**
-     * 详细信息 获取课题信息。调用课题添加中的方法
+     * 添加任务书 获取课题信息。调用课题添加中的方法
      * @param teacherTitleID 教师题目id
      * @return
      */
     @RequestMapping("/getProjectInfo")
-    public @ResponseBody TeachergredesigntitleDetailVo getProjectInfo(String teacherTitleID){
+    public @ResponseBody
+    TeachergredesigntitleDetailVo getProjectInfo(String teacherTitleID){
         TeachergredesigntitleDetailVo teachergredesigntitledetail = null;
         try {
-            teachergredesigntitledetail = chooseGPStudentService.getProjectInfo(teacherTitleID);
+            teachergredesigntitledetail = project_ACService.getProjectInfoDetail(teacherTitleID);
         } catch (Exception e) {
             logger.error("课题申请详细信息获取失败",e);
         }
@@ -78,7 +79,7 @@ public class ChooseGPStudentController {
     }
 
     /**
-     * 详细信息 获取学生信息。
+     * 添加任务书 获取学生信息。
      * @return
      */
     @RequestMapping("/getStudentInfo")
@@ -94,22 +95,5 @@ public class ChooseGPStudentController {
         return studentInfoVo;
     }
 
-    /**
-     * 提交确定的学生。
-     * @return
-     */
-    @RequestMapping("/submitChooseStudent")
-    public @ResponseBody
-    String submitChooseStudent(@RequestParam String teacherTitleID, @RequestParam String studentIDs){
-        Boolean res = false;
-        try {
-            res = chooseGPStudentService.submitChooseStudent(teacherTitleID, studentIDs);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("课题申请详细信息获取失败",e);
-        }
-
-        return res ? "success" : "false";
-    }
 
 }

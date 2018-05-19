@@ -108,7 +108,7 @@ public class Project_ACController {
      * @return
      */
     public @ResponseBody TTeacherBaseInfo getProjectTeacherInfo(String teacherID){
-        TTeacherBaseInfo tTeacherBaseInfo = null;
+        TTeacherBaseInfo tTeacherBaseInfo = new TTeacherBaseInfo();
         try {
             tTeacherBaseInfo = project_ACService.getProjectTeacherInfo(teacherID);
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public class Project_ACController {
      * @return
      */
     public @ResponseBody Teachergredesigntitle initProjectInfo(String teacherTitleID){
-        Teachergredesigntitle teachergredesigntitle = null;
+        Teachergredesigntitle teachergredesigntitle = new Teachergredesigntitle();
         try {
             teachergredesigntitle = project_ACService.initProjectInfo(teacherTitleID);
         } catch (Exception e) {
@@ -205,7 +205,7 @@ public class Project_ACController {
      */
     @RequestMapping("/getProjectInfoDetail")
     public @ResponseBody TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID){
-        TeachergredesigntitleDetailVo teachergredesigntitledetail = null;
+        TeachergredesigntitleDetailVo teachergredesigntitledetail = new TeachergredesigntitleDetailVo();
         try {
             teachergredesigntitledetail = project_ACService.getProjectInfoDetail(teacherTitleID);
         } catch (Exception e) {
@@ -222,7 +222,7 @@ public class Project_ACController {
      */
     @RequestMapping("/getAuditFirstInfo")
     public @ResponseBody TeachertitleFirstcheckinfo getAuditFirstInfo(String teacherTitleID){
-        TeachertitleFirstcheckinfo teachertitleFirstcheckinfo = null;
+        TeachertitleFirstcheckinfo teachertitleFirstcheckinfo = new TeachertitleFirstcheckinfo();
         try {
             teachertitleFirstcheckinfo = project_ACService.getTeachertitleFirstcheckinfo(teacherTitleID);
         } catch (Exception e) {

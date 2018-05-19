@@ -20,8 +20,9 @@ $(function () {
     findTaskNoticeBaseInfo();//初始化课题表格
 
     findChooseProjectInfo();//初始化已选择课题信息
-    
-    findIsChoose();//查询是否提交。
+
+    //检查学生提交信息   校内校外选择信息。
+    findIsChoose();
 });
 
 /**初始化课题表格信息*/
@@ -212,8 +213,13 @@ function chooseProject_save() {
 function chooseProject_submit() {
     var choose_titleIDs = $("#choose_tbody").find(".choose_titleID");
 
-    if (choose_titleIDs != 0) {
-        layui.alert("请选择两个课题进行提交！")
+    var choose_titleIDstr = "";
+    if (choose_titleIDs == 0) {
+        layui.alert("请先选择课题！")
+    } else if (choose_titleIDs == 1) {
+        layui.alert("请选择两个课题！")
+    } else {
+        choose_titleIDstr = choose_titleIDs.eq(0).text() + "," + choose_titleIDs.eq(1).text();
     }
 
     layer.confirm("提交之后将不能更改,确认提交?",function (index) {
@@ -242,7 +248,18 @@ function findIsChoose(){
         dataType : 'json',
         async:true,
         success : function (data) {
-            
+            //如果是选择了校外
+            if (data.chooseOut == "1") {
+                $("#saveButton").hide();
+                $("#submitButton").hide();
+            } else {
+                //如果提交了
+                if (hasSubmit == "1") {
+                    $("#saveButton").hide();
+                    $("#submitButton").hide();
+                    $("#chooseOutButton").hide();
+                }
+            }
         }
     });
 }

@@ -44,8 +44,15 @@ public interface ChooseProjectService {
     public boolean submitChooseProject(String choose_titleIDstr) throws Exception;
 
     /**
-     * 查询该学生是否提交
+     * 检查学生提交信息   校内校外选择信息。
      * @return
      */
     public boolean findIsChoose() throws Exception;
+
+    /**
+     * 提交学生选择校外毕设的指导老师
+     * @return
+     * @throws Exception
+     */
+    public boolean submitChooseTeacher() throws Exception;
 }

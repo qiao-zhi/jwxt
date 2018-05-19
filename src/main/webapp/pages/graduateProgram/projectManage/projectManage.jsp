@@ -19,8 +19,6 @@
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -45,21 +43,14 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_formm">
-            <input type="text" name="username" placeholder="教师名称" autocomplete="off" class="layui-input">
-            <input type="text" name="username" placeholder="课题名称" autocomplete="off" class="layui-input">
-            <input type="text" name="" class="layui-input" id="L_pass" placeholder="学年" autocomplete="off">
+            <input type="text" name="teacherName" placeholder="教师名称" autocomplete="off" class="layui-input">
+            <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
+            <input type="text" name="syear" class="layui-input" id="L_pass" placeholder="学年" autocomplete="off">
             <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>是否确认</option>
-                    <option>已确认</option>
-                    <option>未确认</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>是否满足需求</option>
-                    <option>满足</option>
-                    <option>不满足</option>
+                <select name="isAllocation">
+                    <option>是否需要添加学生</option>
+                    <option>是</option>
+                    <option>否</option>
                 </select>
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -71,7 +62,6 @@
     <xblock>
         <!--这里不判断教师人数是否够-->
         <button class="layui-btn" onclick="x_admin_show('为学生分配毕设教师','./projectManage-assign.jsp')">为学生分配毕设教师 </button>
-        <button class="layui-btn" onclick="x_admin_show('任务书管理','./projectManage-assigementCheck.jsp')">任务书管理</button>
         <button class="layui-btn layui-btn-normal" onclick="x_admin_show('导出/发布','./projectManage-output.jsp')">导出/发布</button>
     </xblock>
     <!--end 操作区域-->
@@ -87,8 +77,7 @@
             <th>专业</th>
             <th>所需人数</th>
             <th>确认人数</th>
-            <th>是否确认</th>
-            <th>是否满足需求</th>
+            <th>是否需要添加学生</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -104,7 +93,6 @@
             <td>软件工程</td>
             <td>3</td>
             <td>3</td>
-            <td>已确认</td>
             <td>是</td>
             <td class="td-manage">
                 <a title="详细信息" onclick="x_admin_show('详细信息','projectManage-view.jsp')">

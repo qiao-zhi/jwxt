@@ -16,7 +16,7 @@ layui.use('form', function(){
     });
 });
 
-//确认选择
+//确认学生。确认学生的情况是，选择该教师的学生人数大于该教师需要的人数。否则自动通过
 function confirmChooose() {
     var checkedTr = $("td").children(".layui-form-checked");
     if (checkedTr.length == 0) {
@@ -24,27 +24,21 @@ function confirmChooose() {
     } else if (checkedTr.length > 1) {
         layer.alert('只能选择一条数据！');
     } else {
-        var teacherTitleID = checkedTr.parent().find(".y_id").val();
-        x_admin_show('确认学生','./chooseGPStudent-confirm.jsp?teacherTitleID='+teacherTitleID)
-    }
-}
-
-//填写任务书
-function fillAssignment() {
-    var checkedTr = $("td").children(".layui-form-checked");
-    if (checkedTr.length == 0) {
-        layer.alert('请选择一条数据！');
-    } else if (checkedTr.length > 1) {
-        layer.alert('只能选择一条数据！');
-    } else {
-        var teacherTitleID = checkedTr.parent().find(".y_id").val();
-        x_admin_show('填写任务书','./chooseGPStudent-addAssignment.jsp?teacherTitleID='+teacherTitleID);
+        //判断用不用确认
+        if ($(".isConfirm").text() == "未确认") {
+            var teacherTitleID = checkedTr.parent().find(".y_id").val();
+            x_admin_show('确认学生', './chooseGPStudent-confirm.jsp?teacherTitleID=' + teacherTitleID)
+        } else {
+            layui.alert("该课题学生已确认！")
+        }
     }
 }
 
 $(function(){
     //初始化表格
     findTaskNoticeBaseInfo();
+
+    //获取到该课题需要的学生人数和选择了该课题的学生人数
 })
 
 function findTaskNoticeBaseInfo(){
@@ -74,20 +68,15 @@ function showTaskNoticeBaseInfo(pageInfo){
             '        &#xe605;</i></div>' +
             '   <input type="hidden" class="y_id" value="'+ baseInfoList[i].teacherTitleID + '"></td>' +
             '</td><td>' +
-            + baseInfoList[i].syear + '</td><td>' +
             + baseInfoList[i].titlename + '</td><td>' +
             + baseInfoList[i].majorName + '</td><td>' +
             + baseInfoList[i].reqireStudentNum + '</td><td>' +
             + baseInfoList[i].applyStudentNum + '</td><td>' +
-            + baseInfoList[i].confirmStudentNum + '</td><td>' +
+            + baseInfoList[i].confirmStudentNum + '</td><td class="isConfirm">' +
             + baseInfoList[i].isConfirm + '</td><td>' +
-            + baseInfoList[i].isAssignment + '</td><td>' +
             '<td class="td-manage">' +
                 '<a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseGPStudent-view.jsp?teacherTitleID=\'+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
                 '<i class="layui-icon">&#xe63c;</i></a>'+
-                /*修改完后，审核状态至为0*/
-                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',\'chooseGPStudent-modifyAssignment.jsp?teacherTitleID=\'+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
-                '<i class="layui-icon">&#xe642;</i></a>'+
             '</td></tr>';
         $("tbody").append(tr);
     }
@@ -124,16 +113,6 @@ function noticeInfoListPage(total,pageNum,pageSize){
         });
     });
 }
-
-/*学年*/
-layui.use('laydate', function () {
-    var laydate = layui.laydate;
-
-    laydate.render({
-        elem: '#L_pass' //指定元素
-        ,type: 'year'
-    });
-})
 
 //点击关闭其他，触发事件
 function closeOther() {
