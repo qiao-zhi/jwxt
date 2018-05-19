@@ -97,18 +97,10 @@
             </div>
             <div class="layui-input-inline"><!--带搜索的查询-->
                 <select  lay-search="" name="majorid" id="majorName">
-                    <option value="">专业名称</option>
-                    <option value="1">软件工程</option>
-                    <option value="2">网络工程</option>
-                    <option value="3">物联网</option>
-                    <option value="4">计算机</option>
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select name="collegeid">
-                    <option value="">学院名称</option>
-                    <option value="1">计算机科学与技术</option>
-                    <option value="2">机械</option>
                 </select>
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
@@ -130,6 +122,7 @@
             <th>班级编号</th>
             <th>班级名称</th>
             <th>专业名称</th>
+            <th>学院名称</th>
             <th>班级人数</th>
             <th>年级</th>
             <th>操作</th>

@@ -78,9 +78,7 @@
                 院长
             </label>
             <div class="layui-input-inline">
-                <select name="teacherid" id="collegePresident" >
-
-                </select>
+                <input name="collegepresident" id="collegePresident" class="layui-input" >
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
@@ -92,9 +90,8 @@
                 副院长
             </label>
             <div class="layui-input-inline">
-                <select name="teacherid" id="collegePresidentF" >
+                <input name="collegepresidentf" id="collegePresidentF" class="layui-input" >
 
-                </select>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写

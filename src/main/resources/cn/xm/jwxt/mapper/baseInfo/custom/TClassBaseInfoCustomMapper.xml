@@ -19,7 +19,7 @@
 
     <!--组合条件查询班级分页显示-->
     <select id="findClassInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultType="map">
-        SELECT * FROM t_class_base_info,t_major_base_info
+        SELECT * FROM t_class_base_info,t_major_base_info,t_college_base_info
         <where>
             <include refid="query_common_where"></include>
         </where>
@@ -32,16 +32,19 @@
             and classNum = #{classnum}
         </if>
         <if test="grade != null and grade !=''">
-            and grade LIKE #{grade}
+            and grade = #{grade}
         </if>
-        <if test="collegenum != null and collegenum !=''">
-            and collegeNum = #{collegenum}
+        <if test="collegeid != null and collegeid !=''">
+            and t_major_base_info.collegeId = #{collegeid}
         </if>
-        <if test="majorname != null and majorname !=''">
-            and majorName = #{majorname}
+        <if test="majorid != null and majorid !=''">
+            and t_class_base_info.majorId = #{majorid}
         </if>
         <if test="0==0">
             and t_class_base_info.majorId = t_major_base_info.majorId
+        </if>
+        <if test="0==0">
+            and t_college_base_info.collegeId = t_major_base_info.collegeId
         </if>
     </sql>
 

@@ -1,13 +1,12 @@
 package cn.xm.jwxt.bean.baseInfo.custom;
 
-import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
-//继承学生信息，增加班级名称，学院名称
-public class StudentClassInfo extends TStudentBaseInfo {
-    private String classname;
+import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 
-    private String collegename;
+public class TeacherMajorInfo extends TTeacherBaseInfo{
 
     private String majorname;
+
+    private String collegename;
 
     public String getMajorname() {
         return majorname;
@@ -25,18 +24,6 @@ public class StudentClassInfo extends TStudentBaseInfo {
 
     public void setCollegename(String collegename) {
         this.collegename = collegename;
-    }
-
-
-
-
-
-    public String getClassname() {
-        return classname;
-    }
-
-    public void setClassname(String classname) {
-        this.classname = classname;
     }
 
 

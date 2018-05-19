@@ -7,12 +7,12 @@ public class CommonQuery {
     //当前页显示条数
     private Integer pagesize;
     // 学院id
-    private String collegenum;
-    //专业ID
+    private String collegeid;
+    //专业代码
     private String majornum;
-    //学生id
+    //学生学号
     private String studentnum;
-    //教师id
+    //教师编号
     private String teachernum;
 
     private String teachername;
@@ -25,26 +25,26 @@ public class CommonQuery {
 
     private String majorsort ;
 
-    private String majorname;
+    private String majorid;
 
-    private String collegename;
+    private String collegenum;
 
-    public String getCollegename() {
-        return collegename;
+    public String getCollegenum() {
+        return collegenum;
     }
 
-    public void setCollegename(String collegename) {
-        this.collegename = collegename;
+    public void setCollegenum(String collegenum) {
+        this.collegenum = collegenum;
     }
 
 
 
-    public String getMajorname() {
-        return majorname;
+    public String getMajorid() {
+        return majorid;
     }
 
-    public void setMajorname(String majorname) {
-        this.majorname = majorname;
+    public void setMajorid(String majorname) {
+        this.majorid = majorname;
     }
 
     public String getClassnum() {
@@ -96,8 +96,8 @@ public class CommonQuery {
         this.pagesize = pagesize;
     }
 
-    public void setCollegenum(String collegenum) {
-        this.collegenum = collegenum;
+    public void setCollegeid(String collegeid) {
+        this.collegeid = collegeid;
     }
 
     public void setMajornum(String majornum) {
@@ -120,8 +120,8 @@ public class CommonQuery {
         return pagesize;
     }
 
-    public String getCollegenum() {
-        return collegenum;
+    public String getCollegeid() {
+        return collegeid;
     }
 
     public String getMajornum() {

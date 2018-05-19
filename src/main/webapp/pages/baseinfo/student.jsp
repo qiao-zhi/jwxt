@@ -87,19 +87,16 @@
         <form class="layui-form layui-col-md12 x-so "id="selectStudentInfoForm">
             <input type="text" name="studentnum" placeholder="学生学号" autocomplete="off" class="layui-input">
             <input type="text" name="studentname" placeholder="学生姓名" autocomplete="off" class="layui-input">
-            <%--<div class="layui-input-inline"><!--带搜索的查询-->--%>
-                <%--<select  lay-search="" name="majorid" id="majorName">--%>
-                    <%--<option value="">专业名称</option>--%>
-                    <%--<option value="1">软件工程</option>--%>
-                    <%--<option value="2">网络工程</option>--%>
-                    <%--<option value="3">物联网</option>--%>
-                    <%--<option value="4">计算机</option>--%>
-                <%--</select>--%>
-            <%--</div>--%>
-            <%--<div class="layui-input-inline">--%>
-                <%--<select name="collegeid">--%>
-                <%--</select>--%>
-            <%--</div>--%>
+            <div class="layui-input-inline"><!--带搜索的查询-->
+                <select  lay-search="" name="majorid" id="majorName">
+
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="collegeid">
+
+                </select>
+            </div>
 
             <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
         </form>
@@ -126,8 +123,9 @@
             <th>学号</th>
             <th>姓名</th>
             <th>性别</th>
-            <th>出生日期</th>
             <th>班级</th>
+            <th>专业</th>
+            <th>学院</th>
             <th>操作</th>
         </tr>
         </thead>

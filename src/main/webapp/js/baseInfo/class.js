@@ -5,7 +5,10 @@ layui.use(['layer', 'form', 'element'], function(){
         ,form = layui.form
         ,element = layui.element;
     //初始化表格
+    findCollegeNameAndIdForSelect(form);
+    findMajorNameAndIdForSelect(form);
     findClassBaseInfo();
+
 
     //查询按钮事件过滤器
     form.on('submit(search)', function(data){
@@ -42,6 +45,7 @@ function showClassBaseInfo(pageInfo){
             +baseInfoList[i].classNum+"</td><td>"
             +baseInfoList[i].className+"</td><td>"
             +baseInfoList[i].majorName+"</td><td>"
+            +baseInfoList[i].collegeName+"</td><td>"
             +baseInfoList[i].classPeopleNum+"</td><td>"
             +baseInfoList[i].grade+"</td>"
             +"<td class='td-manage'><a title='点击查看班级详细信息' onclick=notice_tab_show('班级详细信息','clazz-view.jsp?cId="+baseInfoList[i].classid+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
@@ -147,3 +151,43 @@ function notice_tab_show(title,url,w,h){
     });
 }
 /* E            弹出层相关操作 */
+
+//初始化学院下拉框
+function findCollegeNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/collegeInfo/findCollegeNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入学院</option>";
+            $("select[name='collegeid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].collegeid+"'>"+response[i].collegename+"</option>";
+                $("select[name='collegeid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+//初始化专业下拉框
+function findMajorNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/majorInfo/findMajorNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入专业</option>";
+            $("select[name='majorid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].majorid+"'>"+response[i].majorname+"</option>";
+                $("select[name='majorid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}

@@ -59,18 +59,10 @@
 
             <div class="layui-input-inline"><!--带搜索的查询-->
                 <select lay-search="" name="majorid" id="majorName">
-                    <option value="">专业名称</option>
-                    <option value="1">软件工程</option>
-                    <option value="2">网络工程</option>
-                    <option value="3">物联网</option>
-                    <option value="4">计算机</option>
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select name="collegeid">
-                    <option value="">学院名称</option>
-                    <option value="1">计算机科学与技术</option>
-                    <option value="2">机械</option>
                 </select>
             </div>
             <%--隐藏当前页和当前页显示条数--%>
@@ -102,8 +94,8 @@
             <th>性别</th>
             <th>职称</th>
             <th>职务</th>
-            <th>入校时间</th>
-            <th>联系方式</th>
+            <th>所属专业</th>
+            <th>所属学院</th>
             <th>操作</th>
         </tr>
         </thead>

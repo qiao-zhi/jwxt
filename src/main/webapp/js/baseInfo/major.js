@@ -5,7 +5,10 @@ layui.use(['layer', 'form', 'element'], function(){
         ,form = layui.form
         ,element = layui.element;
     //初始化表格
+    findCollegeNameAndIdForSelect(form);
+    findMajorNameAndIdForSelect(form);
     findMajorBaseInfo();
+
 
     //查询按钮事件过滤器
     form.on('submit(search)', function(data){
@@ -39,15 +42,15 @@ function showMajorBaseInfo(pageInfo){
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr ="<tr><td>"
-            +baseInfoList[i].majornum+"</td><td>"
-            +baseInfoList[i].majorname+"</td><td>"
-            +baseInfoList[i].majorshortname+"</td><td>"
-            +baseInfoList[i].majorsort+"</td><td>"
-            +baseInfoList[i].majormanager+"</td><td>"
-            +baseInfoList[i].collegeid+"</td>"
+            +baseInfoList[i].majorNum+"</td><td>"
+            +baseInfoList[i].majorName+"</td><td>"
+            +baseInfoList[i].majorShortName+"</td><td>"
+            +baseInfoList[i].majorSort+"</td><td>"
+            +baseInfoList[i].majorManager+"</td><td>"
+            +baseInfoList[i].collegeName+"</td>"
             +"<td class='td-manage'>"
-            +"<a title='点击修改专业信息'  onclick=notice_tab_show('修改专业','major-modify.jsp?mId="+baseInfoList[i].majorid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
-            +" <a title='删除' onclick=deleteMajorInfo('"+baseInfoList[i].majorid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
+            +"<a title='点击修改教师信息'  onclick=notice_tab_show('修改教师','major-modify.jsp?mId="+baseInfoList[i].majorID+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
+            +" <a title='删除' onclick=deleteTeacherInfo('"+baseInfoList[i].majorid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
         $("#majorBaseInfoList").append(tr);
     }
 
@@ -149,3 +152,43 @@ function notice_tab_show(title,url,w,h){
 }
 
 /* E            弹出层相关操作 */
+
+//初始化学院下拉框
+function findCollegeNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/collegeInfo/findCollegeNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入学院</option>";
+            $("select[name='collegeid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].collegeid+"'>"+response[i].collegename+"</option>";
+                $("select[name='collegeid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+//初始化专业下拉框
+function findMajorNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/majorInfo/findMajorNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入专业</option>";
+            $("select[name='majorid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].majorid+"'>"+response[i].majorname+"</option>";
+                $("select[name='majorid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
