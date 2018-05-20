@@ -139,7 +139,7 @@
             data:{"attachmentID":attachmentID,"contentType":contentType},
             dataType:"text",
             success:function(result){
-                alert(result);
+                layer.msg(result);
             },
             error:function () {
                 alert("保存出错！！！");
@@ -158,9 +158,8 @@
             data:{"attachmentID":attachmentID,"contentType":contentType},
             dataType:"text",
             success:function(result){
-                alert(result,function(){
-                });
-                x_admin_close();
+                layer.msg(result);
+                window.parent.loadFile();
             },
             error:function () {
                 alert("提交失败！！！");

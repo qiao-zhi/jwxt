@@ -7,16 +7,33 @@
       SELECT * FROM t_college_base_info
       WHERE collegeID=(SELECT collegeID FROM t_teacher_base_info WHERE teacherID=#{id})
     </select>
+
+    <!--根据学院id查询学院中所有班级的信息-->
+    <select id="selectClassInfoByUserID" parameterType="map" resultType="map">
+        SELECT  m.majorName,c.*
+          FROM t_class_base_info c,t_major_base_info m
+          WHERE c.majorID=m.majorID
+            AND c.grade=#{eYear}
+            AND c.majorID IN
+              (SELECT majorID FROM t_major_base_info WHERE collegeID IN
+                (SELECT collegeID FROM t_teacher_base_info WHERE teacherID=#{userID}))
+    </select>
+
     <!--查询申请校外毕设的学生信息-->
     <select id="selectCollageODGApplyStuInfo" parameterType="map" resultType="map">
-      SELECT i.outsideApplyID,l.studentNum,l.studentName,i.majorClass,
+      SELECT i.outsideApplyID,l.leaveID,t.outGraDesignApplyID AS titleID,ass.assignmentID as assignmentID,
+        a.agreementID,att.attachmentID,s.sureid as sureID,l.studentNum,l.studentName,i.majorClass,
         i.inTeacherName,i.receiveUnit,t.outTeacherName,t.remark1 AS applyTime,
         i.iscommit AS checkstatus
       FROM outGraDesignInfo i,graDesignLeaveApply l,outGraDesignTitleApply t
-        ,outsideGraDesignAgreemen a
+        ,outsideGraDesignAgreemen a,outsideGraDesignAttachment att
+        ,outgradesignsurebook s,outgraduateassignment ass
       <where>
-          i.outsideApplyID=l.outsideApplyID AND l.outsideApplyID=t.outsideApplyID AND t.outsideApplyID=a.outsideApplyID
-          AND i.iscommit IN ("11","21")
+          i.outsideApplyID=l.outsideApplyID AND l.outsideApplyID=t.outsideApplyID
+          AND t.outsideApplyID=a.outsideApplyID
+          AND a.outsideApplyID=att.outsideApplyID AND att.outsideApplyID=s.outsideApplyID
+          AND s.outsideApplyID=ass.outsideApplyID
+          AND i.iscommit IN ("11","21","20")
           <if test="userId!=null and userId!=''">
               AND a.collegename=(SELECT collegeName FROM t_college_base_info
               WHERE collegeID=(SELECT collegeID FROM t_teacher_base_info WHERE teacherID=#{userId}))
@@ -30,8 +47,20 @@
           <if test="studentNum!=null and studentNum!=''">
               AND l.studentNum=#{studentNum}
           </if>
-          <if test="checkStatus!=null and checkStatus!=''">
-              AND i.iscommit=#{checkStatus}
+
+          <if test="identity1!=null and identity1!=''">
+              AND i.status>=#{identity1}
+          </if>
+
+          <if test="identity2!=null and identity2!=''">
+              AND i.status=#{identity2}
+          </if>
+
+          <if test="identity3!=null and identity3!=''">
+              AND i.status>=#{identity3}
+          </if>
+          <if test="name!=null and name!=''">
+              AND i.inteachername=#{name}
           </if>
       </where>
     </select>

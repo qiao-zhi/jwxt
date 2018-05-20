@@ -29,7 +29,7 @@ public class SelectOGDApplyController {
     @RequestMapping("allApplyStudent")
     @ResponseBody
     public  PageInfo<Map<String,Object>> allApplyStudent(String userID,String stadyYear,
-                                                    String major,String studentNum,
+                                                    String major,String studentNum,String identity,String name,
                                                     String checkStatus,String pagesize,String pagenum){
         //分页大小
         int pageSize = DefaultValue.PAGE_SIZE;
@@ -44,14 +44,8 @@ public class SelectOGDApplyController {
         PageHelper.startPage(pageNum,pageSize,"t.remark1");
 
         List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
-        if("未审核".equals(checkStatus.trim())){
-            checkStatus = "11";
-        }
-        if("已审核".equals(checkStatus)){
-            checkStatus = "21";
-        }
         try {
-            list = checkOGDService.selectOGDApplyStuBySelective(userID,stadyYear, major,studentNum,checkStatus);
+            list = checkOGDService.selectOGDApplyStuBySelective(userID,stadyYear, major,studentNum,checkStatus,identity,name);
         } catch (SQLException e) {
             logger.error("查询校外申请学生信息出错，数据库异常",e);
         }

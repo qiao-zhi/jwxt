@@ -47,6 +47,12 @@ public class OutGraDesignInfoServiceImpl implements Outgradesigninfoservice {
         if(name!= null&&!name.equals("")){
             oGDInfo.setStusignurl(path+name);
         }
+        List<Checkoutgradesigninfo> checkinfos = oGDInfo.getCheckOGDInfo();
+        for(Checkoutgradesigninfo checkinfo:checkinfos){
+            if(checkinfo.getTeachersign()!=null&&!checkinfo.getTeachersign().equals("")){
+                checkinfo.setTeachersign(path+checkinfo.getTeachersign());
+            }
+        }
         return oGDInfo;
     }
 
@@ -54,6 +60,8 @@ public class OutGraDesignInfoServiceImpl implements Outgradesigninfoservice {
     public boolean updateInfo(Outgradesigninfo outgraDesignInfo) throws SQLException {
         int resultNum = oGDInfoMapper.updateByPrimaryKeySelective(outgraDesignInfo);
         if(resultNum==1){
+            //删除基本信息中的审核信息
+            rOGDInfoMapper.deleteCheckInfoByOutsideApplyID(outgraDesignInfo.getOutsideapplyid());
             return true;
         }
         return false;

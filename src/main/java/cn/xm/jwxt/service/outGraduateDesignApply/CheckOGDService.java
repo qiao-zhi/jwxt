@@ -14,5 +14,5 @@ public interface CheckOGDService {
      */
     public List<Map<String,Object>> selectOGDApplyStuBySelective(String userID,String stadyYear,
                                                                    String major,String studentNum,
-                                                                   String checkStatus)throws SQLException;
+                                                                   String checkStatus,String identity,String name)throws SQLException;
 }

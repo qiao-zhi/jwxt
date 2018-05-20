@@ -51,6 +51,10 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
     private ProjectcheckMapper projectcheckMapper;
     @Autowired
     private OutattachmentcontentMapper outattachmentcontentMapper;
+    @Autowired
+    private OutgraduateassignmentMapper oGDAssignmentMapper;
+    @Autowired
+    private CheckassignmentMapper checkassignmentMapper;
 
 
     @Override
@@ -83,6 +87,7 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
         String leaveID = UUIDUtil.getUUID2();
         String cancelLeaveID = UUIDUtil.getUUID2();
         String sureBookID = UUIDUtil.getUUID2();
+        String assignmentID = UUIDUtil.getUUID2();
         //创建课题申请表ID
         String outGraDesignApplyID = UUIDUtil.getUUID2();
 
@@ -122,7 +127,6 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 info.setSex(studentSex);
                 info.setMajorclass(studentMajorClass);
                 info.setInteachername(teacherName);
-
                 info.setStadyyear(stadyYear);
                 info.setStatus("00");
                 info.setIscommit("00");
@@ -134,8 +138,15 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 title.setTablename("校外实践课题申请");
                 title.setInteachername(teacherName);
                 title.setCheckstatus("00");
-                title.setIsok("00");
+                title.setIsok("0");
                 int titleResult = oGDTitleApplyMapper.insertSelective(title);
+                //向任务书中插入基本内容
+                Outgraduateassignment assignment = new Outgraduateassignment();
+                assignment.setAssignmentid(assignmentID);
+                assignment.setTablename("任务书");
+                assignment.setCheckstatus("00");
+                assignment.setIsok("00");
+                int assignmentResult = oGDAssignmentMapper.insertSelective(assignment);
                 //向请假表插入数据
                 Gradesignleaveapply leave = new Gradesignleaveapply();
                 leave.setLeaveid(leaveID);
@@ -145,7 +156,7 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 leave.setStudentnum(studentNum);
                 leave.setMajor(studentMajor);
                 leave.setCheckstatus("00");
-                leave.setIsok("00");
+                leave.setIsok("0");
                 leave.setIscancel("00");
                 int leaveResult = gDLeaveApplyMapper.insertSelective(leave);
                 //向附件表中插入初始化数据
@@ -163,14 +174,14 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 agreement.setStudentidcard(studentIdCard);
                 agreement.setCollegename(collegeName);
                 agreement.setApplystatus("00");
-                agreement.setRemark("00");
+                agreement.setRemark("0");
                 int agreementResult = oGDAgreementMapper.insertSelective(agreement);
                 //向保证书插入初始化数据
                 Outgradesignsurebook sureBook = new Outgradesignsurebook();
                 sureBook.setSureid(sureBookID);
                 sureBook.setOutsideapplyid(outsideApplyID);
                 sureBook.setSurename("保证书");
-                sureBook.setIscommit("00");
+                sureBook.setIscommit("0");
                 int sureBookResult = oGDSureBookMapper.insertSelective(sureBook);
                 //
                 Cancelleave cancelleave = new Cancelleave();
@@ -188,6 +199,11 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 checkoutgradesigninfo.setOutsideapplyid(outsideApplyID);
                 int checkInfoResult = cOGDInfoMApper.insertSelective(checkoutgradesigninfo);
                 //
+                Checkassignment checkassignment = new Checkassignment();
+                checkassignment.setCheckId(UUIDUtil.getUUID2());
+                checkassignment.setAssignmentid(assignmentID);
+                int checkAssResult = checkassignmentMapper.insertSelective(checkassignment);
+                //
                 Projectcheck projectcheck = new Projectcheck();
                 projectcheck.setCheckId(UUIDUtil.getUUID2());
                 projectcheck.setOutgradesignapplyid(outGraDesignApplyID);
@@ -197,7 +213,6 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 outattachmentcontent.setContentid(UUIDUtil.getUUID2());
                 outattachmentcontent.setAttachmentid(attachmentID);
                 int conteneresult = outattachmentcontentMapper.insertSelective(outattachmentcontent);
-
             }
 
         }

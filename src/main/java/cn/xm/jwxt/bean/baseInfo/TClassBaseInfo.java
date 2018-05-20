@@ -9,6 +9,8 @@ public class TClassBaseInfo {
 
     private String trainingschemeid;
 
+    private String grade;
+
     private String classname;
 
     private Integer classpeoplenum;
@@ -47,6 +49,14 @@ public class TClassBaseInfo {
 
     public void setTrainingschemeid(String trainingschemeid) {
         this.trainingschemeid = trainingschemeid == null ? null : trainingschemeid.trim();
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade == null ? null : grade.trim();
     }
 
     public String getClassname() {

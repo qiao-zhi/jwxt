@@ -1,6 +1,10 @@
 /*页面加载查询学生校外毕设信息得提交情况*/
 $(function(){
-    var userID = 2;   //获取当前学生用户ID
+    loadFile();
+});
+
+function loadFile(){
+    var userID = 1;   //获取当前学生用户ID
     layui.use(['layer','form'], function(){
         var layer = layui.layer;
         var form = layui.form;
@@ -13,22 +17,24 @@ $(function(){
             success:function (result) {
                 var success = result.success;
                 if(success==true){
+                    $(".thead-tbody").html("");
                     //查询成功，显示结果v
                     var data = result.data;
                     appendTD('1',data.table1Name,'basicInfoApply.jsp',data.table1ID,data.table1Commit,data.table1Result.status1,data.table1Result.result1);
                     appendTD('2',data.table2Name,'outGraduatePractice.jsp',data.table2ID,data.table2Commit,data.table2Result.status1,data.table2Result.result1);
                     appendTD('3',data.table3Name,'leaveApply.jsp',data.table3ID,data.table3Commit,data.table3Result.status1,data.table3Result.result1);
-                    appendTD('4',data.table4Name,'selfManageAgreement.jsp',data.table4ID,data.table4Commit,data.table4Result.status1,data.table4Result.result1);
-                    appendTD('5',data.table5Name,'guarantee.jsp',data.table5ID,data.table5Commit);
-                    appendTD('6',data.table6Name,'accessory.jsp',data.table6ID,data.table6Commit);
+                    appendTD('4',data.table7Name,'graduateStudentManage-addAssignment.jsp',data.table7ID,data.table7Commit,data.table7Result.status1,data.table7Result.result1);
+                    appendTD('5',data.table4Name,'selfManageAgreement.jsp',data.table4ID,data.table4Commit,data.table4Result.status1,data.table4Result.result1);
+                    appendTD('6',data.table5Name,'guarantee.jsp',data.table5ID,data.table5Commit);
+                    appendTD('7',data.table6Name,'accessory.jsp',data.table6ID,data.table6Commit);
                     form.render('select');   //更新渲染
                 }
                 else {
                     layer.alert('没有毕设分配结果，无法申请',
                         function(index){
-                            $(".x-body").html("");
+                            closeNowPage();
                             layer.close(index);
-                });
+                        });
                 }
 
             },
@@ -39,7 +45,7 @@ $(function(){
         //关闭家在弹出框
         layer.close(index1);
     });
-});
+}
 
 /*增加一条校外文件申请*/
 function appendTD(num,title,url,id,applyStatus,checkStatus,result) {
@@ -51,7 +57,7 @@ function appendTD(num,title,url,id,applyStatus,checkStatus,result) {
     if(result==null||result=="null"){result="——";}
     var str = '';
     str += '<tr><td>';
-    str += '<div class="layui-unselect layui-form-checkbox" lay-skin="primary" ';
+    str += '<div class="layui-unselect layui-form-checkbox" onclick="checkfile(this);" lay-skin="primary" ';
     str += "data-id='2'><i class=";
     str += '"layui-icon">&#xe605;</i></div>';
     str += '</td><td>'+num+'</td>';
@@ -92,4 +98,12 @@ function x_admin_show1(title,url,w,h,dataID){
         title: title,
         content: url,
     });
+}
+function checkfile(obj){
+    if($(obj).hasClass("layui-form-checked")){
+        $(obj).removeClass("layui-form-checked");
+    }
+    else {
+        $(obj).addClass("layui-form-checked");
+    }
 }

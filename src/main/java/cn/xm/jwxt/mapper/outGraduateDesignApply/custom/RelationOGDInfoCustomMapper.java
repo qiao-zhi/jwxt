@@ -10,4 +10,6 @@ public interface RelationOGDInfoCustomMapper {
      * @return
      */
     Outgradesigninfo selectInfoByOutsideApplyID(String outsideApplyID);
+
+    int deleteCheckInfoByOutsideApplyID (String outsideApplyID);
 }

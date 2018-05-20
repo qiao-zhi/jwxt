@@ -89,6 +89,7 @@
                 datatype:"text",
                 success:function(result){
                     layer.msg(result);
+                    window.parent.loadFile();
                 },
                 error:function(){
                     alert("出错！！！");

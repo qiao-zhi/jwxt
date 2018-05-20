@@ -27,6 +27,10 @@
             cursor: pointer
         }
     </style>
+    <script>
+        var userID = 1;  //获取当前用户ID
+        var userName = "谢斌红";
+    </script>
 </head>
 
 <body>
@@ -55,6 +59,18 @@
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
             <input type="hidden" name="pageNum"><input type="hidden" name="pageSize">
+            <div class="layui-input-inline">
+                <select lay-filter="identity" name="contrller" id="identity" >
+                    <option value="">请选择身份</option>
+                    <option value="辅导员">辅导员</option>
+                    <option value="副书记">副书记</option>
+                    <option value="指导教师">指导教师</option>
+                    <option value="教研室主任">教研室主任</option>
+                    <option value="系主任">系主任</option>
+                    <option value="主管院长">主管院长</option>
+                </select>
+            </div>
+            <input type="text"  class="layui-input"  placeholder="指导教师姓名" autocomplete="off" id="inteachername" style="display: none;"readonly>
             <input type="text"  class="layui-input" id="y_year" placeholder="学年" autocomplete="off">
             <input type="text" id="major" placeholder="专业" autocomplete="off" class="layui-input">
             <input type="text" id="studentNum" placeholder="学号" autocomplete="off" class="layui-input">
@@ -75,15 +91,15 @@
     <table class="layui-table">
         <thead>
         <tr>
-            <th>学号</th>
-            <th>学生姓名</th>
+            <th style="width: 100px;">学号</th>
+            <th style="width: 70px;">学生姓名</th>
             <th>专业班级</th>
-            <th>指导教师</th>
+            <th style="width: 70px;">指导教师</th>
             <th>接收单位</th>
-            <th>校外导师</th>
-            <th>申请时间</th>
-            <th>审核状态</th>
-            <th>审核文件</th>
+            <th style="width: 70px;">校外导师</th>
+            <th style="width: 80px;">申请时间</th>
+            <th style="width: 70px;">审核文件</th>
+            <th style="width: 50px;">签字</th>
         </tr>
         </thead>
         <tbody id="thead-tbody">
@@ -106,15 +122,40 @@
     <div id="pagediv" style="margin-left: 200px"></div>
     <!--end 分页-->
 </div>
-<script>
-    /*学年*/
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
 
+
+
+
+<script>
+
+
+    function xxxx() {
+
+    }
+    /*学年*/
+    layui.use(['laydate','form','layer'], function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+        var layer = layui.layer;
+        //监听select选项框
+        form.on('select(identity)', function(data){
+//            console.log(data.elem); //得到select原始DOM对象
+//            console.log(data.value); //得到被选中的值
+//            console.log(data.othis); //得到美化后的DOM对象
+            if(data.value=="指导教师"){
+                $("#inteachername").css("display","");
+                $("#inteachername").val(userName);
+            }
+            else{
+                $("#inteachername").css("display","none").val("");
+            }
+            serachStudentInfoByValue();
+        });
         laydate.render({
             elem: '#y_year' //指定元素
             ,type: 'year'
         });
+
     })
 
     //发布时间
@@ -137,6 +178,45 @@
         })
     }
 </script>
+
 </body>
 
 </html>
+<!--2.修改模态框-->
+<%--隐藏打开的index--%>
+
+<div class="x-body" style="display: none" id="sureSign">
+    <form class="layui-form" method="post" id="signInfo">
+        <%--隐藏域--%>
+        <input type="hidden" id="hidden_identify" name="identify"/>
+        <input type="hidden" id="hidden_name" name="inTeacherName"/>
+        <input type="hidden" id="hidden_update_index"/>
+        <input type="hidden" id="hidden_userId" name="userId"/>
+        <input type="hidden" id="hidden_outsideApplyId" name="outsideApplyID"/>
+        <input type="hidden" id="hidden_leaveID" name="leaveID"/>
+        <input type="hidden" id="hidden_titleID" name="titleID"/>
+        <input type="hidden" id="hidden_assignmentID" name="assignmentID"/>
+        <input type="hidden" id="hidden_agreementID" name="agreementID"/>
+        <input type="hidden" id="hidden_attachmentID" name="attachmentID"/>
+
+        <input type="hidden" id="hidden_sureID" name="sureID"/>
+        <%--隐藏域--%>
+        <div id="result">
+            <input type="radio" name="result" class="agree" value="1" title="同意" checked />
+            <input type="radio" name="result" class="disagree" value="0" title="不同意"/>
+        </div>
+        <textarea cols="50" rows="5" class="form-control advice" name="advice" id="advice"></textarea>
+        <br>
+        <tr>
+            <td >
+                签名密码：
+            </td>
+            <td>
+                <input type="password" class="form-control" id="signPassword" name="signPassword" style="width: 180px;height: 25px;">
+            </td>
+            <td>
+                <input onclick="sureSign();" type="button" class="layui-btn layui-btn-sm"  value="确认签名"></input>
+            </td>
+        </tr>
+    </form>
+</div>
