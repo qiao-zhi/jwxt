@@ -103,17 +103,17 @@
                         </a>
                     </li>
                      <li>
-                        <a _href="pages/textbookManage/orderTextbook.html">
+                        <a _href="pages/textbookManage/orderTextbook.jsp">
                             <cite>订购教材</cite>
                         </a>
                     </li>
                      <li>
-                        <a _href="pages/textbookManage/teacherConfirm.html">
+                        <a _href="pages/textbookManage/teacherConfirm.jsp">
                             <cite>教师确认订单</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="pages/textbookManage/orderInfo.html">
+                        <a _href="pages/textbookManage/orderInfo.jsp">
                             <cite>订单管理</cite>
                         </a>
                     </li>
