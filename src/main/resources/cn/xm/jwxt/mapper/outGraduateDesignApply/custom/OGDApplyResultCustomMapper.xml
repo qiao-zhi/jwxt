@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.OGDApplyResultCustomMapper" >
+    <update id="updateStudentTitleResultToOutSchool" parameterType="string">
+        UPDATE studentTitleResult SET
+           finallyName=(
+                SELECT courseName FROM outGraDesignTitleApply WHERE outsideApplyID=#{id})
+                ,isout='1'
+                WHERE StudentTitleresultID=
+                    (SELECT StudentTitleresultID FROM outGraDesignInfo
+                    WHERE outsideApplyID=#{id});
+    </update>
+
+
+    <!--查询一个班级中申请校外毕设的学生信息-->
+    <select id="countOGDStudentNumInClass" parameterType="string" resultType="map">
+         SELECT i.outsideApplyID,l.leaveID,t.outGraDesignApplyID AS titleID,
+        a.agreementID,att.attachmentID,s.sureid AS sureID,l.studentNum,l.studentName,i.majorClass,
+        i.inTeacherName,i.receiveUnit,t.outTeacherName,t.remark1 AS applyTime,
+        i.iscommit AS checkstatus,res.finallyName AS finallyName
+        FROM outGraDesignInfo i,graDesignLeaveApply l,outGraDesignTitleApply t
+        ,outsideGraDesignAgreemen a,outsideGraDesignAttachment att,outgradesignsurebook s,studentTitleResult res
+            WHERE i.outsideApplyID=l.outsideApplyID AND l.outsideApplyID=t.outsideApplyID
+            AND t.outsideApplyID=a.outsideApplyID
+            AND a.outsideApplyID=att.outsideApplyID AND att.outsideApplyID=s.outsideApplyID
+            AND res.StudentTitleresultID=i.StudentTitleresultID
+            AND res.studentID IN (SELECT studentID FROM t_student_base_info WHERE classID=#{classid}) AND res.isOut='1'
+    </select>
+
+
+</mapper>

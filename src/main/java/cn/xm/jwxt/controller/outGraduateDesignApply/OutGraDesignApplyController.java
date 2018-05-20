@@ -26,11 +26,14 @@ public class OutGraDesignApplyController {
     @Autowired
     private OutGraDesignTitleApplyService oGDTitleService;
     @Autowired
+    private OutGradesignAssignmentService oGDAssignmentService;
+    @Autowired
     private GraDesignLeaveApplyService gDesignLeaveService;
     @Autowired
     private OutGraDesignAggAndSureService oGDAgreementService;
     @Autowired
     private OutsideGraDesignAttachmentService oGDAttachmentService;
+
 
     @RequestMapping("/commitOGDAttachment")
     @ResponseBody
@@ -41,7 +44,7 @@ public class OutGraDesignApplyController {
                 return "提交成功";
             }
         } catch (SQLException e) {
-            logger.error("保存失败，数据库出错",e);
+            logger.error("提交失败，数据库出错",e);
         }
         return "提交失败";
     }
@@ -107,6 +110,18 @@ public class OutGraDesignApplyController {
         }
         return gradesignleaveapply;
     }
+    /*查询学任务书*/
+    @RequestMapping("/selectOGDassignment")
+    @ResponseBody
+    public Outgraduateassignment selectOGDassignment(String assignmentID){
+        Outgraduateassignment outgraduateassignment = null;
+        try {
+            outgraduateassignment = oGDAssignmentService.selectAssignmentById(assignmentID);
+        } catch (SQLException e) {
+            logger.error("查询学生题目任务书失败，数据库异常",e);
+        }
+        return outgraduateassignment;
+    }
 
     /*查询学生题目申请表的信息*/
     @RequestMapping("/selectOGDTitleInfo")
@@ -153,6 +168,7 @@ public class OutGraDesignApplyController {
                 newResult.put("table2Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table2Status")));
                 newResult.put("table3Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table3Status")));
                 newResult.put("table4Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table4Status")));
+                newResult.put("table7Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table7Status")));
                 //newResult.put("table1Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table1Status")));
                 //newResult.put("table1Result", TransitionStatusUtil.checkTransition((String) oldResult.get("table1Status")));
                 /*对提交字段进行处理*/
@@ -164,13 +180,15 @@ public class OutGraDesignApplyController {
                     newResult.put("table4Commit","申请中");
                     newResult.put("table5Commit","申请中");
                     newResult.put("table6Commit","申请中");
+                    newResult.put("table7Commit","申请中");
                 } else if("21".equals(checkStatus)){
-                    newResult.put("table1Commit","已申请");
-                    newResult.put("table2Commit","已申请");
-                    newResult.put("table3Commit","已申请");
-                    newResult.put("table4Commit","已申请");
-                    newResult.put("table5Commit","已申请");
-                    newResult.put("table6Commit","已申请");
+                    newResult.put("table1Commit","申请通过");
+                    newResult.put("table2Commit","申请通过");
+                    newResult.put("table3Commit","申请通过");
+                    newResult.put("table4Commit","申请通过");
+                    newResult.put("table5Commit","申请通过");
+                    newResult.put("table6Commit","申请通过");
+                    newResult.put("table7Commit","申请通过");
                 } else{
                     newResult.put("table1Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table1Commit")));
                     newResult.put("table2Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table2Commit")));
@@ -178,6 +196,7 @@ public class OutGraDesignApplyController {
                     newResult.put("table4Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table4Commit")));
                     newResult.put("table5Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table5Commit")));
                     newResult.put("table6Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table6Commit")));
+                    newResult.put("table7Commit",TransitionStatusUtil.commitTransition((String)oldResult.get("table7Commit")));
                 }
 
                 result.setSuccess(b);

@@ -31,6 +31,7 @@ public class OutGraDesignAggController {
     public String commitAgg(String aggID){
         Outsidegradesignagreemen oAgg = new Outsidegradesignagreemen();
         oAgg.setAgreementid(aggID);
+        oAgg.setApplystatus("01");
         oAgg.setRemark("01");
         try {
             boolean b = oGDAggAndSureService.updateOGDAgreementById(oAgg);

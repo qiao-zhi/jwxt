@@ -12,10 +12,12 @@
             l.leaveID table3ID,l.tableName AS table3Name,l.checkStatus AS table3Status,l.isOk AS table3Commit,
             att.attachmentID as table6ID,att.attachmentName as table6Name,att.iscommit AS table6Commit,
             agg.agreementID as table4ID,agg.agreementName as table4Name,agg.applyStatus AS table4Status,agg.remark AS table4Commit,
-            s.sureID as table5ID,s.sureName as table5Name,s.iscommit AS table5Commit
+            s.sureID as table5ID,s.sureName as table5Name,s.iscommit AS table5Commit,
+            ass.assignmentID AS table7ID,ass.tablename AS table7Name,ass.checkstatus AS table7Status,ass.isok as table7Commit
         FROM outGraDesignInfo i,outGraDesignTitleApply t,graDesignLeaveApply l,outsideGraDesignAttachment att,
-	        outsideGraDesignAgreemen agg,outGraDesignSureBook s
+	        outsideGraDesignAgreemen agg,outGraDesignSureBook s,outGraduateAssignment ass
         WHERE i.outsideApplyID=t.outsideApplyID AND i.outsideApplyID=l.outsideApplyID AND i.outsideApplyID=att.outsideApplyID
+            AND ass.outsideApplyID=i.outsideApplyID
 	        AND i.outsideApplyID=agg.outsideApplyID AND i.outsideApplyID=s.outsideApplyID AND i.outsideApplyID=#{id};
     </select>
 

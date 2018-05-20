@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@include file="/tag.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -30,7 +31,7 @@
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
 
     <%--s      bzy--%>
-    <%@include file="/tag.jsp" %>
+
     <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/attachment.js"></script>
@@ -138,7 +139,7 @@
             data:{"attachmentID":attachmentID,"contentType":contentType},
             dataType:"text",
             success:function(result){
-                alert(result);
+                layer.msg(result);
             },
             error:function () {
                 alert("保存出错！！！");
@@ -157,9 +158,8 @@
             data:{"attachmentID":attachmentID,"contentType":contentType},
             dataType:"text",
             success:function(result){
-                alert(result,function(){
-                });
-                x_admin_close();
+                layer.msg(result);
+                window.parent.loadFile();
             },
             error:function () {
                 alert("提交失败！！！");
