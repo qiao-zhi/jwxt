@@ -53,9 +53,4 @@ public interface TrainschemeinfoCustomMapper {
      * @throws SQLException
      */
     public int deleteTrainSchemeById(@Param("trainSchemeId")String trainSchemeId)throws SQLException;
-
-
-
-
-
 }
