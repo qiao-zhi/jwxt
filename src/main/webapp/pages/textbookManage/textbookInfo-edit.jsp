@@ -54,7 +54,7 @@
                 课程名称
             </label>
             <div class="layui-input-inline">
-                <select name="courseid" id="allCourse" lay-filter="course" >
+                <select name="courseid" id="allCourse" lay-filter="course" lay-search="">
                     <%--<option value="1">计算机网络</option>--%>
                     <%--<option value="2">软件工程</option>--%>
                     <%--<option value="3">数据库原理</option>--%>
