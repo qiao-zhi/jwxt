@@ -19,6 +19,15 @@
     <%--S       qlq引入的--%>
     <%--引入公共的标签--%>
     <%@ include file="/tag.jsp" %>
+
+    <%--课程操作权限--%>
+    <script>
+        var  hasOperatingCourse = false;
+        <shiro:hasPermission name="course:operate">
+        hasOperatingCourse=true;
+        </shiro:hasPermission>
+    </script>
+
     <!--qlq引入的课程管理的JS-->
     <script type="text/javascript" src="../../js/trainScheme/courseLibrary.js" charset="utf-8"></script>
     <%--页面加载完成后执行一些函数--%>
@@ -28,6 +37,7 @@
             queryCourseFY();//分页查询课程信息
         });
     </script>
+
     <%--E         qlq引入的--%>
 
 
@@ -107,14 +117,16 @@
     </div>
     <!--end查询-->
 
-    <!--操作区域-->
-    <xblock>
-        <button class="layui-btn" onclick="x_admin_show('新增课程','./addCourse.jsp')">新增 </button>
-        <button class="layui-btn" onclick="copyAndUpdateAdd()">复制性新增 </button>
-        <button class="layui-btn" onclick="openUploadLayer()">上传教学资料 </button>
-        <button class="layui-btn layui-btn-normal" onclick="downloadCourses()" style="float: right"><i class="layui-icon">&#xe601;</i>导出课程</button>
-        <button class="layui-btn layui-btn-warm" type="button" id="importCoursesBtn" style="float: right"><i class="layui-icon">&#xe67c;</i>导入课程</button>
-    </xblock>
+    <!--操作区域(加了shiro权限)-->
+    <shiro:hasPermission name="course:operate">
+        <xblock>
+            <button class="layui-btn" onclick="x_admin_show('新增课程','./addCourse.jsp')">新增 </button>
+            <button class="layui-btn" onclick="copyAndUpdateAdd()">复制性新增 </button>
+            <button class="layui-btn" onclick="openUploadLayer()">上传教学资料 </button>
+            <button class="layui-btn layui-btn-normal" onclick="downloadCourses()" style="float: right"><i class="layui-icon">&#xe601;</i>导出课程</button>
+            <button class="layui-btn layui-btn-warm" type="button" id="importCoursesBtn" style="float: right"><i class="layui-icon">&#xe67c;</i>导入课程</button>
+        </xblock>
+    </shiro:hasPermission>
     <!--end 操作区域-->
     <!--表格内容-->
     <table class="layui-table">
@@ -134,31 +146,7 @@
         </tr>
         </thead>
         <tbody id="courseTbody">
-<%--            <tr >
-                <td>
-                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                        &#xe605;</i></div>
-                </td>
-                <td>1</td>
-                <td>11111</td>
-                <td>课程平台</td>
-                <td>课程性质</td>
-                <td>中文名称</td>
-                <td>学分/学时</td>
-                <td>周学时分配</td>
-                <td>计分方式</td>
-                <td class="td-manage">
-                    <a title="点击查看课程详细信息" onclick="x_admin_show('详细信息','course-view.jsp')" href="javascript:;">
-                        <i class="layui-icon">&#xe63c;</i>
-                    </a>
-                    <a title="编辑"  onclick="x_admin_show('修改','course-edit.jsp')" href="javascript:;">
-                        <i class="layui-icon">&#xe642;</i>
-                    </a>
-                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                        <i class="layui-icon">&#xe640;</i>
-                    </a>
-                </td>
-            </tr>--%>
+        <%--动态填值--%>
         </tbody>
     </table>
     <!--end 表格内容-->

@@ -76,7 +76,7 @@ public class CourseBaseInfoController {
      * @param condition 组合条件
      * @return  查询到的数据
      */
-    @Cacheable(value = "coursesFy")//注解添加到redis缓存中
+//    @Cacheable(value = "coursesFy")//注解添加到redis缓存中
     @RequestMapping("/getCourseBaseInfosByCondition")
     public @ResponseBody PageInfo<Map<String,Object>> getCourseBaseInfosByCondition(@RequestParam Map<String,Object> condition){
         int pageSize = DefaultValue.PAGE_SIZE;

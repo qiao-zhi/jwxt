@@ -278,7 +278,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">7、核心课程</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea" id="corecourse" name="corecourse"></textarea>
+                <textarea class="layui-textarea" id="corecourse" lay-verify="required" name="corecourse"></textarea>
             </div>
         </div>
 
@@ -289,7 +289,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">专业特色</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea" name="majorfeature"></textarea>
+                <textarea class="layui-textarea" lay-verify="required" name="majorfeature"></textarea>
             </div>
         </div>
 
@@ -301,7 +301,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">主要实践性教学环节</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea" name="maintestitem"></textarea>
+                <textarea class="layui-textarea" lay-verify="required" name="maintestitem"></textarea>
             </div>
         </div>
 
@@ -313,7 +313,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">主要专业实验</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea" name="mainmajorexperience"></textarea>
+                <textarea class="layui-textarea" lay-verify="required" name="mainmajorexperience"></textarea>
             </div>
         </div>
 

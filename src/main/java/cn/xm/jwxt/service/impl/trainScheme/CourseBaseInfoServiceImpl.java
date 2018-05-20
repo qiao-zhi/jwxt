@@ -36,7 +36,7 @@ public class   CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         return tCourseBaseInfoCustomMapper.getCountByCourseNum(courseNum);
     }
 
-    @CacheEvict(value = "coursesFy",allEntries =true )//清掉分页的redis缓存
+//    @CacheEvict(value = "coursesFy",allEntries =true )//清掉分页的redis缓存
     @Override
     public boolean addCourseBaseInfo(TCourseBaseInfo courseBaseInfo) throws SQLException {
         //如果传下来的课程信息的id为空，就用UUID生成一个ID
@@ -71,7 +71,7 @@ public class   CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         return repeatCourseNums;
     }
 
-    @CacheEvict(value = "coursesFy",allEntries =true )//清掉分页的redis缓存
+//    @CacheEvict(value = "coursesFy",allEntries =true )//清掉分页的redis缓存
     @Override
     public boolean deleteCourseBaseInfoById(String courseId) throws SQLException {
         TCourseBaseInfo tCourseBaseInfo = new TCourseBaseInfo();
@@ -83,14 +83,14 @@ public class   CourseBaseInfoServiceImpl implements CourseBaseInfoService {
 
 
 //    @CacheEvict(value = {"courseBaseInfo","coursesFy"} , key = "'courseBaseInfo_'+#courseBaseInfo.courseid.toString()")//清除对应的缓存
-    @CacheEvict(value = {"courseBaseInfo","coursesFy"} , allEntries = true)//清除对应的缓存
+//    @CacheEvict(value = {"courseBaseInfo","coursesFy"} , allEntries = true)//清除对应的缓存
     @Override
     public boolean updateCourseBaseInfoById(TCourseBaseInfo courseBaseInfo) throws SQLException {
         return tCourseBaseInfoMapper.updateByPrimaryKeySelective(courseBaseInfo)>0?true:false;
     }
 
 
-    @Cacheable(value = "courseBaseInfo",key = "'courseBaseInfo_'+#courseId.toString()")//添加缓存到redis缓存中
+//    @Cacheable(value = "courseBaseInfo",key = "'courseBaseInfo_'+#courseId.toString()")//添加缓存到redis缓存中
     @Override
     public TCourseBaseInfo getCourseBaseInfoById(String courseId) throws SQLException {
         return tCourseBaseInfoMapper.selectByPrimaryKey(courseId);

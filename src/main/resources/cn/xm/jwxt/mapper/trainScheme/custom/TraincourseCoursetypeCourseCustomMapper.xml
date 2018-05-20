@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.trainScheme.custom.TraincourseCoursetypeCourseCustomMapper" >
+
+  <!--1.根据培养方案编号查询培养方案课程学分学时统计信息，用于最后统计第11项-->
+  <select id="getCreditCoursehourAllocateInfo" parameterType="string" resultType="map">
+    SELECT
+      typeName,
+      courseNature,
+      SUM(credit)  AS creditSum,
+      SUM(coursehour) AS courseHourSum,
+      @allCredit:= (SELECT SUM(credit) FROM traincourse_coursetype_course WHERE trainningSchemeID = #{trainSchemeId} ) AS allCredit,
+      @allCoursehour:= (SELECT SUM(coursehour) FROM traincourse_coursetype_course WHERE trainningSchemeID = #{trainSchemeId} ) AS allCoursehour,
+      TRUNCATE(IFNULL(SUM(credit)/@allCredit,0),2) AS creditRatio,
+      TRUNCATE(IFNULL(SUM(coursehour)/@allCoursehour,0),2) AS courseHourRatio
+    FROM traincourse_coursetype_course
+    WHERE trainningSchemeID = #{trainSchemeId}
+    GROUP BY typeName,courseNature
+  </select>
+  
+</mapper>

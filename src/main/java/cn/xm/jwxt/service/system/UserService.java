@@ -124,5 +124,15 @@ public interface UserService {
      */
     public void logSuccess();
 
+    /**********************S  根据用户类型返回用户主键****************/
+    /**
+     * 传下来用户，返回用户的主键
+     * @param user  session中的user对象
+     * @return
+     * @throws SQLException
+     */
+    public String getuserIdByUser(User user)throws SQLException;
+
+    /**********************E  根据用户类型****************/
 
 }

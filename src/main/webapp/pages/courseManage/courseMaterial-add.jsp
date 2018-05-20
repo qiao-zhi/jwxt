@@ -46,30 +46,18 @@
             </label>
             <div class="layui-input-inline">
                 <select name="filetype" lay-verify="required">
-				  <option value="课程进度表" >课程进度表</option>
-				  <option value="课程教学大纲">课程教学大纲</option>
-				  <option value="课程实验大纲">课程实验大纲</option>
-				</select>     
+                    <option value="课程进度表" >课程进度表</option>
+                    <option value="课程教学大纲">课程教学大纲</option>
+                    <option value="课程实验大纲">课程实验大纲</option>
+                </select>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须选择
             </div>
         </div>
-<%--        <div class="layui-form-item">
-            <label for="" class="layui-form-label">
-                教学资料名称
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" name="remark1" id="remark1" required="" lay-verify="required"
-                        class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
-            </div>
-        </div>--%>
         <!--1-1-->
         <div class="layui-form-item">
-            <label for="" class="layui-form-label">
+            <label  class="layui-form-label">
                教学资料附件
             </label>
             <div class="layui-input-inline">

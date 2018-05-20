@@ -60,6 +60,14 @@ public class LoginController {
             //1.存session东西
             HttpSession session=request.getSession();
             User user = (User) userLoginInfo.get("user");
+            //1.1存用户主键
+            String id = null;
+            try {
+                id =  userService.getuserIdByUser(user);
+            } catch (SQLException e) {
+                logger.error("查询用户ID出错",e);
+            }
+            session.setAttribute("id", id);//将老师或学生表主键存进去
             session.setAttribute(SESSION_USER_INFO, user);
             session.setAttribute(SESSION_PERMISSION_INFO, user.getPermissions());
             userLoginInfo.remove("user");//从map中删除用户返回前台
