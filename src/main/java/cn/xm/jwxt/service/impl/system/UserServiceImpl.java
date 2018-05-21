@@ -144,6 +144,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Set<String> getUserRoleNameByUserId(String userId) throws SQLException {
+        return userCustomMapper.getUserRoleNameByUserId(userId);
+    }
+
+    @Override
     public Map<String, Object> getUserLoginInfo(String usercode, String password, String usersort) throws SQLException {
         Map<String,Object> result= new HashMap<String,Object>();
         String loginInfo = null;//登录信息

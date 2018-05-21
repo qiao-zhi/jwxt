@@ -7,6 +7,7 @@ import org.apache.ibatis.jdbc.SQL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author: qlq
@@ -102,6 +103,14 @@ public interface UserService {
      * @throws SQLException
      */
     public List<Permission> getUserPermissionsByCondition(Map condition)throws SQLException;
+
+    /**
+     * 根据用户ID查询用户所有的角色名称
+     * @param userId    用户ID
+     * @return
+     * @throws SQLException
+     */
+    public Set<String> getUserRoleNameByUserId(String userId)throws SQLException;
 
 
     /**

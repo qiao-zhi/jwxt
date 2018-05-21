@@ -52,21 +52,26 @@ public class CustomRealm extends AuthorizingRealm {
     // 用于授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        //0.下面方法principals.getPrimaryPrincipal()获取的是在上面认证的时候装进AuthenticationInfo的对象
         String userId=((User)(principals.getPrimaryPrincipal())).getUserid();
         SimpleAuthorizationInfo simpleAuthorizationInfo=null;
-        Set<String> permissions = new HashSet<>();
         try {
             simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+            //1.设置所有的权限(注意权限是以字符串的形式保存的权限码)
             List<Permission> permissions1 = userService.selectPermissionsByUserId(userId);//获取所有权限码
+            Set<String> permissions = new HashSet<>();
             for(Permission permission:permissions1){
                 if(ValidateCheck.isNotNull(permission.getPermissioncode())){
                     permissions.add(permission.getPermissioncode());
                 }
             }
-            if (permissions!=null) {
+            if (permissions != null && permissions.size()>0) {
                 simpleAuthorizationInfo.setStringPermissions(permissions);
-            }else {
-                //否则啥也不做
+            }
+            //2.设置角色，角色也是以字符串的形式表示(这里存的是角色名字)
+            Set<String> userRoleNames = userService.getUserRoleNameByUserId(userId);
+            if(userRoleNames != null && userRoleNames.size()>0){
+                simpleAuthorizationInfo.setRoles(userRoleNames);
             }
         } catch (Exception e) {
             e.printStackTrace();

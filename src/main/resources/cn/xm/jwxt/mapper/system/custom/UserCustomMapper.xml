@@ -60,5 +60,15 @@
         ORDER by sortNum
     </select>
 
+    <!--4.根据userid查询所有的用户角色名称-->
+    <select id="getUserRoleNameByUserId" resultType="string" parameterType="string">
+        SELECT DISTINCT
+          roleName
+        FROM role
+        WHERE roleid IN(SELECT
+                          roleid
+                        FROM user_role
+                        WHERE userid = #{userId})
+    </select>
 
 </mapper>
