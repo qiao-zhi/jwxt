@@ -2,6 +2,7 @@ package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApClassTeacher;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -35,4 +36,12 @@ public interface ApClassTeacherService {
      * @throws Exception
      */
     boolean deleteClassTeacherListInfoByTeacherCourseIds(List<String> teacherCourseIds) throws Exception;
+
+    /**
+     * 根据教师课程ID设置班级教师表中的人数
+     * @param teacherCourseId
+     * @return
+     * @throws SQLException
+     */
+    boolean updateClassSizeByTeacherCourseId(String teacherCourseId) throws SQLException;
 }

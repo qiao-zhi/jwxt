@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.courseDesign.custom.TCoursedesignTeacherArrangeCustomMapper" >
+
+    <!-- 报告上传页面信息加载 -->
+    <select id="getClassInfo" parameterType="map" resultType="map">
+        SELECT
+          classID,
+          className
+          FROM
+            t_class_base_info
+            <where>
+                <if test="majorID!=null and majorID!=''">
+                    AND majorID = #{majorID}
+                </if>
+                <if test="grade!=null and grade!=''">
+                    AND grade = #{grade}
+                </if>
+            </where>
+    </select>
+    <select id="getCourseDesignInfo" parameterType="map" resultType="map">
+        SELECT
+          DISTINCT
+            ia.courseDesignNum,
+            ia.courseDesignName
+          FROM
+            t_courseDesign_info_arrange ia
+            JOIN t_courseDesign_class_arrange ca
+              ON ia.courseDesignArrangeID=ca.courseDesignArrangeID
+            JOIN t_class_base_info ci
+              ON ca.classID=ci.classID
+            <where>
+                <if test="majorID!=null and majorID!=''">
+                    AND ia.majorID = #{majorID}
+                </if>
+                <if test="grade!=null and grade!=''">
+                    AND ci.grade = #{grade}
+                </if>
+                <if test="yearNum!=null and yearNum!=''">
+                    AND ia.yearNum = #{yearNum}
+                </if>
+                <if test="semester!=null and semester!=''">
+                    AND ia.semester = #{semester}
+                </if>
+            </where>
+    </select>
+
+    <!-- 查询学生报告上传情况 -->
+    <select id="findStudentReportUploadStatus" parameterType="map" resultType="map">
+        SELECT
+          DISTINCT
+          si.studentNum,si.studentName,
+          ia.courseDesignNum,ia.courseDesignName,
+          ti.teacherID,ti.teacherName,
+          ts.uploadStatus,ts.checkStatus,ts.courseDesignTeacherStudentID
+          FROM
+            t_courseDesign_TeacherStudent ts
+            JOIN t_student_base_info si ON ts.studentID = si.studentID
+            JOIN t_courseDesign_teacher_arrange ta ON ts.courseDesignTeacherArrangeID = ta.courseDesignTeacherArrangeID
+            JOIN t_teacher_base_info ti ON ti.teacherID = ta.teacherID
+            JOIN t_courseDesign_info_arrange ia ON ia.courseDesignArrangeID = ta.courseDesignArrangeID
+            JOIN t_class_base_info ci ON si.classID = ci.classID
+           <where>
+               <if test="majorID!=null and majorID!=''">
+                    AND ci.majorID = #{majorID}
+               </if>
+               <if test="grade!=null and grade!=''">
+                   AND ci.grade = #{grade}
+               </if>
+               <if test="yearNum!=null and yearNum!=''">
+                   AND ia.yearNum = #{yearNum}
+               </if>
+               <if test="semester!=null and semester!=''">
+                   AND ia.semester = #{semester}
+               </if>
+               <if test="courseDesignNum!=null and courseDesignNum!=''">
+                   AND ia.courseDesignNum = #{courseDesignNum}
+               </if>
+               <if test="classID!=null and classID!=''">
+                   AND ci.classID = #{classID}
+               </if>
+               <if test="uploadStatus!=null and uploadStatus!=''">
+                   AND ts.uploadStatus = #{uploadStatus}
+               </if>
+               <if test="teacherID!=null and teacherID!=''">
+                   AND ti.teacherID = #{teacherID}
+               </if>
+           </where>
+    </select>
+
+    <!-- 教师查看课设报告 -->
+    <select id="checkCourseDesignReport" parameterType="String" resultType="map">
+        SELECT
+          ts.studentID,
+          ts.courseDesignReportStore,
+          si.studentName
+          FROM
+            t_courseDesign_TeacherStudent ts
+            JOIN t_student_base_info si
+              ON ts.studentID = si.studentID
+            WHERE
+              ts.courseDesignTeacherStudentID = #{courseDesignTeacherStudentID}
+    </select>
+
+    <!-- 保存审核结果 -->
+    <update id="saveCourseDesignReportCheckResult" parameterType="map" >
+        UPDATE
+          t_courseDesign_TeacherStudent
+          SET
+            checkStatus = #{checkStatus},
+            checkAdvice = #{checkAdvice}
+          WHERE
+            courseDesignTeacherStudentID IN 
+            <foreach collection="courseDesignTeacherStudentIDs" item="courseDesignTeacherStudentID" open="(" separator="," close=")" index="index">
+                #{courseDesignTeacherStudentID}
+            </foreach>
+    </update>
+</mapper>

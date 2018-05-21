@@ -20,4 +20,12 @@ public interface ApClassTeacherCustomMapper {
      * @throws SQLException
      */
     int saveClassTeacherListInfo(List<ApClassTeacher> listInfo) throws SQLException;
+
+    /**
+     * 根据教师课程ID设置班级教师表中的人数
+     * @param teacherCourseId
+     * @return
+     * @throws SQLException
+     */
+    int updateClassSizeByTeacherCourseId(String teacherCourseId) throws SQLException;
 }

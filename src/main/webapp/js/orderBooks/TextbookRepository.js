@@ -195,7 +195,7 @@ function showTextbookInfo(pageInfo) {
 /*****************S   修改教材相关操作*****************/
 
 
-//根据教材编号查看课程基本信息
+//根据教材编号查看教材基本信息
 function findTextbookBaseInfo(textbookId){
     $.post(contextPath+'/TextbookRepository/findTextbookByTextbookId.do',{"textbookId":textbookId},function (textbookInfoBack) {
         // $("[name='coursename'] option[value='"+textbookInfoBack.courseid+"']").attr("selected","true");//写死的下拉列表才使用这个，动态查询的下拉列表使用见75行selected
@@ -222,7 +222,7 @@ function findTextbookBaseInfo(textbookId){
 
 /**
  * 打开修改页面
- * @param pageInfo
+ * @param obj//当前单元格内的对象
  */
 function openUpdateLayer(obj) {
     var tr_s = $(obj).parents("tr");//obj是当前对象，$(obj).parents("tr")是当前行

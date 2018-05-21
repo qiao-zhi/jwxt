@@ -2,12 +2,14 @@ package cn.xm.jwxt.service.graduateDesign;
 
 import cn.xm.jwxt.bean.graduateDesign.Cencheckresultinfo;
 import cn.xm.jwxt.bean.graduateDesign.CencheckresultinfoExample;
+import cn.xm.jwxt.bean.graduateDesign.MiddleReportManage;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- *排课信息审核表Service
+ *中期检查结果信息审核表Service
  */
 public interface CencheckresultinfoService {
 
@@ -32,4 +34,10 @@ public interface CencheckresultinfoService {
     boolean updateByPrimaryKeySelective(Cencheckresultinfo record);
 
     boolean updateByPrimaryKey(Cencheckresultinfo record);
+
+    List<MiddleReportManage> selectMiddleReportManageList(Map<String,Object> map);
+
+    Integer selectMiddleReportManageCount(Map<String,Object> map);
+
+    MiddleReportManage selectcenCheckResultInfoByStudentId(String studentid);
 }

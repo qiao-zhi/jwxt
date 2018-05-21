@@ -99,7 +99,6 @@
         //开启分页组件
         teacherCourseInfoPage(total,pageNum,pageSize);
     }
-
     //分页函数
     function teacherCourseInfoPage(total,pageNum,pageSize){
         /*分页js*/

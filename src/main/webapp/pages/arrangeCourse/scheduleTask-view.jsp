@@ -26,23 +26,7 @@
 
 <!--主体-->
 <div class="x-body">
-<%--<table class="layui-table-wang-info">
-	<tr>
-		<td>专业</td>
-		<td></td>
-		<td>接收人</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>学年</td>
-		<td></td>
-		<td>学期</td>
-		<td></td>
-	</tr>
-	
-</table>--%>
-   
-   
+
     <!--表格内容-->
     <table class="layui-table">
         <thead>
@@ -105,8 +89,6 @@
             $("tbody").append(tr);
         }
     }
-
-
 </script>
 
 </body>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.custom.CheckGroupPersonNewCustomMapper" >
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.CheckGroupPersonNew" id="oneCheckgrouppersonResultMap" autoMapping="true">
+        <id property="gropersonid" column="gropersonid" />
+        <result property="teacherid" column="teacherid"/>
+        <result property="groupid" column="groupid"/>
+
+        <association property="gradesigncheckgroup" column="groupid"
+                     javaType="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup"
+                     select="cn.xm.jwxt.mapper.graduateDesign.GradesigncheckgroupMapper.selectByPrimaryKey">
+        </association>
+        <association property="tTeacherBaseInfo" column="teacherid"
+                     javaType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo"
+                     select="cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper.selectByPrimaryKey">
+        </association>
+    </resultMap>
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.CheckGroupPersonNew" id="CheckgrouppersonListResultMap" autoMapping="true">
+        <id property="gropersonid" column="gropersonid" />
+        <result property="teacherid" column="teacherid"/>
+        <result property="groupid" column="groupid"/>
+        <association property="gradesigncheckgroup" column="groupid"
+                     javaType="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup"
+                     select="cn.xm.jwxt.mapper.graduateDesign.GradesigncheckgroupMapper.selectByPrimaryKey">
+        </association>
+        <association property="tTeacherBaseInfo" column="teacherid"
+                     javaType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo"
+                     select="cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper.selectByPrimaryKey">
+        </association>
+    </resultMap>
+
+    <insert id="insertCheckGroupPersonNew" parameterType="cn.xm.jwxt.bean.graduateDesign.CheckGroupPersonNew">
+        insert into CheckGroupPersonNew
+        (gropersonid,teacherid,teachername,groupid,grouprole,remark)
+        values
+        (#{gropersonid},#{teacherid},#{teachername},#{groupid},#{grouprole},#{remark})
+    </insert>
+
+    <update id="updatecheckgrouppersonNewByCondition" parameterType="java.util.Map" >
+        update checkgrouppersonNew
+        <set >
+            <if test="gropersonid != null" >
+                groPersonID = #{gropersonid},
+            </if>
+            <if test="teacherid != null" >
+                teacherID = #{teacherid},
+            </if>
+            <if test="teachername != null" >
+                teachername = #{teachername},
+            </if>
+            <if test="groupid != null" >
+                groupid = #{groupid},
+            </if>
+            <if test="grouprole != null" >
+                groupRole = #{grouprole},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark},
+            </if>
+        </set>
+        <where>
+            <if test="gropersonidCondition != null" >
+                AND groPersonID = #{gropersonidCondition}
+            </if>
+            <if test="teacheridCondition != null" >
+                AND teacherID = #{teacheridCondition}
+            </if>
+            <if test="teachernameCondition != null" >
+                AND teachername = #{teachernameCondition}
+            </if>
+            <if test="groupidCondition != null" >
+                AND groupid = #{groupidCondition}
+            </if>
+            <if test="grouproleCondition != null" >
+                AND groupRole = #{grouproleCondition}
+            </if>
+            <if test="remarkCondition != null" >
+                AND remark = #{remarkCondition}
+            </if>
+        </where>
+    </update>
+
+    <select id="selectOneCheckgroupperson" resultMap="oneCheckgrouppersonResultMap">
+        SELECT
+        t.teacherid,t.teachername,
+        cg.gropersonid,cg.teacherid,cg.teachername,cg.groupid,cg.grouprole,cg.remark,
+        g.groupid,g.groupname,g.replyaddress,g.remark
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN CheckgrouppersonNew cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroupNew g ON cg.groupid = g.groupid
+        WHERE
+        cg.gropersonid = #{gropersonid}
+    </select>
+
+    <select id="selectCheckgrouppersonList" resultMap="CheckgrouppersonListResultMap">
+        SELECT
+        t.teacherid,t.teachername,
+        cg.gropersonid,cg.teacherid,cg.teachername,cg.groupid,cg.grouprole,cg.remark,
+        g.groupid,g.groupname,g.replyaddress,g.remark
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN CheckgrouppersonNew cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroupNew g ON cg.groupid = g.groupid
+        <where>
+            <if test="groupid == 2">
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+            </if>
+            <if test="groupid == 0">
+                AND cg.groupid IS NOT NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+                <if test="groupname != null">
+                    AND g.groupname like CONCAT('%', #{groupname}, '%')
+                </if>
+            </if>
+            <if test="groupid == 1">
+                AND cg.groupid IS NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+            </if>
+        </where>
+        <if test="page != null and limit != null">
+            limit ${(page-1)*limit},#{limit}
+        </if>
+    </select>
+
+    <select id="selectCheckgrouppersonCount" resultType="java.lang.Integer">
+        SELECT
+        count(t.teachername)
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkGroupPersonNew cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroupNew g ON cg.groupid = g.groupid
+        <where>
+            <if test="groupid == 2">
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+            </if>
+            <if test="groupid == 0">
+                AND cg.groupid IS NOT NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+                <if test="groupname != null">
+                    AND g.groupname like CONCAT('%', #{groupname}, '%')
+                </if>
+            </if>
+            <if test="groupid == 1">
+                AND cg.groupid IS NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectOneCheckgroupperson2" resultType="cn.xm.jwxt.bean.graduateDesign.TTeacherInfoVo">
+        SELECT
+        t.teacherid,t.teachername,
+        cg.gropersonid,cg.teacherid,cg.teachername,cg.groupid,cg.grouprole,cg.remark,
+        g.groupid,g.groupname,g.replyaddress,g.remark,
+        fp.arrangetime as replytime
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkGroupPersonNew cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroupNew g ON cg.groupid = g.groupid
+        LEFT JOIN pleaArrangeInfo pai ON pai.groupid = g.groupid
+        LEFT JOIN finallyPleaInfo fp ON fp.pleaid = pai.pleaid
+        WHERE
+        cg.gropersonid = #{gropersonid}
+    </select>
+
+    <select id="selectCheckgrouppersonList2" resultType="cn.xm.jwxt.bean.graduateDesign.TTeacherInfoVo">
+        SELECT
+        t.teacherid,t.teachername,
+        cg.gropersonid,cg.teacherid,cg.teachername,cg.groupid,cg.grouprole,cg.remark,
+        g.groupid,g.groupname,g.replyaddress,g.remark,
+        pai.arrangeid,
+        fp.pleaid,fp.arrangetime as replytime
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkgrouppersonNew cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroupNew g ON cg.groupid = g.groupid
+        LEFT JOIN pleaArrangeInfo pai ON pai.groupid = g.groupid
+        LEFT JOIN finallyPleaInfo fp ON fp.pleaid = pai.pleaid
+        <where>
+            <if test="groupid == 2">
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+            </if>
+            <if test="groupid == 0">
+                AND cg.groupid IS NOT NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+                <if test="groupname != null">
+                    AND g.groupname like CONCAT('%', #{groupname}, '%')
+                </if>
+            </if>
+            <if test="groupid == 1">
+                AND cg.groupid IS NULL
+                <if test="teachername != null">
+                    AND t.teachername like CONCAT('%', #{teachername}, '%')
+                </if>
+            </if>
+        </where>
+        <if test="page != null and limit != null">
+            limit ${(page-1)*limit},#{limit}
+        </if>
+    </select>
+
+    <!--查询小组内老师和老师所带学生信息-->
+    <select id="selectTeacherAndStudentCountBygroupid" resultType="cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonVo">
+        SELECT
+        t.teacherid,t.teachername,
+        g.groupid
+        FROM
+        t_teacher_base_info t
+        LEFT JOIN checkGroupPersonNew cg ON t.teacherid = cg.teacherid
+        LEFT JOIN graDesignCheckGroupNew g ON cg.groupid = g.groupid
+        LEFT JOIN pleaArrangeInfo pai ON pai.groupid = g.groupid
+        LEFT JOIN finallyPleaInfo fp ON fp.pleaid = pai.pleaid
+        WHERE g.groupid = #{groupid}
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.graduateDesign.CheckGroupPersonNew" >
+        select
+        gropersonid,teacherid,teachername,groupid,grouprole,remark
+        from checkgrouppersonnew
+        <where>
+            <if test="gropersonid != null" >
+                AND gropersonid = #{gropersonid}
+            </if>
+            <if test="teacherid != null" >
+                AND teacherid = #{teacherid}
+            </if>
+            <if test="teachername != null" >
+                AND teachername = #{teachername}
+            </if>
+            <if test="groupid != null" >
+                AND groupid = #{groupid}
+            </if>
+            <if test="grouprole != null" >
+                AND grouprole = #{grouprole}
+            </if>
+            <if test="remark != null" >
+                AND remark = #{remark}
+            </if>
+        </where>
+    </select>
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.graduateDesign.CheckGroupPersonNew" >
+        <id column="groPersonID" property="gropersonid" jdbcType="INTEGER" />
+        <result column="teacherID" property="teacherid" jdbcType="VARCHAR" />
+        <result column="teachername" property="teachername" jdbcType="VARCHAR" />
+        <result column="groupid" property="groupid" jdbcType="VARCHAR" />
+        <result column="groupRole" property="grouprole" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <delete id="deleteCheckgrouppersonNewBypgroupid">
+        DELETE FROM checkgrouppersonnew
+        WHERE groupid = #{groupid}
+    </delete>
+</mapper>

@@ -9,8 +9,10 @@ import cn.xm.jwxt.utils.UUIDUtil;
 import cn.xm.jwxt.utils.ValidateCheck;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FastByteArrayOutputStream;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -48,6 +50,8 @@ public class ApClassTeacherServiceImpl implements ApClassTeacherService {
             classTeacher.setTeacherCourseId(teacherCourseId);
         }
         int count = classTeacherCustomMapper.saveClassTeacherListInfo(listInfo);
+        //设置班级人数
+        updateClassSizeByTeacherCourseId(teacherCourseId);
         return count==total;
     }
 
@@ -88,6 +92,21 @@ public class ApClassTeacherServiceImpl implements ApClassTeacherService {
         ApClassTeacherExample.Criteria criteria = classTeacherExample.createCriteria();
         criteria.andTeacherCourseIdIn(teacherCourseIds);
         int count = classTeacherMapper.deleteByExample(classTeacherExample);
+        return count>0?true:false;
+    }
+
+    /**
+     * 根据教师课程ID设置班级教师表中的人数
+     * @param teacherCourseId
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public boolean updateClassSizeByTeacherCourseId(String teacherCourseId) throws SQLException {
+        if(ValidateCheck.isNull(teacherCourseId)){
+            throw new IllegalArgumentException("教师课程编号不能为空!");
+        }
+        int count = classTeacherCustomMapper.updateClassSizeByTeacherCourseId(teacherCourseId);
         return count>0?true:false;
     }
 }

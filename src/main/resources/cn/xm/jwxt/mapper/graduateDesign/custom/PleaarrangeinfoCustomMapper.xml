@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.custom.PleaarrangeinfoCustomMapper" >
+
+
+    <select id="selectPleaarrangeinfoList" resultMap="pleaarrangeinfoList">
+        SELECT
+        pAI.arrangeid,pAI.pleaid,pAI.groupid,pAI.teacherid,pAI.bookid,
+        gDCGN.groupId,gDCGN.groupName,gDCGN.groupType,gDCGN.replyAddress,gDCGN.remark,
+        fPI.pleaid,fPI.starttime,fPI.endtime,fPI.arrangePerson,fPI.arrangeTime,fPI.description,
+        pFRI.fileUpRecoreId,pFRI.arrangeId,pFRI.fileUpStatus,pFRI.upTime,pFRI.upStatus,pFRI.remark,
+        pFUI.pleafileId,pFUI.arrangeId,pFUI.fileType,pFUI.oriName,pFUI.UUIDname,pFUI.upTime,pFUI.remark,
+        pRI.plearesultid,pRI.arrangeid,pRI.guideTeacherAdvice,pRI.guideTeacherScore,
+        pRI.readTeacherAdvice,pRI.readTeacherScore,pRI.pleaResultScore,pRI.finallyScore,
+        pRI.pleaMainMatter,pRI.committeeAdvice,pRI.remark
+        FROM
+        pleaArrangeInfo pAI ,graDesignCheckGroupNew gDCGN ,finallyPleaInfo fPI ,
+        pleaFileRecordInfo pFRI ,pleaFileUploadInfo pFUI ,pleaResultInfo pRI
+        <where>
+            <if test="1==1">
+                AND pAI.groupid = gDCGN.groupid AND pAI.pleaid = fPI.pleaid
+                AND pAI.arrangeid = pFRI.arrangeid AND pAI.arrangeid = pFUI.arrangeid
+                AND pAI.arrangeid = pRI.arrangeid
+            </if>
+            <if test="arrangeid != null">
+                AND pAI.arrangeid = #{arrangeid}
+            </if>
+            <if test="pleaid != null">
+                AND pAI.pleaid = #{pleaid}
+            </if>
+            <if test="teacherid != null">
+                AND pAI.teacherid = #{teacherid}
+            </if>
+            <if test="groupid != null">
+                AND pAI.groupid = #{groupid}
+            </if>
+            <if test="bookid != null">
+                AND pAI.bookid = #{bookid}
+            </if>
+            <if test="page != null and limit != null">
+                limit ${(page-1)*limit},#{limit}
+            </if>
+        </where>
+    </select>
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.Pleaarrangeinfo" id="pleaarrangeinfoList" autoMapping="true">
+        <id property="arrangeid" column="arrangeid" />
+
+        <association property="groupid" column="graDesignCheckGroupNew"
+                     javaType="cn.xm.jwxt.bean.graduateDesign.GraDesignCheckGroupNew"
+                     select="cn.xm.jwxt.mapper.graduateDesign.GradesigncheckgroupMapper.selectByPrimaryKey">
+        </association>
+        <association property="pleaid" column="plearesultinfoList"
+                     javaType="cn.xm.jwxt.bean.graduateDesign.Finallypleainfo"
+                     select="cn.xm.jwxt.mapper.graduateDesign.FinallypleainfoMapper.selectByPrimaryKey">
+        </association>
+        <collection property="plearesultinfoList" column="plearesultid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Plearesultinfo">
+            <id column="plearesultid" property="plearesultid"/>
+        </collection>
+        <collection property="pleafilerecordinfoList" column="fileuprecoreid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Pleafilerecordinfo">
+            <id column="fileuprecoreid" property="fileuprecoreid"/>
+        </collection>
+        <collection property="pleafileuploadinfoList" column="pleafileid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Pleafileuploadinfo">
+            <id column="pleafileid" property="pleafileid"/>
+        </collection>
+    </resultMap>
+</mapper>

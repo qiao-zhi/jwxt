@@ -10,9 +10,9 @@
  */
 package cn.xm.jwxt.service.impl.graduateDesign;
 
-import cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup;
-import cn.xm.jwxt.bean.graduateDesign.GradesigncheckgroupExample;
+import cn.xm.jwxt.bean.graduateDesign.*;
 import cn.xm.jwxt.mapper.graduateDesign.GradesigncheckgroupMapper;
+import cn.xm.jwxt.mapper.graduateDesign.custom.GraDesignCheckGroupNewCustomMapper;
 import cn.xm.jwxt.mapper.graduateDesign.custom.GradesigncheckgroupCustomMapper;
 import cn.xm.jwxt.service.graduateDesign.GradesigncheckgroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,9 @@ public class GradesigncheckgroupServiceImpl implements GradesigncheckgroupServic
 
     @Autowired
     private GradesigncheckgroupCustomMapper gradesigncheckgroupCustomMapper;
+
+    @Autowired
+    private GraDesignCheckGroupNewCustomMapper graDesignCheckGroupNewCustomMapper;
 
     @Override
     public int countByExample(GradesigncheckgroupExample example) {
@@ -48,6 +51,16 @@ public class GradesigncheckgroupServiceImpl implements GradesigncheckgroupServic
     @Override
     public boolean insert(Gradesigncheckgroup record) {
         return gradesigncheckgroupMapper.insert(record)==1;
+    }
+
+    @Override
+    public boolean insertGraDesignCheckGroupNew(GraDesignCheckGroupNew graDesignCheckGroupNew) {
+        return graDesignCheckGroupNewCustomMapper.insertGraDesignCheckGroupNew(graDesignCheckGroupNew)==1;
+    }
+
+    @Override
+    public boolean updateGraDesignCheckGroupNewByCondition(Map<String , Object> map) {
+        return graDesignCheckGroupNewCustomMapper.updateGraDesignCheckGroupNewByCondition(map)>=0;
     }
 
     @Override
@@ -91,7 +104,33 @@ public class GradesigncheckgroupServiceImpl implements GradesigncheckgroupServic
     }
 
     @Override
+    public TTeacherInfoVo selectOneGradesigncheckgroup2(String groupid) {
+        return gradesigncheckgroupCustomMapper.selectOneGradesigncheckgroup2(groupid);
+    }
+
+    @Override
+    public TTeacherInfoVo selectOneGradesigncheckgroup2New(String groupid) {
+        return graDesignCheckGroupNewCustomMapper.selectOneGradesigncheckgroup2(groupid);
+    }
+
+
+    @Override
     public List<Gradesigncheckgroup> selectGradesigncheckgroupList(Map<String, Object> map) {
         return gradesigncheckgroupCustomMapper.selectGradesigncheckgroupList(map);
+    }
+
+    @Override
+    public List<GradesigncheckgroupVo> selectGradesigncheckgroupList2(Map<String, Object> map) {
+        return gradesigncheckgroupCustomMapper.selectGradesigncheckgroupList2(map);
+    }
+
+    @Override
+    public List<GradesigncheckgroupVo> selectGradesigncheckgroupList2New(Map<String, Object> map) {
+        return graDesignCheckGroupNewCustomMapper.selectGradesigncheckgroupList2New(map);
+    }
+
+    @Override
+    public boolean deleteGroupNewByPrimaryKey(String groupid) {
+        return graDesignCheckGroupNewCustomMapper.deleteGroupNewByPrimaryKey(groupid)==1;
     }
 }

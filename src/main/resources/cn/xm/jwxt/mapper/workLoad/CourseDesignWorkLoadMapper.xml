@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.workLoad.CourseDesignWorkLoadMapper" >
+
+    <select id="findCourseDesignWorload" parameterType="map" resultType="map">
+        SELECT
+          ta.classNames,
+          ta.stuCount,
+          ta.courseDesignTeacherArrangeID,
+          ti.teacherNum,
+          ti.teacherName,
+          ia.yearNum,
+          ia.semester,
+          ia.courseDesignName,
+          ia.courseDesignNum
+        FROM
+          t_courseDesign_teacher_arrange ta
+          JOIN t_teacher_base_info ti
+            ON ta.teacherID = ti.teacherID
+          JOIN t_courseDesign_info_arrange ia
+            ON ta.courseDesignArrangeID = ia.courseDesignArrangeID
+
+          <where>
+              <if test="yearNum!=null and yearNum!=''">
+                  AND ia.yearNum = #{yearNum}
+              </if>
+              <if test="semester!=null and semester!=''">
+                  AND ia.semester = #{semester}
+              </if>
+              <if test="teacherName!=null and teacherName!=''">
+                  AND ti.teacherName = #{teacherName}
+              </if>
+              <if test="teacherID!=null and teacherID!=''">
+                  AND ti.teacherID = #{teacherID}
+              </if>
+          </where>
+
+    </select>
+
+    <!-- 查询单个老师的课设工作量信息 -->
+    <select id="findOneTeacherCourseDesignInfo" parameterType="String" resultType="map">
+        SELECT
+            ta.classNames,
+            ia.courseDesignNum,
+            ia.courseDesignName,
+            ia.startTime,
+            ia.endTime,
+            ti.teacherNum,
+            ti.teacherName
+          FROM
+            t_courseDesign_teacher_arrange ta
+            JOIN t_courseDesign_info_arrange ia
+              ON ta.courseDesignArrangeID = ia.courseDesignArrangeID
+            JOIN t_teacher_base_info ti
+              ON ti.teacherID = ta.teacherID
+            WHERE
+              ta.courseDesignTeacherArrangeID = #{courseDesignTeacherArrangeID}
+    </select>
+
+    <!-- 教师工作量-查询学生列表 -->
+    <select id="findStuInfoBycourseDesignTeacherArrangeID" parameterType="String" resultType="map">
+        SELECT
+            ts.studentID,
+            si.studentName
+          FROM
+            t_courseDesign_TeacherStudent ts
+            JOIN t_student_base_info si
+              ON ts.studentID = si.studentID
+            WHERE
+              ts.courseDesignTeacherArrangeID = #{courseDesignTeacherArrangeID}
+    </select>
+
+</mapper>

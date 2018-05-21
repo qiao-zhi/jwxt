@@ -36,7 +36,9 @@ public class OutGraDesignAggAndSureServiceImpl implements OutGraDesignAggAndSure
         Outgradesignsurebook oGDSureBook = oGDSureBookMapper.selectByPrimaryKey(sureID);
         /*对保证书中的签名凭借访问路径*/
         String path = FileHandleUtil.getValue("path","signPicturePath");
-        oGDSureBook.setStudentsignurl(path+oGDSureBook.getStudentsignurl());
+        if(oGDSureBook.getStudentsignurl()!=null&&!oGDSureBook.getStudentsignurl().equals("")){
+            oGDSureBook.setStudentsignurl(path+oGDSureBook.getStudentsignurl());
+        }
         return oGDSureBook;
     }
 
@@ -45,10 +47,10 @@ public class OutGraDesignAggAndSureServiceImpl implements OutGraDesignAggAndSure
         Outsidegradesignagreemen oGDAgreement = oGDAgrCustomMapper.selectAllAggreementByAID(agreementID);
         /*对学生学校签字路径进行封装*/
         String path = FileHandleUtil.getValue("path","signPicturePath");
-        if(oGDAgreement.getStudentsign()!=null){
+        if(oGDAgreement.getStudentsign()!=null&&!oGDAgreement.getStudentsign().equals("")){
             oGDAgreement.setStudentsign(path+oGDAgreement.getStudentsign());
         }
-        if(oGDAgreement.getSchoolsign()!=null){
+        if(oGDAgreement.getSchoolsign()!=null&&!oGDAgreement.getSchoolsign().equals("")){
             oGDAgreement.setSchoolsign(path+oGDAgreement.getSchoolsign());
         }
         return oGDAgreement;
@@ -56,6 +58,8 @@ public class OutGraDesignAggAndSureServiceImpl implements OutGraDesignAggAndSure
 
     @Override
     public boolean updateOGDAgreementById(Outsidegradesignagreemen oGDAgreement) throws SQLException {
+        //初始化学校签名
+        oGDAgreement.setSchoolsign("");
         int num = oAggMapper.updateByPrimaryKeySelective(oGDAgreement);
         if(num == 1){
             return true;

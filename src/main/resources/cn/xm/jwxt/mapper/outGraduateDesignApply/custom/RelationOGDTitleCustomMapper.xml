@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDTitleCustomMapper" >
+    <delete id="deleteCheckTitle" parameterType="string">
+        DELETE FROM projectCheck WHERE outgradesignapplyid=#{id} AND (checkpeople IS NOT NULL)
+    </delete>
+
     <select id="selectTitleByOutsideApplyID" parameterType="string" resultMap="checkTitle">
         SELECT * FROM outGraDesignTitleApply t,projectCheck p,outGraDesignInfo i,graDesignLeaveApply l
           WHERE t.outGraDesignApplyID=p.outGraDesignApplyID AND t.outsideApplyID=i.outsideApplyID AND t.outsideApplyID = i.outsideApplyID

@@ -53,8 +53,8 @@ function showTaskNoticeBaseInfo(pageInfo){
             +baseInfoList[i].createrName+"</td><td>"
             +baseInfoList[i].createTime+"</td><td>"
             +(baseInfoList[i].isInput>0?'已导入':'未导入')+"</td>"
-            +"<td class='td-manage'><a title='点击查看通知书详细信息' onclick=notice_tab_show('教学通知书详细信息','adviceBook-view.jsp?noticeId="+baseInfoList[i].noticeBookId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
-            +"<a title='点击修改通知书信息'  onclick=notice_tab_show('修改通知书','adviceBook-edit.jsp?noticeId="+baseInfoList[i].noticeBookId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
+            +"<td class='td-manage'><a title='点击查看通知书详细信息' onclick=x_admin_show('教学通知书详细信息','adviceBook-view.jsp?noticeId="+baseInfoList[i].noticeBookId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
+            +"<a title='点击修改通知书信息'  onclick=x_admin_show('修改通知书','adviceBook-edit.jsp?noticeId="+baseInfoList[i].noticeBookId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
             +" <a title='删除' onclick=deleteNoticeBookInfo('"+baseInfoList[i].noticeBookId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
         $("#noticeBaseInfoList").append(tr);
     }
@@ -114,7 +114,7 @@ function deleteNoticeBookInfo(id) {
 
 //新增任务
 function addTask(){
-    notice_tab_show('新增通知书','./adviceBook-add.jsp')
+    x_admin_show('新增通知书','./adviceBook-add.jsp')
 }
 
 //导入任务通知书按钮
@@ -131,42 +131,5 @@ function importNoticeBook(){
     }
     var noticeBookId = $("[name='noticeRadio']:checked").val();//获取需要上传资料的课程主键
     var sel_noticeBookName = $("[name='noticeRadio']:checked + input[name='sel_noticeBookName']").val();
-    notice_tab_show('导入课程', './adviceBook-import.jsp?noticeBookId='+noticeBookId+'&noticeBookName='+sel_noticeBookName);
+    x_admin_show('导入课程', './adviceBook-import.jsp?noticeBookId='+noticeBookId+'&noticeBookName='+sel_noticeBookName);
 }
-
-
-
-/* S            弹出层相关操作 */
-/*
-    参数解释：
-    title   标题
-    url     请求的url
-    id      需要操作的数据id
-    w       弹出层宽度（缺省调默认值）
-    h       弹出层高度（缺省调默认值）
-*/
-function notice_tab_show(title,url,w,h){
-    if (title == null || title == '') {
-        title=false;
-    };
-    if (url == null || url == '') {
-        url="404.html";
-    };
-    if (w == null || w == '') {
-        w=($(window).width()*0.90);
-    };
-    if (h == null || h == '') {
-        h=($(window).height()-50);
-    };
-    layer.open({
-        type: 2,
-        area: [w+'px', h +'px'],
-        fix: false, //不固定
-        maxmin: true,
-        shadeClose: true,
-        shade:0.4,
-        title: title,
-        content: url
-    });
-}
-/* E            弹出层相关操作 */

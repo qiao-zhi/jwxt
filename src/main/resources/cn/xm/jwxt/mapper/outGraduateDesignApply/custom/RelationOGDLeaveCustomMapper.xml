@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDLeaveCustomMapper" >
+    <delete id="deleteCheckLeavebyLeaveId" parameterType="string">
+         DELETE from checkLeave where leaveid=#{id} AND (checkpeople IS NOT NULL)
+    </delete>
+
     <select id="selectLeaveByOutsideApplyID" parameterType="String" resultMap="checkLeave">
          SELECT * FROM graDesignLeaveApply g,cancelLeave c,checkLeave ch
          WHERE g.leaveID=c.leaveID AND c.leaveID=ch.leaveID AND g.leaveID=#{leaveID}

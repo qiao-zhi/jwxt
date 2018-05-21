@@ -5,10 +5,10 @@
     <resultMap type="cn.xm.jwxt.bean.graduateDesign.Cencheckbaseinfo" id="oneCencheckbaseinfoResultMap" autoMapping="true">
         <id property="cencheckinfoid" column="cencheckinfoid" />
 
-        <collection property="cencheckarrangeinfoList"
-                    ofType="cn.xm.jwxt.bean.graduateDesign.Cencheckarrangeinfo">
-            <id column="cenArrangeInfoId" property="cenarrangeinfoid"/>
-            <result column="cenCheckInfoid" property="cencheckinfoid"/>
+        <collection property="cencheckarrangeinfoList" column="cenarrangeinfoid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Cencheckarrangeinfo"
+                    select="cn.xm.jwxt.mapper.graduateDesign.custom.CencheckarrangeinfoCustomMapper.selectOneCencheckbaseinfo">
+            <id column="cenarrangeinfoid" property="cenarrangeinfoid"/>
         </collection>
 
     </resultMap>
@@ -16,10 +16,10 @@
     <resultMap type="cn.xm.jwxt.bean.graduateDesign.Cencheckbaseinfo" id="CencheckbaseinfoListResultMap" autoMapping="true">
         <id property="cencheckinfoid" column="cencheckinfoid" />
 
-        <collection property="cencheckarrangeinfoList"
-                    ofType="cn.xm.jwxt.bean.graduateDesign.Cencheckarrangeinfo">
-            <id column="cenArrangeInfoId" property="cenarrangeinfoid"/>
-            <result column="cenCheckInfoid" property="cencheckinfoid"/>
+        <collection property="cencheckarrangeinfoList" column="cenarrangeinfoid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Cencheckarrangeinfo"
+                    select="cn.xm.jwxt.mapper.graduateDesign.custom.CencheckarrangeinfoCustomMapper.selectOneCencheckbaseinfo">
+            <id column="cenarrangeinfoid" property="cenarrangeinfoid"/>
         </collection>
 
     </resultMap>

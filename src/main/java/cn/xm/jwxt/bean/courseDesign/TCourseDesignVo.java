@@ -23,7 +23,25 @@ public class TCourseDesignVo {
     private Date CourseArrangeTime;
     private String display;
     private String isArrange;
+    private String teacherID;
     private String[] stuArr;
+    private String[] classArr;
+
+    public String getTeacherID() {
+        return teacherID;
+    }
+
+    public void setTeacherID(String teacherID) {
+        this.teacherID = teacherID;
+    }
+
+    public String[] getClassArr() {
+        return classArr;
+    }
+
+    public void setClassArr(String[] classArr) {
+        this.classArr = classArr;
+    }
 
     public String getCourseDesignNum() {
         return courseDesignNum;

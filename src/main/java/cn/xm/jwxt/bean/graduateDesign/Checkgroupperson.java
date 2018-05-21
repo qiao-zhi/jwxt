@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
+
 /**
  * 检查小组成员表
  */
@@ -16,12 +18,20 @@ public class Checkgroupperson {
 
     private String remark;
 
-    public Integer getGropersonid() {
-        return gropersonid;
+    private Gradesigncheckgroup gradesigncheckgroup;
+
+    private TTeacherBaseInfo tTeacherBaseInfo;
+
+    public void settTeacherBaseInfo(TTeacherBaseInfo tTeacherBaseInfo) {
+        this.tTeacherBaseInfo = tTeacherBaseInfo;
     }
 
-    public void setGropersonid(Integer gropersonid) {
-        this.gropersonid = gropersonid;
+    public TTeacherBaseInfo gettTeacherBaseInfo() {
+        return tTeacherBaseInfo;
+    }
+
+    public void setGradesigncheckgroup(Gradesigncheckgroup gradesigncheckgroup) {
+        this.gradesigncheckgroup = gradesigncheckgroup;
     }
 
     public String getTeacherid() {
@@ -29,7 +39,19 @@ public class Checkgroupperson {
     }
 
     public void setTeacherid(String teacherid) {
-        this.teacherid = teacherid == null ? null : teacherid.trim();
+        this.teacherid = teacherid;
+    }
+
+    public Gradesigncheckgroup getGradesigncheckgroup() {
+        return gradesigncheckgroup;
+    }
+
+    public Integer getGropersonid() {
+        return gropersonid;
+    }
+
+    public void setGropersonid(Integer gropersonid) {
+        this.gropersonid = gropersonid;
     }
 
     public String getTeachername() {

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.custom.MiddleReportManageCustomMapper" >
+
+
+    <select id="selectMiddleReportManageList" resultType="cn.xm.jwxt.bean.graduateDesign.MiddleReportManage">
+        SELECT
+        /*学生id，学生姓名，班级名称*/
+        tsbi.studentid,tsbi.studentname,tcbi.classname,
+        /*毕设题目，指导老师*/
+        sTR.finallyName as titlename,ttbi.teachername,
+        /*中期检查教师，是否进行检查，检查表填写情况*/
+
+        /*毕设类型*/
+        sTR.isout
+        FROM
+        t_student_base_info tsbi
+        LEFT JOIN t_class_base_info tcbi ON  tsbi.classid = tcbi.classid
+        LEFT JOIN studenTtitleResult sTR ON sTR.studentid = tsbi.studentid
+        LEFT JOIN teacherGreDesignTitle tGDT ON sTR.teacherTitleID = tGDT.teacherTitleID
+        LEFT JOIN t_teacher_base_info ttbi ON ttbi.teacherid = tGDT.teacherid
+        <where>
+            <if test="studentname != null">
+                AND tsbi.studentname LIKE CONCAT('%', #{studentname}, '%')
+            </if>
+            <if test="classname != null">
+                AND tcbi.classname LIKE CONCAT('%', #{classname}, '%')
+            </if>
+            <if test="finallyName != null">
+                AND sTR.finallyName LIKE CONCAT('%', #{finallyName}, '%')
+            </if>
+            <!--答辩状态，检查表填写状况（未填写）-->
+
+
+
+            <if test="isout == '1' or isout == '0'">
+                AND sTR.isout = #{isout}
+            </if>
+            <if test="page != null and limit != null">
+                limit ${(page-1)*limit},#{limit}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectMiddleReportManageCount" resultType="java.lang.Integer">
+        SELECT
+        count(tsbi.studentid)
+        FROM
+        t_student_base_info tsbi
+        LEFT JOIN t_class_base_info tcbi ON  tsbi.classid = tcbi.classid
+        LEFT JOIN studenTtitleResult sTR ON sTR.studentid = tsbi.studentid
+        LEFT JOIN teacherGreDesignTitle tGDT ON sTR.teacherTitleID = tGDT.teacherTitleID
+        LEFT JOIN t_teacher_base_info ttbi ON ttbi.teacherid = tGDT.teacherid
+        <where>
+            <if test="studentname != null">
+                AND tsbi.studentname LIKE CONCAT('%', #{studentname}, '%')
+            </if>
+            <if test="classname != null">
+                AND tcbi.classname LIKE CONCAT('%', #{classname}, '%')
+            </if>
+            <if test="finallyName != null">
+                AND sTR.finallyName LIKE CONCAT('%', #{finallyName}, '%')
+            </if>
+            <!--答辩状态，检查表填写状况（未填写）-->
+
+
+
+            <if test="isout == '1' or isout == '0'">
+                AND sTR.isout = #{isout}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectcenCheckResultInfoByStudentId" resultType="cn.xm.jwxt.bean.graduateDesign.MiddleReportManage">
+        SELECT
+        /*学生所属学院，教研室未定*/
+        /*学生姓名，学号*/
+        tsbi.studentid,tsbi.studentname,tsbi.studentnum,
+        /*指导老师，检查人*/
+        ttbi.teacherid,ttbi.teachername AS leaderteacher,
+        /*中期检查安排id*/
+        cCAI.cenArrangeInfoId,
+        /*中期检查结果信息*/
+        cCRI.wordProgress,cCRI.workAttitude,cCRI.qualityAdvice,cCRI.problemAndAatter,cCRI.checkTime
+        FROM
+        t_student_base_info tsbi/*学生表*/
+        LEFT JOIN studentTitleResult sTR ON tsbi.studentid = sTR.studentid/*最终选题结果表*/
+        LEFT JOIN taskBookInfo tBI ON tBI.StudentTitleresultID = sTR.StudentTitleresultID/*任务书表*/
+        LEFT JOIN cenCheckArrangeInfo cCAI ON cCAI.bookid = tBI.bookid/*中期检查安排表*/
+        LEFT JOIN t_teacher_base_info ttbi ON cCAI.teacherid = ttbi.teacherid/*老师表*/
+        LEFT JOIN cenCheckResultInfo cCRI ON cCRI.cenArrangeInfoId = cCAI.cenArrangeInfoId/*中期检查结果表*/
+        WHERE tsbi.studentid=#{studentid}
+    </select>
+</mapper>

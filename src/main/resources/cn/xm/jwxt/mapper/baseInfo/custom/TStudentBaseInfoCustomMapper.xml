@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.baseInfo.custom.TStudentBaseInfoCustomMapper" >
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo" >
+        <id column="studentID" property="studentid" jdbcType="VARCHAR" />
+        <result column="studentNum" property="studentnum" jdbcType="VARCHAR" />
+        <result column="classID" property="classid" jdbcType="VARCHAR" />
+        <result column="studentName" property="studentname" jdbcType="VARCHAR" />
+        <result column="studentSex" property="studentsex" jdbcType="VARCHAR" />
+        <result column="studentBirth" property="studentbirth" jdbcType="DATE" />
+        <result column="studentPhoto" property="studentphoto" jdbcType="VARCHAR" />
+        <result column="IDnum" property="idnum" jdbcType="VARCHAR" />
+        <result column="enrollmentTime" property="enrollmenttime" jdbcType="DATE" />
+        <result column="endTime" property="endtime" jdbcType="DATE" />
+        <result column="isGraduate" property="isgraduate" jdbcType="VARCHAR" />
+        <result column="isDelete" property="isdelete" jdbcType="VARCHAR" />
+        <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+        <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+        <result column="classname" property="classname" jdbcType="VARCHAR" />
+        <result column="majorname" property="majorname" jdbcType="VARCHAR" />
+        <result column="collegename" property="collegename" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--查询学生的名称和ID-->
+    <select id="findStudentNameAndId" resultType="map">
+        SELECT studentId as studentid,studentName as studentname from t_student_base_info
+        WHERE isDelete = "1"
+    </select>
+
+    <!--组合条件查询学生分页显示-->
+    <select id="findStudentInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultMap="BaseResultMap">
+        SELECT st.*,(SELECT className FROM class_major_college v WHERE v.classId=st.classID ) className
+        ,(SELECT majorName FROM class_major_college v WHERE v.classId=st.classID ) majorName
+        ,(SELECT collegeName FROM class_major_college v WHERE v.classId=st.classID ) collegeName
+        FROM t_student_base_info st,class_major_college v
+
+        <where>
+            <include refid="query_common_where"></include>
+        </where>
+    </select>
+
+
+    <!--封装查询条件-->
+    <sql id="query_common_where">
+
+        <if test="studentnum != null and studentnum !=''">
+            and studentNum = #{studentnum}
+        </if>
+        <if test="studentname != null and studentname !=''">
+            and studentName LIKE '%${studentname}%'
+        </if>
+        <if test="collegeid != null and collegeid !=''">
+            and v.collegeId = #{collegeid}
+        </if>
+        <if test="majorid != null and majorid !=''">
+            and v.majorId = #{majorid}
+        </if>
+        <if test="0==0">
+            and v.classId = st.classId
+        </if>
+    </sql>
+
+</mapper>

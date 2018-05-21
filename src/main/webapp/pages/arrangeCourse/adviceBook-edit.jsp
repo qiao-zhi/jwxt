@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>添加课程</title>
+    <title>修改课程</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -17,6 +17,9 @@
 
     <%--公共标签--%>
     <%@include file="/tag.jsp"%>
+    <%--排课公共方法--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
+
 </head>
 <body>
 <div class="x-body">
@@ -33,9 +36,6 @@
                 <%--隐藏通知书ID--%>
                 <input type="hidden" name="noticeBookId"/>
             </div>
-            <!--<div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
-            </div>-->
         </div>
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
@@ -63,9 +63,6 @@
             <%--隐藏学年--%>
                 <input type="hidden" name="academicYear" />
             </div>
-             <!--<div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
-            </div>-->
             
         </div>
         <div class="layui-form-item">
@@ -78,10 +75,7 @@
                    <option value="2">第二学期</option>
                 </select>
             </div>
-             <!--<div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
-            </div>-->
-            
+
         </div>
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
@@ -93,16 +87,14 @@
                 <%--隐藏创建人ID--%>
                 <input type="hidden" value="asdfwiefjiwenxhuwe" name="createrId"/>
             </div>
-            <!--<div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>必须填写
-            </div>-->
+
         </div>
         <div class="layui-form-item">
             <label for="" class="layui-form-label">
               创建时间
             </label>
             <div class="layui-input-inline">
-                <input id="giveTime" class="layui-input" name="createTime"  lay-verify="required" />
+                <input id="nowTime" class="layui-input" name="createTime"  lay-verify="required" />
             </div>
            
         </div>
@@ -120,6 +112,36 @@
 
 
 <script>
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form;
+        //查询任务通知书基本信息
+        getTaskNoticeBaseInfo('${param.noticeId}',form);
+        //监听学院下拉框事件
+        form.on('select(academic)',function (data) {
+            //获取学院的option对象
+            var $option = $("select[name='academicId'] option:selected");
+            //将学院名称设置到隐藏域中
+            $("input[name='academicName']").val($option.text())
+        })
+        //监听提交
+        form.on('submit(update)', function (data) {
+            $.ajax({
+                url:contextPath+"/arrangeCourse/updateApTaskNoticeBaseInfo.action",
+                data:data.field,
+                type:"POST",
+                dataType:"text",
+                success:function(response){
+                    layer.alert(response,function(){
+                        //实现父页面的刷新
+                        window.parent.location.reload();
+                    })
+                }
+            })
+            return false;
+        });
+     });
+
     //根据通知书ID查询通知书信息
     function getTaskNoticeBaseInfo(noticeId,form){
         $.ajax({
@@ -144,61 +166,6 @@
             }
         });
     }
-
-    layui.use(['form', 'layer'], function () {
-        $ = layui.jquery;
-        var form = layui.form;
-        //查询任务通知书基本信息
-        getTaskNoticeBaseInfo('${param.noticeId}',form);
-        //监听学院下拉框事件
-        form.on('select(academic)',function (data) {
-            //获取学院的option对象
-            var $option = $("select[name='academicId'] option:selected");
-            //将学院名称设置到隐藏域中
-            $("input[name='academicName']").val($option.text())
-        })
-        //监听提交
-        form.on('submit(update)', function (data) {
-            $.ajax({
-                url:contextPath+"/arrangeCourse/updateApTaskNoticeBaseInfo.action",
-                data:data.field,
-                type:"POST",
-                datatype:"text",
-                success:function(response){
-                    layer.alert(response,function(){
-                        //实现父页面的刷新
-                        window.parent.location.reload();
-                    })
-                }
-            })
-            return false;
-        });
-     });
-
-    //日期控件
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-        //创建时间
-        laydate.render({
-            elem: '#giveTime'//指定元素,
-        });
-        //学年
-        laydate.render({
-            elem: '#y_year' //指定元素
-            ,type: 'year'
-            ,done:function(date){
-                //判断date是否有值
-                if(date != null && date !=""){
-                    date = parseInt(date)
-                    $("#end_year").val(date+1)
-                    $("input[name='academicYear']").val(date+'-'+(date+1)+"学年")
-                }else{
-                    $("#end_year").val('')
-                    $("input[name='academicYear']").val('')
-                }
-            }
-        });
-    });
 
 </script>
 
