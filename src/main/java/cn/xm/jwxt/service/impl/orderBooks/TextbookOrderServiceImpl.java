@@ -67,6 +67,11 @@ public class TextbookOrderServiceImpl implements TextbookOrderService{
     }
 
     @Override
+    public List<Map> findOrderDetailInfo(String orderDetailId)throws SQLException{
+        return textbookOrderCustomMapper.findOrderDetailInfo(orderDetailId);
+    }
+
+    @Override
     public boolean generateOrderDetail(TextbookOrder textbookorder)throws SQLException{
         if(textbookorder==null) {
             throw new IllegalArgumentException("订单明细信息不能为空!");
@@ -82,13 +87,52 @@ public class TextbookOrderServiceImpl implements TextbookOrderService{
     }
 
     @Override
-    public boolean usePreviousTextbookOrder(List<TextbookOrder> textbookorder)throws SQLException{
-        return  false;
+    public List<Map> findHistoryTextbookOrder(Map condition) throws SQLException{
+        return textbookOrderCustomMapper.findHistoryTextbookOrder(condition);
     }
 
     @Override
-    public boolean orderTextbook(TextbookOrder textbookorder)throws SQLException{
-        return false;
+    public List<Map> findAllNewTextbook()throws SQLException{
+        return textbookOrderCustomMapper.findAllNewTextbook();
+    }
+
+    @Override
+    public List<Map> findAllHistoryTextbook(String courseCode)throws SQLException{
+        return textbookOrderCustomMapper.findAllHistoryTextbook(courseCode);
+    }
+
+    @Override
+    public boolean updateOrderStatus(String orderid) throws SQLException {
+        return textbookOrderCustomMapper.updateOrderStatus(orderid);
+    }
+
+    @Override
+    public boolean updateOrderDetailStatus(Map condition)throws SQLException{
+        return textbookOrderCustomMapper.updateOrderDetailStatus(condition);
+    }
+
+    @Override
+    public boolean commit(String orderDetailId)throws SQLException{
+        return textbookOrderCustomMapper.commit(orderDetailId);
+    }
+
+    @Override
+    public int useHistoryTextbook(Map condition) throws SQLException {
+        //1.先从Map取出四个参数
+        String nowOrderid= (String) condition.get("nowOrderid");
+        String course_code= (String) condition.get("course_code");
+        String textbookid= (String) condition.get("textbookid");
+        String ordernum= (String) condition.get("ordernum");
+        //2.按，分割成数组
+        String[] course_codes=course_code.split(",");
+        String[] textbookids=textbookid.split(",");
+        String [] ordernums=ordernum.split(",");
+        //3.遍历数组，循环修改
+        System.out.println(course_code);
+        for(int i=0;i<course_codes.length;i++){
+            textbookOrderCustomMapper.useHistoryTextbook(course_codes[i],textbookids[i],Integer.valueOf(ordernums[i]),nowOrderid);
+        }
+        return 0;
     }
 
 }

@@ -136,7 +136,7 @@
                 单价
             </label>
             <div class="layui-input-inline">
-               <input type="text" id="" name="price" required=""  lay-verify="required|number"
+               <input type="text" id="" name="price" required=""  lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">

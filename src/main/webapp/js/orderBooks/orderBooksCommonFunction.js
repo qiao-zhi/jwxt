@@ -5,8 +5,8 @@ layui.use('laydate', function () {
     var laydate = layui.laydate;
     //设置条件选择框中的学年
     laydate.render({
-        elem: '#year' //指定元素id
-        ,type: 'year'
+        elem: '#year', //指定元素id
+        type: 'year'
     });
     // //审核时间
     // laydate.render({
@@ -70,8 +70,19 @@ function findAllCourseByCourseCode() {
             layui.use('form',function () {
                 layui.form.render('select');
             });
-
         },
         'json'
     )
+}
+
+//获取当前时间设置到相应字段
+function getNowTime(){
+    var myDate = new Date();//获取系统当前时间
+    var year = myDate.getFullYear();//获取当前年
+    var month = myDate.getMonth()+1;//获取当前月
+    var date = myDate.getDate();
+    if (month < 10) month = "0" + month;
+    if (date < 10) date = "0" + date;
+    var nowTime = year + "-" + month + "-" + date;
+    $("#nowTime").val(nowTime);
 }
