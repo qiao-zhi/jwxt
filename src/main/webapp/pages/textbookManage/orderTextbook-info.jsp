@@ -54,7 +54,7 @@
         <%--S 隐藏一些信息--%>
         <input type="hidden" name="pageNum"  id="pageNum_0"/>
         <input type="hidden" name="pageSize" id="pageSize_0"/>
-        <input type="hidden" name="orderId" value='<%= request.getParameter("orderID")%>'/>
+        <input type="hidden" name="orderId" id="orderId" value='<%= request.getParameter("orderID")%>'/>
 
             <div class="layui-input-inline">
                 <select name="course" id="course" lay-search="">>
@@ -184,3 +184,6 @@
 </body>
 
 </html>
+
+
+

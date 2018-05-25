@@ -52,7 +52,7 @@ body{
     color: #fff;
     font-size: 16px;
 }
-.login #darkbannerwrap {
+.login darkbannerwrap {
     background: url(../images/aiwrap.png);
     width: 18px;
     height: 10px;
