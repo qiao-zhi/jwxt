@@ -2,7 +2,7 @@ $(function () {
     //初始化教研室审核信息
     var teacherTitleID = getUrlParam(teacherTitleID);
     $.ajax({
-        url: contextPath + '/projectManage/getProjectInfoDetail.do',
+        url: contextPath + '/project_AC/getProjectInfoDetail.do',
         data: teacherTitleID,
         type: 'POST',
         dataType: 'json',

@@ -1,15 +1,7 @@
-/**
- * Copyright (C), 2015-2018, XXX有限公司
- * FileName: CenCheckBaseInfoController
- * Author:   xuexiaolei
- * Date:     2018/4/20 21:27
- * Description: 中期检查基本信息表控制层
- * History:
- * <author>          <time>          <version>          <desc>
- * 作者姓名           修改时间           版本号              描述
- */
 package cn.xm.jwxt.controller.graduateDesign.studentGPM;
 
+import cn.xm.jwxt.bean.graduateDesign.*;
+import cn.xm.jwxt.bean.system.User;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
 import cn.xm.jwxt.service.graduateDesign.studentGPM.StudentGPMService;
 import cn.xm.jwxt.utils.DefaultValue;
@@ -23,15 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author xuexiaolei
- * @create 2018/4/20
- * @since 1.0.0
- */
 @Controller
 @RequestMapping("projectManage")
 public class StudentGPMController {
@@ -43,34 +30,242 @@ public class StudentGPMController {
     private StudentGPMService studentGPMService;
 
     /**
-     * 分页组合条件查询课题添加基本信息
-     * @param condition 组合条件
-     * @return  查询到的数据
+     * 初始化界面
+     * @return
      */
-    @RequestMapping("/getProject_ACInfo")
+    @RequestMapping("/getPDInfo")
     public @ResponseBody
-    PageInfo<Map<String,String>> getProject_ACInfo(@RequestParam Map<String,String> condition){
-        int pageSize = DefaultValue.PAGE_SIZE;
-        if(ValidateCheck.isNotNull(condition.get("pageSize"))){//如果不为空的话改变当前页大小
-            pageSize = Integer.valueOf(condition.get("pageSize"));
-        }
-        int pageNum = 1;
-        if(ValidateCheck.isNotNull(condition.get("pageNum"))){//如果不为空的话改变当前页号
-            pageNum = Integer.valueOf(condition.get("pageNum"));
-        }
-        //开始分页   CONVERT(courseNameCN USING gbk)显示方式。排序方式。"createTime desc";//按创建时间降序排序
-        PageHelper.startPage(pageNum,pageSize,"CONVERT(courseNameCN USING gbk)");
-        //上面pagehelper的设置对此查询有效，查到数据总共8条
-        List<Map<String, String>> projectInfo = null;
+    StudentPDVo getPDInfo(HttpSession session) {
+
+        User user = (User) session.getAttribute("userinfo");
+        //获取当前用户信息
+        String studentID = user.getUserid();
+
+        StudentPDVo studentPDVo = new StudentPDVo();
         try {
-            projectInfo = studentGPMService.getprojectInfoByCondition(condition);
+            studentPDVo = studentGPMService.getPDInfo(studentID);
+        } catch (Exception e) {
+            logger.error("课题申请详细信息获取失败", e);
+        }
+
+        if (studentPDVo == null) {
+            return null;
+        }
+
+        return studentPDVo;
+    }
+
+    /**
+     * 初始化表计划进程表
+     * @return
+     */
+    @RequestMapping("/getProgramTable") public @ResponseBody
+    ProgramTableVo getProgramTable(HttpSession session) {
+
+        User user = (User) session.getAttribute("userinfo");
+
+        //获取当前用户信息
+        String studentID = user.getUserid();
+
+        ProgramTableVo programTableVo = new ProgramTableVo();
+        try {
+            programTableVo = studentGPMService.getProgramTable(studentID);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("分页查询答辩秘书审核信息失败",e);
+            logger.error("初始化表计划进程表失败", e);
         }
-        PageInfo<Map<String,String>> pageInfo = new PageInfo<Map<String,String>>(projectInfo);
-        return pageInfo;
+
+        return programTableVo;
+    }
+
+    /**
+     * 保存进程表信息
+     * @return
+     */
+    @RequestMapping("/saveProgramTable")
+    public @ResponseBody String saveProgramTable(Graduatetaskprogressinfo progressinfo, HttpSession session) {
+
+        User user = (User) session.getAttribute("userinfo");
+
+        //获取当前用户信息
+        String studentID = user.getUserid();
+        boolean res = false;
+
+        try {
+            res  = studentGPMService.saveProgramTable(progressinfo, studentID);
+        } catch (Exception e) {
+            logger.error("保存进程表信息失败", e);
+        }
+
+        return res ? "success" : "false";
+    }
+
+    /**
+     * 保存任务表签字信息
+     * @return
+     */
+    @RequestMapping("/saveStudentSign")
+    public @ResponseBody String saveStudentSign(HttpSession session) {
+        User user = (User) session.getAttribute("userinfo");
+
+        //获取当前用户信息
+        String studentID = user.getUserid();
+
+        boolean res = false;
+
+        try {
+            res  = studentGPMService.saveStudentSign(studentID, 1);
+        } catch (Exception e) {
+            logger.error("保存任务表签字信息失败", e);
+        }
+
+        return res ? "success" : "false";
     }
 
 
+    /**
+     * 初始化课题详细信息
+     * @return
+     */
+    @RequestMapping("/getProjectDetailInfo")
+    public @ResponseBody
+    Teachergredesigntitle getProjectDetailInfo(HttpSession session) {
+
+        User user = (User) session.getAttribute("userinfo");
+
+        //获取当前用户信息
+        String studentID = user.getUserid();
+
+        Teachergredesigntitle teachergredesigntitle = new Teachergredesigntitle();
+        try {
+            teachergredesigntitle = studentGPMService.getProjectDetailInfo(studentID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("初始化表计划进程表失败", e);
+        }
+
+        return teachergredesigntitle;
+    }
+
+    /**
+     * 课题选择通知
+     * @return
+     */
+    @RequestMapping("/getProjectChooseState")
+    public @ResponseBody
+    String getProjectChooseState(HttpSession session) {
+
+        User user = (User) session.getAttribute("userinfo");
+        //获取当前用户信息
+        String studentID = user.getUserid();
+
+        String res = "";
+
+        try {
+            res = studentGPMService.getProjectChooseState(studentID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("获取课题选择通知失败", e);
+        }
+
+        return res;
+    }
+
+    /**
+     * 任务书签字通知
+     * @return
+     */
+    @RequestMapping("/getTaskbookSignState")
+    public @ResponseBody
+    String getTaskbookSignState(HttpSession session) {
+
+        User user = (User) session.getAttribute("userinfo");
+        //获取当前用户信息
+        String studentID = user.getUserid();
+
+        String res = "";
+
+        try {
+            res = studentGPMService.getTaskbookSignState(studentID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("获取任务书签字通知失败", e);
+        }
+
+        return res;
+    }
+
+    /**
+     * 判断是否填写计划进程表
+     * @return
+     */
+    @RequestMapping("/getProgramTableState")
+    public @ResponseBody
+    String getProgramTableState(HttpSession session) {
+
+        User user = (User) session.getAttribute("userinfo");
+        //获取当前用户信息
+        String studentID = user.getUserid();
+
+        String res = "";
+
+        try {
+            res = studentGPMService.getProgramTableState(studentID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("获取判断是否填写计划进程表通知失败", e);
+        }
+
+        return res;
+    }
+
+
+    /**
+     * 中期检查提示
+     * @return
+     */
+    @RequestMapping("/getMiddleCheckState")
+    public @ResponseBody
+    String getMiddleCheckState(HttpSession session) {
+
+        User user = (User) session.getAttribute("userinfo");
+        //获取当前用户信息
+        String studentID = user.getUserid();
+
+        String res = "";
+
+        try {
+            res = studentGPMService.getMiddleCheckState(studentID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("获取中期检查提示失败", e);
+        }
+
+        return res;
+    }
+
+
+    /**
+     * 毕业答辩提示
+     * @return
+     */
+    @RequestMapping("/getGraduateCheckState")
+    public @ResponseBody
+    String getGraduateCheckState(HttpSession session) {
+
+        User user = (User) session.getAttribute("userinfo");
+        //获取当前用户信息
+        String studentID = user.getUserid();
+
+        String res = "";
+
+        try {
+            res = studentGPMService.getGraduateCheckState(studentID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("获取毕业答辩提示通知失败", e);
+        }
+
+        return res;
+    }
 }

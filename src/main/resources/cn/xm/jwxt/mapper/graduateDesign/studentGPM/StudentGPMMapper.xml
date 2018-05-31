@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.studentGPM.StudentGPMMapper" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.studentGPM.StudentGPMMapper">
 
-  <select id="selectProject_ACInfo" parameterType="map" resultType="map">
-    查询条件：
-    teacherName，titlename，checkStatus，projectType
-
-    select teacherTitleID,titlename,titleOrigin,projectType,reqireStudentNum,year,checkStatus
-    teacherName,majorName
-    from teacherGreDesignTitle t,t_teacher_base_info teacher,t_major_base_info m where t.teacherID=teacher.teacherID and teacher.majorID=m.majorID
-    and teacherName=''
-    and titlename=''
-    and checkStatus=''
-    and projectType=''
-    ;
+    <select id="selectPDInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.StudentPDVo">
+      select t1.teacherTitleID,t1.studentName,t2.titlename,t2.projectType,t2.titleOrigin,t3.teacherName,t4.bookid,t4.isStudentSign
+      from (select teacherTitleID,StudentTitleresultID,studentName from studentTitleResult a1,t_student_base_info a2 where a1.studentID = #{studentID} and a2.studentID = #{studentID}) t1,
+       teacherGreDesignTitle t2,t_teacher_base_info t3,taskBookInfo t4
+       where
+       t1.teacherTitleID = t2.teacherTitleID and t2.teacherID = t3.teacherID and t1.StudentTitleresultID=t4.StudentTitleresultID
   </select>
+
+    <select id="selectProgramTable" parameterType="java.lang.String"
+            resultType="cn.xm.jwxt.bean.graduateDesign.Graduatetaskprogressinfo">
+    select * from graduateTaskProgressInfo where bookid = #{bookid}
+  </select>
+
+
+    <insert id="insertProgramTable" parameterType="cn.xm.jwxt.bean.graduateDesign.Graduatetaskprogressinfo">
+        insert into graduateTaskProgressInfo (progressId, bookid, taskTimeRange,content,editTime,fillStatus)
+        VALUES
+        (
+        #{progressId},#{bookid},#{taskTimeRange},#{content},#{editTime},#{fillStatus}
+        )
+    </insert>
+
+    <update id="updateProgramTable" parameterType="cn.xm.jwxt.bean.graduateDesign.Graduatetaskprogressinfo">
+        update graduateTaskProgressInfo set taskTimeRange = #{taskTimeRange},content = #{content}, editTime = #{editTime}, fillStatus = #{fillStatus}
+        where progressId = #{progressId}
+    </update>
+
+    <select id="selectBookIDByStudentID" parameterType="java.lang.String" resultType="java.lang.String">
+        select bookid from studentTitleResult t1,taskBookInfo t2 where t1.studentID = #{studentID} and t1.StudentTitleresultID = t2.StudentTitleresultID;
+    </select>
+
+    <update id="updateStudentSign">
+        update taskBookInfo set isStudentSign = #{isStudentSign}
+        where StudentTitleresultID  = (select StudentTitleresultID from taskBookInfo where studentID = #{studentID})
+    </update>
 </mapper>

@@ -24,10 +24,87 @@ function fillAssignment() {
     } else if (checkedTr.length > 1) {
         layer.alert('只能选择一条数据！');
     } else {
-        var teacherTitleID = checkedTr.parent().find(".y_id").val();
-        x_admin_show('填写任务书', './assignmentManage-add.jsp?teacherTitleID=' + teacherTitleID);
+        //判断是否已经填写了任务书
+        var fillStatus = checkedTr.parents("tr").find(".fillStatus").attr("value");
+        if (fillStatus == "1") {
+            layer.alert("该学生已经添加任务书！");
+            return false;
+        }
+        
+        var teacherTitleID = checkedTr.parent().find(".y_teacherTitleID").val();
+        var studentID = checkedTr.parent().find(".y_studentID").val();
+        x_admin_show('填写任务书', './assignmentManage-add.jsp?teacherTitleID=' + teacherTitleID + "$studentID="+ studentID);
     }
 }
+
+//修改任务书
+function modifyAssignment() {
+    var checkedTr = $("td").children(".layui-form-checked");
+    if (checkedTr.length == 0) {
+        layer.alert('请选择一条数据！');
+    } else if (checkedTr.length > 1) {
+        layer.alert('只能选择一条数据！');
+    } else {
+        //判断是否已经填写了任务书
+        var fillStatus = checkedTr.parents("tr").find(".checkStatus").attr("value");
+        if (fillStatus == "2") {
+            layer.alert("该条数据已审核不能修改！");
+            return false;
+        } else if (fillStatus == "3") {
+            var teacherTitleID = checkedTr.parent().find(".y_teacherTitleID").val();
+            var studentID = checkedTr.parent().find(".y_studentID").val();
+            x_admin_show('修改任务书', './assignmentManage-modify.jsp?teacherTitleID=' + teacherTitleID + "$studentID="+ studentID);
+        } else {
+            layer.alert("该条数据正在审核中，不能修改！");
+            return false;
+        }
+    }
+}
+
+//系主任审核
+function auditFirst() {
+    var checkedTr = $("td").children(".layui-form-checked");
+    if (checkedTr.length == 0) {
+        layer.alert('请选择一条数据！');
+    } else {
+        var studentIDs = "";
+        checkedTr.each(function () {
+            var checkStatus = $(this).parents("tr").find(".checkStatus").text();
+            if(checkStatus != "待系主任审核") {
+                layer.alert('审核状态只能为，待系主任审核！');
+                return false;
+            }
+            studentIDs = studentIDs + $(this).parent().find(".y_studentID").val() + ",";
+        });
+        if (studentIDs != "") {
+            studentIDs = studentIDs.substring(0, studentIDs.Length - 1);
+            x_admin_show('待系主任审核', './assignmentManage-check.jsp?studentIDs=' + studentIDs)
+        }
+    }
+}
+
+//院长审核
+function auditSecond() {
+    var checkedTr = $("td").children(".layui-form-checked");
+    if (checkedTr.length == 0) {
+        layer.alert('请选择一条数据！');
+    }else if (checkedTr.length > 1) {
+        layer.alert('只能选择一条数据！');
+    } else {
+        var studentID = "";
+
+        var checkStatus = checkedTr.parents("tr").find(".checkStatus").text();
+        if(checkStatus != "待院长审核") {
+            layer.alert('审核状态只能为待院长审核！');
+            return false;
+        } else {
+            studentID = checkedTr.parent().find(".y_studentID").val()
+        }
+
+        x_admin_show('院长审核','./assignmentManage-check.jsp?studentID='+studentID)
+    }
+}
+
 
 $(function () {
     //初始化表格
@@ -38,7 +115,7 @@ $(function () {
 
 function findTaskNoticeBaseInfo() {
     $.ajax({
-        url: contextPath + '/assignmentManage/getProjectInfo.do',
+        url: contextPath + '/assignmentManage/getStudentInfo.do',
         data: $("#y_form").serialize(),
         type: 'POST',
         dataType: 'json',
@@ -61,36 +138,34 @@ function showTaskNoticeBaseInfo(pageInfo) {
             '<tr>' +
             '    <td>' +
             '        <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\\\'2\\\'><i class="layui-icon">&#xe605;</i></div>' +
+            '        <input type="hidden" class="y_teacherTitleID" value="' + baseInfoList[i].teacherTitleID + '"/>   '+
+            '        <input type="hidden" class="y_studentID" value="' + baseInfoList[i].studentID + '"/>   '+
             '    </td>' +
             '    <td>' + baseInfoList[i].studentName + '</td>' +
             '    <td>' + baseInfoList[i].majorName + '</td>' +
             '    <td>' + baseInfoList[i].teacherName + '</td>' +
             '    <td>' + baseInfoList[i].titlename + '</td>';
-        if (baseInfoList[i].isOut == "0") {
-            tr = tr + '<td class="isOut">校内</td>';
-        } else if (baseInfoList[i].isOut == "1") {
-            tr = tr + '<td class="isOut">校外</td>';
-        }
         if (baseInfoList[i].fillStatus == "-1") {
-            tr = tr + '<td class="fillStatus">未填写</td>';
+            tr = tr + '<td class="fillStatus" value="'+baseInfoList[i].fillStatus+'">未填写</td>';
         } else if (baseInfoList[i].fillStatus == "0") {
-            tr = tr + '<td class="fillStatus">未完成</td>';
+            tr = tr + '<td class="fillStatus" value="'+baseInfoList[i].fillStatus+'">未完成</td>';
         } else if (baseInfoList[i].fillStatus == "1") {
-            tr = tr + '<td class="fillStatus">已完成</td>';
-        }
-        if (baseInfoList[i].checkStatus == "-1") {
-            tr = tr + '<td class="fillStatus">未填写</td>';
-        } else if (baseInfoList[i].fillStatus == "0") {
-            tr = tr + '<td class="fillStatus">未完成</td>';
-        } else if (baseInfoList[i].fillStatus == "1") {
-            tr = tr + '<td class="fillStatus">已完成</td>';
+            tr = tr + '<td class="fillStatus" value="'+baseInfoList[i].fillStatus+'">已完成</td>';
         }
 
-        '</td>' +
-        '    <td class="fillStatus" value="' + baseInfoList[i].fillStatus + '"></td>' +
-        '    <td class="checkStatus" value="' + baseInfoList[i].checkStatus + '"></td>' +
+        if (baseInfoList[i].checkStatus == "0") {
+            tr = tr + '<td class="checkStatus" value="'+baseInfoList[i].checkStatus+'">待系主任审核</td>';
+        } else if (baseInfoList[i].checkStatus == "1") {
+            tr = tr + '<td class="checkStatus" value="'+baseInfoList[i].checkStatus+'">待院长审核</td>';
+        } else if (baseInfoList[i].checkStatus == "2") {
+            tr = tr + '<td class="checkStatus" value="'+baseInfoList[i].checkStatus+'">审核通过</td>';
+        } else if (baseInfoList[i].checkStatus == "3") {
+            tr = tr + '<td class="checkStatus" value="'+baseInfoList[i].checkStatus+'">审核不通过</td>';
+        }
+
+        tr = tr +
         '    <td>' +
-        '        <a title="任务书" onclick="x_admin_show(\'任务书\',\'chooseGPStudent-view.jsp?teacherTitleID=\'' + baseInfoList[i].studentID + ')" href="javascript:;">' +
+        '        <a title="任务书" onclick="x_admin_show(\'任务书\',\'chooseGPStudent-view.jsp?studentID=\'' + baseInfoList[i].studentID + ')" href="javascript:;">' +
         '        <i class="layui-icon">&#xe63c;</i></a>' +
         '    </td>' +
         '</tr>';
@@ -130,16 +205,6 @@ function noticeInfoListPage(total, pageNum, pageSize) {
         });
     });
 }
-
-/*学年*/
-layui.use('laydate', function () {
-    var laydate = layui.laydate;
-
-    laydate.render({
-        elem: '#L_pass' //指定元素
-        , type: 'year'
-    });
-})
 
 //点击关闭其他，触发事件
 function closeOther() {

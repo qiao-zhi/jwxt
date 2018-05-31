@@ -4,6 +4,8 @@ $(function () {
     initTitleInfo(teacherTitleID);
 });
 
+////添加审核情况
+
 //初始化课题基本信息
 function initTitleInfo(teacherTitleID) {
     $.ajax({

@@ -28,6 +28,46 @@ public class Taskbookinfo {
 
     private String remark;
 
+    private String gdTitle;
+
+    private String fillStatus;
+
+    private String checkStatus;
+
+    private String isStudentSign;
+
+    public String getGdTitle() {
+        return gdTitle;
+    }
+
+    public void setGdTitle(String gdTitle) {
+        this.gdTitle = gdTitle;
+    }
+
+    public String getFillStatus() {
+        return fillStatus;
+    }
+
+    public void setFillStatus(String fillStatus) {
+        this.fillStatus = fillStatus;
+    }
+
+    public String getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(String checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
+    public String getIsStudentSign() {
+        return isStudentSign;
+    }
+
+    public void setIsStudentSign(String isStudentSign) {
+        this.isStudentSign = isStudentSign;
+    }
+
     public String getBookid() {
         return bookid;
     }

@@ -16,7 +16,7 @@ public interface Project_ACService {
      * @param condition 课题名称、学年、
      * @return
      */
-    List<Map<String,String>> getprojectInfoByCondition(Map<String, String> condition) throws Exception;
+    public List<Map<String,String>> getProjectInfoByCondition(Map<String, String> condition) throws Exception;
 
     /**
      * 添加教研室审核信息

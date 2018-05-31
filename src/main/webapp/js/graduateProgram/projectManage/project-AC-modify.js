@@ -37,7 +37,7 @@ layui.use(['form','layer'], function () {
         layer.confirm("确认提交?提交之后不能更改!!!",function (index) {
             //4.验证通过的话就提交表单，并将隐藏的状态置为已经提交
             $("[name='remark1']").val("提交");//将隐藏的状态设为提交
-            $.post(contextPath+"/projectManage/projectManage.do",
+            $.post(contextPath+"/project_AC/projectManage.do",
                 $("#y_from").serialize(),
                 function (response) {
                     layer.close(index);//关闭当前询问窗口
@@ -62,7 +62,7 @@ function initData() {
     // 学院collegeName
     var teacherTitleID = ""
     $.ajax({
-        url : contextPath+'/projectManage/getAddInfo.do',
+        url : contextPath+'/project_AC/getAddInfo.do',
         data: teacherTitleID,
         type : 'POST',
         dataType : 'json',

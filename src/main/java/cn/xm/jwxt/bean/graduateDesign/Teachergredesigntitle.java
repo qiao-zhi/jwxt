@@ -35,6 +35,16 @@ public class Teachergredesigntitle {
 
     private Date applyTime;
 
+    private String syear;
+
+    public String getSyear() {
+        return syear;
+    }
+
+    public void setSyear(String syear) {
+        this.syear = syear;
+    }
+
     public Date getGdTime() {
         return gdTime;
     }

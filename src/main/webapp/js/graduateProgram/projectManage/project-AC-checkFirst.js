@@ -33,7 +33,7 @@ layui.use(['form', 'layer'], function () {
             var checkTime = $("#L_pass").val();
             //验证通过的话就提交表单
             $.post(
-                contextPath+"/projectManage/addAuditFirst.do",
+                contextPath+"/project_AC/addAuditFirst.do",
                 {"teacherTitleIDs":teacherTitleIDs,"checkResult":checkResult,
                     "checkDesc":checkDesc,"checkTime":checkTime},
                 function (response) {

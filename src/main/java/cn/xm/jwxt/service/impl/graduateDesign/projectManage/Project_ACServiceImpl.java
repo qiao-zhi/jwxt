@@ -36,8 +36,8 @@ public class Project_ACServiceImpl implements Project_ACService {
     private Project_ACMapper project_ACMapper;
 
     @Override
-    public List<Map<String, String>> getprojectInfoByCondition(Map<String, String> condition) throws SQLException{
-        return project_ACMapper.selectProject_ACInfo(condition);
+    public List<Map<String, String>> getProjectInfoByCondition(Map<String, String> condition) throws SQLException{
+        return project_ACMapper.selectProject_ACInfoByCondition(condition);
     }
 
     @Override

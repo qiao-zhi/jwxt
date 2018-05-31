@@ -45,15 +45,16 @@
         <form class="layui-form layui-col-md12 x-so" id="y_formm">
             <input type="text" name="teacherName" placeholder="教师名称" autocomplete="off" class="layui-input">
             <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
-            <input type="text" name="syear" class="layui-input" id="L_pass" placeholder="学年" autocomplete="off">
+            <input type="text" name="syear" class="layui-input" id="syear" placeholder="学年" autocomplete="off">
             <div class="layui-input-inline">
                 <select name="isAllocation">
-                    <option>是否需要添加学生</option>
+                    <option>是否需要分配学生</option>
                     <option>是</option>
                     <option>否</option>
                 </select>
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
     <!--end查询-->
@@ -61,7 +62,8 @@
     <!--操作区域-->
     <xblock>
         <!--这里不判断教师人数是否够-->
-        <button class="layui-btn" onclick="x_admin_show('为学生分配毕设教师','./projectManage-assign.jsp')">为学生分配毕设教师 </button>
+        <button class="layui-btn" onclick="allocateStudent()">分配学生</button>
+        <%--<button class="layui-btn" onclick="x_admin_show('调剂学生','./projectManage-assign.jsp')">调剂学生</button>--%>
         <button class="layui-btn layui-btn-normal" onclick="x_admin_show('导出/发布','./projectManage-output.jsp')">导出/发布</button>
     </xblock>
     <!--end 操作区域-->
@@ -77,29 +79,11 @@
             <th>专业</th>
             <th>所需人数</th>
             <th>确认人数</th>
-            <th>是否需要添加学生</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
-                    &#xe605;</i></div>
-            </td>
-            <td>2014</td>
-            <td>阿萨德发</td>
-            <td>王丽</td>
-            <td>软件工程</td>
-            <td>3</td>
-            <td>3</td>
-            <td>是</td>
-            <td class="td-manage">
-                <a title="详细信息" onclick="x_admin_show('详细信息','projectManage-view.jsp')">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-            </td>
-        </tr>
+
         </tbody>
     </table>
     <!--end 表格内容-->

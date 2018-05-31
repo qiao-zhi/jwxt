@@ -36,7 +36,7 @@ layui.use(['form','layer'], function () {
         layer.confirm("确认提交?提交之后不能更改!!!",function (index) {
             //4.验证通过的话就提交表单，并将隐藏的状态置为已经提交
             $("[name='remark1']").val("提交");//将隐藏的状态设为提交
-            $.post(contextPath+"/projectManage/projectManage.do",
+            $.post(contextPath+"/project_AC/projectManage.do",
                 $("#y_from").serialize(),
                 function (response) {
                     layer.close(index);//关闭当前询问窗口
@@ -50,17 +50,7 @@ layui.use(['form','layer'], function () {
     });
 })
 /***********E              layui相关方法  *******************/
-/*
-function resultType() {
-    var num = 0;
-    $("input[name=resultType]").each(function() {
-        num ++;
-    });
-    if (num == 0 || num == "") {
-        return '必须选择成果形式'
-    }
-}
-*/
+
 
 /**********S 添加培养方案相关JS  *****************/
 
@@ -71,7 +61,7 @@ function initData() {
     //初始化教师信息：teacherID，teacherName，职称positionalTitle，学位degree
     // 学院collegeName
     $.ajax({
-        url : contextPath+'/projectManage/addProjectInfo.do',
+        url : contextPath+'/project_AC/addProjectInfo.do',
         date: teacherTitleID,
         type : 'POST',
         dataType : 'json',
@@ -130,7 +120,7 @@ function saveTrainschemeInfo(){
                 layer.msg(response,{time:2*1000},function () {
                     if("添加成功"==response){
                         //关闭当前tab
-                        closeNowPage();
+                        closePage();
                     }
                 })
             },

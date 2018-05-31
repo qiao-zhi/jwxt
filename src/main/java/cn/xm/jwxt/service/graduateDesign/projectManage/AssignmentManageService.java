@@ -1,7 +1,6 @@
 package cn.xm.jwxt.service.graduateDesign.projectManage;
 
-import cn.xm.jwxt.bean.graduateDesign.StudentInfoVo;
-import cn.xm.jwxt.bean.graduateDesign.Taskbookinfo;
+import cn.xm.jwxt.bean.graduateDesign.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,13 +9,11 @@ import java.util.Map;
 public interface AssignmentManageService {
 
     /**
-     * 查询课题信息
-     *
-     * @param condition 课题名称、学年、
+     * 分页组合条件查询学生基本信息
+     * @param condition
      * @return
      */
-    List<Map<String, String>> getprojectInfoByCondition(Map<String, String> condition) throws SQLException, Exception;
-
+    public List<Map<String,String>> getStudentInfoByCondition(Map<String, String> condition) throws Exception;
 
     /**
      * 根据教师题目id获取学生信息和任务书填写情况。
@@ -27,26 +24,45 @@ public interface AssignmentManageService {
     public StudentInfoVo getStudentInfo(String teacherTitleID) throws Exception;
 
     /**
-     * 获取任务书信息
-     *
+     * 填写对应的任务书时，初始化任务书
+     * @param teacherTitleID
      * @param studentID
      * @return
      */
-    public Taskbookinfo getTaskBookInfo(String studentID) throws Exception;
+    public AssignmentVo getAssignmentInfo(String teacherTitleID, String studentID) throws Exception;
 
     /**
-     * 修改任务书信息
-     *
-     * @param taskbookinfo
+     * 保存任务书
+     * @param assignmentVo
      * @return
      */
-    public Taskbookinfo modifyTaskBookInfo(Taskbookinfo taskbookinfo) throws Exception;
+    public Boolean saveAssignment(AssignmentVo assignmentVo) throws Exception;
 
     /**
-     * 添加任务书信息
-     *
-     * @param taskbookinfo
+     * 修改任务书
+     * @param assignmentVo
      * @return
      */
-    public Taskbookinfo addTaskBookInfo(Taskbookinfo taskbookinfo) throws Exception;
+    public Boolean modifyAssignment(AssignmentVo assignmentVo) throws Exception;
+
+    /**
+     * 获得系主任审核信息
+     * @param bookID
+     * @return
+     */
+    public TaskBooktFirstCheckInfo getAuditFirstInfo(String bookID) throws Exception;
+
+    /**
+     * 院长审核
+     * @param taskBookCheckInfo
+     * @return
+     */
+    public Boolean addAuditSecondInfo(TaskBookSecondCheckInfo taskBookCheckInfo) throws Exception;
+
+    /**
+     * 系主任审核
+     * @param taskBookCheckInfo
+     * @return
+     */
+    public Boolean addAuditFirstInfo(TaskBookSecondCheckInfo taskBookCheckInfo) throws Exception;
 }

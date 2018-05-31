@@ -21,7 +21,7 @@ public interface Project_ACMapper {
      * @return
      * @throws SQLException
      */
-    public List<Map<String, String>> selectProject_ACInfo(Map<String,String> condition) throws SQLException;
+    public List<Map<String, String>> selectProject_ACInfoByCondition(Map<String,String> condition) throws SQLException;
 
     /**
      * 添加教研室审核信息

@@ -16,8 +16,34 @@ layui.use('form', function(){
     });
 });
 
-//初始化表格
-findTaskNoticeBaseInfo();
+
+//审核
+function audit() {
+    var checkedTr = $("td").children(".layui-form-checked");
+    if (checkedTr.length == 0) {
+        layer.alert('请选择审核学生！');
+    } else {
+        var resultIDs = "";
+        checkedTr.each(function () {
+            var auditResult = $(this).parents("tr").find(".auditResult").text();
+            if ($.trim(auditResult) == "审核通过") {
+                layer.alert('所选择的学生中，包含审核通过的学生！审核通过的学生，不能再次审核。');
+                return false;
+            } else {
+                resultIDs = resultIDs + $(this).parent().find(".y_id").val() + ",";
+            }
+        });
+        if (resultIDs != "") {
+            resultIDs = resultIDs.substring(0, resultIDs.Length - 1);
+            x_admin_show('提交资料审核', './file-check.jsp?resultIDs=' + resultIDs);
+        }
+    }
+}
+
+$(function () {
+    //初始化表格
+    findTaskNoticeBaseInfo();
+})
 
 function findTaskNoticeBaseInfo(){
     $.ajax({
@@ -41,16 +67,20 @@ function showTaskNoticeBaseInfo(pageInfo){
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr =
-            '<tr><td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>' +
+            '<tr>' +
+            '<td>' +
+            '<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>' +
             '<i class="layui-icon">&#xe605;</i></div>' +
-            '<input type="hidden" value="${pageInfo.StudentTitleresultID}" value="'+ baseInfoList[i].StudentTitleresultID + '"></td>' +
+            '<input type="hidden" class="y_id" value="'+ baseInfoList[i].StudentTitleresultID + '">' +
+            '</td>' +
             '<td>'+ baseInfoList[i].studentName +'</td>' +
             '<td>'+ baseInfoList[i].studentNum +'</td>' +
             '<td>'+ baseInfoList[i].className +'</td>' +
             '<td>'+ baseInfoList[i].gdTitle +'</td>' +
             '<td>'+ baseInfoList[i].teacherName +'</td>' +
-            '<td>'+ baseInfoList[i].auditResult +'</td>' +
+            '<td class="auditResult">'+ baseInfoList[i].auditResult +'</td>' +
             '<td>'+ baseInfoList[i].auditContent +'</td>' +
+            '<td>'+ baseInfoList[i].auditTime +'</td>' +
             '</tr>';
         $("tbody").append(tr);
     }

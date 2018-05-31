@@ -1,13 +1,3 @@
-/**
- * Copyright (C), 2015-2018, XXX有限公司
- * FileName: CenCheckBaseInfoController
- * Author:   xuexiaolei
- * Date:     2018/4/20 21:27
- * Description: 中期检查基本信息表控制层
- * History:
- * <author>          <time>          <version>          <desc>
- * 作者姓名           修改时间           版本号              描述
- */
 package cn.xm.jwxt.controller.graduateDesign.projectManage;
 
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
@@ -29,14 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
-/**
- *
- * @author xuexiaolei
- * @create 2018/4/20
- * @since 1.0.0
- */
+
 @Controller
-@RequestMapping("projectManage")
+@RequestMapping("project_AC")
 public class Project_ACController {
 
     //log4j日志打印
@@ -170,7 +155,7 @@ public class Project_ACController {
     }
 
     /**
-     * 分页组合条件查询课题添加基本信息
+     * 分页组合条件查询课题基本信息,初始化表格
      * @param condition 组合条件
      * @return  查询到的数据
      */
@@ -189,10 +174,10 @@ public class Project_ACController {
         //上面pagehelper的设置对此查询有效，查到数据总共8条
         List<Map<String, String>> projectInfo = null;
         try {
-            projectInfo = project_ACService.getprojectInfoByCondition(condition);
+            projectInfo = project_ACService.getProjectInfoByCondition(condition);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("分页查询答辩秘书审核信息失败",e);
+            logger.error("分页组合条件查询课题基本信息,初始化表格失败",e);
         }
         PageInfo<Map<String,String>> pageInfo = new PageInfo<Map<String,String>>(projectInfo);
         return pageInfo;

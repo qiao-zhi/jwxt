@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>文件管理</title>
+    <title>毕设资料提交审核</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -43,7 +43,6 @@
             <input type="text" name="studentNum" placeholder="学号" autocomplete="off" class="layui-input">
             <input type="text" name="studentName" placeholder="学生名称" autocomplete="off" class="layui-input">
             <input type="text" name="teacherName" placeholder="指导教师" autocomplete="off" class="layui-input">
-            <input type="text" name="gdTitle" placeholder="毕设题目" autocomplete="off" class="layui-input">
             <div class="layui-input-inline"><%--默认显示审核不通过的内容--%>
                 <select name="auditResult">
                     <option value="-1">未审核</option>
@@ -60,8 +59,7 @@
     <!--操作区域-->
     <xblock>
         <!--审核通过，标注，已提交。否则，返回报送，到学生界面-->
-        <button class="layui-btn" onclick="x_admin_show('审核','./file-check.jsp')">审核 </button>
-        <button class="layui-btn" onclick="x_admin_show('上传模板','./file-upload.jsp')">上传模板 </button>
+        <button class="layui-btn" onclick="audit()">提交资料审核 </button>
     </xblock>
     <!--end 操作区域-->
 
@@ -69,7 +67,11 @@
     <table class="layui-table">
         <thead>
         <tr>
-            <th>选择</th>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                    &#xe605;</i>
+                </div>
+            </th>
             <th>学生</th>
             <th>学号</th>
             <th>班级</th>
@@ -77,9 +79,42 @@
             <th>指导教师</th>
             <th>审核结果</th>
             <th>审核意见</th>
+            <th>审核时间</th>
         </tr>
         </thead>
         <tbody>
+            <tr>
+                <td>
+                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>
+                        <i class="layui-icon">&#xe605;</i></div>
+                </td>
+                <td class="auditResult">审核通过</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>
+                        <i class="layui-icon">&#xe605;</i></div>
+                </td>
+                <td class="auditResult">审核不通过</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>
+                        <i class="layui-icon">&#xe605;</i></div>
+                </td>
+                <td class="auditResult">审核不通过</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>
+                        <i class="layui-icon">&#xe605;</i></div>
+                </td>
+                <td class="auditResult">审核不通过</td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
     <!--end 表格内容-->

@@ -2,6 +2,7 @@ package cn.xm.jwxt.controller.graduateDesign.fileManage;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
+import cn.xm.jwxt.bean.graduateDesign.GdFileCheck;
 import cn.xm.jwxt.service.graduateDesign.fileManage.GDFileManageService;
 import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.ValidateCheck;
@@ -31,7 +32,7 @@ public class GDFileManageController {
     private GDFileManageService gDFileManageService;
 
     /**
-     * 分页组合条件查询学生信息
+     * 分页组合条件查询审核学生信息
      * @param condition 组合条件
      * @return  查询到的数据
      */
@@ -53,10 +54,27 @@ public class GDFileManageController {
             fileCheckInfo = gDFileManageService.getFileCheckInfoByCondition(condition);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("分页查询答辩秘书审核信息失败",e);
+            logger.error("分页查询审核学生信息失败",e);
         }
         PageInfo<Map<String,String>> pageInfo = new PageInfo<Map<String,String>>(fileCheckInfo);
         return pageInfo;
     }
 
+    /**
+     * 文件提交审核
+     * @param gdFileCheck
+     * @return
+     */
+    @RequestMapping("/addAuditInfo")
+    public @ResponseBody String addAuditInfo(GdFileCheck gdFileCheck){
+        boolean res = false;
+        try {
+            res = gDFileManageService.addAuditInfo(gdFileCheck);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("分页查询答辩秘书审核信息失败",e);
+        }
+
+        return res ? "审核成功" : "审核失败";
+    }
 }

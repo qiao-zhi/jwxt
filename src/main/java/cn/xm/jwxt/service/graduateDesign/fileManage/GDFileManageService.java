@@ -1,5 +1,8 @@
 package cn.xm.jwxt.service.graduateDesign.fileManage;
 
+import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
+import cn.xm.jwxt.bean.graduateDesign.GdFileCheck;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +12,17 @@ import java.util.Map;
  */
 public interface GDFileManageService {
     /**
-     * 获取毕设文件上传管理的基本信息
+     * 获取审核学生信息
      * @param condition
      * @return
      */
-    public List<Map<String, String>> getFileCheckInfoByCondition(Map<String,String> condition) throws SQLException;
+    public List<Map<String, String>> getFileCheckInfoByCondition(Map<String,String> condition) throws Exception;
+
+    /**
+     * 文件提交审核
+     * @param gdFileChecks
+     * @return
+     * @throws Exception
+     */
+    public boolean addAuditInfo(GdFileCheck gdFileChecks) throws Exception;
 }

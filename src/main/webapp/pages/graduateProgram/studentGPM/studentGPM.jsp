@@ -15,7 +15,7 @@
     <%@include file="/tag.jsp"%>
     <%@ include file="/cssJs.jsp"%>
 
-    <script src="${baseurl}/js/graduateProgram/fileManage/studentGPM.js"></script>
+    <script src="${baseurl}/js/graduateProgram/studentGPM/studentGPM.js"></script>
 </head>
 
 <body>
@@ -45,39 +45,15 @@
     <!--操作区域-->
     <xblock>
         <!--任务书签字后，可以查看。查看的话，没有提交按钮-->
-        <button class="layui-btn" onclick="x_admin_show('计划进程表','fillProgramTable.jsp')">计划进程表 </button>
-        <button class="layui-btn" onclick="x_admin_show('任务书','./searchAssignment.jsp')">任务书 </button>
+        <button class="layui-btn" id="y_programTable" onclick="x_admin_show('填写计划进程表','fillProgramTable.jsp')">填写计划进程表 </button>
+        <button class="layui-btn" id="y_assignment" onclick="x_admin_show('任务书签字','./searchAssignment.jsp')">任务书签字 </button>
         <button class="layui-btn" onclick="x_admin_show('相关文件管理','./uploadFile.jsp')">相关文件管理 </button>
         <button class="layui-btn" onclick="x_admin_show('通知','./infoNotice.jsp')">通知<span class="layui-badge-dot"></span> </button>
     </xblock>
     <!--end 操作区域-->
 
     <!--毕设信息-->
-    <table class="layui-table">
-        <thead>
-        <tr>
-            <th>课题名称</th>
-            <th>指导教师</th>
-            <th>学生姓名</th>
-            <th>任务下发时间</th>
-            <th>任务完成时间</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>阿斯蒂芬</td>
-            <td>w王敏</td>
-            <td>liy</td>
-            <td>2017-12-13</td>
-            <td>2017-15-13</td>
-            <td class="td-manage">
-                <a title="详细信息" onclick="x_admin_show('详细信息','studentGPM-view.jsp')">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-            </td>
-        </tr>
-        </tbody>
+    <table class="layui-table" id="y_table">
     </table>
     <!--end 表格内容-->
 

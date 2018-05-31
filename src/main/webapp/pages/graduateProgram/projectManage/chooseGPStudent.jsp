@@ -45,7 +45,7 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_form">
-            <input type="hidden" name="teacherID" value="${user.teacherID}+">
+            <input type="hidden" name="teacherID" value="${user.teacherID}">
             <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
             <div class="layui-input-inline">
                 <!--通过判断是否被老师确认  判断学生选题最终结果表中的信息是否有该学生的id信息-->
@@ -56,6 +56,7 @@
                 </select>
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
     <!--end查询-->

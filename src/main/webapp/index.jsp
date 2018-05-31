@@ -161,6 +161,11 @@
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
+                    <li>
+                        <a _href="pages/graduateProgram/graduateManage/graduateManage.jsp">
+                            <cite>毕设基本信息管理</cite>
+                        </a>
+                    </li>
                     <!--审核通过后，学生选择课题
                         可以选择  可以查看选择情况  可以调剂-->
                     <li>
@@ -278,7 +283,7 @@
                     <!-- 文件审核管理-->
                     <li>
                         <a _href="pages/graduateProgram/fileManage/fileManage.jsp">
-                            <cite>文件管理</cite>
+                            <cite>毕设资料提交审核</cite>
                             <!-- 文件管理，答辩秘书负责，答辩秘书负责上传文件模板，负责审核学生提交的文件 -->
                         </a>
                     </li>

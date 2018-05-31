@@ -16,12 +16,45 @@ layui.use('form', function(){
     });
 });
 
-//初始化表格
-findTaskNoticeBaseInfo();
+//分配学生
+function allocateStudent() {
+    var checkedTr = $("td").children(".layui-form-checked");
+    if (checkedTr.length == 0) {
+        layer.alert('请选择一条数据！');
+    }else if (checkedTr.length > 1) {
+        layer.alert('只能选择一条数据！');
+    } else {
+        //判断该课题是否需要添加学生
+        var reqireStudentNum = $(this).parents("tr").find(".reqireStudentNum").text();
+        var applyStudentNum = $(this).parents("tr").find(".applyStudentNum").text();
 
+        if(reqireStudentNum <= applyStudentNum) {
+            layer.alert('人数已经符合需要人数，无需分配！');
+            return false;
+        }
+        //获取课题id，指导教师，课题题目，需要人数，确认人数
+        var tr = $(this).parent();
+        var teacherTitleID =  tr.find(".y_id").val();
+        var teacherName = tr.find(".teacherName").text();
+        var titlename = tr.find(".titlename").text();
+        x_admin_show('分配学生','./projectManage-assign.jsp?'+
+            'teacherTitleID='+teacherTitleID +
+            '&teacherName='+teacherName +
+            '&titlename='+titlename +
+            '&reqireStudentNum='+reqireStudentNum +
+            '&applyStudentNum='+applyStudentNum
+        );
+    }
+}
+
+$(function () {
+    //初始化表格
+    findTaskNoticeBaseInfo();
+});
+//初始化表格
 function findTaskNoticeBaseInfo(){
     $.ajax({
-        url : contextPath+'/projectManage/getProject_ACInfo.do',
+        url : contextPath+'/projectManage/getProjectInfo.do',
         data : $("#y_form").serialize(),
         type : 'POST',
         dataType : 'json',
@@ -41,26 +74,25 @@ function showTaskNoticeBaseInfo(pageInfo){
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr =
-            '<tr><td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>' +
-            '<i class="layui-icon">&#xe605;</i></div>' +
-            '<input type="hidden" value="${pageInfo.StudentTitleresultID}" value="'+ baseInfoList[i].teacherTitleID + '"></td>' +
-            '<td>'+ baseInfoList[i].teacherName +'</td>' +
-            '<td>'+ baseInfoList[i].titlename +'</td>' +
-            '<td>'+ baseInfoList[i].titleOrigin +'</td>' +
-            '<td>'+ baseInfoList[i].projectType +'</td>' +
-            '<td>'+ baseInfoList[i].major +'</td>' +
-            '<td>'+ baseInfoList[i].reqireStudentNum +'</td>' +
-            '<td>'+ baseInfoList[i].year +'</td>' +
-            '<td>'+ baseInfoList[i].checkStatus +'</td>' +
-            '<td class="td-manage">'+
-                '<a title="详细信息" onclick="x_admin_show(\'详细信息\',\'project-AC-view.jsp\')" href="javascript:;">'+
-                '<i class="layui-icon">&#xe63c;</i></a>'+
-                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',\'project-AC-modify.jsp\')" href="javascript:;">'+
-                '<i class="layui-icon">&#xe642;</i></a>'+
-                '<a title="删除" onclick="member_del(this,\'要删除的id\')" href="javascript:;">'+
-                '<i class="layui-icon">&#xe640;</i></a>'+
-            '</td>'+
+          ' <tr>' +
+            '<td>' +
+            '    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'><i class="layui-icon">' +
+            '        &#xe605;</i></div>' +
+            '<input type="hidden" class="y_id" value="'+ baseInfoList[i].teacherTitleID +'"/>' +
+            '</td>' +
+            '<td>'+ baseInfoList[i].syear +'</td>' +
+            '<td class="titlename">'+ baseInfoList[i].titlename +'</td>' +
+            '<td class="teacherName">'+ baseInfoList[i].teacherName +'</td>' +
+            '<td>'+ baseInfoList[i].majorName +'</td>' +
+            '<td class="reqireStudentNum">'+ baseInfoList[i].reqireStudentNum +'</td>' +
+            '<td class="applyStudentNum">'+ baseInfoList[i].applyStudentNum +'</td>' +
+            '<td class="td-manage">' +
+            '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'projectManage-view.jsp?teacherTitleID\'+ baseInfoList[i].teacherTitleID+ \'))">' +
+            '        <i class="layui-icon">&#xe63c;</i>' +
+            '    </a>' +
+            '</td>' +
             '</tr>';
+            
         $("tbody").append(tr);
     }
 
@@ -101,21 +133,15 @@ function noticeInfoListPage(total,pageNum,pageSize){
 layui.use('laydate', function () {
     var laydate = layui.laydate;
 
+    var date = new Date();
+    var year = date.getFullYear();
+
     laydate.render({
-        elem: '#L_pass' //指定元素
+        elem: '#syear' //指定元素
         ,type: 'year'
+        ,value:year
     });
 })
-
-/*用户-删除*/
-function member_del(obj, id) {
-    layer.confirm('确认要删除吗？', function (index) {
-        //发异步删除数据
-        $(obj).parents("tr").remove();
-        layer.msg('已删除!', {icon: 1, time: 1000});
-    });
-}
-
 
 //点击关闭其他，触发事件
 function closeOther() {

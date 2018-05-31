@@ -19,8 +19,6 @@
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -86,6 +84,7 @@
                 </select>
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
     <!--end查询-->
@@ -93,10 +92,9 @@
     <!--操作区域-->
     <xblock>
         <button class="layui-btn" onclick="fillAssignment()">添加任务书 </button>
-        <button class="layui-btn" onclick="fillAssignment()">修改任务书 </button>
-        <button class="layui-btn" onclick="fillAssignment()">系主任任务书审核 </button>
-        <button class="layui-btn" onclick="fillAssignment()">主管院长任务书审核 </button>
-        <button class="layui-btn" onclick="fillAssignment()">校外任务书审核 </button>
+        <button class="layui-btn" onclick="modifyAssignment()">修改任务书 </button>
+        <button class="layui-btn" onclick="auditFirst()">系主任任务书审核 </button>
+        <button class="layui-btn" onclick="auditSecond()">主管院长任务书审核 </button>
         <button class="layui-btn">上传考勤表 </button>
     </xblock>
     <!--end 操作区域-->
@@ -114,7 +112,6 @@
             <th>专业</th>
             <th>指导教师</th>
             <th>课题名称</th>
-            <th>毕设类型</th>
             <th>任务书填写状态</th>
             <th>审核状态</th>
             <th>操作</th>
@@ -129,7 +126,6 @@
                 <td>专业</td>
                 <td>指导教师</td>
                 <td>课题名称</td>
-                <td>校外</td>
                 <td class="fillStatus" value="-1">未完成</td>
                 <td>待审核</td>
                 <td>

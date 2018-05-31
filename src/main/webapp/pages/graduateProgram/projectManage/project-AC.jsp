@@ -19,8 +19,6 @@
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -56,29 +54,21 @@
                     <option value="3">审核不通过</option>
                 </select>
             </div>
-            <div class="layui-input-inline">
-                <select name="projectType">
-                    <option value="">选择课题类型</option>
-                    <option value="纵向科研课题">纵向科研课题</option>
-                    <option value="横向科研课题">横向科研课题</option>
-                    <option value="教师预研课题">教师预研课题</option>
-                    <option value="自选课题">自选课题</option>
-                </select>
-            </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
     <!--end查询-->
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('填写课题申请表', './project-AC-Apply.jsp')">填写课题申请表 </button>
-        <%--<c:if test="${user.audit1 == 'jiaoyanshi' }">--%>
+        <button class="layui-btn" onclick="addProject()">填写课题申请表 </button>
+        <c:if test="${userinfo.usersort == '教研室' }">
             <button class="layui-btn" onclick="auditFirst()">教研室审核 </button>
-        <%--</c:if>--%>
-        <%--<c:if test="${user.audit1 == 'jiaoyanshi' }">--%>
+        </c:if>
+        <c:if test="${user.usersort == '院长' }">
             <button class="layui-btn" onclick="auditSecond()">院长审核 </button>
-        <%--</c:if>--%>
+        </c:if>
         <button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>
     </xblock>
     <!--end 操作区域-->
@@ -93,14 +83,14 @@
                 </div>
                 <input type="hidden" class="teacherTitleID" value="">
             </th>
+            <th>学年</th>
+            <th>学期</th>
             <th>教师名称</th>
             <th>课题名称</th>
             <th>课题来源</th>
-            <th>课题类型</th>
             <th>学生专业</th>
             <th>需要人数</th>
-            <th>学期</th>
-            <th>审核状态</th><!--通过教研室，通过院长-->
+            <th>审核状态</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -116,11 +106,11 @@
             <td class="td-manage">
                 <a title="详细信息" onclick="x_admin_show('详细信息','project-AC-view.jsp')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i></a>
-                <a title="修改课题申请" onclick="x_admin_show('修改课题申请','project-AC-modify.jsp')" href="javascript:;">
+                <a title="修改课题申请" onclick="x_admin_show('修改课题申请','graduateManage-modify.jsp')" href="javascript:;">
                     <i class="layui-icon">&#xe642;</i></a>
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i></a>
-                </td>'
+                </td>
         </tr>
         <tr>
             <td>
@@ -133,11 +123,11 @@
             <td class="td-manage">
                 <a title="详细信息" onclick="x_admin_show('详细信息','project-AC-view.jsp')" href="javascript:;">
                     <i class="layui-icon">&#xe63c;</i></a>
-                <a title="修改课题申请" onclick="x_admin_show('修改课题申请','project-AC-modify.jsp')" href="javascript:;">
+                <a title="修改课题申请" onclick="x_admin_show('修改课题申请','graduateManage-modify.jsp')" href="javascript:;">
                     <i class="layui-icon">&#xe642;</i></a>
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i></a>
-            </td>'
+            </td>
         </tr>
         </tbody>
     </table>

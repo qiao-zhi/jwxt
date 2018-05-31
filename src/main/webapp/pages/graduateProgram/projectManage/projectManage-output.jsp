@@ -16,14 +16,11 @@
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
 <!--主体-->
 <div class="x-body">
     <!--操作区域-->
     <xblock>
         <button class="layui-btn layui-btn-normal" onclick="">导出</button>
-        <button class="layui-btn" onclick="">发布</button>
     </xblock>
     <!--end 操作区域-->
 

@@ -8,7 +8,7 @@ import java.util.Date;
 public class Graduatetaskprogressinfo {
     private Integer progressid;
 
-    private Integer bookid;
+    private String bookid;
 
     private String tasktimerange;
 
@@ -20,20 +20,30 @@ public class Graduatetaskprogressinfo {
 
     private String remark;
 
+    private String fillStatus;
+
+    public String getFillStatus() {
+        return fillStatus;
+    }
+
+    public void setFillStatus(String fillStatus) {
+        this.fillStatus = fillStatus;
+    }
+
+    public String getBookid() {
+        return bookid;
+    }
+
+    public void setBookid(String bookid) {
+        this.bookid = bookid;
+    }
+
     public Integer getProgressid() {
         return progressid;
     }
 
     public void setProgressid(Integer progressid) {
         this.progressid = progressid;
-    }
-
-    public Integer getBookid() {
-        return bookid;
-    }
-
-    public void setBookid(Integer bookid) {
-        this.bookid = bookid;
     }
 
     public String getTasktimerange() {

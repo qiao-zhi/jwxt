@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper" >
 
-  <select id="selectProject_ACInfo" parameterType="map" resultType="map">
+  <select id="selectProject_ACInfoByCondition" parameterType="map" resultType="map">
     查询条件：
-    teacherName，titlename，checkStatus，projectType
+    teacherName，titlename，checkStatus，projectType，用户的教师id（只能看自己发布的课题）    课题发布时间为今年或者去年
+    查询结果：yearNum，semesterNum，teacherTitleID，teacherName，titleOrigin，projectType，major，reqireStudentNum，checkStatus，
+      学年，学期，教师名称，课题名称，课题来源，课题类型，学生专业，需要人数，学期，审核状态
 
     select teacherTitleID,titlename,titleOrigin,projectType,reqireStudentNum,year,checkStatus
     teacherName,majorName
@@ -14,7 +16,65 @@
     and checkStatus=''
     and projectType=''
     ;
+    /*未审核*/
+    <if test="auditResult == '-1'">
+      select StudentTitleresultID,studentName,studentNum,className,gdTitle,teacherName
+      from
+      teacherGreDesignTitle t,t_teacher_base_info teacher,taskBookInfo b,
+      (
+      select studentID,studentName,className,StudentTitleresultID,teacherTitleID from t_student_base_info
+      s,t_class_base_info class,studentTitleResult r
+      where s.classID = class.classID and s.studentID = r.studentID
+      <if test="studentName != null and studentName != ''">
+        and course.studentName like '%${studentName}%'
+      </if>
+      <if test="studentNum != null and studentNum != ''">
+        and type.studentNum like '${studentNum}%'
+      </if>
+      ) son
+      where
+      t.teacherTitleID=son.teacherTitleID and t.teacherID = teacher.teacherID
+      and b.StudentTitleresultID = son.StudentTitleresultID and fc.StudentTitleresultID = son.StudentTitleresultID
+      <if test="teacherName != null and teacherName != ''">
+        and teacher.teacherName = #{teacherName}
+      </if>
+    </if>
+
+    /*已审核*/
+    <if test="auditResult != '-1'">
+      select StudentTitleresultID,studentName,studentNum,className,gdTitle,teacherName,auditResult,auditContent,auditTime
+      from
+      teacherGreDesignTitle t,t_teacher_base_info teacher,taskBookInfo b,gdFileCheck fc,
+      (
+      select studentID,studentName,className,StudentTitleresultID,teacherTitleID from t_student_base_info
+      s,t_class_base_info class,studentTitleResult r
+      where s.classID = class.classID and s.studentID = r.studentID
+      <if test="studentName != null and studentName != ''">
+        and course.studentName like '%${studentName}%'
+      </if>
+      <if test="studentNum != null and studentNum != ''">
+        and type.studentNum like '${studentNum}%'
+      </if>
+      <![CDATA[
+           and enrollmentTime >= to_date(#{enrollmenttimeMin,jdbcType=DATE},'yyyy-MM-dd')
+           and enrollmentTime <= to_date(#{enrollmenttimeMax,jdbcType=DATE},'yyyy-MM-dd')
+          ]]>
+      ) son
+      where
+      t.teacherTitleID=son.teacherTitleID and t.teacherID = teacher.teacherID
+      and b.StudentTitleresultID = son.StudentTitleresultID and fc.StudentTitleresultID = son.StudentTitleresultID
+      <if test="teacherName != null and teacherName != ''">
+        and teacher.teacherName = #{teacherName}
+      </if>
+      <if test="auditResult != null and auditResult != ''">
+        and fc.auditResult = #{auditResult}
+      </if>
+    </if>
+
+
   </select>
+
+
 
   <select id="selectGreDesignTitleInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
     select * from teacherGreDesignTitle where teacherTitleID = #{teacherTitleID}

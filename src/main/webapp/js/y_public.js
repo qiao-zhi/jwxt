@@ -10,3 +10,23 @@ function closePage(){
     var index = parent.layer.getFrameIndex(window.name);
     parent.layer.close(index);
 }
+
+//初始化学年下拉框
+function initYearNum() {
+    $.ajax({
+        url: contextPath + "graduateManage/getYearNum.do",
+        type:"POST",
+        dataType:"json",
+        success :function (data) {
+            $("#y_yearNum").html("");
+
+            var yearOptions = "";
+            for (var i = 0; i < data.length; i ++) {
+                yearOptions = yearOptions + '<option value="' + data[i].yearNum + '">' + data[i].year + '</option>';
+            }
+
+            $("#y_yearNum").append('<option value="">学年</option>'+ yearOptions);
+        }
+
+    })
+}

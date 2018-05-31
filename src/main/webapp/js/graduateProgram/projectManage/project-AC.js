@@ -16,6 +16,21 @@ layui.use('form', function(){
     });
 });
 
+//添加课题
+function addProject() {
+    //判断当前时间是否在添加课题的范围内
+    //上一年10月份，下年4月份
+    var d = new Date();
+    var month = d.getMonth() + 1;
+
+    if (10 > month >= 4) {
+        layer.alert("添加课题的时间为：大四上学期开学10月份开始 -- 大四下学期3月底结束");
+        return false;
+    }
+
+    x_admin_show('填写课题申请表', './project-AC-Apply.jsp')
+}
+
 //教研室审核
 function auditFirst() {
     var checkedTr = $("td").children(".layui-form-checked");
@@ -31,8 +46,10 @@ function auditFirst() {
             }
             teacherTitleIDs = teacherTitleIDs + $(this).parent().find(".y_id").val() + ",";
         });
-        teacherTitleIDs = teacherTitleIDs.substring(0,teacherTitleIDs.Length-1);
-        x_admin_show('教研室审核','./project-AC-checkFirst.jsp?teacherTitleIDs='+teacherTitleIDs)
+        if (teacherTitleIDs != "") {
+            teacherTitleIDs = teacherTitleIDs.substring(0, teacherTitleIDs.Length - 1);
+            x_admin_show('教研室审核', './graduateManage-add.jsp?teacherTitleIDs=' + teacherTitleIDs)
+        }
     }
 }
 
@@ -64,7 +81,7 @@ $(function () {
 
 function findTaskNoticeBaseInfo(){
     $.ajax({
-        url : contextPath+'/projectManage/getProject_ACInfo.do',
+        url : contextPath+'/project_AC/getProject_ACInfo.do',
         data : $("#y_form").serialize(),
         type : 'POST',
         dataType : 'json',
@@ -86,20 +103,19 @@ function showTaskNoticeBaseInfo(pageInfo){
         var tr =
             '<tr><td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>' +
             '<i class="layui-icon">&#xe605;</i></div>' +
-            '<input type="hidden" class="y_id" value="'+ baseInfoList[i].StudentTitleresultID + '"></td>' +
+            '<input type="hidden" class="y_id" value="'+ baseInfoList[i].teacherTitleID + '"></td>' +
             '<td>'+ baseInfoList[i].teacherName +'</td>' +
             '<td>'+ baseInfoList[i].titlename +'</td>' +
             '<td>'+ baseInfoList[i].titleOrigin +'</td>' +
             '<td>'+ baseInfoList[i].projectType +'</td>' +
             '<td>'+ baseInfoList[i].major +'</td>' +
             '<td>'+ baseInfoList[i].reqireStudentNum +'</td>' +
-            '<td>'+ baseInfoList[i].year +'</td>' +
             '<td class="y_auditStatus">'+ getAuditStatusName(baseInfoList[i].checkStatus) +'</td>' +
             '<td class="td-manage">'+
                 '<a title="详细信息" onclick="x_admin_show(\'详细信息\',\'project-AC-view.jsp?teacherTitleID=\'+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
                 '<i class="layui-icon">&#xe63c;</i></a>'+
                 /*修改完后，审核状态至为0*/
-                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',\'project-AC-modify.jsp?teacherTitleID=\'+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
+                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',grgraduateManage-modify.jspsp+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
                 '<i class="layui-icon">&#xe642;</i></a>'+
                 '<a title="删除" onclick="member_del(this,baseInfoList[i].teacherTitleID)" href="javascript:;">'+
                 '<i class="layui-icon">&#xe640;</i></a>'+

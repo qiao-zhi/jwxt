@@ -49,6 +49,7 @@
             <input type="text" name="teacherName" placeholder="教师名称" autocomplete="off" class="layui-input">
             <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
     <!--end查询-->
