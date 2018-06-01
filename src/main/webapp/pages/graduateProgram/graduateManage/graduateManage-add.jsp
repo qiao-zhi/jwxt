@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>毕设课题-教研室审核</title>
+    <title>添加毕设基本信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -14,48 +14,44 @@
     <%@include file="/tag.jsp"%>
     <%@ include file="/cssJs.jsp"%>
 
-    <script src="${baseurl}/js/graduateProgram/projectManage/project-AC-checkFirst.js"></script>
+    <script src="${baseurl}/js/graduateProgram/graduateManage/graduateManage-add.js"></script>
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
 <div class="x-body">
-    <form class="layui-form">
+    <form class="layui-form" id="y_form">
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                审核结果
+                毕设名称
             </label>
             <div class="layui-input-inline">
-                <input type="radio" name="checkResult" value="同意" lay-skin="primary" title="同意" checked>
-                <input type="radio" name="checkResult" value="不同意" lay-skin="primary" title="不同意">
+                <input type="text" class="layui-input" name="graduatedesignname" lay-verify="required">
             </div>
         </div>
 
-        <!--2-->
         <div class="layui-form-item">
             <label class="layui-form-label">
-                审核意见
+                专业
             </label>
             <div class="layui-input-inline">
-                <textarea id="checkDesc" placeholder="请填写审核意见" name="checkDesc" class="layui-textarea" lay-verify="required"></textarea>
+                <select name="majorid" id="y_major" lay-verify="required">
+                </select>
             </div>
         </div>
 
-        <!--2-->
         <div class="layui-form-item">
-            <label class="layui-form-label" for="checkDesc">
-                审核时间
+            <label class="layui-form-label">
+                毕设简介
             </label>
             <div class="layui-input-inline">
-                <input type="text"class="layui-input" id="L_pass" name="checkTime" lay-verify="required">
+                <textarea placeholder="请填写毕设简介" name="graduatedesc" class="layui-textarea" lay-verify="required"></textarea>
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
-            <button class="layui-btn" lay-submit="" lay-filter="add">提交</button>
+            <button class="layui-btn" lay-submit="" lay-filter="add">添加</button>
         </div>
     </form>
 </div>

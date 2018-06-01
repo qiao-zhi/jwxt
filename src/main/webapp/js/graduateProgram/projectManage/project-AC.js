@@ -4,9 +4,6 @@ layui.use('form', function(){
 
     //监听提交
     form.on('submit(sreach)', function(data){
-        layer.alert(JSON.stringify(data.field), {
-            title: '最终的提交信息'
-        });
         //清空当前页和页号
         $("input[name='pageSize']").val('');
         $("input[name='currentPage']").val('');
@@ -16,19 +13,34 @@ layui.use('form', function(){
     });
 });
 
+//判断是否有本学期的毕业设计基本信息
+function getGraDesignID() {
+    $.ajax({
+        url : contextPath+'/project_AC/getGraDesignID.do',
+        data : $("#y_form").serialize(),
+        type : 'POST',
+        dataType : 'json',
+        success : function (data) {
+            if (data == "") {
+                return false;
+            } else {
+                return data.graDesignID
+            }
+        }
+    })
+}
+
 //添加课题
 function addProject() {
-    //判断当前时间是否在添加课题的范围内
-    //上一年10月份，下年4月份
-    var d = new Date();
-    var month = d.getMonth() + 1;
-
-    if (10 > month >= 4) {
-        layer.alert("添加课题的时间为：大四上学期开学10月份开始 -- 大四下学期3月底结束");
+    //添加课题之前，判断是否有添加毕设基本信息
+    if (!getGraDesignID()) {
+        layer.alert("本学期没有毕设任务，请等待下发毕设任务！");
         return false;
     }
+    //毕设基本信息编号
+    var graDesignID = getGraDesignID();
 
-    x_admin_show('填写课题申请表', './project-AC-Apply.jsp')
+    x_admin_show('填写课题申请表', './project-AC-Apply.jsp?graDesignID=' + graDesignID)
 }
 
 //教研室审核
@@ -76,6 +88,9 @@ function auditSecond() {
 }
 
 $(function () {
+    //初始化查询学年
+    initYearNum();
+
     findTaskNoticeBaseInfo();//初始化表格
 });
 
@@ -85,7 +100,6 @@ function findTaskNoticeBaseInfo(){
         data : $("#y_form").serialize(),
         type : 'POST',
         dataType : 'json',
-        async:true,
         success : showTaskNoticeBaseInfo
     });
 }
@@ -104,6 +118,8 @@ function showTaskNoticeBaseInfo(pageInfo){
             '<tr><td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>' +
             '<i class="layui-icon">&#xe605;</i></div>' +
             '<input type="hidden" class="y_id" value="'+ baseInfoList[i].teacherTitleID + '"></td>' +
+            '<td>'+ baseInfoList[i].yearnum +'</td>' +
+            '<td>'+ baseInfoList[i].semesternum +'</td>' +
             '<td>'+ baseInfoList[i].teacherName +'</td>' +
             '<td>'+ baseInfoList[i].titlename +'</td>' +
             '<td>'+ baseInfoList[i].titleOrigin +'</td>' +
@@ -113,14 +129,19 @@ function showTaskNoticeBaseInfo(pageInfo){
             '<td class="y_auditStatus">'+ getAuditStatusName(baseInfoList[i].checkStatus) +'</td>' +
             '<td class="td-manage">'+
                 '<a title="详细信息" onclick="x_admin_show(\'详细信息\',\'project-AC-view.jsp?teacherTitleID=\'+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
-                '<i class="layui-icon">&#xe63c;</i></a>'+
-                /*修改完后，审核状态至为0*/
-                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',grgraduateManage-modify.jspsp+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
+                '<i class="layui-icon">&#xe63c;</i></a>';
+        if (getAuditStatusName(baseInfoList[i].checkStatus) == "审核不通过") {
+            tr = tr +
+                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',\'graduateManage-modify.jsp?teacherTitleID=\'+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
                 '<i class="layui-icon">&#xe642;</i></a>'+
                 '<a title="删除" onclick="member_del(this,baseInfoList[i].teacherTitleID)" href="javascript:;">'+
                 '<i class="layui-icon">&#xe640;</i></a>'+
-            '</td>'+
-            '</tr>';
+                '</td>'+
+                '</tr>';
+        } else {
+            tr = tr + '</td></tr>';
+        }
+
         $("tbody").append(tr);
     }
 
@@ -173,25 +194,29 @@ function noticeInfoListPage(total,pageNum,pageSize){
     });
 }
 
-//发布时间
-layui.use('laydate', function () {
-    var laydate = layui.laydate;
-
-    laydate.render({
-        elem: '#L_pass' //指定元素
-    });
-});
-
-/*用户-删除*/
+/*删除*/
 function member_del(obj, id) {
     layer.confirm('确认要删除吗？', function (index) {
-        //发异步删除数据
-        $(obj).parents("tr").remove();
-        layer.msg('已删除!', {icon: 1, time: 1000});
+
+        $.ajax({
+            url:contextPath+"/project_AC/removeProjectInfo.do",
+            type:"post",
+            dataType:"text",
+            data:{"gradesignid":id},
+            success:function (response) {
+                if (response == "success") {
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!', {icon: 1, time: 1000});
+                }
+                /*
+                layer.msg(response, {icon: 1, time: 1000},function (){
+                    //刷新父页面
+                    window.location.reload();
+                })*/
+            }
+        })
     });
 }
-
-
 
 //点击关闭其他，触发事件
 function closeOther() {

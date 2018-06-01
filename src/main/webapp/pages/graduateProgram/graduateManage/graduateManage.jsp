@@ -8,8 +8,6 @@
     <title>毕设基本信息管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
 
     <%-- qlq引入的公共的JSP --%>
     <%@include file="/tag.jsp"%>
@@ -43,17 +41,12 @@
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_form">
             <input type="text" name="graduateDesignName" placeholder="毕设名称" autocomplete="off" class="layui-input">
-            <div class="layui-input-inline">
-                <select name="yearNum" id="y_yearNum">
+            <div class="layui-input-inline"><!--带搜索的查询-->
+                <select lay-search="" name="yearNum" id="y_yearNum">
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="majorName">
-                    <option value="">专业</option>
-                    <option value="物联网">物联网</option>
-                    <option value="计算机">计算机</option>
-                    <option value="软件工程">软件工程</option>
-                    <option value="网络工程">网络工程</option>
+                <select name="majorid" id="y_major">
                 </select>
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -64,7 +57,7 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="addProject()">添加毕业设计 </button>
+        <button class="layui-btn" onclick="x_admin_show('填写课题申请表', './graduateManage-add.jsp')">添加毕设基本信息 </button>
     </xblock>
     <!--end 操作区域-->
 
@@ -82,12 +75,7 @@
         </thead>
         <tbody>
         <tr>
-            <td class="td-manage">
-                <a title="修改课题申请" onclick="x_admin_show('修改毕设基本信息','graduateManage-modify.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i></a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i></a>
-            </td>
+
         </tr>
         </tbody>
     </table>

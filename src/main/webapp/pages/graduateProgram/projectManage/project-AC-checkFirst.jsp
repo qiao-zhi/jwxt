@@ -18,8 +18,7 @@
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
+
 <div class="x-body">
     <form class="layui-form">
 

@@ -19,8 +19,10 @@ import cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
 import cn.xm.jwxt.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.security.util.Length;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -122,10 +124,10 @@ public class Project_ACServiceImpl implements Project_ACService {
     @Override
     public Boolean addProjectInfo(Teachergredesigntitle teachergredesigntitle) throws Exception {
 
-        //看一下传过来的队形，再操作
-
-        //设置主键
-//        taskInfo.setArrangeTaskId(UUIDUtil.getUUID2());
+        //主键
+        teachergredesigntitle.setTeachertitleid(UUIDUtil.getUUID2());
+        //审核状态置为0，待审核
+        teachergredesigntitle.setCheckstatus("0");
 
         int count = project_ACMapper.insertProjectInfo(teachergredesigntitle);
 
@@ -147,14 +149,11 @@ public class Project_ACServiceImpl implements Project_ACService {
 
     @Override
     public TTeacherBaseInfo getProjectTeacherInfo(String teacherID) throws Exception {
-
         return project_ACMapper.selectProjectTeacherInfo(teacherID);
     }
 
     @Override
     public Teachergredesigntitle initProjectInfo(String teacherTitleID) throws Exception {
-
-        //查询课题申请表信息、教师信息
         return project_ACMapper.selectProjectInfo(teacherTitleID);
     }
 
@@ -215,5 +214,14 @@ public class Project_ACServiceImpl implements Project_ACService {
         return project_ACMapper.selectAuditFisrtInfo(teacherTitleID);
     }
 
+    @Override
+    public String getGraDesignIDByCurrentYear(String currentYearNum, String currentSemesterNum) throws Exception {
+        return project_ACMapper.selectGraDesignIDByCurrentYear(currentYearNum, currentSemesterNum);
+    }
+
+    @Override
+    public String getCollege(String teacherID) throws Exception {
+        return project_ACMapper.selectCollege(teacherID);
+    }
 
 }

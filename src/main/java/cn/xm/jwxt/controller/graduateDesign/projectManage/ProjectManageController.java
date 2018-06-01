@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("projectManage")
+@RequestMapping("/projectManage")
 public class ProjectManageController {
 
     //log4j日志打印

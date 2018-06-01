@@ -43,6 +43,10 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_form">
+            <div class="layui-input-inline"><!--带搜索的查询-->
+                <select lay-search="" name="yearNum" id="y_yearNum">
+                </select>
+            </div>
             <input type="text" name="teacherName" placeholder="教师名称" autocomplete="off" class="layui-input">
             <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
             <div class="layui-input-inline">

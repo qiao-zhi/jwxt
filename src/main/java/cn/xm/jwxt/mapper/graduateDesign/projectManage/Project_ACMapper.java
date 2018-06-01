@@ -129,4 +129,20 @@ public interface Project_ACMapper {
      * @return
      */
     public String selectMajorInfo(String majorid) throws SQLException;
+
+    /**
+     * 在添加课题前，判断是否有本学期的毕业设计基本信息
+     * @param currentYearNum
+     * @return graDesignID
+     * @throws SQLException
+     */
+    public String selectGraDesignIDByCurrentYear(@Param("currentYearNum") String currentYearNum, @Param("currentSemesterNum") String currentSemesterNum) throws SQLException;
+
+    /**
+     * 初始化学院信息
+     * @param teacherID
+     * @return
+     * @throws SQLException
+     */
+    public String selectCollege(String teacherID) throws SQLException;
 }

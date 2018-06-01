@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("chooseGPStudent")
+@RequestMapping("/chooseGPStudent")
 public class ChooseGPStudentController {
 
     //log4j日志打印
@@ -35,9 +35,9 @@ public class ChooseGPStudentController {
      * @param condition 组合条件
      * @return  查询到的数据
      */
-    @RequestMapping("/getProjectInfo")
+    @RequestMapping("/getprojectInfoByCondition")
     public @ResponseBody
-    PageInfo<Map<String,String>> getProjectInfo(@RequestParam Map<String,String> condition){
+    PageInfo<Map<String,String>> getprojectInfoByCondition(@RequestParam Map<String,String> condition){
         int pageSize = DefaultValue.PAGE_SIZE;
         if(ValidateCheck.isNotNull(condition.get("pageSize"))){//如果不为空的话改变当前页大小
             pageSize = Integer.valueOf(condition.get("pageSize"));

@@ -35,7 +35,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("chooseProject")
+@RequestMapping("/chooseProject")
 public class ChooseProjectController {
 
     //log4j日志打印
@@ -118,7 +118,7 @@ public class ChooseProjectController {
      * @param choose_titleIDstr
      * @return
      */
-    @RequestMapping("/submitChooseProject")
+    @RequestMapping("/saveChooseProject")
     public @ResponseBody String saveChooseProject(String choose_titleIDstr) {
 
         boolean res = false;

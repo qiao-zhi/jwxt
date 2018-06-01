@@ -43,7 +43,7 @@ $(function(){
 
 function findTaskNoticeBaseInfo(){
     $.ajax({
-        url : contextPath+'/chooseGPStudent/getProjectInfo.do',
+        url : contextPath+'/chooseGPStudent/getprojectInfoByCondition.do',
         data : $("#y_form").serialize(),
         type : 'POST',
         dataType : 'json',

@@ -2,78 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper" >
 
+
+  <!--
+  查询条件：
+  yearNum(当前学年), teacherName,titlename,checkStatus...teacherID  用户的教师id（只能看自己发布的课题）
+  查询结果：yearNum,semesterNum,teacherTitleID,titlename,teacherName,titleOrigin,majorName,reqireStudentNum,checkStatus,
+  1、教师id,查询教师名字。
+  2、教师id查询。课题表。
+  3、查询出graDesignID 毕设编号,查询学年专业等信息。
+  */
+  -->
   <select id="selectProject_ACInfoByCondition" parameterType="map" resultType="map">
-    查询条件：
-    teacherName，titlename，checkStatus，projectType，用户的教师id（只能看自己发布的课题）    课题发布时间为今年或者去年
-    查询结果：yearNum，semesterNum，teacherTitleID，teacherName，titleOrigin，projectType，major，reqireStudentNum，checkStatus，
-      学年，学期，教师名称，课题名称，课题来源，课题类型，学生专业，需要人数，学期，审核状态
-
-    select teacherTitleID,titlename,titleOrigin,projectType,reqireStudentNum,year,checkStatus
-    teacherName,majorName
-    from teacherGreDesignTitle t,t_teacher_base_info teacher,t_major_base_info m where t.teacherID=teacher.teacherID and teacher.majorID=m.majorID
-    and teacherName=''
-    and titlename=''
-    and checkStatus=''
-    and projectType=''
-    ;
-    /*未审核*/
-    <if test="auditResult == '-1'">
-      select StudentTitleresultID,studentName,studentNum,className,gdTitle,teacherName
-      from
-      teacherGreDesignTitle t,t_teacher_base_info teacher,taskBookInfo b,
-      (
-      select studentID,studentName,className,StudentTitleresultID,teacherTitleID from t_student_base_info
-      s,t_class_base_info class,studentTitleResult r
-      where s.classID = class.classID and s.studentID = r.studentID
-      <if test="studentName != null and studentName != ''">
-        and course.studentName like '%${studentName}%'
-      </if>
-      <if test="studentNum != null and studentNum != ''">
-        and type.studentNum like '${studentNum}%'
-      </if>
-      ) son
-      where
-      t.teacherTitleID=son.teacherTitleID and t.teacherID = teacher.teacherID
-      and b.StudentTitleresultID = son.StudentTitleresultID and fc.StudentTitleresultID = son.StudentTitleresultID
+    select yearNum,semesterNum,teacherTitleID,titlename,teacherName,titleOrigin,majorName,reqireStudentNum,checkStatus
+    from gradeuateBaseInfo g,t_major_base_info m
+    (
+      select teacherTitleID,titlename,titleOrigin,reqireStudentNum,checkStatus,teacherName,majorID,graDesignID
+      from teacherGreDesignTitle t1,t_teacher_base_info t2
+      where t1.teacherID=#{teacherID} and t2.teacherID=#{teacherID}
       <if test="teacherName != null and teacherName != ''">
-        and teacher.teacherName = #{teacherName}
+        and t2.teacherName like '${teacherName}%'
       </if>
-    </if>
-
-    /*已审核*/
-    <if test="auditResult != '-1'">
-      select StudentTitleresultID,studentName,studentNum,className,gdTitle,teacherName,auditResult,auditContent,auditTime
-      from
-      teacherGreDesignTitle t,t_teacher_base_info teacher,taskBookInfo b,gdFileCheck fc,
-      (
-      select studentID,studentName,className,StudentTitleresultID,teacherTitleID from t_student_base_info
-      s,t_class_base_info class,studentTitleResult r
-      where s.classID = class.classID and s.studentID = r.studentID
-      <if test="studentName != null and studentName != ''">
-        and course.studentName like '%${studentName}%'
+      <if test="titlename != null and titlename != ''">
+        and t1.titlename like '${titlename}%'
       </if>
-      <if test="studentNum != null and studentNum != ''">
-        and type.studentNum like '${studentNum}%'
+      <if test="checkStatus != null and checkStatus != ''">
+        and t1.checkStatus like '${checkStatus}'
       </if>
-      <![CDATA[
-           and enrollmentTime >= to_date(#{enrollmenttimeMin,jdbcType=DATE},'yyyy-MM-dd')
-           and enrollmentTime <= to_date(#{enrollmenttimeMax,jdbcType=DATE},'yyyy-MM-dd')
-          ]]>
-      ) son
-      where
-      t.teacherTitleID=son.teacherTitleID and t.teacherID = teacher.teacherID
-      and b.StudentTitleresultID = son.StudentTitleresultID and fc.StudentTitleresultID = son.StudentTitleresultID
-      <if test="teacherName != null and teacherName != ''">
-        and teacher.teacherName = #{teacherName}
-      </if>
-      <if test="auditResult != null and auditResult != ''">
-        and fc.auditResult = #{auditResult}
-      </if>
-    </if>
-
+    ) son
+    where m.majorID = son.majorID and g.graDesignID = son.graDesignID and g.yearNum = #{yearNum}
 
   </select>
-
 
 
   <select id="selectGreDesignTitleInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
@@ -148,20 +106,18 @@
 
   <insert id="insertProjectInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
     insert into teacherGreDesignTitle (teacherTitleID, graDesignID, teacherId,titlename,resultType,projectType,targetRequire,
-    researchContent,titleOrigin,titleType,reqireStudentNum,checkStatus,syear,applyTime,gdTime,majorID)
+    researchContent,titleOrigin,titleType,reqireStudentNum,checkStatus,applyTime,gdTime,majorID)
     VALUES
     (#{teacherTitleID}},#{graDesignID},#{teacherId},#{titlename},#{resultType},#{projectType},#{targetRequire},
-    #{researchContent},#{titleOrigin},#{titleType},#{reqireStudentNum},#{checkStatus},#{syear},#{applyTime},#{gdTime},#{majorID})
+    #{researchContent},#{titleOrigin},#{titleType},#{reqireStudentNum},#{checkStatus},#{applyTime},#{gdTime},#{majorID})
   </insert>
 
   <select id="selectProjectTeacherInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo">
-    SELECT * FROM t_teacher_base_info
-    WHERE teacherID = #{teacherID}
+    SELECT teacherName,positionalTitle,degree FROM t_teacher_base_info WHERE teacherID = #{teacherID}
   </select>
 
   <select id="selectProjectInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
-    SELECT * FROM Teachergredesigntitle
-    WHERE teacherTitleID = #{teacherTitleID}
+    SELECT * FROM Teachergredesigntitle WHERE teacherTitleID = #{teacherTitleID}
   </select>
 
   <update id="updateProjectInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
@@ -184,31 +140,36 @@
   </update>
 
   <delete id="deleteProjectInfo" parameterType="java.lang.String" >
-    delete from teacherGreDesignTitle where
-    teacherTitleID=#{teacherTitleID}
+    delete from teacherGreDesignTitle where teacherTitleID=#{teacherTitleID}
   </delete>
 
   <delete id="deleteAuditFisrtInfo" parameterType="java.lang.String" >
-    delete from teacherTitleFirstCheckInfo where
-    teacherTitleID=#{teacherTitleID}
+    delete from teacherTitleFirstCheckInfo where teacherTitleID=#{teacherTitleID}
   </delete>
 
-  <delete id="selectAuditFisrtInfo" parameterType="java.lang.String">
+  <delete id="deleteAuditSecondInfo" parameterType="java.lang.String" >
     delete from teacherTitleSecondCheckInfo where teacherTitleID=#{teacherTitleID}
   </delete>
 
   <select id="selectAuditFisrtInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo">
-    SELECT * FROM teacherTitleFirstCheckInfo
-    WHERE teacherTitleID = #{teacherTitleID}
+    SELECT * FROM teacherTitleFirstCheckInfo WHERE teacherTitleID = #{teacherTitleID}
   </select>
 
   <select id="selectAuditSecondInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo">
-    SELECT * FROM teacherTitleSecondCheckInfo
-    WHERE teacherTitleID = #{teacherTitleID}
+    SELECT * FROM teacherTitleSecondCheckInfo WHERE teacherTitleID = #{teacherTitleID}
   </select>
 
   <select id="selectMajorInfo" parameterType="java.lang.String" resultType="java.lang.String">
-    SELECT majorName FROM t_major_base_info
-    WHERE majorID = #{majorID}
+    SELECT majorName FROM t_major_base_info WHERE majorID = #{majorID}
+  </select>
+
+  <select id="selectGraDesignIDByCurrentYear" resultType="java.lang.String">
+    SELECT graDesignID FROM gradeuateBaseInfo
+    WHERE yearNum = #{yearNum,jdbcType=VARCHAR} and semesterNum = #{semesterNum,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectCollege" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT collegeName FROM t_college_base_info c,t_teacher_base_info t
+    WHERE c.collegeId = t.collegeId and t.teacherID=#{teacherID}
   </select>
 </mapper>

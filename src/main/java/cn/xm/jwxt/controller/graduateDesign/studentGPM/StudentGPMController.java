@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("projectManage")
+@RequestMapping("/studentGPM")
 public class StudentGPMController {
 
     //log4j日志打印

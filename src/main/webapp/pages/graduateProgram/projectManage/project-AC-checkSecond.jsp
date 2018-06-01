@@ -18,8 +18,6 @@
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp" %>
 <div class="x-body">
     <table class="layui-table" style="width:850px;margin-left:45px;" width="">
         <thead>
@@ -52,7 +50,6 @@
             </div>
         </div>
 
-        <!--2-->
         <div class="layui-form-item">
             <label class="layui-form-label">
                 审核意见
@@ -63,7 +60,6 @@
             </div>
         </div>
 
-        <!--2-->
         <div class="layui-form-item">
             <label class="layui-form-label" for="checkDesc">
                 审核时间

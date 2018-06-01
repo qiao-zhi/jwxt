@@ -154,7 +154,7 @@ public class AssignmentManageServiceImpl implements AssignmentManageService {
 
         int res = assignmentManageMapper.insertAuditSecondInfo(taskBookCheckInfo);
 
-        return res >= 1 ? true : false;
+        return res > 0 ? true : false;
     }
 
     @Override
@@ -164,7 +164,7 @@ public class AssignmentManageServiceImpl implements AssignmentManageService {
 
         int res = assignmentManageMapper.insertAuditFirstInfo(taskBookCheckInfo);
 
-        return res >= 1 ? true : false;
+        return res > 0 ? true : false;
     }
 
 }

@@ -16,36 +16,33 @@ layui.use('form', function(){
     });
 });
 
-//添加课题
-function addProject() {
-    //判断当前时间是否在添加课题的范围内
-    //上一年10月份，下年4月份
-    var d = new Date();
-    var month = d.getMonth() + 1;
+//修改毕设信息
+function modifyGraduate(obj) {
+    var tr = $(obj).parents("tr");
+    var gradesignid = tr.find("#y_id").val();
+    var yearnum = tr.children("td").eq(0).text();
+    var semesternum = tr.children("td").eq(1).text();
+    var graduatedesignname = tr.children("td").eq(2).text();
+    var majorid = tr.children("td").eq(3).text();
+    var graduatedesc = tr.children("td").eq(4).text();
 
-    if (10 > month >= 4) {
-        layer.alert("添加课题的时间为：大四上学期开学10月份开始 -- 大四下学期3月底结束");
-        return false;
-    }
-
-    x_admin_show('填写课题申请表', './project-AC-Apply.jsp')
+    x_admin_show('修改毕设基本信息','./graduateManage-modify.jsp?' +
+        'gradesignid=' + gradesignid + '&yearnum=' + yearnum +
+        '&semesternum=' + semesternum + '&graduatedesignname=' + graduatedesignname +
+        '&majorid=' + majorid + '&graduatedesc=' + graduatedesc)
 }
-
-
-
 
 $(function () {
     //初始化查询学年
     initYearNum();
-
+    //初始化专业
+    initMajor();
     findTaskNoticeBaseInfo();//初始化表格
-
-
 });
 
 function findTaskNoticeBaseInfo(){
     $.ajax({
-        url : contextPath+'/projectManage/getProject_ACInfo.do',
+        url : contextPath+'/graduateManage/getGraduateInfoByCondition.do',
         data : $("#y_form").serialize(),
         type : 'POST',
         dataType : 'json',
@@ -65,23 +62,16 @@ function showTaskNoticeBaseInfo(pageInfo){
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr =
-            '<tr><td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=\'2\'>' +
-            '<i class="layui-icon">&#xe605;</i></div>' +
-            '<input type="hidden" class="y_id" value="'+ baseInfoList[i].teacherTitleID + '"></td>' +
-            '<td>'+ baseInfoList[i].teacherName +'</td>' +
-            '<td>'+ baseInfoList[i].titlename +'</td>' +
-            '<td>'+ baseInfoList[i].titleOrigin +'</td>' +
-            '<td>'+ baseInfoList[i].projectType +'</td>' +
-            '<td>'+ baseInfoList[i].major +'</td>' +
-            '<td>'+ baseInfoList[i].reqireStudentNum +'</td>' +
-            '<td class="y_auditStatus">'+ getAuditStatusName(baseInfoList[i].checkStatus) +'</td>' +
+            '<tr><input type="hidden" class="y_id" value="'+ baseInfoList[i].gradesignid + '"/>' +
+            '<td>'+ baseInfoList[i].yearnum +'</td>' +
+            '<td>'+ baseInfoList[i].semesternum +'</td>' +
+            '<td>'+ baseInfoList[i].graduatedesignname +'</td>' +
+            '<td>'+ baseInfoList[i].majorid +'</td>' +
+            '<td>'+ baseInfoList[i].graduatedesc +'</td>' +
             '<td class="td-manage">'+
-                '<a title="详细信息" onclick="x_admin_show(\'详细信息\',\'project-AC-view.jsp?teacherTitleID=\'+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
-                '<i class="layui-icon">&#xe63c;</i></a>'+
-                /*修改完后，审核状态至为0*/
-                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',grgraduateManage-modify.jspsp+ baseInfoList[i].teacherTitleID+\')" href="javascript:;">'+
+                '<a title="修改毕设基本信息"  onclick="modifyGraduate(this)" href="javascript:;">'+
                 '<i class="layui-icon">&#xe642;</i></a>'+
-                '<a title="删除" onclick="member_del(this,baseInfoList[i].teacherTitleID)" href="javascript:;">'+
+                '<a title="删除" onclick="member_del(this,baseInfoList[i].gradesignid)" href="javascript:;">'+
                 '<i class="layui-icon">&#xe640;</i></a>'+
             '</td>'+
             '</tr>';
@@ -90,22 +80,6 @@ function showTaskNoticeBaseInfo(pageInfo){
 
     //开启分页组件
     noticeInfoListPage(total,pageNum,pageSize);
-}
-
-//根据审核状态代码获取审核状态名称
-function getAuditStatusName(AuditStatusCode) {
-    var AuditStatusNamme = "";
-    if (AuditStatusCode == 0) {
-        AuditStatusNamme = "待教研室审核"
-    } else if (AuditStatusCode == 1) {
-        AuditStatusNamme = "待院长审核"
-    }else if (AuditStatusCode == 2) {
-        AuditStatusNamme = "审核通过"
-    }else if (AuditStatusCode == 3) {
-        AuditStatusNamme = "审核不通过"
-    }
-
-    return AuditStatusNamme;
 }
 
 //分页函数
@@ -137,25 +111,29 @@ function noticeInfoListPage(total,pageNum,pageSize){
     });
 }
 
-//发布时间
-layui.use('laydate', function () {
-    var laydate = layui.laydate;
-
-    laydate.render({
-        elem: '#L_pass' //指定元素
-    });
-});
-
-/*用户-删除*/
+/*删除*/
 function member_del(obj, id) {
     layer.confirm('确认要删除吗？', function (index) {
-        //发异步删除数据
-        $(obj).parents("tr").remove();
-        layer.msg('已删除!', {icon: 1, time: 1000});
+        $.ajax({
+            url:contextPath+"/graduateManage/removeGraduateInfo.do",
+            type:"post",
+            dataType:"text",
+            data:{"gradesignid":id},
+            success:function (response) {
+                if (response == "success") {
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!', {icon: 1, time: 1000});
+                }
+                /*
+                layer.msg(response, {icon: 1, time: 1000},function (){
+                    //刷新父页面
+                    window.location.reload();
+                })*/
+            }
+        })
+
     });
 }
-
-
 
 //点击关闭其他，触发事件
 function closeOther() {

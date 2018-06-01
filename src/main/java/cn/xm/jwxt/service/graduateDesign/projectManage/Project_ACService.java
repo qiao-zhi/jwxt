@@ -13,7 +13,7 @@ import java.util.Map;
 public interface Project_ACService {
     /**
      * 查询选择了课题的学生信息
-     * @param condition 课题名称、学年、
+     * @param condition
      * @return
      */
     public List<Map<String,String>> getProjectInfoByCondition(Map<String, String> condition) throws Exception;
@@ -47,7 +47,7 @@ public interface Project_ACService {
     public TTeacherBaseInfo getProjectTeacherInfo(String teacherID) throws Exception;
 
     /**
-     * 修改申请表是，初始化页面
+     * 修改申请表时，初始化页面
      * @param teacherTitleID
      * @return
      */
@@ -80,4 +80,19 @@ public interface Project_ACService {
      * @return
      */
     public TeachertitleFirstcheckinfo getTeachertitleFirstcheckinfo(String teacherTitleID) throws Exception;
+
+    /**
+     * 在添加课题前，判断是否有本学期的毕业设计基本信息
+     * @return
+     * @throws Exception
+     */
+    public String getGraDesignIDByCurrentYear(String currentYearNum, String currentSemesterNum) throws Exception;;
+
+    /**
+     * 初始化学院信息
+     * @param teacherID
+     * @return
+     * @throws Exception
+     */
+    public String getCollege(String teacherID) throws Exception;;
 }

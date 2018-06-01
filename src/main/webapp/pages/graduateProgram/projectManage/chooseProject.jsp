@@ -19,8 +19,6 @@
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">

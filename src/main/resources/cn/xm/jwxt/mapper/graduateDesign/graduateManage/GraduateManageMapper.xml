@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.graduateManage.GraduateManageMapper" >
+
+  <select id="selectYearNum" resultType="java.util.List">
+    select yearNum from gradeuateBaseInfo order by yearNum desc
+  </select>
+
+  <insert id="insertGraduateInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo" >
+    insert into gradeuateBaseInfo (graDesignID, graduateDesignName, majorId, graduateDesc, yearNum, semesterNum, status,remark)
+    VALUES
+      (
+      #{graDesignID},
+      #{graduateDesignName},
+      #{majorId},
+      #{graduateDesc},
+      #{yearNum},
+      #{semesterNum},
+      #{status},
+      #{remark}
+      )
+  </insert>
+
+  <update id="updateAuditStatus">
+    update gradeuateBaseInfo set
+    graduateDesignName = #{graduateDesignName}
+    majorId = #{majorId}
+    graduateDesc = #{graduateDesc}
+    yearNum = #{yearNum}
+    semesterNum = #{semesterNum}
+    status = #{status}
+    remark = #{remark}
+    where graDesignID = #{graDesignID}
+  </update>
+
+  <delete id="deleteGraduateInfo" parameterType="java.lang.String">
+    delete from gradeuateBaseInfo where graDesignID=#{graDesignID}
+  </delete>
+
+  <select id="selectGraduateInfoByCondition" parameterType="map" resultType="map">
+    select graDesignID,yearNum,semesterNum,graduateDesignName,majorName,graduateDesc
+    from gradeuateBaseInfo where
+    <if test="graduateDesignName != null and graduateDesignName != ''">
+      and graduateDesignName like '%${graduateDesignName}%'
+    </if>
+    <if test="yearNum != null and yearNum != ''">
+      and yearNum like '${graduateDesignName}'
+    </if>
+    <if test="majorName != null and majorName != ''">
+      and majorName like '${majorName}%'
+    </if>
+  </select>
+
+  <select id="selectMajor" resultType="java.util.List">
+    select majorID,majorName from t_major_base_info
+  </select>
+</mapper>

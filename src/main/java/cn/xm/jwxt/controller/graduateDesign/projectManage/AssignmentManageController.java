@@ -124,7 +124,7 @@ public class AssignmentManageController {
      *
      * @return
      */
-    @RequestMapping("/saveAllocate")
+    @RequestMapping("/modifyAssignment")
     public @ResponseBody
     String modifyAssignment(AssignmentVo assignmentVo) {
         Boolean res = false;
@@ -161,7 +161,7 @@ public class AssignmentManageController {
      *
      * @return
      */
-    @RequestMapping("/saveAllocate")
+    @RequestMapping("/addAuditInfo")
     public @ResponseBody
     String addAuditInfo(TaskBookSecondCheckInfo taskBookCheckInfo, HttpSession session) {
         Boolean res = false;

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("gdfilemanage")
+@RequestMapping("/gdfilemanage")
 public class GDFileManageController {
 
     //log4j日志打印

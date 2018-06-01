@@ -24,24 +24,22 @@
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
 <div class="x-body" style="margin:20px auto 50px auto; width:70%;">
     <form class="layui-form" id="y_from">
-        <button class="layui-btn" id="y_save">保存</button>
-        <button class="layui-btn" lay-submit="" id="y_sumit">提交</button>
+        <button class="layui-btn" onclick="y_save()">保存</button>
+        <button class="layui-btn" lay-submit="" onclick="y_submit()">添加</button>
 
         <table class="table table-bordered">
             <caption><h1>太原科技大学毕业设计（论文）课题申请表</h1>
                 <span style="position:relative;top:15px;left:10px;">学院（直属系）：
-                    <!--根据登录教师所在学院显示-->
-                    <input type="text" value="" style="border:none;background-color:white;" disabled></span>
+                    <input type="text" id="y_college" style="border:none;background-color:white;" disabled></span>
                 <div style="float: right">
                     <label for="L_pass" class="layui-form-label">
                         时间：
                     </label>
                     <div class="layui-input-inline" style="width: 135px">
                         <input type="text" class="layui-input" name="applyTime" id="L_pass">
+                        <input type="hidden" name="graDesignID" id="graDesignID">
                     </div>
                 </div>
             </caption>
@@ -55,18 +53,16 @@
             </tr>
             <tr>
                 <td>教师姓名</td>
-                <td>
-                    <input type="hidden" value="" name="teacherID">
-                </td>
+                <td id="teacherName"></td>
                 <td>职称</td>
-                <td></td>
+                <td id="positionalTitle"></td>
                 <td>学位</td>
-                <td></td>
+                <td id="degree"></td>
             </tr>
             <tr>
                 <td>课题来源</td>
                 <td colspan="5">
-                    <select name="titleOrigin" class="small" id="" lay-verify="required">
+                    <select name="titleOrigin" class="small" lay-verify="required">
                         <option value="">--请选择--</option>
                         <option value="科研">科研</option>
                         <option value="生产">生产</option>
@@ -92,12 +88,7 @@
             <tr>
                 <td>学生专业</td>
                 <td>
-                    <select name="majorID" class="small" lay-verify="required">
-                        <option value="">--请选择--</option>
-                        <option value="软件工程">软件工程</option>
-                        <option value="计算机">计算机</option>
-                        <option value="物联网">物联网</option>
-                        <option value="网络工程">网络工程</option>
+                    <select name="majorID" class="small" id="y_major" lay-verify="required">
                     </select>
                 </td>
                 <td>学生人数</td>

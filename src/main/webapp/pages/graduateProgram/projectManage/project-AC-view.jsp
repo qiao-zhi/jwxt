@@ -17,6 +17,7 @@
     <script type="text/javascript" src="${baseurl}/js/jquery.min.js"></script>
     <script type="text/javascript" src="${baseurl}./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${baseurl}/js/xadmin.js"></script>
+
     <script type="text/javascript" src="${baseurl}/js/graduateProgram/projectManage/project-AC-view.js"></script>
 </head>
 
@@ -26,9 +27,7 @@
     <!--通过审核状态的不同，显示相关内容-->
     <table class="table table-bordered">
         <caption><h1>毕设课题详细信息</h1></caption>
-        <tbody>
-
-        </tbody>
+        <tbody></tbody>
     </table>
 </div>
 
