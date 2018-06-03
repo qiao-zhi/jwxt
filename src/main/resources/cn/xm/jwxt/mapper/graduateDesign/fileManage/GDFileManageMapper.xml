@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.fileManage.GDFileManageMapper" >
+
+  <delete id="deleteHasAuditInfo" parameterType="java.util.List" >
+    delete from gdFileCheck
+    <where>
+      StudentTitleresultID IN
+    </where>
+    <foreach item="item" collection="array" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <insert id="insertAuditInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.GdFileCheck">
+    insert into gdFileCheck
+    ( id,auditCesult,auditContent,auditTime,StudentTitleresultID)
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item.id},
+      #{item.auditCesult},
+      #{item.auditContent},
+      #{item.auditTime},
+      #{item.StudentTitleresultID}
+      )
+    </foreach>
+  </insert>
+
+  <!--
+    /**
+     * 查询文件管理界面,表格信息
+        查询条件：学号、学生姓名、指导教师、审核状态
+     *         查询内容：
+     结果id,学生、学号、班级、毕设题目、指导教师、审核结果、审核意见
+     studentName,studentNum,className,gdTitle,teacherName,auditResult,auditContent
+    //通过学生id和教师id查询相关信息。遍历的同时查询
+     * 1、根据当前时间,判断是否是今年的大四学生的信息
+     * 2、是的话查询,学生id,学生姓名,学号,班级id
+     * 4、学生id,查询结果表id,课题id
+     * 5、结果表id,查询任务书,获取毕设题目,
+     * 5.5、结果表,查询审核表,查询结果和意见
+     * 6、课题id,查询教师id
+     * 7、教师id,查询教师姓名
+  -->
+
+  <!--S    分页查fileManage表格信息-->
+  <select id="selectFileCheckinfoByCondition" parameterType="map" resultType="map">
+      /*未审核*/
+      <if test="auditResult == '-1'">
+        select StudentTitleresultID,studentName,studentNum,className,gdTitle,teacherName
+        from
+        teacherGreDesignTitle t,t_teacher_base_info teacher,taskBookInfo b,
+        (
+        select studentID,studentName,className,StudentTitleresultID,teacherTitleID from t_student_base_info
+        s,t_class_base_info class,studentTitleResult r
+        where s.classID = class.classID and s.studentID = r.studentID
+        <if test="studentName != null and studentName != ''">
+          and course.studentName like '%${studentName}%'
+        </if>
+        <if test="studentNum != null and studentNum != ''">
+          and type.studentNum like '${studentNum}%'
+        </if>
+        ) son
+        where
+        t.teacherTitleID=son.teacherTitleID and t.teacherID = teacher.teacherID
+        and b.StudentTitleresultID = son.StudentTitleresultID and fc.StudentTitleresultID = son.StudentTitleresultID
+        <if test="teacherName != null and teacherName != ''">
+          and teacher.teacherName = #{teacherName}
+        </if>
+      </if>
+
+      /*已审核*/
+      <if test="auditResult != '-1'">
+        select StudentTitleresultID,studentName,studentNum,className,gdTitle,teacherName,auditResult,auditContent,auditTime
+        from
+        teacherGreDesignTitle t,t_teacher_base_info teacher,taskBookInfo b,gdFileCheck fc,
+        (
+          select studentID,studentName,className,StudentTitleresultID,teacherTitleID from t_student_base_info
+          s,t_class_base_info class,studentTitleResult r
+          where s.classID = class.classID and s.studentID = r.studentID
+          <if test="studentName != null and studentName != ''">
+            and course.studentName like '%${studentName}%'
+          </if>
+          <if test="studentNum != null and studentNum != ''">
+            and type.studentNum like '${studentNum}%'
+          </if>
+          <![CDATA[
+           and enrollmentTime >= to_date(#{enrollmenttimeMin,jdbcType=DATE},'yyyy-MM-dd')
+           and enrollmentTime <= to_date(#{enrollmenttimeMax,jdbcType=DATE},'yyyy-MM-dd')
+          ]]>
+        ) son
+        where
+        t.teacherTitleID=son.teacherTitleID and t.teacherID = teacher.teacherID
+        and b.StudentTitleresultID = son.StudentTitleresultID and fc.StudentTitleresultID = son.StudentTitleresultID
+        <if test="teacherName != null and teacherName != ''">
+          and teacher.teacherName = #{teacherName}
+        </if>
+        <if test="auditResult != null and auditResult != ''">
+            and fc.auditResult = #{auditResult}
+        </if>
+      </if>
+
+  </select>
+
+</mapper>
