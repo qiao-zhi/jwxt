@@ -10,15 +10,7 @@ layui.use('laydate', function () {
  * 页面加载完成后执行一些函数
  */
 $(function () {
-    //初始化时间为当前时间
-    var myDate = new Date;
-    var year = myDate.getFullYear();//获取当前年
-    var month = myDate.getMonth()+1;//获取当前月
-    var date = myDate.getDate();
-    if (month < 10) month = "0" + month;
-    if (date < 10) date = "0" + date;
-
-    $("#L_pass").val(year + "年" + month + "月" + date + "日");
+    $("#L_pass").val(getCurrentTime());
 
     initCollege();//初始化学院
     initMajor();//初始化专业
@@ -29,7 +21,8 @@ $(function () {
 });
 
 function initTeacherInfo() {
-    var teacherTitleID = getUrlParam(teacherTitleID);
+    var teacherTitleID = getUrlParam("teacherTitleID");
+    $("#teacherTitleID").val(teacherTitleID);
 
     $.ajax({
         url : contextPath+'/project_AC/getProjectTeacherInfo.do',
@@ -39,8 +32,6 @@ function initTeacherInfo() {
         async:true,
         success : function(data){
 
-
-
             $("#positionalTitle").text(data.positionalTitle);
             $("#teacherName").text(data.teacherName);
             $("#degree").text(data.degree);
@@ -48,8 +39,7 @@ function initTeacherInfo() {
     });
 }
 
-function initTeacherInfo() {
-    //初始化教师信息：teacherID，teacherName，职称positionalTitle，学位degree
+function initProjectInfo() {
     $.ajax({
         url : contextPath+'/project_AC/initProjectInfo.do',
         type : 'POST',
@@ -80,15 +70,14 @@ function y_submit() {
 
     layer.confirm("提交之后将不能更改,确认提交?", function (index) {
         $.ajax({
-            url: contextPath + '/project_AC/addProjectInfo.do',
+            url: contextPath + '/project_AC/modifyProjectInfo.do',
             data: $("#y_form").serialize(),
             type: 'POST',
             dataType: 'json',
-            success: function (data) {
-                if (data == "success") {
-                    layui.alert("修改成功！");
+            success: function (response) {
+                layer.alert(response,function(){
                     closePage();
-                }
+                })
             }
         })
 

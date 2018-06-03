@@ -50,6 +50,8 @@
                     <option value="1">审核通过</option>
                 </select>
             </div>
+            <input type="hidden" name="currentPage">
+            <input type="hidden" name="pageSize">
             <button class="layui-btn" lay-submit="" lay-filter="sreach" title="查询"><i class="layui-icon">&#xe615;</i></button>
             <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>

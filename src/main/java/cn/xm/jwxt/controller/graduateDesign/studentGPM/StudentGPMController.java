@@ -37,9 +37,10 @@ public class StudentGPMController {
     public @ResponseBody
     StudentPDVo getPDInfo(HttpSession session) {
 
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid();*/
+        String studentID = "111";
 
         StudentPDVo studentPDVo = new StudentPDVo();
         try {
@@ -62,10 +63,11 @@ public class StudentGPMController {
     @RequestMapping("/getProgramTable") public @ResponseBody
     ProgramTableVo getProgramTable(HttpSession session) {
 
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
 
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid();*/
+        String studentID = "111";
 
         ProgramTableVo programTableVo = new ProgramTableVo();
         try {
@@ -85,10 +87,12 @@ public class StudentGPMController {
     @RequestMapping("/saveProgramTable")
     public @ResponseBody String saveProgramTable(Graduatetaskprogressinfo progressinfo, HttpSession session) {
 
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
 
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid();*/
+        String studentID = "111";
+
         boolean res = false;
 
         try {
@@ -106,10 +110,11 @@ public class StudentGPMController {
      */
     @RequestMapping("/saveStudentSign")
     public @ResponseBody String saveStudentSign(HttpSession session) {
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
 
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid();*/
+        String studentID = "111";
 
         boolean res = false;
 
@@ -131,10 +136,11 @@ public class StudentGPMController {
     public @ResponseBody
     Teachergredesigntitle getProjectDetailInfo(HttpSession session) {
 
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
 
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid();*/
+        String studentID = "111";
 
         Teachergredesigntitle teachergredesigntitle = new Teachergredesigntitle();
         try {
@@ -155,9 +161,11 @@ public class StudentGPMController {
     public @ResponseBody
     String getProjectChooseState(HttpSession session) {
 
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid()*/;
+
+        String studentID = "111";
 
         String res = "";
 
@@ -179,9 +187,10 @@ public class StudentGPMController {
     public @ResponseBody
     String getTaskbookSignState(HttpSession session) {
 
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid();*/
+        String studentID = "111";
 
         String res = "";
 
@@ -203,9 +212,10 @@ public class StudentGPMController {
     public @ResponseBody
     String getProgramTableState(HttpSession session) {
 
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid();*/
+        String studentID = "111";
 
         String res = "";
 
@@ -228,9 +238,10 @@ public class StudentGPMController {
     public @ResponseBody
     String getMiddleCheckState(HttpSession session) {
 
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid();*/
+        String studentID = "111";
 
         String res = "";
 
@@ -253,9 +264,10 @@ public class StudentGPMController {
     public @ResponseBody
     String getGraduateCheckState(HttpSession session) {
 
-        User user = (User) session.getAttribute("userinfo");
+/*        User user = (User) session.getAttribute("userinfo");
         //获取当前用户信息
-        String studentID = user.getUserid();
+        String studentID = user.getUserid();*/
+        String studentID = "111";
 
         String res = "";
 

@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>任务书详情</title>
+    <title>确认学生</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -20,29 +20,46 @@
     <script type="text/javascript" src="${baseurl}/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${baseurl}/js/xadmin.js"></script>
 
-    <script src="${baseurl}/js/graduateProgram/projectManage/assignmentManage-modify.js"></script>
+    <script src="${baseurl}/js/graduateProgram/projectManage/projectManage-confirm.js"></script>
 </head>
 
 <body>
-<div class="x-body" style="margin:20px auto 50px auto; width:70%;">
-    <table class="table table-bordered">
-        <tbody id="titleInfo"></tbody>
-    </table>
-    <form class="layui-form" id="y_form">
-        <input type="hidden" name="studentID" id="studentID"/>
-        <input type="hidden" name="teacherTitleID" id="teacherTitleID"/>
-        <input type="hidden" name="studenttitleresultid" id="StudentTitleresultID"/>
-        <input type="hidden" name="taskedittime" id="taskEditTime"/>
-        <input type="hidden" name="fillStatus" id="fillStatus"/>
-        <table class="table table-bordered">
-            <caption>太原科技大学毕业设计（论文）任务书</caption>
-            <tbody id="assignment">
-            </tbody>
-        </table>
-        <span>说明：一式两份，一份装订入学生毕业设计（论文）内，一份交学院（直属系）。</span>
-    </form>
 
+<div class="x-body" style="margin:20px auto 50px auto; width:70%;">
+    <table class="layui-table">
+        <caption>基本信息</caption>
+        <thead>
+        <tr>
+            <th>课题名称</th>
+            <th>课题来源</th>
+            <th>课题类别</th>
+            <th>专业</th>
+            <th>需要人数</th>
+        </tr>
+        </thead>
+        <tbody id="y_titleBody">
+        </tbody>
+    </table>
+
+    <table class="layui-table">
+        <caption>学生选择列表</caption>
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>班级</th>
+            <th>志愿</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="y_studentBody">
+        </tbody>
+    </table>
+    <br>
+    <button class="btn-primary btn" onclick="y_submit()">提交</button>
 </div>
+
 </body>
 
 </html>

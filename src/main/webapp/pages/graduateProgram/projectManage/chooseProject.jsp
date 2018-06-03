@@ -40,12 +40,13 @@
 </div>
 <!--主体-->
 <div class="x-body">
-    <!--根据课题学生专业和登录学生学生专业进行比较，显示相关信息-->
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_form">
             <input type="text" name="teacherName" placeholder="教师名称" autocomplete="off" class="layui-input">
             <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
+            <input type="hidden" name="currentPage">
+            <input type="hidden" name="pageSize">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
             <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
@@ -78,7 +79,7 @@
     <xblock>
         <button class="layui-btn" id="saveButton" onclick="chooseProject_save()">保存 </button>
         <button class="layui-btn" id="submitButton" onclick="chooseProject_submit()">提交 </button>
-        &nbsp;<span class="layui-badge-dot"></span><span> 请选择两项，作为毕设题目。</span>
+        <span id="y_tip">&nbsp;<span class="layui-badge-dot"></span><span> 请选择两项，作为毕设题目。</span></span>
     </xblock>
     <!--end 操作区域-->
 

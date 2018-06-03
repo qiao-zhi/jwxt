@@ -35,14 +35,14 @@ public class Teachergredesigntitle {
 
     private Date applyTime;
 
-    private String syear;
+    private String isSubmit;
 
-    public String getSyear() {
-        return syear;
+    public String getIsSubmit() {
+        return isSubmit;
     }
 
-    public void setSyear(String syear) {
-        this.syear = syear;
+    public void setIsSubmit(String isSubmit) {
+        this.isSubmit = isSubmit;
     }
 
     public Date getGdTime() {

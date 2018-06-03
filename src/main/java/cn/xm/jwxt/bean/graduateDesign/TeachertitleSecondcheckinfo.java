@@ -7,63 +7,63 @@ import java.util.Date;
  */
 public class TeachertitleSecondcheckinfo {
     /**教师课题审核ID*/
-    private String checkid;
+    private String checkID;
     /**教师题目ID*/
-    private String teathertitleid;
+    private String teatherTitleID;
     /**审核时间*/
-    private Date checktime;
+    private Date checkTime;
     /**审核人*/
-    private String checkperson;
+    private String checkPerson;
     /**审核结果*/
-    private String checkresult;
+    private String checkResult;
     /**描述*/
-    private String checkdesc;
+    private String checkDesc;
 
-    public String getCheckid() {
-        return checkid;
+    public String getCheckID() {
+        return checkID;
     }
 
-    public void setCheckid(String checkid) {
-        this.checkid = checkid == null ? null : checkid.trim();
+    public void setCheckID(String checkID) {
+        this.checkID = checkID;
     }
 
-    public String getTeathertitleid() {
-        return teathertitleid;
+    public String getTeatherTitleID() {
+        return teatherTitleID;
     }
 
-    public void setTeathertitleid(String teathertitleid) {
-        this.teathertitleid = teathertitleid == null ? null : teathertitleid.trim();
+    public void setTeatherTitleID(String teatherTitleID) {
+        this.teatherTitleID = teatherTitleID;
     }
 
-    public Date getChecktime() {
-        return checktime;
+    public Date getCheckTime() {
+        return checkTime;
     }
 
-    public void setChecktime(Date checktime) {
-        this.checktime = checktime;
+    public void setCheckTime(Date checkTime) {
+        this.checkTime = checkTime;
     }
 
-    public String getCheckperson() {
-        return checkperson;
+    public String getCheckPerson() {
+        return checkPerson;
     }
 
-    public void setCheckperson(String checkperson) {
-        this.checkperson = checkperson == null ? null : checkperson.trim();
+    public void setCheckPerson(String checkPerson) {
+        this.checkPerson = checkPerson;
     }
 
-    public String getCheckresult() {
-        return checkresult;
+    public String getCheckResult() {
+        return checkResult;
     }
 
-    public void setCheckresult(String checkresult) {
-        this.checkresult = checkresult == null ? null : checkresult.trim();
+    public void setCheckResult(String checkResult) {
+        this.checkResult = checkResult;
     }
 
-    public String getCheckdesc() {
-        return checkdesc;
+    public String getCheckDesc() {
+        return checkDesc;
     }
 
-    public void setCheckdesc(String checkdesc) {
-        this.checkdesc = checkdesc == null ? null : checkdesc.trim();
+    public void setCheckDesc(String checkDesc) {
+        this.checkDesc = checkDesc;
     }
 }

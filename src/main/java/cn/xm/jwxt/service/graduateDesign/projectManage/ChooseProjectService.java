@@ -13,7 +13,7 @@ public interface ChooseProjectService {
      * @param condition 课题名称、教师名称
      * @return 教师名称、课题id、课题名称、课题类型、课题来源、学生人数
      */
-    List<Map<String,String>> getprojectInfoByCondition(Map<String, String> condition) throws Exception;
+    List<Map<String,String>> getProjectInfoByCondition(Map<String, String> condition, String userCode) throws Exception;
 
     /**
      * 获取课题申请详细信息
@@ -31,23 +31,10 @@ public interface ChooseProjectService {
 
     /**
      * 保存选择课题
-     * @param choose_titleIDstr
+     * @param gradesignstudenttitleinfo
      * @return
      */
-    public boolean saveChooseProject(String choose_titleIDstr) throws Exception;
-
-    /**
-     * 提交选择课题
-     * @param choose_titleIDstr
-     * @return
-     */
-    public boolean submitChooseProject(String choose_titleIDstr) throws Exception;
-
-    /**
-     * 检查学生提交信息   校内校外选择信息。
-     * @return
-     */
-    public boolean findIsChoose() throws Exception;
+    public boolean saveChooseProject(Gradesignstudenttitleinfo gradesignstudenttitleinfo) throws Exception;
 
     /**
      * 提交学生选择校外毕设的指导老师

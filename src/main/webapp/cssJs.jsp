@@ -1,3 +1,4 @@
+<link rel="shortcut icon" href="${baseurl}/favicon.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="${baseurl}/css/font.css">
 <link rel="stylesheet" href="${baseurl}/css/xadmin.css">
 <script type="text/javascript" src="${baseurl}/js/jquery.min.js"></script>

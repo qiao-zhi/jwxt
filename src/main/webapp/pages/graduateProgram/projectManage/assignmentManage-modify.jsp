@@ -24,21 +24,25 @@
 </head>
 
 <body>
-<%-- qlq引入的公共的JSP --%>
-<%@include file="/tag.jsp"%>
 <div class="x-body" style="margin:20px auto 50px auto; width:70%;">
     <table class="table table-bordered">
         <tbody id="titleInfo"></tbody>
     </table>
 
-    <button class="btn-primary btn">保存</button>
-    <button class="btn-primary btn">提交</button>
-    <table class="table table-bordered">
-        <caption>太原科技大学毕业设计（论文）任务书</caption>
-        <tbody id="assignment">
-        </tbody>
-    </table>
-    <span>说明：一式两份，一份装订入学生毕业设计（论文）内，一份交学院（直属系）。</span>
+    <button class="btn-primary btn" type="button" lay-submit="" onclick="y_submit()">提交</button>
+    <form class="layui-form" id="y_form">
+        <input type="hidden" name="studentID" id="studentID"/>
+        <input type="hidden" name="teacherTitleID" id="teacherTitleID"/>
+        <input type="hidden" name="studenttitleresultid" id="StudentTitleresultID"/>
+        <input type="hidden" name="taskedittime" id="taskEditTime"/>
+        <input type="hidden" name="fillStatus" id="fillStatus"/>
+        <table class="table table-bordered">
+            <caption>太原科技大学毕业设计（论文）任务书</caption>
+            <tbody id="assignment">
+            </tbody>
+        </table>
+        <span>说明：一式两份，一份装订入学生毕业设计（论文）内，一份交学院（直属系）。</span>
+    </form>
 
 </div>
 </body>

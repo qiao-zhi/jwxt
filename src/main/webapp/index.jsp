@@ -186,12 +186,6 @@
                                 </a>
                             </li>
                             <li>
-                                <a _href="pages/graduateProgram/projectManage/chooseGPStudent.jsp">
-                                    <cite>选择毕设学生</cite><!--老师 确认学生 填写任务书，
-                            填写论文评语，查看中期检查，毕业答辩情况-->
-                                </a>
-                            </li>
-                            <li>
                                 <a _href="pages/graduateProgram/projectManage/projectManage.jsp">
                                     <cite>课题管理</cite><!--教研室主任  看谁没报（导出），
 							看那个老师报的人数的多少，调剂学生通知（哪些学生还可以选择那些老师和课题）

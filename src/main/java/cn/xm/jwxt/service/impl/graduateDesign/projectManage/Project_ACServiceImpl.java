@@ -11,18 +11,13 @@
 package cn.xm.jwxt.service.impl.graduateDesign.projectManage;
 
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
-import cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle;
-import cn.xm.jwxt.bean.graduateDesign.TeachergredesigntitleDetailVo;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo;
+import cn.xm.jwxt.bean.graduateDesign.*;
 import cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
 import cn.xm.jwxt.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.security.util.Length;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,31 +33,28 @@ public class Project_ACServiceImpl implements Project_ACService {
     private Project_ACMapper project_ACMapper;
 
     @Override
-    public List<Map<String, String>> getProjectInfoByCondition(Map<String, String> condition) throws SQLException{
+    public List<Map<String, String>> getProjectInfoByCondition(Map<String, String> condition) throws Exception{
         return project_ACMapper.selectProject_ACInfoByCondition(condition);
     }
 
     @Override
-    public boolean addAuditFirstInfo(TeachertitleFirstcheckinfo firstCheckInfo) throws SQLException {
-        if(firstCheckInfo==null){
-            throw new IllegalArgumentException("审核信息不能为空!");
-        }
+    public boolean addAuditFirstInfo(TeachertitleFirstcheckinfo firstCheckInfo) throws Exception {
 
         List<TeachertitleFirstcheckinfo> firstCheckInfos = new ArrayList<TeachertitleFirstcheckinfo>();
 
         //遍历教师题目ID
-        String teathertitleids = firstCheckInfo.getTeathertitleid();
+        String teathertitleids = firstCheckInfo.getTeatherTitleID();
         String[] teathertitleidsArray = teathertitleids.split(",");
 
         for (String t : teathertitleidsArray) {
             TeachertitleFirstcheckinfo teachertitleFirstcheckinfo = new TeachertitleFirstcheckinfo();
             //设置主键
-            teachertitleFirstcheckinfo.setCheckid(UUIDUtil.getUUID2());
-            teachertitleFirstcheckinfo.setCheckresult(firstCheckInfo.getCheckresult());
-            teachertitleFirstcheckinfo.setCheckperson(firstCheckInfo.getCheckperson());
-            teachertitleFirstcheckinfo.setChecktime(firstCheckInfo.getChecktime());
-            teachertitleFirstcheckinfo.setCheckdesc(firstCheckInfo.getCheckdesc());
-            teachertitleFirstcheckinfo.setTeathertitleid(t);
+            teachertitleFirstcheckinfo.setCheckID(UUIDUtil.getUUID2());
+            teachertitleFirstcheckinfo.setCheckResult(firstCheckInfo.getCheckResult());
+            teachertitleFirstcheckinfo.setCheckPerson(firstCheckInfo.getCheckPerson());
+            teachertitleFirstcheckinfo.setCheckTime(firstCheckInfo.getCheckTime());
+            teachertitleFirstcheckinfo.setCheckDesc(firstCheckInfo.getCheckDesc());
+            teachertitleFirstcheckinfo.setTeatherTitleID(t);
 
             firstCheckInfos.add(teachertitleFirstcheckinfo);
         }
@@ -72,13 +64,14 @@ public class Project_ACServiceImpl implements Project_ACService {
 
         //更新教师毕业课题题目申请表的审核状态
         String checkStatus = "";
-        if(firstCheckInfo.getCheckresult().equals("同意")){
+        if(firstCheckInfo.getCheckResult().equals("同意")){
             checkStatus = "1";
         } else {
             checkStatus = "3";
         }
         int updateCount = project_ACMapper.updateAuditStatus(teathertitleidsArray,checkStatus);
 
+        //判断是否审核成功
         if (insertCount == teathertitleidsArray.length &&  updateCount == teathertitleidsArray.length) {
             return true;
         }
@@ -86,35 +79,40 @@ public class Project_ACServiceImpl implements Project_ACService {
         return false;
     }
     @Override
-    public boolean addAuditSecondInfo(TeachertitleSecondcheckinfo secondCheckInfo) throws SQLException {
-        if(secondCheckInfo == null){
-            throw new IllegalArgumentException("审核信息不能为空!");
-        }
+    public boolean addAuditSecondInfo(TeachertitleSecondcheckinfo secondCheckInfo) throws Exception {
 
-        TeachertitleSecondcheckinfo teachertitleSecondcheckinfo = new TeachertitleSecondcheckinfo();
-
-        teachertitleSecondcheckinfo.setCheckid(UUIDUtil.getUUID2());
-        teachertitleSecondcheckinfo.setCheckresult(secondCheckInfo.getCheckresult());
-        teachertitleSecondcheckinfo.setCheckperson(secondCheckInfo.getCheckperson());
-        teachertitleSecondcheckinfo.setChecktime(secondCheckInfo.getChecktime());
-        teachertitleSecondcheckinfo.setCheckdesc(secondCheckInfo.getCheckdesc());
+        List<TeachertitleSecondcheckinfo> secondCheckInfos = new ArrayList<TeachertitleSecondcheckinfo>();
 
         //遍历教师题目ID
-        String teathertitleid = secondCheckInfo.getTeathertitleid();
+        String teathertitleids = secondCheckInfo.getTeatherTitleID();
+        String[] teathertitleidsArray = teathertitleids.split(",");
+
+        for (String t : teathertitleidsArray) {
+            TeachertitleSecondcheckinfo teachertitleSecondcheckinfo = new TeachertitleSecondcheckinfo();
+            //设置主键
+            teachertitleSecondcheckinfo.setCheckID(UUIDUtil.getUUID2());
+            teachertitleSecondcheckinfo.setCheckResult(secondCheckInfo.getCheckResult());
+            teachertitleSecondcheckinfo.setCheckPerson(secondCheckInfo.getCheckPerson());
+            teachertitleSecondcheckinfo.setCheckTime(secondCheckInfo.getCheckTime());
+            teachertitleSecondcheckinfo.setCheckDesc(secondCheckInfo.getCheckDesc());
+            teachertitleSecondcheckinfo.setTeatherTitleID(t);
+
+            secondCheckInfos.add(teachertitleSecondcheckinfo);
+        }
 
         //添加审核信息
-        int insertCount = project_ACMapper.insertAuditSecondInfo(teachertitleSecondcheckinfo);
+        int insertCount = project_ACMapper.insertAuditSecondInfo(secondCheckInfos);
 
         //更新教师毕业课题题目申请表的审核状态
         String checkStatus = "";
-        if(secondCheckInfo.getCheckresult().equals("同意")){
+        if(secondCheckInfo.getCheckResult().equals("同意")){
             checkStatus = "2";
         } else {
             checkStatus = "3";
         }
-        int updateCount = project_ACMapper.updateOneAuditStatus(teathertitleid,checkStatus);
+        int updateCount = project_ACMapper.updateAuditStatus(teathertitleidsArray,checkStatus);
 
-        if (insertCount == 1 &&  updateCount == 1) {
+        if (insertCount == teathertitleidsArray.length &&  updateCount == teathertitleidsArray.length) {
             return true;
         }
 
@@ -137,11 +135,14 @@ public class Project_ACServiceImpl implements Project_ACService {
     @Override
     public Boolean modifyProjectInfo(Teachergredesigntitle teachergredesigntitle) throws Exception {
 
-        //删除审核信息。
+        //删除审核信息
+        String teacherTitleID = teachergredesigntitle.getTeachertitleid();
+        project_ACMapper.deleteAuditFisrtInfo(teacherTitleID);
+        project_ACMapper.deleteAuditSecondInfo(teacherTitleID);
 
-        /**
-         * 修改课题申请信息的同时，同时把审核信息至为0
-         */
+        //修改课题申请信息的同时，同时把审核信息至为0
+        teachergredesigntitle.setCheckstatus("0");
+
         int count = project_ACMapper.updateProjectInfo(teachergredesigntitle);
 
         return count > 0 ? true : false;
@@ -158,10 +159,12 @@ public class Project_ACServiceImpl implements Project_ACService {
     }
 
     @Override
-    public Boolean removeProjectInfo(String teacherTitleID) throws Exception {
-        //删除申请表的同时也要删除审核表。
-        project_ACMapper.deleteAuditFisrtInfo(teacherTitleID);
-        project_ACMapper.deleteAuditSecondInfo(teacherTitleID);
+    public Boolean removeProjectInfo(String teacherTitleID, String isSubmit) throws Exception {
+        if (isSubmit.equals("已提交")) {
+             //判断是否是提交的数据。删除申请表的同时也要删除审核表。
+            project_ACMapper.deleteAuditFisrtInfo(teacherTitleID);
+            project_ACMapper.deleteAuditSecondInfo(teacherTitleID);
+        }
 
         int resProjectNum = project_ACMapper.deleteProjectInfo(teacherTitleID);
 
@@ -170,48 +173,16 @@ public class Project_ACServiceImpl implements Project_ACService {
 
     @Override
     public TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID) throws Exception {
-
-        //获取教研室审核信息
-        TeachertitleFirstcheckinfo firstcheckinfo = getTeachertitleFirstcheckinfo(teacherTitleID);
-        //获取院长审核信息
-        TeachertitleSecondcheckinfo secondcheckinfo = project_ACMapper.selectAuditSecondInfo(teacherTitleID);
-        //获取申请课题信息
-        Teachergredesigntitle gredesigntitle = project_ACMapper.selectGreDesignTitleInfo(teacherTitleID);
-        //获取教师信息
-        TTeacherBaseInfo tTeacherBaseInfo = project_ACMapper.selectProjectTeacherInfo(gredesigntitle.getTeacherid());
-
-        TeachergredesigntitleDetailVo titleDetailVo = null;
-
-        //审核信息
-        titleDetailVo.setCheckFirstDesc(firstcheckinfo.getCheckdesc());
-        titleDetailVo.setCheckFirstResult(firstcheckinfo.getCheckresult());
-        titleDetailVo.setCheckSecondDesc(secondcheckinfo.getCheckdesc());
-        titleDetailVo.setCheckSecondResult(secondcheckinfo.getCheckresult());
-
-        titleDetailVo.setTitlename(gredesigntitle.getTitlename());//课题名称
-        titleDetailVo.setProjecttype(gredesigntitle.getProjecttype());//课题类型
-        titleDetailVo.setTitletype(gredesigntitle.getTitletype());//题目类别
-        titleDetailVo.setTitleorigin(gredesigntitle.getTitleorigin());//课题来源
-        titleDetailVo.setResulttype(gredesigntitle.getResulttype());//成果形式
-        titleDetailVo.setGdTime(gredesigntitle.getGdTime());//设计时间
-
-        titleDetailVo.setTeacherName(tTeacherBaseInfo.getTeachername());//教师名称
-        titleDetailVo.setPositionalTitle(tTeacherBaseInfo.getPositionaltitle());//教师职称
-        titleDetailVo.setDegree(tTeacherBaseInfo.getDegree());//教师学位
-
-        //根据专业id，获取专业名称
-        titleDetailVo.setMajorName(project_ACMapper.selectMajorInfo(tTeacherBaseInfo.getMajorid()));
-        titleDetailVo.setReqirestudentnum(gredesigntitle.getReqirestudentnum());//学生人数
-        titleDetailVo.setApplyTime(gredesigntitle.getApplyTime());//申请时间
-        titleDetailVo.setTargetrequire(gredesigntitle.getTargetrequire());//目标要求
-        titleDetailVo.setResearchcontent(gredesigntitle.getResearchcontent());//研究内容
-
-        return titleDetailVo;
+        return project_ACMapper.selectProjectInfoDetail(teacherTitleID);
     }
 
     @Override
-    public TeachertitleFirstcheckinfo getTeachertitleFirstcheckinfo(String teacherTitleID) throws Exception {
-        return project_ACMapper.selectAuditFisrtInfo(teacherTitleID);
+    public List<TeachertitleFirstCheckVo>  getTeachertitleFirstcheckinfo(String teacherTitleID) throws Exception {
+
+        //遍历教师题目ID
+        String[] teathertitleidsArray = teacherTitleID.split(",");
+
+        return project_ACMapper.selectAuditFisrtInfo(teathertitleidsArray);
     }
 
     @Override

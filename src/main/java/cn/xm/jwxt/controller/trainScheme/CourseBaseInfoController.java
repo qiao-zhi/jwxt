@@ -88,7 +88,7 @@ public class CourseBaseInfoController {
             pageNum = Integer.valueOf((String) condition.get("pageNum"));
         }
         //只对紧邻的下一条select语句进行分页查询，对之后的select不起作用
-        PageHelper.startPage(pageNum,pageSize,"CONVERT(courseNameCN USING gbk)");
+        PageHelper.startPage(pageNum,pageSize,"CONVERT(courseNameCN desc)");
         //上面pagehelper的设置对此查询有效，查到数据总共8条
         List<Map<String, Object>> courses = null;
         try {

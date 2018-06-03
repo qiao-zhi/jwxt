@@ -2,14 +2,12 @@ package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
 
-/**
- * 教师毕设课题审核表
- */
-public class TeachertitleFirstcheckinfo {
-    /**教师课题审核ID*/
-    private String checkID;
-    /**教师题目ID*/
-    private String teatherTitleID;
+public class TeachertitleFirstCheckVo {
+
+    /**课题名称*/
+    private String titlename;
+    /** 教师名称 */
+    private String teacherName;
     /**审核时间*/
     private Date checkTime;
     /**审核人*/
@@ -19,20 +17,20 @@ public class TeachertitleFirstcheckinfo {
     /**描述*/
     private String checkDesc;
 
-    public String getCheckID() {
-        return checkID;
+    public String getTitlename() {
+        return titlename;
     }
 
-    public void setCheckID(String checkID) {
-        this.checkID = checkID;
+    public void setTitlename(String titlename) {
+        this.titlename = titlename;
     }
 
-    public String getTeatherTitleID() {
-        return teatherTitleID;
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setTeatherTitleID(String teatherTitleID) {
-        this.teatherTitleID = teatherTitleID;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
     public Date getCheckTime() {

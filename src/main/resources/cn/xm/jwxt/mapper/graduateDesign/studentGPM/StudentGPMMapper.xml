@@ -25,8 +25,8 @@
     </insert>
 
     <update id="updateProgramTable" parameterType="cn.xm.jwxt.bean.graduateDesign.Graduatetaskprogressinfo">
-        update graduateTaskProgressInfo set taskTimeRange = #{taskTimeRange},content = #{content}, editTime = #{editTime}, fillStatus = #{fillStatus}
-        where progressId = #{progressId}
+        update graduateTaskProgressInfo set taskTimeRange = #{tasktimerange},content = #{content}, editTime = #{edittime}, fillStatus = #{fillStatus}
+        where progressId = #{progressid}
     </update>
 
     <select id="selectBookIDByStudentID" parameterType="java.lang.String" resultType="java.lang.String">

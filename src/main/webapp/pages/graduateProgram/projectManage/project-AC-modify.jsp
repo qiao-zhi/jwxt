@@ -25,9 +25,11 @@
 
 <body>
 <div class="x-body" style="margin:20px auto 50px auto; width:70%;">
-    <form class="layui-form" id="y_from">
+    <form class="layui-form" id="y_form">
         <button class="layui-btn" lay-submit="" onclick="y_submit()">修改</button>
 
+        <input type="hidden" name="isSubmit" value="1">
+        <input type="hidden" name="teachertitleid" id="teacherTitleID"/>
         <table class="table table-bordered">
             <caption><h1>太原科技大学毕业设计（论文）课题申请表</h1>
                 <span style="position:relative;top:15px;left:10px;">学院（直属系）：
@@ -38,7 +40,7 @@
                     </label>
                     <div class="layui-input-inline" style="width: 135px">
                         <input type="text" class="layui-input" name="applyTime" id="L_pass">
-                        <input type="hidden" name="graDesignID" id="graDesignID">
+                        <input type="hidden" name="gragesignid" id="graDesignID">
                     </div>
                 </div>
             </caption>
@@ -61,7 +63,7 @@
             <tr>
                 <td>课题来源</td>
                 <td colspan="5">
-                    <select name="titleOrigin" id="titleOrigin" class="small" lay-verify="required">
+                    <select name="titleorigin" id="titleOrigin" class="small" lay-verify="required">
                         <option value="">--请选择--</option>
                         <option value="科研">科研</option>
                         <option value="生产">生产</option>
@@ -73,7 +75,7 @@
             <tr>
                 <td>课题类别</td>
                 <td>
-                    <select name="titleType" id="titleType" class="small" lay-verify="required">
+                    <select name="titletype" id="titleType" class="small" lay-verify="required">
                         <option value="">--请选择--</option>
                         <option value="设计">设计</option>
                         <option value="论文">论文</option>
@@ -92,16 +94,16 @@
                 </td>
                 <td>学生人数</td>
                 <td colspan="3">
-                    <input class="layui-input" name="reqireStudentNum" id="reqireStudentNum" type="text" lay-verify="required|number">
+                    <input class="layui-input" name="reqirestudentnum" id="reqireStudentNum" type="text" lay-verify="required|number">
                 </td>
             </tr>
             <tr>
                 <td>课题类型</td>
                 <td colspan="6">
-                    <input type="radio" class="projectType" name="projectType" lay-skin="primary" value="纵向科研课题" title="纵向科研课题">
-                    <input type="radio" class="projectType" name="projectType" lay-skin="primary" value="横向科研课题" title="横向科研课题">
-                    <input type="radio" class="projectType" name="projectType" lay-skin="primary" value="教师预研课题" title="教师预研课题">
-                    <input type="radio" class="projectType" name="projectType" lay-skin="primary" value="自选课题" title="自选课题">
+                    <input type="radio" class="projectType" name="projecttype" lay-skin="primary" value="纵向科研课题" title="纵向科研课题">
+                    <input type="radio" class="projectType" name="projecttype" lay-skin="primary" value="横向科研课题" title="横向科研课题">
+                    <input type="radio" class="projectType" name="projecttype" lay-skin="primary" value="教师预研课题" title="教师预研课题">
+                    <input type="radio" class="projectType" name="projecttype" lay-skin="primary" value="自选课题" title="自选课题">
                 </td>
             </tr>
             <tr>
@@ -117,13 +119,13 @@
             <tr>
                 <td>主要研究内容</td>
                 <td colspan="6">
-                    <textarea class="layui-textarea" id="researchContent" name="researchContent" lay-verify="required"></textarea>
+                    <textarea class="layui-textarea" id="researchContent" name="researchcontent" lay-verify="required"></textarea>
                 </td>
             </tr>
             <tr>
                 <td>设计目标要求</td>
                 <td colspan="6">
-                    <textarea name="targetRequire" id="targetRequire" class="layui-textarea" lay-verify="required"></textarea>
+                    <textarea name="targetrequire" id="targetRequire" class="layui-textarea" lay-verify="required"></textarea>
                 </td>
             </tr>
             </tbody>

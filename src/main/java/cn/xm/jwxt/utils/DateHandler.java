@@ -2,6 +2,7 @@ package cn.xm.jwxt.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -106,5 +107,25 @@ public class DateHandler {
 			}
 		}
 		return t;
+	}
+
+	/**
+	 * 获得当前学年
+	 * @return
+	 */
+	public static String getCurrentYearNum() {
+
+		String currentYearNum = "";
+
+		Calendar calendar = Calendar.getInstance();
+		int month = calendar.get(calendar.MONTH) + 1;
+		int year = calendar.get(calendar.YEAR);
+		if (3 <= month && month < 8) { //第二学期
+			currentYearNum = (year - 1) + "-" + year;
+		} else {
+			currentYearNum = year + "-" + (year + 1);
+		}
+
+		return currentYearNum;
 	}
 }

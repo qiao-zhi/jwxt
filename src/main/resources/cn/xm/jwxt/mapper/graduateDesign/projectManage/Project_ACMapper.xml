@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper">
+
+    <select id="selectProject_ACInfoByCondition" parameterType="map" resultType="map">
+        select
+        yearNum,semesterNum,teacherTitleID,titlename,teacherName,titleOrigin,majorName,reqireStudentNum,checkStatus,isSubmit
+        from gradeuateBaseInfo g,t_major_base_info m,
+        (
+        select
+        teacherTitleID,titlename,titleOrigin,reqireStudentNum,checkStatus,teacherName,majorID,graDesignID,isSubmit
+        from teacherGreDesignTitle t1,t_teacher_base_info t2
+        where t1.teacherID=#{teacherID} and t2.teacherID=#{teacherID}
+        <if test="teacherName != null and teacherName != ''">
+            and t2.teacherName like '${teacherName}%'
+        </if>
+        <if test="titlename != null and titlename != ''">
+            and t1.titlename like '${titlename}%'
+        </if>
+        <if test="checkStatus != null and checkStatus != ''">
+            and t1.checkStatus like '${checkStatus}'
+        </if>
+        ) son
+        where m.majorID = son.majorID and g.graDesignID = son.graDesignID and g.yearNum = #{yearNum}
+    </select>
+
+
+    <insert id="insertAuditFirstInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo">
+        insert into teacherTitleFirstCheckInfo (checkID, teatherTitleID, checkTime,
+        checkPerson, checkResult, checkDesc)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.checkID},
+            #{item.teatherTitleID},
+            #{item.checkTime},
+            #{item.checkPerson},
+            #{item.checkResult},
+            #{item.checkDesc}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertAuditSecondInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo">
+        insert into teacherTitleSecondCheckInfo (checkID, teatherTitleID, checkTime,
+        checkPerson, checkResult, checkDesc)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.checkID},
+            #{item.teatherTitleID},
+            #{item.checkTime},
+            #{item.checkPerson}
+            #{item.checkResult}
+            #{item.checkDesc}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateAuditStatus">
+        update teacherGreDesignTitle set checkStatus = #{checkStatus}
+        where teacherTitleID in
+        <foreach collection="array" index="index" item="item"
+                 open="(" separator="," close=")">
+            #{teacherTitleID}
+        </foreach>
+    </update>
+
+    <insert id="insertProjectInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
+    insert into teacherGreDesignTitle (teacherTitleID, graDesignID, teacherId,titlename,resultType,projectType,targetRequire,
+    researchContent,titleOrigin,titleType,reqireStudentNum,checkStatus,applyTime,gdTime,majorID)
+    VALUES
+    (#{teacherTitleID}},#{graDesignID},#{teacherId},#{titlename},#{resultType},#{projectType},#{targetRequire},
+    #{researchContent},#{titleOrigin},#{titleType},#{reqireStudentNum},#{checkStatus},#{applyTime},#{gdTime},#{majorID})
+  </insert>
+
+    <select id="selectProjectTeacherInfo" parameterType="java.lang.String"
+            resultType="cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo">
+    SELECT teacherName,positionalTitle,degree FROM t_teacher_base_info WHERE teacherID = #{teacherID}
+  </select>
+
+    <select id="selectProjectInfo" parameterType="java.lang.String"
+            resultType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
+    SELECT * FROM Teachergredesigntitle WHERE teacherTitleID = #{teacherTitleID}
+  </select>
+
+    <update id="updateProjectInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
+        update teacherGreDesignTitle set
+        graDesignID = #{graDesignID},
+        titlename = #{titlename},
+        resultType = #{resultType},
+        projectType = #{projectType},
+        targetRequire = #{targetRequire},
+        researchContent = #{researchContent},
+        titleOrigin = #{titleOrigin},
+        titleType = #{titleType},
+        reqireStudentNum = #{reqireStudentNum},
+        checkStatus = #{checkStatus},
+        syear = #{syear},
+        applyTime = #{applyTime},
+        gdTime = #{gdTime},
+        majorID = #{majorID}
+        where teacherTitleID=#{teacherTitleID}
+    </update>
+
+    <delete id="deleteProjectInfo" parameterType="java.lang.String">
+    delete from teacherGreDesignTitle where teacherTitleID=#{teacherTitleID}
+  </delete>
+
+    <delete id="deleteAuditFisrtInfo" parameterType="java.lang.String">
+    delete from teacherTitleFirstCheckInfo where teacherTitleID=#{teacherTitleID}
+  </delete>
+
+    <delete id="deleteAuditSecondInfo" parameterType="java.lang.String">
+    delete from teacherTitleSecondCheckInfo where teacherTitleID=#{teacherTitleID}
+  </delete>
+
+    <select id="selectAuditFisrtInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstCheckVo">
+        select teacherName,titlename,
+        checkResult,checkDesc,checkTime,checkPerson
+        from t_teacher_base_info t,teacherTitleFirstCheckInfo fc,
+        (
+          select teacherID,titlename,teacherTitleID from teacherGreDesignTitle
+          where teacherTitleID IN
+            <foreach collection="array" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        ) son
+        where t.teacherID = son.teacherID and fc.teacherTitleID = son.teacherTitleID
+  </select>
+
+    <select id="selectGraDesignIDByCurrentYear" resultType="java.lang.String">
+    SELECT graDesignID FROM gradeuateBaseInfo
+    WHERE yearNum = #{yearNum} and semesterNum = #{semesterNum}
+  </select>
+
+    <select id="selectCollege" parameterType="java.util.List" resultType="java.lang.String">
+    SELECT collegeName FROM t_college_base_info c,t_teacher_base_info t
+    WHERE c.collegeId = t.collegeId and t.teacherID=#{teacherID}
+  </select>
+
+
+    <select id="selectProjectInfoDetail" parameterType="java.lang.String"
+            resultType="cn.xm.jwxt.bean.graduateDesign.TeachergredesigntitleDetailVo">
+    SELECT teacherName,positionalTitle,degree,
+    majorName,
+    titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,
+    c1.checkResult checkFirstResult,c1.checkDesc checkFirstDesc,
+    c2.checkResult checkSecondResult,c2.checkDesc checkSecondDesc
+    from t_teacher_base_info t, t_major_base_info m,teacherTitleFirstCheckInfo c1,teacherTitleSecondCheckInfo c2,
+    (
+    SELECT titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,teacherID,majorID,teacherTitleID
+    FROM teacherGreDesignTitle
+    WHERE teacherTitleID=#{teacherTitleID}
+    ) son
+    where t.teacherID = son.teacherID and m.majorID = son.majorID
+    and c1.teacherTitleID=son.teacherTitleID and c2.teacherTitleID=son.teacherTitleID
+  </select>
+
+</mapper>

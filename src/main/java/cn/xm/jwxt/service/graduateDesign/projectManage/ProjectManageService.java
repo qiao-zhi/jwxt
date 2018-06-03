@@ -44,4 +44,14 @@ public interface ProjectManageService {
      * @param studentArray
      */
     public Boolean saveAllocate(String teacherTitleID, String[] studentArray) throws Exception;
+
+
+    /**
+     * 提交确定的学生。
+     *
+     * @param teacherTitleID
+     * @param studentIDs
+     * @return
+     */
+    public Boolean submitChooseStudent(String teacherTitleID, String studentIDs) throws Exception;
 }

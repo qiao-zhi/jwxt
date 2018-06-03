@@ -34,11 +34,11 @@ public interface GraduateManageMapper {
 
     /**
      * 删除毕设基本信息
-     * @param gradesignid
+     * @param graDesignID
      * @return
      * @throws SQLException
      */
-    public int deleteGraduateInfo(String gradesignid) throws SQLException;
+    public int deleteGraduateInfo(String graDesignID) throws SQLException;
 
     /**
      * 修改毕设基本信息

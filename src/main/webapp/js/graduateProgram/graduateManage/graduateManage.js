@@ -1,35 +1,27 @@
-/*查询*/
-layui.use('form', function(){
-    var form = layui.form;
-
-    //监听提交
-    form.on('submit(sreach)', function(data){
-        layer.alert(JSON.stringify(data.field), {
-            title: '最终的提交信息'
-        });
-        //清空当前页和页号
-        $("input[name='pageSize']").val('');
-        $("input[name='currentPage']").val('');
-        //调用查询方法
-        findTaskNoticeBaseInfo();
-        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-    });
-});
+function y_formSearch() {
+    //清空当前页和页号
+    $("input[name='pageSize']").val('');
+    $("input[name='currentPage']").val('');
+    //调用查询方法
+    findTaskNoticeBaseInfo();
+}
 
 //修改毕设信息
 function modifyGraduate(obj) {
     var tr = $(obj).parents("tr");
-    var gradesignid = tr.find("#y_id").val();
+    var gradesignid = tr.find(".y_id").val();
     var yearnum = tr.children("td").eq(0).text();
     var semesternum = tr.children("td").eq(1).text();
     var graduatedesignname = tr.children("td").eq(2).text();
-    var majorid = tr.children("td").eq(3).text();
+    var majorname = tr.children("td").eq(3).text();
     var graduatedesc = tr.children("td").eq(4).text();
 
-    x_admin_show('修改毕设基本信息','./graduateManage-modify.jsp?' +
+    var url = './graduateManage-modify.jsp?' +
         'gradesignid=' + gradesignid + '&yearnum=' + yearnum +
         '&semesternum=' + semesternum + '&graduatedesignname=' + graduatedesignname +
-        '&majorid=' + majorid + '&graduatedesc=' + graduatedesc)
+        '&majorname=' + majorname + '&graduatedesc=' + graduatedesc;
+    var searchUrl =encodeURI(url);//编码
+    x_admin_show('修改毕设基本信息',searchUrl);
 }
 
 $(function () {
@@ -62,16 +54,16 @@ function showTaskNoticeBaseInfo(pageInfo){
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr =
-            '<tr><input type="hidden" class="y_id" value="'+ baseInfoList[i].gradesignid + '"/>' +
-            '<td>'+ baseInfoList[i].yearnum +'</td>' +
-            '<td>'+ baseInfoList[i].semesternum +'</td>' +
-            '<td>'+ baseInfoList[i].graduatedesignname +'</td>' +
-            '<td>'+ baseInfoList[i].majorid +'</td>' +
-            '<td>'+ baseInfoList[i].graduatedesc +'</td>' +
+            '<tr><input type="hidden" class="y_id" value="'+ baseInfoList[i].graDesignID + '"/>' +
+            '<td>'+ baseInfoList[i].yearNum +'</td>' +
+            '<td>'+ baseInfoList[i].semesterNum +'</td>' +
+            '<td>'+ baseInfoList[i].graduateDesignName +'</td>' +
+            '<td>'+ baseInfoList[i].majorName +'</td>' +
+            '<td>'+ baseInfoList[i].graduateDesc +'</td>' +
             '<td class="td-manage">'+
                 '<a title="修改毕设基本信息"  onclick="modifyGraduate(this)" href="javascript:;">'+
-                '<i class="layui-icon">&#xe642;</i></a>'+
-                '<a title="删除" onclick="member_del(this,baseInfoList[i].gradesignid)" href="javascript:;">'+
+                '<i class="layui-icon">&#xe642;</i></a>&nbsp;&nbsp;'+
+                '<a title="删除" onclick="member_del(this)" href="javascript:;">'+
                 '<i class="layui-icon">&#xe640;</i></a>'+
             '</td>'+
             '</tr>';
@@ -112,23 +104,20 @@ function noticeInfoListPage(total,pageNum,pageSize){
 }
 
 /*删除*/
-function member_del(obj, id) {
+function member_del(obj) {
     layer.confirm('确认要删除吗？', function (index) {
+
+        var id = $(obj).parents("tr").find(".y_id").val();
+
         $.ajax({
-            url:contextPath+"/graduateManage/removeGraduateInfo.do",
+            url:contextPath + "/graduateManage/removeGraduateInfo.do",
             type:"post",
             dataType:"text",
-            data:{"gradesignid":id},
+            data:{"graDesignID":id},
             success:function (response) {
-                if (response == "success") {
-                    $(obj).parents("tr").remove();
-                    layer.msg('已删除!', {icon: 1, time: 1000});
-                }
-                /*
                 layer.msg(response, {icon: 1, time: 1000},function (){
-                    //刷新父页面
                     window.location.reload();
-                })*/
+                })
             }
         })
 

@@ -1,6 +1,6 @@
 var teacherTitleID = "";
 $(function () {
-    teacherTitleID = getUrlParam(teacherTitleID);
+    teacherTitleID = getUrlParam("teacherTitleID");
     $.ajax({
         url: contextPath + '/projectManage/getProjectInfoDetail.do',
         data: teacherTitleID,

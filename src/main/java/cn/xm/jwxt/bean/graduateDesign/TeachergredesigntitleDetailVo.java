@@ -7,7 +7,7 @@ public class TeachergredesigntitleDetailVo {
 
     private String teacherName;
 
-    private String positionalTitle;
+    private String positionalTitle;//职称
 
     private String degree;
 

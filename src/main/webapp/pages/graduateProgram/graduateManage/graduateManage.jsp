@@ -42,14 +42,16 @@
         <form class="layui-form layui-col-md12 x-so" id="y_form">
             <input type="text" name="graduateDesignName" placeholder="毕设名称" autocomplete="off" class="layui-input">
             <div class="layui-input-inline"><!--带搜索的查询-->
-                <select lay-search="" name="yearNum" id="y_yearNum">
+                <select name="yearNum" id="y_yearNum">
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select name="majorid" id="y_major">
                 </select>
             </div>
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <input type="hidden" name="currentPage">
+            <input type="hidden" name="pageSize">
+            <button class="layui-btn" type="button" onclick="y_formSearch()"><i class="layui-icon">&#xe615;</i></button>
             <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
@@ -74,9 +76,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-
-        </tr>
         </tbody>
     </table>
     <!--end 表格内容-->

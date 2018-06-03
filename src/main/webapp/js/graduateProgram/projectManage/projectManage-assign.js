@@ -7,11 +7,11 @@ var teacherTitleID = "";
 
 //初始化课题基本信息
 function initTitleInfo() {
-    teacherTitleID = getUrlParam(teacherTitleID);
-    var teacherName = getUrlParam(teacherName);
-    var titlename = getUrlParam(titlename);
-    var reqireStudentNum = getUrlParam(reqireStudentNum);
-    var applyStudentNum = getUrlParam(applyStudentNum);
+    teacherTitleID = getUrlParam("teacherTitleID");
+    var teacherName = getUrlParam("teacherName");
+    var titlename = getUrlParam("titlename");
+    var reqireStudentNum = getUrlParam("reqireStudentNum");
+    var applyStudentNum = getUrlParam("applyStudentNum");
 
     //初始化课题信息
     var tr =

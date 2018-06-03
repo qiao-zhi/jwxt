@@ -22,19 +22,15 @@
     <table class="layui-table" style="width:850px;margin-left:45px;" width="">
         <thead>
         <tr>
+            <th>课题名称</th>
+            <th>教师名称</th>
             <th>教研室审核结果</th>
             <th>教研室审核意见</th>
             <th>教研室审核时间</th>
             <th>教研室审核人</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>${teachertitleFirstcheckinfo.checkResult}</td>
-            <td>${teachertitleFirstcheckinfo.checkDesc}</td>
-            <td>${teachertitleFirstcheckinfo.checkTime}</td>
-            <td>${teachertitleFirstcheckinfo.checkPerson}</td>
-        </tr>
+        <tbody id="firstCheckInfo">
         </tbody>
     </table>
 
@@ -71,7 +67,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
-            <button class="layui-btn" lay-submit="" lay-filter="add">提交</button>
+            <button class="layui-btn" lay-submit="" type="button" lay-filter="add">提交</button>
         </div>
     </form>
 </div>

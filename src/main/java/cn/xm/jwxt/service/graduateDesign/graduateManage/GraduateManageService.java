@@ -34,11 +34,11 @@ public interface GraduateManageService {
 
     /**
      * 删除毕设基本信息
-     * @param gradesignid
+     * @param graDesignID
      * @return
      * @throws Exception
      */
-    public Boolean removeGraduateInfo(String gradesignid) throws Exception;
+    public Boolean removeGraduateInfo(String graDesignID) throws Exception;
 
     /**
      * 分页组合条件查询毕业基本信息,初始化表格

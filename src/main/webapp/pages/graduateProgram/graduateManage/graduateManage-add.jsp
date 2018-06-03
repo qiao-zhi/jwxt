@@ -8,8 +8,6 @@
     <title>添加毕设基本信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <%-- qlq引入的公共的JSP --%>
     <%@include file="/tag.jsp"%>
     <%@ include file="/cssJs.jsp"%>
@@ -19,7 +17,7 @@
 
 <body>
 <div class="x-body">
-    <form class="layui-form" id="y_form">
+    <form class="layui-form" id="y_formAdd">
 
         <div class="layui-form-item">
             <label class="layui-form-label">
@@ -51,7 +49,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
-            <button class="layui-btn" lay-submit="" lay-filter="add">添加</button>
+            <button class="layui-btn" lay-submit="" lay-filter="add" type="button" onclick="y_submit()">添加</button>
         </div>
     </form>
 </div>

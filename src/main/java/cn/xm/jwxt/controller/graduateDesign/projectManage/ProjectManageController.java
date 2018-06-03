@@ -47,7 +47,7 @@ public class ProjectManageController {
             pageNum = Integer.valueOf(condition.get("pageNum"));
         }
         //开始分页   CONVERT(courseNameCN USING gbk)显示方式。排序方式。"createTime desc";//按创建时间降序排序
-        PageHelper.startPage(pageNum,pageSize,"CONVERT(courseNameCN USING gbk)");
+        PageHelper.startPage(pageNum,pageSize,"CONVERT(yearNum desc)");
         //上面pagehelper的设置对此查询有效，查到数据总共8条
         List<Map<String, String>> projectInfo = null;
         try {
@@ -111,5 +111,24 @@ public class ProjectManageController {
 
         return teachergredesigntitle;
     }
+
+    /**
+     * 提交确定的学生。
+     * @return
+     */
+    @RequestMapping("/submitChooseStudent")
+    public @ResponseBody
+    String submitChooseStudent(@RequestParam String teacherTitleID, @RequestParam String studentIDs){
+        Boolean res = false;
+        try {
+            res = projectManageService.submitChooseStudent(teacherTitleID, studentIDs);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("课题申请详细信息获取失败",e);
+        }
+
+        return res ? "success" : "false";
+    }
+
 
 }

@@ -1,12 +1,10 @@
 package cn.xm.jwxt.controller.graduateDesign.projectManage;
 
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
-import cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle;
-import cn.xm.jwxt.bean.graduateDesign.TeachergredesigntitleDetailVo;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo;
+import cn.xm.jwxt.bean.graduateDesign.*;
 import cn.xm.jwxt.bean.system.User;
 import cn.xm.jwxt.service.graduateDesign.projectManage.Project_ACService;
+import cn.xm.jwxt.utils.DateHandler;
 import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.ValidateCheck;
 import com.github.pagehelper.PageHelper;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -66,14 +65,14 @@ public class Project_ACController {
     }
 
     /**
-     * 添加审核信息
+     * 添加教研室审核信息
      *
      * @param firstCheckInfo
      * @return
      */
     @RequestMapping("/addAuditFirst")
     public @ResponseBody
-    String addAuditFirstInfo(TeachertitleFirstcheckinfo firstCheckInfo) {
+    String addAuditFirst(TeachertitleFirstcheckinfo firstCheckInfo) {
         try {
             Boolean res = project_ACService.addAuditFirstInfo(firstCheckInfo);
             if (!res) {
@@ -108,6 +107,35 @@ public class Project_ACController {
     }
 
     /**
+     * 添加课题信息-保存
+     *
+     * @param teachergredesigntitle
+     * @return
+     */
+    @RequestMapping("/saveProjectInfo")
+    public @ResponseBody
+    String saveProjectInfo(Teachergredesigntitle teachergredesigntitle,HttpSession session) {
+
+        //获取教师id
+/*        User user = (User) session.getAttribute("userinfo");
+        String teacherID = user.getUserid();*/
+        String teacherID = "111";
+
+        teachergredesigntitle.setTeacherid(teacherID);
+
+        try {
+            Boolean res = project_ACService.addProjectInfo(teachergredesigntitle);
+            if (!res) {
+                return "保存失败";
+            }
+        } catch (Exception e) {
+            logger.error("课题申请细信息保存失败", e);
+            return "保存失败";
+        }
+        return "保存成功";
+    }
+
+    /**
      * 添加课题信息
      *
      * @param teachergredesigntitle
@@ -118,8 +146,10 @@ public class Project_ACController {
     String addProjectInfo(Teachergredesigntitle teachergredesigntitle,HttpSession session) {
 
         //获取教师id
-        User user = (User) session.getAttribute("userinfo");
-        String teacherID = user.getUserid();
+/*        User user = (User) session.getAttribute("userinfo");
+        String teacherID = user.getUserid();*/
+        String teacherID = "111";
+
         teachergredesigntitle.setTeacherid(teacherID);
 
         try {
@@ -145,8 +175,9 @@ public class Project_ACController {
     public @ResponseBody
     TTeacherBaseInfo getProjectTeacherInfo(HttpSession session) {
         //获取教师id
-        User user = (User) session.getAttribute("userinfo");
-        String teacherID = user.getUserid();
+/*        User user = (User) session.getAttribute("userinfo");
+        String teacherID = user.getUserid();*/
+        String teacherID = "111";
 
         TTeacherBaseInfo tTeacherBaseInfo = new TTeacherBaseInfo();
         try {
@@ -205,9 +236,9 @@ public class Project_ACController {
      */
     @RequestMapping("/removeProjectInfo")
     public @ResponseBody
-    String removeProjectInfo(String teacherTitleID) {
+    String removeProjectInfo(String teacherTitleID, String isSubmit) {
         try {
-            Boolean res = project_ACService.removeProjectInfo(teacherTitleID);
+            Boolean res = project_ACService.removeProjectInfo(teacherTitleID,isSubmit);
             if (!res) {
                 return "删除失败";
             }
@@ -236,24 +267,24 @@ public class Project_ACController {
             pageNum = Integer.valueOf(condition.get("pageNum"));
         }
         //开始分页   CONVERT(courseNameCN USING gbk)显示方式。排序方式。"createTime desc";//按创建时间降序排序
-        PageHelper.startPage(pageNum, pageSize, "CONVERT(courseNameCN USING gbk)");
+        PageHelper.startPage(pageNum, pageSize, "CONVERT(yearNum desc)");
         //上面pagehelper的设置对此查询有效，查到数据总共8条
 
         //获取教师id
-        User user = (User) session.getAttribute("userinfo");
+        //判断登录用户。类型，登录用户为教师的话，就添加该字段。
+/*        User user = (User) session.getAttribute("userinfo");
         String teacherID = user.getUserid();
+        if (userinfo.sort.equals("教师")) {
+            condition.put("teacherID", teacherID);
+        }
+        */
+
+        String teacherID = "111";
         condition.put("teacherID", teacherID);
 
         //默认设置当前学年
-        if (ValidateCheck.isNotNull(condition.get("yearNum"))) {
-            Calendar calendar = Calendar.getInstance();
-            int month = calendar.get(calendar.MONTH) + 1;
-            int year = calendar.get(calendar.YEAR);
-            if (3 <= month && month < 8) { //第二学期
-                condition.put("yearNum", (year - 1) + "-" + year);
-            } else {
-                condition.put("yearNum", year + "-" + (year + 1));
-            }
+        if (!ValidateCheck.isNotNull(condition.get("yearNum"))) {
+            condition.put("yearNum", DateHandler.getCurrentYearNum());
         }
 
         List<Map<String, String>> projectInfo = null;
@@ -294,15 +325,15 @@ public class Project_ACController {
      */
     @RequestMapping("/getAuditFirstInfo")
     public @ResponseBody
-    TeachertitleFirstcheckinfo getAuditFirstInfo(String teacherTitleID) {
-        TeachertitleFirstcheckinfo teachertitleFirstcheckinfo = new TeachertitleFirstcheckinfo();
+    List<TeachertitleFirstCheckVo> getAuditFirstInfo(String teacherTitleID) {
+        List<TeachertitleFirstCheckVo> teachertitleFirstCheckVo = new ArrayList<TeachertitleFirstCheckVo>();
         try {
-            teachertitleFirstcheckinfo = project_ACService.getTeachertitleFirstcheckinfo(teacherTitleID);
+            teachertitleFirstCheckVo = project_ACService.getTeachertitleFirstcheckinfo(teacherTitleID);
         } catch (Exception e) {
             logger.error("课题申请详细信息获取失败", e);
         }
 
-        return teachertitleFirstcheckinfo;
+        return teachertitleFirstCheckVo;
     }
 
     /**
@@ -315,8 +346,9 @@ public class Project_ACController {
     String getCollege(HttpSession session) {
 
         //获取教师id
-        User user = (User) session.getAttribute("userinfo");
-        String teacherID = user.getUserid();
+/*        User user = (User) session.getAttribute("userinfo");
+        String teacherID = user.getUserid();*/
+        String teacherID = "111";
 
         String collegeName = "";
         try {

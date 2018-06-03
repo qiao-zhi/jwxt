@@ -1,9 +1,7 @@
 package cn.xm.jwxt.mapper.graduateDesign.projectManage;
 
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
-import cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleFirstcheckinfo;
-import cn.xm.jwxt.bean.graduateDesign.TeachertitleSecondcheckinfo;
+import cn.xm.jwxt.bean.graduateDesign.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.sql.SQLException;
@@ -32,10 +30,10 @@ public interface Project_ACMapper {
 
     /**
      * 添加院长审核信息
-     * @param secondCheckInfo
+     * @param secondCheckInfos
      * @return
      */
-    public int insertAuditSecondInfo(TeachertitleSecondcheckinfo secondCheckInfo) throws SQLException;
+    public int insertAuditSecondInfo(List<TeachertitleSecondcheckinfo> secondCheckInfos) throws SQLException;
 
     /**
      * 更新多个教师毕业课题题目申请表的审核状态
@@ -95,10 +93,12 @@ public interface Project_ACMapper {
      */
     public int deleteAuditFisrtInfo(String teacherTitleID) throws SQLException;
 
+
     /**
      * 删除院长审核信息
      * @param teacherTitleID
      * @return
+     * @throws SQLException
      */
     public int deleteAuditSecondInfo(String teacherTitleID) throws SQLException;
 
@@ -107,28 +107,7 @@ public interface Project_ACMapper {
      * @param teacherTitleID
      * @return
      */
-    public TeachertitleFirstcheckinfo selectAuditFisrtInfo(String teacherTitleID) throws SQLException;
-
-    /**
-     * * 查询院长审核信息
-     * @param teacherTitleID
-     * @return
-     */
-    public TeachertitleSecondcheckinfo selectAuditSecondInfo(String teacherTitleID) throws SQLException;
-
-    /**
-     * * 查询审核表信息
-     * @param teacherTitleID
-     * @return
-     */
-    public Teachergredesigntitle selectGreDesignTitleInfo(String teacherTitleID) throws SQLException;
-
-    /**
-     * 获取专业名称
-     * @param majorid
-     * @return
-     */
-    public String selectMajorInfo(String majorid) throws SQLException;
+    public List<TeachertitleFirstCheckVo> selectAuditFisrtInfo(String[] teacherTitleID) throws SQLException;
 
     /**
      * 在添加课题前，判断是否有本学期的毕业设计基本信息
@@ -145,4 +124,12 @@ public interface Project_ACMapper {
      * @throws SQLException
      */
     public String selectCollege(String teacherID) throws SQLException;
+
+    /**
+     * 获得课题详细信息
+     * @param teacherTitleID
+     * @return
+     * @throws SQLException
+     */
+    public TeachergredesigntitleDetailVo selectProjectInfoDetail(String teacherTitleID) throws SQLException;
 }

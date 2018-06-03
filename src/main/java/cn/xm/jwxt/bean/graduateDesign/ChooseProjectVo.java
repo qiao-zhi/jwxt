@@ -12,11 +12,13 @@ public class ChooseProjectVo {
 
     private String titlename;
 
-    private String projecttype;
+    private String projectType;
 
-    private String titleorigin;
+    private String titleOrigin;
 
-    private Short reqirestudentnum;
+    private Short reqireStudentNum;
+
+    private String isSubmit;
 
     public String getTeacherName() {
         return teacherName;
@@ -42,27 +44,35 @@ public class ChooseProjectVo {
         this.titlename = titlename;
     }
 
-    public String getProjecttype() {
-        return projecttype;
+    public String getProjectType() {
+        return projectType;
     }
 
-    public void setProjecttype(String projecttype) {
-        this.projecttype = projecttype;
+    public void setProjectType(String projectType) {
+        this.projectType = projectType;
     }
 
-    public String getTitleorigin() {
-        return titleorigin;
+    public String getTitleOrigin() {
+        return titleOrigin;
     }
 
-    public void setTitleorigin(String titleorigin) {
-        this.titleorigin = titleorigin;
+    public void setTitleOrigin(String titleOrigin) {
+        this.titleOrigin = titleOrigin;
     }
 
-    public Short getReqirestudentnum() {
-        return reqirestudentnum;
+    public Short getReqireStudentNum() {
+        return reqireStudentNum;
     }
 
-    public void setReqirestudentnum(Short reqirestudentnum) {
-        this.reqirestudentnum = reqirestudentnum;
+    public void setReqireStudentNum(Short reqireStudentNum) {
+        this.reqireStudentNum = reqireStudentNum;
+    }
+
+    public String getIsSubmit() {
+        return isSubmit;
+    }
+
+    public void setIsSubmit(String isSubmit) {
+        this.isSubmit = isSubmit;
     }
 }

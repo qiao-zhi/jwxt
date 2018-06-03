@@ -12,7 +12,7 @@
     </foreach>
   </delete>
 
-  <insert id="insertAuditInfo" parameterType="java.util.List">
+  <insert id="insertAuditInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.GdFileCheck">
     insert into gdFileCheck
     ( id,auditCesult,auditContent,auditTime,StudentTitleresultID)
     values

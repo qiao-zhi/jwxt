@@ -1,6 +1,7 @@
 package cn.xm.jwxt.mapper.graduateDesign.projectManage;
 
 import cn.xm.jwxt.bean.graduateDesign.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,103 +12,34 @@ import java.util.Map;
  */
 public interface AssignmentManageMapper {
 
-    /**
-     * 查询课题申请管理界面，表格信息
-     *
-     * @param condition
-     * @return
-     * @throws SQLException
-     */
-    public List<Map<String, String>> getprojectInfoByCondition(Map<String, String> condition) throws SQLException;
 
     /**
-     * 添加任务书信息
-     *
-     * @param taskbookinfo
-     * @return
-     * @throws SQLException
-     */
-    public int insertTaskBookInfo(Taskbookinfo taskbookinfo) throws SQLException;
-
-    /**
-     * 修改任务书信息
-     *
-     * @param taskbookinfo
-     * @return
-     * @throws SQLException
-     */
-    public Taskbookinfo updateAssignmentInfo(Taskbookinfo taskbookinfo) throws SQLException;
-
-    /**
-     * 获取任务书信息
-     *
-     * @param studentID
-     * @return
-     * @throws SQLException
-     */
-    public Taskbookinfo selectAssignmentInfo(String studentID) throws SQLException;
-
-    /**
-     * 根据教师题目id获取学生信息和任务书填写情况。
-     *
-     * @param teacherTitleID 教师题目id.如果isconfirm为null、“” 至为-1
-     * @return
-     * @throws SQLException
-     */
-    public StudentInfoVo selectStudentInfo(String teacherTitleID) throws SQLException;
-
-    /**
-     * 查询任务书初始化必备信息
-     * 查询结果：studentID、studentName、studentNum、className、teamworkStudentName
-     * 通过学生id，查询前四个字段
-     * 通过teacherTitleID查询结果表，获取同一个课题的同学姓名
-     *
+     * 删除系主任审核信息
      * @param teacherTitleID
-     * @param studentID
      * @return
      */
-    public AssignmentVo selectAssignmentInitInfo(String teacherTitleID, String studentID) throws SQLException;
+    public void deleteAuditFisrtInfo(String teacherTitleID) throws SQLException;
+
 
     /**
-     * 查询任务书保存的信息
-     * 根据学生id，查询任务书表
-     *
-     * @param studentID
+     * 删除院长审核信息
+     * @param teacherTitleID
      * @return
+     * @throws SQLException
      */
-    public AssignmentVo selectAssignmentSaveInfo(String studentID) throws SQLException;
-
-    public int insertGradeuatebaseinfo(Gradeuatebaseinfo gradeuatebaseinfo) throws SQLException;
-
-    /**
-     * \通过学生id，查询学生专业
-     *
-     * @param studentID
-     * @return
-     */
-    public String selectMajorID(String studentID) throws SQLException;
+    public void deleteAuditSecondInfo(String teacherTitleID) throws SQLException;
 
     /**
      * 修改任务书
      * 修改任务书内容
      *
-     * @param taskbookinfo
+     * @param assignmentVo
      * @return
      */
-    public int updateTaskBookInfo(Taskbookinfo taskbookinfo) throws SQLException;
-
-    /**
-     * 修改任务书
-     * 修改毕业基本信息
-     *
-     * @param gradeuatebaseinfo
-     * @return
-     */
-    public int updateGradeuatebaseinfo(Gradeuatebaseinfo gradeuatebaseinfo) throws SQLException;
+    public int updateTaskBookInfo(AssignmentVo assignmentVo) throws SQLException;
 
     /**
      * 获得系主任审核信息
-     * 获取最新的信息。根据时间排序
      *
      * @param bookID
      * @return
@@ -120,7 +52,7 @@ public interface AssignmentManageMapper {
      * @param taskBookSecondCheckInfo
      * @return
      */
-    public int insertAuditSecondInfo(TaskBookSecondCheckInfo taskBookSecondCheckInfo) throws SQLException;
+    public int insertAuditSecondInfo(List<TaskBookSecondCheckInfo> taskBookSecondCheckInfo) throws SQLException;
 
     /**
      * 系主任审核
@@ -128,5 +60,47 @@ public interface AssignmentManageMapper {
      * @param taskBookCheckInfo
      * @return
      */
-    public int insertAuditFirstInfo(TaskBookSecondCheckInfo taskBookCheckInfo) throws SQLException;
+    public int insertAuditFirstInfo(List<TaskBookSecondCheckInfo> taskBookCheckInfo) throws SQLException;
+
+    /**
+     * 根据条件，初始化页面
+     * @param condition
+     * @return
+     * @throws SQLException
+     */
+    public List<Map<String,String>> selectStudentInfoByCondition(Map<String, String> condition) throws SQLException;
+
+    /**
+     * 添加任务书 获取课题信息 初始化任务书表
+     * @param teacherTitleID
+     * @param studentID
+     * @return
+     * @throws SQLException
+     */
+    public AssignmentVo selectProjectInfoDetail(@Param("teacherTitleID") String teacherTitleID, @Param("studentID") String studentID) throws SQLException;
+
+    /**
+     * 查询同组人姓名
+     * @param teacherTitleID
+     * @return
+     * @throws SQLException
+     */
+    public List<String> selectTeamworkStudentName(@Param("teacherTitleID") String teacherTitleID, @Param("studentID") String studentID) throws SQLException;
+
+    /**
+     * 保存任务书
+     * @param assignmentVo
+     * @return
+     * @throws SQLException
+     */
+    public int insertAssignment(AssignmentVo assignmentVo) throws SQLException;
+
+    /**
+     * 修改任务书初始化任务书
+     * @param teacherTitleID
+     * @param studentID
+     * @return
+     * @throws SQLException
+     */
+    public AssignmentVo selectInitProjectInfoDetail(String teacherTitleID, String studentID) throws SQLException;
 }

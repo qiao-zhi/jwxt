@@ -1,22 +1,22 @@
 $(function () {
     //初始化课题信息
     initTitleInfo();
-
-    //初始化任务书
-    initAssignment();
 });
-
-var teacherTitleID = getUrlParam(teacherTitleID);
 
 //初始化课题基本信息
 function initTitleInfo() {
+
+    //获取参数：teacherTitleID、studentID
+    var urlParam = getUrlParam2();
+
     $.ajax({
         url: contextPath + '/assignmentManage/getProjectInfo.do',
-        data: teacherTitleID,
+        data: {"teacherTitleID":urlParam[0],"studentID":urlParam[1]},
         type: 'POST',
         dataType: 'json',
         async: true,
         success: function (data) {
+
             $("#titleInfo").html("");
             var tbodyContent =
                 '<tr>' +
@@ -42,96 +42,32 @@ function initTitleInfo() {
                 '    <td colspan="5">'+data.targetRequire+'</td>' +
                 '</tr>';
             $("#titleInfo").append(tbodyContent);
+
+            //填写对应的任务书
+            $("#teacherTitleID").val(urlParam[0]);
+            $("#studentID").val(urlParam[1]);
+            $("#studenttitleresultid").val(data.studenttitleresultid);
+            $("#studentName").val(data.studentName);
+            $("#studentNum").val(data.studentNum);
+            $("#className").val(data.className);
+            $("#teamworkStudentName").val(data.teamworkStudentName);
+
         }
     });
-}
-
-
-//填写对应的任务书
-function initAssignment() {
-
-    var studentID =  getUrlParam(studentID);
-    $.ajax({
-        url: contextPath + '/assignmentManage/getAssignmentInfo.do',
-        data: {"teacherTitleID":teacherTitleID,"studentID":studentID},
-        type: 'POST',
-        dataType: 'json',
-        async: true,
-        success: function (data) {
-            $("#assignment").html("");
-            var tbodyContent =
-                '<tr>' +
-                '    <td>学生姓名</td>' +
-                '    <td>'+data.studentName+'</td>' +
-                '    <td>学号</td>' +
-                '    <td>'+data.studentID+'</td>' +
-                '</tr>' +
-                '<tr>' +
-                '    <td>专业班级</td>' +
-                '    <td>'+data.majorName+'</td>' +
-                '    <td>同组人</td>' +
-                '    <td>'+data.studentPartners+'</td>' +
-                '</tr>' +
-                '<tr>' +
-                '    <td>任务下发时间</td>' +
-                '    <td><input class="layui-input" name="taskSendTime" id="startDate" type="text" value="'+ data.tasksendtime +'" lay-verify="required"></td>' +
-                '    <td>任务完成时间</td>' +
-                '    <td><input class="layui-input" name="taskCompleteTime" id="endDate" type="text" value="'+ data.taskcompletetime +'" lay-verify="required"></td>' +
-                '</tr>' +
-                '<tr>' +
-                '    <td style="width:110px">设计（论文）题目</td>' +
-                '    <td><input class="layui-input" name="thesisTitle" type="text" value="'+ data.thesistitle +'" lay-verify="required"></td>' +
-                '    <td>毕设题目</td>' +
-                '    <td><input class="layui-input" name="gdTitle" type="text" value="'+ data.gdTitle +'" lay-verify="required"></td>' +
-                '</tr>' +
-                '<tr>' +
-                '    <td>设计目的要求</td>' +
-                '    <td colspan="3">' +
-                '        <textarea name="designTargetRequire" class="layui-textarea" value="'+ data.designtargetrequire +'" lay-verify="required"></textarea>' +
-                '    </td>' +
-                '</tr>' +
-                '<tr>' +
-                '    <td>设计主要内容</td>' +
-                '    <td colspan="3">' +
-                '        <textarea name="designContent" class="layui-textarea" value="'+ data.designcontent +'" lay-verify="required"></textarea>' +
-                '    </td>' +
-                '</tr>' +
-                '<tr>' +
-                '    <td>设计提交资料</td>' +
-                '    <td colspan="3">' +
-                '        <textarea name="designSubmitFile" class="layui-textarea" value="'+ data.designsubmitfile +'" lay-verify="required"></textarea>' +
-                '    </td>' +
-                '</tr>' +
-                '<tr>' +
-                '    <td>指导教师签名</td>' +
-                '    <td colspan="3">' +
-                '        <button type="button" class="layui-btn" id="test1">上传签名</button>' +
-                '        <div class="layui-upload-list">' +
-                '            <img class="layui-upload-img" width="100" id="demo1">' +
-                '            <p id="demoText"></p>' +
-                '        </div>' +
-                '    </td>' +
-                '</tr>';
-
-            $("#assignment").append(tbodyContent);
-        }
-    });
-
 }
 
 //保存
 function y_save() {
+    $("#taskEditTime").val(getCurrentTime());
+    $("#fillStatus").val("0");
     $.ajax({
         url : contextPath+'/assignmentManage/saveAssignment.do',
         data : $("#y_form").serialize(),
         type : 'POST',
         dataType : 'json',
         success : function (data) {
-            if (data == "success") {
-                layui.alert("保存成功！");
-                //重新刷新，添加任务书界面。
-                initTitleInfo();
-            }
+            layer.alert(response,function(){
+            })
         }
     })
 }
@@ -139,23 +75,25 @@ function y_save() {
 //提交
 function y_submit() {
     layer.confirm("提交后将不能修改，确认提交?",function (index) {
+        $("#taskEditTime").val(getCurrentTime());
+        $("#fillStatus").val("1");
+
         $.ajax({
-            url : contextPath+'/assignmentManage/saveAssignment.do',
+            url : contextPath+'/assignmentManage/submitAssignment.do',
             data : $("#y_form").serialize(),
             type : 'POST',
             dataType : 'json',
             success : function (data) {
-                if (data == "success") {
-                    layui.alert("提交成功！");
-                    //重新刷新，添加任务书界面。
-                    initTitleInfo();
-                }
+                layer.alert(response,function(){
+                    closePage();
+                })
             }
         })
     });
 }
 
 //照片上传
+/*
 layui.use('upload', function () {
     var $ = layui.jquery, upload = layui.upload;
     var uploadInst = upload.render({
@@ -184,6 +122,7 @@ layui.use('upload', function () {
         }
     });
 });//end 照片上传
+*/
 
 /*时间*/
 layui.use('laydate', function () {

@@ -64,7 +64,7 @@ function y_save() {
     var editTime = $("#L_pass").val();
     $.ajax({
         url: contextPath + '/studentGPM/saveProgramTable.do',
-        data: {"progressId":progressId, "taskTimeRange":y_taskTimeRange, "content":y_content, "editTime":editTime, "fillStatus":0},
+        data: {"progressid":progressId, "tasktimerange":y_taskTimeRange, "content":y_content, "edittime":editTime, "fillStatus":"0"},
         type: 'POST',
         dataType: 'json',
         success: function (data) {
@@ -98,7 +98,7 @@ function y_submit() {
     layer.confirm("提交之后将不能更改,确认提交?", function (index) {
         $.ajax({
             url: contextPath + '/studentGPM/saveProgramTable.do',
-            data: {"progressId":progressId, "taskTimeRange":y_taskTimeRange, "content":y_content, "editTime":editTime, "fillStatus":1},
+            data: {"progressid":progressId, "tasktimerange":y_taskTimeRange, "content":y_content, "edittime":editTime, "fillStatus":"1"},
             type: 'POST',
             dataType: 'json',
             success: function (data) {

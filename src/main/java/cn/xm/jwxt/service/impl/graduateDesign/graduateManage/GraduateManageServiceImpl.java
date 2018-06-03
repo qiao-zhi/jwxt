@@ -8,6 +8,7 @@ import cn.xm.jwxt.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,23 @@ public class GraduateManageServiceImpl implements GraduateManageService {
     @Override
     public Boolean addGraduateInfo(Gradeuatebaseinfo gradeuatebaseinfo) throws Exception {
         gradeuatebaseinfo.setGradesignid(UUIDUtil.getUUID2());
+
+        //默认设置当前学年
+        String currentYearNum = "";
+        String currentSemesterNum = "";
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(calendar.MONTH) + 1;
+        int year = calendar.get(calendar.YEAR);
+        if (3 <= month && month < 8) { //第二学期
+            currentYearNum = (year - 1) + "-" + year;
+            currentSemesterNum = "二";
+        } else {
+            currentYearNum = year + "-" + (year + 1);
+            currentSemesterNum = "一";
+        }
+        gradeuatebaseinfo.setYearnum(currentYearNum);
+        gradeuatebaseinfo.setSemesternum(currentSemesterNum);
+
         int res = graduateManageMapper.insertGraduateInfo(gradeuatebaseinfo);
         return res > 0 ? true : false;
     }
@@ -35,8 +53,8 @@ public class GraduateManageServiceImpl implements GraduateManageService {
     }
 
     @Override
-    public Boolean removeGraduateInfo(String gradesignid) throws Exception {
-        int res = graduateManageMapper.deleteGraduateInfo(gradesignid);
+    public Boolean removeGraduateInfo(String graDesignID) throws Exception {
+        int res = graduateManageMapper.deleteGraduateInfo(graDesignID);
         return res > 0 ? true : false;
     }
 

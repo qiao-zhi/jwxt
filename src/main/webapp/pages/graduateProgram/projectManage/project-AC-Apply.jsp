@@ -25,10 +25,11 @@
 
 <body>
 <div class="x-body" style="margin:20px auto 50px auto; width:70%;">
-    <form class="layui-form" id="y_from">
-        <button class="layui-btn" onclick="y_save()">保存</button>
-        <button class="layui-btn" lay-submit="" onclick="y_submit()">添加</button>
+    <form class="layui-form" id="y_form">
+        <button class="layui-btn" type="button" onclick="y_save()">保存</button>
+        <button class="layui-btn" type="button" lay-submit="" onclick="y_submit()">添加</button>
 
+        <input type="hidden" name="isSubmit" id="isSubmit">
         <table class="table table-bordered">
             <caption><h1>太原科技大学毕业设计（论文）课题申请表</h1>
                 <span style="position:relative;top:15px;left:10px;">学院（直属系）：

@@ -8,8 +8,6 @@
     <title>填写课题申请表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
 
     <%-- qlq引入的公共的JSP --%>
     <%@include file="/tag.jsp"%>
@@ -22,13 +20,13 @@
 
 <div class="x-body" style="margin:20px auto 50px auto; width:70%;">
     <form class="layui-form" id="y_form">
-
+        <input type="hidden" name="gradesignid" id="y_gradesignid">
         <div class="layui-form-item">
             <label class="layui-form-label">
                 学年
             </label>
             <div class="layui-input-inline">
-                <select lay-verify="required" lay-search="" name="yearNum" id="y_yearNum">
+                <select name="yearnum" id="y_yearNum" lay-verify="required" >
                 </select>
             </div>
         </div>
@@ -39,6 +37,8 @@
             </label>
             <div class="layui-input-inline">
                 <select name="semesternum" id="semesternum" lay-verify="required">
+                    <option value="一">一</option>
+                    <option value="二">二</option>
                 </select>
             </div>
         </div>
@@ -73,7 +73,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
-            <button class="layui-btn" lay-submit="" lay-filter="add">修改</button>
+            <button class="layui-btn" onclick="y_submit()" type="button">修改</button>
         </div>
     </form>
 </div>

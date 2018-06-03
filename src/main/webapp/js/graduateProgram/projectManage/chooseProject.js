@@ -20,15 +20,12 @@ $(function () {
     findTaskNoticeBaseInfo();//初始化课题表格
 
     findChooseProjectInfo();//初始化已选择课题信息
-
-    //检查学生提交信息   校内校外选择信息。
-    findIsChoose();
 });
 
 /**初始化课题表格信息*/
 function findTaskNoticeBaseInfo(){
     $.ajax({
-        url : contextPath+ '/chooseProject/getProject_ACInfo.do',
+        url : contextPath+ '/chooseProject/getProjectInfo.do',
         data : $("#y_form").serialize(),
         type : 'POST',
         dataType : 'json',
@@ -48,7 +45,8 @@ function showTaskNoticeBaseInfo(pageInfo){
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr =
-            '<tr><td><button class="layui-btn layui-btn-warm layui-btn-sm" onclick="chooseProject(this,'+ pageInfo[i].teacherTitleID + ')">选择</button></td>' +
+            '<tr>' +
+            '<td><button class="layui-btn layui-btn-warm layui-btn-sm" onclick="chooseProject(this,'+ pageInfo[i].teacherTitleID + ')">选择</button></td>' +
             '<td>'+ pageInfo[i].teacherName + '</td>' +
             '<td>'+ pageInfo[i].titlename + '</td>' +
             '<td>'+ pageInfo[i].projectType + '</td>' +
@@ -97,15 +95,43 @@ function noticeInfoListPage(total,pageNum,pageSize){
 
 //初始化已选择课题信息
 function findChooseProjectInfo() {
-    //获取学生信息
-    var studentID = "";
     $.ajax({
         url : contextPath+ '/chooseProject/getChooseProjectInfo.do',
-        data : studentID,
         type : 'POST',
         dataType : 'json',
         async:true,
-        success : function () {
+        success : function (data) {
+            //课题查询成功后，初始化选择课题的表。
+            $("#choose_tbody").html("");//清空表格中数据并重新填充数据
+            for(var i=0;i<data.length;i++){
+                var tr = '<tr>';
+
+                if (i == 0) {
+                    tr = tr + '<td>第一志愿</td>';
+                } else {
+                    tr = tr + '<td>第二志愿</td>';
+                }
+
+                tr = tr +
+                    '<td>'+ data[i].teacherName + '</td>' +
+                    '<td>'+ data[i].titlename + '</td>' +
+                    '<td>'+ data[i].projectType + '</td>' +
+                    '<td>'+ data[i].titleOrigin + '</td>' +
+                    '<td>'+ data[i].reqireStudentNum + '</td>' +
+                    '<td class="td-manage">' +
+                    '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseProject-view.jsp?teacherTitleID='+ data[i].teacherTitleID + '\')" href="javascript:;">' +
+                    '        <i class="layui-icon">&#xe63c;</i>' +
+                    '    </a>' +
+                    '</td></tr>';
+                $("#choose_tbody").append(tr);
+            }
+
+            //控制按钮的显示情况
+            if (data[0].isSubmit == "1") { //已提交
+                $("#saveButton").hide();
+                $("#submitButton").hide();
+                $("#y_tip").hide();
+            }
 
         }
     });
@@ -194,16 +220,16 @@ function chooseProject_save() {
     } else {
         choose_titleIDstr = choose_titleIDs.eq(0).text() + "," + choose_titleIDs.eq(1).text();
     }
-
+    var isSubmit = "0";
     $.ajax({
         url : contextPath+ '/chooseProject/saveChooseProject.do',
-        data : choose_titleIDstr,
+        data: {"choose_titleIDstr":choose_titleIDstr,"isSubmit":isSubmit},
         type : 'POST',
         dataType : 'json',
         async:true,
         success : function(data) {
-            if (data == "success") {
-                layui.alert("保存成功")
+            if ("success" == data) {
+                layer.alert("保存成功")
             }
         }
     });
@@ -224,46 +250,21 @@ function chooseProject_submit() {
 
     layer.confirm("提交之后将不能更改,确认提交?",function (index) {
         var choose_titleIDstr = choose_titleIDs.eq(0) + "," + choose_titleIDs.eq(1);
-
+        var isSubmit = "1";
         $.ajax({
-            url: contextPath + '/chooseProject/submitChooseProject.do',
-            data: choose_titleIDstr,
+            url: contextPath + '/chooseProject/saveChooseProject.do',
+            data: {"choose_titleIDstr":choose_titleIDstr,"isSubmit":isSubmit},
             type: 'POST',
             dataType: 'json',
             async: true,
             success: function (data) {
-                if (data == "Success") {
-                    layui.alert("保存成功")
+                if ("success" == data) {
+                    layer.alert("提交成功")
                 }
             }
         });
     })
 }
-
-/**查询是否提交*/
-function findIsChoose(){
-    $.ajax({
-        url : contextPath+ '/chooseProject/findIsChoose.do',
-        type : 'POST',
-        dataType : 'json',
-        async:true,
-        success : function (data) {
-            //如果是选择了校外
-            if (data.chooseOut == "1") {
-                $("#saveButton").hide();
-                $("#submitButton").hide();
-            } else {
-                //如果提交了
-                if (hasSubmit == "1") {
-                    $("#saveButton").hide();
-                    $("#submitButton").hide();
-                    $("#chooseOutButton").hide();
-                }
-            }
-        }
-    });
-}
-
 
 //点击关闭其他，触发事件
 function closeOther() {

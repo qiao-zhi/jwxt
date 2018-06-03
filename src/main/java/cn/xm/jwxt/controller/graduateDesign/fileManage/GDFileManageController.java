@@ -47,7 +47,7 @@ public class GDFileManageController {
             pageNum = Integer.valueOf(condition.get("pageNum"));
         }
         //开始分页   CONVERT(courseNameCN USING gbk)显示方式。排序方式。"createTime desc";//按创建时间降序排序
-        PageHelper.startPage(pageNum,pageSize,"CONVERT(courseNameCN USING gbk)");
+        PageHelper.startPage(pageNum,pageSize,"CONVERT(studentName desc)");
         //上面pagehelper的设置对此查询有效，查到数据总共8条
         List<Map<String, String>> fileCheckInfo = null;
         try {

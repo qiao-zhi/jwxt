@@ -46,6 +46,79 @@ public class AssignmentVo {
     /**同组人*/
     private String teamworkStudentName;
 
+    private String majorName;
+    private String titlename;
+    private String titleOrigin;
+    private String titleType;
+    private String resultType;
+    private String researchContent;
+    private String targetRequire;
+    private String teacherTitleID;
+
+    public String getTitlename() {
+        return titlename;
+    }
+
+    public void setTitlename(String titlename) {
+        this.titlename = titlename;
+    }
+
+    public String getTitleOrigin() {
+        return titleOrigin;
+    }
+
+    public void setTitleOrigin(String titleOrigin) {
+        this.titleOrigin = titleOrigin;
+    }
+
+    public String getTitleType() {
+        return titleType;
+    }
+
+    public void setTitleType(String titleType) {
+        this.titleType = titleType;
+    }
+
+    public String getResultType() {
+        return resultType;
+    }
+
+    public void setResultType(String resultType) {
+        this.resultType = resultType;
+    }
+
+    public String getResearchContent() {
+        return researchContent;
+    }
+
+    public void setResearchContent(String researchContent) {
+        this.researchContent = researchContent;
+    }
+
+    public String getTargetRequire() {
+        return targetRequire;
+    }
+
+    public void setTargetRequire(String targetRequire) {
+        this.targetRequire = targetRequire;
+    }
+
+    public String getTeacherTitleID() {
+        return teacherTitleID;
+    }
+
+    public void setTeacherTitleID(String teacherTitleID) {
+        this.teacherTitleID = teacherTitleID;
+    }
+
+    public String getMajorName() {
+        return majorName;
+    }
+
+    public void setMajorName(String majorName) {
+        this.majorName = majorName;
+    }
+
     public String getBookid() {
         return bookid;
     }

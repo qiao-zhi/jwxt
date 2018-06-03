@@ -54,7 +54,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
-            <button class="layui-btn" lay-submit="" lay-filter="add">提交</button>
+            <button class="layui-btn" lay-submit="" type="button" lay-filter="add">提交</button>
         </div>
     </form>
 </div>

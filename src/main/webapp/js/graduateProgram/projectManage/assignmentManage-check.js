@@ -3,24 +3,18 @@ layui.use('laydate', function () {
     var laydate = layui.laydate;
     laydate.render({
         elem: '#L_pass' //指定元素
-        ,format: 'yyyy年MM月dd日'
+        ,format: 'yyyy-MM-dd'
     });
 });
 
-var bookID = "";
+var bookIDs = "";
 
 $(function () {
-    //初始化时间为当前时间
-    var myDate = new Date;
-    var year = myDate.getFullYear();//获取当前年
-    var month = myDate.getMonth()+1;//获取当前月
-    var date = myDate.getDate();
-    if (month < 10) month = "0" + month;
-    if (date < 10) date = "0" + date;
 
-    bookID = getUrlParam(bookID);
+    $("#L_pass").val(getCurrentTime());
 
-    $("#L_pass").val(year + "年" + month + "月" + date + "日");
+
+    bookIDs = getUrlParam("bookIDs");
     //初始化教研室审核信息
     initData()
 });
@@ -28,12 +22,27 @@ $(function () {
 function initData() {
     $.ajax({
         url : contextPath+'/assignmentManage/getAuditFirstInfo.do',
-        data: bookID,
+        data: bookIDs,
         type : 'POST',
         dataType : 'json',
         async:true,
         success : function(data){
-            return true;
+
+            $("#firstCheckInfo").html("");
+            var tbodyContent = "";
+            for(var i=0; i<data.length_l;i++) {
+                tbodyContent = tbodyContent +
+                    '<tr>' +
+                    '<td>' + data[i].titlename + '</td>' +
+                    '<td>' + data[i].teacherName + '</td>' +
+                    '<td>' + data[i].checkResult + '</td>' +
+                    '<td>' + data[i].checkDesc + '</td>' +
+                    '<td>' + data[i].checkTime + '</td>' +
+                    '<td>' + data[i].checkPerson + '</td>' +
+                    '</tr>'
+            }
+
+            $("#firstCheckInfo").append(tbodyContent);
         }
     });
 }
@@ -54,11 +63,12 @@ layui.use(['form', 'layer'], function () {
             //验证通过的话就提交表单
             $.post(
                 contextPath+"/assignmentManage/addAuditInfo.do",
-                {"bookID":bookID,"checkResult":checkResult,
+                {"bookID":bookIDs,"checkResult":checkResult,
                     "checkDesc":checkDesc,"checkTime":checkTime},
                 function (response) {
-                    layui.alert(response);
-                    closePage();
+                    layer.alert(response,function(){
+                        closePage();
+                    })
                 },
                 'text')
         });

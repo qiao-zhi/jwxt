@@ -44,7 +44,7 @@
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_form">
             <div class="layui-input-inline"><!--带搜索的查询-->
-                <select lay-search="" name="yearNum" id="y_yearNum">
+                <select name="yearNum" id="y_yearNum">
                 </select>
             </div>
             <input type="text" name="teacherName" placeholder="教师名称" autocomplete="off" class="layui-input">
@@ -58,6 +58,8 @@
                     <option value="3">审核不通过</option>
                 </select>
             </div>
+            <input type="hidden" name="currentPage">
+            <input type="hidden" name="pageSize">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
             <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
@@ -94,45 +96,12 @@
             <th>课题来源</th>
             <th>学生专业</th>
             <th>需要人数</th>
+            <th>填写状态</th>
             <th>审核状态</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                    &#xe605;</i>
-                </div>
-                <input type="hidden" class="y_id" value="65454">
-            </td>
-            <td class="y_auditStatus">待教研室审核</td>
-            <td class="td-manage">
-                <a title="详细信息" onclick="x_admin_show('详细信息','project-AC-view.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i></a>
-                <a title="修改课题申请" onclick="x_admin_show('修改课题申请','graduateManage-modify.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i></a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i></a>
-                </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
-                    &#xe605;</i>
-                </div>
-                <input type="hidden" class="y_id" value="65454">
-            </td>
-            <td class="y_auditStatus">待院长审核</td>
-            <td class="td-manage">
-                <a title="详细信息" onclick="x_admin_show('详细信息','project-AC-view.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i></a>
-                <a title="修改课题申请" onclick="x_admin_show('修改课题申请','graduateManage-modify.jsp')" href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i></a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i></a>
-            </td>
-        </tr>
         </tbody>
     </table>
     <!--end 表格内容-->

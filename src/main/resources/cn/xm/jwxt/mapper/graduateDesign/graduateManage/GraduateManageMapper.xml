@@ -2,35 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.graduateDesign.graduateManage.GraduateManageMapper" >
 
-  <select id="selectYearNum" resultType="java.util.List">
-    select yearNum from gradeuateBaseInfo order by yearNum desc
+  <select id="selectYearNum" resultType="java.lang.String">
+    select distinct yearNum from gradeuateBaseInfo order by yearNum desc
   </select>
 
   <insert id="insertGraduateInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo" >
-    insert into gradeuateBaseInfo (graDesignID, graduateDesignName, majorId, graduateDesc, yearNum, semesterNum, status,remark)
+    insert into gradeuateBaseInfo (gradesignid, graduatedesignname, majorid, graduatedesc, yearnum, semesternum, status,remark)
     VALUES
       (
-      #{graDesignID},
-      #{graduateDesignName},
-      #{majorId},
-      #{graduateDesc},
-      #{yearNum},
-      #{semesterNum},
+      #{gradesignid},
+      #{graduatedesignname},
+      #{majorid},
+      #{graduatedesc},
+      #{yearnum},
+      #{semesternum},
       #{status},
       #{remark}
       )
   </insert>
 
-  <update id="updateAuditStatus">
+  <update id="updateGraduateInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo">
     update gradeuateBaseInfo set
-    graduateDesignName = #{graduateDesignName}
-    majorId = #{majorId}
-    graduateDesc = #{graduateDesc}
-    yearNum = #{yearNum}
-    semesterNum = #{semesterNum}
-    status = #{status}
+    graduateDesignName = #{graduatedesignname},
+    majorId = #{majorid},
+    graduateDesc = #{graduatedesc},
+    yearNum = #{yearnum},
+    semesterNum = #{semesternum},
+    status = #{status},
     remark = #{remark}
-    where graDesignID = #{graDesignID}
+    where graDesignID = #{gradesignid}
   </update>
 
   <delete id="deleteGraduateInfo" parameterType="java.lang.String">
@@ -39,19 +39,19 @@
 
   <select id="selectGraduateInfoByCondition" parameterType="map" resultType="map">
     select graDesignID,yearNum,semesterNum,graduateDesignName,majorName,graduateDesc
-    from gradeuateBaseInfo where
+    from gradeuateBaseInfo g,t_major_base_info m where 1=1 and g.majorID = m.majorID
     <if test="graduateDesignName != null and graduateDesignName != ''">
       and graduateDesignName like '%${graduateDesignName}%'
     </if>
     <if test="yearNum != null and yearNum != ''">
-      and yearNum like '${graduateDesignName}'
+      and yearNum = '${yearNum}'
     </if>
-    <if test="majorName != null and majorName != ''">
-      and majorName like '${majorName}%'
+    <if test="majorid != null and majorid != ''">
+      and g.majorID = '${majorid}'
     </if>
   </select>
 
-  <select id="selectMajor" resultType="java.util.List">
+  <select id="selectMajor" resultType="cn.xm.jwxt.bean.baseInfo.TMajorBaseInfo">
     select majorID,majorName from t_major_base_info
   </select>
 </mapper>

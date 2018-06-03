@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.projectManage.AssignmentManageMapper">
+
+    <delete id="deleteAuditFisrtInfo" parameterType="java.lang.String">
+        delete from taskBooktFirstCheckInfo where teacherTitleID=#{teacherTitleID}
+    </delete>
+
+    <delete id="deleteAuditSecondInfo" parameterType="java.lang.String">
+        delete from taskBookSecondCheckInfo where teacherTitleID=#{teacherTitleID}
+    </delete>
+
+    <select id="selectStudentInfoByCondition" parameterType="map" resultType="map">
+        /*
+        查询条件：studentName、teacherName、titlename、checkStatus、majorName、学年yearNum 默认是今年的
+        查询结果：yearNum、semesterNum、teacherTitleID、studentID、studentName、majorName、teacherName、titlename、fillStatus、checkStatus
+        1、填写任务书，必须为课题审核通过，且教师确认后的学生。这些学生存在结果表中
+        2、查询结果表。通过毕设id，判断是不是当前学年
+        3、查询到yearNum,semesterNum,teacherTitleID,studentID、majorID
+        4、查询学生名字、专业名字、
+        4.2、通过课题id，查询教师名字、课题名称
+        4.3、通过结果id，查询有没有任务书。
+        */
+        select
+        yearNum,semesterNum,son.teacherTitleID,son.studentID,studentName,majorName,titlename,teacherName,b.fillStatus,b.checkStatus,son.StudentTitleresultID,bookID
+        from t_student_base_info s,t_major_base_info m,teacherGreDesignTitle t,t_teacher_base_info teacher,taskBookInfo b,
+        (
+        select yearNum,semesterNum,teacherTitleID,studentID,majorID,StudentTitleresultID from gradeuateBaseInfo
+        g,studentTitleResult r
+        where g.graDesignID = r.graDesignID and yearNum = #{yearNum}
+        ) son
+        WHERE s.studentID = son.studentID and m.majorID=son.majorID
+        and t.teacherTitleID = son.teacherTitleID
+        and t.teacherID = teacher.teacherID and b.StudentTitleresultID = son.StudentTitleresultID
+        and t.teacherID = #{teacherID}
+        <if test="studentName != null and studentName != ''">
+            and studentName like '%${studentName}%'
+        </if>
+        <if test="teacherName != null and teacherName != ''">
+            and teacherName like '%${teacherName}%'
+        </if>
+        <if test="titlename != null and titlename != ''">
+            and titlename like '%${titlename}%'
+        </if>
+        <if test="checkStatus != null and checkStatus != ''">
+            and b.checkStatus = ${checkStatus}
+        </if>
+        <if test="majorName != null and majorName != ''">
+            and majorName like '%${majorName}%'
+        </if>
+    </select>
+
+    <insert id="insertAuditFirstInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.TaskBookSecondCheckInfo">
+        insert into taskBooktFirstCheckInfo (checkID, teatherTitleID, checkTime,
+        checkPerson, checkResult, checkDesc)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.checkID},
+            #{item.teatherTitleID},
+            #{item.checkTime},
+            #{item.checkPerson},
+            #{item.checkResult},
+            #{item.checkDesc}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertAuditSecondInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.TaskBookSecondCheckInfo">
+    insert into taskBookInfo (checkID, bookID, checkTime,
+        checkPerson, checkResult, checkDesc)
+    VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.checkID},
+            #{item.teatherTitleID},
+            #{item.checkTime},
+            #{item.checkPerson},
+            #{item.checkResult},
+            #{item.checkDesc}
+            )
+        </foreach>
+  </insert>
+
+
+    <select id="selectAssignmentInfo" resultType="cn.xm.jwxt.bean.graduateDesign.StudentInfoVo"
+            parameterType="java.lang.Sting">
+    select fillStatus,studentID,studentName,studentNum,studentSex,className from taskBookInfo b,t_student_base_info s,t_class_base_info t,
+    (select StudentTitleresultID,studentID from studentTitleResult where teacherTitleID = #{teacherTitleID}) r
+     where b.StudentTitleresultID = r.StudentTitleresultID and s.studentID=r.studentID and s.classID=t.classID
+  </select>
+
+    <select id="selectProjectInfoDetail" resultType="cn.xm.jwxt.bean.graduateDesign.AssignmentVo">
+      /*
+      查询条件：teacherTitleID，studentID
+      查询结果：titlename、majorName、titleOrigin、titleType、resultType、researchContent、targetRequire
+      teacherTitleID、studentID、studentName、studentNum、className
+      加：tasksendtime、taskcompletetime、thesistitle、gdTitle、designtargetrequire、designcontent、designsubmitfile
+      */
+      select className,majorName,studenttitleresultid,
+      son.studentID,studentName,studentNum,
+      titleOrigin,titlename,titleType,resultType,researchContent,targetRequire,son.teacherTitleID,
+      from t_class_base_info clazz,t_major_base_info m,studentTitleResult r,
+      (
+      select studentID,studentName,studentNum,classID,
+      titleOrigin,titlename,titleType,resultType,researchContent,targetRequire,teacherTitleID
+      from t_student_base_info,teacherGreDesignTitle
+      where studentID = #{studentID} and teacherTitleID = #{teacherTitleID}
+      ) son
+      where clazz.classID = son.classID and m.majorID = clazz.majorID and r.studentID = son.studentID
+    </select>
+
+    <select id="selectInitProjectInfoDetail" resultType="cn.xm.jwxt.bean.graduateDesign.AssignmentVo">
+        /*
+        查询条件：teacherTitleID，studentID
+        查询结果：titlename、majorName、titleOrigin、titleType、resultType、researchContent、targetRequire
+        teacherTitleID、studentID、studentName、studentNum、className
+      加：tasksendtime、taskcompletetime、thesistitle、gdTitle、designtargetrequire、designcontent、designsubmitfile
+        */
+        select className,majorName,r.studenttitleresultid,
+        son.studentID,studentName,studentNum,
+        titleOrigin,titlename,titleType,resultType,researchContent,targetRequire,son.teacherTitleID,
+        tasksendtime,taskcompletetime,thesistitle,gdTitle,designtargetrequire,designcontent,designsubmitfile
+        from t_class_base_info clazz,t_major_base_info m,studentTitleResult r,taskBookInfo b,
+        (
+        select studentID,studentName,studentNum,classID,
+        titleOrigin,titlename,titleType,resultType,researchContent,targetRequire,teacherTitleID
+        from t_student_base_info,teacherGreDesignTitle
+        where studentID = #{studentID} and teacherTitleID = #{teacherTitleID}
+        ) son
+        where clazz.classID = son.classID and m.majorID = clazz.majorID and r.studentID = son.studentID
+        and b.studenttitleresultid = r.studenttitleresultid
+    </select>
+    
+    <select id="selectTeamworkStudentName" resultType="java.util.List">
+        select studentName from studentTitleResult t,t_student_base_info s
+        where t.teacherTitleID = #{teacherTitleID} and s.studentID != #{studentID} and t.studentID=s.studentID
+    </select>
+
+    <select id="selectAuditFirstInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.TaskBooktFirstCheckInfo">
+        select * from taskBooktFirstCheckInfo where bookID = #{bookID}
+    </select>
+
+    <insert id="insertAssignment" parameterType="cn.xm.jwxt.bean.graduateDesign.AssignmentVo">
+        insert into taskBookInfo
+        (bookid, StudentTitleresultID,taskContent,taskEditTime,taskSendTime,taskCompleteTime,
+        thesisTitle, designTargetRequire, designContent,designSubmitFile,gdTitle,fillStatus,checkStatus,isStudentSign)
+        VALUES
+        (#{bookid},#{studenttitleresultid},#{taskcontent},#{taskedittime},#{tasksendtime},#{taskcompletetime},
+        #{thesistitle},#{designtargetrequire},#{designcontent},#{designsubmitfile},#{gdTitle},#{fillStatus},#{checkStatus}#{isStudentSign})
+    </insert>
+
+    <update id="updateTaskBookInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.AssignmentVo">
+        update taskBookInfo set
+        taskContent = #{taskContent},
+        taskEditTime = #{taskEditTime},
+        taskSendTime = #{taskSendTime},
+        taskCompleteTime = #{taskCompleteTime},
+        thesisTitle = #{thesisTitle},
+        designTargetRequire = #{designTargetRequire},
+        designContent = #{designContent},
+        designSubmitFile = #{designSubmitFile},
+        gdTitle = #{gdTitle},
+        fillStatus = #{fillStatus},
+        checkStatus = #{checkStatus},
+        isStudentSign = #{isStudentSign}
+        where bookid=#{bookid}
+    </update>
+
+</mapper>

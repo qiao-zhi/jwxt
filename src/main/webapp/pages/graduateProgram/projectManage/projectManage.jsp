@@ -43,9 +43,12 @@
     <!--查询-->
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="y_formm">
+            <div class="layui-input-inline"><!--带搜索的查询-->
+                <select name="yearNum" id="y_yearNum">
+                </select>
+            </div>
             <input type="text" name="teacherName" placeholder="教师名称" autocomplete="off" class="layui-input">
             <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
-            <input type="text" name="syear" class="layui-input" id="syear" placeholder="学年" autocomplete="off">
             <div class="layui-input-inline">
                 <select name="isAllocation">
                     <option>是否需要分配学生</option>
@@ -53,6 +56,8 @@
                     <option>否</option>
                 </select>
             </div>
+            <input type="hidden" name="currentPage">
+            <input type="hidden" name="pageSize">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
             <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
@@ -63,6 +68,8 @@
     <xblock>
         <!--这里不判断教师人数是否够-->
         <button class="layui-btn" onclick="allocateStudent()">分配学生</button>
+        <!--若申请人数小于 需要人数，则自动确认，不需要确认学生。 提交后不可修改-->
+        <button class="layui-btn layui-btn-normal" onclick="confirmChooose()">确认学生 </button>
         <%--<button class="layui-btn" onclick="x_admin_show('调剂学生','./projectManage-assign.jsp')">调剂学生</button>--%>
         <button class="layui-btn layui-btn-normal" onclick="x_admin_show('导出/发布','./projectManage-output.jsp')">导出/发布</button>
     </xblock>
@@ -74,6 +81,7 @@
         <tr>
             <th>选择</th>
             <th>学年</th>
+            <th>学期</th>
             <th>课题名称</th>
             <th>教师</th>
             <th>专业</th>
