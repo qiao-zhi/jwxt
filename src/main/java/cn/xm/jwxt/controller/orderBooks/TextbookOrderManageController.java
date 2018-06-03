@@ -113,4 +113,42 @@ public class TextbookOrderManageController {
         PageInfo<Map> pageInfo = new PageInfo<Map>(textbookOrder);
         return pageInfo;
     }
+
+    /**
+     * 审核不通过时更新总订单订购状态为未订购
+     * @param orderid
+     * @return
+     * @throws SQLException
+     */
+    @RequestMapping("/updateOrderIsOrder")
+    public String updateOrderIsOrder(String orderid){
+        String result=null;
+        try{
+            result=textbookOrderManageService.updateOrderIsOrder(orderid)?"更新成功":"更新失败";
+        }
+        catch (SQLException e){
+            result="更新失败";
+            logger.error( "更新失败",e);
+        }
+        return result;
+    }
+
+    /**
+     * 审核不通过时更新订单明细中的订购状态和确认状态
+     * @param orderid
+     * @return
+     * @throws SQLException
+     */
+    @RequestMapping("/updateOrderDetailIsOrderAndIsConfirm")
+    public String updateOrderDetailIsOrderAndIsConfirm(String orderid){
+        String result=null;
+        try{
+            result=textbookOrderManageService.updateOrderDetailIsOrderAndIsConfirm(orderid)?"更新成功":"更新失败";
+        }
+        catch (SQLException e){
+            result="更新失败";
+            logger.error( "更新失败",e);
+        }
+        return result;
+    }
 }

@@ -40,6 +40,22 @@ public interface TextbookOrderManageService {
     public boolean updateCheckProposal(Map condition)throws SQLException;
 
     /**
+     * 审核不通过时更新总订单订购状态为未订购
+     * @param orderid
+     * @return
+     * @throws SQLException
+     */
+    public boolean updateOrderIsOrder(String orderid)throws SQLException;
+
+    /**
+     * 审核不通过时更新订单明细中的订购状态和确认状态
+     * @param orderid
+     * @return
+     * @throws SQLException
+     */
+    public boolean updateOrderDetailIsOrderAndIsConfirm(String orderid)throws SQLException;
+
+    /**
      * 在订单管理页面查看订单详细信息
      * @param condition
      * @return

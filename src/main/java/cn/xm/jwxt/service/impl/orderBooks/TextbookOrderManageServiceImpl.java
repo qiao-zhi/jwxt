@@ -48,6 +48,16 @@ public class TextbookOrderManageServiceImpl implements TextbookOrderManageServic
     }
 
     @Override
+    public boolean updateOrderIsOrder(String orderid) throws SQLException {
+        return textbookOrderCustomMapper.updateOrderIsOrder(orderid);
+    }
+
+    @Override
+    public boolean updateOrderDetailIsOrderAndIsConfirm(String orderid) throws SQLException {
+        return textbookOrderCustomMapper.updateOrderDetailIsOrderAndIsConfirm(orderid);
+    }
+
+    @Override
     public List<Map> displayOrderDetailInfo(Map condition) throws SQLException {
         return textbookOrderCustomMapper.displayOrderDetailInfo(condition);
     }

@@ -49,7 +49,6 @@
 			<td>创建人</td>
 			<td id="createPerson"></td>
 		</tr>
-		
 	</table>
     <form class="layui-form" id="checkForm">
         <!--1-->

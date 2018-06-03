@@ -195,4 +195,22 @@ public interface TextbookOrderCustomMapper {
      * @throws SQLException
      */
     public List<Map> displayOrderDetailInfo(Map condition)throws SQLException;
+
+    /**
+     * 审核不通过时更新总订单订购状态为未订购
+     * @param orderid
+     * @return
+     * @throws SQLException
+     */
+    @Update("UPDATE textbookorderinfo SET isOrder='0' WHERE orderid=#{orderid}")
+    public boolean updateOrderIsOrder(@Param("orderid")String orderid)throws SQLException;
+
+    /**
+     * 审核不通过时更新订单明细中的订购状态和确认状态
+     * @param orderid
+     * @return
+     * @throws SQLException
+     */
+    @Update("UPDATE textbook_order SET isOrder='0',isConfirm='0',remark='0' WHERE orderid=#{orderid}")
+    public boolean updateOrderDetailIsOrderAndIsConfirm(@Param("orderid")String orderid)throws SQLException;
 }
