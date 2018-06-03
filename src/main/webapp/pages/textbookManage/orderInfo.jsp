@@ -44,7 +44,8 @@
             var term=$("select[name='term']").val();
             var major=$("select[name='major']").val();
             var isCheck=$("select[name='isCheck']").val();
-            if((term!='')&&(year=='')&&(major=='')&&(isCheck=='')){
+            var checkProposal=$("select[name='checkProposal']").val();
+            if((term!='')&&(year=='')&&(major=='')&&(isCheck=='')&&(checkProposal=='')){
                 layer.msg("请先输入学年！");
             }
             else {
@@ -111,6 +112,13 @@
                     <option value="">请选择审核状态</option>
                     <option value="0">未审核</option>
                     <option value="1">已审核</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="checkProposal" id="checkProposal">
+                    <option value="">请选择审核结果</option>
+                    <option value="0">不通过</option>
+                    <option value="1">通过</option>
                 </select>
             </div>
                  <button class="layui-btn" type="button" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
@@ -186,6 +194,7 @@
             <th>创建人</th>
             <th>创建时间</th>
             <th>审核状态</th>
+            <th>审核结果</th>
             <th>操作</th>
         </tr>
         </thead>

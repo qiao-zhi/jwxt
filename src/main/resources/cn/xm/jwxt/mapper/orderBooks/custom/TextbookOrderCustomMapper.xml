@@ -22,6 +22,9 @@
             <if test="isCheck!=null and isCheck!=''">
                 and isCheck=#{isCheck}
             </if>
+            <if test="checkProposal!=null and checkProposal!=''">
+                and checkProposal=#{checkProposal}
+            </if>
         </where>
     </select>
 

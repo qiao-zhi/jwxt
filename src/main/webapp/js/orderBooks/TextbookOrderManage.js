@@ -38,6 +38,9 @@ function showTextbookOrderInfo(pageInfo) {
             + '<td>' + (textbookOrders[i].ischeck>0?"已审核":"未审核")
             +'<input type="hidden" name="checkStatus" value="'+textbookOrders[i].ischeck+'">'
             + '</td>'
+            + '<td>' + (replaceNull(textbookOrders[i].checkproposal)=='-'?"-":(textbookOrders[i].checkproposal>0?"通过":"不通过"))
+            +'<input type="hidden" name="checkResult" value="'+textbookOrders[i].checkproposal+'">'
+            + '</td>'
             + '<td>'
             + '<a href=javascript:void(0) title="点击查看订单详细信息" onclick="openOrderInfoLayer(this)"><i class="layui-icon">&#xe63c;</i></a>'
             + '</td></tr>'
@@ -96,7 +99,7 @@ function checkOrder(){
         layer.msg("请先选择订购教材总订单"/*,{icon:2,time:2*1000,shade: [0.8, '#393D49']}*/)
         return;
     }
-    if($(checked_radio).parents("tr").children("td").eq(7).children("input").val()=='1'){
+    if(($(checked_radio).parents("tr").children("td").eq(7).children("input").val()=='1')&&($(checked_radio).parents("tr").children("td").eq(8).children("input").val()=='1')){
         layer.msg("订单已审核，请勿重复审核")
         return;
     }
@@ -193,9 +196,13 @@ function checkButton() {
                 $("#checkForm").serialize(),
                 function(response){
                     alert("审核成功")
+                    if($("#checkProposal").val()=='0'){
+                        updateOrderIsOrder();
+                        updateOrderDetailIsOrderAndIsConfirm();
+                    }
                     if(response=='更新成功'){
                         //审核成功之后关闭当前弹出层并且重新执行一次查询
-                        window.parent.location.reload();//刷新当前窗口
+                        window.parent.location.reload();//刷新父窗口
                         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                         parent.layer.close(index); //再执行关闭
                     }
@@ -204,6 +211,30 @@ function checkButton() {
             )
         })
 })
+}
+
+//审核不通过时更新总订单订购状态为未订购
+function updateOrderIsOrder() {
+    $.post(
+        contextPath+'/TextbookOrderManage/updateOrderIsOrder.do',
+        {"orderid":$("#orderid").val()},
+        function(){
+
+        },
+        'json'
+    )
+}
+
+//审核不通过时更新订单明细中的订购状态和确认状态
+function updateOrderDetailIsOrderAndIsConfirm() {
+    $.post(
+        contextPath+'/TextbookOrderManage/updateOrderDetailIsOrderAndIsConfirm.do',
+        {"orderid":$("#orderid").val()},
+        function(){
+
+        },
+        'json'
+    )
 }
 
 //查看审核信息
