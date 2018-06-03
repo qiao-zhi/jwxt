@@ -6,7 +6,7 @@ import java.util.Date;
  * 毕设课题任务书
  */
 public class Taskbookinfo {
-    private Integer bookid;
+    private String bookid;
 
     private String studenttitleresultid;
 
@@ -28,11 +28,51 @@ public class Taskbookinfo {
 
     private String remark;
 
-    public Integer getBookid() {
+    private String gdTitle;
+
+    private String fillStatus;
+
+    private String checkStatus;
+
+    private String isStudentSign;
+
+    public String getGdTitle() {
+        return gdTitle;
+    }
+
+    public void setGdTitle(String gdTitle) {
+        this.gdTitle = gdTitle;
+    }
+
+    public String getFillStatus() {
+        return fillStatus;
+    }
+
+    public void setFillStatus(String fillStatus) {
+        this.fillStatus = fillStatus;
+    }
+
+    public String getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(String checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
+    public String getIsStudentSign() {
+        return isStudentSign;
+    }
+
+    public void setIsStudentSign(String isStudentSign) {
+        this.isStudentSign = isStudentSign;
+    }
+
+    public String getBookid() {
         return bookid;
     }
 
-    public void setBookid(Integer bookid) {
+    public void setBookid(String bookid) {
         this.bookid = bookid;
     }
 

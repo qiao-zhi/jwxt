@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@SuppressWarnings("all")
 public class StudentGPMServiceImpl implements StudentGPMService {
     @Autowired
     private StudentGPMMapper studentGPMMapper;
