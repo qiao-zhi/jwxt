@@ -104,7 +104,7 @@ function findTeacherBaseInfoForSelect(form){
     $.ajax({
         url:contextPath+"/arrangeCourse/findTeacherBaseInfo.action",
         dataType:"json",
-        data:{"academicId":"jisuanjikexueyujishuxueyuan"},
+        data:{"academicId":"f4aa12dec36046048d89613bbfd1735c"},
         type:"post",
         success:function (response) {
             var optionStr = "<option value=''>请输入教师姓名</option>";

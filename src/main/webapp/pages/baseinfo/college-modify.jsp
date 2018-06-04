@@ -81,9 +81,8 @@
                 院长
             </label>
             <div class="layui-input-inline">
-                <select name="teacherid" id="collegePresident" >
+                <input name="collegepresident" id="collegePresident" class="layui-input" >
 
-                </select>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
@@ -95,9 +94,7 @@
                 副院长
             </label>
             <div class="layui-input-inline">
-                <select name="teacherid" id="collegePresidentF" >
-
-                </select>
+                <input name="collegepresidentf" id="collegePresidentF" class="layui-input" >
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
@@ -142,9 +139,9 @@
                 $("input[name='collegenum']").val(response.collegenum);
                 $("input[name='collegename']").val(response.collegename);
                 $("input[name='collegeshortname']").val(response.collegeshortname);
-                $("input[name='collegeintroduction']").val(response.collegeintroduction);
-                $("select[name='collegepresident']").val(response.collegepresident);
-                $("select[name='collegepresidentf']").val(response.collegepresidentf);
+                $("textarea[name='collegeintroduction']").val(response.collegeintroduction);
+                $("input[name='collegepresident']").val(response.collegepresident);
+                $("input[name='collegepresidentf']").val(response.collegepresidentf);
                 $("input[name='upcollegenum']").val(response.upcollegenum);//最好改成上级学院名称
 
 

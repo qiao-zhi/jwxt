@@ -9,6 +9,16 @@ public class StudentClassInfo extends TStudentBaseInfo {
 
     private String majorname;
 
+    private String grade;
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
     public String getMajorname() {
         return majorname;
     }
@@ -17,8 +27,6 @@ public class StudentClassInfo extends TStudentBaseInfo {
         this.majorname = majorname;
     }
 
-
-
     public String getCollegename() {
         return collegename;
     }
@@ -26,10 +34,6 @@ public class StudentClassInfo extends TStudentBaseInfo {
     public void setCollegename(String collegename) {
         this.collegename = collegename;
     }
-
-
-
-
 
     public String getClassname() {
         return classname;

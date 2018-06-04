@@ -193,3 +193,22 @@ function findMajorNameAndIdForSelect(form){
         }
     })
 }
+
+//导出教师信息
+function teacherExport(){
+    var checked = $("[name='taskRadio']:checked").length>0?true:false;
+    if(!checked){
+        layer.alert('请先选择需要导出排课信息的任务！');
+        return;
+    }
+    var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
+    if (sel_taskStatus != "审核通过") {
+        layer.alert('该排课任务还未通过审核，不能进行导出！');
+        return;
+    }
+    var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
+    layer.confirm('您确认要导出排课信息吗？',function(index){
+        window.location.href=contextPath+"/arrangeCourse/exportArrangeCourseInfo.action?arrangeCourseTaskId="+arrangeTaskId
+        layer.close(index);
+    });
+}

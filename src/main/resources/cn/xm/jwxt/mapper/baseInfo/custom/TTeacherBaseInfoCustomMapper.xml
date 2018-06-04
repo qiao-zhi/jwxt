@@ -23,7 +23,25 @@
         <result column="majorname" property="majorname" jdbcType="VARCHAR" />
         <result column="collegename" property="collegename" jdbcType="VARCHAR" />
     </resultMap>
-
+    <!--批量插入通知书明细信息-->
+    <insert id="saveTeacherInfoList" parameterType="java.util.List">
+        insert into t_teacher_base_info (teacherID, teacherNum,
+        collegeID, majorID, teacherName,
+        teacherSex, teacherBirth, education,
+        degree, grade, graduateSchool,
+        graduateMajor, teacherTel, positionalTitle,
+        joinSchoolTime, teacherPosition, inPosition,
+        )
+        values
+        <foreach collection="list" item="detailInfo" separator=",">
+            (#{detailInfo.teacherid,jdbcType=VARCHAR}, #{detailInfo.teachernum,jdbcType=VARCHAR},
+            #{detailInfo.collegeid,jdbcType=VARCHAR}, #{detailInfo.majorid,jdbcType=VARCHAR}, #{detailInfo.teachername,jdbcType=VARCHAR},
+            #{detailInfo.teachersex,jdbcType=VARCHAR},  #{detailInfo.grade,jdbcType=VARCHAR},#{detailInfo.teacherbirth,jdbcType=DATE}, #{detailInfo.education,jdbcType=VARCHAR},
+            #{detailInfo.degree,jdbcType=VARCHAR}, #{detailInfo.graduateschool,jdbcType=VARCHAR}, #{detailInfo.graduatemajor,jdbcType=VARCHAR},
+            #{detailInfo.teachertel,jdbcType=VARCHAR}, #{detailInfo.positionaltitle,jdbcType=VARCHAR}, #{detailInfo.joinschooltime,jdbcType=DATE},
+            #{detailInfo.teacherposition,jdbcType=VARCHAR}, #{detailInfo.inposition,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
 
     <!--查询教师的名称和ID-->
     <select id="findTeacherNameAndId" resultType="map">
