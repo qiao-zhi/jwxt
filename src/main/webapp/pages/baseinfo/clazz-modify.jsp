@@ -136,8 +136,8 @@
             type : 'POST',
             dataType : 'json',
             success : function(response){
-                $("input[name='classid']").val(response.classid);
-                $("input[name='classnum']").val(response.classnum);
+                $("input[name='classid']").val(response.classID);
+                $("input[name='classnum']").val(response.classNum);
                 $("input[name='classname']").val(response.classname);
                 $("select[name='majorid']").val(response.majorid);
                 $("input[name='trainingschemeid']").val(response.trainingschemeid);

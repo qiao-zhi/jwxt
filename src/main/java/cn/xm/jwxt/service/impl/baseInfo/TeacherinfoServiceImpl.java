@@ -2,8 +2,11 @@ package cn.xm.jwxt.service.impl.baseInfo;
 
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfo;
+import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.CommonQuery;
+import cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo;
+import cn.xm.jwxt.bean.baseInfo.custom.TeacherMajorInfo;
 import cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper;
 import cn.xm.jwxt.mapper.baseInfo.custom.TTeacherBaseInfoCustomMapper;
 import cn.xm.jwxt.service.baseInfo.TeacherinfoService;
@@ -92,5 +95,24 @@ public class TeacherinfoServiceImpl implements TeacherinfoService {
     @Override
     public List<Map<String, Object>> findTeacherNameAndId() throws Exception {
         return teacherBaseInfoCustomMapper.findTeacherNameAndId();
+    }
+
+    @Override
+    public boolean saveTeacherInfoById(String noticeId, List<TeacherMajorInfo> detailInfoList) throws Exception {
+        if(ValidateCheck.isNull(noticeId)){
+            throw new IllegalArgumentException("教师编号不能为空!");
+        }
+        int total = detailInfoList.size();
+        if(total <= 0){
+            throw new IllegalArgumentException("明细集合参数传递错误!");
+        }
+        for (TeacherMajorInfo detailInfo:detailInfoList) {
+            //设置通知书ID
+            detailInfo.setTeacherid(noticeId);
+        }
+        int count = teacherBaseInfoCustomMapper.saveTeacherInfoList(detailInfoList);
+        //修改是否上传参数
+        //teacherinfoService.updateIsInputStatus(noticeId);
+        return count == total;
     }
 }

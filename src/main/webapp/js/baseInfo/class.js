@@ -48,7 +48,7 @@ function showClassBaseInfo(pageInfo){
             +baseInfoList[i].collegeName+"</td><td>"
             +baseInfoList[i].classPeopleNum+"</td><td>"
             +baseInfoList[i].grade+"</td>"
-            +"<td class='td-manage'><a title='点击查看班级详细信息' onclick=notice_tab_show('班级详细信息','clazz-view.jsp?cId="+baseInfoList[i].classid+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
+            +"<td class='td-manage'><a title='点击查看班级详细信息' onclick=notice_tab_show('班级详细信息','clazz-view.jsp?cId="+baseInfoList[i].classID+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
             +"<a title='点击修改班级信息'  onclick=notice_tab_show('修改班级','clazz-modify.jsp?cId="+baseInfoList[i].classid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
             +" <a title='删除' onclick=deleteClassInfo('"+baseInfoList[i].classid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
         $("#classInfoList").append(tr);

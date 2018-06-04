@@ -1,7 +1,9 @@
 package cn.xm.jwxt.mapper.baseInfo.custom;
 
+import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.CommonQuery;
+import cn.xm.jwxt.bean.baseInfo.custom.TeacherMajorInfo;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -26,4 +28,13 @@ public interface TTeacherBaseInfoCustomMapper {
      * @throws SQLException
      */
     List<Map<String,Object>> findTeacherNameAndId() throws SQLException;
+
+    /**
+     * 批量插入通知书明细信息
+     * @param list
+     * @return
+     * @throws SQLException
+     */
+    int saveTeacherInfoList(List<TeacherMajorInfo> list) throws SQLException;
+
 }

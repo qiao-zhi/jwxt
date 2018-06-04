@@ -1,9 +1,12 @@
 package cn.xm.jwxt.service.baseInfo;
 
+import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.CommonQuery;
+import cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo;
+import cn.xm.jwxt.bean.baseInfo.custom.TeacherMajorInfo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -56,4 +59,12 @@ public interface TeacherinfoService {
     PageInfo<TTeacherBaseInfo> findTeacherInfoByCondition(CommonQuery condition, Integer currentPage, Integer pageSize) throws Exception;
 
     List<Map<String,Object>> findTeacherNameAndId() throws Exception;
+    /**
+     * 根据任务通知书ID批量插入通知书中的课程信息
+     * @param teacherId
+     * @param detailInfoList
+     * @return
+     * @throws Exception
+     */
+    boolean saveTeacherInfoById(String teacherId, List<TeacherMajorInfo> detailInfoList) throws Exception;
 }
