@@ -15,8 +15,10 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+
     <%--全局配置JSP--%>
     <%@ include file ="/tag.jsp"%>
+
     <style>
         .layui-table-wang-info{
             width: 100%;
@@ -61,71 +63,46 @@
     </style>
 
     <script type="text/javascript">
-        var teacher_course_id;
+        var courseDesignTeacherArrangeID;
         $(function () {
             <%
-                String teacher_course_id = request.getParameter("teacher_course_id");
+                String courseDesignTeacherArrangeID = request.getParameter("courseDesignTeacherArrangeID");
             %>
-            teacher_course_id = "<%=teacher_course_id%>";
+            courseDesignTeacherArrangeID = "<%=courseDesignTeacherArrangeID%>";
 
             showDetailInfo();
         })
 
         function showDetailInfo() {
             $.ajax({
-                url:contextPath + "/courseWorkLoad/findCourseDetail.do",
+                url:contextPath +"/lookCourseDesignArrange/findCourseDesignDetailInfo.do",
                 type:"post",
-                data:{"teacher_course_id":teacher_course_id},
+                data:{"courseDesignTeacherArrangeID":courseDesignTeacherArrangeID},
                 dataType:"json",
                 success:function (mapInfo) {
-                    $("#courseDesignName").html(mapInfo.course_name);
-                    $("#courseDesignNum").html(mapInfo.course_code);
-                    $("#teacherName").html(mapInfo.teacher_name);
-                    $("#teacherNum").html(mapInfo.teacher_number);
-                    $("#startTime").html(mapInfo.academic_year);
-                    $("#endTime").html(mapInfo.term);
+                    $("#courseDesignName").html(mapInfo.courseDesignName);
+                    $("#courseDesignNum").html(mapInfo.courseDesignNum);
+                    $("#teacherName").html(mapInfo.teacherName);
+                    $("#teacherNum").html(mapInfo.teacherNum);
+                    $("#yearNum").html(mapInfo.yearNum);
+                    $("#semester").html(mapInfo.semester);
+                    $("#startTime").html("第"+mapInfo.startTime+"周");
+                    $("#endTime").html("第"+mapInfo.endTime+"周");
+                    $("#classNames").val(mapInfo.classNames);
 
-                    var classInfoList = mapInfo.list;
-                    for(var i=0;i<classInfoList.length;i++){
-                        $("#classInfo").append(
-                           // "<label for='' class='layui-form-label'>&nbsp;&nbsp;"+classInfoList[i].class_name+" ["+classInfoList[i].class_size+"]</label>"
-                            " <input type='button' onclick='showStuList(this);' style='width: 150px;float: left;margin-left: 8px;' name='"+classInfoList[i].class_size+"' value='"+classInfoList[i].class_name+"'  class='layui-input'/>"
+                    var stuList = mapInfo.stuList;  // 学生信息list
+                    //alert(stuList[0].studentName)
+                    for(var i=0;i<stuList.length;i++){
+                        $("#stuDiv").append(
+                            //    "<input type='checkbox' name='' title='"+stuList[i].studentName+"' checked='checked'  >"
+                            "<div class='layui-unselect layui-form-checkbox layui-form-checked' lay-skin=''>" +
+                            "<a style='display: none;'>"+stuList[i].studentID+"</a>" +
+                            "<span>"+stuList[i].studentName+"</span><i class='layui-icon'></i></div>"
                         );
                     }
-
                 },
                 error:function () {
                     layer.msg("详细信息加载失败")
-                }
-            })
-        }
-
-        function showStuList(obj) {
-            var className = $(obj).val();
-            var stuNum = $(obj).attr("name");
-            //alert(stuNum)
-            //alert(className);
-            $.ajax({
-                url:contextPath + "/courseWorkLoad/findStuListInfo.do",
-                type:"post",
-                data:{"className":className},
-                dataType:"json",
-                success:function (list) {
-                    $("#stuDiv").append(
-                        "<div style='margin-left: -100px;' class='layui-unselect layui-form-checkbox layui-form-checked' lay-skin=''><span>"+className+"</span></a><i class='layui-icon'>"+stuNum+"</i></div><br>"
-                    );
-                    for(var i=0;i<list.length;i++){
-                       // alert(list[i])
-                        $("#stuDiv").append(
-                            "<div class='layui-unselect layui-form-checkbox layui-form-checked' lay-skin=''><a>"+list[i]+"</a><i class='layui-icon'></i></div>"
-                        );
-                    }
-                    $("#stuDiv").append("<br><br>")
-                  //  layer.alert("success")
-
-                },
-                error:function () {
-                    layer.msg("加载学生列表失败")
                 }
             })
         }
@@ -151,8 +128,14 @@
         </tr>
         <tr>
             <td>学年</td>
-            <td id="startTime"></td>
+            <td id="yearNum"></td>
             <td>学期</td>
+            <td id="semester"></td>
+        </tr>
+        <tr>
+            <td>开始时间</td>
+            <td id="startTime"></td>
+            <td>结束时间</td>
             <td id="endTime"></td>
         </tr>
     </table>
@@ -162,18 +145,19 @@
             <label for="" class="layui-form-label">
                 所带班级
             </label>
-            <div class="layui-input-inline"  id="classInfo">
+            <div class="layui-input-inline">
 
-                <%--<input type="" id="classNames" name="" required="" lay-verify="required" disabled  style="width: 575px;" value=""--%>
-                       <%--autocomplete="off" class="layui-input">--%>
+                <input type="" id="classNames" name="" required="" lay-verify="required" disabled  style="width: 575px;" value=""
+                       autocomplete="off" class="layui-input">
             </div>
 
 
         </div>
+
         <div class="layui-form-item">
-            <%--<label for="" class="layui-form-label">--%>
-                <%--学生列表--%>
-            <%--</label>--%>
+            <label for="" class="layui-form-label">
+                学生列表
+            </label>
             <div class="layui-input-block" id="stuDiv">
                 <%--<input type="checkbox" name="" title="张三" checked="" >--%>
 

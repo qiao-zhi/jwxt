@@ -16,6 +16,7 @@
             class.majorID,
             class.trainingSchemeID,
             class.grade,
+            mb.majorName,
             tc.semester
           FROM
            t_class_base_info class
@@ -23,6 +24,8 @@
                 ON class.trainingSchemeID = tc.trainningSchemeID
             JOIN t_course_base_info cbi
                 ON tc.courseID = cbi.courseID
+            JOIN t_major_base_info mb
+                ON mb.majorID = class.majorID
            WHERE
                   <if test="grade!=null and grade!=''">
                        class.grade = #{grade} AND

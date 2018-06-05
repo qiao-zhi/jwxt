@@ -9,7 +9,6 @@
     </settings>
 
     <!--  只需要定义个别名,这个应该有-->
-
  	<typeAliases >
  	    <package name="cn.xm.jwxt.bean"/>
  	</typeAliases>

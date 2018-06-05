@@ -202,7 +202,6 @@ function initCapacity() {
     })
 }
 
-
 /**
  * 验证培养方案能力是否已经填写
  */

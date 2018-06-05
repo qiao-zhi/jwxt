@@ -75,7 +75,7 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
     }
 
     @Override
-    public boolean addCourseDesignerinfo(ListVo listVo) throws SQLException{
+    public boolean addCourseDesignerinfo(ListVo listVo,String arrangeTeacher) throws SQLException{
         boolean result = false;
         List<TCourseDesignVo> list = listVo.getTCourseDesignVos();
         // infoArrange的id
@@ -99,7 +99,7 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
             String classNames = list.get(i).getClassNames();
             Date CourseArrangeTime =new Date();
             String isArrange = "0";
-            String display = "-1";
+            String display = "0";
             // 封装 infoArrange Map
             condition.put("courseDesignArrangeID",courseDesignArrangeID);
             condition.put("trainCourseID",trainCourseID);
@@ -119,6 +119,7 @@ public class TCoursedesignInfoArrangeServiceImpl implements TCoursedesignInfoArr
             condition.put("grade",grade);
             condition.put("uploadStatus","0");
             condition.put("checkStatus","0");
+            condition.put("CourseArrangeTeacher",arrangeTeacher);
             // 向infoArrange表中插入
             if(i==0){
                 // 向infoArrange表插入

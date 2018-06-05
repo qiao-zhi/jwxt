@@ -18,6 +18,10 @@
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
     <script type="text/javascript" src="../../js/courseDesign/courseDesignArrange.js"></script>
+
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
+
     <style>
         .layui-form-item .layui-input-inline {
             width: 200px !important;
@@ -188,7 +192,7 @@
         <!---->
     </form>
     <button class="layui-btn" lay-filter="add" lay-submit="" type="button" onclick="submitInfo();">
-        确认分配
+        保存分配
     </button>
     <table class="layui-table">
         <thead>
@@ -238,6 +242,7 @@
             String majorID = request.getParameter("majorID");
             String courseName = request.getParameter("courseName");
             courseName = URLDecoder.decode(courseName, "utf-8");
+            courseName = courseName.replace(" ","+");
             String trainCourseID = request.getParameter("trainCourseID");
             String semester = request.getParameter("semester");
             String year = request.getParameter("year");
@@ -250,10 +255,12 @@
         semester = "<%=semester%>";
         courseDesignNum = "<%=courseNum%>";
         $("#cdName").attr("value",courseDesignName);
+
+       // alert(courseDesignName)
        // alert(courseName);
 
             $.ajax({
-                url:"/jwxt/arrangeCourseDesign/getTeacherInfoAndClassInfo.do",
+                url:contextPath +"/arrangeCourseDesign/getTeacherInfoAndClassInfo.do",
                 type:"post",
                 data:{"majorID":majorID,"year":year},
                 dataType:"json",
