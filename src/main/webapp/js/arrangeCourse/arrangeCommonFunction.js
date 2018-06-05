@@ -1,7 +1,7 @@
 /**
  * @author: LL
  * @createtime: 2018/5/7 12:39
- * @description:公共方法排课
+ * @description:排课公共方法
  */
 
 /** 公共查询条件 S**/
@@ -13,10 +13,26 @@ layui.use('laydate', function () {
         elem: '#s_year' //指定元素
         ,type: 'year'
     });
-    //审核时间
+    //当前时间
     laydate.render({
-        elem:"#checkTime"
+        elem:"#nowTime"
     })
+    //添加信息时学年的操作
+    laydate.render({
+        elem: '#y_year' //指定元素
+        ,type: 'year'
+        ,done:function(date){
+            //判断date是否有值
+            if(date != null && date !=""){
+                date = parseInt(date)
+                $("#end_year").val(date+1)
+                $("input[name='academicYear']").val(date+'-'+(date+1)+"学年")
+            }else{
+                $("#end_year").val('')
+                $("input[name='academicYear']").val('')
+            }
+        }
+    });
 })
 
 //初始化专业下拉框
@@ -88,7 +104,7 @@ function findTeacherBaseInfoForSelect(form){
     $.ajax({
         url:contextPath+"/arrangeCourse/findTeacherBaseInfo.action",
         dataType:"json",
-        data:{"academicId":"jisuanjikexueyujishuxueyuan"},
+        data:{"academicId":"f4aa12dec36046048d89613bbfd1735c"},
         type:"post",
         success:function (response) {
             var optionStr = "<option value=''>请输入教师姓名</option>";
@@ -138,6 +154,18 @@ function changeTaskStatus(arrangeTaskId,status){
             })
         }
     })
+}
+
+//获取当前时间设置到相应字段
+function getNowTime(){
+    var myDate = new Date();//获取系统当前时间
+    var year = myDate.getFullYear();//获取当前年
+    var month = myDate.getMonth()+1;//获取当前月
+    var date = myDate.getDate();
+    if (month < 10) month = "0" + month;
+    if (date < 10) date = "0" + date;
+    var nowTime = year + "-" + month + "-" + date;
+    $("#nowTime").val(nowTime);
 }
 
 /* S            弹出层相关操作 */

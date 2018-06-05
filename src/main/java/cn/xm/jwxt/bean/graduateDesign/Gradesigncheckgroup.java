@@ -3,7 +3,7 @@ package cn.xm.jwxt.bean.graduateDesign;
 import java.util.List;
 
 /**
- * 中期和后期毕设答辩检查小组表
+ * 中期检查小组表
  */
 public class Gradesigncheckgroup {
     private String groupid;

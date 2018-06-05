@@ -11,6 +11,7 @@ import cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDInfoCustomMapp
 import cn.xm.jwxt.service.outGraduateDesignApply.Outgradesigninfoservice;
 import cn.xm.jwxt.utils.DateHandler;
 import cn.xm.jwxt.utils.FileHandleUtil;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,8 +44,14 @@ public class OutGraDesignInfoServiceImpl implements Outgradesigninfoservice {
         //获取签名图片的访问路径
         String path = FileHandleUtil.getValue("path","signPicturePath");
         String name = oGDInfo.getStusignurl();
-        if(!name.isEmpty()){
+        if(name!= null&&!name.equals("")){
             oGDInfo.setStusignurl(path+name);
+        }
+        List<Checkoutgradesigninfo> checkinfos = oGDInfo.getCheckOGDInfo();
+        for(Checkoutgradesigninfo checkinfo:checkinfos){
+            if(checkinfo.getTeachersign()!=null&&!checkinfo.getTeachersign().equals("")){
+                checkinfo.setTeachersign(path+checkinfo.getTeachersign());
+            }
         }
         return oGDInfo;
     }
@@ -53,6 +60,8 @@ public class OutGraDesignInfoServiceImpl implements Outgradesigninfoservice {
     public boolean updateInfo(Outgradesigninfo outgraDesignInfo) throws SQLException {
         int resultNum = oGDInfoMapper.updateByPrimaryKeySelective(outgraDesignInfo);
         if(resultNum==1){
+            //删除基本信息中的审核信息
+            rOGDInfoMapper.deleteCheckInfoByOutsideApplyID(outgraDesignInfo.getOutsideapplyid());
             return true;
         }
         return false;

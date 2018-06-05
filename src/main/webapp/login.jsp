@@ -64,8 +64,8 @@
             <input name="password" lay-verify="required" placeholder="请输入密码"  type="password" class="layui-input"/>
             <hr class="hr15">
             <select name="usersort" lay-verify="required">
-                <option value="学生">学生</option>
                 <option value="教师">教师</option>
+                <option value="学生">学生</option>
 			</select>
 			<hr class="hr15">
             <input value="登录" lay-submit lay-filter="login" type="button" style="width:100%;"/>

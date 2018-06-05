@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.OutgraduateassignmentMapper" >
+  <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outgraduateassignment" >
+    <id column="assignmentID" property="assignmentid" jdbcType="VARCHAR" />
+    <result column="outsideApplyID" property="outsideapplyid" jdbcType="VARCHAR" />
+    <result column="tableName" property="tablename" jdbcType="VARCHAR" />
+    <result column="sameGroup" property="samegroup" jdbcType="VARCHAR" />
+    <result column="startTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="request" property="request" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="submitFile" property="submitfile" jdbcType="VARCHAR" />
+    <result column="studentsign" property="studentsign" jdbcType="VARCHAR" />
+    <result column="isok" property="isok" jdbcType="VARCHAR" />
+    <result column="checkstatus" property="checkstatus" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    assignmentID, outsideApplyID, tableName, sameGroup, startTime, endTime, title, request, 
+    content, submitFile, studentsign, isok, checkstatus, remark1
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutgraduateassignmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outgraduateassignment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from outgraduateassignment
+    where assignmentID = #{assignmentid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from outgraduateassignment
+    where assignmentID = #{assignmentid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutgraduateassignmentExample" >
+    delete from outgraduateassignment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgraduateassignment" >
+    insert into outgraduateassignment (assignmentID, outsideApplyID, tableName, 
+      sameGroup, startTime, endTime, 
+      title, request, content, 
+      submitFile, studentsign, isok, 
+      checkstatus, remark1)
+    values (#{assignmentid,jdbcType=VARCHAR}, #{outsideapplyid,jdbcType=VARCHAR}, #{tablename,jdbcType=VARCHAR}, 
+      #{samegroup,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{title,jdbcType=VARCHAR}, #{request,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{submitfile,jdbcType=VARCHAR}, #{studentsign,jdbcType=VARCHAR}, #{isok,jdbcType=VARCHAR}, 
+      #{checkstatus,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgraduateassignment" >
+    insert into outgraduateassignment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="assignmentid != null" >
+        assignmentID,
+      </if>
+      <if test="outsideapplyid != null" >
+        outsideApplyID,
+      </if>
+      <if test="tablename != null" >
+        tableName,
+      </if>
+      <if test="samegroup != null" >
+        sameGroup,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="request != null" >
+        request,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="submitfile != null" >
+        submitFile,
+      </if>
+      <if test="studentsign != null" >
+        studentsign,
+      </if>
+      <if test="isok != null" >
+        isok,
+      </if>
+      <if test="checkstatus != null" >
+        checkstatus,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="assignmentid != null" >
+        #{assignmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="outsideapplyid != null" >
+        #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null" >
+        #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="samegroup != null" >
+        #{samegroup,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="request != null" >
+        #{request,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="submitfile != null" >
+        #{submitfile,jdbcType=VARCHAR},
+      </if>
+      <if test="studentsign != null" >
+        #{studentsign,jdbcType=VARCHAR},
+      </if>
+      <if test="isok != null" >
+        #{isok,jdbcType=VARCHAR},
+      </if>
+      <if test="checkstatus != null" >
+        #{checkstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.OutgraduateassignmentExample" resultType="java.lang.Integer" >
+    select count(*) from outgraduateassignment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update outgraduateassignment
+    <set >
+      <if test="record.assignmentid != null" >
+        assignmentID = #{record.assignmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outsideapplyid != null" >
+        outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tablename != null" >
+        tableName = #{record.tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.samegroup != null" >
+        sameGroup = #{record.samegroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starttime != null" >
+        startTime = #{record.starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null" >
+        endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.request != null" >
+        request = #{record.request,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.submitfile != null" >
+        submitFile = #{record.submitfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentsign != null" >
+        studentsign = #{record.studentsign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isok != null" >
+        isok = #{record.isok,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkstatus != null" >
+        checkstatus = #{record.checkstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update outgraduateassignment
+    set assignmentID = #{record.assignmentid,jdbcType=VARCHAR},
+      outsideApplyID = #{record.outsideapplyid,jdbcType=VARCHAR},
+      tableName = #{record.tablename,jdbcType=VARCHAR},
+      sameGroup = #{record.samegroup,jdbcType=VARCHAR},
+      startTime = #{record.starttime,jdbcType=TIMESTAMP},
+      endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      title = #{record.title,jdbcType=VARCHAR},
+      request = #{record.request,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      submitFile = #{record.submitfile,jdbcType=VARCHAR},
+      studentsign = #{record.studentsign,jdbcType=VARCHAR},
+      isok = #{record.isok,jdbcType=VARCHAR},
+      checkstatus = #{record.checkstatus,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgraduateassignment" >
+    update outgraduateassignment
+    <set >
+      <if test="outsideapplyid != null" >
+        outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null" >
+        tableName = #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="samegroup != null" >
+        sameGroup = #{samegroup,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        startTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="request != null" >
+        request = #{request,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="submitfile != null" >
+        submitFile = #{submitfile,jdbcType=VARCHAR},
+      </if>
+      <if test="studentsign != null" >
+        studentsign = #{studentsign,jdbcType=VARCHAR},
+      </if>
+      <if test="isok != null" >
+        isok = #{isok,jdbcType=VARCHAR},
+      </if>
+      <if test="checkstatus != null" >
+        checkstatus = #{checkstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where assignmentID = #{assignmentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgraduateassignment" >
+    update outgraduateassignment
+    set outsideApplyID = #{outsideapplyid,jdbcType=VARCHAR},
+      tableName = #{tablename,jdbcType=VARCHAR},
+      sameGroup = #{samegroup,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=TIMESTAMP},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      request = #{request,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      submitFile = #{submitfile,jdbcType=VARCHAR},
+      studentsign = #{studentsign,jdbcType=VARCHAR},
+      isok = #{isok,jdbcType=VARCHAR},
+      checkstatus = #{checkstatus,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR}
+    where assignmentID = #{assignmentid,jdbcType=VARCHAR}
+  </update>
+</mapper>

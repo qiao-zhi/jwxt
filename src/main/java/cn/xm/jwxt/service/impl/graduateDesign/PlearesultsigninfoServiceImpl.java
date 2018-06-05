@@ -32,7 +32,7 @@ public class PlearesultsigninfoServiceImpl implements PlearesultsigninfoService 
 
     @Override
     public boolean deleteByExample(PlearesultsigninfoExample example) {
-        return plearesultsigninfoMapper.deleteByExample(example)==1;
+        return plearesultsigninfoMapper.deleteByExample(example)>=0;
     }
 
     @Override

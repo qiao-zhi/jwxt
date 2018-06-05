@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.custom.GraDesignCheckGroupNewCustomMapper" >
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.GraDesignCheckGroupNew" id="oneGradesigncheckgroupResultMap" autoMapping="true">
+        <id property="groupid" column="groupid" />
+
+        <collection property="checkgrouppersonList" column="gropersonid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson">
+            <id column="gropersonid" property="gropersonid"/>
+        </collection>
+    </resultMap>
+
+    <resultMap type="cn.xm.jwxt.bean.graduateDesign.GraDesignCheckGroupNew" id="GradesigncheckgroupListResultMap" autoMapping="true">
+        <id property="groupid" column="groupid" />
+
+        <collection property="checkgrouppersonList" column="gropersonid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson"
+                    select="cn.xm.jwxt.mapper.graduateDesign.CheckgrouppersonMapper.selectByPrimaryKey">
+            <id column="gropersonid" property="gropersonid"/>
+        </collection>
+
+    </resultMap>
+
+    <insert id="insertGraDesignCheckGroupNew" parameterType="cn.xm.jwxt.bean.graduateDesign.GraDesignCheckGroupNew">
+        INSERT INTO GraDesignCheckGroupNew
+        (groupid,groupname,grouptype,replyaddress,remark)
+        VALUES
+        (#{groupid},#{groupname},#{grouptype},#{replyaddress},#{remark})
+    </insert>
+
+    <update id="updateGraDesignCheckGroupNewByCondition" parameterType="java.util.Map" >
+        update gradesigncheckgroupNew
+        <set >
+            <if test="groupid != null" >
+                groupId = #{groupid},
+            </if>
+            <if test="groupname != null" >
+                groupName = #{groupname},
+            </if>
+            <if test="grouptype != null" >
+                groupType = #{grouptype},
+            </if>
+            <if test="replyaddress != null" >
+                replyAddress = #{replyaddress},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark},
+            </if>
+        </set>
+        <where>
+            <if test="groupidCondition != null" >
+                AND groupId = #{groupidCondition}
+            </if>
+            <if test="groupnameCondition != null" >
+                AND groupName = #{groupnameCondition}
+            </if>
+            <if test="grouptypeCondition != null" >
+                AND groupType = #{grouptypeCondition}
+            </if>
+            <if test="replyaddressCondition != null" >
+                AND replyAddress = #{replyaddressCondition}
+            </if>
+            <if test="remarkCondition != null" >
+                AND remark = #{remarkCondition}
+            </if>
+        </where>
+    </update>
+
+    <select id="selectOneGradesigncheckgroup" resultMap="oneGradesigncheckgroupResultMap">
+        SELECT
+        g.groupId,g.groupName,g.groupType,g.replyAddress,g.remark,
+        c.groPersonID,c.teacherID,c.teachername,c.groupid,c.groupRole,c.remark
+        FROM
+        GraDesignCheckGroupNew g,checkGroupPersonNew c
+        WHERE
+        g.groupId = c.groupId
+        AND
+        g.groupId = #{groupId}
+    </select>
+
+    <select id="selectGradesigncheckgroupList" resultMap="GradesigncheckgroupListResultMap">
+        SELECT
+        g.groupId,g.groupName,g.groupType,g.replyAddress,g.remark,
+        c.groPersonID,c.teacherID,c.teachername,c.groupid,c.groupRole,c.remark
+        FROM
+        graDesignCheckGroupNew g,checkGroupPersonNew c
+        <where>
+            <if test="1==1">
+                g.groupId = c.groupId
+            </if>
+            <if test="endtime != null">
+                and g.groupname like CONCAT('%', #{groupname}, '%')
+            </if>
+            <if test="starttime != null">
+                and g.grouptype like CONCAT('%', #{grouptype}, '%')
+            </if>
+            <if test="arrangeperson != null">
+                and g.replyaddress like CONCAT('%', #{replyaddress}, '%')
+            </if>
+            <if test="arrangetime != null">
+                and g.remark like CONCAT('%', #{remark}, '%')
+            </if>
+        </where>
+        <if test="page != null and limit != null">
+            limit #{page},#{limit}
+        </if>
+
+    </select>
+
+    <select id="selectOneGradesigncheckgroup2" resultType="cn.xm.jwxt.bean.graduateDesign.TTeacherInfoVo">
+        SELECT
+        gdcg.groupid,gdcg.groupname,gdcg.replyaddress,
+        fp.pleaid,
+        fp.arrangetime as replytime
+        FROM graDesignCheckGroupNew gdcg
+        LEFT JOIN pleaArrangeInfo pai ON pai.groupid = gdcg.groupid
+        LEFT JOIN finallyPleaInfo fp ON fp.pleaid = pai.pleaid
+        WHERE
+        gdcg.groupid=#{groupId}
+    </select>
+
+    <!--查询互审分配前的表-->
+    <select id="selectGradesigncheckgroupList2New" resultType="cn.xm.jwxt.bean.graduateDesign.GradesigncheckgroupVo">
+        SELECT
+        g.groupId,g.groupName,
+        GROUP_CONCAT(c.teacherid) AS teacheridSum,
+        GROUP_CONCAT(c.teachername) AS teachernameSum
+        FROM
+        graDesignCheckGroupNew g,checkGroupPersonNew c
+        WHERE
+        g.groupid = c.groupid
+        <if test="page != null and limit != null">
+            limit #{page},#{limit}
+        </if>
+        GROUP BY g.groupid
+    </select>
+
+    <delete id="deleteGroupNewByPrimaryKey">
+        DELETE FROM GraDesignCheckGroupNew
+        WHERE groupid = #{groupid}
+    </delete>
+</mapper>

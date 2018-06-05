@@ -1,4 +1,5 @@
 /*页面加载查询申请的详细信息*/
+var userID = "1";
 $(function(){
     var selfManageId = getAddressParameter("id");
     //alert(selfManageId);
@@ -18,11 +19,12 @@ $(function(){
                 $("#studentName2").html(result.oGDInfo.studentname);
                 $("#studentIdCard").val(result.studentidcard);
                 $("#majorClass").html(result.oGDInfo.majorclass);
-                if(result.schoolsign!=null){
+                //alert(result.schoolsign);
+                if(result.schoolsign!=null&&result.schoolsign!=""){
                     $("#schoolUrl").attr("src",result.schoolsign);
                 }
                 $("#schoolSignDate").val(Format(new Date(result.schoolsigndate),'yyyy-MM-dd'));
-                if(result.studentsign!=null){
+                if(result.studentsign!=null&&result.studentsign!=""){
                     $("#stusignUrl").attr("src",result.studentsign);
                 }
                 $("#studentSignDate").val(Format(new Date(result.studentsigndate),'yyyy-MM-dd'));
@@ -40,7 +42,6 @@ $(function(){
 });
 /*学生签名*/
 function studentSign() {
-    var userID = "1";
     var aggreementID = getAddressParameter("id");
     //alert(aggreementID);
     layer.prompt({

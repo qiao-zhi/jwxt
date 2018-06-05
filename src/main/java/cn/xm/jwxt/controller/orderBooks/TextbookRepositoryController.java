@@ -64,14 +64,14 @@ public class TextbookRepositoryController {
         if(textbook==null)
             return "添加失败";
         try{
-            textbookRepositoryService.addTextbook(textbook);
-        }
-        catch (SQLException e){
-            logger.error( "添加教材失败",e);
-            return "添加失败";
-        }
-        return "添加成功";
+        textbookRepositoryService.addTextbook(textbook);
     }
+        catch (SQLException e){
+        logger.error( "添加教材失败",e);
+        return "添加失败";
+    }
+        return "添加成功";
+}
 
     /**
      * 查找所有课程

@@ -32,7 +32,7 @@ public class PleafileuploadinfoServiceImpl implements PleafileuploadinfoService 
 
     @Override
     public boolean deleteByExample(PleafileuploadinfoExample example) {
-        return pleafileuploadinfoMapper.deleteByExample(example)==1;
+        return pleafileuploadinfoMapper.deleteByExample(example)>=0;
     }
 
     @Override

@@ -26,20 +26,7 @@
 
 <!--主体-->
 <div class="x-body">
-    <%--<table class="layui-table-wang-info">
-        <tr>
-            <td>学院</td>
-            <td></td>
-            <td>创建人</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>学年</td>
-            <td></td>
-            <td>学期</td>
-            <td></td>
-        </tr>
-    </table>--%>
+
     <!--表格内容-->
     <table class="layui-table">
         <thead>

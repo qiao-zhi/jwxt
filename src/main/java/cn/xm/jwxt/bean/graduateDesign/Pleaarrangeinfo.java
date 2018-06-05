@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+import java.util.List;
+
 /**
  * 毕业答辩安排信息表
  */
@@ -13,6 +15,56 @@ public class Pleaarrangeinfo {
     private String teacherid;
 
     private Integer bookid;
+
+    private GraDesignCheckGroupNew graDesignCheckGroupNew;
+
+    private Finallypleainfo finallypleainfo;
+
+    private List<Plearesultinfo> plearesultinfoList;
+
+    private List<Pleafilerecordinfo> pleafilerecordinfoList;
+
+    private List<Pleafileuploadinfo> pleafileuploadinfoList;
+
+    public GraDesignCheckGroupNew getGraDesignCheckGroupNew() {
+        return graDesignCheckGroupNew;
+    }
+
+    public void setGraDesignCheckGroupNew(GraDesignCheckGroupNew graDesignCheckGroupNew) {
+        this.graDesignCheckGroupNew = graDesignCheckGroupNew;
+    }
+
+    public Finallypleainfo getFinallypleainfo() {
+        return finallypleainfo;
+    }
+
+    public void setFinallypleainfo(Finallypleainfo finallypleainfo) {
+        this.finallypleainfo = finallypleainfo;
+    }
+
+    public List<Plearesultinfo> getPlearesultinfoList() {
+        return plearesultinfoList;
+    }
+
+    public void setPlearesultinfoList(List<Plearesultinfo> plearesultinfoList) {
+        this.plearesultinfoList = plearesultinfoList;
+    }
+
+    public List<Pleafilerecordinfo> getPleafilerecordinfoList() {
+        return pleafilerecordinfoList;
+    }
+
+    public void setPleafilerecordinfoList(List<Pleafilerecordinfo> pleafilerecordinfoList) {
+        this.pleafilerecordinfoList = pleafilerecordinfoList;
+    }
+
+    public List<Pleafileuploadinfo> getPleafileuploadinfoList() {
+        return pleafileuploadinfoList;
+    }
+
+    public void setPleafileuploadinfoList(List<Pleafileuploadinfo> pleafileuploadinfoList) {
+        this.pleafileuploadinfoList = pleafileuploadinfoList;
+    }
 
     public Integer getArrangeid() {
         return arrangeid;

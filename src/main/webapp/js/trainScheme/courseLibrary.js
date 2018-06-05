@@ -119,11 +119,14 @@ function showCourseInfo(pageInfo){
             +'<td>'+courses[i].credit+'/'+courses[i].courseHour+'</td>'
             +'<td>'+courses[i].weeklyHour+courses[i].courseHourMethod+'</td>'
             +'<td>'+courses[i].scoringWay+'</td>'
-            +'<td>'
-            +'<a title="点击查看课程详细信息" onclick="openDetailLayer(this)" href=javascript:void(0)><i class="layui-icon">&#xe615;</i></a>'
-            +'<a href=javascript:void(0) title="点击修改课程基本信息" onclick="openUpdateLayer(this)"><i class="layui-icon">&#xe642;</i></a>'
-            +'<a href=javascript:void(0) title="点击删除课程" onclick="deleteCourseByCourseId(this)"><i class="layui-icon">&#xe640;</i></a>'
-            +'</td></tr>'
+            +'<td>';
+            tr += '<a title="点击查看课程详细信息" onclick="openDetailLayer(this)" href=javascript:void(0)><i class="layui-icon">&#xe615;</i></a>';
+        /*加了课程操作权限*/
+        if(hasOperatingCourse){
+            tr += '<a href=javascript:void(0) title="点击修改课程基本信息" onclick="openUpdateLayer(this)"><i class="layui-icon">&#xe642;</i></a>'
+                 +'<a href=javascript:void(0) title="点击删除课程" onclick="deleteCourseByCourseId(this)"><i class="layui-icon">&#xe640;</i></a>';
+        }
+        tr += '</td></tr>';
         $("#courseTbody").append(tr);
     }
 
@@ -399,10 +402,10 @@ function initUploadTeachingProgram(){
             multiple:false,//支持多文件上传
             exts: 'doc|docx|pdf', //只允许上传doc,docx和pdf文件
             bindAction: '#uploadTeachingFile',//绑定到哪个按钮进行提交(提交按钮进行提交)
-            data:{//另外携带的数据
+            /*data:{//另外携带的数据
                 courseid: $("[name='courseid']").val(),//携带课程编号
                 filetype:$("[name='filetype']").val()//携带文件类型
-            },
+            },*/
             choose:function (obj,file) {//选中文件执行的操作
                 //将每次选择的文件追加到文件队列
                 // var files = obj.pushFile();//会导致传一个文件多次选择传多个文件(不可以用)
@@ -414,6 +417,10 @@ function initUploadTeachingProgram(){
             },
             before:function (obj) {//文件上传前
                 $("#uploadTeachingFile").addClass("layui-btn-disabled");//设置按钮不可以点击(增加layui的禁用按钮属性)
+                this.data={
+                            "courseid": $("[name='courseid']").val(),//携带课程编号
+                            filetype:$("[name='filetype']").val()//携带文件类型
+                            }//携带额外的数据
                 // layer.msg("文件正在上传...",{time:60000})//弹出一个提示框提示文件正在上传，默认60s之后关闭，上传成功之后直接关闭
                 var index = layer.load(); //开始上传之后打开load层
                 $("#hidden_index").val(index);//隐藏到页面中

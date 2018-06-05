@@ -16,6 +16,10 @@
     <script type="text/javascript" src="../../js/xadmin.js"></script>
     <%--公共标签--%>
     <%@include file="/tag.jsp"%>
+    <%--排课公共方法--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
+    <%--排课任务添加的js--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/scheduleTask-add.js"></script>
 </head>
 <body>
 <div class="x-body">
@@ -117,7 +121,7 @@
               创建时间
             </label>
             <div class="layui-input-inline">
-             <input id="giveTime" class="layui-input" name="taskCreateTime" lay-verify="required" />
+             <input id="nowTime" class="layui-input" name="taskCreateTime" lay-verify="required" />
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
@@ -135,135 +139,6 @@
         <!---->
     </form>
 </div>
-
-<script>
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-        //初始化时间
-        getNowTime();
-        //创建时间
-        laydate.render({
-            elem: '#giveTime'//指定元素,
-        });
-        //学年
-        laydate.render({
-            elem: '#y_year' //指定元素
-            ,type: 'year'
-            ,done:function(date){
-                //判断date是否有值
-                if(date != null && date !=""){
-                    date = parseInt(date)
-                    $("#end_year").val(date+1)
-                    $("input[name='academicYear']").val(date+'-'+(date+1)+"学年")
-                }else{
-                    $("#end_year").val('')
-                    $("input[name='academicYear']").val('')
-                }
-            }
-        });
-    });
-    layui.use(['form', 'layer'], function () {
-        $ = layui.jquery;
-        var form = layui.form
-            , layer = layui.layer;
-        //初始化教学任务通知书下拉框
-        findNoticeNameAndId(form);
-        //初始化专业下拉框
-        findMajorNameAndId(form);
-        //监听专业下拉框事件
-        form.on('select(major)',function (data) {
-            //获取学院的option对象
-            var $option = $("select[name='majorId'] option:selected");
-            //将学院名称设置到隐藏域中
-            $("input[name='majorName']").val($option.text())
-        })
-
-        //监听专业下拉框事件
-        form.on('select(noticeBook)',function (data) {
-            //获取学院的option对象
-            var $option = $("select[name='noticeBookId'] option:selected");
-            //将学院名称设置到隐藏域中
-            $("input[name='noticeBookName']").val($option.text())
-        })
-
-        //监听提交
-        form.on('submit(add)', function (data) {
-            $.ajax({
-                url:contextPath+"/arrangeCourse/addArrangeCourseTask.action",
-                data:data.field,
-                type:"POST",
-                datatype:"text",
-                success:function(response){
-                    layer.alert(response,function(){
-                        //实现父页面的刷新
-                        window.parent.location.reload();
-                    })
-                }
-            })
-            //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-            return false;
-        });
-    })
-    //获取当前时间设置到相应字段
-    function getNowTime(){
-        var myDate = new Date();//获取系统当前时间
-        var year = myDate.getFullYear();//获取当前年
-        var month = myDate.getMonth()+1;//获取当前月
-        var date = myDate.getDate();
-        if (month < 10) month = "0" + month;
-        if (date < 10) date = "0" + date;
-        var nowTime = year + "-" + month + "-" + date;
-        $("input[name='taskCreateTime']").val(nowTime);
-    }
-    //初始化教学任务通知书下拉框
-    function findNoticeNameAndId(form){
-        $.ajax({
-            url:contextPath+"/arrangeCourse/findNoticeNameAndId.action",
-            dataType:"json",
-            type:"post",
-            success:function (response) {
-                //console.log(response);
-                var optionStr = "";
-                for(var i=0;i<response.length;i++){
-                    if(i==0){
-                        //设置默认选中第一条  value值设置编号，标签中间设置给用户显示的信息
-                        optionStr = "<option value='" + response[i].noticeBookId+"' selected>"+response[i].noticeBookName+"</option>";
-                        $("input[name='noticeBookName']").val(response[i].noticeBookName);
-                    } else{
-                        optionStr = "<option value='"+response[i].noticeBookId+" ' >"+response[i].noticeBookName+"</option>";
-                    }
-                    $("select[name='noticeBookId']").append(optionStr)
-                }
-                //更新渲染
-                form.render('select');
-            }
-        })
-    }
-    //初始化专业下拉框
-    function findMajorNameAndId(form){
-        $.ajax({
-            url:contextPath+"/TrainScheme/getMajorNameAndCode.action",
-            dataType:"json",
-            type:"post",
-            success:function (response) {
-                //console.log(response);
-                var optionStr = "";
-                for(var i=0;i<response.length;i++){
-                    if(i==0){
-                        //设置默认选中第一条  value值设置编号，标签中间设置给用户显示的信息
-                        optionStr = "<option value='" + response[i].majorId+"' selected>"+response[i].majorName+"</option>";
-                        $("input[name='majorName']").val(response[i].majorName);
-                    } else{
-                        optionStr = "<option value='"+response[i].majorId+" ' >"+response[i].majorName+"</option>";
-                    }
-                    $("select[name='majorId']").append(optionStr)
-                }
-                //更新渲染
-                form.render('select');
-            }
-        })
-    }
-</script>
 
 </body>
 

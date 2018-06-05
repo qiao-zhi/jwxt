@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.orderBooks.custom.TextbookOrderCustomMapper" >
+
+    <!--组合条件分页查询总订单信息,findTextbookOrder是TextbookOrderCustomMapper接口中的方法名-->
+    <select id="findTextbookOrder" resultType="cn.xm.jwxt.bean.orderBooks.Textbookorderinfo" parameterType="map" >
+        SELECT * from textbookorderinfo
+        <where>
+           <if test="major!=null and major!=''">
+               <!--remark数据库中的字段名称存储专业ID-->
+                and remark=#{major}
+            </if>
+            <if test="year!=null and year!=''">
+                and yearNum like '%${year}%'
+            </if>
+            <if test="term!=null and term!=''">
+                and semester=#{term}
+            </if>
+            <if test="isOrder!=null and isOrder!=''">
+                and isOrder=#{isOrder}
+            </if>
+            <if test="isCheck!=null and isCheck!=''">
+                and isCheck=#{isCheck}
+            </if>
+            <if test="checkProposal!=null and checkProposal!=''">
+                and checkProposal=#{checkProposal}
+            </if>
+        </where>
+    </select>
+
+    <!--组合条件分页查看排课详细信息-->
+    <select id="findArrageCourseDetailInfo" resultType="map" parameterType="map">
+       SELECT t1.arrange_course_id,t1.course_name,t1.course_code,
+              (SELECT GROUP_CONCAT(teacher_name)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_name,
+              (SELECT GROUP_CONCAT(teacher_number)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_number,
+               t1.class_name,t1.major_students_number
+        FROM ap_task_arrange_course t1,ap_arrange_course_task t3,textbookorderinfo t4
+        <where>
+            t1.arrange_task_id=t3.arrange_task_id
+            AND t3.major_name=t4.roomName
+            AND t3.academic_year=t4.yearNum
+            AND t3.term=t4.semester
+            AND t3.task_receipt_name=t4.createPerson
+            AND t4.orderid=#{orderId}
+        </where>
+        ORDER BY CONVERT (t1.course_name USING gbk)
+    </select>
+
+    <!--生成订单明细,借用arrange_course_id作为主键orderDetailID-->
+    <insert id="generateOrderDetail" parameterType="map">
+        INSERT into textbook_order(orderDetailID,orderid,courseID, teacherID,orderNum)
+        SELECT t1.arrange_course_id, t4.orderid,t1.course_code,
+              (SELECT GROUP_CONCAT(teacher_number) FROM ap_teacher_course t2
+	           WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_number,t1.major_students_number
+        FROM ap_task_arrange_course t1,ap_arrange_course_task t3,textbookorderinfo t4
+        WHERE t1.arrange_task_id=t3.arrange_task_id
+        AND t3.major_name=t4.roomName
+        AND t3.academic_year=t4.yearNum
+        AND t3.term=t4.semester
+        AND t3.task_receipt_name=t4.createPerson
+        AND t4.remark1 IS NULL
+    </insert>
+
+    <!--在排课详细信息页面进行查找操作-->
+    <select id="findOperationInArrgeCoursePage" resultType="map" parameterType="map">
+        SELECT t1.arrange_course_id,t1.course_name,t1.course_code,
+              (SELECT GROUP_CONCAT(teacher_name)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_name,
+              (SELECT GROUP_CONCAT(teacher_number)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_number,
+                t1.class_name,t1.major_students_number,t3.isOrder,t3.isConfirm
+        FROM ap_task_arrange_course t1,textbook_order t3
+        <where>
+            t1.arrange_course_id=t3.orderDetailID
+            AND t3.orderid=#{orderId}
+            <if test="course!=null and course!=''">
+                and t1.course_code=#{course}
+            </if>
+            <if test="isOrder!=null and isOrder!=''">
+                and t3.isOrder=#{isOrder}
+            </if>
+            <if test="isConfirm!=null and isConfirm!=''">
+                and t3.isConfirm=#{isConfirm}
+            </if>
+        </where>
+        ORDER BY CONVERT (t1.course_name USING gbk)
+    </select>
+
+    <!--按照主键找到订单详细信息-->
+    <select id="findOrderDetailInfo" resultType="map" parameterType="map">
+        SELECT t1.arrange_course_id,t1.course_name,t1.course_code,
+              (SELECT GROUP_CONCAT(teacher_name)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_name,
+              (SELECT GROUP_CONCAT(teacher_number)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_number,
+                t1.class_name,t1.major_students_number,t3.orderNum,t3.orderid,t3.textbookID,t3.isOrder,t3.isConfirm,t3.remark
+        FROM ap_task_arrange_course t1,textbook_order t3
+        WHERE
+            t1.arrange_course_id=t3.orderDetailID
+            AND  t1.arrange_course_id=#{orderDetailId}
+    </select>
+
+    <!--根据课程编号查询历史教材-->
+    <!--#{courseCode}是Mapper里findAllHistoryTextbook方法的参数-->
+    <select id="findAllHistoryTextbook" resultType="map" parameterType="map">
+        SELECT * FROM t_course_base_info t1,t_textbook_base_info t2
+        WHERE t1.courseId=t2.courseID AND t1.courseNum=#{courseCode}
+        ORDER BY CONVERT (t2.textbookName USING gbk)
+    </select>
+
+    <!--显示历史教材订购信息-->
+    <select id="findHistoryTextbookOrder" resultType="map" parameterType="map">
+        SELECT t1.course_name,t1.course_code,
+              (SELECT GROUP_CONCAT(teacher_name)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_name,
+              (SELECT GROUP_CONCAT(teacher_number)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_number,
+                t1.class_name,t1.major_students_number,t3.*,t5.*
+        FROM ap_task_arrange_course t1,textbook_order t3,textbookorderinfo t4,t_textbook_base_info t5
+        <where>
+            t1.arrange_course_id=t3.orderDetailID
+            AND t3.textbookID=t5.textbookID
+            AND t3.orderid=t4.orderid
+            AND t4.roomName=#{roomname}
+            AND t4.yearNum=#{setyear}
+            AND t4.semester=#{semester}
+        </where>
+    </select>
+
+    <!--在教师确认页面显示订单信息-->
+    <select id="displayTextbookOrder" resultType="map" parameterType="map">
+        SELECT t1.course_name,t1.course_code,
+              (SELECT GROUP_CONCAT(teacher_name)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_name,
+              (SELECT GROUP_CONCAT(teacher_number)
+	                 FROM ap_teacher_course t2
+	                       WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_number,
+                t1.class_name,t1.major_students_number,t3.*,t5.*
+        FROM ap_task_arrange_course t1,ap_teacher_course t2,textbook_order t3,textbookorderinfo t4,t_textbook_base_info t5
+        <where>
+            t1.arrange_course_id=t3.orderDetailID
+            AND t1.arrange_course_id=t2.arrange_course_id
+            AND t3.textbookID=t5.textbookID
+            AND t3.orderid=t4.orderid
+            <if test="userCode!=null and userCode!=''">
+            and t2.teacher_number=#{userCode}
+            </if>
+            <if test="major!=null and major!=''">
+                and t4.remark=#{major}
+            </if>
+            <if test="year!=null and year!=''">
+                and t4.yearNum like '%${year}%'
+            </if>
+            <if test="term!=null and term!=''">
+                and t4.semester=#{term}
+            </if>
+            <if test="isConfirm!=null and isConfirm!=''">
+                and t3.isConfirm=#{isConfirm}
+            </if>
+        </where>
+    </select>
+
+    <!--在订单管理页面查看订单信息-->
+    <select id="displayOrderDetailInfo" resultType="map" parameterType="map">
+        SELECT t1.course_name,t1.course_code,
+        (SELECT GROUP_CONCAT(teacher_name)
+        FROM ap_teacher_course t2
+        WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_name,
+        (SELECT GROUP_CONCAT(teacher_number)
+        FROM ap_teacher_course t2
+        WHERE t1.arrange_course_id=t2.arrange_course_id)teacher_number,
+        t1.class_name,t1.major_students_number,t3.*,t5.*
+        FROM ap_task_arrange_course t1,textbook_order t3,textbookorderinfo t4,t_textbook_base_info t5
+        <where>
+            t1.arrange_course_id=t3.orderDetailID
+            AND t3.textbookID=t5.textbookID
+            AND t3.orderid=t4.orderid
+            AND t4.orderid=#{OrderID}
+            <if test="course!=null and course!=''">
+                and t1.course_code=#{course}
+            </if>
+            <if test="isConfirm!=null and isConfirm!=''">
+                and t3.isConfirm=#{isConfirm}
+            </if>
+        </where>
+    </select>
+</mapper>
+

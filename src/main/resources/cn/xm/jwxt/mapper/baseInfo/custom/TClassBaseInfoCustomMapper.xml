@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.baseInfo.custom.TClassBaseInfoCustomMapper" >
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.baseInfo.TClassBaseInfo" >
+        <id column="classID" property="classid" jdbcType="VARCHAR" />
+        <result column="classNum" property="classnum" jdbcType="VARCHAR" />
+        <result column="majorID" property="majorid" jdbcType="VARCHAR" />
+        <result column="trainingSchemeID" property="trainingschemeid" jdbcType="VARCHAR" />
+        <result column="className" property="classname" jdbcType="VARCHAR" />
+        <result column="classPeopleNum" property="classpeoplenum" jdbcType="INTEGER" />
+        <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+        <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    </resultMap>
+    <!--查询班级名称和ID-->
+    <select id="findClassNameAndId" resultType="map">
+        SELECT classId as classid,className as classname from t_class_base_info
+
+    </select>
+
+    <!--组合条件查询班级分页显示-->
+    <select id="findClassInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultType="map">
+        SELECT * FROM t_class_base_info,t_major_base_info,t_college_base_info
+        <where>
+            <include refid="query_common_where"></include>
+        </where>
+    </select>
+
+
+    <!--封装查询条件-->
+    <sql id="query_common_where">
+        <if test="classnum != null and classnum !=''">
+            and classNum = #{classnum}
+        </if>
+        <if test="grade != null and grade !=''">
+            and grade = #{grade}
+        </if>
+        <if test="collegeid != null and collegeid !=''">
+            and t_major_base_info.collegeId = #{collegeid}
+        </if>
+        <if test="majorid != null and majorid !=''">
+            and t_class_base_info.majorId = #{majorid}
+        </if>
+        <if test="0==0">
+            and t_class_base_info.majorId = t_major_base_info.majorId
+        </if>
+        <if test="0==0">
+            and t_college_base_info.collegeId = t_major_base_info.collegeId
+        </if>
+    </sql>
+
+</mapper>

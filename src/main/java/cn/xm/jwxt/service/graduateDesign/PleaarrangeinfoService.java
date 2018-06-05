@@ -5,6 +5,7 @@ import cn.xm.jwxt.bean.graduateDesign.PleaarrangeinfoExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 表毕设资料提交信息表Service
@@ -31,4 +32,11 @@ public interface PleaarrangeinfoService {
     boolean updateByPrimaryKeySelective(Pleaarrangeinfo record);
 
     boolean updateByPrimaryKey(Pleaarrangeinfo record);
+
+    /**
+     * 查询出所有与毕业答辩安排信息相关的表
+     * @param map
+     * @return
+     */
+    List<Pleaarrangeinfo> selectPleaarrangeinfoList(Map<String,Object> map);
 }

@@ -14,6 +14,7 @@
     <result column="checkProposal" property="checkproposal" jdbcType="VARCHAR" />
     <result column="proposalNote" property="proposalnote" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List" >
     orderid, orderName, roomName, createPerson, createTime, yearNum, semester, isOrder, 
-    isCheck, checkProposal, proposalNote, remark
+    isCheck, checkProposal, proposalNote, remark, remark1
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.orderBooks.TextbookorderinfoExample" >
     select
@@ -111,12 +112,13 @@
     insert into textbookorderinfo (orderid, orderName, roomName, 
       createPerson, createTime, yearNum, 
       semester, isOrder, isCheck, 
-      checkProposal, proposalNote, remark
+      checkProposal, proposalNote, remark, remark1
       )
     values (#{orderid,jdbcType=INTEGER}, #{ordername,jdbcType=VARCHAR}, #{roomname,jdbcType=VARCHAR}, 
       #{createperson,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{yearnum,jdbcType=VARCHAR}, 
       #{semester,jdbcType=VARCHAR}, #{isorder,jdbcType=VARCHAR}, #{ischeck,jdbcType=VARCHAR}, 
-      #{checkproposal,jdbcType=VARCHAR}, #{proposalnote,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      #{checkproposal,jdbcType=VARCHAR}, #{proposalnote,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+      #{remark1,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.xm.jwxt.bean.orderBooks.Textbookorderinfo" >
@@ -158,6 +160,9 @@
       <if test="remark != null" >
         remark,
       </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderid != null" >
@@ -195,6 +200,9 @@
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -243,6 +251,9 @@
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
+      <if test="record.remark1 != null" >
+        remark = #{record.remark1,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -262,6 +273,7 @@
       checkProposal = #{record.checkproposal,jdbcType=VARCHAR},
       proposalNote = #{record.proposalnote,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
+      remark1 = #{record.remark1,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -302,6 +314,9 @@
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
     </set>
     where orderid = #{orderid,jdbcType=INTEGER}
   </update>
@@ -318,6 +333,7 @@
       checkProposal = #{checkproposal,jdbcType=VARCHAR},
       proposalNote = #{proposalnote,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
+      remark1 = #{remark1,jdbcType=VARCHAR}
     where orderid = #{orderid,jdbcType=INTEGER}
   </update>
 </mapper>

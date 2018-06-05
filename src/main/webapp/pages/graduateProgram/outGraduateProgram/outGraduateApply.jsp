@@ -13,7 +13,7 @@
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
     <%--s   bzy--%>
     <%@include file="/tag.jsp"%>
-
+    <script typr="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script typr="text/javascript" src="../../../js/outsideGraduateDesiner/apply.js"></script>
     <%--E   bzy--%>
 
@@ -88,14 +88,14 @@
         <tr>
             <!--文件名称，上传成功，还能点击，-->
         <tr>
-            <th>
+            <th style="width:50px;">
                 <div  class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
                     &#xe605;</i></div>
             </th>
-            <th>序号</th>
-            <th>文件名称</th>
-            <th>申请状态</th>
-            <th>审核状态</th>
+            <th style="width:50px;">序号</th>
+            <th style="width:300px;">文件名称</th>
+            <th style="width:100px;">申请状态</th>
+            <th style="width:300px;">审核状态</th>
             <th>审核结果</th>
         </tr>
         </thead>
@@ -161,16 +161,16 @@
                     &#xe605;</i></div>
             </td>
             <td>6</td>
-            <td title="点击填写" onclick="x_admin_show_big('附件上传','./accessory.jsp')">附件信息</td>
+            <td title="点击填写" onclick="x_admin_show_big('附件上传','./graduateStudentManage-addAssignment.jsp')">附件信息</td>
             <td>已提交</td>
             <td>不通过</td>
             <td>不通过</td>
-        </tr>
-        </tbody>--%>
+        </tr>--%>
+        </tbody>
     </table>
 
     <hr />
-    <blockquote class="layui-elem-quote">申请进度</blockquote>
+    <%--<blockquote class="layui-elem-quote">申请进度</blockquote>
     <ul class="layui-timeline">
         <li class="layui-timeline-item">
             <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
@@ -189,7 +189,7 @@
 
             </div>
         </li>
-    </ul>
+    </ul>--%>
 </div>
 
 </div>
@@ -205,43 +205,56 @@
     }
     //提交所有的申请
     function outApplyCommit(){
-        layer.confirm("您确定要提交此次校外毕设申请信息吗？文件一旦提交将无法修改，进入审批流程。",function(index){
-            layer.close(index);
-            var flag = true;
-            var flag1 = true;
-            //获取校外毕设ID
-            var tr1 = $(".thead-tbody").children("tr:eq(0)");
-            var outsideApplyId = $(tr1).data("id");
-            var trs = $(".thead-tbody").children("tr");
-            for(var i=0;i<trs.length;i++){
-                var td3 = $(trs[i]).find("td:eq(3)").text();
-                if(td3!="已提交"){
-                    flag = false;
-                }
-                if(td3!="申请中"){
-                    flag1 = false;
-                }
+        var tr1 = $(".thead-tbody").children("tr:eq(0)");
+        var outsideApplyId = $(tr1).data("id");
+        var tr2 = $(".thead-tbody").children("tr:eq(1)");
+        var titleId = $(tr2).data("id");
+        var tr3 = $(".thead-tbody").children("tr:eq(2)");
+        var leaveId = $(tr3).data("id");
+        var tr4 = $(".thead-tbody").children("tr:eq(3)");
+        var assignmentId = $(tr4).data("id");
+        var tr5 = $(".thead-tbody").children("tr:eq(4)");
+        var aggreementId = $(tr5).data("id");
+        var tr6 = $(".thead-tbody").children("tr:eq(5)");
+        var sureId = $(tr6).data("id");
+        var tr7 = $(".thead-tbody").children("tr:eq(6)");
+        var attachementId = $(tr7).data("id");
+        //获取tr中的提交状态
+        var trs = $(".thead-tbody").children("tr");
+        var flag = true;
+        for(var i=0;i<trs.length;i++){
+            var td3 = $(trs[i]).find("td:eq(3)").text();
+            if(td3=="待提交"){
+                flag = false;
             }
-            if(flag){
-                $.ajax({
-                    url:contextPath+"/baseInfo/commitODGApply.do",
-                    type:"post",
-                    data:{"outsideApplyId":outsideApplyId},
-                    dataType:"text",
-                    success:function(result){
-                        layer.msg(result);
-                    },
-                    error:function(){
-                        layer.msg("请求失败");
-                    }
-                })
-            } else{
-                if(flag1){
-                    layer.msg("您已经提交，无需重复提交。")
-                }else
-                    layer.msg("提交失败：您有未提交的申请（或者你已经提交）。")
+        }
+        if(flag){
+            layer.confirm("您确定要提交此次校外毕设申请信息吗？文件一旦提交将无法修改，进入审批流程。",function(index){
+                layer.close(index);
+                commitAll(outsideApplyId,titleId,leaveId,aggreementId,sureId,attachementId,assignmentId);
+            })
+        } else{
+            layer.confirm("您有未提交的文件，确定提交么？文件一旦提交将无法修改，进入审批流程。",function(index){
+                layer.close(index);
+                commitAll(outsideApplyId,titleId,leaveId,aggreementId,sureId,attachementId,assignmentId);
+            })
+        }
+    }
+    function commitAll(outsideApplyId,titleId,leaveId,aggreementId,sureId,attachementId,assignmentId){
+        $.ajax({
+            url:contextPath+"/baseInfo/commitODGApply.do",
+            type:"post",
+            data:{"outsideApplyId":outsideApplyId,"titleId":titleId,"leaveId":leaveId
+                ,"aggreementId":aggreementId,"sureId":sureId,"attachementId":attachementId,
+            "assignmentId":assignmentId},
+            dataType:"text",
+            success:function(result){
+                layer.msg(result);
+                window.loadFile();
+            },
+            error:function(){
+                layer.msg("请求失败");
             }
-
         })
     }
 </script>

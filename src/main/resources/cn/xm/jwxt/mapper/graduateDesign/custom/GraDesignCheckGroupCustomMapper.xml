@@ -5,7 +5,8 @@
     <resultMap type="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup" id="oneGradesigncheckgroupResultMap" autoMapping="true">
         <id property="groupid" column="groupid" />
 
-        <collection property="checkgrouppersonList" ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson">
+        <collection property="checkgrouppersonList" column="gropersonid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson">
             <id column="gropersonid" property="gropersonid"/>
         </collection>
     </resultMap>
@@ -13,7 +14,9 @@
     <resultMap type="cn.xm.jwxt.bean.graduateDesign.Gradesigncheckgroup" id="GradesigncheckgroupListResultMap" autoMapping="true">
         <id property="groupid" column="groupid" />
 
-        <collection property="checkgrouppersonList" ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson">
+        <collection property="checkgrouppersonList" column="gropersonid"
+                    ofType="cn.xm.jwxt.bean.graduateDesign.Checkgroupperson"
+                    select="cn.xm.jwxt.mapper.graduateDesign.CheckgrouppersonMapper.selectByPrimaryKey">
             <id column="gropersonid" property="gropersonid"/>
         </collection>
 
@@ -61,4 +64,35 @@
 
     </select>
 
+    <select id="selectOneGradesigncheckgroup2" resultType="cn.xm.jwxt.bean.graduateDesign.TTeacherInfoVo">
+        SELECT
+        gdcg.groupid,gdcg.groupname,gdcg.replyaddress,
+        ccbi.cenCheckInfoid,
+        ccbi.arrangetime as arrangetime,
+        fp.pleaid,
+        fp.arrangetime as replytime
+        FROM graDesignCheckGroup gdcg
+        LEFT JOIN cenCheckArrangeInfo ccai ON gdcg.groupid=ccai.groupid
+        LEFT JOIN cenCheckBaseInfo ccbi ON ccai.cenCheckInfoid=ccbi.cenCheckInfoid
+        LEFT JOIN pleaArrangeInfo pai ON pai.groupid = gdcg.groupid
+        LEFT JOIN finallyPleaInfo fp ON fp.pleaid = pai.pleaid
+        WHERE
+        gdcg.groupid=#{groupId}
+    </select>
+
+    <!--查询互审分配前的表-->
+    <select id="selectGradesigncheckgroupList2" resultType="cn.xm.jwxt.bean.graduateDesign.GradesigncheckgroupVo">
+        SELECT
+        g.groupId,g.groupName,
+        GROUP_CONCAT(c.teacherid) AS teacheridSum,
+        GROUP_CONCAT(c.teachername) AS teachernameSum
+        FROM
+        graDesignCheckGroup g,checkGroupPerson c
+        WHERE
+        g.groupid = c.groupid
+        <if test="page != null and limit != null">
+            limit #{page},#{limit}
+        </if>
+        GROUP BY g.groupid
+    </select>
 </mapper>

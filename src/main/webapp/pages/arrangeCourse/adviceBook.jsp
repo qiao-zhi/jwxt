@@ -115,21 +115,6 @@
     <!--end 分页-->
 </div>
 
-<script>
-
-    //点击关闭其他，触发事件
-    function closeOther() {
-        var closeTable = $(".layui-tab-title", parent.document).children("li");
-        closeTable.each(function () {
-            if ($(this).attr("class") == "") {
-                $(this).children("i").trigger("click");
-            }
-        })
-    }
-
-
-</script>
-
 </body>
 
 </html>

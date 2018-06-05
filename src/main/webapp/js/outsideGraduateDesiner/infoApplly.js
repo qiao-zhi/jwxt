@@ -1,4 +1,5 @@
 /*页面加载查询申请的详细信息*/
+var userID = "1";
 $(function(){
     var outsideApplyID = getAddressParameter("id");
     layui.use(['layer','form'], function(){
@@ -19,7 +20,7 @@ $(function(){
                 $("#receiveUnit").val(result.receiveunit);
                 $("#applyreason").val(result.applyreason);
                 $("#stuapplydate").val(Format(new Date(result.applydate),'yyyy-MM-dd'));
-                if(result.stusignurl!=""){
+                if(result.stusignurl!=null&&result.stusignurl!=""){
                     $("#stusignurl").attr("src",result.stusignurl);
                 }
                 /*获取审核结果集*/
@@ -30,7 +31,7 @@ $(function(){
                     if(checknum=="指导教师"){
                         addOneSignInfo1(check[i],1);
                     }
-                    if(checknum=="主管书记"){
+                    if(checknum=="副书记"){
                         addOneSignInfo1(check[i],2);
                     }
                     if(checknum=="教研室主任"){
@@ -55,7 +56,6 @@ $(function(){
 
 //上传签名
 function studentSign() {
-    var userID = "1";
     var outsideApplyID = getAddressParameter("id");
     layer.prompt({
         formType: 1,

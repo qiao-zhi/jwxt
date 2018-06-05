@@ -25,11 +25,18 @@
         <collection property="cencheckresultinfoList"
                     ofType="cn.xm.jwxt.bean.graduateDesign.Cencheckresultinfo">
             <id column="centerresultid" property="centerresultid"/>
+            <result column="cenarrangeinfoid" property="cenarrangeinfoid"/>
+            <result column="wordprogress" property="wordprogress"/>
+            <result column="workattitude" property="workattitude"/>
+            <result column="qualityadvice" property="qualityadvice"/>
+            <result column="problemandaatter" property="problemandaatter"/>
+            <result column="checktime" property="checktime"/>
+            <result column="remark" property="remark"/>
         </collection>
     </resultMap>
 
 
-    <select id="selectOneCencheckarrangeinfo" resultMap="oneCencheckarrangeinfoResultMap" parameterType="java.lang.Integer">
+    <select id="selectOneCencheckarrangeinfo" resultMap="oneCencheckarrangeinfoResultMap">
         SELECT
         a.cenarrangeinfoid,a.cencheckinfoid,a.teacherid,a.groupid,a.bookid,
         r.centerresultid,r.cenarrangeinfoid,r.wordprogress,r.workattitude,r.qualityadvice,r.problemandaatter,r.checktime,r.remark,
@@ -48,7 +55,7 @@
 
     <select id="selectCencheckarrangeinfoList" resultMap="CencheckarrangeinfoListResultMap">
         SELECT
-        a.cenarrangeinfoid,a.cencheckinfoid,a.teacherid,a.groupid,a.replyaddress,a.bookid,
+        a.cenarrangeinfoid,a.cencheckinfoid,a.teacherid,a.groupid,a.bookid,
         r.centerresultid,r.cenarrangeinfoid,r.wordprogress,r.workattitude,r.qualityadvice,r.problemandaatter,r.checktime,r.remark,
         g.groupid,g.groupname,g.grouptype,g.replyaddress,g.remark
         FROM
@@ -70,9 +77,6 @@
                 and a.bookid = #{bookid}
             </if>
         </where>
-        <if test="page != null and limit != null">
-            limit #{page},#{limit}
-        </if>
     </select>
 
 </mapper>

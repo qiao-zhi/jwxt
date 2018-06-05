@@ -1,4 +1,5 @@
 /*页面加载查询申请的详细信息*/
+var userID = "1";
 $(function(){
     var sureID = getAddressParameter("id");
     //alert(sureID);
@@ -26,7 +27,6 @@ $(function(){
 });
 /*学生签名*/
 function studentSign() {
-    var userID = "1";
     var sureBookId = getAddressParameter("id");
     //alert(aggreementID);
     layer.prompt({

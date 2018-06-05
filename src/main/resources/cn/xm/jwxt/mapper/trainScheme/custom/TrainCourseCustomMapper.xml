@@ -45,11 +45,11 @@
             trainschemeinfo train
         JOIN train_course tc ON train.trainingSchemeID = tc.trainningSchemeID
         INNER JOIN t_course_base_info course ON tc.courseID = course.courseId
-        inner join coursetypeinfo type on tc.typeNum = type.typeNum
+        inner join coursetypeinfo type on tc.typeNum = type.typeNum AND tc.trainningSchemeID = type.trainingSchemeID
         <where>
             <!--根据培养方案编号查询正在使用的培养方案课程信息-->
             <if test="1 == 1">
-                tc.trainningSchemeID=#{trainSchemeId} and tc.coursetype='1'
+                tc.trainningSchemeID=#{trainSchemeId} and tc.coursetype='1' and  course.remark1 = '1'
             </if>
             <if test="typeNum != null and typeNum != ''">
                 and type.typeNum like '${typeNum}%'

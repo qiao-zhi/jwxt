@@ -1,6 +1,7 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 毕设答辩基本信息表
@@ -17,6 +18,16 @@ public class Finallypleainfo {
     private Date arrangetime;
 
     private String description;
+
+    private List<Pleaarrangeinfo> pleaarrangeinfoList;
+
+    public List<Pleaarrangeinfo> getPleaarrangeinfoList() {
+        return pleaarrangeinfoList;
+    }
+
+    public void setPleaarrangeinfoList(List<Pleaarrangeinfo> pleaarrangeinfoList) {
+        this.pleaarrangeinfoList = pleaarrangeinfoList;
+    }
 
     public String getPleaid() {
         return pleaid;
