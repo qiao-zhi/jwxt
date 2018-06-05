@@ -2,7 +2,7 @@
 
 $(function () {
     $.ajax({
-        url:"/jwxt/findcourseDesign/yearAndMajor.do",
+        url:contextPath +"/findcourseDesign/yearAndMajor.do",
         type:"post",
         data:{},
         dataType:"json",
@@ -26,7 +26,7 @@ $(function () {
             });
         },
         error:function () {
-            layer.alert("加载失败")
+            layer.msg("加载失败")
         }
     });
     //  无参  查询
@@ -52,7 +52,7 @@ function courseDesignNames() {
     var semester = $("#semester").find("option:selected").val();
     // alert("弹出"+majorID+grade+yearNum+semester)
     $.ajax({
-        url:"/jwxt/checkCourseDesignReport/getClassinfoAndCourseDesigninfo.do",
+        url:contextPath +"/checkCourseDesignReport/getClassinfoAndCourseDesigninfo.do",
         type:"post",
         data:{"majorID":majorID,"grade":grade,"yearNum":yearNum,"semester":semester},
         dataType:"json",
@@ -79,7 +79,7 @@ function courseDesignNames() {
             });
         },
         error:function () {
-            layer.alert("加载课设信息失败")
+            layer.msg("加载课设信息失败")
         }
     });
 
@@ -95,12 +95,13 @@ function findStudentReportStatus() {
     var classID = $("#classInfo").find("option:selected").val();
     var uploadStatus = $("#uploadStatus").find("option:selected").val();
     //  alert("majorID="+majorID+",grade="+grade+",yearNum="+yearNum+",semester="+semester+",courseDesignNum="+courseDesignNum+",classID="+classID+",uploadStatus="+uploadStatus);
+    var teacherID = $("#teacherId").val();
     $.ajax({
-        url:"/jwxt/checkCourseDesignReport/findStudentReportUploadStatus.do",
+        url:contextPath +"/checkCourseDesignReport/findStudentReportUploadStatus.do",
         type:"post",
-        // 此处也应传入  教师id  从session中获取  暂取  张三 1
+        // 此处也应传入  教师id  从session中获取
         data:{"majorID":majorID,"grade":grade,"yearNum":yearNum,"semester":semester,
-            "courseDesignNum":courseDesignNum,"classID":classID,"uploadStatus":uploadStatus,"teacherID":"1",
+            "courseDesignNum":courseDesignNum,"classID":classID,"uploadStatus":uploadStatus,"teacherID":teacherID,
             "pageNum":$("[name='pageNum']").val(),"pageSize":$("[name='pageSize']").val()
         },
         dataType:"json",
@@ -156,7 +157,7 @@ function findStudentReportStatus() {
             startPageDisplay(total,pageNum,pageSize);
         },
         error:function () {
-            layer.alert("查询情况信息加载失败")
+            layer.msg("查询情况信息加载失败")
         }
     })
 }
@@ -190,14 +191,14 @@ function checkReport(obj) {
     var upload =  $(obj).parent("td").parent("tr").find("td:eq(7)").text();
     //  alert(upload)
     if(upload=="未上传"){
-        layer.alert("请选择已上传报告的课设进行查看");
+        layer.msg("请选择已上传报告的课设进行查看");
         return;
     }
 
     var courseDesignTeacherStudentID = $(obj).parent("td").parent("tr").find("td").eq(2).text();
     // alert(courseDesignTeacherStudentID);
     $.ajax({
-        url:"/jwxt/checkCourseDesignReport/checkCourseDesignReport.do",
+        url:contextPath +"/checkCourseDesignReport/checkCourseDesignReport.do",
         type:"post",
         data:{"courseDesignTeacherStudentID":courseDesignTeacherStudentID},
         dataType:"json",
@@ -207,7 +208,7 @@ function checkReport(obj) {
             x_admin_show(""+studentName+" 的课设报告","/file/courseDesignFile/"+fileName);
         },
         error:function () {
-            layer.alert("预览报告失败")
+            layer.msg("预览报告失败")
         }
     })
 
@@ -243,7 +244,7 @@ function checkCDReport(){
         }
     })
     if(index>0){
-        layer.alert("请选择已上传报告进行审核");
+        layer.msg("请选择已上传报告进行审核");
         index=0;
         ids=[];
         return;
@@ -255,7 +256,7 @@ function checkCDReport(){
         x_admin_show('课设审核','courseDesign-recheck.jsp?ids='+ids+'')
     }
     else{
-        layer.alert('请先选择需要审核的课设报告');
+        layer.msg('请先选择需要审核的课设报告');
     }
     chooseCourse=0;//清空值
     ids = [];

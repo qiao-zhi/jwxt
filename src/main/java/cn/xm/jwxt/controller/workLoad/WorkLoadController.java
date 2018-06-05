@@ -60,6 +60,14 @@ public class WorkLoadController {
         }
 
         int total = alllist.size();
+        Map<String,Object> pageMap = new HashMap<String,Object>();
+        if(total<=6){
+            pageMap.put("pageSize",total);
+            pageMap.put("pageNum",pageNum);
+            pageMap.put("total",total);
+            pageMap.put("infoList",alllist);
+            return pageMap;
+        }
         // 判断最后一页
         int lastSize = total%pageSize; // 最后一页的数量
         int count;   //第几页为最后一页
@@ -80,7 +88,7 @@ public class WorkLoadController {
         }
 
         List<Map<String,Object>> infoList = alllist.subList(startNum,endNum);
-        Map<String,Object> pageMap = new HashMap<String,Object>();
+
             pageMap.put("pageSize",pageSize);
             pageMap.put("pageNum",pageNum);
             pageMap.put("total",total);

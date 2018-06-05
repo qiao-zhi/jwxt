@@ -1,4 +1,4 @@
-<%@ page import="java.net.URLDecoder" %>
+<%@page import="java.net.URLDecoder" %>
 <%@page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +16,8 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
-    
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
     <script type="text/javascript">
         var courseDesignTeacherStudentID;
         $(function () {
@@ -25,7 +26,7 @@
             %>
             courseDesignTeacherStudentID = "<%=courseDesignTeacherStudentID%>";
             $.ajax({
-                url:"/jwxt/studentCourseDesignFileInfo/toUploadCourseDesignFile.do",
+                url:contextPath +"/studentCourseDesignFileInfo/toUploadCourseDesignFile.do",
                 type:"post",
                 data:{"courseDesignTeacherStudentID":courseDesignTeacherStudentID},
                 dataType:"json",
@@ -41,7 +42,7 @@
                     $("#teacherNum").text(teacherNum);
                 },
                 error:function () {
-                    layer.alert("加载失败！")
+                    layer.msg("加载失败！")
                 }
             })
             // 初始化文件上传
