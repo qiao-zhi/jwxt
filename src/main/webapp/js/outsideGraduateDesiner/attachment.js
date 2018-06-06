@@ -13,6 +13,7 @@ function loadAttachment(){
         data:{"attachmentID":attachmentID},
         dataType:"json",
         success:function(result){
+
             //alert(JSON.stringify(result));
             $("#types").val(result.attachmenttype);
             var iscommit = result.iscommit;

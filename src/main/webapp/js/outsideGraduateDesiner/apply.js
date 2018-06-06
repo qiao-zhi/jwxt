@@ -1,10 +1,9 @@
 /*页面加载查询学生校外毕设信息得提交情况*/
 $(function(){
-    loadFile();
+    loadFile(userID);
 });
 
-function loadFile(){
-    var userID = 1;   //获取当前学生用户ID
+function loadFile(userID){
     layui.use(['layer','form'], function(){
         var layer = layui.layer;
         var form = layui.form;
@@ -17,9 +16,14 @@ function loadFile(){
             success:function (result) {
                 var success = result.success;
                 if(success==true){
-                    $(".thead-tbody").html("");
-                    //查询成功，显示结果v
                     var data = result.data;
+                    $(".thead-tbody").html("");
+                    //获取状态
+                    var isCommit = data.table1Commit;
+                    if(isCommit=="申请中"||isCommit=="申请通过"){
+                        $("#commitAll").css("display","none");
+                    }
+                    //查询成功，显示结果
                     appendTD('1',data.table1Name,'basicInfoApply.jsp',data.table1ID,data.table1Commit,data.table1Result.status1,data.table1Result.result1);
                     appendTD('2',data.table2Name,'outGraduatePractice.jsp',data.table2ID,data.table2Commit,data.table2Result.status1,data.table2Result.result1);
                     appendTD('3',data.table3Name,'leaveApply.jsp',data.table3ID,data.table3Commit,data.table3Result.status1,data.table3Result.result1);
