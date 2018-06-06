@@ -54,7 +54,7 @@
 
     <!--表格内容-->
     <form>
-        <input type="hidden" id="studentID" value="${userinfo.userid}"/>
+        <input type="hidden" id="studentID" value="${id }"/>
         <table class="layui-table">
             <thead>
             <tr>

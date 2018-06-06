@@ -35,6 +35,7 @@ public class ExportWorkLoad2Excel {
 
     // 1.查询数据
     public List<Map<String,Object>> findDownloadInfo(@RequestParam Map<String,Object> condition){
+
         List<Map<String,Object>> datas = null;
         int courseType = 0;
 
@@ -68,8 +69,6 @@ public class ExportWorkLoad2Excel {
      * @param fileQualifyName 文件全路径（eg:C:/USER/XXX.xlsx）
      */
     public void writeWorkLoad2LocalExcel(List<Map<String,Object>> datas,String fileQualifyName){
-
-
 
         String[] title = {"教师名称","教师编号","学年","学期","教学类型","课程名称","任课班级","人数"};
         // 2.1 写入表头信息

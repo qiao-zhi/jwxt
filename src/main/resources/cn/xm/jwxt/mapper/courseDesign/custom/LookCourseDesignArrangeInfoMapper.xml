@@ -5,7 +5,7 @@
     <!-- 查看课设安排情况 -->
     <select id="findCourseDesignArrangeByStudent" parameterType="map" resultType="map">
         SELECT
-          ts.courseDesignTeacherStudentID AS selKey,
+          ts.courseDesignTeacherArrangeID AS selKey,   <!-- 把教师安排id设为selKey可以简化查看详细信息 -->
           ta.classNames,
           ti.teacherNum,
           ti.teacherName,
