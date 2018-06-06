@@ -78,6 +78,13 @@
     </a>
 </div>
 <div style="width:16%;float:left;">
+    <br/>
+    <span>&nbsp;&nbsp;专业班级&nbsp; </span>
+    <select name="" style="width: 100px;height: auto">
+        <option value="" selected>在校</option>
+        <option value="">离校</option>
+    </select>
+    <hr>
     <ul id="treeDemo" class="ztree"></ul>
 </div>
 <!--主体-->
@@ -138,57 +145,6 @@
 </div>
 
 <script>
-    /*
-     左侧的树
-     */
-    var setting = {
-        view: {
-            showIcon: showIconForTree
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
-        },
-        callback: {
-            beforeClick: beforeClick
-        }
-    };
-    var zNodes =[
-        { id:1, pId:0, name:"计科院", open:true},
-        { id:11, pId:1, name:"软件工程"},
-        { id:111, pId:11, name:"一年级"},
-        { id:1111, pId:111, name:"152001"},
-        { id:1111, pId:111, name:"152002"},
-        { id:112, pId:11, name:"二年级"},
-        { id:1121, pId:112, name:"142001"},
-        { id:1121, pId:112, name:"14200222222222222222"}
-    ];
-
-    function showIconForTree(treeId, treeNode) {
-        return !treeNode.isParent;
-    }
-
-    var clickRes = 0;
-    var getName;
-    var className;
-    function beforeClick(treeId, treeNode, clickFlag) {
-        clickRes = 1;
-        className = (className === "dark" ? "":"dark");
-        getName = treeNode.name;
-        showLog2(treeNode.name );
-        return (treeNode.click != false);
-    }
-
-    //获取节点名
-    function showLog2(str) {
-        console.log(str)
-    }
-
-    $(document).ready(function() {
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-    });
-
     /*分页js*/
     layui.use(['laypage', 'layer'], function(){
         var laypage = layui.laypage
@@ -215,14 +171,6 @@
         })
     }
 
-    /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
-        });
-    }
 </script>
 <script>
     //???

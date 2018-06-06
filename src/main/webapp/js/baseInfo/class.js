@@ -1,3 +1,24 @@
+/*********S   全局函数*******/
+/**
+ * 一个值如果是null或者''返回-
+ * @param value 需要处理的值
+ * @param length 需要截取的字符的长度的值,未指定的时候返回全部
+ * @returns {*} 处理过的值
+ */
+function replaceNull(value,length) {
+    //判断截取的值是否为空
+    if(value == null || value == ""){
+        return "-";
+    }
+    //判断长度是否为空
+    if(length == null || length == ''){
+        return value;
+    }
+    return value.toString().substr(0,length);
+}
+/*********E   全局函数*******/
+
+
 //初始化加载需要使用的layui模块
 layui.use(['layer', 'form', 'element'], function(){
     $ = layui.jquery;
@@ -42,14 +63,14 @@ function showClassBaseInfo(pageInfo){
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr ="<tr><td>"
-            +baseInfoList[i].classNum+"</td><td>"
-            +baseInfoList[i].className+"</td><td>"
-            +baseInfoList[i].majorName+"</td><td>"
-            +baseInfoList[i].collegeName+"</td><td>"
-            +baseInfoList[i].classPeopleNum+"</td><td>"
-            +baseInfoList[i].grade+"</td>"
+            +replaceNull(baseInfoList[i].classNum)+"</td><td>"
+            +replaceNull(baseInfoList[i].className)+"</td><td>"
+            +replaceNull(baseInfoList[i].majorName)+"</td><td>"
+            +replaceNull(baseInfoList[i].collegeName)+"</td><td>"
+            +replaceNull(baseInfoList[i].classPeopleNum)+"</td><td>"
+            +replaceNull(baseInfoList[i].grade)+"</td>"
             +"<td class='td-manage'><a title='点击查看班级详细信息' onclick=notice_tab_show('班级详细信息','clazz-view.jsp?cId="+baseInfoList[i].classID+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
-            +"<a title='点击修改班级信息'  onclick=notice_tab_show('修改班级','clazz-modify.jsp?cId="+baseInfoList[i].classid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
+            +"<a title='点击修改班级信息'  onclick=notice_tab_show('修改班级','clazz-modify.jsp?cId="+baseInfoList[i].classID+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
             +" <a title='删除' onclick=deleteClassInfo('"+baseInfoList[i].classid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
         $("#classInfoList").append(tr);
     }
@@ -191,3 +212,116 @@ function findMajorNameAndIdForSelect(form){
         }
     })
 }
+
+
+/**********************S  QLQ树相关操作****************/
+
+$(function(){
+    getClassTree();
+});
+
+
+/**
+ * 查询树的函数
+ */
+function getClassTree(){
+    $.ajax({
+        url : contextPath + '/classInfo/getClassTree.do',
+        async : true,
+        dataType : 'json',
+        success : geneClassTree,
+        error : function() {
+            alert("查询树失败！！！")
+        }
+    });
+}
+//生成树函数
+
+
+function geneClassTree(classTreeNodes) {
+    var setting = {
+        view : {
+            selectedMulti : false
+        },
+        check : {
+            enable : false
+        },
+        data : {
+            simpleData : {
+                enable : true,
+                idKey : "departNum",
+                pIdKey : "updepartNum",
+                rootPId : "000"
+            },
+            key : {
+                name : "departName",
+            }
+        },
+        callback : {
+            onClick : zTreeOnClick
+        }
+    };
+    $.fn.zTree.init($("#treeDemo"), setting, classTreeNodes);//在界面生成一颗树
+    openFirstTreenode();//打开一级节点
+}
+
+/**
+ * 点击树的事件
+ * @param event 事件
+ * @param treeId    树的ID
+ * @param treeNode  节点
+ */
+
+function zTreeOnClick(event, treeId, treeNode) {
+     //如果是二级节点，设置隐藏的添加文本框的值，否则清空值
+    if(treeNode.level == 1){
+        $("#add_majorid").val(treeNode.departNum);
+        $("#add_majorName").val(treeNode.departName);
+    }else {
+        $("#add_majorid").val("");
+        $("#add_majorName").val("");
+    }
+}
+
+/**
+ * 展开树节点的第一层
+ */
+function openFirstTreenode(){
+    // 获取树对象
+    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+    /* 获取所有树节点 */
+    var nodes = treeObj.transformToArray(treeObj.getNodes());
+    //展开第一级树
+    treeObj.expandNode(nodes[0], true);
+}
+/**********************E  QLQ树相关操作****************/
+
+/*******************S   QLQ修改了添加班级相关操作************/
+/**
+ * 打开添加班级的模态框
+ */
+function openAddClassModel() {
+    if($("#add_majorid").val()==""||$("#add_majorName").val()==""){
+        alert("请先选择专业!")
+        return;
+    }
+    var  width=($(window).width()*0.80);
+    var height=($(window).height()*0.90);
+    var index = layer.open({
+        title:'添加班级',
+        area: [width+'px', height +'px'],//大小
+        fix: true, //不固定
+        maxmin: true,
+        zIndex:500,
+        shadeClose: false,
+        shade:0.4,
+        type:1,
+        content:$('#addClassModal')
+    });
+    //向页面隐藏index
+    $("#hidden_add_class_index").val(index);
+}
+/*******************E   QLQ修改了添加班级相关操作************/
+
+
+
