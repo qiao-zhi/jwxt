@@ -12,6 +12,11 @@
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
     <%--s   bzy--%>
+    <script>
+        //获取全局变量
+        var userID = ${id};   //获取当前学生用户ID
+
+    </script>
     <%@include file="/tag.jsp"%>
     <script typr="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script typr="text/javascript" src="../../../js/outsideGraduateDesiner/apply.js"></script>
@@ -24,6 +29,7 @@
             cursor: pointer
         }
     </style>
+
 </head>
 
 <body>
@@ -53,7 +59,7 @@
     <xblock>
         <button class="layui-btn" onclick="x_admin_show('查看校外毕设要求','./outGraduateApply-require.jsp')">查看校外毕设要求 </button>
         <button class="layui-btn" onclick="applyDownload()">下载申请资料 </button>
-        <button class="layui-btn" onclick="outApplyCommit()" style="float: right;">提交 </button>
+        <button class="layui-btn" onclick="outApplyCommit()" style="float: right;" id="commitAll">提交 </button>
     </xblock>
     <!--end 操作区域-->
     <script>

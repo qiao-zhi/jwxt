@@ -440,7 +440,7 @@
 <div class="x-body">
     <!--查询-->
     <div class="layui-row">
-        <form id="downParam" action="" method="post">
+        <form id="downParam"  method="post" accept-charset="utf-8" onsubmit="document.charset='utf-8';">
             <input type="hidden" id="dp1" name="yearNum">
             <input type="hidden" id="dp2" name="semester">
             <input type="hidden" id="dp3" name="teacherName">

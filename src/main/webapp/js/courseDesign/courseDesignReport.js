@@ -22,8 +22,12 @@ function findNeedUploadFile() {
                 var uploadInfo = "";
                 if(list[i].uploadStatus==1){
                     uploadInfo = "已上传";
-                }else{
+                }
+                if(list[i].uploadStatus==0){
                     uploadInfo = "未上传";
+                }
+                if(list[i].uploadStatus>1){
+                    uploadInfo = "已再次上传";
                 }
                 var checkInfo = "";
                 if(list[i].checkStatus==1){

@@ -27,7 +27,8 @@
     </style>
 
     <script>
-        var userID = 1;
+        //全局变量
+        var userID = ${id};
     </script>
 </head>
 

@@ -118,8 +118,12 @@ function findStudentReportStatus() {
                 var uploadStatus = list[i].uploadStatus;
                 if(uploadStatus == 1){
                     uploadInfo = "已上传"
-                }else{
+                }
+                if(uploadStatus == 0){
                     uploadInfo = "未上传"
+                }
+                if(uploadStatus > 1){
+                    uploadInfo = "已再次上传"
                 }
                 var checkInfo = "";
                 var checkStatus = list[i].checkStatus;

@@ -12,6 +12,10 @@ $(function(){
             data:{"outGraApplyID":outGraApplyID},
             dataType:"json",
             success:function(result){
+                var isCommit = result.isok;
+                if(isCommit=="01"||isCommit=="21"){
+                    $(".saveAndCommit").css("display","none");
+                }
                 //alert(JSON.stringify(result));
                 $("#studentName").val(result.outGradesignInfo.studentname);
                 var studentSex = result.outGradesignInfo.sex;

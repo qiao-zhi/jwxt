@@ -1,5 +1,5 @@
 /*页面加载查询申请的详细信息*/
-var userID = "1";
+
 $(function(){
     var sureID = getAddressParameter("id");
     //alert(sureID);
@@ -12,6 +12,11 @@ $(function(){
             data:{"sureID":sureID},
             dataType:"json",
             success:function(result){
+                var isCommit = result.iscommit;
+                if(isCommit=="01"||isCommit=="21"){
+                    $(".saveAndCommit").css("display","none");
+                    $(".studentSign").css("display","none");
+                }
                 //alert(JSON.stringify(result));
                 $("#studentUrl").attr("src",result.studentsignurl);
                 $("#studentApplyTime").val(Format(new Date(result.signtime),'yyyy-MM-dd'));

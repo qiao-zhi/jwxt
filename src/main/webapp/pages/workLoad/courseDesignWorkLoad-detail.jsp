@@ -82,8 +82,8 @@
 				    $("#courseDesignNum").html(mapInfo.courseDesignNum);
                     $("#teacherName").html(mapInfo.teacherName);
                     $("#teacherNum").html(mapInfo.teacherNum);
-                    $("#startTime").html(mapInfo.startTime);
-                    $("#endTime").html(mapInfo.endTime);
+                    $("#startTime").html("第"+mapInfo.startTime+"周");
+                    $("#endTime").html("第"+mapInfo.endTime+"周");
                     $("#classNames").val(mapInfo.classNames)
 					var stuList = mapInfo.stuList;  // 学生信息list
 					//alert(stuList[0].studentName)
