@@ -3,7 +3,7 @@
 <mapper namespace="cn.xm.jwxt.mapper.graduateDesign.TeachertitlecheckinfoMapper" >
   <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.graduateDesign.Teachertitlecheckinfo" >
     <id column="checkID" property="checkid" jdbcType="VARCHAR" />
-    <result column="teatherTitleID" property="teathertitleid" jdbcType="VARCHAR" />
+    <result column="teacherTitleID" property="teachertitleid" jdbcType="VARCHAR" />
     <result column="checkTime" property="checktime" jdbcType="DATE" />
     <result column="checkPerson" property="checkperson" jdbcType="VARCHAR" />
     <result column="checkResult" property="checkresult" jdbcType="VARCHAR" />
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    checkID, teatherTitleID, checkTime, checkPerson, checkResult, checkDesc
+    checkID, teacherTitleID, checkTime, checkPerson, checkResult, checkDesc
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.xm.jwxt.bean.graduateDesign.TeachertitlecheckinfoExample" >
     select
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachertitlecheckinfo" >
-    insert into teachertitlecheckinfo (checkID, teatherTitleID, checkTime, 
+    insert into teachertitlecheckinfo (checkID, teacherTitleID, checkTime,
       checkPerson, checkResult, checkDesc
       )
-    values (#{checkid,jdbcType=VARCHAR}, #{teathertitleid,jdbcType=VARCHAR}, #{checktime,jdbcType=DATE}, 
+    values (#{checkid,jdbcType=VARCHAR}, #{teachertitleid,jdbcType=VARCHAR}, #{checktime,jdbcType=DATE},
       #{checkperson,jdbcType=VARCHAR}, #{checkresult,jdbcType=VARCHAR}, #{checkdesc,jdbcType=VARCHAR}
       )
   </insert>
@@ -114,8 +114,8 @@
       <if test="checkid != null" >
         checkID,
       </if>
-      <if test="teathertitleid != null" >
-        teatherTitleID,
+      <if test="teachertitleid != null" >
+        teacherTitleID,
       </if>
       <if test="checktime != null" >
         checkTime,
@@ -134,8 +134,8 @@
       <if test="checkid != null" >
         #{checkid,jdbcType=VARCHAR},
       </if>
-      <if test="teathertitleid != null" >
-        #{teathertitleid,jdbcType=VARCHAR},
+      <if test="teachertitleid != null" >
+        #{teachertitleid,jdbcType=VARCHAR},
       </if>
       <if test="checktime != null" >
         #{checktime,jdbcType=DATE},
@@ -163,8 +163,8 @@
       <if test="record.checkid != null" >
         checkID = #{record.checkid,jdbcType=VARCHAR},
       </if>
-      <if test="record.teathertitleid != null" >
-        teatherTitleID = #{record.teathertitleid,jdbcType=VARCHAR},
+      <if test="record.teachertitleid != null" >
+        teacherTitleID = #{record.teachertitleid,jdbcType=VARCHAR},
       </if>
       <if test="record.checktime != null" >
         checkTime = #{record.checktime,jdbcType=DATE},
@@ -186,7 +186,7 @@
   <update id="updateByExample" parameterType="map" >
     update teachertitlecheckinfo
     set checkID = #{record.checkid,jdbcType=VARCHAR},
-      teatherTitleID = #{record.teathertitleid,jdbcType=VARCHAR},
+      teacherTitleID = #{record.teachertitleid,jdbcType=VARCHAR},
       checkTime = #{record.checktime,jdbcType=DATE},
       checkPerson = #{record.checkperson,jdbcType=VARCHAR},
       checkResult = #{record.checkresult,jdbcType=VARCHAR},
@@ -198,8 +198,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachertitlecheckinfo" >
     update teachertitlecheckinfo
     <set >
-      <if test="teathertitleid != null" >
-        teatherTitleID = #{teathertitleid,jdbcType=VARCHAR},
+      <if test="teachertitleid != null" >
+        teacherTitleID = #{teachertitleid,jdbcType=VARCHAR},
       </if>
       <if test="checktime != null" >
         checkTime = #{checktime,jdbcType=DATE},
@@ -218,7 +218,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachertitlecheckinfo" >
     update teachertitlecheckinfo
-    set teatherTitleID = #{teathertitleid,jdbcType=VARCHAR},
+    set teacherTitleID = #{teachertitleid,jdbcType=VARCHAR},
       checkTime = #{checktime,jdbcType=DATE},
       checkPerson = #{checkperson,jdbcType=VARCHAR},
       checkResult = #{checkresult,jdbcType=VARCHAR},

@@ -13,7 +13,6 @@ package cn.xm.jwxt.controller.graduateDesign;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.graduateDesign.*;
 import cn.xm.jwxt.service.graduateDesign.*;
-import cn.xm.jwxt.service.graduateDesign.projectManage.ProjectManageService;
 import cn.xm.jwxt.utils.DateHandler;
 import cn.xm.jwxt.utils.UUIDUtil;
 import com.alibaba.fastjson.JSON;
@@ -52,8 +51,8 @@ public class GradesigncheckgroupController {
     @Autowired
     private CencheckbaseinfoService cencheckbaseinfoService;
 
-    @Autowired
-    private ProjectManageService projectManageService;
+//    @Autowired
+//    private ProjectManageService projectManageService;
 
     @Autowired
     private FinallypleainfoService finallypleainfoService;

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.graduateManage.GraduateManageMapper" >
+
+  <select id="selectYearNum" resultType="java.lang.String">
+    select distinct yearNum from gradeuateBaseInfo order by yearNum desc
+  </select>
+
+  <insert id="insertGraduateInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo" >
+    insert into gradeuateBaseInfo (gradesignid, graduatedesignname, majorid, graduatedesc, yearnum, semesternum, status,remark)
+    VALUES
+      (
+      #{gradesignid},
+      #{graduatedesignname},
+      #{majorid},
+      #{graduatedesc},
+      #{yearnum},
+      #{semesternum},
+      #{status},
+      #{remark}
+      )
+  </insert>
+
+  <update id="updateGraduateInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo">
+    update gradeuateBaseInfo set
+    graduateDesignName = #{graduatedesignname},
+    majorId = #{majorid},
+    graduateDesc = #{graduatedesc},
+    yearNum = #{yearnum},
+    semesterNum = #{semesternum},
+    status = #{status},
+    remark = #{remark}
+    where graDesignID = #{gradesignid}
+  </update>
+
+  <delete id="deleteGraduateInfo" parameterType="java.lang.String">
+    delete from gradeuateBaseInfo where graDesignID=#{graDesignID}
+  </delete>
+
+  <select id="selectGraduateInfoByCondition" parameterType="map" resultType="map">
+    select graDesignID,yearNum,semesterNum,graduateDesignName,majorName,graduateDesc
+    from gradeuateBaseInfo g,t_major_base_info m where 1=1 and g.majorID = m.majorID
+    <if test="graduateDesignName != null and graduateDesignName != ''">
+      and graduateDesignName like '%${graduateDesignName}%'
+    </if>
+    <if test="yearNum != null and yearNum != ''">
+      and yearNum = '${yearNum}'
+    </if>
+    <if test="majorid != null and majorid != ''">
+      and g.majorID = '${majorid}'
+    </if>
+  </select>
+
+  <select id="selectMajor" resultType="cn.xm.jwxt.bean.baseInfo.TMajorBaseInfo">
+    select majorID,majorName from t_major_base_info
+  </select>
+
+  <select id="selectMajorIDByUserID" resultType="java.lang.String" parameterType="java.lang.String">
+    select majorID from t_teacher_base_info where teacherNum = #{userid}
+  </select>
+
+  <select id="selectMajorGraduateNum" resultType="int" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradeuatebaseinfo">
+    select count(graDesignID) from gradeuateBaseInfo where majorid = #{majorid} and yearnum = #{yearnum} and semesternum = #{semesternum}
+  </select>
+
+  <select id="selectTeacherTitleNum" resultType="int" parameterType="java.lang.String">
+    select count(teacherTitleID) from teacherGreDesignTitle where graDesignID = #{graDesignID}
+  </select>
+
+</mapper>

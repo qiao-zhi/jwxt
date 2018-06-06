@@ -15,7 +15,6 @@ import cn.xm.jwxt.bean.graduateDesign.ArrangeTeacherResultNew;
 import cn.xm.jwxt.bean.graduateDesign.CheckgrouppersonVo;
 import cn.xm.jwxt.bean.graduateDesign.TTeacherInfoVo;
 import cn.xm.jwxt.service.graduateDesign.CheckgrouppersonService;
-import cn.xm.jwxt.service.graduateDesign.projectManage.ProjectManageService;
 import cn.xm.jwxt.utils.UUIDUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.poi.hssf.usermodel.*;
@@ -46,8 +45,8 @@ public class CheckgrouppersonController {
     @Autowired
     private CheckgrouppersonService checkgrouppersonService;
 
-    @Autowired
-    private ProjectManageService projectManageService;
+//    @Autowired
+//    private ProjectManageService projectManageService;
 
 
     /*

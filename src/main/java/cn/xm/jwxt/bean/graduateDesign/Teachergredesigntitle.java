@@ -1,5 +1,7 @@
 package cn.xm.jwxt.bean.graduateDesign;
 
+import java.util.Date;
+
 /**
  * 教师毕业课题题目申请表
  */
@@ -27,6 +29,43 @@ public class Teachergredesigntitle {
     private Short reqirestudentnum;
 
     private String checkstatus;
+
+    private Date applyTime;
+    private String gdTime;
+    private String majorID;
+    private String isSubmit;
+
+    public Date getApplyTime() {
+        return applyTime;
+    }
+
+    public void setApplyTime(Date applyTime) {
+        this.applyTime = applyTime;
+    }
+
+    public String getGdTime() {
+        return gdTime;
+    }
+
+    public void setGdTime(String gdTime) {
+        this.gdTime = gdTime;
+    }
+
+    public String getMajorID() {
+        return majorID;
+    }
+
+    public void setMajorID(String majorID) {
+        this.majorID = majorID;
+    }
+
+    public String getIsSubmit() {
+        return isSubmit;
+    }
+
+    public void setIsSubmit(String isSubmit) {
+        this.isSubmit = isSubmit;
+    }
 
     public String getTeachertitleid() {
         return teachertitleid;
