@@ -143,6 +143,7 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 //向任务书中插入基本内容
                 Outgraduateassignment assignment = new Outgraduateassignment();
                 assignment.setAssignmentid(assignmentID);
+                assignment.setOutsideapplyid(outsideApplyID);
                 assignment.setTablename("任务书");
                 assignment.setCheckstatus("00");
                 assignment.setIsok("00");
@@ -183,12 +184,12 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 sureBook.setSurename("保证书");
                 sureBook.setIscommit("0");
                 int sureBookResult = oGDSureBookMapper.insertSelective(sureBook);
-                //
+                //销假表
                 Cancelleave cancelleave = new Cancelleave();
                 cancelleave.setCancelleaveid(UUIDUtil.getUUID2());
                 cancelleave.setLeaveid(leaveID);
                 int cancleLeaveResult = cLMapper.insertSelective(cancelleave);
-                //
+                //请假审核表
                 Checkleave checkleave = new Checkleave();
                 checkleave.setCheckleaveid(UUIDUtil.getUUID2());
                 checkleave.setLeaveid(leaveID);
@@ -198,7 +199,7 @@ public class OutGraDesignApplyServiceImpl implements OutGraduateDesignApplyServi
                 checkoutgradesigninfo.setCheckoutapplyid(UUIDUtil.getUUID2());
                 checkoutgradesigninfo.setOutsideapplyid(outsideApplyID);
                 int checkInfoResult = cOGDInfoMApper.insertSelective(checkoutgradesigninfo);
-                //
+                //任务书审核表
                 Checkassignment checkassignment = new Checkassignment();
                 checkassignment.setCheckId(UUIDUtil.getUUID2());
                 checkassignment.setAssignmentid(assignmentID);

@@ -21,13 +21,17 @@
     <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/assignment.js"></script>
+    <script>
+        //获取当前用户id
+        var userID = ${id};
+    </script>
     <%--E   bzy--%>
 </head>
 
 <body>
 <div class="x-body" style="margin:20px auto 50px auto; width:90%;">
-    <button class="btn-primary btn" onclick="basicSave()">保存</button>
-    <button class="btn-primary btn" onclick="basicCommit()">提交</button>
+    <button class="btn-primary btn saveAndCommit" onclick="basicSave()">保存</button>
+    <button class="btn-primary btn saveAndCommit" onclick="basicCommit()">提交</button>
     <script>
         //保存
         function basicSave(){
@@ -56,6 +60,8 @@
                     data:$("#form").serialize(),
                     datatype:"text",
                     success:function(result){
+                        $(".saveAndCommit").css("display","none");
+                        $(".studentSign").css("display","none");
                         layer.msg(result);
                         window.parent.loadFile();
                     },
@@ -139,7 +145,7 @@
                 <td>
                     <div style="height: 40px;">
                         <img src="../../../images/info.jpg" width="170px" height="50px" id="studentsign"/>
-                        <input onclick="studentSign()" type="button" class="layui-btn"  style="float: right; width: 65px;" value="签名"></input>
+                        <input onclick="studentSign()" type="button" class="layui-btn studentSign"  style="float: right; width: 65px;" value="签名"></input>
                     </div>
                 </td>
 

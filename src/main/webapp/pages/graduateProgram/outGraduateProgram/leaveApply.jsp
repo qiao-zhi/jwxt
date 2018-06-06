@@ -26,8 +26,8 @@
 
 <body>
 <div class="x-body" style="margin:20px auto 50px auto; width:90%;">
-    <button class="btn-primary btn" onclick="basicSave()" type="button">保存</button>
-    <button class="btn-primary btn" onclick="basicCommit()" type="button">提交</button>
+    <button class="btn-primary btn saveAndCommit" onclick="basicSave()" type="button">保存</button>
+    <button class="btn-primary btn saveAndCommit" onclick="basicCommit()" type="button">提交</button>
     <script>
         //保存
         function basicSave(){
@@ -68,6 +68,7 @@
                     data:{"leaveid":leaveid},
                     datatype:"text",
                     success:function(result){
+                        $(".saveAndCommit").css("display","none");
                         layer.msg(result);
                         window.parent.loadFile();
                     },
@@ -162,7 +163,7 @@
                 <td colspan="2">
                     <div style="height: 50px;">
                         <img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
-                        <button type="button" class="layui-btn"  style="float: right;">签名</button>
+                        <%--<button type="button" class="layui-btn"  style="float: right;">签名</button>--%>
                     </div>
                     <hr />
                     <input type="datetime"  placeholder="2018-04-25" class="form-control applydate">
@@ -188,7 +189,7 @@
                 <td colspan="2">
                     <div style="height: 50px;">
                         <img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
-                        <button type="button" class="layui-btn"  style="float: right;">签名</button>
+                        <%--<button type="button" class="layui-btn"  style="float: right;">签名</button>--%>
                     </div>
                     <hr />
                     <input type="datetime"  placeholder="2018-04-25" class="form-control applydate">
@@ -216,7 +217,7 @@
                 <td colspan="2">
                     <div style="height: 50px;">
                         <img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
-                        <button type="button" class="layui-btn"  style="float: right;">签名</button>
+                        <%--<button type="button" class="layui-btn"  style="float: right;">签名</button>--%>
                     </div>
                     <hr />
                     <input type="datetime"  placeholder="2018-04-25" class="form-control applydate">
@@ -243,7 +244,7 @@
                 <td colspan="2">
                     <div style="height: 50px;">
                         <img src="../../../images/info.jpg" width="160px" height="50px" alt="待签字" class="url"/>
-                        <button type="button" class="layui-btn"  style="float: right;">签名</button>
+                        <%--<button type="button" class="layui-btn"  style="float: right;">签名</button>--%>
                     </div>
                     <hr />
                     <input type="datetime"  placeholder="2018-04-25" class="form-control applydate">
@@ -270,7 +271,7 @@
                 <td colspan="2">
                     <div style="height: 50px;">
                         <img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
-                        <button type="button" class="layui-btn" style="float: right;">签名</button>
+                        <%--<button type="button" class="layui-btn" style="float: right;">签名</button>--%>
                     </div>
                     <hr />
                     <input type="datetime"  placeholder="2018-04-25" class="form-control applydate">
@@ -296,7 +297,7 @@
                 <td colspan="2">
                     <div style="height: 50px; width: 170px;">
                         <img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
-                        <button type="button" class="layui-btn"  style="float: right;margin-right: -59px;">签名</button>
+                        <%--<button type="button" class="layui-btn"  style="float: right;margin-right: -59px;">签名</button>--%>
                     </div>
                     <hr />
                     <input type="datetime"  placeholder="2018-04-25" class="form-control applydate">
