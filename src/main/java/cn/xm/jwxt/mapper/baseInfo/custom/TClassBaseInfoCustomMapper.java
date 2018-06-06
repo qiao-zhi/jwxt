@@ -24,6 +24,14 @@ public interface TClassBaseInfoCustomMapper {
      */
     List<Map<String,Object>> findClassNameAndId() throws SQLException;
 
-
+    /**************S    QLQ************/
+    /**
+     * 查询班级树
+     * @param condition 组合条件
+     * @return
+     * @throws SQLException
+     */
+    public List<Map<String,Object>> getClassTrees(Map condition)throws SQLException;
+    /**************E    QLQ************/
 
 }

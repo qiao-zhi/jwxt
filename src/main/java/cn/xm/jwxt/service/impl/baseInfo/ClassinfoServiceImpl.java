@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -90,6 +91,11 @@ public class ClassinfoServiceImpl implements ClassinfoService {
     @Override
     public List<Map<String, Object>> findClassNameAndId() throws Exception {
         return classBaseInfoCustomerMapper.findClassNameAndId();
+    }
+
+    @Override
+    public List<Map<String, Object>> getClassTrees(Map condition) throws SQLException {
+        return classBaseInfoCustomerMapper.getClassTrees(condition);
     }
 
 }

@@ -4,6 +4,7 @@ import cn.xm.jwxt.bean.baseInfo.TClassBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.CommonQuery;
 import com.github.pagehelper.PageInfo;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +58,20 @@ public interface ClassinfoService {
 
 
     List<Map<String,Object>> findClassNameAndId() throws Exception;
+
+
+
+
+    /**************S    QLQ************/
+    /**
+     * 查询班级树
+     * @param condition 组合条件
+     * @return
+     * @throws SQLException
+     */
+    public List<Map<String,Object>> getClassTrees(Map condition)throws SQLException;
+    /**************E    QLQ************/
+
 }
 
 

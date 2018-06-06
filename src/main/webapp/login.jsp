@@ -65,6 +65,7 @@
             <hr class="hr15">
             <select name="usersort" lay-verify="required">
                 <option value="教师">教师</option>
+                <option value="管理员">管理员</option>
                 <option value="学生">学生</option>
 			</select>
 			<hr class="hr15">
