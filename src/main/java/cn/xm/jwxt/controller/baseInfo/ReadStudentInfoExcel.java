@@ -1,6 +1,7 @@
 package cn.xm.jwxt.controller.baseInfo;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo;
+import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo;
 import cn.xm.jwxt.controller.arrangeCourse.NoticeDetailEnum;
 import cn.xm.jwxt.utils.ValidateCheck;
@@ -19,15 +20,15 @@ import java.util.List;
 public class ReadStudentInfoExcel {
 
     //文件读取开始行
-    public static final int START_ROW = 5;
+    public static final int START_ROW = 2;
     //每一行需要读取的单元格总数
-    public static final int CELL_SUM = 20;
+    public static final int CELL_SUM = 6;
     /**
      * 读取Excel文件返回通知书明细集合
      * @param fileName
      * @return
      */
-    public static List<StudentClassInfo> readNoticeExcelData(String fileName){
+    public static List<TStudentBaseInfo> readStudentData(String fileName){
         //工作簿
         Workbook book = null;
         //工作表
@@ -39,7 +40,7 @@ public class ReadStudentInfoExcel {
         //枚举类型
         StudentEnum studentType;
         //课程信息集合
-        List<StudentClassInfo> listInfo = new ArrayList<StudentClassInfo>();
+        List<TStudentBaseInfo> listInfo = new ArrayList<TStudentBaseInfo>();
         //声明实体类
         StudentClassInfo detailInfo;
         //班级名称和人数数组
@@ -78,22 +79,10 @@ public class ReadStudentInfoExcel {
                     case STUDENT_SEX:
                         detailInfo.setStudentsex(value);
                         break;
-                    case GRADE:
-                        detailInfo.setGrade(value);
-                        break;
-                    case CLASS_NAME:
-                        detailInfo.setClassname(value);
-                        break;
-                    case MAJOR_NAME:
-                        detailInfo.setMajorname(value);
-                        break;
-                    case COLLEGE_NAME:
-                        detailInfo.setCollegename(value);
-                        break;
                     case IDNUM:
                         detailInfo.setIdnum(value);
                         break;
-                    case JOINSCHOOL_TINE:
+                    case ENROLLMENTTIME:
                         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
                         try {
                             detailInfo.setEnrollmenttime(format1.parse(value));
@@ -101,8 +90,13 @@ public class ReadStudentInfoExcel {
                             e.printStackTrace();
                         }
                         break;
-                    case IS_GRADUATE:
-                        detailInfo.setIsgraduate(value);
+                    case END_TIME:
+                        SimpleDateFormat format2= new SimpleDateFormat("yyyy-MM-dd");
+                        try {
+                            detailInfo.setEnrollmenttime(format2.parse(value));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         break;
                 }
             }

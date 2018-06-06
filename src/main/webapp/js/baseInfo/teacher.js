@@ -21,7 +21,7 @@ layui.use(['layer', 'form', 'element'], function(){
     });
 
 });
-//查询任务通知书基本信息
+//查询教师基本信息
 function findTeacherBaseInfo(){
     $.ajax({
         url : contextPath+'/teacherInfo/findTeacherInfoList.action',
@@ -41,7 +41,7 @@ function showTeacherBaseInfo(pageInfo){
     $("#teacherBaseInfoList").html("");//清空表格中数据并重新填充数据
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
-        var tr ="<tr><td>"
+        var tr ="<tr><td><input type='checkbox' name='teacherRadio' /></td><td>"
             +baseInfoList[i].teachernum+"</td><td>"
             +baseInfoList[i].teachername+"</td><td>"
             +(baseInfoList[i].teachersex>1?"女":"男")+"</td><td>"
@@ -194,21 +194,25 @@ function findMajorNameAndIdForSelect(form){
     })
 }
 
+//导入教师按钮
+function importTeacher(){
+    var checked = $("[name='teacherRadio']:checked").length>0?true:false;
+    if(!checked){
+        layer.alert('请先选择需要导入教师的教研室！');
+        return;
+    }
+    //需要改
+    var collegeId ="f4aa12dec36046048d89613bbfd1735c";//获取需要上传资料的课程主键
+    var majorId ="d5046e9fde474981bcddf010f1b98a2d";
+    x_admin_show('导入课程', './teacher-import.jsp?collegeId='+collegeId+'&majorId='+majorId);
+}
+
+
 //导出教师信息
 function teacherExport(){
-    var checked = $("[name='taskRadio']:checked").length>0?true:false;
-    if(!checked){
-        layer.alert('请先选择需要导出排课信息的任务！');
-        return;
-    }
-    var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
-    if (sel_taskStatus != "审核通过") {
-        layer.alert('该排课任务还未通过审核，不能进行导出！');
-        return;
-    }
-    var arrangeTaskId = $("[name='taskRadio']:checked").val();//获取单选框的值
-    layer.confirm('您确认要导出排课信息吗？',function(index){
-        window.location.href=contextPath+"/arrangeCourse/exportArrangeCourseInfo.action?arrangeCourseTaskId="+arrangeTaskId
+    layer.confirm('您确认要导出教师信息吗？',function(index){
+        $("#selectTeacherInfoForm").attr("action",contextPath+"/teacherInfo/exportTeacherInfo.action");//改变表单的提交地址为下载的地址
+        $("#selectTeacherInfoForm").submit();//提交表单
         layer.close(index);
     });
 }

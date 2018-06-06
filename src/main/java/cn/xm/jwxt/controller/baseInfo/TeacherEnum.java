@@ -6,34 +6,36 @@ public enum TeacherEnum {
     //序号
     TEACHER_NUM(0),
     //教师编号
-    TEACHER_NAEM(20),
+    TEACHER_NAEM(1),
     //教师姓名
+//    COLLEGE_NAME(2),
+//    //学院名称
+//    MAJOR_ID(3),
+//    //专业编号
     TEACHER_SEX(2),
     //教师性别
-    MAJOR_NAME(20),
-    //专业名称
-    MAJOR_ID(11),
-    //专业编号
-    COLLEGE_NAME(20),
-    //学院名称
-    COLLEGE_ID(20),
-    //学院编号
-    POSITIONALTITLE(20),
-    //职称
-    TEACHERPOSITION(26),
-    //职务
-    JOINSCHOOLTIME(15),
-    //入校时间
-    TEACHER_TEL(11),
+    TEACHER_TEL(3),
     //教师电话
-    GRADUATE_SCHOOL(20),
+//    MAJOR_NAME(20),
+//    //专业名称
+    POSITIONALTITLE(4),
+    //职称
+    TEACHERPOSITION(5),
+    //职务
+//    COLLEGE_ID(20),
+//    //学院编号
+    EDUCATION(6),
+    //学历
+    DEGREE(7),
+    //学位
+    GRADUATE_SCHOOL(8),
     //毕业学校
-    GRADUATE_MAJOR(20),
+    GRADUATE_MAJOR(9),
     //毕业专业
-    TEACHERBIRTH(9),
-    //教师生日
-    IN_POSITION(10);
-    //是否在职
+    JOINSCHOOLTIME(10);
+    //入校时间
+//    IN_POSITION(11);
+//    //是否在职
     private int index;
     TeacherEnum(int index){
         this.index = index;

@@ -23,36 +23,56 @@
         <result column="majorname" property="majorname" jdbcType="VARCHAR" />
         <result column="collegename" property="collegename" jdbcType="VARCHAR" />
     </resultMap>
-    <!--批量插入通知书明细信息-->
+    <!--批量教师信息，传入学院、专业id-->
     <insert id="saveTeacherInfoList" parameterType="java.util.List">
-        insert into t_teacher_base_info (teacherID, teacherNum,
-        collegeID, majorID, teacherName,
-        teacherSex, teacherBirth, education,
-        degree, grade, graduateSchool,
-        graduateMajor, teacherTel, positionalTitle,
-        joinSchoolTime, teacherPosition, inPosition,
+        insert into t_teacher_base_info (teacherID, teacherNum, collegeID,
+        majorID, teacherName, teacherSex,
+        teacherBirth, education, degree,
+        graduateSchool, graduateMajor, teacherPhoto,
+        teacherTel, positionalTitle, joinSchoolTime,
+        teacherPosition, inPosition, remark2
         )
         values
         <foreach collection="list" item="detailInfo" separator=",">
-            (#{detailInfo.teacherid,jdbcType=VARCHAR}, #{detailInfo.teachernum,jdbcType=VARCHAR},
-            #{detailInfo.collegeid,jdbcType=VARCHAR}, #{detailInfo.majorid,jdbcType=VARCHAR}, #{detailInfo.teachername,jdbcType=VARCHAR},
-            #{detailInfo.teachersex,jdbcType=VARCHAR},  #{detailInfo.grade,jdbcType=VARCHAR},#{detailInfo.teacherbirth,jdbcType=DATE}, #{detailInfo.education,jdbcType=VARCHAR},
-            #{detailInfo.degree,jdbcType=VARCHAR}, #{detailInfo.graduateschool,jdbcType=VARCHAR}, #{detailInfo.graduatemajor,jdbcType=VARCHAR},
+            (#{detailInfo.teacherid,jdbcType=VARCHAR}, #{detailInfo.teachernum,jdbcType=VARCHAR}, #{detailInfo.collegeid,jdbcType=VARCHAR},
+            #{detailInfo.majorid,jdbcType=VARCHAR}, #{detailInfo.teachername,jdbcType=VARCHAR}, #{detailInfo.teachersex,jdbcType=VARCHAR},
+            #{detailInfo.teacherbirth,jdbcType=DATE}, #{detailInfo.education,jdbcType=VARCHAR}, #{detailInfo.degree,jdbcType=VARCHAR},
+            #{detailInfo.graduateschool,jdbcType=VARCHAR}, #{detailInfo.graduatemajor,jdbcType=VARCHAR}, #{detailInfo.teacherphoto,jdbcType=VARCHAR},
             #{detailInfo.teachertel,jdbcType=VARCHAR}, #{detailInfo.positionaltitle,jdbcType=VARCHAR}, #{detailInfo.joinschooltime,jdbcType=DATE},
-            #{detailInfo.teacherposition,jdbcType=VARCHAR}, #{detailInfo.inposition,jdbcType=VARCHAR})
+            #{detailInfo.teacherposition,jdbcType=VARCHAR}, #{detailInfo.inposition,jdbcType=VARCHAR}, #{detailInfo.remark2,jdbcType=VARCHAR}
+            )
         </foreach>
     </insert>
 
+    <!--根据教师id查询教师信息，包括专业、学院-->
+    <select id="getTeacherInfoById"  resultMap="BaseResultMap">
+        SELECT t.*,collegeName,majorName
+        FROM t_teacher_base_info t ,major_college v
+        WHERE t.collegeID=v.collegeID AND t.majorID=v.majorID and teacherID = #{teacherid,jdbcType=VARCHAR}
+    </select>
+
+    <!--查询教师的编号是否存在-->
+    <select id="checkTeacherNum" resultType="int">
+        SELECT count(teacherId)  from t_teacher_base_info
+        where teacherNum = #{teachernum,jdbcType=VARCHAR}
+
+    </select>
     <!--查询教师的名称和ID-->
     <select id="findTeacherNameAndId" resultType="map">
         SELECT teacherId as teacherid,teacherName as teachername from t_teacher_base_info
 
     </select>
 
+    <!--查询教师的职称-->
+    <select id="findTeacherPositionaltitle" resultType="map">
+        SELECT dictionaryName as positionaltitle,dictionaryID as dictionaryid from dictionary
+
+    </select>
+
     <!--组合条件查询教师分页显示-->
     <select id="findTeacherInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultMap="BaseResultMap">
         SELECT t.*,collegeName,majorName
-        FROM t_teacher_base_info t ,class_major_college v
+        FROM t_teacher_base_info t ,major_college v
 
         <where>
             <include refid="query_common_where"></include>

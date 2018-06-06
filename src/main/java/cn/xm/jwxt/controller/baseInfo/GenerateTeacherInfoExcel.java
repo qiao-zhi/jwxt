@@ -2,6 +2,7 @@ package cn.xm.jwxt.controller.baseInfo;
 
 import cn.xm.jwxt.bean.arrangeCourse.custom.CampusCodeEnum;
 import cn.xm.jwxt.bean.baseInfo.custom.TeacherMajorInfo;
+import cn.xm.jwxt.utils.DateHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -23,26 +24,18 @@ public class GenerateTeacherInfoExcel {
     //开始行
     public static final int START_ROW = 2;
     //每一行需要的单元格总数
-    public static final int CELL_SUM = 7;
+    public static final int CELL_SUM = 15;
 
     /**
      * 生成Excel文件
      * @param mapInfo
      * @param fileName
      */
-    public static void generateStudentExcelInfo(Map<String,List<TeacherMajorInfo>> mapInfo, String fileName){
+    public static void generateTeacherExcelInfo(List<TeacherMajorInfo> mapInfo, String fileName){
         // 创建一个工作簿
         HSSFWorkbook workbook = new HSSFWorkbook();
-        //教师相关信息
-        List<TeacherMajorInfo> teacherList = mapInfo.get(CampusCodeEnum.MAIN_CAMPUS.getStatus());
-        generateMainCampusHearder(teacherList,workbook,CampusCodeEnum.MAIN_CAMPUS);
-       /* //华科学院排课相关信息
-        List<TeacherMajorInfo> studentListHuaKeCampus = mapInfo.get(CampusCodeEnum.HUAKE_CAMPUS.getStatus());
-        generateMainCampusHearder(studentListHuaKeCampus,workbook,CampusCodeEnum.HUAKE_CAMPUS);
-        //晋城校区排课相关信息
-        List<TeacherMajorInfo> studentListJinChengCampus = mapInfo.get(CampusCodeEnum.JINCHENG_CAMPUS.getStatus());
-        generateMainCampusHearder(studentListJinChengCampus,workbook,CampusCodeEnum.JINCHENG_CAMPUS);
-*/
+        generateMainCampusHearder(mapInfo,workbook,CampusCodeEnum.MAIN_CAMPUS);
+
         File file = new File(fileName);
         FileOutputStream outputStream = null;
         try {
@@ -80,11 +73,11 @@ public class GenerateTeacherInfoExcel {
         HSSFCell cellFirst = row.createCell(0);
         cellFirst.setCellValue(codeEnum.getValue()+HEADER_INFO);
         // 合并单元格
-        mergeCell(sheet, 0, 0, 0, 6);
+        mergeCell(sheet, 0, 0, 0, 15);
         //设置单元格格式
         setCellStyle(workbook,cellFirst,TITLE_FIRST);
         //生成教师排课基本信息
-        generageStudentInfo(list,sheet,workbook);
+        generageTeacherInfo(list,sheet,workbook);
     }
 
     /**
@@ -93,7 +86,7 @@ public class GenerateTeacherInfoExcel {
      * @param sheet
      * @param workbook
      */
-    public static void generageStudentInfo(List<TeacherMajorInfo> list, HSSFSheet sheet, HSSFWorkbook workbook){
+    public static void generageTeacherInfo(List<TeacherMajorInfo> list, HSSFSheet sheet, HSSFWorkbook workbook){
         // 标题
         String[] title = { "教师编号","教师姓名","学院","专业","性别","联系电话","职称","职务","学历","学位","毕业学校","毕业专业 ","出身年月","入校时间","是否在职"};
         // 设置列宽
@@ -156,10 +149,10 @@ public class GenerateTeacherInfoExcel {
                     cell2.setCellValue(tStudentBaseInfo.getGraduatemajor());
                 }
                 if (j == 12) {
-                    cell2.setCellValue(tStudentBaseInfo.getTeacherbirth());
+                    cell2.setCellValue(DateHandler.dateToString(tStudentBaseInfo.getTeacherbirth()));
                 }
                 if (j == 13) {
-                    cell2.setCellValue(tStudentBaseInfo.getJoinschooltime());
+                    cell2.setCellValue(DateHandler.dateToString(tStudentBaseInfo.getJoinschooltime()));
                 }
                 if (j == 14) {
                     cell2.setCellValue(tStudentBaseInfo.getInposition());

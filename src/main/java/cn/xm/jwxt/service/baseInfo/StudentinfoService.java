@@ -3,6 +3,7 @@ package cn.xm.jwxt.service.baseInfo;
 import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.CommonQuery;
 import cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo;
+import cn.xm.jwxt.bean.baseInfo.custom.TeacherMajorInfo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public interface StudentinfoService {
      * @return
      * @throws Exception
      */
-    TStudentBaseInfo getStudentInfoById(String studentId) throws Exception;
+    StudentClassInfo getStudentInfoById(String studentId) throws Exception;
 
     /**
      * 组合条件查询教师老师签名图片信息分页显示
@@ -56,5 +57,17 @@ public interface StudentinfoService {
      */
     PageInfo<StudentClassInfo> findStudentInfoByCondition(CommonQuery condition, Integer currentPage, Integer pageSize) throws Exception;
 
+    List<StudentClassInfo> findStudentInfoByCondition(CommonQuery condition) throws Exception;
+
     List<Map<String,Object>> findStudentNameAndId() throws Exception;
+
+    /**
+     * 导入学生信息
+     * @param studentId
+     * @param detailInfoList
+     * @return
+     * @throws Exception
+     */
+    boolean saveStudentInfoById(String studentId, List<TStudentBaseInfo> detailInfoList) throws Exception;
+
 }

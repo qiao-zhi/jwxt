@@ -5,6 +5,7 @@ import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.CommonQuery;
 import cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo;
+import cn.xm.jwxt.bean.baseInfo.custom.TeacherMajorInfo;
 import cn.xm.jwxt.mapper.baseInfo.TStudentBaseInfoMapper;
 import cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper;
 import cn.xm.jwxt.mapper.baseInfo.custom.TStudentBaseInfoCustomMapper;
@@ -60,15 +61,19 @@ public class StudentinfoServiceImpl implements StudentinfoService {
 
     @Override
     public boolean deleteStudentInfoById(String studentid) throws Exception {
-        return false;
+        if(ValidateCheck.isNull(studentid)){
+            throw new IllegalArgumentException("教师编号不能为空!");
+        }
+        int count = studentBaseInfoMapper.deleteByPrimaryKey(studentid);
+        return count>0?true:false;
     }
 
     @Override
-    public TStudentBaseInfo getStudentInfoById(String studentId) throws Exception {
+    public StudentClassInfo getStudentInfoById(String studentId) throws Exception {
         if(ValidateCheck.isNull(studentId)){
             throw new IllegalArgumentException("学生编号不能为空!");
         }
-        TStudentBaseInfo studentBaseInfo = studentBaseInfoMapper.selectByPrimaryKey(studentId);
+        StudentClassInfo studentBaseInfo = studentBaseInfoCustomMapper.getStudentInfoById(studentId);
         return studentBaseInfo;
     }
 
@@ -88,6 +93,15 @@ public class StudentinfoServiceImpl implements StudentinfoService {
         return pageInfo;
     }
 
+    @Override
+    public List<StudentClassInfo> findStudentInfoByCondition(CommonQuery condition) throws Exception {
+        if(condition==null){
+            throw new IllegalArgumentException("查询条件参数传递错误!");
+        }
+        List<StudentClassInfo> listInfo = studentBaseInfoCustomMapper.findStudentInfoListByCondition(condition);
+        return listInfo;
+    }
+
 
     /**
      * 查询学生的名称和ID
@@ -97,6 +111,26 @@ public class StudentinfoServiceImpl implements StudentinfoService {
     @Override
     public List<Map<String, Object>> findStudentNameAndId() throws Exception {
         return studentBaseInfoCustomMapper.findStudentNameAndId();
+    }
+
+    @Override
+    public boolean saveStudentInfoById(String classId, List<TStudentBaseInfo> detailInfoList) throws Exception {
+        if(ValidateCheck.isNull(classId)){
+            throw new IllegalArgumentException("班级编号不能为空!");
+        }
+        int total = detailInfoList.size();
+        if(total <= 0){
+            throw new IllegalArgumentException("明细集合参数传递错误!");
+        }
+        for (TStudentBaseInfo detailInfo:detailInfoList) {
+            //设置通知书ID
+            detailInfo.setClassid(classId);
+            detailInfo.setStudentid(UUIDUtil.getUUID2());
+        }
+        int count = studentBaseInfoCustomMapper.saveStudentInfoList(detailInfoList);
+        //修改是否上传参数
+        //teacherinfoService.updateIsInputStatus(noticeId);
+        return count == total;
     }
 
 }

@@ -107,8 +107,8 @@
     <xblock>
         <button class="layui-btn" onclick="x_admin_show('添加学生','./student-add.jsp')">添加学生 </button>
         <button class="layui-btn" onclick="x_admin_show('统计','./student-statistic.jsp')">统计 </button>
-        <button class="layui-btn layui-btn-normal" onclick="">导入数据 </button>
-        <button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>
+        <button class="layui-btn layui-btn-normal" onclick="importStudent()">导入数据 </button>
+        <button class="layui-btn layui-btn-normal" onclick="studentExport()">导出数据 </button>
     </xblock>
     <!--end 操作区域-->
 
@@ -120,6 +120,7 @@
                 <%--<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">--%>
                     <%--&#xe605;</i></div>--%>
             <%--</th>--%>
+                <th> </th>
             <th>学号</th>
             <th>姓名</th>
             <th>性别</th>
@@ -157,12 +158,19 @@
     var zNodes =[
         { id:1, pId:0, name:"计科院", open:true},
         { id:11, pId:1, name:"软件工程"},
-        { id:111, pId:11, name:"一年级"},
-        { id:1111, pId:111, name:"152001"},
-        { id:1111, pId:111, name:"152002"},
-        { id:112, pId:11, name:"二年级"},
-        { id:1121, pId:112, name:"142001"},
-        { id:1121, pId:112, name:"14200222222222222222"}
+        { id:111, pId:11, name:"15级"},
+        { id:1111, pId:111, name:"152001班"},
+        { id:1111, pId:111, name:"152002班"},
+        { id:112, pId:11, name:"14级"},
+        { id:1121, pId:112, name:"142001班"},
+        { id:1121, pId:112, name:"142002班"},
+        { id:12, pId:1, name:"网络工程"},
+        { id:113, pId:12, name:"15级"},
+        { id:1111, pId:113, name:"152001班"},
+        { id:1111, pId:113, name:"152002班"},
+        { id:114, pId:12, name:"14级"},
+        { id:1121, pId:114, name:"142001班"},
+        { id:1121, pId:114, name:"142002班"}
     ];
 
     function showIconForTree(treeId, treeNode) {
