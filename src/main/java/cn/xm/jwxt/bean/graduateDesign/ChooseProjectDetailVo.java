@@ -22,7 +22,7 @@ public class ChooseProjectDetailVo {
 
     private Short reqirestudentnum;
 
-    private Date gdTime;
+    private String gdTime;
 
     public String getTitlename() {
         return titlename;
@@ -88,11 +88,11 @@ public class ChooseProjectDetailVo {
         this.reqirestudentnum = reqirestudentnum;
     }
 
-    public Date getGdTime() {
+    public String getGdTime() {
         return gdTime;
     }
 
-    public void setGdTime(Date gdTime) {
+    public void setGdTime(String gdTime) {
         this.gdTime = gdTime;
     }
 }

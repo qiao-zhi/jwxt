@@ -38,11 +38,19 @@ public class TeachergredesigntitleDetailVo {
 
     private String checkSecondDesc;
 
-    private Date gdTime;
+    private String gdTime;
 
     private String majorName;
 
     private Date applyTime;
+
+    public String getGdTime() {
+        return gdTime;
+    }
+
+    public void setGdTime(String gdTime) {
+        this.gdTime = gdTime;
+    }
 
     public String getMajorName() {
         return majorName;

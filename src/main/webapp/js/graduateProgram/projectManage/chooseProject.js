@@ -28,30 +28,29 @@ function findTaskNoticeBaseInfo(){
         url : contextPath+ '/chooseProject/getProjectInfo.do',
         data : $("#y_form").serialize(),
         type : 'POST',
-        dataType : 'json',
         async:true,
+        dataType:"json",
         success : showTaskNoticeBaseInfo
     });
 }
 
 //查询成功后执行
-function showTaskNoticeBaseInfo(pageInfo){
-    // console.log(pageInfo) //测试是否有值
-    var total = pageInfo.total;//页总数
-    var pageNum = pageInfo.pageNum;//页号
-    var pageSize = pageInfo.pageSize;//页大小
-    var baseInfoList = pageInfo.list;
+function showTaskNoticeBaseInfo(baseInfoList){
+    var total = baseInfoList.total;//页总数
+    var pageNum = baseInfoList.pageNum;//页号
+    var pageSize = baseInfoList.pageSize;//页大小
+    var pageInfo = baseInfoList.list;
     $("#y_tbody").html("");//清空表格中数据并重新填充数据
-    for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
+    for(var i=0,length_l = pageInfo.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
         var tr =
             '<tr>' +
-            '<td><button class="layui-btn layui-btn-warm layui-btn-sm" onclick="chooseProject(this,'+ pageInfo[i].teacherTitleID + ')">选择</button></td>' +
-            '<td>'+ pageInfo[i].teacherName + '</td>' +
-            '<td>'+ pageInfo[i].titlename + '</td>' +
-            '<td>'+ pageInfo[i].projectType + '</td>' +
-            '<td>'+ pageInfo[i].titleOrigin + '</td>' +
-            '<td>'+ pageInfo[i].reqireStudentNum + '</td>' +
+            '<td><button class="layui-btn layui-btn-warm layui-btn-sm" onclick="chooseProject(this,\''+ pageInfo[i].teacherTitleID + '\')">选择</button></td>' +
+            '<td>'+ checkNull(pageInfo[i].teacherName) + '</td>' +
+            '<td>'+ checkNull(pageInfo[i].titlename) + '</td>' +
+            '<td>'+ checkNull(pageInfo[i].projectType) + '</td>' +
+            '<td>'+ checkNull(pageInfo[i].titleOrigin) + '</td>' +
+            '<td>'+ checkNull(pageInfo[i].reqireStudentNum) + '</td>' +
             '<td class="td-manage">' +
             '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseProject-view.jsp?teacherTitleID='+ pageInfo[i].teacherTitleID + '\')" href="javascript:;">' +
             '        <i class="layui-icon">&#xe63c;</i>' +
@@ -80,10 +79,8 @@ function noticeInfoListPage(total,pageNum,pageSize){
             layout:['limit','prev', 'page', 'next','skip','count'],//显示哪些分页组件
             jump: function(obj, first){//点击页号的时候执行的函数
                 //obj包含了当前分页的所有参数，比如：
-                // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                // console.log(obj.limit); //得到每页显示的条数
 
-                $("[name='currentPage']").val(obj.curr);//向隐藏域设置当前页的值
+                $("[name='pageNum']").val(obj.curr);//向隐藏域设置当前页的值
                 $("[name='pageSize']").val(obj.limit);//向隐藏域设置当前页的大小
                 if(!first){//首次不执行(点击的时候才执行)
                     findTaskNoticeBaseInfo();//执行查询分页函数(这个函数必须写在这里)
@@ -98,18 +95,18 @@ function findChooseProjectInfo() {
     $.ajax({
         url : contextPath+ '/chooseProject/getChooseProjectInfo.do',
         type : 'POST',
-        dataType : 'json',
         async:true,
-        success : function (data) {
+        success : function (response) {
+            var data = ajaxGetStringToJson(response);
             //课题查询成功后，初始化选择课题的表。
             $("#choose_tbody").html("");//清空表格中数据并重新填充数据
             for(var i=0;i<data.length;i++){
                 var tr = '<tr>';
 
                 if (i == 0) {
-                    tr = tr + '<td>第一志愿</td>';
+                    tr = tr + '<td>第一志愿<input type="hidden" class="choose_titleID" value="'+ data[i].teacherTitleID +'"></td>';
                 } else {
-                    tr = tr + '<td>第二志愿</td>';
+                    tr = tr + '<td>第二志愿<input type="hidden" class="choose_titleID" value="'+ data[i].teacherTitleID +'"></td>';
                 }
 
                 tr = tr +
@@ -124,13 +121,17 @@ function findChooseProjectInfo() {
                     '    </a>' +
                     '</td></tr>';
                 $("#choose_tbody").append(tr);
-            }
 
-            //控制按钮的显示情况
-            if (data[0].isSubmit == "1") { //已提交
-                $("#saveButton").hide();
-                $("#submitButton").hide();
-                $("#y_tip").hide();
+                //控制按钮的显示情况
+                if (data[0].isSubmit == "1") { //已提交
+                    $("#saveButton").hide();
+                    $("#submitButton").hide();
+                    $("#y_tip").hide();
+                } else {
+                    $("#saveButton").show();
+                    $("#submitButton").show();
+                    $("#y_tip").show();
+                }
             }
 
         }
@@ -144,13 +145,13 @@ function chooseProject(obj,titleId) {
     var choose_titleID = $("#choose_tbody").find(".choose_titleID");
     choose_titleID.each(function () {
         if ($(this).val() == titleId) {
-            layui.alert("该课题已选择！");
+            layer.alert("该课题已选择！");
             return false;
         }
     });
 
     if (choose_titleID.length == 2) {
-        layui.alert("只能选择两个课题！");
+        layer.alert("只能选择两个课题！");
         return false;
     }
 
@@ -165,7 +166,7 @@ function chooseProject(obj,titleId) {
             chooseTr.find("td:eq(2)").text() + '</td><td>' +
             chooseTr.find("td:eq(3)").text() + '</td><td>' +
             chooseTr.find("td:eq(4)").text() + '</td><td>' +
-            chooseTr.find("td:eq(5)").text() + '</td><td>' +
+            chooseTr.find("td:eq(5)").text() + '</td>' +
             '<td class="td-manage">' +
             '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseProject-view.jsp?teacherTitleID=\'+ titleId+ \')" href="javascript:;">' +
             '        <i class="layui-icon">&#xe63c;</i>' +
@@ -181,7 +182,7 @@ function chooseProject(obj,titleId) {
             chooseTr.find("td:eq(2)").text() + '</td><td>' +
             chooseTr.find("td:eq(3)").text() + '</td><td>' +
             chooseTr.find("td:eq(4)").text() + '</td><td>' +
-            chooseTr.find("td:eq(5)").text() + '</td><td>' +
+            chooseTr.find("td:eq(5)").text() + '</td>' +
             '<td class="td-manage">' +
             '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseProject-view.jsp?teacherTitleID=\'+ titleId+ \')" href="javascript:;">' +
             '        <i class="layui-icon">&#xe63c;</i>' +
@@ -213,22 +214,22 @@ function chooseProject_save() {
     var choose_titleIDs = $("#choose_tbody").find(".choose_titleID");
 
     var choose_titleIDstr = "";
-    if (choose_titleIDs == 0) {
-        layui.alert("请先选择课题！")
-    } else if (choose_titleIDs == 1) {
-        choose_titleIDstr = choose_titleIDs.text()
+    if (choose_titleIDs.length == 0) {
+        layer.alert("请先选择课题！");
+        return false;
+    } else if (choose_titleIDs.length == 1) {
+        choose_titleIDstr = choose_titleIDs.val()
     } else {
         choose_titleIDstr = choose_titleIDs.eq(0).text() + "," + choose_titleIDs.eq(1).text();
     }
-    var isSubmit = "0";
     $.ajax({
         url : contextPath+ '/chooseProject/saveChooseProject.do',
-        data: {"choose_titleIDstr":choose_titleIDstr,"isSubmit":isSubmit},
+        data: {"choose_titleIDstr":choose_titleIDstr,"isSubmit":"0"},
         type : 'POST',
-        dataType : 'json',
+        dataType : 'text',
         async:true,
-        success : function(data) {
-            if ("success" == data) {
+        success : function(response) {
+            if ("success" == response) {
                 layer.alert("保存成功")
             }
         }
@@ -240,25 +241,26 @@ function chooseProject_submit() {
     var choose_titleIDs = $("#choose_tbody").find(".choose_titleID");
 
     var choose_titleIDstr = "";
-    if (choose_titleIDs == 0) {
-        layui.alert("请先选择课题！")
-    } else if (choose_titleIDs == 1) {
-        layui.alert("请选择两个课题！")
+    if (choose_titleIDs.length == 0) {
+        layer.alert("请先选择课题！");
+        return false;
+    } else if (choose_titleIDs.length == 1) {
+        layer.alert("请选择两个课题！");
+        return false;
     } else {
-        choose_titleIDstr = choose_titleIDs.eq(0).text() + "," + choose_titleIDs.eq(1).text();
+        choose_titleIDstr = choose_titleIDs.eq(0).val() + "," + choose_titleIDs.eq(1).val();
     }
 
     layer.confirm("提交之后将不能更改,确认提交?",function (index) {
         var choose_titleIDstr = choose_titleIDs.eq(0) + "," + choose_titleIDs.eq(1);
-        var isSubmit = "1";
         $.ajax({
             url: contextPath + '/chooseProject/saveChooseProject.do',
-            data: {"choose_titleIDstr":choose_titleIDstr,"isSubmit":isSubmit},
+            data: {"choose_titleIDstr":choose_titleIDstr,"isSubmit":"1"},
             type: 'POST',
-            dataType: 'json',
             async: true,
-            success: function (data) {
-                if ("success" == data) {
+            dataType : "text",
+            success: function (response) {
+                if ("success" == response) {
                     layer.alert("提交成功")
                 }
             }

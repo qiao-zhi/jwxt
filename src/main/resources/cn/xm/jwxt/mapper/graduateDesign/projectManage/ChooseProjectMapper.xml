@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.projectManage.ChooseProjectMapper" >
+
+
+  <select id="selectChooseProjectInfo" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.ChooseProjectVo">
+    select teacherTitleID,titlename,titleOrigin,projectType,reqireStudentNum,teacherName,son.isSubmit
+    from teacherGreDesignTitle b,t_teacher_base_info t,
+    (select firstTeacherTitleId,secTeacherTitleId,isSubmit from graDesignStudentTitleInfo t,t_student_base_info s
+    where studentNum = #{studentNum} and t.studentID=s.studentID) son
+    where b.teacherID = t.teacherID
+    and b.teacherTitleID = son.firstTeacherTitleId or b.teacherTitleID = son.secTeacherTitleId
+  </select>
+
+  <insert id="insertChooseProject" parameterType="cn.xm.jwxt.bean.graduateDesign.Gradesignstudenttitleinfo">
+    insert into graDesignStudentTitleInfo (studentTitleID, studentID, firstTeacherTitleId,
+    secTeacherTitleId, isChecked, remark, isSubmit)
+    VALUES
+    (
+    #{studenttitleid},
+    #{studentid},
+    #{firstteachertitleid},
+    #{secteachertitleid},
+    #{ischecked},
+    #{remark},
+    #{isSubmit}
+    )
+  </insert>
+
+  <delete id="deleteChooseProjectInfo" parameterType="java.lang.String">
+    delete from graDesignStudentTitleInfo where studentID = #{studentID}
+  </delete>
+
+  <select id="selectMajorIDByStudentNum" parameterType="java.lang.String" resultType="java.lang.String">
+    select majorID from t_student_base_info s,t_class_base_info class where s.studentNum = #{studentNum} and s.classID = class.classID
+  </select>
+
+  <select id="selectProjectInfoByCondition" parameterType="map" resultType="map">
+    select teacherTitleID,titlename,titleOrigin,projectType,reqireStudentNum,teacherName
+    from teacherGreDesignTitle b,t_teacher_base_info t,gradeuateBaseInfo g
+    where b.teacherID = t.teacherID and b.graDesignID=g.graDesignID
+    and b.checkStatus = "2" and g.yearNum = #{yearNum}   and g.majorID = #{majorID}
+    <if test="teacherName != null and teacherName != ''">
+      and t.teacherName = '%${teacherName}%'
+    </if>
+    <if test="titlename != null and titlename != ''">
+      and b.titlename = '%${titlename}%'
+    </if>
+  </select>
+
+  <select id="selectProjectInfoDetail" parameterType="java.lang.String" resultType="cn.xm.jwxt.bean.graduateDesign.TeachergredesigntitleDetailVo">
+    select titlename,titletype,titleorigin,projecttype,resulttype,gdTime,reqirestudentnum,targetrequire,researchcontent
+    from teacherGreDesignTitle where teacherTitleID = #{teacherTitleID}
+  </select>
+
+  <select id="selectStudentIDByStudentNum" parameterType="java.lang.String" resultType="java.lang.String">
+    select studentID from t_student_base_info where studentNum=#{studentNum}
+  </select>
+
+</mapper>

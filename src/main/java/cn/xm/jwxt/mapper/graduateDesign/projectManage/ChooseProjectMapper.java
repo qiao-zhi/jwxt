@@ -15,10 +15,10 @@ public interface ChooseProjectMapper {
 
     /**
      * 初始化选择课题信息
-     * @param studentID
+     * @param studentNum
      * @return
      */
-    public List<ChooseProjectVo> selectChooseProjectInfo(String studentID) throws SQLException;
+    public List<ChooseProjectVo> selectChooseProjectInfo(String studentNum) throws SQLException;
 
     /**
      * 保存选择课题
@@ -34,19 +34,12 @@ public interface ChooseProjectMapper {
     public void deleteChooseProjectInfo(String studentID) throws SQLException;
 
     /**
-     * 提交学生选择校外毕设的指导老师
-     * @param studentID
-     * @return
-     */
-    public Boolean insertChooseTeacher(String studentID) throws SQLException;
-
-    /**
      * 根据学号，获取专业
-     * @param userCode
+     * @param studentNum
      * @return
      * @throws SQLException
      */
-    public String selectMajorIDByStudentNum(String userCode) throws SQLException;
+    public String selectMajorIDByStudentNum(String studentNum) throws SQLException;
 
     /**
      * 查询课题选择界面，表格信息
@@ -65,7 +58,7 @@ public interface ChooseProjectMapper {
     public TeachergredesigntitleDetailVo selectProjectInfoDetail(String teacherTitleID) throws SQLException;
 
     /**
-     * 通过学号，
+     * 通过学生学号，查询学生ID
      * @param studentNum
      * @return
      * @throws SQLException
