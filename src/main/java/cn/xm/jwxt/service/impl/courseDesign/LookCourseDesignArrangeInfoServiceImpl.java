@@ -41,7 +41,7 @@ public class LookCourseDesignArrangeInfoServiceImpl implements LookCourseDesignA
     }
 
     /**
-     * 教师查看详细安排
+     * 教师查看详细安排信息
      *
      * @param courseDesignTeacherArrangeID
      * @return

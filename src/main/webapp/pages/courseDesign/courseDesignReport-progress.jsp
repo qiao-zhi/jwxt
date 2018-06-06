@@ -92,7 +92,7 @@
 				 
 				</select>
             </div>
-            <input type="hidden" id="teacherId" value="${userinfo.userid}"/>
+            <input type="hidden" id="teacherId" value="${id}"/>
             <button type="button" onclick="findStudentReportStatus();" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>

@@ -57,7 +57,7 @@
               courseDesignReportName = #{courseDesignReportName},
               courseDesignReportStore = #{courseDesignReportStore},
               uploadTime = #{uploadTime},
-              uploadStatus = #{uploadStatus}
+              uploadStatus = uploadStatus+1
             WHERE
               courseDesignTeacherStudentID = #{courseDesignTeacherStudentID}
     </update>

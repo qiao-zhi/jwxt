@@ -89,8 +89,9 @@
                     for(var i=0;i<classInfoList.length;i++){
                         $("#classInfo").append(
                            // "<label for='' class='layui-form-label'>&nbsp;&nbsp;"+classInfoList[i].class_name+" ["+classInfoList[i].class_size+"]</label>"
-                            " <input type='button' onclick='showStuList(this);' style='width: 150px;float: left;margin-left: 8px;' name='"+classInfoList[i].class_size+"' value='"+classInfoList[i].class_name+"'  class='layui-input'/>"
+                            " <input type='button' style='width: 150px;float: left;margin-left: 8px;' name='"+classInfoList[i].class_size+"' value='"+classInfoList[i].class_name+"'  class='layui-input'/>"
                         );
+                        showStuList(classInfoList[i].class_size,classInfoList[i].class_name);
                     }
 
                 },
@@ -100,11 +101,10 @@
             })
         }
 
-        function showStuList(obj) {
-            var className = $(obj).val();
-            var stuNum = $(obj).attr("name");
-            //alert(stuNum)
-            //alert(className);
+        function showStuList(stuNum,className) {
+           // var className = $(obj).val();
+           // var stuNum = $(obj).attr("name");
+
             $.ajax({
                 url:contextPath + "/courseWorkLoad/findStuListInfo.do",
                 type:"post",

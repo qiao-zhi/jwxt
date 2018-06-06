@@ -58,7 +58,7 @@
                 </select>
             </div>
             <div  class="layui-input-inline">
-                <input type="hidden" id="userId" value="${userinfo.userid}"/>
+                <input type="hidden" id="userId" value="${id}"/>
             </div>
             <button type="button" onclick="findCourseDesignArrange();" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
@@ -208,8 +208,9 @@
     }
 
     function showDetailInfo(obj) {
-        // 判断是否是教师
-        //****
+        // 学生
+        
+        // 教师
         var courseDesignTeacherArrangeID = $(obj).parent("td").parent("tr").find("td").eq(1).text();
         //alert(courseDesignTeacherArrangeID)
         x_admin_show("详细信息","lookCourseDesignInfoDetail.jsp?courseDesignTeacherArrangeID="+courseDesignTeacherArrangeID);
