@@ -240,7 +240,7 @@ public class UserServiceImpl implements UserService {
         if("教师".equals(userType)){
             TTeacherBaseInfoExample example = new TTeacherBaseInfoExample();
             TTeacherBaseInfoExample.Criteria criteria = example.createCriteria();
-            criteria.andTeacheridEqualTo(user.getUsercode());//根据学生编号查询
+            criteria.andTeachernumEqualTo(user.getUsercode());//根据学生编号查询
             List<TTeacherBaseInfo> tTeacherBaseInfos = tTeacherBaseInfoMapper.selectByExample(example);
             if(tTeacherBaseInfos == null || tTeacherBaseInfos.size() == 0){
                 return "";

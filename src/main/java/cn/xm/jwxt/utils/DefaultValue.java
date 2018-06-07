@@ -31,9 +31,16 @@ public class DefaultValue {
      */
     public static final String COURSE_DEFAULT_FILENAME = "课程信息.xls";
     /**
+
+     *  默认下载课程设计安排的文件名字
+     */
+    public static final String COURSEDESIGNER_ARRANGE_DEFAULT_FILENAME ="课程设计安排信息.xls";
+
+    /*
      * 默认的校外毕设学生下载的文件名字
      */
     public static final String OGDSTUDENTS_DEFAULT_FILENAME = "校外毕设学生信息.xls";
+
     /**
      * 保存状态
      */

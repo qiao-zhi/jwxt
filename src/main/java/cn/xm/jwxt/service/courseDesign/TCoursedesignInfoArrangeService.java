@@ -26,7 +26,7 @@ public interface TCoursedesignInfoArrangeService {
      * @return
      * @throws SQLException
      */
-    public boolean addCourseDesignerinfo(ListVo listVo) throws SQLException;
+    public boolean addCourseDesignerinfo(ListVo listVo,String arrangeTeacher) throws SQLException;
 
 
 

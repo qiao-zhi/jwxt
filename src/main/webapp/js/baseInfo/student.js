@@ -212,6 +212,7 @@ function findCollegeNameAndIdForSelect(form){
     })
 }
 
+
 //导入学生按钮
 function importStudent(){
     var checked = $("[name='studentRadio']:checked").length>0?true:false;
@@ -233,3 +234,81 @@ function studentExport(){
         layer.close(index);
     });
 }
+
+
+/**********************S  QLQ树相关操作****************/
+
+$(function(){
+    getClassTree();
+});
+
+
+/**
+ * 查询树的函数
+ */
+function getClassTree(){
+    $.ajax({
+        url : contextPath + '/classInfo/getClassTree.do',
+        async : true,
+        dataType : 'json',
+        success : geneClassTree,
+        error : function() {
+            alert("查询树失败！！！")
+        }
+    });
+}
+//生成树函数
+
+
+function geneClassTree(classTreeNodes) {
+    var setting = {
+        view : {
+            selectedMulti : false
+        },
+        check : {
+            enable : false
+        },
+        data : {
+            simpleData : {
+                enable : true,
+                idKey : "departNum",
+                pIdKey : "updepartNum",
+                rootPId : "000"
+            },
+            key : {
+                name : "departName",
+            }
+        },
+        callback : {
+            onClick : zTreeOnClick
+        }
+    };
+    $.fn.zTree.init($("#treeDemo"), setting, classTreeNodes);//在界面生成一颗树
+    openFirstTreenode();//打开一级节点
+}
+
+/**
+ * 点击树的事件
+ * @param event 事件
+ * @param treeId    树的ID
+ * @param treeNode  节点
+ */
+
+function zTreeOnClick(event, treeId, treeNode) {
+    alert("您点击的是: "+treeNode.departName+"  "+treeNode.departNum)
+    //点击班级的时候可以添加学生，点击其他的时候不能添加
+}
+
+/**
+ * 展开树节点的第一层
+ */
+function openFirstTreenode(){
+    // 获取树对象
+    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+    /* 获取所有树节点 */
+    var nodes = treeObj.transformToArray(treeObj.getNodes());
+    //展开第一级树
+    treeObj.expandNode(nodes[0], true);
+}
+/**********************E  QLQ树相关操作****************/
+

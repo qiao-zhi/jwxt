@@ -4,9 +4,9 @@ $(function () {
 
 function findNeedUploadFile() {
     // 该数据应该从seesion中获取
-    var studentID = 1;
+    var studentID = $("#studentID").val();
     $.ajax({
-        url:"/jwxt/studentCourseDesignFileInfo/findNeedUploadCourseDesignFile.do",
+        url:contextPath +"/studentCourseDesignFileInfo/findNeedUploadCourseDesignFile.do",
         type:"post",
         data:{"studentID":studentID,"pageNum":$("[name='pageNum']").val(),"pageSize":$("[name='pageSize']").val()},
         dataType:"json",
@@ -22,8 +22,12 @@ function findNeedUploadFile() {
                 var uploadInfo = "";
                 if(list[i].uploadStatus==1){
                     uploadInfo = "已上传";
-                }else{
+                }
+                if(list[i].uploadStatus==0){
                     uploadInfo = "未上传";
+                }
+                if(list[i].uploadStatus>1){
+                    uploadInfo = "已再次上传";
                 }
                 var checkInfo = "";
                 if(list[i].checkStatus==1){
@@ -58,7 +62,7 @@ function findNeedUploadFile() {
             needUploadCourseDesignFile(total,pageNum,pageSize);
         },
         error:function () {
-            alert("加载信息失败！");
+            layer.msg("加载信息失败！");
         }
     });
 }
@@ -94,13 +98,13 @@ function checkCourseDesignFile(obj) {
     var upload =  $(obj).parent("td").parent("tr").find("td:eq(7)").text();
       //  alert(upload)
     if(upload=="未上传"){
-        layer.alert("请选择已上传报告的课设进行查看");
+        layer.msg("请选择已上传报告的课设进行查看");
         return;
     }
     var courseDesignTeacherStudentID = $(obj).parent("td").parent("tr").find("td:eq(2)").text();
     //  alert(courseDesignTeacherStudentID);
     $.ajax({
-        url:"/jwxt/studentCourseDesignFileInfo/checkCourseDesignFile.do",
+        url:contextPath +"/studentCourseDesignFileInfo/checkCourseDesignFile.do",
         type:"post",
         data:{"courseDesignTeacherStudentID":courseDesignTeacherStudentID},
         dataType:"json",
@@ -111,7 +115,7 @@ function checkCourseDesignFile(obj) {
 
         },
         error:function () {
-            layer.alert("加载信息失败")
+            layer.msg("加载信息失败")
         }
     })
 }
@@ -144,12 +148,12 @@ function uoloadCourseDesignFile(){
         if(checkInfo=="未审核"||checkInfo=="审核未通过"){
             x_admin_show('上传课设报告','./courseDesignReport-add.jsp?courseDesignTeacherStudentID='+courseDesignTeacherStudentID+'')
         }else{
-            layer.alert("该课设报告已上传成功！");
+            layer.msg("该课设报告已上传成功！");
         }
 
     }
     else{
-        layer.alert('请选择一门需要上传文件的课设');
+        layer.msg('请选择一门需要上传文件的课设');
     }
     chooseCourse=0;//清空值
 }
@@ -162,16 +166,16 @@ function checkResult(){
             if(checkInfo=="已审核"||checkInfo=="审核未通过"){
                 x_admin_show('查看审核结果','./courseDesign-checkOpinion.jsp?courseDesignTeacherStudentID='+courseDesignTeacherStudentID+'')
             }else{
-                layer.alert("正在审核中")
+                layer.msg("正在审核中")
             }
 
         }
         else{
-            layer.alert('每次只可查看一门课设的审核信息')
+            layer.msg('每次只可查看一门课设的审核信息')
         }
     }
     else{
-        layer.alert('请先选择需要查看审核结果的课设');
+        layer.msg('请先选择需要查看审核结果的课设');
     }
     chooseCourse=0;//清空值
 }

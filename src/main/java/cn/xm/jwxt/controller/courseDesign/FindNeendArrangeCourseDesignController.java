@@ -77,7 +77,7 @@ public class FindNeendArrangeCourseDesignController {
             pageNum = Integer.valueOf((String)condition.get("pageNum"));
         }
         //只对紧邻的下一条select语句进行分页查询，对之后的select不起作用
-        PageHelper.startPage(pageNum,pageSize,"trainingSchemeID"); //CONVERT(courseNameCN USING gbk)
+        PageHelper.startPage(pageNum,pageSize); //CONVERT(courseNameCN USING gbk)
         // 查询需要安排的课设
         List<Map<String,Object>> courseDesignList = new ArrayList<Map<String,Object>>();
         try {

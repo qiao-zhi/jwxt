@@ -1,4 +1,3 @@
-var userID=1;
 /*页面加载查询申请的详细信息*/
 $(function(){
     var assignmentID = getAddressParameter("id");
@@ -15,6 +14,11 @@ $(function(){
             data:{"assignmentID":assignmentID},
             dataType:"json",
             success:function(result){
+                var isCommit = result.isok;
+                if(isCommit=="01"||isCommit=="21"){
+                    $(".saveAndCommit").css("display","none");
+                    $(".studentSign").css("display","none");
+                }
                 //alert( JSON.stringify(result));
                 $("#collegename").html(result.outsidegradesignagreemen.collegename);
                 $("#studentname").val(result.gradesignleaveapply.studentname);

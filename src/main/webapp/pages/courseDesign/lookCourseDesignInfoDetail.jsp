@@ -63,52 +63,49 @@
     </style>
 
     <script type="text/javascript">
-        var teacherTitleID;
+        var courseDesignTeacherArrangeID;
         $(function () {
             <%
-                String teacherTitleID = request.getParameter("teacherTitleID");
+                String courseDesignTeacherArrangeID = request.getParameter("courseDesignTeacherArrangeID");
             %>
-            teacherTitleID = "<%=teacherTitleID%>";
+            courseDesignTeacherArrangeID = "<%=courseDesignTeacherArrangeID%>";
 
             showDetailInfo();
         })
 
         function showDetailInfo() {
             $.ajax({
-                url:contextPath + "/grduateDesignWorkLoad/findGrduateDesignWorkLoadDetail.do",
+                url:contextPath +"/lookCourseDesignArrange/findCourseDesignDetailInfo.do",
                 type:"post",
-                data:{"teacherTitleID":teacherTitleID},
+                data:{"courseDesignTeacherArrangeID":courseDesignTeacherArrangeID},
                 dataType:"json",
                 success:function (mapInfo) {
-                    $("#courseDesignName").html(mapInfo.graduateDesignName);
-                  //  $("#courseDesignNum").html(mapInfo.course_code); // 毕设编号
+                    $("#courseDesignName").html(mapInfo.courseDesignName);
+                    $("#courseDesignNum").html(mapInfo.courseDesignNum);
                     $("#teacherName").html(mapInfo.teacherName);
                     $("#teacherNum").html(mapInfo.teacherNum);
-                    $("#startTime").html(mapInfo.yearNum);
-                    $("#endTime").html(mapInfo.semesterNum);
+                    $("#yearNum").html(mapInfo.yearNum);
+                    $("#semester").html(mapInfo.semester);
+                    $("#startTime").html("第"+mapInfo.startTime+"周");
+                    $("#endTime").html("第"+mapInfo.endTime+"周");
+                    $("#classNames").val(mapInfo.classNames);
 
-                    var stuList = mapInfo.stuList;
+                    var stuList = mapInfo.stuList;  // 学生信息list
+                    //alert(stuList[0].studentName)
                     for(var i=0;i<stuList.length;i++){
-                        var index = i+1;
                         $("#stuDiv").append(
-                       //  "<input type=''   style='font-size: 14px;width: 575px;padding-left: 25px;' value='"+stuList[i].finallyName+"&nbsp;:&nbsp;"+stuList[i].studentName+"&nbsp;-&nbsp;"+stuList[i].studentNum+"&nbsp;-&nbsp;"+stuList[i].className+"' class='layui-input'>"
-                            "<tr>" +
-                                "<td>"+index+"</td>" +
-                                "<td>"+stuList[i].studentName+"</td>" +
-                                "<td>"+stuList[i].studentNum+"</td>" +
-                                "<td>"+stuList[i].finallyName+"</td>"+
-                                "<td>"+stuList[i].className+"</td>"+
-                            "</tr>"
+                            //    "<input type='checkbox' name='' title='"+stuList[i].studentName+"' checked='checked'  >"
+                            "<div class='layui-unselect layui-form-checkbox layui-form-checked' lay-skin=''>" +
+                            "<a style='display: none;'>"+stuList[i].studentID+"</a>" +
+                            "<span>"+stuList[i].studentName+"</span><i class='layui-icon'></i></div>"
                         );
                     }
-
                 },
                 error:function () {
                     layer.msg("详细信息加载失败")
                 }
             })
         }
-
 
     </script>
 
@@ -131,48 +128,40 @@
         </tr>
         <tr>
             <td>学年</td>
-            <td id="startTime"></td>
+            <td id="yearNum"></td>
             <td>学期</td>
+            <td id="semester"></td>
+        </tr>
+        <tr>
+            <td>开始时间</td>
+            <td id="startTime"></td>
+            <td>结束时间</td>
             <td id="endTime"></td>
         </tr>
     </table>
     <form class="layui-form layui-form-pane">
 
-        <%--<div class="layui-form-item">--%>
-        <%--<label for="" class="layui-form-label">--%>
-            <%--所带班级--%>
-        <%--</label>--%>
-        <%--<div class="layui-input-inline"  id="classInfo">--%>
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+                所带班级
+            </label>
+            <div class="layui-input-inline">
 
-            <%--&lt;%&ndash;<input type="" id="classNames" name="" required="" lay-verify="required" disabled  style="width: 575px;" value=""&ndash;%&gt;--%>
-            <%--&lt;%&ndash;autocomplete="off" class="layui-input">&ndash;%&gt;--%>
-        <%--</div>--%>
-    <%--</div>--%>
+                <input type="" id="classNames" name="" required="" lay-verify="required" disabled  style="width: 575px;" value=""
+                       autocomplete="off" class="layui-input">
+            </div>
 
+
+        </div>
 
         <div class="layui-form-item">
-            <%--<div>--%>
-            <%--<label for="" class="layui-form-label">--%>
-            <%--学生列表--%>
-            <%--</label>--%>
-            <%--</div>--%>
+            <label for="" class="layui-form-label">
+                学生列表
+            </label>
+            <div class="layui-input-block" id="stuDiv">
+                <%--<input type="checkbox" name="" title="张三" checked="" >--%>
 
-                <table>
-                    <table class="layui-table" style="width: 685px;">
-                        <thead>
-                        <tr>
-                            <th style="width:9%;">序号</th>
-                            <th>学生姓名</th>
-                            <th>学生学号</th>
-                            <th>毕设题目</th>
-                            <th>班级</th>
-                        </tr>
-                        </thead>
-                        <tbody id="stuDiv">
-
-                        </tbody>
-                </table>
-
+            </div>
 
         </div>
 
