@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>教师管理</title>
+    <title>学生管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -27,10 +27,10 @@
 
     <div class="layui-form-item">
         <label for="" class="layui-form-label">
-            教师信息文件
+            学生信息文件
         </label>
         <div class="layui-input-inline">
-            <input  id="uploadTeacher" required="" lay-verify="required"
+            <input  id="uploadStudent" required="" lay-verify="required"
                     autocomplete="off" class="layui-input">
             <%--隐藏索引--%>
             <input type="hidden" id="hidden_index"/>
@@ -43,7 +43,7 @@
     <div class="layui-form-item">
         <label for="" class="layui-form-label">
         </label>
-        <button type="button" class="layui-btn" id="uploadTeacherFile">上传文件</button>
+        <button type="button" class="layui-btn" id="uploadStudentFile">上传文件</button>
     </div>
 </div>
 
@@ -54,17 +54,16 @@
 
         //选完文件后不自动上传
         upload.render({
-            elem: '#uploadTeacher',//对哪个元素进性格式化选择文件
-            url: contextPath+'/teacherInfo/addTeacherInfoList.action',//上传的url
+            elem: '#uploadStudent',//对哪个元素进性格式化选择文件
+            url: contextPath+'/studentInfo/addStudentInfoList.action',//上传的url
             auto: false,//是否自动上传
             accept: 'file', //普通文件,
             multiple:false,//支持多文件上传
             exts: 'xls', //只允许上传xls文件
             //filed:"noticeBookFile",//设定文件域的字段名
-            bindAction: '#uploadTeacherFile',//绑定到哪个按钮进行提交(提交按钮进行提交)
+            bindAction: '#uploadStudentFile',//绑定到哪个按钮进行提交(提交按钮进行提交)
             data:{//另外携带的数据
-                collegeId: '${param.collegeId}',//携带学院编号
-                majorId: '${param.majorId}',//携带专业编号
+                classId: '${param.classId}',//携带班级编号
             },
             choose:function (obj,file) {//选中文件执行的操作
                 //将每次选择的文件追加到文件队列
@@ -72,11 +71,11 @@
                 var file = this.files ; //获取到选择的文件
                 obj.preview(function(index, file, result){
                     // alert(file.name+file.size)//获取文件的名字和大小
-                    $("#uploadTeacher").val(file.name+"("+(file.size/1024)+"kb)")
+                    $("#uploadStudent").val(file.name+"("+(file.size/1024)+"kb)")
                 });
             },
             before:function (obj) {//文件上传前
-                $("#uploadTeacherFile").addClass("layui-btn-disabled");//设置按钮不可以点击(增加layui的禁用按钮属性)
+                $("#uploadStudentFile").addClass("layui-btn-disabled");//设置按钮不可以点击(增加layui的禁用按钮属性)
                 var index = layer.load(); //开始上传之后打开load层
                 $("#hidden_index").val(index);//隐藏到页面中
             },

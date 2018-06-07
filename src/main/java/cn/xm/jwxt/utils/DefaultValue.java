@@ -58,4 +58,18 @@ public class DefaultValue {
      * 默认的排课任务导出的Excel文件名称
      */
     public static final String ARRANGE_COURSE_FILENAME = "排课信息.xls";
+
+    /**
+     * 默认的教师导出的Excel文件名称
+     */
+    public static final String TEACHER_FILENAME = "教师信息.xls";
+
+    /**
+     * 默认的学生导出的Excel文件名称
+     */
+        public static final String STUDENT_FILENAME = "学生信息.xls";
+
+
+
+
 }

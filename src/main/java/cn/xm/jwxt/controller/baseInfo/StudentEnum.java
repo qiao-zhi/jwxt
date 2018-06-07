@@ -11,22 +11,12 @@ public enum StudentEnum {
     //学生姓名
     STUDENT_SEX(2),
     //学生性别
-    GRADE(3),
-    //年级
-    CLASS_NAME(4),
-    //班级名称
-    MAJOR_NAME(5),
-    //专业名称
-    COLLEGE_NAME(6),
-    //学院名称
-    IDNUM(7),
+    IDNUM(3),
     //身份证号
-    JOINSCHOOL_TINE(8),
+    ENROLLMENTTIME(4),
     //入学时间
-    END_TIME(9),
+    END_TIME(5);
     //毕业时间
-    IS_GRADUATE(10);
-    //是否毕业
     private int index;
     StudentEnum(int index){
         this.index = index;

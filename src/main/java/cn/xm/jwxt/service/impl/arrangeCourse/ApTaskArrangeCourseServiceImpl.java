@@ -30,7 +30,9 @@ import java.util.Map;
  */
 @Service
 @Transactional
-public class ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseService {
+public class
+
+ApTaskArrangeCourseServiceImpl implements ApTaskArrangeCourseService {
     @Resource
     private ApTaskArrangeCourseCustomMapper taskArrangeCourseCustomMapper;
     @Resource

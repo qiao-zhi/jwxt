@@ -114,8 +114,8 @@
     <xblock>
         <button class="layui-btn" onclick="x_admin_show('添加学生','./student-add.jsp')">添加学生 </button>
         <button class="layui-btn" onclick="x_admin_show('统计','./student-statistic.jsp')">统计 </button>
-        <button class="layui-btn layui-btn-normal" onclick="">导入数据 </button>
-        <button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>
+        <button class="layui-btn layui-btn-normal" onclick="importStudent()">导入数据 </button>
+        <button class="layui-btn layui-btn-normal" onclick="studentExport()">导出数据 </button>
     </xblock>
     <!--end 操作区域-->
 
@@ -127,6 +127,7 @@
                 <%--<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">--%>
                     <%--&#xe605;</i></div>--%>
             <%--</th>--%>
+                <th> </th>
             <th>学号</th>
             <th>姓名</th>
             <th>性别</th>
