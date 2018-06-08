@@ -653,7 +653,7 @@ function updateHistoryTextbookInfo() {
                                             //alert(response[0].orderid)
                                             updateOrderStatus(response[0].orderid);
                                         },
-                                        'json'
+                                       'json'
                                     )
                                     //订购成功之后关闭当前弹出层并且重新执行一次查询
                                     window.parent.location.reload();//刷新父窗口
@@ -792,8 +792,8 @@ function showHistoryTextbookOrder(pageInfo,object) {
             + '</td>'
             + '<td>' + replaceNull(historyTextbookOrder[i].publishingHouse)+ '</td>'
             + '<td>' + replaceNull(historyTextbookOrder[i].isbn)+ '</td>'
-            + '<td>' + replaceNull(historyTextbookOrder[i].price)+ '</td>'
-            + '<td>' + replaceNull(historyTextbookOrder[i].orderNum)+ '</td>'
+            + '<td>' + historyTextbookOrder[i].price+ '</td>'
+            + '<td>' + historyTextbookOrder[i].orderNum+ '</td>'
             + '</tr>'
         $("#historyTextbookOrderTbody").append(tr);
     }

@@ -29,7 +29,9 @@ function showTextbookOrderInfo(pageInfo) {
         var tr = '<tr>'
             +'<td>'+'<input type="radio" name="orderIdRadio" value="'+textbookOrders[i].orderid+'">'//隐藏主键到复选按钮中
             + '</td>'
-            + '<td>' + index+ '</td>'
+            + '<td>' + index
+            +'<input type="hidden" name="orderStatus" value="'+textbookOrders[i].isorder+'">'
+            + '</td>'
             + '<td>' + textbookOrders[i].roomname + '</td>'//实体类属性名
             + '<td>' + textbookOrders[i].yearnum + '</td>'
             + '<td>' + (textbookOrders[i].semester==1?"第一学期":"第二学期") + '</td>'
@@ -101,6 +103,10 @@ function checkOrder(){
     }
     if(($(checked_radio).parents("tr").children("td").eq(7).children("input").val()=='1')&&($(checked_radio).parents("tr").children("td").eq(8).children("input").val()=='1')){
         layer.msg("订单已审核，请勿重复审核")
+        return;
+    }
+    if($(checked_radio).parents("tr").children("td").eq(1).children("input").val()=='0'){
+        layer.msg("该总订单还未订购完成，无法审核")
         return;
     }
     //判断是否全部确认
