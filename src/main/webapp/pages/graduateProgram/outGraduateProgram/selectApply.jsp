@@ -20,10 +20,7 @@
     <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/selectApply.js"></script>
-    <script>
-        var userID = ${id};  //获取当前用户ID
-        var userName = ${userInfo.username};
-    </script>
+
     <%--3       Bzy      --%>
     <style>
         .y_files{
@@ -33,7 +30,8 @@
     </style>
 
 </head>
-
+<input type="hidden" value="${id}" id="userID"/>
+<input type="hidden" value="${userInfo.username}" id="userName"/>
 <body>
 <!--面包屑-->
 <div class="x-nav">
@@ -84,7 +82,7 @@
                         <option value="系主任">系主任</option>
                     </shiro:hasPermission>
 
-                    <shiro:hasPermission name="yuanzhang:per">
+                    <shiro:hasPermission name="inChargeOfDean:dean">
                         <option value="主管院长">主管院长</option>
                     </shiro:hasPermission>
                 </select>
@@ -163,7 +161,7 @@
 //            console.log(data.othis); //得到美化后的DOM对象
             if(data.value=="指导教师"){
                 $("#inteachername").css("display","");
-                $("#inteachername").val(userName);
+                $("#inteachername").val("${userinfo.username}");
             }
             else{
                 $("#inteachername").css("display","none").val("");

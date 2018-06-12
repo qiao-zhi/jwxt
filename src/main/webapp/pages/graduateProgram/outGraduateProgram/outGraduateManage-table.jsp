@@ -547,7 +547,7 @@
 							<td colspan="2">
 								<div style="height: 50px;">
 									<img src="../../../images/info.jpg" width="160px" height="50px" class="url"/>
-									<%----%><button type="button" class="layui-btn"  style="float: right;">签名</button>
+									<%--<button type="button" class="layui-btn"  style="float: right;">签名</button>--%>
 								</div>
 								<hr />
 								<input type="datetime"  readonly  class="form-control applydate">

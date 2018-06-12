@@ -12,16 +12,10 @@
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
     <%--s   bzy--%>
-    <script>
-        //获取全局变量
-        var userID = ${id};   //获取当前学生用户ID
-
-    </script>
     <%@include file="/tag.jsp"%>
     <script typr="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script typr="text/javascript" src="../../../js/outsideGraduateDesiner/apply.js"></script>
     <%--E   bzy--%>
-
 
     <style>
         tbody tr td:nth-child(3){
@@ -33,6 +27,7 @@
 </head>
 
 <body>
+<input type="hidden" value="${id}" id="userID"/>
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -256,7 +251,7 @@
             dataType:"text",
             success:function(result){
                 layer.msg(result);
-                window.loadFile();
+                window.loadFile("${id}");
             },
             error:function(){
                 layer.msg("请求失败");

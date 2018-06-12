@@ -61,6 +61,7 @@ $(function(){
 });
 function studentSign() {
     var assignmentID = getAddressParameter("id");
+    var userId = $("#userID").val();
     layer.prompt({
         formType: 1,
         value: '',
@@ -71,7 +72,7 @@ function studentSign() {
         $.ajax({
             url:contextPath+"/assignment/studentSign.do",
             type:"post",
-            data:{"userID":userID,
+            data:{"userID":userId,
                 "signPassword":value,
                 "assignmentID":assignmentID
             },

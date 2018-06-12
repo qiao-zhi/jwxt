@@ -39,7 +39,7 @@
             datatype:"text",
             success:function(result){
                 layer.msg(result);
-                window.parent.loadFile();
+                window.parent.loadFile("${id}");
                 $("#applyDate").val(Format(new Date(),"yyyy-MM-dd"));
             },
             error:function(){
@@ -61,7 +61,7 @@
                     //alert(result);
                     $(".saveAndCommit").css("display","none");
                     layer.msg(result);
-                    window.parent.loadFile();
+                    window.parent.loadFile("${id}");
                 },
                 error:function(){
                     alert("出错！！！");
@@ -108,8 +108,8 @@
             </caption>
             <tbody>
             <tr>
-                <td rowspan="8">课程情况</td>
-                <td>课程名称</td>
+                <td rowspan="8">课题情况</td>
+                <td>课题名称</td>
                 <td colspan="6">
                     <input   type="text" id="outgradesignapplyid" name="outgradesignapplyid" style="display: none">
                     <input  class="form-control" type="text" id="courseName" name="coursename">

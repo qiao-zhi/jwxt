@@ -18,8 +18,11 @@ $(function(){
                     $(".studentSign").css("display","none");
                 }
                 //alert(JSON.stringify(result));
-                $("#studentUrl").attr("src",result.studentsignurl);
-                $("#studentApplyTime").val(Format(new Date(result.signtime),'yyyy-MM-dd'));
+                if(result.studentsignurl!=null&&result.studentsignurl!=""){
+                    $("#stusignUrl").attr("src",result.studentsignurl);
+                    $("#studentApplyTime").val(Format(new Date(result.signtime),'yyyy-MM-dd'));
+                }
+
             },
             error:function () {
                 layer.msg('查询信息出错',{time:2000}, function(){
@@ -33,6 +36,7 @@ $(function(){
 /*学生签名*/
 function studentSign() {
     var sureBookId = getAddressParameter("id");
+    var userId = $("#userID").val();
     //alert(aggreementID);
     layer.prompt({
         formType: 1,
@@ -44,7 +48,7 @@ function studentSign() {
         $.ajax({
             url:contextPath+"/oGDAttachment/studentSign.do",
             type:"post",
-            data:{"userID":userID,
+            data:{"userID":userId,
                 "signPassword":value,
                 "sureBookId":sureBookId
             },

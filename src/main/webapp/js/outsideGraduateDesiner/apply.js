@@ -1,9 +1,10 @@
 /*页面加载查询学生校外毕设信息得提交情况*/
 $(function(){
-    loadFile(userID);
+    var userId = $("#userID").val();
+    loadFile(userId);
 });
 
-function loadFile(userID){
+function loadFile(userId){
     layui.use(['layer','form'], function(){
         var layer = layui.layer;
         var form = layui.form;
@@ -11,7 +12,7 @@ function loadFile(userID){
         $.ajax({
             url:contextPath+"/outGraduateDesiner/loadApplyFile.do",
             type:"post",
-            data:{"userID":userID},
+            data:{"userID":userId},
             dataType:"json",
             success:function (result) {
                 var success = result.success;

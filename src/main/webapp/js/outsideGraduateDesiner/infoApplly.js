@@ -1,5 +1,4 @@
 /*页面加载查询申请的详细信息*/
-
 $(function(){
     var outsideApplyID = getAddressParameter("id");
     layui.use(['layer','form'], function(){
@@ -61,6 +60,7 @@ $(function(){
 
 //上传签名
 function studentSign() {
+    var userId = $("#userID").val();
     var outsideApplyID = getAddressParameter("id");
     layer.prompt({
         formType: 1,
@@ -72,7 +72,7 @@ function studentSign() {
         $.ajax({
             url:contextPath+"/baseInfo/studentSign.do",
             type:"post",
-            data:{"userID":userID,
+            data:{"userID":userId,
                 "signPassword":value,
                 "outsideApplyID":outsideApplyID
             },
