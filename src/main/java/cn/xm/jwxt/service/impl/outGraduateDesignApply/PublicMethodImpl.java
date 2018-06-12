@@ -2,6 +2,7 @@ package cn.xm.jwxt.service.impl.outGraduateDesignApply;
 
 
 import cn.xm.jwxt.bean.baseInfo.Signinfo;
+import cn.xm.jwxt.bean.baseInfo.SigninfoExample;
 import cn.xm.jwxt.bean.outGraduateDesignApply.*;
 import cn.xm.jwxt.mapper.baseInfo.SigninfoMapper;
 import cn.xm.jwxt.mapper.outGraduateDesignApply.*;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -40,7 +42,14 @@ public class PublicMethodImpl implements PublicMethod{
     @Override
     public Map<String,Object> sureStudentSign(String userID, String signPassword) throws SQLException {
         Map<String,Object> map = new HashMap<String,Object>();
-        Signinfo signInfo = signinfoMapper.selectByPrimaryKey(userID);
+        SigninfoExample ex = new SigninfoExample();
+        SigninfoExample.Criteria criteria = ex.createCriteria();
+        criteria.andSignerIdEqualTo(userID);
+        List<Signinfo> lists = signinfoMapper.selectByExample(ex);
+        Signinfo signInfo = null;
+        if(lists.size()!=0){
+            signInfo = lists.get(0);
+        }
         if(signInfo!=null){
             String password = signInfo.getSignpassword();
             if(signPassword.equals(password)){

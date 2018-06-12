@@ -29,6 +29,7 @@
 </head>
 
 <body>
+<input type="hidden" value="${id}" id="userID"/>
 <div class="x-body" style="margin:20px auto 50px auto; width:90%;">
     <button class="btn-primary btn saveAndCommit" onclick="basicSave()">保存</button>
     <button class="btn-primary btn saveAndCommit" onclick="basicCommit()">提交</button>
@@ -63,7 +64,7 @@
                         $(".saveAndCommit").css("display","none");
                         $(".studentSign").css("display","none");
                         layer.msg(result);
-                        window.parent.loadFile();
+                        window.parent.loadFile("${id}");
                     },
                     error:function(){
                         alert("出错！！！");

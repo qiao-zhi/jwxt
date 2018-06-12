@@ -20,13 +20,12 @@
     <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/surebook.js"></script>
-    <script>
-        var userID = ${id};
-    </script>
+
     <%--e      bzy--%>
 </head>
 
 <body>
+<input type="hidden" value="${id}" id="userID" />
 <div class="x-body" style="margin:20px auto 50px auto; width:90%;">
     <button class="btn-primary btn saveAndCommit" onclick="basicSave()">保存</button>
     <button class="btn-primary btn saveAndCommit" onclick="basicCommit()">提交</button>
@@ -64,7 +63,7 @@
                         <input onclick="studentSign()" value="签名" type="button" class="layui-btn studentSign" id="test1" ></input>
                     </div>
                     <hr />
-                    <input type="datetime" id="studentApplyTime" placeholder="2018-04-25" class="form-control">
+                    <input type="datetime" readonly id="studentApplyTime" class="form-control">
                     <!--<textarea name="" cols="100" rows="3" class="form-control"></textarea>-->
                 </td>
 
@@ -94,7 +93,7 @@
                     $(".saveAndCommit").css("display","none");
                     $(".studentSign").css("display","none");
                     layer.msg(result);
-                    window.parent.loadFile();
+                    window.parent.loadFile(${id});
                 },
                 error:function(){
                     alert("出错！！！");

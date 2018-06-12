@@ -48,6 +48,7 @@ $(function(){
 /*学生签名*/
 function studentSign() {
     var aggreementID = getAddressParameter("id");
+    var userId = $("#userID").val();
     //alert(aggreementID);
     layer.prompt({
         formType: 1,
@@ -59,7 +60,7 @@ function studentSign() {
         $.ajax({
             url:contextPath+"/aggreement/studentSign.do",
             type:"post",
-            data:{"userID":userID,
+            data:{"userID":userId,
                 "signPassword":value,
                 "aggreementID":aggreementID
             },
@@ -67,7 +68,8 @@ function studentSign() {
             success: function(result){
                 var status = result.status;
                 if(status==1){
-                    $("#stusignurl").attr("src",result.signUrl);
+                    //alert(result.signUrl);
+                    $("#stusignUrl").attr("src",result.signUrl);
                     $("#stuapplydate").val(Format(new Date(),"yyyy-MM-dd"));
                     layer.close(index);
                 }

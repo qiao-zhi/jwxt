@@ -159,7 +159,7 @@
             dataType:"text",
             success:function(result){
                 layer.msg(result);
-                window.parent.loadFile();
+                window.parent.loadFile("${id}");
             },
             error:function () {
                 alert("提交失败！！！");

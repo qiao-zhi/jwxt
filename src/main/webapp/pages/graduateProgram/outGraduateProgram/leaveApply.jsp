@@ -70,7 +70,7 @@
                     success:function(result){
                         $(".saveAndCommit").css("display","none");
                         layer.msg(result);
-                        window.parent.loadFile();
+                        window.parent.loadFile("${id}");
                     },
                     error:function(){
                         alert("出错！！！");

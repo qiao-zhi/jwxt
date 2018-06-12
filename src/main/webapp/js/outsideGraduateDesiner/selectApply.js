@@ -15,6 +15,7 @@ function loadStudentApplyInfo(){
     var checkStatus = $("#checkStatus").val();
     var identity = $("#identity").val();
     var name = $("#inteachername").val();
+    var userId = $("#userID").val();
 
     layui.use(['layer','form'], function(){
         var layer = layui.layer;
@@ -22,7 +23,7 @@ function loadStudentApplyInfo(){
         $.ajax({
             url:contextPath+"/selectOGDApply/allApplyStudent.do",
             type:"post",
-            data:{"userID":userID,"stadyYear":stadyYear,"major":major,"identity":identity,"name":name,
+            data:{"userID":userId,"stadyYear":stadyYear,"major":major,"identity":identity,"name":name,
                 "studentNum":studentNum,"checkStatus":checkStatus,"pagenum":$("[name='pageNum']").val(),"pagesize":$("[name='pageSize']").val()},
             dataType:"json",
             success:function(pageInfo){
@@ -163,6 +164,7 @@ function sign(obj){
     var attachmentID = $tr.data("attachmentID");
     var sureID = $tr.data("sureID");
     var assignmentID = $tr.data("assignmentID");
+    var userId = $("#userID").val();
 
     //获取当前用户所选取的身份
     var identity = $("#identity").val();
@@ -171,7 +173,7 @@ function sign(obj){
     /*隐藏id*/
     $("#hidden_identify").val(identity);
     $("#hidden_name").val(name);
-    $("#hidden_userId").val(userID);
+    $("#hidden_userId").val(userId);
     $("#hidden_outsideApplyId").val(outsideApplyId);
     $("#hidden_leaveID").val(leaveID);
     $("#hidden_titleID").val(titleID);
