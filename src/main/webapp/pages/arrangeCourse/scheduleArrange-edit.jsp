@@ -24,7 +24,10 @@
     </style>
     <script>
         //定义全局变量
-        var arrangeCourseId_all = '${param.arrangeCourseId}'
+        var arrangeCourseId_all = '${param.arrangeCourseId}';
+        //教师编号
+        var teacherNum_all = '${userinfo.usercode}';
+        var collegeId_all;
     </script>
     <%--公共标签--%>
     <%@include file="/tag.jsp"%>

@@ -124,11 +124,11 @@ function closeOther() {
 }
 
 //初始化在职教师下拉框
-function findTeacherBaseInfoForSelect(form){
+function findTeacherBaseInfoForSelect(form,collegeId_all){
     $.ajax({
         url:contextPath+"/arrangeCourse/findTeacherBaseInfo.action",
         dataType:"json",
-        data:{"academicId":"jisuanjikexueyujishuxueyuan"},
+        data:{"academicId":collegeId_all},
         type:"post",
         success:function (response) {
             var optionStr = "<option value=''>请输入教师姓名</option>";
@@ -176,6 +176,20 @@ function changeTaskStatus(arrangeTaskId,status){
                 //实现父页面的刷新
                 window.location.reload();
             })
+        }
+    })
+}
+
+//获取学院ID
+function getCollegeId(){
+    $.ajax({
+        url:contextPath+"/arrangeCourse/getCollegeIdByNum.action",
+        data:{"teacherNum":teacherNum_all},
+        type:"POST",
+        async:false,
+        datatype:"text",
+        success:function(response){
+            collegeId_all = response;
         }
     })
 }

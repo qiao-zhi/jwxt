@@ -82,4 +82,12 @@ public interface ApTeacherCourseService {
      * @throws Exception
      */
     PageInfo<CollegeTeacherArrangeCourseInfo> findCollegeTeacherArrangeCourseInfoList(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception;
+
+    /**
+     * 根据教师编号查询教师信息
+     * @param teacherNumber
+     * @return
+     * @throws Exception
+     */
+    TTeacherBaseInfo getTeacherInfoByNum(String teacherNumber) throws Exception;
 }

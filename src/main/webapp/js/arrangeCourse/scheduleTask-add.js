@@ -7,6 +7,8 @@ layui.use(['form', 'layer'], function () {
     $ = layui.jquery;
     var form = layui.form
         , layer = layui.layer;
+    //获取学院ID
+    getCollegeId();
     //初始化时间
     getNowTime();
     //初始化教学任务通知书下拉框
@@ -111,7 +113,7 @@ function findReceiptInfoForSelect(form){
     $.ajax({
         url:contextPath+"/arrangeCourse/findTeacherBaseInfo.action",
         dataType:"json",
-        data:{"academicId":"jisuanjikexueyujishuxueyuan"},
+        data:{"academicId":collegeId_all},
         type:"post",
         success:function (response) {
             var optionStr = "<option value=''>请输入教师姓名</option>";

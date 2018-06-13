@@ -199,4 +199,22 @@ public class ApTeacherCourseServiceImpl implements ApTeacherCourseService {
         PageInfo<CollegeTeacherArrangeCourseInfo> pageInfo = new PageInfo<>(listInfo);
         return pageInfo;
     }
+
+    /**
+     * 根据教师编号查询教师信息
+     * @param teacherNumber
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public TTeacherBaseInfo getTeacherInfoByNum(String teacherNumber) throws Exception {
+        TTeacherBaseInfoExample baseInfoExample = new TTeacherBaseInfoExample();
+        TTeacherBaseInfoExample.Criteria baseInfoCriteria = baseInfoExample.createCriteria();
+        baseInfoCriteria.andTeachernumEqualTo(teacherNumber);
+        List<TTeacherBaseInfo> tTeacherBaseInfos = teacherBaseInfoMapper.selectByExample(baseInfoExample);
+        if(tTeacherBaseInfos.size()>0){
+            return tTeacherBaseInfos.get(0);
+        }
+        return null;
+    }
 }
