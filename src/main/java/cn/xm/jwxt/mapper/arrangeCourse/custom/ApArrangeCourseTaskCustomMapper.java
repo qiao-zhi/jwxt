@@ -1,10 +1,8 @@
 package cn.xm.jwxt.mapper.arrangeCourse.custom;
 
-import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApArrangeCourseTaskCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.jdbc.SQL;
-
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +56,6 @@ public interface ApArrangeCourseTaskCustomMapper {
      * @return
      * @throws SQLException
      */
-    List<ApArrangeCourseTask> findArrangeCourseTaskByContion(CommonQueryVo condition) throws SQLException;
+    List<ApArrangeCourseTaskCustom> findArrangeCourseTaskByContion(CommonQueryVo condition) throws SQLException;
 }
 

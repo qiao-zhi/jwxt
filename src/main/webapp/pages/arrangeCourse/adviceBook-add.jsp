@@ -43,13 +43,9 @@
             </label>
             <div class="layui-input-inline">
                 <select name="academicId" lay-filter="academic">
-                    <option value="1">计算机科学与技术学院</option>
-                    <option value="2">机械学院</option>
-                    <option value="3">法学院</option>
-                    <option value="4">经济管理学院</option>
                 </select>
                 <%--隐藏学院名称--%>
-                <input type="hidden" name="academicName" value="计算机科学与技术学院"/>
+                <input type="hidden" name="academicName"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
@@ -93,9 +89,9 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text"  name="createrName"  lay-verify="required"
-                     value="正陈宫"  autocomplete="off" class="layui-input">
+                     value="${userinfo.username}" readonly autocomplete="off" class="layui-input">
                 <%--隐藏创建人ID--%>
-                <input type="hidden" value="asdfwiefjiwenxhuwe" name="createrId"/>
+                <input type="hidden" value="${userinfo.usercode}" name="createrId"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
@@ -129,6 +125,8 @@
         $ = layui.jquery;
         var form = layui.form;
         getNowTime();
+        //初始化学院下拉框
+        findCollegeNameAndId(form);
         //监听学院下拉框事件
         form.on('select(academic)',function (data) {
             //获取学院的option对象
@@ -155,6 +153,30 @@
         });
      });
 
+    //初始化学院下拉框
+    function findCollegeNameAndId(form){
+        $.ajax({
+            url:contextPath+"/arrangeCourse/findAllCollegeInfo.action",
+            dataType:"json",
+            type:"post",
+            success:function (response) {
+                //console.log(response);
+                var optionStr = "";
+                for(var i=0;i<response.length;i++){
+                    if(i==0){
+                        //设置默认选中第一条  value值设置编号，标签中间设置给用户显示的信息
+                        optionStr = "<option value='" + response[i].collegeId+"' selected>"+response[i].collegeName+"</option>";
+                        $("input[name='academicName']").val(response[i].collegeName);
+                    } else{
+                        optionStr = "<option value='"+response[i].collegeId+" ' >"+response[i].collegeName+"</option>";
+                    }
+                    $("select[name='academicId']").append(optionStr)
+                }
+                //更新渲染
+                form.render('select');
+            }
+        })
+    }
 </script>
 
 </body>

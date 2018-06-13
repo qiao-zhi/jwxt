@@ -75,4 +75,11 @@ public interface ApTaskNoticeBaseInfoService {
      * @throws Exception
      */
     List<Map<String,Object>> findNoticeNameAndId() throws Exception;
+
+    /**
+     * 查询学院的名称、ID和编号
+     * @return
+     * @throws Exception
+     */
+    List<Map<String,Object>> findAllCollegeInfo() throws  Exception;
 }

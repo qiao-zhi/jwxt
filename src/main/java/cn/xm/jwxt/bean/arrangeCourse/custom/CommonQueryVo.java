@@ -23,6 +23,16 @@ public class CommonQueryVo {
     private String term;
     //排课任务状态
     private List<String> taskStatus;
+    //用户编号
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public Integer getCurrentPage() {
         return currentPage;

@@ -53,10 +53,10 @@ function showArrangeCourseTaskInfo(pageInfo){
             +arrangeCourseTaskList[i].noticeBookName+"</td><td>"
             +arrangeCourseTaskList[i].majorName+"</td><td>"
             +arrangeCourseTaskList[i].academicYear+"</td><td>"
-            +(arrangeCourseTaskList[i].term>1?'第二学期':'第一学期')+"</td><td>"
+            +termStatusReplace(arrangeCourseTaskList[i].term)+"</td><td>"
             +arrangeCourseTaskList[i].taskCreateTime+"</td><td>"
             +arrangeCourseTaskList[i].taskReceiptName+"</td><td>"
-            +(arrangeCourseTaskList[i].taskReceiptTime==null?'--':arrangeCourseTaskList[i].taskReceiptTime)+"</td><td>"
+            +checkNull(arrangeCourseTaskList[i].taskReceiptTime)+"</td><td>"
             +arrangeCourseTaskList[i].taskStatus+"</td>"
             +"<td class='td-manage'><a title='点击查看任务分配详细信息' onclick=x_admin_show('教学任务分配详细信息','scheduleTask-view.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
             if(arrangeCourseTaskList[i].taskStatus=='未分配'){

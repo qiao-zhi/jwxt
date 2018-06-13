@@ -7,10 +7,13 @@
 layui.use(['form', 'layer'], function () {
     $ = layui.jquery;
     var form = layui.form;
+    //查询学院ID
+    getCollegeId();
     //查询任务课程信息
     getTaskArrangeCourseAndTeacherClassInfo(form);
     //初始化在职教师下拉框
-    findTeacherBaseInfoForSelect(form);
+    findTeacherBaseInfoForSelect(form,collegeId_all);
+
     //监听教师下拉框事件
     form.on('select(selectTeacher)', function (data) {
         var teacherNumber = data.value;

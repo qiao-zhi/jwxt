@@ -1,6 +1,7 @@
 package cn.xm.jwxt.controller.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApArrangeCourseTaskCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.service.arrangeCourse.ApArrangeCourseTaskService;
 import cn.xm.jwxt.utils.DefaultValue;
@@ -8,7 +9,6 @@ import cn.xm.jwxt.utils.ValidateCheck;
 import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -123,14 +123,14 @@ public class ApArrangeCourseTaskController {
      */
     @RequestMapping("/findArrangeCourseTaskList")
     public @ResponseBody
-    PageInfo<ApArrangeCourseTask> findArrangeCourseTaskList(CommonQueryVo condition){
+    PageInfo<ApArrangeCourseTaskCustom> findArrangeCourseTaskList(CommonQueryVo condition){
         if(condition.getPageSize()==null){
             condition.setPageSize(DefaultValue.PAGE_SIZE);
         }
         if(condition.getCurrentPage()==null){
             condition.setCurrentPage(1);
         }
-        PageInfo<ApArrangeCourseTask> pageInfo = null;
+        PageInfo<ApArrangeCourseTaskCustom> pageInfo = null;
         try {
             pageInfo = arrangeCourseTaskService.findApArrangeCourseTaskInfoByCondition(condition,condition.getCurrentPage(),condition.getPageSize());
         } catch (Exception e) {

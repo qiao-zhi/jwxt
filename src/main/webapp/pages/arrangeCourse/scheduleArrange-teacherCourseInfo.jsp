@@ -17,6 +17,9 @@
     <script type="text/javascript" src="../../js/xadmin.js"></script>
     <%--公共标签--%>
     <%@include file="/tag.jsp"%>
+    <%--排课公共方法--%>
+    <script type="text/javascript" src="${baseurl}/js/arrangeCourse/arrangeCommonFunction.js"></script>
+
 </head>
 
 <body>
@@ -30,7 +33,7 @@
             <input type="hidden" name="pageSize"/>
             <input type="hidden" name="currentPage"/>
             <%--隐藏学院ID--%>
-            <input type="hidden" name="academicId" value="jisuanjikexueyujishuxueyuan"/>
+            <input type="hidden" name="academicId" value="${param.academicId}"/>
             <%--学年学期--%>
             <input type="hidden" name="academicYear" value="${param.academicYear}"/>
             <input type="hidden" name="term" value="${param.term}"/>
@@ -91,11 +94,11 @@
                 +detailInfoList[i].teacherName+"</td><td>"
                 +detailInfoList[i].teacherNum+"</td><td>"
                 +detailInfoList[i].teacherMajorName+"</td><td>"
-                +(detailInfoList[i].academicYear==null?'--':detailInfoList[i].academicYear)+"</td><td>"
-                +(detailInfoList[i].term==null?'--':detailInfoList[i].term)+"</td><td>"
-                +(detailInfoList[i].courseName==null?'--':detailInfoList[i].courseName)+"</td><td>"
-                +(detailInfoList[i].courseCode==null?'--':detailInfoList[i].courseCode)+"</td><td>"
-                +(detailInfoList[i].majorName==null?'--':detailInfoList[i].majorName)+"</td></tr>";
+                +checkNull(detailInfoList[i].academicYear)+"</td><td>"
+                +termStatusReplace(checkNull(detailInfoList[i].term))+"</td><td>"
+                +checkNull(detailInfoList[i].courseName)+"</td><td>"
+                +checkNull(detailInfoList[i].courseCode)+"</td><td>"
+                +checkNull(detailInfoList[i].majorName)+"</td></tr>";
             $("tbody").append(tr);
         }
         //开启分页组件

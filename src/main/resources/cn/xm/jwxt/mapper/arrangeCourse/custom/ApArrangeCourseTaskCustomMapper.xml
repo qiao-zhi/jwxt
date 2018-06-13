@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xm.jwxt.mapper.arrangeCourse.custom.ApArrangeCourseTaskCustomMapper" >
-    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask" >
+    <resultMap id="BaseResultMap" type="cn.xm.jwxt.bean.arrangeCourse.custom.ApArrangeCourseTaskCustom" >
         <id column="arrange_task_id" property="arrangeTaskId" jdbcType="VARCHAR" />
         <result column="notice_book_id" property="noticeBookId" jdbcType="VARCHAR" />
         <result column="notice_book_name" property="noticeBookName" jdbcType="VARCHAR" />
@@ -18,7 +18,14 @@
         <result column="task_status" property="taskStatus" jdbcType="CHAR" />
         <result column="is_delete" property="isDelete" jdbcType="CHAR" />
         <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="academic_id" property="academicId"></result>
     </resultMap>
+
+    <!--academicId 增加学院id映射-->
+    <!--<resultMap id="addAcademicId" type="cn.xm.jwxt.bean.arrangeCourse.custom.ApArrangeCourseTaskCustom" extends="BaseResultMap">
+        <result column="academic_id" property="academicId"></result>
+    </resultMap>-->
+
     <!--根据排课任务ID修改任务状态-->
     <update id="updateTaskStatusById">
         UPDATE ap_arrange_course_task SET task_status =#{taskStatus} WHERE arrange_task_id =#{arrangeTaskId}
@@ -41,7 +48,7 @@
     <!--组合条件查询排课任务信息分页显示-->
     <select id="findArrangeCourseTaskByContion" parameterType="cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo" resultMap="BaseResultMap">
         <bind name="academicYears" value="academicYear+'%'"></bind>
-        SELECT * from ap_arrange_course_task
+        SELECT act.*,tnbi.academic_id from ap_arrange_course_task act,ap_task_notice_base_info tnbi
         <where>
             <include refid="query_common_where"></include>
         </where>
@@ -50,25 +57,30 @@
     <!--封装查询条件-->
     <sql id="query_common_where">
         <if test="0==0">
-            and is_delete = 1
+            and act.is_delete = 1
+            AND act.notice_book_id = tnbi.notice_book_id
         </if>
         <if test="academicId != null and academicId !=''">
-            and academic_id = #{academicId}
+            and tnbi.academic_id = #{academicId}
         </if>
         <if test="majorId != null and majorId !=''">
-            and major_id = #{majorId}
+            and act.major_id = #{majorId}
         </if>
         <if test="academicYear != null and academicYear !=''">
-            and academic_year LIKE #{academicYears}
+            and act.academic_year LIKE #{academicYears}
         </if>
         <if test="term != null and term !=''">
-            and term = #{term}
+            and act.term = #{term}
         </if>
+        <!-- 任务状态-->
         <if test="taskStatus != null and taskStatus.size()>0">
-            <foreach collection="taskStatus" item="status" open="and task_status in (" close=")" separator=",">
+            <foreach collection="taskStatus" item="status" open="and act.task_status in (" close=")" separator=",">
                 <!--每个遍历需要拼接的串-->
                 #{status}
             </foreach>
+        </if>
+        <if test="userId !=null and userId !=''">
+            AND act.task_receipt_id = #{userId}
         </if>
     </sql>
 </mapper>

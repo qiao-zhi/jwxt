@@ -78,6 +78,6 @@
             t_teacher_base_info tbi LEFT JOIN
             ap_teacher_course tc
         ON tbi.teacherNum = tc.teacher_number AND tbi.collegeID =#{academicId} AND
-        tc.academic_year =#{academicYear} AND tc.term=#{term}
+        tc.academic_year =#{academicYear} AND tc.term=#{term}  AND tbi.inPosition = "1"
     </select>
 </mapper>
