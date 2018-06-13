@@ -56,7 +56,7 @@ function findMajorNameAndIdForSelect(form){
 }
 /** 公共查询条件 **/
 
-//状态码转换
+//状态码转换校区
 function replaceStatus(status){
     var campus = '';
     switch(status){
@@ -87,6 +87,30 @@ function changeStatus(value){
             break;
     }
     return status;
+}
+
+//学期状态码转换
+function termStatusReplace(status){
+    var termStr = '';
+    switch(status){
+        case "1":
+            termStr = "第一学期";
+            break;
+        case "2":
+            termStr = "第二学期";
+            break;
+        default:
+            termStr = "--";
+    }
+    return termStr;
+}
+//判断是否为空，为空显示--，否则显示传入的数据
+function checkNull(value){
+    if(value==null || value==''){
+        return '--';
+    }else{
+        return value;
+    }
 }
 
 //点击关闭其他，触发事件

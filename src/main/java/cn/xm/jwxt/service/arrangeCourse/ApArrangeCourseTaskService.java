@@ -1,11 +1,9 @@
 package cn.xm.jwxt.service.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApArrangeCourseTaskCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import com.github.pagehelper.PageInfo;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 项目名称：jwxt
@@ -69,5 +67,5 @@ public interface ApArrangeCourseTaskService {
      * @return
      * @throws Exception
      */
-    PageInfo<ApArrangeCourseTask> findApArrangeCourseTaskInfoByCondition(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception;
+    PageInfo<ApArrangeCourseTaskCustom> findApArrangeCourseTaskInfoByCondition(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception;
 }

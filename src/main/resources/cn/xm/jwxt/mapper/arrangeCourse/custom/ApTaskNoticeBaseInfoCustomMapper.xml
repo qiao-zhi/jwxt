@@ -32,6 +32,10 @@
         WHERE is_delete = "1" AND is_input = "1"
     </select>
 
+    <select id="findAllCollegeInfo" resultType="map">
+        SELECT collegeId,collegeNum,collegeName from t_college_base_info
+    </select>
+
     <!--组合条件查询教学任务通知手分页显示-->
     <select id="findTaskNoticeInfoListByCondition" parameterType="cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo" resultMap="BaseResultMap">
            <bind name="academicYears" value="academicYear+'%'"></bind>

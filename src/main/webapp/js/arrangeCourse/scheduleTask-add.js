@@ -13,12 +13,22 @@ layui.use(['form', 'layer'], function () {
     findNoticeNameAndId(form);
     //初始化专业下拉框
     findMajorNameAndId(form);
+    //初始接收人下拉框
+    findReceiptInfoForSelect(form);
     //监听专业下拉框事件
     form.on('select(major)',function (data) {
         //获取学院的option对象
         var $option = $("select[name='majorId'] option:selected");
         //将学院名称设置到隐藏域中
         $("input[name='majorName']").val($option.text())
+    })
+
+    //监听接收人下拉框
+    form.on('select(receiptName)',function (data) {
+        //获取学院的option对象
+        var $option = $("select[name='taskReceiptName'] option:selected");
+        //将学院名称设置到隐藏域中
+        $("input[name='taskReceiptId']").val($option.text())
     })
 
     //监听任务通知书下拉框事件
@@ -89,6 +99,26 @@ function findMajorNameAndId(form){
                     optionStr = "<option value='"+response[i].majorId+" ' >"+response[i].majorName+"</option>";
                 }
                 $("select[name='majorId']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+//初始接收人下拉框
+function findReceiptInfoForSelect(form){
+    $.ajax({
+        url:contextPath+"/arrangeCourse/findTeacherBaseInfo.action",
+        dataType:"json",
+        data:{"academicId":"jisuanjikexueyujishuxueyuan"},
+        type:"post",
+        success:function (response) {
+            var optionStr = "<option value=''>请输入教师姓名</option>";
+            $("select[name='taskReceiptName']").append(optionStr);
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].teachernum+"'>"+response[i].teachername+"</option>";
+                $("select[name='taskReceiptName']").append(optionStr)
             }
             //更新渲染
             form.render('select');

@@ -52,13 +52,13 @@ function showArrangeCourseTaskInfo(pageInfo){
             +arrangeCourseTaskList[i].noticeBookName+"</td><td>"
             +arrangeCourseTaskList[i].majorName+"</td><td>"
             +arrangeCourseTaskList[i].academicYear+"</td><td>"
-            +(arrangeCourseTaskList[i].term>1?'第二学期':'第一学期')+"</td><td>"
+            +termStatusReplace(arrangeCourseTaskList[i].term)+"</td><td>"
             +arrangeCourseTaskList[i].taskCreateTime+"</td><td>"
             +arrangeCourseTaskList[i].taskReceiptName+"</td><td>"
-            +(arrangeCourseTaskList[i].taskReceiptTime==null?'--':arrangeCourseTaskList[i].taskReceiptTime)+"</td><td>"
+            +checkNull(arrangeCourseTaskList[i].taskReceiptTime)+"</td><td>"
             +arrangeCourseTaskList[i].taskStatus+"</td>"
             +"<td class='td-manage'><a title='点击查看排课详情' onclick=x_admin_show('排课','scheduleArrange-detail.jsp?arrangeTaskId="+arrangeCourseTaskList[i].arrangeTaskId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
-            +"<a title='点击查看教师排课信息' onclick=x_admin_show('教师排课信息','scheduleArrange-teacherCourseInfo.jsp?academicYear="+arrangeCourseTaskList[i].academicYear+"&term="+arrangeCourseTaskList[i].term+"') href='javascript:void(0);')><i class='layui-icon'>&#xe606;</i></a>"
+            +"<a title='点击查看教师排课信息' onclick=x_admin_show('教师排课信息','scheduleArrange-teacherCourseInfo.jsp?academicYear="+arrangeCourseTaskList[i].academicYear+"&term="+arrangeCourseTaskList[i].term+"&academicId="+arrangeCourseTaskList[i].academicId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe606;</i></a>"
             +"</td></tr>"
         $("tbody").append(tr);
     }
@@ -135,7 +135,7 @@ function commitToCheck(){
 function arrangeCourse(){
     var checked = $("[name='taskRadio']:checked").length>0?true:false;
     if(!checked){
-        layer.alert('请先选择需要提交审核的任务！');
+        layer.alert('请先选择需要手动排课的任务！');
         return;
     }
     var sel_taskStatus = $("[name='taskRadio']:checked ~ input[name='sel_taskStatus']").val();
