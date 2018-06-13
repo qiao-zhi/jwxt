@@ -15,6 +15,8 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
  <style>
  	.layui-table-wang-info{
  		width: 100%;
@@ -71,7 +73,7 @@
 
 		function showDetailInfo() {
 			$.ajax({
-				url:"/jwxt/teachingWorkLoad/findOneTeacherCourseDesignInfo.do",
+				url:contextPath + "/teachingWorkLoad/findOneTeacherCourseDesignInfo.do",
 				type:"post",
 				data:{"courseDesignTeacherArrangeID":courseDesignTeacherArrangeID},
 				dataType:"json",
@@ -80,8 +82,8 @@
 				    $("#courseDesignNum").html(mapInfo.courseDesignNum);
                     $("#teacherName").html(mapInfo.teacherName);
                     $("#teacherNum").html(mapInfo.teacherNum);
-                    $("#startTime").html(mapInfo.startTime);
-                    $("#endTime").html(mapInfo.endTime);
+                    $("#startTime").html("第"+mapInfo.startTime+"周");
+                    $("#endTime").html("第"+mapInfo.endTime+"周");
                     $("#classNames").val(mapInfo.classNames)
 					var stuList = mapInfo.stuList;  // 学生信息list
 					//alert(stuList[0].studentName)
@@ -95,7 +97,7 @@
 					}
                 },
 				error:function () {
-					layer.alert("详细信息加载失败")
+					layer.msg("详细信息加载失败")
                 }
 			})
         }

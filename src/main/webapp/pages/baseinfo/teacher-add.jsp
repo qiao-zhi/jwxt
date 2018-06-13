@@ -21,6 +21,9 @@
 
     <%--ll nameAndId的js--%>
     <script type="text/javascript" src="${baseurl}/js/baseInfo/commonNameAndId.js"></script>
+
+    <%--ll 职称的js--%>
+    <script type="text/javascript" src="${baseurl}/js/baseInfo/findDictionary.js"></script>
 </head>
 
 <body>
@@ -72,6 +75,18 @@
                 </select>
             </div>
         </div>
+        <!--3  学院-->
+        <div class="layui-form-item">
+            <label for="L_email2" class="layui-form-label" >
+                <span class="x-red">*</span>学院
+            </label>
+            <div class="layui-input-inline">
+                <select name="collegeid" id="L_email2" lay-filter="college">
+
+                </select>
+            </div>
+        </div>
+        <!--4 专业，在所选的学院下选专业-->
         <div class="layui-form-item">
             <label for="L_email" class="layui-form-label" >
                 <span class="x-red">*</span>专业
@@ -83,8 +98,10 @@
             </div>
         </div>
 
+
+
         <%--隐藏学院名称--%>
-        <input type="hidden" name="majorname" value="计算机科学与技术学院"/>
+        <input type="hidden" name="collegeid2" />
         <!--3-->
         <div class="layui-form-item">
             <label for="username" class="layui-form-label">
@@ -154,9 +171,9 @@
                 <div class="layui-input-inline">
                     <select name="degree" id="degree">
                         <option value=" ">请选择</option>
-                        <option value="1">学士</option>
-                        <option value="2">硕士</option>
-                        <option value="3">博士</option>
+                        <option value="0">学士</option>
+                        <option value="1">硕士</option>
+                        <option value="2">博士</option>
                     </select>
                 </div>
             </div>
@@ -169,10 +186,8 @@
                 <div class="layui-input-inline">
                     <select name="positionaltitle" id="positionalTitle">
                         <option value=" ">请选择</option>
-                        <option value="1">助教</option>
-                        <option value="2">讲师</option>
-                        <option value="3">副教授</option>
-                        <option value="4">教授</option>
+                        <option value="0">助教</option>
+
                     </select>
                 </div>
             </div>
@@ -244,9 +259,9 @@
         $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer;
-
+        findCollegeNameAndIdForSelect(form);
         findMajorNameAndIdForSelect(form);
-
+        findTeacherPositionaltitleForSelect(form);
         //自定义验证规则
         form.verify({
             nikename: function (value) {

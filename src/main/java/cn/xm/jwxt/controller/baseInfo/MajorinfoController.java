@@ -57,7 +57,7 @@ public class MajorinfoController {
         try {
             pageInfo = majorinfoService.findMajorInfoByCondition(condition, condition.getCurrentpage(),condition.getPagesize());
         } catch (Exception e) {
-            logger.error("查询教师失败",e);
+            logger.error("查询专业失败",e);
         }
         return pageInfo;
     }

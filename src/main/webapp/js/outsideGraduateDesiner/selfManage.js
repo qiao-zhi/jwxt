@@ -1,4 +1,5 @@
 /*页面加载查询申请的详细信息*/
+
 $(function(){
     var selfManageId = getAddressParameter("id");
     //alert(selfManageId);
@@ -12,17 +13,23 @@ $(function(){
             data:{"selfManageId":selfManageId},
             dataType:"json",
             success:function(result){
+                var isCommit = result.remark;
+                if(isCommit=="01"||isCommit=="21"){
+                    $(".saveAndCommit").css("display","none");
+                    $(".studentSign").css("display","none");
+                }
                 //alert(JSON.stringify(result));
                 $("#collegeName").val(result.collegename);
                 $("#studentName1").val(result.oGDInfo.studentname);
                 $("#studentName2").html(result.oGDInfo.studentname);
                 $("#studentIdCard").val(result.studentidcard);
                 $("#majorClass").html(result.oGDInfo.majorclass);
-                if(result.schoolsign!=null){
+                //alert(result.schoolsign);
+                if(result.schoolsign!=null&&result.schoolsign!=""){
                     $("#schoolUrl").attr("src",result.schoolsign);
                 }
                 $("#schoolSignDate").val(Format(new Date(result.schoolsigndate),'yyyy-MM-dd'));
-                if(result.studentsign!=null){
+                if(result.studentsign!=null&&result.studentsign!=""){
                     $("#stusignUrl").attr("src",result.studentsign);
                 }
                 $("#studentSignDate").val(Format(new Date(result.studentsigndate),'yyyy-MM-dd'));
@@ -40,8 +47,8 @@ $(function(){
 });
 /*学生签名*/
 function studentSign() {
-    var userID = "1";
     var aggreementID = getAddressParameter("id");
+    var userId = $("#userID").val();
     //alert(aggreementID);
     layer.prompt({
         formType: 1,
@@ -53,7 +60,7 @@ function studentSign() {
         $.ajax({
             url:contextPath+"/aggreement/studentSign.do",
             type:"post",
-            data:{"userID":userID,
+            data:{"userID":userId,
                 "signPassword":value,
                 "aggreementID":aggreementID
             },
@@ -61,7 +68,8 @@ function studentSign() {
             success: function(result){
                 var status = result.status;
                 if(status==1){
-                    $("#stusignurl").attr("src",result.signUrl);
+                    //alert(result.signUrl);
+                    $("#stusignUrl").attr("src",result.signUrl);
                     $("#stuapplydate").val(Format(new Date(),"yyyy-MM-dd"));
                     layer.close(index);
                 }

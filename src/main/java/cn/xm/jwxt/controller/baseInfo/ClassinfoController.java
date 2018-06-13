@@ -10,9 +10,11 @@ import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +66,7 @@ public class ClassinfoController {
         try {
             pageInfo = classinfoService.findClassInfoByCondition(condition, condition.getCurrentpage(),condition.getPagesize());
         } catch (Exception e) {
-            logger.error("查询教师失败",e);
+            logger.error("查询班级失败",e);
         }
         return pageInfo;
     }
@@ -131,8 +133,28 @@ public class ClassinfoController {
         try {
             classNameAndIdList = classinfoService.findClassNameAndId();
         } catch (Exception e) {
-            logger.error("查询任务通知书失败",e);
+            logger.error("查询班级失败",e);
         }
         return classNameAndIdList;
     }
+
+    /****S QLQ*************/
+    /**
+     * 查询学院专业班级树
+     * @param condition 可能用到的组合条件
+     * @return
+     */
+    @RequestMapping("/getClassTree")
+    public @ResponseBody List<Map<String, Object>> getClassTreesByCondition(@RequestParam Map condition){
+        List<Map<String, Object>> classTrees = null;
+        try {
+            classTrees = classinfoService.getClassTrees(condition);
+        } catch (SQLException e) {
+            logger.error("查询学院、专业、班级树出错",e);
+            return null;
+        }
+        return classTrees;
+    }
+    /****E QLQ*************/
+
 }

@@ -31,6 +31,17 @@ public class DefaultValue {
      */
     public static final String COURSE_DEFAULT_FILENAME = "课程信息.xls";
     /**
+
+     *  默认下载课程设计安排的文件名字
+     */
+    public static final String COURSEDESIGNER_ARRANGE_DEFAULT_FILENAME ="课程设计安排信息.xls";
+
+    /*
+     * 默认的校外毕设学生下载的文件名字
+     */
+    public static final String OGDSTUDENTS_DEFAULT_FILENAME = "校外毕设学生信息.xls";
+
+    /**
      * 保存状态
      */
     public static final String SAVE_STATUS = "保存";
@@ -47,4 +58,18 @@ public class DefaultValue {
      * 默认的排课任务导出的Excel文件名称
      */
     public static final String ARRANGE_COURSE_FILENAME = "排课信息.xls";
+
+    /**
+     * 默认的教师导出的Excel文件名称
+     */
+    public static final String TEACHER_FILENAME = "教师信息.xls";
+
+    /**
+     * 默认的学生导出的Excel文件名称
+     */
+        public static final String STUDENT_FILENAME = "学生信息.xls";
+
+
+
+
 }

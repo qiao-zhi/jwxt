@@ -19,9 +19,9 @@ public class TTeacherBaseInfo {
 
     private Date teacherbirth;
 
-    private String education;
+    private String education;//学历
 
-    private String degree;
+    private String degree;//学位
 
     private String graduateschool;
 
@@ -31,11 +31,11 @@ public class TTeacherBaseInfo {
 
     private String teachertel;
 
-    private String positionaltitle;
+    private String positionaltitle;//职称
 
     private Date joinschooltime;
 
-    private String teacherposition;
+    private String teacherposition;//职务
 
     private String inposition;
 

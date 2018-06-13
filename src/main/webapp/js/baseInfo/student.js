@@ -5,6 +5,9 @@ layui.use(['layer', 'form', 'element'], function(){
         ,form = layui.form
         ,element = layui.element;
     //初始化表格
+
+    findCollegeNameAndIdForSelect(form);
+    findMajorNameAndIdForSelect(form);
     findStudentBaseInfo();
 
     //查询按钮事件过滤器
@@ -38,13 +41,14 @@ function showStudentBaseInfo(pageInfo){
     $("#studentBaseInfoList").html("");//清空表格中数据并重新填充数据
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
-        var tr ="<tr><td>"
+        var tr ="<tr><td><input type='checkbox' name='studentRadio' /></td><td>"
             +baseInfoList[i].studentnum+"</td><td>"
             +baseInfoList[i].studentname+"</td><td>"
             +(baseInfoList[i].studentsex>1?"女":"男")+"</td><td>"
-            +baseInfoList[i].studentbirth+"</td><td>"
-            +baseInfoList[i].classname+"</td>"
-            +"<td class='td-manage'><a title='点击查看学生详细信息' onclick=notice_tab_show('学生详细信息','student-view.jsp?sId="+baseInfoList[i].studentid+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
+            +baseInfoList[i].classname+"</td><td>"
+            +baseInfoList[i].majorname+"</td><td>"
+            +baseInfoList[i].collegename+"</td>"
+            +"<td class='td-manage'><a title='点击查看学生详细信息' onclick=notice_tab_show('学生详细信息','student-view.jsp?sId="+baseInfoList[i].studentid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe63c;</i></a>"
             +"<a title='点击修改学生信息'  onclick=notice_tab_show('修改学生','student-modify.jsp?sId="+baseInfoList[i].studentid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
             +" <a title='删除' onclick=deleteStudentInfo('"+baseInfoList[i].studentid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
         $("#studentBaseInfoList").append(tr);
@@ -148,3 +152,163 @@ function notice_tab_show(title,url,w,h){
 }
 
 /* E            弹出层相关操作 */
+
+//初始化学院下拉框
+function findCollegeNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/collegeInfo/findCollegeNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入学院</option>";
+            $("select[name='collegeid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].collegeid+"'>"+response[i].collegename+"</option>";
+                $("select[name='collegeid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+//初始化专业下拉框
+function findMajorNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/majorInfo/findMajorNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入专业</option>";
+            $("select[name='majorid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].majorid+"'>"+response[i].majorname+"</option>";
+                $("select[name='majorid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+//初始化学院下拉框
+function findCollegeNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/collegeInfo/findCollegeNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入学院</option>";
+            $("select[name='collegeid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].collegeid+"'>"+response[i].collegename+"</option>";
+                $("select[name='collegeid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+
+//导入学生按钮
+function importStudent(){
+    var checked = $("[name='studentRadio']:checked").length>0?true:false;
+    if(!checked){
+        layer.alert('请先选择需要导入学生的班级！');
+        return;
+    }
+    //需要改
+    var classId = "74374e2e9e074bb18fc129ba19086b6f";//导入的班级
+    x_admin_show('导入学生', './student-import.jsp?classId='+classId);
+}
+
+
+//导出学生信息
+function studentExport(){
+    layer.confirm('您确认要导出学生信息吗？',function(index){
+        $("#selectStudentInfoForm").attr("action",contextPath+"/studentInfo/exportStudentInfo.action");//改变表单的提交地址为下载的地址
+        $("#selectStudentInfoForm").submit();//提交表单
+        layer.close(index);
+    });
+}
+
+
+/**********************S  QLQ树相关操作****************/
+
+$(function(){
+    getClassTree();
+});
+
+
+/**
+ * 查询树的函数
+ */
+function getClassTree(){
+    $.ajax({
+        url : contextPath + '/classInfo/getClassTree.do',
+        async : true,
+        dataType : 'json',
+        success : geneClassTree,
+        error : function() {
+            alert("查询树失败！！！")
+        }
+    });
+}
+//生成树函数
+
+
+function geneClassTree(classTreeNodes) {
+    var setting = {
+        view : {
+            selectedMulti : false
+        },
+        check : {
+            enable : false
+        },
+        data : {
+            simpleData : {
+                enable : true,
+                idKey : "departNum",
+                pIdKey : "updepartNum",
+                rootPId : "000"
+            },
+            key : {
+                name : "departName",
+            }
+        },
+        callback : {
+            onClick : zTreeOnClick
+        }
+    };
+    $.fn.zTree.init($("#treeDemo"), setting, classTreeNodes);//在界面生成一颗树
+    openFirstTreenode();//打开一级节点
+}
+
+/**
+ * 点击树的事件
+ * @param event 事件
+ * @param treeId    树的ID
+ * @param treeNode  节点
+ */
+
+function zTreeOnClick(event, treeId, treeNode) {
+    alert("您点击的是: "+treeNode.departName+"  "+treeNode.departNum)
+    //点击班级的时候可以添加学生，点击其他的时候不能添加
+}
+
+/**
+ * 展开树节点的第一层
+ */
+function openFirstTreenode(){
+    // 获取树对象
+    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+    /* 获取所有树节点 */
+    var nodes = treeObj.transformToArray(treeObj.getNodes());
+    //展开第一级树
+    treeObj.expandNode(nodes[0], true);
+}
+/**********************E  QLQ树相关操作****************/
+

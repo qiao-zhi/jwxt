@@ -1,9 +1,12 @@
 package cn.xm.jwxt.service.baseInfo;
 
+import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.CommonQuery;
+import cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo;
+import cn.xm.jwxt.bean.baseInfo.custom.TeacherMajorInfo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -42,7 +45,7 @@ public interface TeacherinfoService {
      * @return
      * @throws Exception
      */
-    TTeacherBaseInfo getTeacherInfoById(String teacherid) throws Exception;
+    TeacherMajorInfo getTeacherInfoById(String teacherid) throws Exception;
 
     /**
      * 组合条件查询教师老师签名图片信息分页显示
@@ -53,7 +56,20 @@ public interface TeacherinfoService {
      * @return
      * @throws Exception
      */
-    PageInfo<TTeacherBaseInfo> findTeacherInfoByCondition(CommonQuery condition, Integer currentPage, Integer pageSize) throws Exception;
+    PageInfo<TeacherMajorInfo> findTeacherInfoByCondition(CommonQuery condition, Integer currentPage, Integer pageSize) throws Exception;
+
+    List<TeacherMajorInfo> findTeacherInfoByCondition(CommonQuery condition) throws Exception;
 
     List<Map<String,Object>> findTeacherNameAndId() throws Exception;
+
+    List<Map<String,Object>> findTeacherPositionaltitle() throws Exception;
+    /**
+     * 导入教师信息
+     * @param detailInfoList
+     * @return
+     * @throws Exception
+     */
+    boolean saveTeacherInfoById(String majorId,String collegeId, List<TTeacherBaseInfo> detailInfoList) throws Exception;
+    //判断插入教师编号是否重复
+    boolean checkTeacherNum(String teachernum) throws Exception;
 }

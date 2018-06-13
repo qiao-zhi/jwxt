@@ -62,8 +62,8 @@ public  class TCoursedesignTeacherstudentServiceImpl implements TCoursedesignTea
         boolean result = false;
         Date uploadTime = new Date();
             condition.put("uploadTime",uploadTime);
-        String uploadStatus = "1";
-            condition.put("uploadStatus",uploadStatus);
+//        String uploadStatus = "1";
+//            condition.put("uploadStatus",uploadStatus);
             result = tsCustomMapper.addCourseDesignFileInfo(condition);
         return result;
     }

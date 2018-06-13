@@ -22,7 +22,15 @@ public interface TextbookOrderConfirmService {
      * @return
      * @throws SQLException
      */
-    public List<TextbookOrder> findTextbookOrder(Map findconditin)throws SQLException;
+    public List<Map> displayTextbookOrder(Map findconditin)throws SQLException;
+
+    /**
+     * 修改确认状态
+     * @param orderDetailId
+     * @return
+     * @throws SQLException
+     */
+    public boolean updateConfirmStatus(String orderDetailId)throws SQLException;
 
     /**
      * 根据排课信息修改订单，保存进入最新一条教材基本信息表(最新教材）和征订单明细表

@@ -1,4 +1,5 @@
 /*页面加载查询申请的详细信息*/
+
 $(function(){
     var sureID = getAddressParameter("id");
     //alert(sureID);
@@ -11,9 +12,17 @@ $(function(){
             data:{"sureID":sureID},
             dataType:"json",
             success:function(result){
+                var isCommit = result.iscommit;
+                if(isCommit=="01"||isCommit=="21"){
+                    $(".saveAndCommit").css("display","none");
+                    $(".studentSign").css("display","none");
+                }
                 //alert(JSON.stringify(result));
-                $("#studentUrl").attr("src",result.studentsignurl);
-                $("#studentApplyTime").val(Format(new Date(result.signtime),'yyyy-MM-dd'));
+                if(result.studentsignurl!=null&&result.studentsignurl!=""){
+                    $("#stusignUrl").attr("src",result.studentsignurl);
+                    $("#studentApplyTime").val(Format(new Date(result.signtime),'yyyy-MM-dd'));
+                }
+
             },
             error:function () {
                 layer.msg('查询信息出错',{time:2000}, function(){
@@ -26,8 +35,8 @@ $(function(){
 });
 /*学生签名*/
 function studentSign() {
-    var userID = "1";
     var sureBookId = getAddressParameter("id");
+    var userId = $("#userID").val();
     //alert(aggreementID);
     layer.prompt({
         formType: 1,
@@ -39,7 +48,7 @@ function studentSign() {
         $.ajax({
             url:contextPath+"/oGDAttachment/studentSign.do",
             type:"post",
-            data:{"userID":userID,
+            data:{"userID":userId,
                 "signPassword":value,
                 "sureBookId":sureBookId
             },

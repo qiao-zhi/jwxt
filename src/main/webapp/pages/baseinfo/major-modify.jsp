@@ -40,7 +40,7 @@
             </label>
             <div class="layui-input-inline">
                 <div class="layui-input-inline">
-                    <select name="collegeid" id="collegeName">
+                    <select name="collegeid" id="collegeName" lay-verify="required">
                     </select>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 专业代码
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="majorNum" name="majornum" required=""
+                <input type="text" id="majorNum" name="majornum" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -67,12 +67,7 @@
                 专业名称
             </label>
             <div class="layui-input-inline">
-                <select name="majorid" id="majorName" lay-filter="major">
-                    <option value=" ">请选择</option>
-                    <option value="1">软件工程</option>
-                    <option value="2">网络工程</option>
-                    <option value="3">物联网</option>
-                    <option value="4">计算机</option>
+                <select name="majorid" id="majorName" lay-filter="major" lay-verify="required">
                 </select>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -90,11 +85,11 @@
             </label>
             <div class="layui-input-inline">
                 <div class="layui-input-inline">
-                    <select name="majorsort" id="phone">
-                        <option value="">学科门类</option>
-                        <option value="1">工学</option>
-                        <option value="2">理科</option>
-                        <option value="3">文科</option>
+                    <select name="majorsort" id="phone" lay-verify="required">
+                        <option value="">请选择</option>
+                        <option value="工科">工科</option>
+                        <option value="理科">理科</option>
+                        <option value="文科">文科</option>
                     </select>
                 </div>
             </div>
@@ -108,12 +103,10 @@
                 专业简称
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="majorShortName" name="majorshortname"
+                <input type="text" id="majorShortName" name="majorshortname" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-form-mid layui-word-aux">
-                必须选择
-            </div>
+
         </div>
         <!--4-->
         <div class="layui-form-item">
@@ -121,7 +114,7 @@
                 专业负责人
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="majorManager" name="majormanager"
+                <input type="text" id="majorManager" name="majormanager" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -157,11 +150,13 @@
             success : function(response){
                 $("input[name='majorid']").val(response.majorid);
                 $("input[name='majornum']").val(response.majornum);
-                $("input[name='majorname']").val(response.majorname);
+               // $("input[name='majorname']").val(response.majorname);
                 $("input[name='majorshortname']").val(response.majorshortname);
                 $("select[name='majorsort']").val(response.majorsort);
                 $("input[name='majormanager']").val(response.majormanager);
                 $("select[name='collegeid']").val(response.collegeid);
+
+                $("select[name='majorid']").val(response.majorid);
 
                 //更新渲染
                 form.render('select');
@@ -178,9 +173,11 @@
         $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer;
-        //查询教师基本信息
-        getMajorBaseInfo('${param.mId}',form);
+
         findCollegeNameAndIdForSelect(form);
+        findMajorNameAndIdForSelect(form);
+        getMajorBaseInfo('${param.mId}',form);
+
 
 
         //自定义验证规则

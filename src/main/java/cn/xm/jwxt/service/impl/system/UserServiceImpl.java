@@ -1,7 +1,14 @@
 package cn.xm.jwxt.service.impl.system;
 
 import cn.xm.jwxt.annotation.MyLogAnnotation;
+import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
+import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfoExample;
+import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
+import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfoExample;
 import cn.xm.jwxt.bean.system.*;
+import cn.xm.jwxt.bean.trainScheme.TTeachingprogramInfoExample;
+import cn.xm.jwxt.mapper.baseInfo.TStudentBaseInfoMapper;
+import cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper;
 import cn.xm.jwxt.mapper.system.UserMapper;
 import cn.xm.jwxt.mapper.system.UserRoleMapper;
 import cn.xm.jwxt.mapper.system.custom.UserCustomMapper;
@@ -10,8 +17,6 @@ import cn.xm.jwxt.utils.RedisUtil;
 import cn.xm.jwxt.utils.UUIDUtil;
 import cn.xm.jwxt.utils.ValidateCheck;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +41,11 @@ public class UserServiceImpl implements UserService {
     private UserRoleMapper userRoleMapper;
     @Autowired
     private RedisUtil redisUtil;//手动加缓存的工具类
+
+    @Autowired
+    private TStudentBaseInfoMapper tStudentBaseInfoMapper;
+    @Autowired
+    private TTeacherBaseInfoMapper tTeacherBaseInfoMapper;
 
     @Override
     public int selectUserCountByUserCode(String userCode) throws SQLException {
@@ -134,6 +144,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Set<String> getUserRoleNameByUserId(String userId) throws SQLException {
+        return userCustomMapper.getUserRoleNameByUserId(userId);
+    }
+
+    @Override
     public Map<String, Object> getUserLoginInfo(String usercode, String password, String usersort) throws SQLException {
         Map<String,Object> result= new HashMap<String,Object>();
         String loginInfo = null;//登录信息
@@ -206,5 +221,37 @@ public class UserServiceImpl implements UserService {
     public void logSuccess(){
 
     }
+
+    @Override
+    public String getuserIdByUser(User user) throws SQLException {
+        String userType = user.getUsersort();//获取用户类型
+        if(ValidateCheck.isNull(userType)){
+            return "";
+        }
+        //1.如果是学生查询学生表返回主键
+        if("学生".equals(userType)){
+            TStudentBaseInfoExample example = new TStudentBaseInfoExample();
+            TStudentBaseInfoExample.Criteria criteria = example.createCriteria();
+            criteria.andStudentnumEqualTo(user.getUsercode());//根据学生编号查询
+            List<TStudentBaseInfo> tStudentBaseInfos = tStudentBaseInfoMapper.selectByExample(example);
+            return  tStudentBaseInfos.get(0).getStudentid();
+        }
+        //2.如果是老师查询老师表返回主键
+        if("教师".equals(userType)){
+            TTeacherBaseInfoExample example = new TTeacherBaseInfoExample();
+            TTeacherBaseInfoExample.Criteria criteria = example.createCriteria();
+            criteria.andTeachernumEqualTo(user.getUsercode());//根据学生编号查询
+            List<TTeacherBaseInfo> tTeacherBaseInfos = tTeacherBaseInfoMapper.selectByExample(example);
+            if(tTeacherBaseInfos == null || tTeacherBaseInfos.size() == 0){
+                return "";
+            }
+            return  tTeacherBaseInfos.get(0).getTeacherid();
+        }
+        return "";
+    }
+
+    /******S   ***************/
+
+
 
 }

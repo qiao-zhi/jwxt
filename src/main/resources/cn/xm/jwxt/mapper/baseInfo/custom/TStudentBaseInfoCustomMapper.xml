@@ -17,7 +17,26 @@
         <result column="remark1" property="remark1" jdbcType="VARCHAR" />
         <result column="remark2" property="remark2" jdbcType="VARCHAR" />
         <result column="classname" property="classname" jdbcType="VARCHAR" />
+        <result column="majorname" property="majorname" jdbcType="VARCHAR" />
+        <result column="collegename" property="collegename" jdbcType="VARCHAR" />
     </resultMap>
+
+    <!--批量导入学生信息，传入班级id-->
+    <insert id="saveStudentInfoList" parameterType="java.util.List">
+        insert into t_student_base_info (studentID, studentNum, classID,
+        studentName, studentSex, studentBirth,
+        studentPhoto, IDnum, enrollmentTime,
+        endTime, isGraduate, isDelete,
+        remark1, remark2)
+        values
+        <foreach collection="list" item="detailInfo" separator=",">
+            (#{detailInfo.studentid,jdbcType=VARCHAR}, #{detailInfo.studentnum,jdbcType=VARCHAR}, #{detailInfo.classid,jdbcType=VARCHAR},
+            #{detailInfo.studentname,jdbcType=VARCHAR}, #{detailInfo.studentsex,jdbcType=VARCHAR}, #{detailInfo.studentbirth,jdbcType=DATE},
+            #{detailInfo.studentphoto,jdbcType=VARCHAR}, #{detailInfo.idnum,jdbcType=VARCHAR}, #{detailInfo.enrollmenttime,jdbcType=DATE},
+            #{detailInfo.endtime,jdbcType=DATE}, #{detailInfo.isgraduate,jdbcType=VARCHAR}, #{detailInfo.isdelete,jdbcType=VARCHAR},
+            #{detailInfo.remark1,jdbcType=VARCHAR}, #{detailInfo.remark2,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
 
     <!--查询学生的名称和ID-->
     <select id="findStudentNameAndId" resultType="map">
@@ -25,9 +44,23 @@
         WHERE isDelete = "1"
     </select>
 
+
+    <!--根据学生id查询学生信息，包括专业、班级、学院-->
+    <select id="getStudentInfoById"  resultMap="BaseResultMap">
+        SELECT st.*,(SELECT className FROM class_major_college v WHERE v.classId=st.classID ) className
+        ,(SELECT majorName FROM class_major_college v WHERE v.classId=st.classID ) majorName
+        ,(SELECT collegeName FROM class_major_college v WHERE v.classId=st.classID ) collegeName
+        FROM t_student_base_info st,class_major_college v
+        WHERE v.classId = st.classID and studentID = #{studentid,jdbcType=VARCHAR}
+    </select>
+
     <!--组合条件查询学生分页显示-->
     <select id="findStudentInfoListByCondition" parameterType="cn.xm.jwxt.bean.baseInfo.custom.CommonQuery" resultMap="BaseResultMap">
-        SELECT st.*,(SELECT className FROM t_class_base_info c WHERE c.classId=st.classID ) classname FROM t_student_base_info st
+        SELECT st.*,(SELECT className FROM class_major_college v WHERE v.classId=st.classID ) className
+        ,(SELECT majorName FROM class_major_college v WHERE v.classId=st.classID ) majorName
+        ,(SELECT collegeName FROM class_major_college v WHERE v.classId=st.classID ) collegeName
+        FROM t_student_base_info st,class_major_college v
+
         <where>
             <include refid="query_common_where"></include>
         </where>
@@ -43,11 +76,14 @@
         <if test="studentname != null and studentname !=''">
             and studentName LIKE '%${studentname}%'
         </if>
-        <if test="collegenum != null and collegenum !=''">
-            and collegeNum = #{collegenum}
+        <if test="collegeid != null and collegeid !=''">
+            and v.collegeId = #{collegeid}
         </if>
-        <if test="majorname != null and majorname !=''">
-            and majorName = #{majorname}
+        <if test="majorid != null and majorid !=''">
+            and v.majorId = #{majorid}
+        </if>
+        <if test="0==0">
+            and v.classId = st.classID
         </if>
     </sql>
 

@@ -2,8 +2,12 @@ package cn.xm.jwxt.service.impl.baseInfo;
 
 
 import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeBaseInfo;
+import cn.xm.jwxt.bean.arrangeCourse.ApTaskNoticeDetailInfo;
+import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.CommonQuery;
+import cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo;
+import cn.xm.jwxt.bean.baseInfo.custom.TeacherMajorInfo;
 import cn.xm.jwxt.mapper.baseInfo.TTeacherBaseInfoMapper;
 import cn.xm.jwxt.mapper.baseInfo.custom.TTeacherBaseInfoCustomMapper;
 import cn.xm.jwxt.service.baseInfo.TeacherinfoService;
@@ -57,20 +61,24 @@ public class TeacherinfoServiceImpl implements TeacherinfoService {
 
     @Override
     public boolean deleteTeacherInfoById(String teacherid) throws Exception {
-        return false;
-    }
-
-    @Override
-    public TTeacherBaseInfo getTeacherInfoById(String teacherid) throws Exception {
         if(ValidateCheck.isNull(teacherid)){
             throw new IllegalArgumentException("教师编号不能为空!");
         }
-        TTeacherBaseInfo teacherBaseInfo = teacherBaseInfoMapper.selectByPrimaryKey(teacherid);
+        int count = teacherBaseInfoMapper.deleteByPrimaryKey(teacherid);
+        return count>0?true:false;
+    }
+
+    @Override
+    public TeacherMajorInfo getTeacherInfoById(String teacherid) throws Exception {
+        if(ValidateCheck.isNull(teacherid)){
+            throw new IllegalArgumentException("教师编号不能为空!");
+        }
+        TeacherMajorInfo teacherBaseInfo = teacherBaseInfoCustomMapper.getTeacherInfoById(teacherid);
         return teacherBaseInfo;
     }
 
     @Override
-    public PageInfo<TTeacherBaseInfo> findTeacherInfoByCondition(CommonQuery condition, Integer currentPage, Integer pageSize) throws Exception {
+    public PageInfo<TeacherMajorInfo> findTeacherInfoByCondition(CommonQuery condition, Integer currentPage, Integer pageSize) throws Exception {
         if(currentPage==null||pageSize==null){
             throw new IllegalArgumentException("分页参数传递错误！");
         }
@@ -79,9 +87,20 @@ public class TeacherinfoServiceImpl implements TeacherinfoService {
         }
         //采用PageHelper插件进行分页
         PageHelper.startPage(currentPage,pageSize,"teacherNum");
-        List<TTeacherBaseInfo> listInfo = teacherBaseInfoCustomMapper.findTeacherInfoListByCondition(condition);
-        PageInfo<TTeacherBaseInfo> pageInfo = new PageInfo<TTeacherBaseInfo>(listInfo);
+        List<TeacherMajorInfo> listInfo = teacherBaseInfoCustomMapper.findTeacherInfoListByCondition(condition);
+        PageInfo<TeacherMajorInfo> pageInfo = new PageInfo<TeacherMajorInfo>(listInfo);
         return pageInfo;
+    }
+
+    @Override
+    public List<TeacherMajorInfo> findTeacherInfoByCondition(CommonQuery condition) throws Exception {
+
+        if(condition==null){
+            throw new IllegalArgumentException("查询条件参数传递错误!");
+        }
+
+        List<TeacherMajorInfo> listInfo = teacherBaseInfoCustomMapper.findTeacherInfoListByCondition(condition);
+        return listInfo;
     }
 
     /**
@@ -92,5 +111,42 @@ public class TeacherinfoServiceImpl implements TeacherinfoService {
     @Override
     public List<Map<String, Object>> findTeacherNameAndId() throws Exception {
         return teacherBaseInfoCustomMapper.findTeacherNameAndId();
+    }
+
+    @Override
+    public List<Map<String,Object>> findTeacherPositionaltitle() throws Exception {
+        return teacherBaseInfoCustomMapper.findTeacherPositionaltitle();
+    }
+
+    @Override
+    public boolean saveTeacherInfoById(String majorId,String collegeId, List<TTeacherBaseInfo> detailInfoList) throws Exception {
+        if(ValidateCheck.isNull(majorId)){
+            throw new IllegalArgumentException("专业编号不能为空!");
+        }
+        if(ValidateCheck.isNull(collegeId)){
+            throw new IllegalArgumentException("学院编号不能为空!");
+        }
+        int total = detailInfoList.size();
+        if(total <= 0){
+            throw new IllegalArgumentException("明细集合参数传递错误!");
+        }
+        for (TTeacherBaseInfo detailInfo:detailInfoList) {
+            if(checkTeacherNum(detailInfo.getTeachernum())){
+                continue;
+            }
+            //设置majorID,collegeID
+            detailInfo.setMajorid(majorId);
+            detailInfo.setCollegeid(collegeId);
+            addTeacherInfo(detailInfo);
+        }
+        //int count = teacherBaseInfoCustomMapper.saveTeacherInfoList(detailInfoList);
+        return true;
+    }
+
+    @Override
+    public boolean checkTeacherNum(String teachernum) throws Exception {
+        if(teacherBaseInfoCustomMapper.checkTeacherNum(teachernum)>0)
+        return true;
+        else return false;
     }
 }

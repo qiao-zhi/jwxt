@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@include file="/tag.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -17,8 +18,6 @@
     <%--<script type="text/javascript" src="../../../js/jquery.min.js"></script>--%>
     <script type="text/javascript" src="${baseurl}/lib/bootstrapFileinput/jquery1.11.o.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
-
-
     <script src="${baseurl}/lib/bootstrapFileinput/js/fileinput.js" type="text/javascript"></script>
     <!--简体中文-->
     <script src="${baseurl}/lib/bootstrapFileinput/js/locales/zh.js" type="text/javascript"></script>
@@ -29,8 +28,9 @@
     <script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../../js/xadmin.js"></script>
 
+
     <%--s      bzy--%>
-    <%@include file="/tag.jsp" %>
+
     <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/attachment.js"></script>
@@ -41,8 +41,8 @@
 
 <body>
 <div class="x-body" style="margin:20px auto 50px auto; width:90%;">
-    <button class="btn-primary btn hidden1" onclick="basicSave()" type="button" style="display: none">保存</button>
-    <button class="btn-primary btn hidden1" onclick="basicCommit()" type="button" style="display: none">提交</button>
+    <button class="btn-primary btn hidden1 saveAndCommit" onclick="basicSave()" type="button" style="display: none">保存</button>
+    <button class="btn-primary btn hidden1 saveAndCommit" onclick="basicCommit()" type="button" style="display: none">提交</button>
 
     <form action="" class="layui-form">
         <table class="table table-bordered ">
@@ -61,6 +61,7 @@
                             <input type="text" class="form-control" id="types" readonly>
                         </div>
                     </div>
+
                     <form enctype="multipart/form-data">
                         <hr>
                         <div id="input_div" style="display: none">
@@ -138,7 +139,7 @@
             data:{"attachmentID":attachmentID,"contentType":contentType},
             dataType:"text",
             success:function(result){
-                alert(result);
+                layer.msg(result);
             },
             error:function () {
                 alert("保存出错！！！");
@@ -157,9 +158,8 @@
             data:{"attachmentID":attachmentID,"contentType":contentType},
             dataType:"text",
             success:function(result){
-                alert(result,function(){
-                });
-                x_admin_close();
+                layer.msg(result);
+                window.parent.loadFile("${id}");
             },
             error:function () {
                 alert("提交失败！！！");

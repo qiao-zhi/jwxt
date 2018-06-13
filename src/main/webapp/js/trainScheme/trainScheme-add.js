@@ -87,13 +87,6 @@ layui.use(['form','layer'], function () {
 
     });
 
-
-
-
-
-
-
-
 })
 /***********E              layui相关方法  *******************/
 
@@ -201,7 +194,6 @@ function initCapacity() {
         $("#hidden_capacity_div").append(capacitydescription_input);
     })
 }
-
 
 /**
  * 验证培养方案能力是否已经填写

@@ -78,6 +78,13 @@
     </a>
 </div>
 <div style="width:16%;float:left;">
+    <br/>
+    <span>&nbsp;&nbsp;专业班级&nbsp; </span>
+    <select name="" style="width: 100px;height: auto">
+        <option value="" selected>在校</option>
+        <option value="">离校</option>
+    </select>
+    <hr>
     <ul id="treeDemo" class="ztree"></ul>
 </div>
 <!--主体-->
@@ -87,19 +94,16 @@
         <form class="layui-form layui-col-md12 x-so "id="selectStudentInfoForm">
             <input type="text" name="studentnum" placeholder="学生学号" autocomplete="off" class="layui-input">
             <input type="text" name="studentname" placeholder="学生姓名" autocomplete="off" class="layui-input">
-            <%--<div class="layui-input-inline"><!--带搜索的查询-->--%>
-                <%--<select  lay-search="" name="majorid" id="majorName">--%>
-                    <%--<option value="">专业名称</option>--%>
-                    <%--<option value="1">软件工程</option>--%>
-                    <%--<option value="2">网络工程</option>--%>
-                    <%--<option value="3">物联网</option>--%>
-                    <%--<option value="4">计算机</option>--%>
-                <%--</select>--%>
-            <%--</div>--%>
-            <%--<div class="layui-input-inline">--%>
-                <%--<select name="collegeid">--%>
-                <%--</select>--%>
-            <%--</div>--%>
+            <div class="layui-input-inline"><!--带搜索的查询-->
+                <select  lay-search="" name="majorid" id="majorName">
+
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="collegeid">
+
+                </select>
+            </div>
 
             <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
         </form>
@@ -110,8 +114,8 @@
     <xblock>
         <button class="layui-btn" onclick="x_admin_show('添加学生','./student-add.jsp')">添加学生 </button>
         <button class="layui-btn" onclick="x_admin_show('统计','./student-statistic.jsp')">统计 </button>
-        <button class="layui-btn layui-btn-normal" onclick="">导入数据 </button>
-        <button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>
+        <button class="layui-btn layui-btn-normal" onclick="importStudent()">导入数据 </button>
+        <button class="layui-btn layui-btn-normal" onclick="studentExport()">导出数据 </button>
     </xblock>
     <!--end 操作区域-->
 
@@ -123,11 +127,13 @@
                 <%--<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">--%>
                     <%--&#xe605;</i></div>--%>
             <%--</th>--%>
+                <th> </th>
             <th>学号</th>
             <th>姓名</th>
             <th>性别</th>
-            <th>出生日期</th>
             <th>班级</th>
+            <th>专业</th>
+            <th>学院</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -140,57 +146,6 @@
 </div>
 
 <script>
-    /*
-     左侧的树
-     */
-    var setting = {
-        view: {
-            showIcon: showIconForTree
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
-        },
-        callback: {
-            beforeClick: beforeClick
-        }
-    };
-    var zNodes =[
-        { id:1, pId:0, name:"计科院", open:true},
-        { id:11, pId:1, name:"软件工程"},
-        { id:111, pId:11, name:"一年级"},
-        { id:1111, pId:111, name:"152001"},
-        { id:1111, pId:111, name:"152002"},
-        { id:112, pId:11, name:"二年级"},
-        { id:1121, pId:112, name:"142001"},
-        { id:1121, pId:112, name:"14200222222222222222"}
-    ];
-
-    function showIconForTree(treeId, treeNode) {
-        return !treeNode.isParent;
-    }
-
-    var clickRes = 0;
-    var getName;
-    var className;
-    function beforeClick(treeId, treeNode, clickFlag) {
-        clickRes = 1;
-        className = (className === "dark" ? "":"dark");
-        getName = treeNode.name;
-        showLog2(treeNode.name );
-        return (treeNode.click != false);
-    }
-
-    //获取节点名
-    function showLog2(str) {
-        console.log(str)
-    }
-
-    $(document).ready(function() {
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-    });
-
     /*分页js*/
     layui.use(['laypage', 'layer'], function(){
         var laypage = layui.laypage
@@ -217,14 +172,6 @@
         })
     }
 
-    /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
-        });
-    }
 </script>
 <script>
     //???

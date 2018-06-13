@@ -13,6 +13,10 @@ $(function(){
             data:{"leaveID":leaveID},
             dataType:"json",
             success:function(result){
+                var isCommit = result.isok;
+                if(isCommit=="01"||isCommit=="21"){
+                    $(".saveAndCommit").css("display","none");
+                }
                 //alert( JSON.stringify(result));
                 $("#studentName").val(result.studentname);
                 $("#studentNum").val(result.studentnum);
@@ -47,7 +51,7 @@ $(function(){
                     if(checknum=="系主任"){
                         addOneSignInfo2(check[i],4);
                     }
-                    if(checknum=="学生工作副书记"){
+                    if(checknum=="副书记"){
                         addOneSignInfo2(check[i],5);
                     }
                     if(checknum=="主管院长"){

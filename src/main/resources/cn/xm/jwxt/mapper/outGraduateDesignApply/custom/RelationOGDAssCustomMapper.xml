@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.outGraduateDesignApply.custom.RelationOGDAssCustomMapper" >
+
+    <delete id="deleteCheckInfo" parameterType="string">
+        DELETE from checkassignment where assignmentid=#{id} AND (checkpeople IS NOT NULL)
+    </delete>
+
+    <select id="selectAssInfo" parameterType="string" resultMap="checkAssignment">
+      SELECT ass.*,c.*,bi.majorClass,ag.collegeName,l.studentName,l.studentNum
+      FROM outGraduateAssignment ass,checkAssignment c,
+          outGraDesignInfo bi,outsideGraDesignAgreemen ag,graDesignLeaveApply l
+      WHERE ass.assignmentID=c.assignmentID
+          AND ass.outsideApplyID=bi.outsideApplyID
+          AND ass.outsideApplyID=ag.outsideApplyID
+          AND ass.outsideApplyID=l.outsideApplyID
+          AND ass.assignmentID=#{id}
+    </select>
+    <resultMap id="checkAssignment" type="cn.xm.jwxt.bean.outGraduateDesignApply.Outgraduateassignment">
+        <id property="assignmentid" column="assignmentid"/>
+        <result property="outsideapplyid" column="outsideapplyid"/>
+        <result property="tablename" column="tablename"/>
+        <result property="samegroup" column="samegroup"/>
+        <result property="starttime" column="starttime"/>
+        <result property="endtime" column="endtime"/>
+        <result property="title" column="title"/>
+        <result property="request" column="request"/>
+        <result property="content" column="content"/>
+        <result property="submitfile" column="submitfile"/>
+        <result property="studentsign" column="studentsign"/>
+        <result property="isok" column="isok"/>
+        <result property="checkstatus" column="checkstatus"/>
+        <result property="remark1" column="remark1"/>
+        <association property="outsidegradesignagreemen" javaType="cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignagreemen">
+            <result property="collegename" column="collegename"/>
+        </association>
+        <association property="outgradesigninfo" javaType="cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo">
+            <result property="majorclass" column="majorclass"/>
+        </association>
+        <association property="gradesignleaveapply" javaType="cn.xm.jwxt.bean.outGraduateDesignApply.Gradesignleaveapply">
+            <result property="studentname" column="studentname"/>
+            <result property="studentnum" column="studentnum"/>
+        </association>
+        <collection property="checkassignments" javaType="java.util.List" ofType="cn.xm.jwxt.bean.outGraduateDesignApply.Checkassignment">
+            <id property="checkId" column="checkId"/>
+            <result property="assignmentid" column="assignmentid"/>
+            <result property="checkpeople" column="checkpeople"/>
+            <result property="teachersign" column="teachersign"/>
+        </collection>
+    </resultMap>
+</mapper>

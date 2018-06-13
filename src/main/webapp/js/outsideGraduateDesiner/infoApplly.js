@@ -11,6 +11,11 @@ $(function(){
             data:{"outsideApplyID":outsideApplyID},
             dataType:"json",
             success:function(result){
+                var isCommit = result.iscommit;
+                if(isCommit=="01"||isCommit=="21"||isCommit=="11"){
+                    $(".saveAndCommit").css("display","none");
+                    $(".studentSign").css("display","none");
+                }
                 //alert(JSON.stringify(result));
                 $("#studentname").val(result.studentname);
                 $("#sex").val(result.sex);
@@ -19,7 +24,7 @@ $(function(){
                 $("#receiveUnit").val(result.receiveunit);
                 $("#applyreason").val(result.applyreason);
                 $("#stuapplydate").val(Format(new Date(result.applydate),'yyyy-MM-dd'));
-                if(result.stusignurl!=""){
+                if(result.stusignurl!=null&&result.stusignurl!=""){
                     $("#stusignurl").attr("src",result.stusignurl);
                 }
                 /*获取审核结果集*/
@@ -30,7 +35,7 @@ $(function(){
                     if(checknum=="指导教师"){
                         addOneSignInfo1(check[i],1);
                     }
-                    if(checknum=="主管书记"){
+                    if(checknum=="副书记"){
                         addOneSignInfo1(check[i],2);
                     }
                     if(checknum=="教研室主任"){
@@ -55,7 +60,7 @@ $(function(){
 
 //上传签名
 function studentSign() {
-    var userID = "1";
+    var userId = $("#userID").val();
     var outsideApplyID = getAddressParameter("id");
     layer.prompt({
         formType: 1,
@@ -67,7 +72,7 @@ function studentSign() {
         $.ajax({
             url:contextPath+"/baseInfo/studentSign.do",
             type:"post",
-            data:{"userID":userID,
+            data:{"userID":userId,
                 "signPassword":value,
                 "outsideApplyID":outsideApplyID
             },

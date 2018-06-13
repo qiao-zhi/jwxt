@@ -15,7 +15,10 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
-    
+
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
+
     <script type="text/javascript">
         $(function () {
             <%
@@ -23,7 +26,7 @@
             %>
             var courseDesignTeacherStudentID = "<%=courseDesignTeacherStudentID%>";
             $.ajax({
-                url:"/jwxt/studentCourseDesignFileInfo/getCourseDesingCheckResult.do",
+                url:contextPath +"/studentCourseDesignFileInfo/getCourseDesingCheckResult.do",
                 type:"post",
                 data:{"courseDesignTeacherStudentID":courseDesignTeacherStudentID},
                 dataType:"json",
@@ -40,7 +43,7 @@
 
                 },
                 error:function () {
-                    layer.alert("加载信息失败");
+                    layer.msg("加载信息失败");
                 }
             })
         })

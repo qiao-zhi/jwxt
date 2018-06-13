@@ -42,11 +42,14 @@ public class OutGraDesignAttServiceImpl implements OutsideGraDesignAttachmentSer
     public boolean commitAttachment(String attachmentID, String type) throws SQLException {
         Outsidegradesignattachment oGDAttachment = new Outsidegradesignattachment();
         oGDAttachment.setAttachmentid(attachmentID);
-        oGDAttachment.setAttachmenttype(type);
+        if(type!=null&&type!=""){
+            oGDAttachment.setAttachmenttype(type);
+        }
         oGDAttachment.setIscommit("01");
         int num = oGDAttachmenntMapper.updateByPrimaryKeySelective(oGDAttachment);
         if(num==1){
             return true;
+
         }
         return false;
     }

@@ -1,5 +1,9 @@
 /*页面加载查询申请的详细信息*/
-$(function(){
+$(function () {
+    loadAttachment();
+});
+
+function loadAttachment(){
     var attachmentID = getAddressParameter("id");
     //alert(attachmentID);
     /*发送ajax请求查询*/
@@ -9,6 +13,7 @@ $(function(){
         data:{"attachmentID":attachmentID},
         dataType:"json",
         success:function(result){
+
             //alert(JSON.stringify(result));
             $("#types").val(result.attachmenttype);
             var iscommit = result.iscommit;
@@ -19,7 +24,7 @@ $(function(){
                 }
             }
             //如查询出来的数据是已经提交的，则不允许修改，隐藏所有的框
-            if(iscommit==0){
+            if(iscommit==0||iscommit==null){
                 $("#types").removeAttr("readonly");
                 $(".hidden1").css("display","");
                 $("#input_div").css("display","");
@@ -35,8 +40,7 @@ $(function(){
             });
         }
     });
-});
-
+}
 
 /*删除一条附件信息*/
 function deleteImg(obj){

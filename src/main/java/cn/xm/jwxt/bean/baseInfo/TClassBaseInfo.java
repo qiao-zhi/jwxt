@@ -51,6 +51,7 @@ public class TClassBaseInfo {
         this.trainingschemeid = trainingschemeid == null ? null : trainingschemeid.trim();
     }
 
+
     public String getClassname() {
         return classname;
     }

@@ -240,103 +240,17 @@
             <div class="layui-input-block">
                 <table class="layui-table">
                     <thead>
-                    <tr>
-                        <th colspan="2">课程类别</th>
-                        <th>课程性质</th>
-                        <th>学分</th>
-                        <th>占总学分比例</th>
-                        <th>学时</th>
-                        <th>占总学时比例</th>
-                    </tr>
+                        <tr>
+                            <th>课程类别</th>
+                            <th>课程性质</th>
+                            <th>学分</th>
+                            <th>占总学分比例</th>
+                            <th>学时</th>
+                            <th>占总学时比例</th>
+                        </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td rowspan="2" colspan="2">通识课程类别</td>
-                        <td>必修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td>必修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="3">学科基础课程</td>
-                        <td>数理基础</td>
-                        <td>必修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td>大类基础</td>
-                        <td>必修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td>专业基础</td>
-                        <td>必修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2" colspan="2">专业课程</td>
-                        <td>必修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td>选修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">个性培养</td>
-                        <td>选修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">教学环节</td>
-                        <td>通识实践</td>
-                        <td>必修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td>专业实验与专业实践</td>
-                        <td>必修</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">毕业总学分（总学时）</td>
-                        <td>2.5</td>
-                        <td>15%</td>
-                        <td>140</td>
-                        <td>14%</td>
-                    </tr>
+                    <tbody id="11Tbody">
+                        <%--动态填充数据--%>
                     </tbody>
                 </table>
             </div>
@@ -391,1390 +305,102 @@
             <label class="layui-form-label" style="font-weight: bolder">14、指导性教学计划 </label>
             <div class="layui-input-block">
                 <h2 style="font-size:20px;font-weight:bolder" align="center">软件工程专业指导性教学计划</h2>
-                <table class="layui-table">
-                    <caption>（一）必修课程设置及进程表</caption>
-                    <tr>
-                        <td rowspan="2">课程平台</td>
-                        <td rowspan="2">课程编号</td>
-                        <td rowspan="2">课程名称</td>
-                        <td rowspan="2">学分</td>
-                        <td rowspan="2">学时</td>
-                        <td colspan="3">学时分配</td>
-                        <td colspan="8">各学期周学时分配</td>
-                        <td rowspan="2">记分方式</td>
-                    </tr>
-                    <tr>
-                        <td>讲课</td>
-                        <td>实验</td>
-                        <td>上机</td>
-                        <td>一</td>
-                        <td>二</td>
-                        <td>三</td>
-                        <td>四</td>
-                        <td>五</td>
-                        <td>六</td>
-                        <td>七</td>
-                        <td>八</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="7">通识必修课程平台</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="17">通识必修课合计：472学时25.5学分</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="20">学科基础课程平台</td>
-                        <td rowspan="6">数理基础</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="9">大类基础</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5">专业基础</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="17">学科基础课合计：1096学时68.5学分</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="6">专业必修课程平台</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="17">专业必修课合计： 184学时 11..5学分</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">必修课合计： 1760 学时 106.5 学分</td>
-                        <td colspan="5">必修课各学期周学时</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                <br><br>
+                <h2 style="font-size:18px;font-weight:bolder" align="center">（一）必修课程设置及进程表</h2>
+                <table class="layui-table" id="BXTable">
+                    <thead>
+                            <tr>
+                                <td rowspan="2">课程平台</td>
+                                <td rowspan="2">课程编号</td>
+                                <td rowspan="2">课程名称</td>
+                                <td rowspan="2">学分</td>
+                                <td rowspan="2">学时</td>
+                                <td colspan="3">学时分配</td>
+                                <td colspan="8">各学期周学时分配</td>
+                                <td rowspan="2">记分方式</td>
+                            </tr>
+                            <tr>
+                                <td>讲课</td>
+                                <td>实验</td>
+                                <td>上机</td>
+                                <td>一</td>
+                                <td>二</td>
+                                <td>三</td>
+                                <td>四</td>
+                                <td>五</td>
+                                <td>六</td>
+                                <td>七</td>
+                                <td>八</td>
+                            </tr>
+                    </thead>
+                    <tbody id="BXTbody">
+                        <%--动态填充数据--%>
+                    </tbody>
                 </table>
-                <table class="layui-table">
-                    <caption>（二）选修课程设置及进程表</caption>
-                    <tr>
-                        <td rowspan="2">课程平台</td>
-                        <td rowspan="2">课程编号</td>
-                        <td rowspan="2">课程名称</td>
-                        <td rowspan="2">学分</td>
-                        <td rowspan="2">学时</td>
-                        <td colspan="3">学时分配</td>
-                        <td colspan="8">各学期周学时分配</td>
-                        <td rowspan="2">记分方式</td>
-                    </tr>
-                    <tr>
-                        <td>讲课</td>
-                        <td>实验</td>
-                        <td>上机</td>
-                        <td>一</td>
-                        <td>二</td>
-                        <td>三</td>
-                        <td>四</td>
-                        <td>五</td>
-                        <td>六</td>
-                        <td>七</td>
-                        <td>八</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="6">专业选修课程平台</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td colspan="5"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="18">个性培养课程平台</td>
-                        <td colspan="16"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="16"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="16"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="16"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="16"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td colspan="5"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3"></td>
-                        <td colspan="5"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>通识选修课程平台</td>
-                        <td colspan="17">通识选修课分5类：创新创业类、艺术鉴赏类、人文社科类、科学技术类、经济管理类。每个学生至少选择三类课程，文科学生至少选修一门科学技术类课程，理工科学生至少选修一门人文社科类课程；每个学生必须选择艺术鉴赏类和创新创业类课程。（注：第三学期开设3学分的高阶英语，选修该课程获得的学分用于置换大学英语三的学分。）通识选修课学分要求：至少选修8个学分。</td>
-                    </tr>
+
+                <br><br>
+
+                <h2 style="font-size:18px;font-weight:bolder" align="center">（二）选修课程设置及进程表</h2>
+                <table class="layui-table" id="XXTable">
+                    <thead>
+                        <tr>
+                            <td rowspan="2">课程平台</td>
+                            <td rowspan="2">课程编号</td>
+                            <td rowspan="2">课程名称</td>
+                            <td rowspan="2">学分</td>
+                            <td rowspan="2">学时</td>
+                            <td colspan="3">学时分配</td>
+                            <td colspan="8">各学期周学时分配</td>
+                            <td rowspan="2">记分方式</td>
+                        </tr>
+                        <tr>
+                            <td>讲课</td>
+                            <td>实验</td>
+                            <td>上机</td>
+                            <td>一</td>
+                            <td>二</td>
+                            <td>三</td>
+                            <td>四</td>
+                            <td>五</td>
+                            <td>六</td>
+                            <td>七</td>
+                            <td>八</td>
+                        </tr>
+                    </thead>
+                    <tbody id="XXTbody">
+                    <%--动态填充数据--%>
+                    </tbody>
                 </table>
+
+                <br/><br/>
+
+                <h2 style="font-size:18px;font-weight:bolder" align="center">（三）实践性教学环节及进程表</h2>
                 <table class="layui-table">
-                    <caption>（三）实践性教学环节及进程表</caption>
-                    <tr>
-                        <td rowspan="2">课程平台</td>
-                        <td rowspan="2">课程编号</td>
-                        <td rowspan="2">课程名称</td>
-                        <td rowspan="2">学分</td>
-                        <td rowspan="2">周数/学时</td>
-                        <td rowspan="2">上机</td>
-                        <td colspan="8">各学期周学时分配</td>
-                        <td rowspan="2">记分方式</td>
-                    </tr>
-                    <tr>
-                        <td>一</td>
-                        <td>二</td>
-                        <td>三</td>
-                        <td>四</td>
-                        <td>五</td>
-                        <td>六</td>
-                        <td>七</td>
-                        <td>八</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="12">通识实践</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="3">专业实验</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="6">专业实践</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="15">合计：36周/344学时 43学分</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <td rowspan="2">课程平台</td>
+                            <td rowspan="2">课程编号</td>
+                            <td rowspan="2">课程名称</td>
+                            <td rowspan="2">学分</td>
+                            <td rowspan="2">周数/学时</td>
+                            <td rowspan="2">上机</td>
+                            <td colspan="8">各学期周学时分配</td>
+                            <td rowspan="2">记分方式</td>
+                        </tr>
+                        <tr>
+                            <td>一</td>
+                            <td>二</td>
+                            <td>三</td>
+                            <td>四</td>
+                            <td>五</td>
+                            <td>六</td>
+                            <td>七</td>
+                            <td>八</td>
+                        </tr>
+                    </thead>
+                    <tbody id="nouseTbody">
+                    <%--动态往这里写数据--%>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -1785,8 +411,10 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label" style="font-weight: bolder">15、每学期教学安排一览表（不含通识选修课）</label>
             <div class="layui-input-block">
-                8个学期，8个表
-                <table class="layui-table">
+                <%--第一个学期表格--%>
+                <table class="layui-table" id="semestertable1">
+                    <caption>(一)第一学期统计信息</caption>
+                    <thead>
                     <tr>
                         <td rowspan="2">学期</td>
                         <td rowspan="2">课程编号</td>
@@ -1803,135 +431,204 @@
                         <td>上机</td>
                         <td>实践</td>
                     </tr>
+                    </thead>
+                    <tbody class="semester1th">
+                    <%--动态填充数据--%>
+                    </tbody>
+                </table>
+
+                <%--第二个学期表格--%>
+                <br>
+                <table class="layui-table" id="semestertable2">
+                    <caption>(二)第二学期统计信息</caption>
+                    <thead>
                     <tr>
-                        <td rowspan="10">第一学期</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td rowspan="2">学期</td>
+                        <td rowspan="2">课程编号</td>
+                        <td rowspan="2">课程名称</td>
+                        <td rowspan="2">学分</td>
+                        <td rowspan="2">学时</td>
+                        <td colspan="4">学时分配</td>
+                        <td rowspan="2">课内周学时</td>
+                        <td rowspan="2">记分方式</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>讲课</td>
+                        <td>实验</td>
+                        <td>上机</td>
+                        <td>实践</td>
+                    </tr>
+                    </thead>
+                    <tbody class="semester2th">
+                    <%--动态填充数据--%>
+                    </tbody>
+                </table>
+
+                <%--第三个学期表格--%>
+                <br>
+                <table class="layui-table" id="semestertable3">
+                    <caption>(三)第三学期统计信息</caption>
+                    <thead>
+                    <tr>
+                        <td rowspan="2">学期</td>
+                        <td rowspan="2">课程编号</td>
+                        <td rowspan="2">课程名称</td>
+                        <td rowspan="2">学分</td>
+                        <td rowspan="2">学时</td>
+                        <td colspan="4">学时分配</td>
+                        <td rowspan="2">课内周学时</td>
+                        <td rowspan="2">记分方式</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>讲课</td>
+                        <td>实验</td>
+                        <td>上机</td>
+                        <td>实践</td>
+                    </tr>
+                    </thead>
+                    <tbody class="semester3th">
+                    <%--动态填充数据--%>
+                    </tbody>
+                </table>
+
+                <%--第四个学期表格--%>
+                <br>
+                <table class="layui-table" id="semestertable4">
+                    <caption>(四)第四学期统计信息</caption>
+                    <thead>
+                    <tr>
+                        <td rowspan="2">学期</td>
+                        <td rowspan="2">课程编号</td>
+                        <td rowspan="2">课程名称</td>
+                        <td rowspan="2">学分</td>
+                        <td rowspan="2">学时</td>
+                        <td colspan="4">学时分配</td>
+                        <td rowspan="2">课内周学时</td>
+                        <td rowspan="2">记分方式</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>讲课</td>
+                        <td>实验</td>
+                        <td>上机</td>
+                        <td>实践</td>
+                    </tr>
+                    </thead>
+                    <tbody class="semester4th">
+                    <%--动态填充数据--%>
+                    </tbody>
+                </table>
+
+                <%--第五个学期表格--%>
+                <br>
+                <table class="layui-table" id="semestertable5">
+                    <caption>(五)第五学期统计信息</caption>
+                    <thead>
+                    <tr>
+                        <td rowspan="2">学期</td>
+                        <td rowspan="2">课程编号</td>
+                        <td rowspan="2">课程名称</td>
+                        <td rowspan="2">学分</td>
+                        <td rowspan="2">学时</td>
+                        <td colspan="4">学时分配</td>
+                        <td rowspan="2">课内周学时</td>
+                        <td rowspan="2">记分方式</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>讲课</td>
+                        <td>实验</td>
+                        <td>上机</td>
+                        <td>实践</td>
+                    </tr>
+                    </thead>
+                    <tbody class="semester5th">
+                    <%--动态填充数据--%>
+                    </tbody>
+                </table>
+
+                <%--第六个学期表格--%>
+                <br>
+                <table class="layui-table" id="semestertable6">
+                    <caption>(六)第六学期统计信息</caption>
+                    <thead>
+                    <tr>
+                        <td rowspan="2">学期</td>
+                        <td rowspan="2">课程编号</td>
+                        <td rowspan="2">课程名称</td>
+                        <td rowspan="2">学分</td>
+                        <td rowspan="2">学时</td>
+                        <td colspan="4">学时分配</td>
+                        <td rowspan="2">课内周学时</td>
+                        <td rowspan="2">记分方式</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>讲课</td>
+                        <td>实验</td>
+                        <td>上机</td>
+                        <td>实践</td>
+                    </tr>
+                    </thead>
+                    <tbody class="semester6th">
+                    <%--动态填充数据--%>
+                    </tbody>
+                </table>
+
+                <%--第7个学期表格--%>
+                <br>
+                <table class="layui-table" id="semestertable7">
+                    <caption>(七)第七学期统计信息</caption>
+                    <thead>
+                    <tr>
+                        <td rowspan="2">学期</td>
+                        <td rowspan="2">课程编号</td>
+                        <td rowspan="2">课程名称</td>
+                        <td rowspan="2">学分</td>
+                        <td rowspan="2">学时</td>
+                        <td colspan="4">学时分配</td>
+                        <td rowspan="2">课内周学时</td>
+                        <td rowspan="2">记分方式</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>讲课</td>
+                        <td>实验</td>
+                        <td>上机</td>
+                        <td>实践</td>
+                    </tr>
+                    </thead>
+                    <tbody class="semester7th">
+                    <%--动态填充数据--%>
+                    </tbody>
+                </table>
+
+                <%--第8个学期表格--%>
+                <br>
+                <table class="layui-table" id="semestertable8">
+                    <caption>(八)第八学期统计信息</caption>
+                    <thead>
+                    <tr>
+                        <td rowspan="2">学期</td>
+                        <td rowspan="2">课程编号</td>
+                        <td rowspan="2">课程名称</td>
+                        <td rowspan="2">学分</td>
+                        <td rowspan="2">学时</td>
+                        <td colspan="4">学时分配</td>
+                        <td rowspan="2">课内周学时</td>
+                        <td rowspan="2">记分方式</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>讲课</td>
+                        <td>实验</td>
+                        <td>上机</td>
+                        <td>实践</td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="12">第一学期合计：20学分</td>
-                    </tr>
+                    </thead>
+                    <tbody class="semester8th">
+                    <%--动态填充数据--%>
+                    </tbody>
                 </table>
             </div>
         </div>
 
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
+       <%-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 0px;">
             <legend><a name="sixteen">课程分类及学分比例</a></legend>
         </fieldset>
         <div class="layui-form-item layui-form-text">
@@ -1971,511 +668,9 @@
                         <td></td>
                         <td rowspan="6"></td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="12">专业基础与专业类</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td rowspan="12"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="12">工程实践类</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td rowspan="12"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="6">工程实践类</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td rowspan="6"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="3">其他</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td rowspan="3"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                 </table>
             </div>
-        </div>
+        </div>--%>
     </form>
 
     <!--漂浮导航-->
@@ -2495,7 +690,7 @@
                 <li><a href="#eleven" class="">毕业总学分及总学时基本要求与分配</a></li>
                 <li><a href="#twelve" class="">主要课程关系结构图</a></li>
                 <li><a href="#thirteen" class="">毕业总学分及总学时基本要求与分配</a></li>
-                <li><a href="#fourteen" class="">毕业总学分及总学时基本要求与分配</a></li>
+                <li><a href="#fourteen" class="">指导性教学计划</a></li>
                 <li><a href="#fifteen" class="">每学期教学安排一览表</a></li>
                 <li><a href="#sixteen" class="">课程分类及学分比例</a></li>
             </ul>

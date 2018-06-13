@@ -33,23 +33,8 @@
 <body>
 <div class="x-body" style="margin:20px auto 50px auto; width:70%;">
     <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th lay-data="{field:'', width:80}">教师姓名</th>
-            <th lay-data="{field:'', width:80}">教师编号</th>
-            <th lay-data="{field:'', width:120}">性别</th>
-            <th lay-data="{field:'', width:80}">出生年月</th>
-            <th lay-data="{field:'', width:120}">职务</th>
-            <th lay-data="{field:'', width:80}">专业</th>
-            <th lay-data="{field:'', width:80}">入职时间</th>
-            <th lay-data="{field:'', width:80}">学位</th>
-            <th lay-data="{field:'', width:80}">学历</th>
-            <th lay-data="{field:'', width:80}">职称</th>
-            <th lay-data="{field:'', width:80}">联系电话</th>
-            <th lay-data="{field:'', width:80}">是否在职</th>
-        </tr>
-        </thead>
         <tbody>
+
         </tbody>
     </table>
 
@@ -63,38 +48,42 @@
 <script>
     layui.use([],function(){
         //第一次执行
-        findTeacherDetailInfo();
+        findTeacherInfo();
     });
-    //查询任务通知书基本信息
-    function findTeacherDetailInfo(currentPage,pageSize){
+    //查询学生基本信息
+    function findTeacherInfo(){
         $.ajax({
-            url : contextPath+'/teacher/getTeacherInfo.action',
-            data : {"teacherId":'${param.teacherid}'},//teacherId是形参
+            url : contextPath+'/teacherInfo/getTeacherInfo.action',
+            data : {"teacherId":'${param.tId}'},
             type : 'POST',
             dataType : 'json',
-            success : showTeacherDetailInfo
+            success : showTeacherInfo
         });
     }
-    function showTeacherDetailInfo(teacherinfo){
-        //console.log(response)
-
-        var detailInfoList = teacherinfo.list;
+    function showTeacherInfo(pageInfo){
+        var teacherInfoList = pageInfo;
+        console.log(pageInfo);
         $("tbody").html("");//清空表格中数据并重新填充数据
-
-            var tr ="<tr><td>"+index+"</td><td>"
-                +detailInfoList[i].teachername+"</td><td>"
-                +detailInfoList[i].teacherid+"</td><td>"
-                +detailInfoList[i].teachersex+"</td><td>"
-                +detailInfoList[i].teacherbirth+"</td><td>"
-                +detailInfoList[i].teacherposition+"</td><td>"
-                +detailInfoList[i].majorid+"</td><td>"
-                +detailInfoList[i].joinschooltime+"</td><td>"
-                +detailInfoList[i].degree+"</td><td>"
-                +detailInfoList[i].education+"</td><td>"
-                +detailInfoList[i].positionaltitle+"</td><td>"
-                +detailInfoList[i].teachertel+"</td><td>"
-                +detailInfoList[i].inposition+"</td></tr>";
-            $("tbody").append(tr);
+        var tr ="<tr><td>教师编号</td><td>"
+            +teacherInfoList.teachernum+"</td><td>教师姓名</td><td>"
+            +teacherInfoList.teachername+"</td></tr><tr>"
+            +"<tr><td>学院</td><td>"
+            +teacherInfoList.collegename+"</td><td>教研室</td><td>"
+            +teacherInfoList.majorname+"</td></tr><tr>"
+            +"<tr><td>职称</td><td>"
+            +teacherInfoList.positionaltitle+"</td><td>职务</td><td>"
+            +teacherInfoList.teacherposition+"</td></tr><tr>"
+            +"<tr><td>毕业学校</td><td>"
+            +teacherInfoList.graduateschool+"</td><td>毕业专业</td><td>"
+            +teacherInfoList.graduatemajor+"</td></tr><tr>"
+            +"<tr><td>性别</td><td>"
+            +teacherInfoList.teachersex+"</td><td>教师电话</td><td>"
+            +teacherInfoList.teachertel+"</td></tr><tr>"
+            +"<tr><td>入校时间</td><td>"
+            +teacherInfoList.joinschooltime+"</td><td>学历</td><td>"
+            +teacherInfoList.education+"</td><td>学位</td><td>"
+            +teacherInfoList.degree+"</td></tr>";
+        $("tbody").append(tr);
 
 
     }

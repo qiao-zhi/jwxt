@@ -5,6 +5,9 @@ layui.use(['layer', 'form', 'element'], function(){
         ,form = layui.form
         ,element = layui.element;
     //初始化表格
+
+    findCollegeNameAndIdForSelect(form);
+    findMajorNameAndIdForSelect(form);
     findTeacherBaseInfo();
 
     //查询按钮事件过滤器
@@ -18,7 +21,7 @@ layui.use(['layer', 'form', 'element'], function(){
     });
 
 });
-//查询任务通知书基本信息
+//查询教师基本信息
 function findTeacherBaseInfo(){
     $.ajax({
         url : contextPath+'/teacherInfo/findTeacherInfoList.action',
@@ -38,14 +41,14 @@ function showTeacherBaseInfo(pageInfo){
     $("#teacherBaseInfoList").html("");//清空表格中数据并重新填充数据
     for(var i=0,length_l = baseInfoList.length;i<length_l;i++){
         var index = (pageNum - 1) * pageSize + i + 1;
-        var tr ="<tr><td>"
+        var tr ="<tr><td><input type='checkbox' name='teacherRadio' /></td><td>"
             +baseInfoList[i].teachernum+"</td><td>"
             +baseInfoList[i].teachername+"</td><td>"
             +(baseInfoList[i].teachersex>1?"女":"男")+"</td><td>"
             +baseInfoList[i].positionaltitle+"</td><td>"
             +baseInfoList[i].teacherposition+"</td><td>"
-            +baseInfoList[i].joinschooltime+"</td><td>"
-            +baseInfoList[i].teachertel+"</td>"
+            +baseInfoList[i].majorname+"</td><td>"
+            +baseInfoList[i].collegename+"</td>"
             +"<td class='td-manage'><a title='点击查看教师详细信息' onclick=notice_tab_show('教师详细信息','teacher-view.jsp?tId="+baseInfoList[i].teacherid+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
             +"<a title='点击修改教师信息'  onclick=notice_tab_show('修改教师','teacher-modify.jsp?tId="+baseInfoList[i].teacherid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
             +" <a title='删除' onclick=deleteTeacherInfo('"+baseInfoList[i].teacherid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
@@ -150,3 +153,66 @@ function notice_tab_show(title,url,w,h){
 }
 
 /* E            弹出层相关操作 */
+
+//初始化学院下拉框
+function findCollegeNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/collegeInfo/findCollegeNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入学院</option>";
+            $("select[name='collegeid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].collegeid+"'>"+response[i].collegename+"</option>";
+                $("select[name='collegeid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+//初始化专业下拉框
+function findMajorNameAndIdForSelect(form){
+    $.ajax({
+        url:contextPath+"/majorInfo/findMajorNameAndId.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response)
+            var optionStr = "<option value=''>请输入专业</option>";
+            $("select[name='majorid']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='" + response[i].majorid+"'>"+response[i].majorname+"</option>";
+                $("select[name='majorid']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
+}
+
+//导入教师按钮
+function importTeacher(){
+    var checked = $("[name='teacherRadio']:checked").length>0?true:false;
+    if(!checked){
+        layer.alert('请先选择需要导入教师的教研室！');
+        return;
+    }
+    //需要改
+    var collegeId ="f4aa12dec36046048d89613bbfd1735c";//获取需要上传资料的课程主键
+    var majorId ="d5046e9fde474981bcddf010f1b98a2d";
+    x_admin_show('导入课程', './teacher-import.jsp?collegeId='+collegeId+'&majorId='+majorId);
+}
+
+
+//导出教师信息
+function teacherExport(){
+    layer.confirm('您确认要导出教师信息吗？',function(index){
+        $("#selectTeacherInfoForm").attr("action",contextPath+"/teacherInfo/exportTeacherInfo.action");//改变表单的提交地址为下载的地址
+        $("#selectTeacherInfoForm").submit();//提交表单
+        layer.close(index);
+    });
+}

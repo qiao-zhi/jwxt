@@ -2,8 +2,10 @@ package cn.xm.jwxt.controller.outGraduateDesignApply;
 
 import cn.xm.jwxt.bean.baseInfo.Signinfo;
 import cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesigninfo;
-import cn.xm.jwxt.service.outGraduateDesignApply.Outgradesigninfoservice;
-import cn.xm.jwxt.service.outGraduateDesignApply.PublicMethod;
+import cn.xm.jwxt.bean.outGraduateDesignApply.Outgradesignsurebook;
+import cn.xm.jwxt.bean.outGraduateDesignApply.Outgraduateassignment;
+import cn.xm.jwxt.bean.outGraduateDesignApply.Outsidegradesignagreemen;
+import cn.xm.jwxt.service.outGraduateDesignApply.*;
 import cn.xm.jwxt.utils.FileHandleUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +27,53 @@ public class OutGraDesignBaseInfoController {
     private PublicMethod publicMethod;
     @Autowired
     private Outgradesigninfoservice oGDInfoService;
+    @Autowired
+    private OutGraDesignTitleApplyService oGDTitleService;
+    @Autowired
+    private GraDesignLeaveApplyService gLeaveApplyService;
+    @Autowired
+    private OutGraDesignAggAndSureService oGDAggAndSureService;
+    @Autowired
+    private OutsideGraDesignAttachmentService oGDAttachmentService;
+    @Autowired
+    private OutGradesignAssignmentService oGDAssignmentService;
 
     /*处理校外申请提交请求*/
     @RequestMapping("/commitODGApply")
     @ResponseBody
-    public String commitODGApply(String outsideApplyId){
+    public String commitODGApply(String outsideApplyId,String titleId,String leaveId,
+                                 String aggreementId,String sureId,String attachementId,String assignmentId){
         Outgradesigninfo info = new Outgradesigninfo();
+        info.setOutsideapplyid(outsideApplyId);
+        info.setStatus("01");
+        info.setIscommit("11");
+        Outsidegradesignagreemen oAgg = new Outsidegradesignagreemen();
+        oAgg.setAgreementid(aggreementId);
+        oAgg.setApplystatus("01");
+        oAgg.setRemark("01");
+        Outgradesignsurebook sureBook = new Outgradesignsurebook();
+        sureBook.setSureid(sureId);
+        sureBook.setIscommit("01");
+        Outgraduateassignment oAss = new Outgraduateassignment();
+        oAss.setAssignmentid(assignmentId);
+        oAss.setCheckstatus("01");
+        oAss.setIsok("01");
         try {
-            info.setOutsideapplyid(outsideApplyId);
-            info.setIscommit("11");
-            boolean b = oGDInfoService.updateInfo(info);
-            if(b){
+            //提交申请表
+            boolean i = oGDInfoService.updateInfo(info);
+            //提交题目表
+            boolean t = oGDTitleService.commitTitle(titleId);
+            //提交请假表
+            boolean l = gLeaveApplyService.commitLeave(leaveId);
+            //提交自我管理协议书
+            boolean a = oGDAggAndSureService.updateOGDAgreementById(oAgg);
+            //提交保证书
+            boolean s = oGDAggAndSureService.updateSureBySureID(sureBook);
+            //提交附件
+            boolean b = oGDAttachmentService.commitAttachment(attachementId,null);
+            //提交任务书
+            boolean as = oGDAssignmentService.commitAssigmengById(oAss);
+            if(i&&t&&l&&a&&a&&s&&b&&as){
                 return "提交成功，进入审批流程...";
             }
         } catch (SQLException e) {
@@ -102,7 +140,7 @@ public class OutGraDesignBaseInfoController {
                 resultMap.put("signUrl","签名秘密错误，请重新输入。");
             }if("2".equals(status)){
                 resultMap.put("status",2);
-                resultMap.put("signUrl","未上传签名，请到...上传签名。");
+                resultMap.put("signUrl","未上传签名，请到基本信息模块上传签名。");
             }
         } catch (SQLException e) {
             logger.error("数据库异常",e);

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.courseDesign.custom.LookCourseDesignArrangeInfoMapper" >
+
+    <!-- 查看课设安排情况 -->
+    <select id="findCourseDesignArrangeByStudent" parameterType="map" resultType="map">
+        SELECT
+          ts.courseDesignTeacherArrangeID AS selKey,   <!-- 把教师安排id设为selKey可以简化查看详细信息 -->
+          ta.classNames,
+          ti.teacherNum,
+          ti.teacherName,
+          ia.courseDesignName,
+          ia.courseDesignNum,
+          ia.yearNum,
+          ia.semester,
+          ia.startTime,
+          ia.endTime
+        FROM
+        t_courseDesign_TeacherStudent ts
+        JOIN t_courseDesign_teacher_arrange ta
+        ON ts.courseDesignTeacherArrangeID = ta.courseDesignTeacherArrangeID
+        JOIN t_courseDesign_info_arrange ia
+        ON ta.courseDesignArrangeID = ia.courseDesignArrangeID
+        JOIN t_teacher_base_info ti
+        ON ti.teacherID = ta.teacherID
+        WHERE
+            <if test="yearNum!=null and yearNum!=''">
+                ia.yearNum = #{yearNum} AND
+            </if>
+            <if test="semester!=null and semester!=''">
+                ia.semester = #{semester} AND
+            </if>
+            ts.studentID = #{userID}
+
+    </select>
+    <select id="findCourseDesignArrangeByTeacher" parameterType="map" resultType="map">
+        SELECT
+          ta.courseDesignTeacherArrangeID AS selKey,
+          ta.classNames,
+          ti.teacherNum,
+          ti.teacherName,
+          ia.courseDesignName,
+          ia.courseDesignNum,
+          ia.yearNum,
+          ia.semester,
+          ia.startTime,
+          ia.endTime
+        FROM
+        t_courseDesign_teacher_arrange ta
+        JOIN t_courseDesign_info_arrange ia
+        ON ta.courseDesignArrangeID = ia.courseDesignArrangeID
+        JOIN t_teacher_base_info ti
+        ON ti.teacherID = ta.teacherID
+        WHERE
+        <if test="yearNum!=null and yearNum!=''">
+            ia.yearNum = #{yearNum} AND
+        </if>
+        <if test="semester!=null and semester!=''">
+            ia.semester = #{semester} AND
+        </if>
+          ta.teacherID = #{userID}
+
+    </select>
+
+    <!-- 教师查看详细的课设安排 -->
+    <select id="findCourseDesignDetailArrangeInfoByTeacher" resultType="map" parameterType="String">
+      SELECT
+          ta.classNames,
+          ti.teacherNum,
+          ti.teacherName,
+          ia.courseDesignName,
+          ia.courseDesignNum,
+          ia.yearNum,
+          ia.semester,
+          ia.startTime,
+          ia.endTime,
+          ia.CourseArrangeInfo
+        FROM
+        t_courseDesign_teacher_arrange ta
+        JOIN t_courseDesign_info_arrange ia
+        ON ta.courseDesignArrangeID = ia.courseDesignArrangeID
+        JOIN t_teacher_base_info ti
+        ON ti.teacherID = ta.teacherID
+        WHERE
+        ta.courseDesignTeacherArrangeID = #{courseDesignTeacherArrangeID}
+    </select>
+    <select id="findStuList" parameterType="String" resultType="map">
+        SELECT
+          si.studentID,
+          si.studentName
+        FROM
+        t_courseDesign_TeacherStudent ts
+        JOIN t_student_base_info si
+        ON ts.studentID = si.studentID
+        WHERE
+        ts.courseDesignTeacherArrangeID = #{courseDesignTeacherArrangeID}
+    </select>
+</mapper>
