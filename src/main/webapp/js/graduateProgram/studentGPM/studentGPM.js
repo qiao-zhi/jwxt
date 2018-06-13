@@ -12,7 +12,6 @@ function findTaskNoticeBaseInfo(){
     $.ajax({
         url : contextPath+'/studentGPM/getPDInfo.do',
         type : 'POST',
-        //dataType : 'json',
         async:true,
         success:function(response){
             var data = ajaxGetStringToJson(response);
@@ -37,14 +36,14 @@ function findTaskNoticeBaseInfo(){
             var tbody =
                 '<tbody>' +
                 '<tr>' +
-                '    <td><input type="hidden" id="y_ID" vlaue="'+data.teacherTitleID+'"/>' +
-                '    <input type="hidden" id="y_bookID" vlaue="'+data.bookID+'"/>' +
-                            data.titlename +'</td>' +
-                '    <td>'+ data.projectType +'</td>' +
-                '    <td>'+ data.titleOrigin +'</td>' +
-                '    <td>'+ data.teacherName +'</td>' +
-                '    <td>'+ data.studentName +'</td>' +
-                '    <td>'+ data.isUpThesis +'</td>';
+                '    <td><input type="hidden" id="y_ID" vlaue="'+data.teachertitleid+'"/>' +
+                '    <input type="hidden" id="y_bookID" vlaue="'+data.bookid+'"/>' +
+                            checkNull(data.titlename) +'</td>' +
+                '    <td>'+ checkNull(data.projecttype) +'</td>' +
+                '    <td>'+ checkNull(data.titleorigin) +'</td>' +
+                '    <td>'+ checkNull(data.teachername) +'</td>' +
+                '    <td>'+ checkNull(data.studentname) +'</td>' +
+                '    <td>'+ checkNull(data.isUpThesis) +'</td>';
 
             if (data.isStudentSign == "1") { //判断任务书是否签字。已签字1，未签字0.若签字，则显示，可查看
                 thead = thead + '<th>任务书</th>';

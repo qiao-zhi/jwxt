@@ -4,12 +4,9 @@ layui.use('form', function(){
 
     //监听提交
     form.on('submit(sreach)', function(data){
-        layer.alert(JSON.stringify(data.field), {
-            title: '最终的提交信息'
-        });
         //清空当前页和页号
         $("input[name='pageSize']").val('');
-        $("input[name='currentPage']").val('');
+        $("input[name='pageNum']").val('');
         //调用查询方法
         findTaskNoticeBaseInfo();
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
@@ -116,22 +113,26 @@ function findChooseProjectInfo() {
                     '<td>'+ data[i].titleOrigin + '</td>' +
                     '<td>'+ data[i].reqireStudentNum + '</td>' +
                     '<td class="td-manage">' +
-                    '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseProject-view.jsp?teacherTitleID='+ data[i].teacherTitleID + '\')" href="javascript:;">' +
-                    '        <i class="layui-icon">&#xe63c;</i>' +
-                    '    </a>' +
-                    '</td></tr>';
-                $("#choose_tbody").append(tr);
-
+                      '<a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseProject-view.jsp?teacherTitleID='+ data[i].teacherTitleID + '\')" href="javascript:;">' +
+                      '  <i class="layui-icon">&#xe63c;</i>' +
+                      '</a>';
                 //控制按钮的显示情况
-                if (data[0].isSubmit == "1") { //已提交
+                if (data[i].isSubmit == "1") { //已提交
                     $("#saveButton").hide();
                     $("#submitButton").hide();
                     $("#y_tip").hide();
-                } else {
+                } else {                        //未提交，可以删除
                     $("#saveButton").show();
                     $("#submitButton").show();
                     $("#y_tip").show();
+                    tr = tr +
+                        '<a title="删除" onclick="member_del(this)" href="javascript:;">' +
+                        '  <i class="layui-icon">&#xe640;</i>' +
+                        '</a>';
                 }
+                tr = tr +  '</td></tr>';
+                $("#choose_tbody").append(tr);i
+
             }
 
         }
@@ -141,14 +142,20 @@ function findChooseProjectInfo() {
 /* 选择课题*/
 function chooseProject(obj,titleId) {
     var chooseTr = $(obj).parents("tr");
+    var res = true;
     //判断该条数据是否选择
-    var choose_titleID = $("#choose_tbody").find(".choose_titleID");
+    var choose_titleID = "";
+    choose_titleID = $("#choose_tbody").find(".choose_titleID");
     choose_titleID.each(function () {
         if ($(this).val() == titleId) {
             layer.alert("该课题已选择！");
-            return false;
+            res = false;
         }
     });
+
+    if(!res) {
+        return false;
+    }
 
     if (choose_titleID.length == 2) {
         layer.alert("只能选择两个课题！");
@@ -171,13 +178,13 @@ function chooseProject(obj,titleId) {
             '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseProject-view.jsp?teacherTitleID=\'+ titleId+ \')" href="javascript:;">' +
             '        <i class="layui-icon">&#xe63c;</i>' +
             '    </a>' +
-            '    <a title="删除" onclick="member_del(this,\'要删除的id\')" href="javascript:;">' +
+            '    <a title="删除" onclick="member_del(this)" href="javascript:;">' +
             '        <i class="layui-icon">&#xe640;</i>' +
             '    </a>' +
             '</td></tr>'
     } else if (choose_titleID.length == 1) {
         tr =
-            '<tr><td>第二志愿</td><td><input type="hidden" class="choose_titleID" value="\'+ titleId +\'">' +
+            '<tr><td>第二志愿</td><td><input type="hidden" class="choose_titleID" value="'+ titleId +'">' +
             chooseTr.find("td:eq(1)").text() + '</td><td>' +
             chooseTr.find("td:eq(2)").text() + '</td><td>' +
             chooseTr.find("td:eq(3)").text() + '</td><td>' +
@@ -187,7 +194,7 @@ function chooseProject(obj,titleId) {
             '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'chooseProject-view.jsp?teacherTitleID=\'+ titleId+ \')" href="javascript:;">' +
             '        <i class="layui-icon">&#xe63c;</i>' +
             '    </a>' +
-            '    <a title="删除" onclick="member_del(this,\'要删除的id\')" href="javascript:;">' +
+            '    <a title="删除" onclick="member_del(this)" href="javascript:;">' +
             '        <i class="layui-icon">&#xe640;</i>' +
             '    </a>' +
             '</td></tr>'
@@ -198,7 +205,7 @@ function chooseProject(obj,titleId) {
 }
 
 /*用户-删除*/
-function member_del(obj, id) {
+function member_del(obj) {
     layer.confirm('确认要删除吗？', function (index) {
         //发异步删除数据
         $(obj).parents("tr").remove();
@@ -220,7 +227,7 @@ function chooseProject_save() {
     } else if (choose_titleIDs.length == 1) {
         choose_titleIDstr = choose_titleIDs.val()
     } else {
-        choose_titleIDstr = choose_titleIDs.eq(0).text() + "," + choose_titleIDs.eq(1).text();
+        choose_titleIDstr = choose_titleIDs.eq(0).val() + "," + choose_titleIDs.eq(1).val();
     }
     $.ajax({
         url : contextPath+ '/chooseProject/saveChooseProject.do',
@@ -252,7 +259,6 @@ function chooseProject_submit() {
     }
 
     layer.confirm("提交之后将不能更改,确认提交?",function (index) {
-        var choose_titleIDstr = choose_titleIDs.eq(0) + "," + choose_titleIDs.eq(1);
         $.ajax({
             url: contextPath + '/chooseProject/saveChooseProject.do',
             data: {"choose_titleIDstr":choose_titleIDstr,"isSubmit":"1"},
@@ -261,7 +267,9 @@ function chooseProject_submit() {
             dataType : "text",
             success: function (response) {
                 if ("success" == response) {
-                    layer.alert("提交成功")
+                    layer.alert("提交成功",function () {
+                        window.location.reload();
+                    });
                 }
             }
         });

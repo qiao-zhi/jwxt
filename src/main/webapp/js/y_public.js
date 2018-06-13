@@ -34,7 +34,6 @@ function initYearNum() {
     $.ajax({
         url: contextPath + "/graduateManage/getYearNum.do",
         type: "POST",
-        dataType: "json",
         async: false,
         success: function (response) {
             var data = ajaxGetStringToJson(response);
@@ -128,10 +127,18 @@ function ajaxGetStringToJson(response) {
     return data;
 }
 
-//判断是否为空，为空显示--，否则显示传入的数据
+//判断是否为空，为空显示横岗：--，否则显示传入的数据
 function checkNull(value){
     if(value==null || value==''){
         return '--';
+    }else{
+        return value;
+    }
+}
+//判断是否为空，为空返回 0
+function checkNullRetrueZore(value){
+    if(value==null || value==''){
+        return '0';
     }else{
         return value;
     }
@@ -149,7 +156,7 @@ function getAuthority(){
         success: function (data) {
             authority = data;
         }
-    })
+    });
 
     return authority;
 }
@@ -174,6 +181,10 @@ function checkHeader(obj) {
 
 //后台传过来的字符串。转化为日期格式
 function getLocalTime(jsondate) {
+    if (jsondate == null || jsondate == "") {
+        return "";
+    }
+
     var date = new Date(parseInt(jsondate, 10));
     var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
     var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();

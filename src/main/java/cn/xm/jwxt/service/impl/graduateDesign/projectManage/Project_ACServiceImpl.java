@@ -1,13 +1,3 @@
-/**
- * Copyright (C), 2015-2018, XXX有限公司
- * FileName: CencheckarrangeinfoServiceImpl
- * Author:   xuexiaolei
- * Date:     2018/4/3 20:50
- * Description: 毕设中期检查实现类
- * History:
- * <author>          <time>          <version>          <desc>
- * 作者姓名           修改时间           版本号              描述
- */
 package cn.xm.jwxt.service.impl.graduateDesign.projectManage;
 
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
@@ -154,7 +144,7 @@ public class Project_ACServiceImpl implements Project_ACService {
     }
 
     @Override
-    public Teachergredesigntitle initProjectInfo(String teacherTitleID) throws Exception {
+    public TeachergredesigntitleDetailVo initProjectInfo(String teacherTitleID) throws Exception {
         return project_ACMapper.selectProjectInfo(teacherTitleID);
     }
 
@@ -173,7 +163,7 @@ public class Project_ACServiceImpl implements Project_ACService {
 
     @Override
     public TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID) throws Exception {
-        //先判断该课题是否，审核。若没有审核。则不差审核表。若审核了，则查
+        //先判断该课题是否审核。若没有审核。则不查审核表。若审核了，则查   审核了一半也不查
         String checkStatus = project_ACMapper.selectCheckStatusByTeacherTitleID(teacherTitleID);
         String checkValue;
         if (checkStatus.equals("0") || checkStatus.equals("1")) { //不用查
@@ -206,6 +196,17 @@ public class Project_ACServiceImpl implements Project_ACService {
     @Override
     public String getTeacherIDByTeacherNum(String teacherNum) throws Exception {
         return project_ACMapper.selectTeacherIDByTeacherNum(teacherNum);
+    }
+
+    @Override
+    public Teachergredesigntitle c_getProjectInfo(String teacherTitleID) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Boolean releaseProject(String yearNum) throws Exception {
+
+        return null;
     }
 
 }

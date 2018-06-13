@@ -32,6 +32,28 @@ public class Project_ACController {
     private Project_ACService project_ACService;
 
     /**
+     * 发布课题
+     *
+     * @return
+     */
+    @RequestMapping("/releaseProject")
+    public @ResponseBody
+    String releaseProject() {
+        try {
+            String yearNum = DateHandler.getCurrentYearNum();
+
+            Boolean res = project_ACService.releaseProject(yearNum);
+            if (!res) {
+                return "发布失败";
+            }
+        } catch (Exception e) {
+            logger.error("发布失败", e);
+            return "发布失败";
+        }
+        return "发布成功";
+    }
+
+    /**
      * 在添加课题前，判断是否有本学期的毕业设计基本信息
      *
      * @return
@@ -195,15 +217,15 @@ public class Project_ACController {
      */
     @RequestMapping("/initProjectInfo")
     public @ResponseBody
-    Teachergredesigntitle initProjectInfo(String teacherTitleID) {
-        Teachergredesigntitle teachergredesigntitle = new Teachergredesigntitle();
+    TeachergredesigntitleDetailVo initProjectInfo(String teacherTitleID) {
+        TeachergredesigntitleDetailVo teachergredesigntitleDetailVo = new TeachergredesigntitleDetailVo();
         try {
-            teachergredesigntitle = project_ACService.initProjectInfo(teacherTitleID);
+            teachergredesigntitleDetailVo = project_ACService.initProjectInfo(teacherTitleID);
         } catch (Exception e) {
             logger.error("初始化页面失败", e);
         }
 
-        return teachergredesigntitle;
+        return teachergredesigntitleDetailVo;
     }
 
     /**
@@ -283,7 +305,7 @@ public class Project_ACController {
             pageNum = Integer.valueOf(condition.get("pageNum"));
         }
         //开始分页   CONVERT(courseNameCN USING gbk)显示方式。排序方式。"createTime desc";//按创建时间降序排序
-        PageHelper.startPage(pageNum, pageSize, "yearNum desc");
+        PageHelper.startPage(pageNum, pageSize, "CONVERT(yearNum USING gbk) desc");
         //上面pagehelper的设置对此查询有效，查到数据总共8条
 
         List<Map<String, String>> projectInfo = null;
@@ -315,19 +337,6 @@ public class Project_ACController {
         TeachergredesigntitleDetailVo teachergredesigntitledetail = new TeachergredesigntitleDetailVo();
         try {
             teachergredesigntitledetail = project_ACService.getProjectInfoDetail(teacherTitleID);
-
-            if (ValidateCheck.isNull(teachergredesigntitledetail.getCheckFirstDesc())) {
-                teachergredesigntitledetail.setCheckFirstDesc("");
-            }
-            if (ValidateCheck.isNull(teachergredesigntitledetail.getCheckFirstResult())){
-                teachergredesigntitledetail.setCheckFirstResult("");
-            }
-            if (ValidateCheck.isNull(teachergredesigntitledetail.getCheckSecondDesc())){
-                teachergredesigntitledetail.setCheckSecondDesc("");
-            }
-            if (ValidateCheck.isNull(teachergredesigntitledetail.getCheckSecondResult())){
-                teachergredesigntitledetail.setCheckSecondResult("");
-            }
 
         } catch (Exception e) {
             logger.error("课题申请详细信息获取失败", e);

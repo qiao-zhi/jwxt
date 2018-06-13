@@ -94,4 +94,12 @@ public interface StudentGPMService {
      * @throws Exception
      */
     public List<FileInfoVo> initFIleInfo(String studentID) throws Exception;
+
+    /**
+     * 通过学生学号，获取学生id
+     * @param studentNum
+     * @return
+     * @throws Exception
+     */
+    public String getStudentIDByStudentNum(String studentNum) throws Exception;
 }

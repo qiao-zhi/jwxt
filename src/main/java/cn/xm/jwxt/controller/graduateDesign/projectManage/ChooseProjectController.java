@@ -68,7 +68,7 @@ public class ChooseProjectController {
         try {
             chooseProjectVo = chooseProjectService.getChooseProjectInfo(studentNum);
         } catch (Exception e) {
-            logger.error("选择课题，选择情况初始化", e);
+            logger.error("选择课题，选择情况初始化失败", e);
         }
 
         return chooseProjectVo;

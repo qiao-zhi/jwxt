@@ -29,12 +29,12 @@ function initData() {
             for(var i=0; i<data.length;i++) {
                 tbodyContent = tbodyContent +
                     '<tr>' +
-                    '<td>' + data[i].titlename + '</td>' +
-                    '<td>' + data[i].teacherName + '</td>' +
-                    '<td>' + data[i].checkResult + '</td>' +
-                    '<td>' + data[i].checkDesc + '</td>' +
+                    '<td>' + checkNull(data[i].titlename) + '</td>' +
+                    '<td>' + checkNull(data[i].teacherName) + '</td>' +
+                    '<td>' + checkNull(data[i].checkResult) + '</td>' +
+                    '<td>' + checkNull(data[i].checkDesc) + '</td>' +
                     '<td>' + getLocalTime(data[i].checkTime) + '</td>' +
-                    '<td>' + data[i].checkPerson + '</td>' +
+                    // '<td>' + checkNull(data[i].checkPerson) + '</td>' +
                     '</tr>'
             }
 

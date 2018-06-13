@@ -108,8 +108,8 @@
             <tr>
                 <td>成果形式</td>
                 <td colspan="6">
-                    <input type="checkbox" name="resulttype" disabled checked lay-skin="primary" value="论文" title="论文" lay-verify="resultType">
-                    <input type="checkbox" name="resulttype" checked lay-skin="primary" value="软件"  title="软件" lay-verify="resultType">
+                    <input type="checkbox" name="resulttype" checked lay-skin="primary" value="论文" title="论文" lay-verify="resultType">
+                    <input type="checkbox" name="resulttype" lay-skin="primary" value="软件"  title="软件" lay-verify="resultType">
                     <input type="checkbox" name="resulttype" lay-skin="primary" value="实物制作"  title="实物制作" lay-verify="resultType">
                     <input type="checkbox" name="resulttype" lay-skin="primary" value="图纸"  title="图纸" lay-verify="resultType">
                     <input type="checkbox" name="resulttype" lay-skin="primary" value="其它"  title="其它" lay-verify="resultType">

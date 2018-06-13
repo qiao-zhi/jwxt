@@ -22,33 +22,6 @@ public class StudentGPMController {
 
     @Autowired
     private StudentGPMService studentGPMService;
-//    @Autowired
-    //private AssignmentManageService assignmentManageService;
-
-    /**
-     * 初始化界面
-     * @return
-     */
-/*    @RequestMapping("/getPDInfo")
-    @ResponseBody
-    public Map<String,Object> getPDInfo(HttpSession session) {
-        Map<String,Object> map = new HashMap<String,Object>();
-
-        User user = (User) session.getAttribute("userinfo");
-        //获取当前用户信息
-        String studentID = user.getUsercode();
-
-        StudentPDVo studentPDVo = new StudentPDVo();
-        try {
-            studentPDVo = studentGPMService.getPDInfo(studentID);
-        } catch (Exception e) {
-            logger.error("课题申请详细信息获取失败", e);
-        }
-
-        map.put("studentPDVo",studentPDVo);
-
-        return map;
-    }*/
 
     /**
      * 初始化界面
@@ -60,7 +33,13 @@ public class StudentGPMController {
 
         User user = (User) session.getAttribute("userinfo");
         //获取当前用户信息
-        String studentID = user.getUsercode();
+        String studentNum = user.getUsercode();
+        String studentID = "";
+        try {
+            studentID = studentGPMService.getStudentIDByStudentNum(studentNum);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         StudentPDVo studentPDVo = new StudentPDVo();
         try {

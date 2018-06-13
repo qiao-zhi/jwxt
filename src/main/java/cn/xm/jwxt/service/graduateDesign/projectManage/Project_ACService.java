@@ -53,7 +53,7 @@ public interface Project_ACService {
      * @param teacherTitleID
      * @return
      */
-    public Teachergredesigntitle initProjectInfo(String teacherTitleID) throws Exception;
+    public TeachergredesigntitleDetailVo initProjectInfo(String teacherTitleID) throws Exception;
 
     /**
      * 修改申请表
@@ -111,4 +111,20 @@ public interface Project_ACService {
      * @throws Exception
      */
     public String getTeacherIDByTeacherNum(String teacherNum) throws Exception;
+
+    /**
+     * 确定课题时，初始化课题表格
+     * @param teacherTitleID
+     * @return
+     * @throws Exception
+     */
+    public Teachergredesigntitle c_getProjectInfo(String teacherTitleID) throws Exception;;
+
+    /**
+     * 课题发布
+     * @param yearNum
+     * @return
+     * @throws Exception
+     */
+    public Boolean releaseProject(String yearNum) throws Exception;
 }

@@ -72,4 +72,8 @@
         where studentID = #{studentID} and r.StudentTitleresultID = b.StudentTitleresultID and g.bookid = b.bookid
     </select>
 
+    <select id="selectStudentIDByStudentNum" parameterType="java.lang.String" resultType="java.lang.String">
+        select studentID from t_student_base_info where studentNum = #{studentNum}
+    </select>
+
 </mapper>

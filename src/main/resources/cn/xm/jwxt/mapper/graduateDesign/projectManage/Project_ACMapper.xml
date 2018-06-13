@@ -82,9 +82,9 @@
     SELECT teacherName,positionalTitle,degree FROM t_teacher_base_info WHERE teacherNum = #{teacherNum}
   </select>
 
-    <select id="selectProjectInfo" parameterType="java.lang.String"
-            resultType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
-    SELECT * FROM Teachergredesigntitle WHERE teacherTitleID = #{teachertitleid}
+   <select id="selectProjectInfo" parameterType="java.lang.String"
+            resultType="cn.xm.jwxt.bean.graduateDesign.TeachergredesigntitleDetailVo">
+    SELECT * FROM Teachergredesigntitle WHERE teacherTitleID = #{teacherTitleID}
   </select>
 
     <update id="updateProjectInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
@@ -176,10 +176,10 @@
         <if test="checkValue == 0">
             SELECT teacherName,positionalTitle,degree,
             majorName,
-            titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,applyTime
+            titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,applyTime,gtTime
             from t_teacher_base_info t, t_major_base_info m,
             (
-            SELECT titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,teacherID,majorID,teacherTitleID
+            SELECT titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,teacherID,majorID,teacherTitleID,applyTime,gtTime
             FROM teacherGreDesignTitle
             WHERE teacherTitleID=#{teacherTitleID}
             ) son
@@ -188,12 +188,12 @@
         <if test="checkValue == 1">
             SELECT teacherName,positionalTitle,degree,
             majorName,
-            titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,applyTime,
+            titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,applyTime,gtTime
             c1.checkResult checkFirstResult,c1.checkDesc checkFirstDesc,
             c2.checkResult checkSecondResult,c2.checkDesc checkSecondDesc
             from t_teacher_base_info t, t_major_base_info m,teacherTitleFirstCheckInfo c1,teacherTitleSecondCheckInfo c2,
             (
-            SELECT titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,teacherID,majorID,teacherTitleID
+            SELECT titlename,resulttype,projecttype,targetrequire,researchcontent,titleorigin,titletype,reqirestudentnum,checkstatus,teacherID,majorID,teacherTitleID,applyTime,gtTime
             FROM teacherGreDesignTitle
             WHERE teacherTitleID=#{teacherTitleID}
             ) son

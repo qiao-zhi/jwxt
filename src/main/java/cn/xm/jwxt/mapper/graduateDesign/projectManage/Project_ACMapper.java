@@ -70,7 +70,7 @@ public interface Project_ACMapper {
      * @param teacherTitleID
      * @return
      */
-    public Teachergredesigntitle selectProjectInfo(String teacherTitleID) throws SQLException;
+    public TeachergredesigntitleDetailVo selectProjectInfo(String teacherTitleID) throws SQLException;
 
     /**
      * 修改申请表

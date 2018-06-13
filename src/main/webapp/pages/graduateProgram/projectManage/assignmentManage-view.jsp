@@ -2,9 +2,10 @@
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <title>教研室选择课题-详细信息</title>
+    <title>任务书详情</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -12,26 +13,36 @@
     <%-- qlq引入的公共的JSP --%>
     <%@include file="/tag.jsp"%>
 
+    <link rel="stylesheet" href="${baseurl}/lib/layui/css/layui.css">
     <link rel="stylesheet" href="${baseurl}/css/font.css">
     <link rel="stylesheet" href="${baseurl}/lib/bootstrap/bootstrap.min.css">
     <script type="text/javascript" src="${baseurl}/js/jquery.min.js"></script>
     <script type="text/javascript" src="${baseurl}/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${baseurl}/js/xadmin.js"></script>
-    <script type="text/javascript" src="${baseurl}/js/y_public.js"></script>
 
-    <script src="${baseurl}/js/graduateProgram/projectManage/projectManage-view.js"></script>
+    <script src="${baseurl}/js/graduateProgram/projectManage/assignmentManage-modify.js"></script>
 </head>
 
 <body>
-
 <div class="x-body" style="margin:20px auto 50px auto; width:70%;">
-    <!--通过是否确认，。确认则显示，选择的学生信息。显示相关内容-->
     <table class="table table-bordered">
-        <caption><h3>选择毕设学生信息</h3></caption>
-        <tbody>
-        </tbody>
+        <tbody id="titleInfo"></tbody>
     </table>
-</div>
+    <form class="layui-form" id="y_form">
+        <input type="hidden" name="studentID" id="studentID"/>
+        <input type="hidden" name="teacherTitleID" id="teacherTitleID"/>
+        <input type="hidden" name="studenttitleresultid" id="StudentTitleresultID"/>
+        <input type="hidden" name="taskedittime" id="taskEditTime"/>
+        <input type="hidden" name="fillStatus" id="fillStatus"/>
+        <table class="table table-bordered">
+            <caption>太原科技大学毕业设计（论文）任务书</caption>
+            <tbody id="assignment">
+            </tbody>
+        </table>
+        <span>说明：一式两份，一份装订入学生毕业设计（论文）内，一份交学院（直属系）。</span>
+    </form>
 
+</div>
 </body>
+
 </html>

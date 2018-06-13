@@ -279,6 +279,11 @@ public class StudentGPMServiceImpl implements StudentGPMService {
         return fileInfoVos;
     }
 
+    @Override
+    public String getStudentIDByStudentNum(String studentNum) throws Exception {
+        return studentGPMMapper.selectStudentIDByStudentNum(studentNum);
+    }
+
 
     //查询毕设学生选题表中的是否提交
     public String isSubmitFromProjectChoose(String studentID) throws Exception{

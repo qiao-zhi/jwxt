@@ -17,10 +17,12 @@ import cn.xm.jwxt.mapper.graduateDesign.projectManage.ChooseProjectMapper;
 import cn.xm.jwxt.mapper.graduateDesign.projectManage.Project_ACMapper;
 import cn.xm.jwxt.service.graduateDesign.projectManage.ChooseProjectService;
 import cn.xm.jwxt.utils.DateHandler;
+import cn.xm.jwxt.utils.ValidateCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +55,27 @@ public class ChooseProjectServiceImpl implements ChooseProjectService {
 
     @Override
     public List<ChooseProjectVo> getChooseProjectInfo(String studentNum) throws Exception{
-        return chooseProjectMapper.selectChooseProjectInfo(studentNum);
+        List<ChooseProjectVo> chooseProjectVos = new ArrayList<ChooseProjectVo>();
+
+        //查询，判断该学生已经选择了的课题情况。在获取选题信息，firstTeacherTitleId，firstTeacherTitle后数据分开查询。
+        Gradesignstudenttitleinfo gradesignstudenttitleinfo = chooseProjectMapper.selectChooseNum(studentNum);
+
+        if (gradesignstudenttitleinfo != null) {
+            if (ValidateCheck.isNotNull(gradesignstudenttitleinfo.getFirstteachertitleid())) {
+                ChooseProjectVo chooseProjectVo = chooseProjectMapper.selectChooseFirstProjectInfo(gradesignstudenttitleinfo);
+                chooseProjectVo.setIsSubmit(gradesignstudenttitleinfo.getIsSubmit());
+                chooseProjectVos.add(chooseProjectVo);
+            }
+            if (ValidateCheck.isNotNull(gradesignstudenttitleinfo.getSecteachertitleid())) {
+                ChooseProjectVo chooseProjectVo = chooseProjectMapper.selectChooseSecondProjectInfo(gradesignstudenttitleinfo);
+                chooseProjectVo.setIsSubmit(gradesignstudenttitleinfo.getIsSubmit());
+                chooseProjectVos.add(chooseProjectVo);
+            }
+        }
+
+        String firstteachertitleid = gradesignstudenttitleinfo.getFirstteachertitleid();
+
+        return chooseProjectVos;
     }
 
     @Override

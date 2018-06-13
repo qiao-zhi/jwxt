@@ -198,6 +198,14 @@ public interface StudentGPMMapper {
      */
     public String selectProgramtableNum(String studentID) throws SQLException;
 
+    /**
+     * 通过学生id，查询学生学号
+     * @param studentNum
+     * @return
+     * @throws SQLException
+     */
+    public String selectStudentIDByStudentNum(String studentNum) throws SQLException;
+
 /*    *//**
      * 中期检查表
      * @param studentID

@@ -12,7 +12,6 @@ layui.use('form', function () {
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
 });
-
 //毕设基本信息id
 var graDesignID = "";
 
@@ -24,6 +23,18 @@ function getGraDesignID() {
         async: false,
         success: function (data) {
             graDesignID = data;
+        }
+    })
+}
+
+//发布课题
+function releaseProject() {
+    $.ajax({
+        url: contextPath + '/project_AC/releaseProject.do',
+        type: 'POST',
+        async: false,
+        success: function (data) {
+            layer.alert(data);
         }
     })
 }
@@ -243,12 +254,15 @@ function showButtonByAuthority() {
     var authority = getAuthority();
     if (authority == "1") {
         $("#jiaoyanshi").show();
+        $("#releaseProject").show();
         $("#yuanzhang").hide();
     } else if (authority == "2") {
         $("#jiaoyanshi").hide();
+        $("#releaseProject").hide();
         $("#yuanzhang").show();
     } else {
         $("#jiaoyanshi").hide();
+        $("#releaseProject").hide();
         $("#yuanzhang").hide();
     }
 }

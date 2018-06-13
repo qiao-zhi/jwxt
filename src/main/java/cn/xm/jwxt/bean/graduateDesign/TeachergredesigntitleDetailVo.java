@@ -1,10 +1,13 @@
 package cn.xm.jwxt.bean.graduateDesign;
+import javax.swing.*;
 import java.util.Date;
 
 /**
  * 教师毕业课题题目申请表
  */
 public class TeachergredesigntitleDetailVo {
+
+    private Spring teachertitleid;
 
     private String teacherName;
 
@@ -41,8 +44,25 @@ public class TeachergredesigntitleDetailVo {
     private String gdTime;
 
     private String majorName;
+    private String majorID;
 
     private Date applyTime;
+
+    public String getMajorID() {
+        return majorID;
+    }
+
+    public void setMajorID(String majorID) {
+        this.majorID = majorID;
+    }
+
+    public Spring getTeachertitleid() {
+        return teachertitleid;
+    }
+
+    public void setTeachertitleid(Spring teachertitleid) {
+        this.teachertitleid = teachertitleid;
+    }
 
     public String getGdTime() {
         return gdTime;

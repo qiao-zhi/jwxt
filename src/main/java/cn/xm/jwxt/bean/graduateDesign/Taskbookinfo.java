@@ -29,7 +29,6 @@ public class Taskbookinfo {
     private String remark;
     private String gdTitle;
     private String fillStatus;
-    private String checkStatus;
     private String isStudentSign;
 
     public String getGdTitle() {
@@ -46,14 +45,6 @@ public class Taskbookinfo {
 
     public void setFillStatus(String fillStatus) {
         this.fillStatus = fillStatus;
-    }
-
-    public String getCheckStatus() {
-        return checkStatus;
-    }
-
-    public void setCheckStatus(String checkStatus) {
-        this.checkStatus = checkStatus;
     }
 
     public String getIsStudentSign() {

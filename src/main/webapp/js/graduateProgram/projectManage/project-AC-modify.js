@@ -47,8 +47,6 @@ function initProjectInfo() {
         async: true,
         success: function (response) {
             var data = ajaxGetStringToJson(response);
-            //初始化：graDesignID、titlename、gdTime、reqireStudentNum、researchContent、targetRequire
-            //titleOrigin、titleType、y_major、(projectType、resultType)
             $("#graDesignID").val(data.gradesignid);
             $("#titlename").val(data.titlename);
             $("#gdTime").val(data.gdTime);
@@ -58,7 +56,7 @@ function initProjectInfo() {
 
             $("#titleOrigin").find("option[value='" + data.titleorigin + "']").attr("selected", true);
             $("#titleType").find("option[value='" + data.titletype + "']").attr("selected", true);
-            $("#y_major").find("option[value='" + data.y_major + "']").attr("selected", true);
+            $("#y_major").find("option[value='" + data.majorID + "']").attr("selected", true);
 
             var projectTypeArray = ["纵向科研课题", "横向科研课题", "教师预研课题", "自选课题"];
             var projectTypeTr = "";
@@ -70,7 +68,6 @@ function initProjectInfo() {
                 }
             }
             $("#projectTypeTr").append(projectTypeTr);
-
 
             var resulttypes = (data.resulttype).split(",");
             var resultTypeArray = ["论文", "软件", "实物制作", "图纸", "其它"];

@@ -15,10 +15,18 @@ public interface ChooseProjectMapper {
 
     /**
      * 初始化选择课题信息
-     * @param studentNum
+     * @param gradesignstudenttitleinfo
      * @return
      */
-    public List<ChooseProjectVo> selectChooseProjectInfo(String studentNum) throws SQLException;
+    public ChooseProjectVo selectChooseFirstProjectInfo(Gradesignstudenttitleinfo gradesignstudenttitleinfo) throws SQLException;
+
+    /**
+     * 初始化选择课题信息
+     * @param gradesignstudenttitleinfo
+     * @return
+     */
+    public ChooseProjectVo selectChooseSecondProjectInfo(Gradesignstudenttitleinfo gradesignstudenttitleinfo) throws SQLException;
+
 
     /**
      * 保存选择课题
@@ -63,6 +71,13 @@ public interface ChooseProjectMapper {
      * @return
      * @throws SQLException
      */
-    public String selectStudentIDByStudentNum(String studentNum)throws SQLException;
+    public String selectStudentIDByStudentNum(String studentNum) throws SQLException;
 
+    /**
+     * 通过学号，获取学生选题表信息
+     * @param studentNum
+     * @return
+     * @throws SQLException
+     */
+    public Gradesignstudenttitleinfo selectChooseNum(String studentNum) throws SQLException;
 }

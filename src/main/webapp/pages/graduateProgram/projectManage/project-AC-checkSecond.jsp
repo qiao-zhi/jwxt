@@ -25,7 +25,6 @@
             <th>教研室审核结果</th>
             <th>教研室审核意见</th>
             <th>教研室审核时间</th>
-            <th>教研室审核人</th>
         </tr>
         </thead>
         <tbody id="firstCheckInfo">

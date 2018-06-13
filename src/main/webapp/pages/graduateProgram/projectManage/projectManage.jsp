@@ -8,8 +8,6 @@
     <title>课题管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
 
     <%-- qlq引入的公共的JSP --%>
     <%@include file="/tag.jsp"%>
@@ -51,14 +49,14 @@
             <input type="text" name="titlename" placeholder="课题名称" autocomplete="off" class="layui-input">
             <div class="layui-input-inline">
                 <select name="isAllocation">
-                    <option>是否需要分配学生</option>
-                    <option>是</option>
-                    <option>否</option>
+                    <option value="">是否已经分配学生</option>
+                    <option value="1">是</option>
+                    <option value="0">否</option>
                 </select>
             </div>
-            <input type="hidden" name="currentPage">
+            <input type="hidden" name="pageNum">
             <input type="hidden" name="pageSize">
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn" lay-submit="" type="button" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
             <button type="reset" class="layui-btn layui-btn-primary" title="重置"><i class="layui-icon">&#xe639;</i></button>
         </form>
     </div>
@@ -67,11 +65,10 @@
     <!--操作区域-->
     <xblock>
         <!--这里不判断教师人数是否够-->
-        <button class="layui-btn" onclick="allocateStudent()">分配学生</button>
+        <button class="layui-btn" id="allocateStudent" onclick="allocateStudent()">分配学生</button>
         <!--若申请人数小于 需要人数，则自动确认，不需要确认学生。 提交后不可修改-->
-        <button class="layui-btn layui-btn-normal" onclick="confirmChooose()">确认学生 </button>
-        <%--<button class="layui-btn" onclick="x_admin_show('调剂学生','./projectManage-assign.jsp')">调剂学生</button>--%>
-        <button class="layui-btn layui-btn-normal" onclick="x_admin_show('导出/发布','./projectManage-output.jsp')">导出/发布</button>
+        <button class="layui-btn" onclick="confirmChooose()">确认学生 </button>
+        <button class="layui-btn layui-btn-normal" onclick="x_admin_show('导出','./projectManage-output.jsp')">导出</button>
     </xblock>
     <!--end 操作区域-->
 
@@ -90,9 +87,7 @@
             <th>操作</th>
         </tr>
         </thead>
-        <tbody>
-
-        </tbody>
+        <tbody></tbody>
     </table>
     <!--end 表格内容-->
 
