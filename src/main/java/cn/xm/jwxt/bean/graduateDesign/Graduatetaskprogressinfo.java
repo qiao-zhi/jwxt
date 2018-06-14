@@ -6,9 +6,9 @@ import java.util.Date;
  * 毕设任务进度表
  */
 public class Graduatetaskprogressinfo {
-    private Integer progressid;
+    private String progressid;
 
-    private Integer bookid;
+    private String bookid;
 
     private String tasktimerange;
 
@@ -20,20 +20,30 @@ public class Graduatetaskprogressinfo {
 
     private String remark;
 
-    public Integer getProgressid() {
-        return progressid;
+    private String fillStatus;
+
+    public String getFillStatus() {
+        return fillStatus;
     }
 
-    public void setProgressid(Integer progressid) {
-        this.progressid = progressid;
+    public void setFillStatus(String fillStatus) {
+        this.fillStatus = fillStatus;
     }
 
-    public Integer getBookid() {
+    public String getBookid() {
         return bookid;
     }
 
-    public void setBookid(Integer bookid) {
+    public void setBookid(String bookid) {
         this.bookid = bookid;
+    }
+
+    public String getProgressid() {
+        return progressid;
+    }
+
+    public void setProgressid(String progressid) {
+        this.progressid = progressid;
     }
 
     public String getTasktimerange() {

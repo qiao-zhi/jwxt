@@ -7,8 +7,6 @@
     <title>权限管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="stylesheet" href="../../lib/zTree/demo.css" type="text/css">
     <link rel="stylesheet" href="../../lib/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>

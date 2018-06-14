@@ -7,8 +7,6 @@
     <title>培养方案-课程管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
 
     <!--树-->
     <link rel="stylesheet" href="../../lib/zTree/demo.css" type="text/css">

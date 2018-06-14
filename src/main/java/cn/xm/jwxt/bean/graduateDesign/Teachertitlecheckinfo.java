@@ -8,7 +8,7 @@ import java.util.Date;
 public class Teachertitlecheckinfo {
     private String checkid;
 
-    private String teathertitleid;
+    private String teachertitleid;
 
     private Date checktime;
 
@@ -26,12 +26,12 @@ public class Teachertitlecheckinfo {
         this.checkid = checkid == null ? null : checkid.trim();
     }
 
-    public String getTeathertitleid() {
-        return teathertitleid;
+    public String getTeachertitleid() {
+        return teachertitleid;
     }
 
-    public void setTeathertitleid(String teathertitleid) {
-        this.teathertitleid = teathertitleid == null ? null : teathertitleid.trim();
+    public void setTeachertitleid(String teachertitleid) {
+        this.teachertitleid = teachertitleid;
     }
 
     public Date getChecktime() {

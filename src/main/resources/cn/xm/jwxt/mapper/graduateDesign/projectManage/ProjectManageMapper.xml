@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.projectManage.ProjectManageMapper" >
+  <select id="selectCountSelfStudent" resultType="java.lang.Integer" >
+    select count(studentID) from studentTitleResult WHERE
+    teacherTitleID in (select teacherTitleID from teacherGreDesignTitle where teacherId = #{teacherId,jdbcType=VARCHAR})
+  </select>
+
+  <select id="selectProjectInfoByCondition" resultType="map" parameterType="map">
+    select grandson.*,r.total applyStudentNum from
+    (
+    select yearNum,semesterNum,son.teacherTitleID,teacherName,majorName,reqireStudentNum
+    from graDesignStudentTitleInfo choose
+    left join
+    (
+    select yearNum,semesterNum,teacherTitleID,teacherName,majorName,reqireStudentNum
+    from teacherGreDesignTitle g,gradeuateBaseInfo b,t_teacher_base_info t,t_major_base_info m
+    where g.graDesignID=b.graDesignID and yearNum=#{yearNum} and t.teacherID=g.teacherID and b.majorID=m.majorID
+    <if test="teacherName != null and teacherName != ''">
+      and teacherName like '%${teacherName}%'
+    </if>
+    <if test="titleName != null and titleName != ''">
+      and titleName like '%${titleName}%'
+    </if>
+    <if test="teacherNum != null and teacherNum != ''">
+      and teacherNum = #{teacherNum}
+    </if>
+    ) son
+    on  son.teacherTitleID=choose.firstTeacherTitleId
+    or son.teacherTitleID=choose.secTeacherTitleId and choose.isSubmit='1'
+    ) grandson
+    left join
+    (select teacherTitleID,count(teacherTitleID) as total from studentTitleResult group by teacherTitleID) r  on grandson.teacherTitleID = r.teacherTitleID
+    <if test="isAllocation == '0'">
+      and reqireStudentNum &gt; applyStudentNum
+    </if>
+    <if test="isAllocation == '1'">
+      and reqireStudentNum &lt;= applyStudentNum
+    </if>
+  </select>
+
+</mapper>

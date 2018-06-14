@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xm.jwxt.mapper.graduateDesign.projectManage.AssignmentManageMapper">
+
+    <update id="updateTaskBookInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.AssignmentVo">
+        update taskBookInfo set
+        taskContent = #{taskContent},
+        taskEditTime = #{taskEditTime},
+        taskSendTime = #{taskSendTime},
+        taskCompleteTime = #{taskCompleteTime},
+        thesisTitle = #{thesisTitle},
+        designTargetRequire = #{designTargetRequire},
+        designContent = #{designContent},
+        designSubmitFile = #{designSubmitFile},
+        gdTitle = #{gdTitle},
+        fillStatus = #{fillStatus},
+        isStudentSign = #{isStudentSign}
+        where bookid=#{bookid}
+    </update>
+
+    <select id="selectStudentInfoByCondition" parameterType="map" resultType="map">
+        select
+        yearNum,semesterNum,son.teacherTitleID,son.studentID,studentName,majorName,titlename,teacherName,b.fillStatus,son.StudentTitleresultID,bookID
+        from t_student_base_info s,t_major_base_info m,teacherGreDesignTitle t,t_teacher_base_info teacher,taskBookInfo b,
+        (
+        select yearNum,semesterNum,teacherTitleID,studentID,majorID,StudentTitleresultID from gradeuateBaseInfo
+        g,studentTitleResult r
+        where g.graDesignID = r.graDesignID and yearNum = #{yearNum}
+        ) son
+        WHERE s.studentID = son.studentID and m.majorID=son.majorID
+        and t.teacherTitleID = son.teacherTitleID
+        and t.teacherID = teacher.teacherID and b.StudentTitleresultID = son.StudentTitleresultID
+        and t.teacherID = #{teacherID}
+        <if test="studentName != null and studentName != ''">
+            and studentName like '%${studentName}%'
+        </if>
+        <if test="teacherName != null and teacherName != ''">
+            and teacherName like '%${teacherName}%'
+        </if>
+        <if test="titlename != null and titlename != ''">
+            and titlename like '%${titlename}%'
+        </if>
+        <if test="majorName != null and majorName != ''">
+            and majorName like '%${majorName}%'
+        </if>
+    </select>
+
+    <select id="selectProjectInfoDetail" resultType="cn.xm.jwxt.bean.graduateDesign.AssignmentVo">
+        select className,majorName,studenttitleresultid,
+        son.studentID,studentName,studentNum,
+        titleOrigin,titlename,titleType,resultType,researchContent,targetRequire,son.teacherTitleID
+        from t_class_base_info clazz,t_major_base_info m,studentTitleResult r,
+        (
+        select studentID,studentName,studentNum,classID,
+        titleOrigin,titlename,titleType,resultType,researchContent,targetRequire,teacherTitleID
+        from t_student_base_info,teacherGreDesignTitle
+        where studentID = #{studentID} and teacherTitleID = #{teacherTitleID}
+        ) son
+        where clazz.classID = son.classID and m.majorID = clazz.majorID and r.studentID = son.studentID
+    </select>
+
+    <select id="selectTeamworkStudentName" resultType="java.util.List">
+        select studentName from studentTitleResult t,t_student_base_info s
+        where t.teacherTitleID = #{teacherTitleID} and s.studentID != #{studentID} and t.studentID=s.studentID
+    </select>
+
+    <insert id="insertAssignment" parameterType="cn.xm.jwxt.bean.graduateDesign.AssignmentVo">
+        insert into taskBookInfo
+        (bookid, StudentTitleresultID,taskContent,taskEditTime,taskSendTime,taskCompleteTime,
+        thesisTitle, designTargetRequire, designContent,designSubmitFile,gdTitle,fillStatus,isStudentSign)
+        VALUES
+        (#{bookid},#{studenttitleresultid},#{taskcontent},#{taskedittime},#{tasksendtime},#{taskcompletetime},
+        #{thesistitle},#{designtargetrequire},#{designcontent},#{designsubmitfile},#{gdTitle},#{fillStatus})
+    </insert>
+
+    <select id="selectInitProjectInfoDetail" resultType="cn.xm.jwxt.bean.graduateDesign.AssignmentVo">
+        select className,majorName,r.studenttitleresultid,
+        son.studentID,studentName,studentNum,
+        titleOrigin,titlename,titleType,resultType,researchContent,targetRequire,son.teacherTitleID,
+        tasksendtime,taskcompletetime,thesistitle,gdTitle,designtargetrequire,designcontent,designsubmitfile
+        from t_class_base_info clazz,t_major_base_info m,studentTitleResult r,taskBookInfo b,
+        (
+        select studentID,studentName,studentNum,classID,
+        titleOrigin,titlename,titleType,resultType,researchContent,targetRequire,teacherTitleID
+        from t_student_base_info,teacherGreDesignTitle
+        where studentID = #{studentID} and teacherTitleID = #{teacherTitleID}
+        ) son
+        where clazz.classID = son.classID and m.majorID = clazz.majorID and r.studentID = son.studentID
+        and b.studenttitleresultid = r.studenttitleresultid
+    </select>
+
+</mapper>
