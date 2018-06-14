@@ -14,6 +14,8 @@
     <script type="text/javascript" src="../../js/xadmin.js"></script>
 
     <script type="text/javascript" src="../../js/courseDesign/courseDesign.js"></script>
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
 </head>
 
 <body>
@@ -76,10 +78,10 @@
     <!--end查询-->
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="courseDesignArrange()">分配 </button>
-        <button class="layui-btn" onclick="courseDesignImport()">导出 </button>
+        <button class="layui-btn" onclick="courseDesignArrange();">分配 </button>
+        <button  class="layui-btn" onclick="exportToExcel();">导出 </button>
         <button class="layui-btn" style="float: right;" onclick="commit()">提交 </button>
-        <button class="layui-btn" style="float: right;" onclick="save()">保存 </button>
+       <!--  <button class="layui-btn" style="float: right;" onclick="save()">保存 </button> -->
     </xblock>
 
     <script>
@@ -88,6 +90,13 @@
     <!--end 操作区域-->
 
     <!--表格内容-->
+    <!-- 下载课设安排 -->
+    <form id="downParam" action="" method="year">
+        <input type="hidden" id="dp1" name="grade">
+        <input type="hidden" id="dp2" name="major">
+        <input type="hidden" id="dp3" name="semester">
+    </form>
+
     <form>
         <table class="layui-table">
             <thead>

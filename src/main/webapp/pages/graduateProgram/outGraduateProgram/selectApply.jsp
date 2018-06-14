@@ -18,6 +18,7 @@
     <script type="text/javascript" src="../../../js/public/dateUtil.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/util.js"></script>
     <script type="text/javascript" src="../../../js/outsideGraduateDesiner/selectApply.js"></script>
+
     <%--3       Bzy      --%>
     <style>
         .y_files{
@@ -25,12 +26,10 @@
             cursor: pointer
         }
     </style>
-    <script>
-        var userID = 1;  //获取当前用户ID
-        var userName = "谢斌红";
-    </script>
-</head>
 
+</head>
+<input type="hidden" value="${id}" id="userID"/>
+<input type="hidden" value="${userInfo.username}" id="userName"/>
 <body>
 <!--面包屑-->
 <div class="x-nav">
@@ -60,12 +59,30 @@
             <div class="layui-input-inline">
                 <select lay-filter="identity" name="contrller" id="identity" >
                     <option value="">请选择身份</option>
-                    <option value="辅导员">辅导员</option>
-                    <option value="副书记">副书记</option>
-                    <option value="指导教师">指导教师</option>
-                    <option value="教研室主任">教研室主任</option>
-                    <option value="系主任">系主任</option>
-                    <option value="主管院长">主管院长</option>
+
+                    <shiro:hasPermission name="instructor:instructor">
+                        <option value="辅导员">辅导员</option>
+                    </shiro:hasPermission>
+
+                    <shiro:hasPermission name="deputySecretary:dep">
+                        <option value="副书记">副书记</option>
+                    </shiro:hasPermission>
+
+                    <shiro:hasPermission name="tutor:tutor">
+                        <option value="指导教师">指导教师</option>
+                    </shiro:hasPermission>
+
+                    <shiro:hasPermission name="staffRoom:staffRoom">
+                        <option value="教研室主任">教研室主任</option>
+                    </shiro:hasPermission>
+
+                    <shiro:hasPermission name="deanDepartment:dean">
+                        <option value="系主任">系主任</option>
+                    </shiro:hasPermission>
+
+                    <shiro:hasPermission name="inChargeOfDean:dean">
+                        <option value="主管院长">主管院长</option>
+                    </shiro:hasPermission>
                 </select>
             </div>
             <input type="text"  class="layui-input"  placeholder="指导教师姓名" autocomplete="off" id="inteachername" style="display: none;"readonly>
@@ -142,7 +159,7 @@
 //            console.log(data.othis); //得到美化后的DOM对象
             if(data.value=="指导教师"){
                 $("#inteachername").css("display","");
-                $("#inteachername").val(userName);
+                $("#inteachername").val("${userinfo.username}");
             }
             else{
                 $("#inteachername").css("display","none").val("");

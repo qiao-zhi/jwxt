@@ -78,8 +78,8 @@
     <xblock>
         <button class="layui-btn" onclick="x_admin_show('添加教师','./teacher-add.jsp')">添加教师 </button>
         <button class="layui-btn" onclick="x_admin_show('统计','./teacher-statistic.jsp')">统计 </button>
-        <button class="layui-btn layui-btn-normal" onclick="">导入数据 </button>
-        <button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>
+        <button class="layui-btn layui-btn-normal" onclick="importTeacher()">导入数据 </button>
+        <button class="layui-btn layui-btn-normal" onclick="teacherExport()">导出数据 </button>
     </xblock>
     <!--end 操作区域-->
 
@@ -87,6 +87,7 @@
     <table class="layui-table">
         <thead>
         <tr>
+            <th> </th>
             <th>教师编号</th>
             <th>姓名</th>
             <th>性别</th>

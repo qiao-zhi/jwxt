@@ -39,13 +39,13 @@
               审核人
             </label>
             <div class="layui-input-inline">
-                 <input type="text" name="auditorName" required  lay-verify="required" class="layui-input" value="张三" readonly>
+                 <input type="text" name="auditorName" required  lay-verify="required" class="layui-input" value="${userinfo.username}" readonly>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
             </div>
             <%--隐藏审核人ID--%>
-            <input type="hidden" value="asdfwiefjiwenxhuwe" name="auditorId"/>
+            <input type="hidden" value="${userinfo.usercode}" name="auditorId"/>
             <%--隐藏排课任务ID--%>
             <input type="hidden" value="${param.arrangeTaskId}" name="arrangeTaskId"/>
         </div>

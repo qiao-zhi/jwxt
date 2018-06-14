@@ -14,7 +14,8 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
-
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
 
 </head>
     <div id="arrangeInfo"></div>
@@ -48,7 +49,7 @@
         courseDesignArrangeID = "<%=courseDesignArrangeID%>";
 
         $.ajax({
-            url:"/jwxt/arrangeCourseDesign/findArrangeInfoDetail.do",
+            url:contextPath +"/arrangeCourseDesign/findArrangeInfoDetail.do",
             type:"post",
             //data:{"trainCourseID":trainCourseID,"majorID":majorID,"yearNum":yearNum,"grade":grade},
             data:{"courseDesignArrangeID":courseDesignArrangeID},
@@ -121,7 +122,7 @@
                 }
             },
             error:function () {
-                layer.alert("加载数据失败！")
+                layer.msg("加载数据失败！")
             }
         });
 

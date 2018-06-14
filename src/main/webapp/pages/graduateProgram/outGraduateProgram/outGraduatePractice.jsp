@@ -37,7 +37,7 @@
             datatype:"text",
             success:function(result){
                 layer.msg(result);
-                window.parent.loadFile();
+                window.parent.loadFile("${id}");
                 $("#applyDate").val(Format(new Date(),"yyyy-MM-dd"));
             },
             error:function(){
@@ -57,8 +57,9 @@
                 datatype:"text",
                 success:function(result){
                     //alert(result);
+                    $(".saveAndCommit").css("display","none");
                     layer.msg(result);
-                    window.parent.loadFile();
+                    window.parent.loadFile("${id}");
                 },
                 error:function(){
                     alert("出错！！！");
@@ -85,8 +86,8 @@
 
 </script>
 <div class="x-body" style="margin:20px auto 50px auto; width:90%;">
-    <button class="btn-primary btn" onclick="basicSave()">保存</button>
-    <button class="btn-primary btn" onclick="basicCommit()">提交</button>
+    <button class="btn-primary btn saveAndCommit" onclick="basicSave()">保存</button>
+    <button class="btn-primary btn saveAndCommit" onclick="basicCommit()">提交</button>
 
     <form action="" class="layui-form" id="form" method="post">
         <table class="table table-bordered ">
@@ -105,8 +106,8 @@
             </caption>
             <tbody>
             <tr>
-                <td rowspan="8">课程情况</td>
-                <td>课程名称</td>
+                <td rowspan="8">课题情况</td>
+                <td>课题名称</td>
                 <td colspan="6">
                     <input   type="text" id="outgradesignapplyid" name="outgradesignapplyid" style="display: none">
                     <input  class="form-control" type="text" id="courseName" name="coursename">
@@ -233,7 +234,7 @@
                 <td colspan="3" >
                     <div style="height: 50px; width: 230px;">
                         <img src="../../../images/info.jpg" width="150px" height="50px" class="url"/>
-                        <input onclick="tutorSign()" value="签名" type="button" class="layui-btn" style="float: right;"></input>
+                        <%--<input onclick="tutorSign()" value="签名" type="button" class="layui-btn" style="float: right;"></input>--%>
                     </div>
                     <hr />
                     <input type="datetime"  placeholder="2018-04-25" class="form-control applydate">
@@ -256,7 +257,7 @@
                 <td colspan="3">
                     <div style="height: 50px; width=230px;">
                         <img src="../../../images/info.jpg" width="150px" height="50px" class="url"/>
-                        <input type="button" value="签字" class="layui-btn" id="test1" style="float: right;"></input>
+                       <%-- <input type="button" value="签字" class="layui-btn" id="test1" style="float: right;"></input>--%>
                     </div>
                     <hr />
                     <input type="datetime"  placeholder="2018-04-25" class="form-control applydate">

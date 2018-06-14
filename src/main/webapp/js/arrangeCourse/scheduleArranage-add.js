@@ -7,8 +7,10 @@
 layui.use(['form', 'layer'], function () {
     $ = layui.jquery;
     var form = layui.form;
+    //查询学院ID
+    getCollegeId();
     //初始化在职教师下拉框
-    findTeacherBaseInfoForSelect(form);
+    findTeacherBaseInfoForSelect(form,collegeId_all);
     //查询任务课程信息
     getTaskArrangeCourseInfo(form);
     //监听提交

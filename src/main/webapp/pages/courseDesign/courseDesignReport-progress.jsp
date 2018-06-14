@@ -13,7 +13,9 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
-    
+
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
     <script type="text/javascript" src="../../js/courseDesign/courseDesignReportProgress.js">
     </script>
 
@@ -88,6 +90,7 @@
 				 
 				</select>
             </div>
+            <input type="hidden" id="teacherId" value="${id}"/>
             <button type="button" onclick="findStudentReportStatus();" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>

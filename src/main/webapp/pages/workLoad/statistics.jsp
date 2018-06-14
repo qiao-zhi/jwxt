@@ -13,10 +13,13 @@
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
 
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
+
     <script type="text/javascript">
         $(function () {
             $.ajax({
-                url:"/jwxt/searchWorkLoad/getYearNumList.do",
+                url:contextPath + "/searchWorkLoad/getYearNumList.do",
                 type:"post",
                 data:{},
                 async:false,
@@ -34,12 +37,51 @@
                     });
                 },
                 error:function () {
-                    layer.alert("加载学年失败")
+                    layer.msg("加载学年失败")
                 }
             });
             searchAllWorkLoad();
 
         })
+
+
+        // 导出excel
+        function exportToExcel() {
+            var yearNum = $("#yearNum").find("option:selected").val();
+            var semester = $("#semester").find("option:selected").val();
+            var teacherName = $("#teacherName").val();
+            var courseType = $("#courseType").find("option:selected").val();
+            $("#dp1").val(yearNum);
+            $("#dp2").val(semester);
+            $("#dp3").val(teacherName);
+            $("#dp4").val(courseType);
+
+            layui.use(['layer'],function () {
+                var layer = layui.layer;
+                //询问是否确认下载
+                layer.confirm('确认下载工作量信息?',function (index) {
+                    $("#downParam").attr("action",contextPath + "/exportWorkLoadFile/downWorkLoadInfo.do");//改变表单的提交地址为下载的地址
+                    $("#downParam").submit();//提交表单
+                    layer.close(index);
+                });
+            });
+
+//
+//            $.ajax({
+//                url:contextPath + "/exportWorkLoadFile/downWorkLoadInfo.do",
+//                type:"post",
+//                data:{"yearNum":yearNum,"semester":semester,"teacherName":teacherName,"courseType":courseType},
+//                dataType:"json",
+//                success:function () {
+//                    layer.alert("导出成功")
+//                },
+//                error:function () {
+//                    layer.alert("导出工作量失败")
+//                }
+//            })
+
+
+        }
 
         // 查询点击事件
         var courseType;
@@ -67,7 +109,7 @@
             var semester = $("#semester").find("option:selected").val();
             var teacherName = $("#teacherName").val();
             $.ajax({
-                url:"/jwxt/courseWorkLoad/findCourseWorkLoad.do",
+                url:contextPath + "/courseWorkLoad/findCourseWorkLoad.do",
                 type:"post",
                 async:false,
                 data:{"yearNum":yearNum,"semester":semester,"courseType":courseType,"teacherName":teacherName,
@@ -104,14 +146,14 @@
                             "</tr>"
                         );
                     }
+                    showBgColor();
                     openStartPage(total,pageNum,pageSize);
                 },
                 error:function(){
-                    layer.alert("课程信息加载失败");
+                    layer.msg("课程信息加载失败");
                 }
             })
         }
-
 
 
         // 查询课设
@@ -120,7 +162,7 @@
             var semester = $("#semester").find("option:selected").val();
             var teacherName = $("#teacherName").val();
             $.ajax({
-                url:"/jwxt/teachingWorkLoad/searchCourseDesignWorkLoad.do",
+                url:contextPath + "/teachingWorkLoad/searchCourseDesignWorkLoad.do",
                 type:"post",
                 async:false,
                 // 默认给定教师id    应从session中获取
@@ -159,10 +201,11 @@
                             "</tr>"
                         );
                     }
+                    showBgColor();
                     openStartPage(total,pageNum,pageSize);
                 },
                 error:function () {
-                    layer.alert("查询信息失败!")
+                    layer.msg("查询信息失败!")
                 }
             })
 
@@ -174,7 +217,7 @@
             var semester = $("#semester").find("option:selected").val();
             var teacherName = $("#teacherName").val();
             $.ajax({
-                url:"/jwxt/grduateDesignWorkLoad/searchGrduateDesignWorkLoad.do",
+                url:contextPath + "/grduateDesignWorkLoad/searchGrduateDesignWorkLoad.do",
                 type:"post",
                 async:false,
                 // 默认给定教师id    应从session中获取
@@ -212,10 +255,11 @@
                             "</tr>"
                         );
                     }
+                    showBgColor();
                     openStartPage(total,pageNum,pageSize);
                 },
                 error:function () {
-                    layer.alert("查询毕设信息失败");
+                    layer.msg("查询毕设信息失败");
                 }
             })
         }
@@ -227,7 +271,7 @@
             var teacherName = $("#teacherName").val();
 
             $.ajax({
-                url:"/jwxt/searchWorkLoad/findWorkLoad.do",
+                url:contextPath + "/searchWorkLoad/findWorkLoad.do",
                 type:"post",
                 data:{"yearNum":yearNum,"semester":semester,"courseType":courseType,"teacherName":teacherName,
                     "pageNum": $("[name='pageNum']").val(),"pageSize": $("[name='pageSize']").val()},
@@ -238,6 +282,7 @@
                     var pageNum = pageMap.pageNum;
                     var infoList = pageMap.infoList;
                     $("#showInfo").html("");
+                   // alert(infoList[0].teacherName)
                     for(var i=0;i<infoList.length;i++){
                         var index = (pageNum - 1)*pageSize + i+1;
                         $("#showInfo").append(
@@ -263,12 +308,14 @@
                             "</tr>"
                         );
                     }
+                    showBgColor();
                     openStartPage(total,pageNum,pageSize);
                 },
                 error:function () {
-                    layer.alert("加载all失败")
+                    layer.msg("加载全部工作量失败")
                 }
             })
+
         }
 
         function openStartPage(total,pageNum,pageSize) {
@@ -340,6 +387,31 @@
             }
         }
 
+        // 根据学年，学期 使td显示不同颜色背景
+        function showBgColor() {
+            $("#showInfo").find("tr").each(function () {
+                // 获取当前tr下的学年，学期
+                var xn = $(this).find("td:eq(5)").text();
+                var xq = $(this).find("td:eq(6)").text();
+                var bxn = xn.substring(0,4);
+                //alert(bxn)
+                var bxnNumer = parseInt(bxn);
+                var xqNumber = parseInt(xq);
+                if(bxnNumer%2==0){
+                    if(xqNumber==1){
+                        $(this).css("background-color","#EEE8AA");
+                    }else{
+                        $(this).css("background-color","#E0EEEE");
+                    }
+                }else{
+                    if(xqNumber==1){
+                        $(this).css("background-color","#F0FFFF");
+                    }else{
+                        $(this).css("background-color","#c3bce6");
+                    }
+                }
+            })
+        }
 
     </script>
 
@@ -366,6 +438,12 @@
 <div class="x-body">
     <!--查询-->
     <div class="layui-row">
+        <form id="downParam"  method="post" accept-charset="utf-8" onsubmit="document.charset='utf-8';">
+            <input type="hidden" id="dp1" name="yearNum">
+            <input type="hidden" id="dp2" name="semester">
+            <input type="hidden" id="dp3" name="teacherName">
+            <input type="hidden" id="dp4" name="courseType" >
+        </form>
         <form class="layui-form layui-col-md12 x-so">
         	<div class="layui-input-inline">
                <select name="" lay-verify="" id="yearNum">
@@ -390,7 +468,7 @@
 				</select>
             </div>
             <div class="layui-input-inline">
-               <input type="text" id="teacherName" value="" name="" placeholder="请输入教师姓名" class="layui-input">
+               <input type="text" id="teacherName" value="${userinfo.username}" name="" placeholder="请输入教师姓名" class="layui-input">
             </div>
             <button type="button" onclick="workLoadSearch();" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
@@ -398,7 +476,7 @@
     <!--end查询-->
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn layui-btn-normal" onclick="courseDesignImport()">导出 </button>
+        <button class="layui-btn layui-btn-normal" onclick="exportToExcel()">导出 </button>
     </xblock>
 	<script>
 		$(document).ready(function(){
@@ -450,31 +528,7 @@
         </tr>
         </thead>
         <tbody id="showInfo">
-
-        <!--   拼好的串
-        " <tr>" +
-            "<td>" +
-                "<div class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id='2'><i class='layui-icon'>&#xe605;</i></div>" +
-                "</td>" +
-            "<td>1</td>" +
-            "<td>201700917</td>" +
-            "<td>老王</td>" +
-            "<td>2014-2015</td>" +
-            "<td>2</td>" +
-            "<td>课设</td>" +
-            "<td>Java</td>" +
-            "<td>软件一班</td>" +
-            "<td>38</td>" +
-            "<td class='td-manage keshe'>" +
-                "<a title='点击查看课设工作详细信息'   onclick=\"x_admin_show('课设工作详细信息','courseDesignWorkLoad-detail.jsp')\" >" +
-                    "<i class='layui-icon'>&#xe63c;</i>" +
-                    "</a>" +
-                "</td>" +
-            "</tr>"
-
-        -->
-
-
+<!--
         <tr>
             <td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">
@@ -495,7 +549,7 @@
                 </a>
             </td>
         </tr>
-
+-->
         </tbody>
     </table>
         <input type="hidden" name="pageNum"><input type="hidden" name="pageSize">
@@ -520,10 +574,10 @@
 	function courseDesignImport(){
 		panduan();//调用判断方法
 		if (chooseCourse>0) {
-						layer.alert('导出成功');
-					}
+				layer.msg('导出成功');
+			}
 		else{
-			layer.alert('请先选择需要导出的课设信息');
+			layer.msg('请先选择需要导出的课设信息');
 		}
 		chooseCourse=0;//清空值
 	}

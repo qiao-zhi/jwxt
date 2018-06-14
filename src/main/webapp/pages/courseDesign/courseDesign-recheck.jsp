@@ -13,7 +13,8 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
-
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
 
     <script type="text/javascript">
         var ids;
@@ -29,7 +30,7 @@
             var checkAdvice = $("#checkAdvice").val();
             var checkStatus = $("#selecCheck").find("option:selected").val();
             $.ajax({
-                url:"/jwxt/checkCourseDesignReport/saveCourseDesignReportCheckResult.do",
+                url:contextPath +"/checkCourseDesignReport/saveCourseDesignReportCheckResult.do",
                 type:"post",
                 data:{"courseDesignTeacherStudentIDs":ids,
                         "checkAdvice":checkAdvice,
@@ -37,7 +38,7 @@
                 },
                 dataType:"json",
                 success:function () {
-                    layer.alert("审核成功");
+                    layer.msg("审核成功");
 
                     var index = parent.layer.getFrameIndex(window.name);
                     window.parent.findStudentReportStatus();// 调用父窗口方法
@@ -45,7 +46,7 @@
                     parent.layer.close(index);
                 },
                 error:function () {
-                    layer.alert("审核失败！");
+                    layer.msg("审核失败！");
                 }
             })
         }

@@ -3,6 +3,7 @@ package cn.xm.jwxt.mapper.baseInfo.custom;
 import cn.xm.jwxt.bean.baseInfo.TStudentBaseInfo;
 import cn.xm.jwxt.bean.baseInfo.custom.CommonQuery;
 import cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo;
+import cn.xm.jwxt.bean.baseInfo.custom.TeacherMajorInfo;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -27,7 +28,21 @@ public interface TStudentBaseInfoCustomMapper {
      */
     List<Map<String,Object>> findStudentNameAndId() throws SQLException;
 
+    /**
+     * 批量插入学生信息
+     * @param list
+     * @return
+     * @throws SQLException
+     */
+    int saveStudentInfoList(List<TStudentBaseInfo> list) throws SQLException;
+    /**
+     * 根据学生id查询学生信息（包括班级信息、专业信息、学院信息）
+     * @param studentid
+     * @return
+     * @throws SQLException
+     */
 
+    StudentClassInfo getStudentInfoById(String studentid);
 }
 
 

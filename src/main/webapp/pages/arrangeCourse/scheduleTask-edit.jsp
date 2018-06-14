@@ -83,9 +83,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text"  name="originatorName" required=""  lay-verify="required"
-                         autocomplete="off" class="layui-input">
-                <%--隐藏创建人ID--%>
-                <input type="hidden" value="asdfwiefjiwenxhuwe" name="originatorId"/>
+                    readonly  autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -97,7 +95,7 @@
                 <input type="text" id="" name="taskReceiptName" required=""  lay-verify="required"
                        autocomplete="off" class="layui-input">
                 <%--隐藏接收人ID--%>
-                <input type="hidden" value="asdfwiefjiwenxhuwe" name="taskReceiptId"/>
+                <input type="hidden"  name="taskReceiptId"/>
             </div>
         </div>
 

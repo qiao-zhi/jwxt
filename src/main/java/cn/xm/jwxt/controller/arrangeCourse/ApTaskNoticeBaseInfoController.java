@@ -134,4 +134,14 @@ public class ApTaskNoticeBaseInfoController {
         }
         return noticeNameAndIdList;
     }
+    @RequestMapping("/findAllCollegeInfo")
+    public @ResponseBody List<Map<String,Object>> findAllCollegeInfo(){
+        List<Map<String, Object>> collegeInfoList = null;
+        try {
+            collegeInfoList = taskNoticeBaseInfoService.findAllCollegeInfo();
+        } catch (Exception e) {
+            logger.error("查询学院信息失败",e);
+        }
+        return collegeInfoList;
+    }
 }

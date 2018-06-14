@@ -18,7 +18,7 @@ layui.use(['form','layer','util'],function () {
         //   alert(teacherName);
         if(teacherName!=null&&teacherName!=""){
             $.ajax({
-                url:"/jwxt/arrangeCourseDesign/getTeacherNum.do",
+                url:contextPath +"/arrangeCourseDesign/getTeacherNum.do",
                 type:"post",
                 data:{"teacherID":teacherID},
                 dataType:"json",
@@ -26,7 +26,7 @@ layui.use(['form','layer','util'],function () {
                     $("#teacherId").attr("value",teacherNum);
                 },
                 error:function () {
-                    alert("获取教师编号失败！");
+                    layer.msg("获取教师编号失败！");
                 }
             });
         }
@@ -52,7 +52,7 @@ layui.use(['form','util'],function () {
             return;
         }
         $.ajax({
-            url:"/jwxt/arrangeCourseDesign/getSrudentList.do",
+            url:contextPath +"/arrangeCourseDesign/getSrudentList.do",
             type:"post",
             data:{"classID":classID},
             dataType:"json",
@@ -60,8 +60,22 @@ layui.use(['form','util'],function () {
                 //  $("#studentList").html("");
                 var classID = $("#selectgrade").find("option:selected").val();
                 var className = $("#selectgrade").find("option:selected").text();
+
+                // 增加班级重复判断
+                var checkMsg = 0;
+                $("#appendGrade").find("a").each(function () {
+                    if(classID==$(this).attr("value")){
+                        checkMsg++;
+                    }
+                })
+                if(checkMsg>0){
+                    return;
+                }
+                // 增加班级重复判断完成
+
                 $("#appendGrade").append(
-                    "<input name='class' type='hidden' value='"+classID+"'></input>"+"/"+className
+                 //   "<input name='class' type='hidden' value='"+classID+"'>"+'/'+className+"</input>"
+                    "<a name='class' value='"+classID+"'>"+'/'+className+"</a>"
                 );
                 // 追加选择功能
                 $("#studentList").append(
@@ -82,7 +96,7 @@ layui.use(['form','util'],function () {
                 form.render();//重新渲染表单
             },
             error:function () {
-                alert("获取学生信息失败");
+                layer.msg("获取学生信息失败");
             }
         });
     });
@@ -108,14 +122,37 @@ function addToTable() {
     var CourseArrangeInfo = $("#CourseArrangeInfo").val();
     var teacherName = $("#teacherName").find("option:selected").text();
     var teacherNum = $("#teacherId").val();
-    var classNames = $("#appendGrade").text();
-    var teacherID = $("#teacherName").find("option:selected").val();
-    // 获取班级id
+    // 添加班级前先删掉没有选择学生的班级
+    // 增加空班判断开始
+    var classNames = "";
     var classArr = [];
-    $("#appendGrade").find("input[name='class']").each(function () {
-        classArr.push($(this).val());
+    $("#appendGrade").find("a").each(function () {
+        var clasID = $(this).attr("value");
+        var clasName = $(this).text();
+        var sign = 0;
+        $("#studentList").find("."+clasID+"").each(function () {
+            if($(this).hasClass("layui-form-checked")){
+                sign++;
+                return;
+            }
+        })
+        if(sign>0){
+            classNames += clasName;
+            classArr.push(clasID);
+        }
     })
+    // 判断空班结束
+    //alert(classNames)
+    //var classNames = $("#appendGrade").text();
+    var teacherID = $("#teacherName").find("option:selected").val();
+
+    // // 获取班级id
+    // var classArr = [];
+    // $("#appendGrade").find("input[name='class']").each(function () {
+    //     classArr.push($(this).val());
+    // })
     // alert(classArr);
+
     //获取学生id
     var stuArr = [];
     $("#studentList").find("div[name='student']").each(function () {
@@ -123,6 +160,50 @@ function addToTable() {
             stuArr.push($(this).find("a").text());
         }
     });
+
+    // 增加非空性判断
+    if(startTime==""||endTime==""||teacherName==""||CourseArrangeInfo==""||CourseArrangeInfo==null||classNames==""||classNames==null||stuArr==""||stuArr==null){
+        layer.msg("请先完善安排信息再添加");
+        return;
+    }
+
+    if(parseInt(startTime)>=parseInt(endTime)){
+        layer.msg("结束时间应该大于开始时间");
+        return;
+    }
+    //增加非空性判断结束
+
+    //增加学生交叉判断
+    var stuCheck = 0;
+    $("#filterTeacher").children("tr").each(function (index) {
+        var tableStuStr = $(this).children("td:eq(6)").text(); // 表格中已经添加的数据（学生id）
+        var tableStuArr = tableStuStr.split(",");
+        for(var i=0;i<stuArr.length;i++){
+            // if($.inArray(stuArr[i],tableStuArr) > (-1)){
+            //     alert(stuArr[i]);
+            //     layer.msg("存在学生重复安排，请重新安排");
+            //     stuCheck++;
+            //     return;
+            // }
+            for(var j=0;j<tableStuArr.length;j++){
+              //  debugger
+                if(stuArr[i]==tableStuArr[j]){
+                    stuCheck++;
+                    layer.msg("存在学生重复安排，请重新安排");
+                    return;
+                }
+            }
+        }
+    })
+   // alert(stuArr)
+    if(stuCheck>0){
+        //alert("3333")
+        stuCheck=0;  // 重置判断条件
+        return;
+    }
+    //学生交叉判断结束
+
+
     // alert(stuArr);
     $("#filterTeacher").append(
         "<tr>" +
@@ -198,18 +279,17 @@ function addToForm() {
 }
 
 function submitInfo() {
-
-    layer.confirm("确定要提交此次的课设安排么？",function () {
+    layer.confirm("确定要保存此次的课设安排么？",function () {
         addToForm();
         $.ajax({
-            url:"/jwxt/arrangeCourseDesign/arrangeCourseDesignInfo.do",
+            url:contextPath +"/arrangeCourseDesign/arrangeCourseDesignInfo.do",
             type:"post",
             async:false,
             data:$("#infoForm").serialize(),
             dataType:"json",
             success:function () {
                 //发异步，把数据提交
-                layer.alert("安排成功", {icon: 6}, function () {
+                layer.msg("保存成功", {icon: 6}, function () {
                     // 获得frame索引
                     var index = parent.layer.getFrameIndex(window.name);
                     // 关闭窗口前，先重新执行一次父窗口查询
@@ -220,7 +300,7 @@ function submitInfo() {
                 });
             },
             error:function () {
-                layer.alert("安排失败！")
+                layer.msg("保存失败！")
             }
         });
     })
@@ -235,7 +315,7 @@ layui.use(['form', 'layer'], function () {
 
 
     form.on('checkbox(stus)', function(data){
-        alert(data.value); //得到checkbox原始DOM对象
+      //  alert(data.value); //得到checkbox原始DOM对象
     });
 
 

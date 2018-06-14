@@ -56,7 +56,7 @@ function findMajorNameAndIdForSelect(form){
 }
 /** 公共查询条件 **/
 
-//状态码转换
+//状态码转换校区
 function replaceStatus(status){
     var campus = '';
     switch(status){
@@ -89,6 +89,30 @@ function changeStatus(value){
     return status;
 }
 
+//学期状态码转换
+function termStatusReplace(status){
+    var termStr = '';
+    switch(status){
+        case "1":
+            termStr = "第一学期";
+            break;
+        case "2":
+            termStr = "第二学期";
+            break;
+        default:
+            termStr = "--";
+    }
+    return termStr;
+}
+//判断是否为空，为空显示--，否则显示传入的数据
+function checkNull(value){
+    if(value==null || value==''){
+        return '--';
+    }else{
+        return value;
+    }
+}
+
 //点击关闭其他，触发事件
 function closeOther() {
     var closeTable = $(".layui-tab-title", parent.document).children("li");
@@ -100,11 +124,11 @@ function closeOther() {
 }
 
 //初始化在职教师下拉框
-function findTeacherBaseInfoForSelect(form){
+function findTeacherBaseInfoForSelect(form,collegeId_all){
     $.ajax({
         url:contextPath+"/arrangeCourse/findTeacherBaseInfo.action",
         dataType:"json",
-        data:{"academicId":"f4aa12dec36046048d89613bbfd1735c"},
+        data:{"academicId":collegeId_all},
         type:"post",
         success:function (response) {
             var optionStr = "<option value=''>请输入教师姓名</option>";
@@ -152,6 +176,20 @@ function changeTaskStatus(arrangeTaskId,status){
                 //实现父页面的刷新
                 window.location.reload();
             })
+        }
+    })
+}
+
+//获取学院ID
+function getCollegeId(){
+    $.ajax({
+        url:contextPath+"/arrangeCourse/getCollegeIdByNum.action",
+        data:{"teacherNum":teacherNum_all},
+        type:"POST",
+        async:false,
+        datatype:"text",
+        success:function(response){
+            collegeId_all = response;
         }
     })
 }

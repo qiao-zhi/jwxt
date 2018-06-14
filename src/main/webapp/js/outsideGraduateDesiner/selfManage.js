@@ -1,5 +1,5 @@
 /*页面加载查询申请的详细信息*/
-var userID = "1";
+
 $(function(){
     var selfManageId = getAddressParameter("id");
     //alert(selfManageId);
@@ -13,6 +13,11 @@ $(function(){
             data:{"selfManageId":selfManageId},
             dataType:"json",
             success:function(result){
+                var isCommit = result.remark;
+                if(isCommit=="01"||isCommit=="21"){
+                    $(".saveAndCommit").css("display","none");
+                    $(".studentSign").css("display","none");
+                }
                 //alert(JSON.stringify(result));
                 $("#collegeName").val(result.collegename);
                 $("#studentName1").val(result.oGDInfo.studentname);
@@ -43,6 +48,7 @@ $(function(){
 /*学生签名*/
 function studentSign() {
     var aggreementID = getAddressParameter("id");
+    var userId = $("#userID").val();
     //alert(aggreementID);
     layer.prompt({
         formType: 1,
@@ -54,7 +60,7 @@ function studentSign() {
         $.ajax({
             url:contextPath+"/aggreement/studentSign.do",
             type:"post",
-            data:{"userID":userID,
+            data:{"userID":userId,
                 "signPassword":value,
                 "aggreementID":aggreementID
             },
@@ -62,7 +68,8 @@ function studentSign() {
             success: function(result){
                 var status = result.status;
                 if(status==1){
-                    $("#stusignurl").attr("src",result.signUrl);
+                    //alert(result.signUrl);
+                    $("#stusignUrl").attr("src",result.signUrl);
                     $("#stuapplydate").val(Format(new Date(),"yyyy-MM-dd"));
                     layer.close(index);
                 }

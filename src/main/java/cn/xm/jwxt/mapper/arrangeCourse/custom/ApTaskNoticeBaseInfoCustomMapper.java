@@ -49,4 +49,11 @@ public interface ApTaskNoticeBaseInfoCustomMapper {
      * @throws SQLException
      */
     List<Map<String,Object>> findNoticeNameAndId() throws SQLException;
+
+    /**
+     * 查询学院的名称、ID和编号
+     * @return
+     * @throws SQLException
+     */
+    List<Map<String,Object>> findAllCollegeInfo() throws SQLException;
 }

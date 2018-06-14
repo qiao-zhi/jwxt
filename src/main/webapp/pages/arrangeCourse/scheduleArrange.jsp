@@ -68,6 +68,8 @@
             <input type="hidden" name="taskStatus[1]" value="5"/>
             <input type="hidden" name="taskStatus[2]" value="6"/>
             <input type="hidden" name="taskStatus[3]" value="7"/>
+            <%--隐藏用户编号--%>
+            <input type="hidden" name="userId" value="${userinfo.usercode}">
             <div class="layui-input-inline">
                  <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
             </div>

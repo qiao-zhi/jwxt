@@ -40,7 +40,7 @@ public class CourseDesignWorkLoadController {
         if(ValidateCheck.isNotNull((String)condition.get("pageNum"))){
             pageNum = Integer.parseInt((String)condition.get("pageNum"));
         }
-        PageHelper.startPage(pageNum,pageSize,"yearNum");
+        PageHelper.startPage(pageNum,pageSize);
         List<Map<String,Object>> list = null;
         try {
             list = courseDesignService.findCourseDesignWorload(condition);

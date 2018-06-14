@@ -1,6 +1,7 @@
 package cn.xm.jwxt.service.impl.arrangeCourse;
 
 import cn.xm.jwxt.bean.arrangeCourse.ApArrangeCourseTask;
+import cn.xm.jwxt.bean.arrangeCourse.custom.ApArrangeCourseTaskCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.ArrangeCourseTaskStatusEnum;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.mapper.arrangeCourse.ApArrangeCourseTaskMapper;
@@ -9,16 +10,14 @@ import cn.xm.jwxt.service.arrangeCourse.ApArrangeCourseTaskService;
 import cn.xm.jwxt.utils.DefaultValue;
 import cn.xm.jwxt.utils.UUIDUtil;
 import cn.xm.jwxt.utils.ValidateCheck;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * 项目名称：jwxt
@@ -150,7 +149,7 @@ public class ApArrangeCourseTaskServiceImpl implements ApArrangeCourseTaskServic
      * @throws Exception
      */
     @Override
-    public PageInfo<ApArrangeCourseTask> findApArrangeCourseTaskInfoByCondition(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception {
+    public PageInfo<ApArrangeCourseTaskCustom> findApArrangeCourseTaskInfoByCondition(CommonQueryVo condition, Integer currentPage, Integer pageSize) throws Exception {
         if(currentPage==null||pageSize==null){
             throw new IllegalArgumentException("分页参数传递错误！");
         }
@@ -160,13 +159,13 @@ public class ApArrangeCourseTaskServiceImpl implements ApArrangeCourseTaskServic
         String statusValue;
         //采用PageHelper插件进行分页
         PageHelper.startPage(currentPage,pageSize,"task_create_time DESC");
-        List<ApArrangeCourseTask> arrangeCourseTasks = arrangeCourseTaskCustomMapper.findArrangeCourseTaskByContion(condition);
+        List<ApArrangeCourseTaskCustom> arrangeCourseTasks = arrangeCourseTaskCustomMapper.findArrangeCourseTaskByContion(condition);
         //设置任务通知书状态
         for(ApArrangeCourseTask taskInfo:arrangeCourseTasks){
             statusValue = ArrangeCourseTaskStatusEnum.getStatusValue(taskInfo.getTaskStatus());
             taskInfo.setTaskStatus(statusValue);
         }
-        PageInfo<ApArrangeCourseTask> pageInfo = new PageInfo<ApArrangeCourseTask>(arrangeCourseTasks);
+        PageInfo<ApArrangeCourseTaskCustom> pageInfo = new PageInfo<ApArrangeCourseTaskCustom>(arrangeCourseTasks);
         return pageInfo;
     }
 

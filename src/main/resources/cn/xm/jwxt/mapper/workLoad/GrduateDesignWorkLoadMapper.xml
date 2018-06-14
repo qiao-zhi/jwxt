@@ -61,11 +61,15 @@
         SELECT
           str.studentID,
           str.finallyName,
-          si.studentName
+          si.studentName,
+          si.studentNum,
+          ti.className
         FROM
           studentTitleResult str
           JOIN t_student_base_info si
             ON str.studentID = si.studentID
+          JOIN t_class_base_info ti
+            ON si.classID = ti.classID
         WHERE
           str.teacherTitleID = #{teacherTitleID}
     </select>

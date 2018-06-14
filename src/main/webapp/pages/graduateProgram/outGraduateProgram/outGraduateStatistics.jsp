@@ -24,11 +24,9 @@
         }
     </style>
 
-    <script>
-        var userID = 1;
-    </script>
-</head>
 
+</head>
+<input type="hidden" value="${id}" id="userID"/>
 <body>
 <!--面包屑-->
 <div class="x-nav">
@@ -59,9 +57,9 @@
 
 
 
-            <input type="datetime" name="" class="layui-input" id="start_year" placeholder="起始学年">
+            <input type="datetime" name="" class="layui-input" id="start_year" placeholder="输入要查询的年份">
             <label >至</label>
-            <input type="datetime" name="" class="layui-input" id="end_year" placeholder="结束学年" >
+            <input type="datetime" name="" class="layui-input" id="end_year" placeholder="输入要查询的年份" >
             <%--<div class="layui-input-inline">
                 <select lay-verify="required" lay-search="" name="contrller" id="clazzName">
                     <option value="">专业</option>

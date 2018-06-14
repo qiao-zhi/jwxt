@@ -11,7 +11,8 @@ layui.use(['layer', 'form', 'element'], function(){
         ,element = layui.element;
     //初始化表格
     findTaskNoticeBaseInfo();
-
+    //初始化学院下拉框
+    findCollegeNameAndId(form);
     //查询按钮事件过滤器
     form.on('submit(search)', function(data){
         //清空当前页和页号
@@ -49,16 +50,18 @@ function showTaskNoticeBaseInfo(pageInfo){
             +index+"</td><td>"
             +baseInfoList[i].academicName+"</td><td>"
             +baseInfoList[i].academicYear+"</td><td>"
-            +(baseInfoList[i].term>1?'第二学期':'第一学期')+"</td><td>"
+            +termStatusReplace(baseInfoList[i].term)+"</td><td>"
             +baseInfoList[i].createrName+"</td><td>"
             +baseInfoList[i].createTime+"</td><td>"
             +(baseInfoList[i].isInput>0?'已导入':'未导入')+"</td>"
-            +"<td class='td-manage'><a title='点击查看通知书详细信息' onclick=x_admin_show('教学通知书详细信息','adviceBook-view.jsp?noticeId="+baseInfoList[i].noticeBookId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>"
-            +"<a title='点击修改通知书信息'  onclick=x_admin_show('修改通知书','adviceBook-edit.jsp?noticeId="+baseInfoList[i].noticeBookId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
-            +" <a title='删除' onclick=deleteNoticeBookInfo('"+baseInfoList[i].noticeBookId+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";
+            +"<td class='td-manage'><a title='点击查看通知书详细信息' onclick=x_admin_show('教学通知书详细信息','adviceBook-view.jsp?noticeId="+baseInfoList[i].noticeBookId+"') href='javascript:void(0);')><i class='layui-icon'>&#xe63c;</i></a>";
+            if(baseInfoList[i].isInput == 0) {
+                tr += "<a title='点击修改通知书信息'  onclick=x_admin_show('修改通知书','adviceBook-edit.jsp?noticeId=" + baseInfoList[i].noticeBookId + "') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>";
+            }
+            tr += "<a title='删除' onclick=deleteNoticeBookInfo('" + baseInfoList[i].noticeBookId + "') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a>";
+            tr +="</td></tr>";
         $("#noticeBaseInfoList").append(tr);
     }
-
     //开启分页组件
     noticeInfoListPage(total,pageNum,pageSize);
 
@@ -82,7 +85,6 @@ function noticeInfoListPage(total,pageNum,pageSize){
                 //obj包含了当前分页的所有参数，比如：
                 // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
                 // console.log(obj.limit); //得到每页显示的条数
-
                 $("[name='currentPage']").val(obj.curr);//向隐藏域设置当前页的值
                 $("[name='pageSize']").val(obj.limit);//向隐藏域设置当前页的大小
                 if(!first){//首次不执行(点击的时候才执行)
@@ -132,4 +134,24 @@ function importNoticeBook(){
     var noticeBookId = $("[name='noticeRadio']:checked").val();//获取需要上传资料的课程主键
     var sel_noticeBookName = $("[name='noticeRadio']:checked + input[name='sel_noticeBookName']").val();
     x_admin_show('导入课程', './adviceBook-import.jsp?noticeBookId='+noticeBookId+'&noticeBookName='+sel_noticeBookName);
+}
+
+//初始化学院下拉框
+function findCollegeNameAndId(form){
+    $.ajax({
+        url:contextPath+"/arrangeCourse/findAllCollegeInfo.action",
+        dataType:"json",
+        type:"post",
+        success:function (response) {
+            //console.log(response);
+            var optionStr = "<option value=''>请输入学院</option>";
+            $("select[name='academicId']").append(optionStr)
+            for(var i=0;i<response.length;i++){
+                optionStr = "<option value='"+response[i].collegeId+" ' >"+response[i].collegeName+"</option>";
+                $("select[name='academicId']").append(optionStr)
+            }
+            //更新渲染
+            form.render('select');
+        }
+    })
 }

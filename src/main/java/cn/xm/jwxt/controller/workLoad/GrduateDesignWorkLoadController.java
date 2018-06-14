@@ -37,7 +37,7 @@ public class GrduateDesignWorkLoadController {
         if(ValidateCheck.isNotNull((String)condition.get("pageNum"))){
             pageNum = Integer.parseInt((String)condition.get("pageNum"));
         }
-        PageHelper.startPage(pageNum,pageSize,"yearNum");
+        PageHelper.startPage(pageNum,pageSize);
 
         List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
         try {

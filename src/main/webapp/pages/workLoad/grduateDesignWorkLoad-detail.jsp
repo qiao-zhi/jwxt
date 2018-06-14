@@ -13,6 +13,10 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
+
     <style>
         .layui-table-wang-info{
             width: 100%;
@@ -69,7 +73,7 @@
 
         function showDetailInfo() {
             $.ajax({
-                url:"/jwxt/grduateDesignWorkLoad/findGrduateDesignWorkLoadDetail.do",
+                url:contextPath + "/grduateDesignWorkLoad/findGrduateDesignWorkLoadDetail.do",
                 type:"post",
                 data:{"teacherTitleID":teacherTitleID},
                 dataType:"json",
@@ -83,15 +87,22 @@
 
                     var stuList = mapInfo.stuList;
                     for(var i=0;i<stuList.length;i++){
+                        var index = i+1;
                         $("#stuDiv").append(
-
-                         "<input type=''   style='width: 575px;padding-left: 25px;' value='"+stuList[i].studentName+"&nbsp;----&nbsp;"+stuList[i].finallyName+"' class='layui-input'>"
+                       //  "<input type=''   style='font-size: 14px;width: 575px;padding-left: 25px;' value='"+stuList[i].finallyName+"&nbsp;:&nbsp;"+stuList[i].studentName+"&nbsp;-&nbsp;"+stuList[i].studentNum+"&nbsp;-&nbsp;"+stuList[i].className+"' class='layui-input'>"
+                            "<tr>" +
+                                "<td>"+index+"</td>" +
+                                "<td>"+stuList[i].studentName+"</td>" +
+                                "<td>"+stuList[i].studentNum+"</td>" +
+                                "<td>"+stuList[i].finallyName+"</td>"+
+                                "<td>"+stuList[i].className+"</td>"+
+                            "</tr>"
                         );
                     }
 
                 },
                 error:function () {
-                    layer.alert("详细信息加载失败")
+                    layer.msg("详细信息加载失败")
                 }
             })
         }
@@ -138,14 +149,28 @@
 
 
         <div class="layui-form-item">
-            <div>
-            <label for="" class="layui-form-label">
-            学生列表
-            </label>
-            </div>
-            <div class="layui-input-block" id="stuDiv">
-                <%--<input type="checkbox" name="" title="张三" checked="" >--%>
-            </div>
+            <%--<div>--%>
+            <%--<label for="" class="layui-form-label">--%>
+            <%--学生列表--%>
+            <%--</label>--%>
+            <%--</div>--%>
+
+                <table>
+                    <table class="layui-table" style="width: 685px;">
+                        <thead>
+                        <tr>
+                            <th style="width:9%;">序号</th>
+                            <th>学生姓名</th>
+                            <th>学生学号</th>
+                            <th>毕设题目</th>
+                            <th>班级</th>
+                        </tr>
+                        </thead>
+                        <tbody id="stuDiv">
+
+                        </tbody>
+                </table>
+
 
         </div>
 

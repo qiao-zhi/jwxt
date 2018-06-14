@@ -108,7 +108,7 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="if(clickRes == 1){x_admin_show('添加班级','./clazz-add.jsp')}else{alert('请选择年级！')}">添加班级</button>
+        <button class="layui-btn" onclick="openAddClassModel()">添加班级</button>
         <button class="layui-btn layui-btn-danger" onclick="delAll()">批量删除</button>
     </xblock>
     <!--end 操作区域-->
@@ -138,67 +138,6 @@
 </div>
 
 <script>
-    /*
-     左侧的树
-     */
-    var setting = {
-        view: {
-            showIcon: showIconForTree
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
-        },
-        callback: {
-            beforeClick: beforeClick
-        }
-    };
-
-    //需要修改
-    var zNodes =[
-        { id:1, pId:0, name:"计科院", open:true},
-        { id:11, pId:1, name:"14级"},
-        { id:111, pId:11, name:"软件工程"},
-        { id:1111, pId:111, name:"软件工程142001班"},
-        { id:112, pId:11, name:"网络工程"},
-        { id:113, pId:11, name:"物联网"},
-        { id:111, pId:11, name:"计算机"},
-        { id:12, pId:1, name:"15级"},
-        { id:111, pId:11, name:"软件工程"},
-        { id:112, pId:11, name:"网络工程"},
-        { id:113, pId:11, name:"物联网"},
-        { id:111, pId:11, name:"计算机"},
-
-    ];
-
-    function showIconForTree(treeId, treeNode) {
-        return !treeNode.isParent;
-    }
-
-    var clickRes = 0;
-    var getName;
-    var className;
-    function beforeClick(treeId, treeNode, clickFlag) {
-        clickRes = 1;
-        className = (className === "dark" ? "":"dark");
-        getName = treeNode.name;
-        showLog2(treeNode.name );
-        return (treeNode.click != false);
-    }
-
-    //获取节点名
-    function showLog2(str) {
-        console.log(str)
-    }
-
-    $(document).ready(function() {
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-    });
-    /*end 树*/
-
-
-
     //点击关闭其他，触发事件
     function closeOther() {
         var closeTable = $(".layui-tab-title", parent.document).children("li");
@@ -215,3 +154,149 @@
 </body>
 
 </html>
+
+
+
+
+<%--隐藏一些模态框--%>
+<%--1.添加模态框--%>
+<input type="hidden" id="hidden_add_class_index"/>
+<div class="x-body" style="display: none" id="addClassModal">
+    <form class="layui-form">
+        <!--1-->
+        <div class="layui-form-item">
+            <label for="classNum" class="layui-form-label">
+                班级编号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="classNum" name="classnum" required=""
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                必须填写
+            </div>
+        </div>
+
+        <!--3-->
+        <div class="layui-form-item">
+            <label for="majorName" class="layui-form-label">
+                所属专业
+            </label>
+            <div class="layui-input-inline"><!--带搜索的查询-->
+                <%--隐藏专业编号--%>
+                <input lay-verify="required" lay-search="" name="majorid" type="hidden" id="add_majorid">
+                <input lay-verify="required" class="layui-input" id="add_majorName" type="text" readonly>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                必须选择
+            </div>
+        </div>
+        <!--3-->
+        <div class="layui-form-item">
+            <label for="grade" class="layui-form-label">
+                所属年级
+            </label>
+            <div class="layui-input-inline"><!--带搜索的查询-->
+                <select lay-verify="required" id="grade" name="grade">
+                    <option value=" ">请选择</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                必须选择
+            </div>
+        </div>
+        <!--2-->
+        <div class="layui-form-item">
+            <label for="className" class="layui-form-label">
+                班级名称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="className" name="classname" required=""
+                       autocomplete="off" class="layui-input" onclick="class_name()">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                自动生成
+            </div>
+        </div>
+        <!--4-->
+        <div class="layui-form-item">
+            <label for="trainingSchemeID" class="layui-form-label">
+                培养方案编号
+            </label>
+            <div class="layui-input-inline">
+                <select lay-verify="required" id="trainingSchemeID" name="trainingschemeid"><!--带搜索的查询-->
+                    <option value=" ">请选择</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button class="layui-btn" lay-submit="" lay-filter="add">增加</button>
+        </div>
+    </form>
+</div>
+<script>
+    //入学时间
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#L_pass' //指定元素
+        });
+    });
+</script>
+<script>
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer;
+        findMajorNameAndIdForSelect(form);
+
+        //自定义验证规则
+        form.verify({
+            nikename: function (value) {
+                if (value.length < 5) {
+                    return '昵称至少得5个字符啊';
+                }
+            }
+            , pass: [/(.+){6,12}$/, '密码必须6到12位']
+            , repass: function (value) {
+                if ($('#L_pass').val() != $('#L_repass').val()) {
+                    return '两次密码不一致';
+                }
+            }
+        });
+
+        //监听提交
+        form.on('submit(add)', function (data) {
+            $.ajax({
+                url:contextPath+"/classInfo/addClassInfo.action",
+                data:data.field,
+                type:"POST",
+                datatype:"text",
+                success:function(response){
+                    alert(response)
+                    if("添加成功" == response){
+                        layer.close($("#hidden_add_class_index").val());//关闭模态框
+                        window.location.reload();
+                    }
+                }
+            })
+            return false;
+        });
+    });
+</script>
+<script>
+    //自动生成班级名称
+    function class_name(){
+        var major_name=$("#add_majorName").val();
+        var class_num=$("#classNum").val();
+        $("#className").val(major_name+class_num+"班");
+    }
+</script>

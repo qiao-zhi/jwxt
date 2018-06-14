@@ -23,9 +23,10 @@
 </head>
 
 <body>
+<input type="hidden" value="${id}" id="userID"/>
 <div class="x-body" style="margin:20px auto 50px auto; width:90%;">
-    <button class="btn-primary btn" onclick="basicSave()">保存</button>
-    <button class="btn-primary btn" onclick="basicCommit()">提交</button>
+    <button class="btn-primary btn saveAndCommit" onclick="basicSave()">保存</button>
+    <button class="btn-primary btn saveAndCommit" onclick="basicCommit()">提交</button>
    
     <form action="" class="layui-form">
     <table class="table table-bordered ">
@@ -124,7 +125,7 @@
             <td colspan="3" >
             	<div style="height: 50px; width: 230px;">
             		<img src="../../../images/info.jpg" width="150px" height="50px" id="stusignUrl"/>
-            		<input onclick="studentSign()" value="签名" type="button" class="layui-btn"></input>
+            		<input onclick="studentSign()" value="签名" type="button" class="layui-btn studentSign"></input>
             	</div>
                 <hr />
                 <input type="datetime"  class="form-control" id="studentSignDate" readonly>
@@ -152,8 +153,10 @@
                     data:{"aggID":aggID},
                     datatype:"text",
                     success:function(result){
+                        $(".saveAndCommit").css("display","none");
+                        $(".studentSign").css("display","none");
                         layer.msg(result);
-                        window.parent.loadFile();
+                        window.parent.loadFile("${id}");
 
                     },
                     error:function(){

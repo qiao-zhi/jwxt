@@ -2,6 +2,7 @@ package cn.xm.jwxt.controller.baseInfo;
 
 import cn.xm.jwxt.bean.arrangeCourse.custom.CampusCodeEnum;
 import cn.xm.jwxt.bean.baseInfo.custom.StudentClassInfo;
+import cn.xm.jwxt.utils.DateHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -22,25 +23,17 @@ public class GenerateStudentInfoExcel {
         //开始行
         public static final int START_ROW = 2;
         //每一行需要的单元格总数
-        public static final int CELL_SUM = 7;
+        public static final int CELL_SUM =12;
 
         /**
          * 生成Excel文件
          * @param mapInfo
          * @param fileName
          */
-        public static void generateStudentExcelInfo(Map<String,List<StudentClassInfo>> mapInfo, String fileName){
+        public static void generateStudentExcelInfo(List<StudentClassInfo> mapInfo, String fileName){
             // 创建一个工作簿
             HSSFWorkbook workbook = new HSSFWorkbook();
-            //主校区排课相关信息
-            List<StudentClassInfo> studentListMainCampus = mapInfo.get(CampusCodeEnum.MAIN_CAMPUS.getStatus());
-            generateMainCampusHearder(studentListMainCampus,workbook,CampusCodeEnum.MAIN_CAMPUS);
-            //华科学院排课相关信息
-            List<StudentClassInfo> studentListHuaKeCampus = mapInfo.get(CampusCodeEnum.HUAKE_CAMPUS.getStatus());
-            generateMainCampusHearder(studentListHuaKeCampus,workbook,CampusCodeEnum.HUAKE_CAMPUS);
-            //晋城校区排课相关信息
-            List<StudentClassInfo> studentListJinChengCampus = mapInfo.get(CampusCodeEnum.JINCHENG_CAMPUS.getStatus());
-            generateMainCampusHearder(studentListJinChengCampus,workbook,CampusCodeEnum.JINCHENG_CAMPUS);
+            generateMainCampusHearder(mapInfo,workbook,CampusCodeEnum.MAIN_CAMPUS);
 
             File file = new File(fileName);
             FileOutputStream outputStream = null;
@@ -94,7 +87,7 @@ public class GenerateStudentInfoExcel {
          */
         public static void generageStudentInfo(List<StudentClassInfo> list, HSSFSheet sheet, HSSFWorkbook workbook){
             // 标题
-            String[] title = { "学生学号","学生姓名","学院","专业","年级","班级","性别","身份证号","出身年月","入学时间","毕业时间","是否毕业"};
+            String[] title = { "学生学号","学生姓名","性别","学院","专业","班级","身份证号","入学时间","毕业时间"};
             // 设置列宽
             setColumnWidth(sheet, 10);
             // 创建第2行
@@ -125,28 +118,25 @@ public class GenerateStudentInfoExcel {
                         cell2.setCellValue(tStudentBaseInfo.getStudentname());
                     }
                     if (j == 2) {
-                        cell2.setCellValue(tStudentBaseInfo.getCollegename());
+                        cell2.setCellValue(tStudentBaseInfo.getStudentsex());
                     }
                     if (j == 3) {
-                        cell2.setCellValue(tStudentBaseInfo.getMajorname());
+                        cell2.setCellValue(tStudentBaseInfo.getCollegename());
                     }
                     if (j == 4) {
-                        cell2.setCellValue(tStudentBaseInfo.getClassname());
+                        cell2.setCellValue(tStudentBaseInfo.getMajorname());
                     }
                     if (j == 5) {
-                        cell2.setCellValue(tStudentBaseInfo.getIdnum());
+                        cell2.setCellValue(tStudentBaseInfo.getClassname());
                     }
                     if (j == 6) {
-                        cell2.setCellValue(tStudentBaseInfo.getStudentbirth());
+                        cell2.setCellValue(tStudentBaseInfo.getIdnum());
                     }
                     if (j == 7) {
-                        cell2.setCellValue(tStudentBaseInfo.getEnrollmenttime());
+                        cell2.setCellValue(DateHandler.dateToString(tStudentBaseInfo.getEnrollmenttime()));
                     }
                     if (j == 8) {
-                        cell2.setCellValue(tStudentBaseInfo.getEndtime());
-                    }
-                    if (j == 9) {
-                        cell2.setCellValue(tStudentBaseInfo.getIsgraduate());
+                       cell2.setCellValue(DateHandler.dateToString(tStudentBaseInfo.getEndtime()));
                     }
 
                 }

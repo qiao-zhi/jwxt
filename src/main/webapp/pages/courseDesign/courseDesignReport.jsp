@@ -14,6 +14,8 @@
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
 
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
     <script type="text/javascript" src="../../js/courseDesign/courseDesignReport.js"></script>
 
 </head>
@@ -50,6 +52,7 @@
 
     <!--表格内容-->
     <form>
+        <input type="hidden" id="studentID" value="${id }"/>
         <table class="layui-table">
             <thead>
             <tr>

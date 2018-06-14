@@ -1,6 +1,5 @@
 package cn.xm.jwxt.controller.arrangeCourse;
 
-import cn.xm.jwxt.bean.arrangeCourse.custom.ApTaskArrangeCourseCustom;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CollegeTeacherArrangeCourseInfo;
 import cn.xm.jwxt.bean.arrangeCourse.custom.CommonQueryVo;
 import cn.xm.jwxt.bean.baseInfo.TTeacherBaseInfo;
@@ -9,14 +8,12 @@ import cn.xm.jwxt.service.arrangeCourse.ApTeacherCourseService;
 import cn.xm.jwxt.utils.DefaultValue;
 import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
-import org.apache.shiro.authz.annotation.RequiresUser;
-import org.omg.CORBA.Current;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.swing.text.TabableView;
 import java.util.List;
 import java.util.Map;
 
@@ -122,4 +119,19 @@ public class ApTeacherCourseController {
         return pageInfo;
     }
 
+    //根据教师编号查询教师对应的学院ID
+    @RequestMapping("/getCollegeIdByNum")
+    public @ResponseBody String getCollegeIdByNum(String teacherNum){
+        TTeacherBaseInfo teacherInfo = null;
+        String collegeId = null;
+        try {
+            teacherInfo = teacherCourseService.getTeacherInfoByNum(teacherNum);
+        } catch (Exception e) {
+            logger.error("查询教师排课信息失败",e);
+        }
+        if(teacherInfo!=null){
+            collegeId = teacherInfo.getCollegeid();
+        }
+        return collegeId;
+    }
 }

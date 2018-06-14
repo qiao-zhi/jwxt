@@ -17,16 +17,17 @@
     <script typr="text/javascript" src="../../../js/outsideGraduateDesiner/apply.js"></script>
     <%--E   bzy--%>
 
-
     <style>
         tbody tr td:nth-child(3){
             color:#01AAED;
             cursor: pointer
         }
     </style>
+
 </head>
 
 <body>
+<input type="hidden" value="${id}" id="userID"/>
 <!--面包屑-->
 <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -53,7 +54,7 @@
     <xblock>
         <button class="layui-btn" onclick="x_admin_show('查看校外毕设要求','./outGraduateApply-require.jsp')">查看校外毕设要求 </button>
         <button class="layui-btn" onclick="applyDownload()">下载申请资料 </button>
-        <button class="layui-btn" onclick="outApplyCommit()" style="float: right;">提交 </button>
+        <button class="layui-btn" onclick="outApplyCommit()" style="float: right;" id="commitAll">提交 </button>
     </xblock>
     <!--end 操作区域-->
     <script>
@@ -250,7 +251,7 @@
             dataType:"text",
             success:function(result){
                 layer.msg(result);
-                window.loadFile();
+                window.loadFile("${id}");
             },
             error:function(){
                 layer.msg("请求失败");

@@ -166,4 +166,14 @@ public class ApTaskNoticeBaseInfoServiceImpl implements ApTaskNoticeBaseInfoServ
     public List<Map<String, Object>> findNoticeNameAndId() throws Exception {
         return taskNoticeBaseInfoCustomMapper.findNoticeNameAndId();
     }
+
+    /**
+     * 查询学院的名称、ID和编号
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Map<String, Object>> findAllCollegeInfo() throws Exception {
+        return taskNoticeBaseInfoCustomMapper.findAllCollegeInfo();
+    }
 }

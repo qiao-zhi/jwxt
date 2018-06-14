@@ -45,8 +45,7 @@ function showCollegeBaseInfo(pageInfo){
             +baseInfoList[i].collegeshortname+"</td><td>"
             +baseInfoList[i].collegeintroduction+"</td><td>"
             +baseInfoList[i].collegepresident+"</td><td>"
-            +baseInfoList[i].collegepresidentf+"</td><td>"
-            +baseInfoList[i].upcollegenum+"</td>"
+            +baseInfoList[i].collegepresidentf+"</td>"
             +"<td class='td-manage'>"
             +"<a title='点击修改学院信息'  onclick=notice_tab_show('修改学院','college-modify.jsp?cId="+baseInfoList[i].collegeid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe642;</i></a>"
             +" <a title='删除' onclick=deleteCollegeInfo('"+baseInfoList[i].collegeid+"') href='javascript:void(0);'><i class='layui-icon'>&#xe640;</i></a></td></tr>";

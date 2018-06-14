@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>添加课程</title>
+    <title>添加排课任务</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
@@ -12,6 +12,11 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <script>
+        //教师编号
+        var teacherNum_all = '${userinfo.usercode}';
+        var collegeId_all ;
+    </script>
     <%--公共标签--%>
     <%@include file="/tag.jsp"%>
     <%--排课公共方法--%>
@@ -90,9 +95,9 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text"  name="originatorName" required=""  lay-verify="required"
-                       value="正陈宫"  autocomplete="off" class="layui-input">
+                       value="${userinfo.username}" readonly  autocomplete="off" class="layui-input">
                 <%--隐藏创建人ID--%>
-                <input type="hidden" value="asdfwiefjiwenxhuwe" name="originatorId"/>
+                <input type="hidden" value="${userinfo.usercode}" name="originatorId"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写
@@ -104,10 +109,12 @@
                 接收人
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="" name="taskReceiptName" required=""  lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <select name="taskReceiptName" lay-filter="receiptName" lay-search="">
+                </select>
+               <%-- <input type="text" id="" name="taskReceiptName" required=""  lay-verify="required"
+                       autocomplete="off" class="layui-input">--%>
                 <%--隐藏接收人ID--%>
-                <input type="hidden" value="asdfwiefjiwenxhuwe" name="taskReceiptId"/>
+                <input type="hidden"  name="taskReceiptId"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>必须填写

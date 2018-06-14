@@ -140,7 +140,7 @@ public class OutGraDesignBaseInfoController {
                 resultMap.put("signUrl","签名秘密错误，请重新输入。");
             }if("2".equals(status)){
                 resultMap.put("status",2);
-                resultMap.put("signUrl","未上传签名，请到...上传签名。");
+                resultMap.put("signUrl","未上传签名，请到基本信息模块上传签名。");
             }
         } catch (SQLException e) {
             logger.error("数据库异常",e);

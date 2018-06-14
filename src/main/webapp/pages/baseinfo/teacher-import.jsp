@@ -22,15 +22,6 @@
 <!--主体-->
 <div class="x-body">
 
-    <div class="layui-form-item">
-        <label for="" class="layui-form-label">
-            学院名称
-        </label>
-        <div class="layui-input-inline">
-            <input type="text" value="${param.collegeName}" readonly required="" lay-verify="required"
-                   autocomplete="off" class="layui-input">
-        </div>
-    </div>
 
     <div class="layui-form-item">
         <label for="" class="layui-form-label">
@@ -70,7 +61,8 @@
             //filed:"noticeBookFile",//设定文件域的字段名
             bindAction: '#uploadTeacherFile',//绑定到哪个按钮进行提交(提交按钮进行提交)
             data:{//另外携带的数据
-                noticeBookId: '${param.noticeBookId}',//携带通知书编号
+                collegeId: '${param.collegeId}',//携带学院编号
+                majorId: '${param.majorId}',//携带专业编号
             },
             choose:function (obj,file) {//选中文件执行的操作
                 //将每次选择的文件追加到文件队列

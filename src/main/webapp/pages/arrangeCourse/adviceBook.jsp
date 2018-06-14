@@ -49,11 +49,6 @@
         	
             <div class="layui-input-inline">
                 <select name="academicId">
-                    <option value="">请输入学院</option>
-                    <option value="1">计算机科学与技术学院</option>
-                    <option value="2">机械学院</option>
-                    <option value="3">法学院</option>
-                    <option value="4">经济管理学院</option>
                 </select>
             </div>
 

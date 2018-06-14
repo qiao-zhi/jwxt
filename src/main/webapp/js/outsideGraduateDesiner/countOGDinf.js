@@ -5,10 +5,11 @@ function selectCount(){
     var endYear = $("#end_year").val()-4;
     var sYear = $("#start_year").val();
     var eYear = $("#end_year").val();
+    var userId = $("#userID").val();
     $.ajax({
         url:contextPath+"/count/selectClassCoutn.do",
         type:"post",
-        data:{"sYear":startYear,"eYear":endYear,"userID":userID,"pagenum":$("[name='pageNum']").val(),"pagesize":$("[name='pageSize']").val()},
+        data:{"sYear":startYear,"eYear":endYear,"userID":userId,"pagenum":$("[name='pageNum']").val(),"pagesize":$("[name='pageSize']").val()},
         dataType:"json",
         success:function (pageInfo) {
             var result = pageInfo.list;

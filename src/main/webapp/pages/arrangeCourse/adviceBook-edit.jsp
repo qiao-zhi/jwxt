@@ -41,10 +41,6 @@
             </label>
             <div class="layui-input-inline">
                 <select name="academicId" lay-filter="academic">
-                    <option value="1">计算机科学与技术学院</option>
-                    <option value="2">机械学院</option>
-                    <option value="3">法学院</option>
-                    <option value="4">经济管理学院</option>
                 </select>
                 <input type="hidden" name="academicName"/>
             </div>
@@ -82,8 +78,6 @@
             <div class="layui-input-inline">
                 <input type="text"  name="createrName" required=""  lay-verify="required"
                         autocomplete="off" class="layui-input" readonly>
-                <%--隐藏创建人ID--%>
-                <input type="hidden" value="asdfwiefjiwenxhuwe" name="createrId"/>
             </div>
 
         </div>
@@ -152,17 +146,42 @@
                 $("input[name='noticeBookName']").val(response.noticeBookName);
                 $("input[name='academicYear']").val(response.academicYear);
                 $("select[name='term']").val(response.term);
-                $("select[name='academicId']").val(response.academicId);
+                //$("select[name='academicId']").val(response.academicId);
                 $("input[name='academicName']").val(response.academicName);
                 $("input[name='createrName']").val(response.createrName);
                 $("input[name='createTime']").val(response.createTime);
-                //更新渲染
-                form.render('select');
+                //初始化学院下拉框
+                findCollegeNameAndId(form,response.academicId);
                 var date = response.academicYear.substring(0,4);
                 $("#y_year").val(date);
                 $("#end_year").val(parseInt(date)+1);
             }
         });
+    }
+
+    //初始化学院下拉框
+    function findCollegeNameAndId(form,academicId){
+        $.ajax({
+            url:contextPath+"/arrangeCourse/findAllCollegeInfo.action",
+            dataType:"json",
+            type:"post",
+            success:function (response) {
+                //console.log(response);
+                var optionStr = "";
+                for(var i=0;i<response.length;i++){
+                    if(academicId==response[i].collegeId){
+                        //设置默认选中第一条  value值设置编号，标签中间设置给用户显示的信息
+                        optionStr = "<option value='" + response[i].collegeId+"' selected>"+response[i].collegeName+"</option>";
+                        $("input[name='academicName']").val(response[i].collegeName);
+                    } else{
+                        optionStr = "<option value='"+response[i].collegeId+" ' >"+response[i].collegeName+"</option>";
+                    }
+                    $("select[name='academicId']").append(optionStr);
+                }
+                //更新渲染
+                form.render('select');
+            }
+        })
     }
 
 </script>

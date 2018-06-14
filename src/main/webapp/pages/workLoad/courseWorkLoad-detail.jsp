@@ -13,6 +13,8 @@
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <%--全局配置JSP--%>
+    <%@ include file ="/tag.jsp"%>
     <style>
         .layui-table-wang-info{
             width: 100%;
@@ -69,7 +71,7 @@
 
         function showDetailInfo() {
             $.ajax({
-                url:"/jwxt/courseWorkLoad/findCourseDetail.do",
+                url:contextPath + "/courseWorkLoad/findCourseDetail.do",
                 type:"post",
                 data:{"teacher_course_id":teacher_course_id},
                 dataType:"json",
@@ -85,24 +87,24 @@
                     for(var i=0;i<classInfoList.length;i++){
                         $("#classInfo").append(
                            // "<label for='' class='layui-form-label'>&nbsp;&nbsp;"+classInfoList[i].class_name+" ["+classInfoList[i].class_size+"]</label>"
-                            " <input type='button' onclick='showStuList(this);' style='width: 150px;float: left;margin-left: 8px;' name='"+classInfoList[i].class_size+"' value='"+classInfoList[i].class_name+"'  class='layui-input'/>"
+                            " <input type='button' style='width: 150px;float: left;margin-left: 8px;' name='"+classInfoList[i].class_size+"' value='"+classInfoList[i].class_name+"'  class='layui-input'/>"
                         );
+                        showStuList(classInfoList[i].class_size,classInfoList[i].class_name);
                     }
 
                 },
                 error:function () {
-                    layer.alert("详细信息加载失败")
+                    layer.msg("详细信息加载失败")
                 }
             })
         }
 
-        function showStuList(obj) {
-            var className = $(obj).val();
-            var stuNum = $(obj).attr("name");
-            //alert(stuNum)
-            //alert(className);
+        function showStuList(stuNum,className) {
+           // var className = $(obj).val();
+           // var stuNum = $(obj).attr("name");
+
             $.ajax({
-                url:"/jwxt/courseWorkLoad/findStuListInfo.do",
+                url:contextPath + "/courseWorkLoad/findStuListInfo.do",
                 type:"post",
                 data:{"className":className},
                 dataType:"json",
@@ -121,7 +123,7 @@
 
                 },
                 error:function () {
-                    layer.alert("加载学生列表失败")
+                    layer.msg("加载学生列表失败")
                 }
             })
         }

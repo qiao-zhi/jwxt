@@ -5,7 +5,7 @@
 //        加载页面时自动加载
 $(function () {
     $.ajax({
-        url:"/jwxt/findcourseDesign/yearAndMajor.do",
+        url:contextPath +"/findcourseDesign/yearAndMajor.do",
         type:"post",
         data:{},
         dataType:"json",
@@ -24,7 +24,7 @@ $(function () {
             });
         },
         error:function () {
-            alert("加载失败！");
+            layer.msg("加载失败！");
         }
     });
     // 调用查询功能
@@ -43,7 +43,7 @@ function findNeedArrangeCD() {
 //       alert(year+","+major+","+semester);
 
     $.ajax({
-        url:"/jwxt/findcourseDesign/toFindNeedArrangeCourseDesign.do",
+        url:contextPath +"/findcourseDesign/toFindNeedArrangeCourseDesign.do",
         type:"post",
         data:{"grade":year,"majorID":major,"semester":semester,"pageNum": $("[name='pageNum']").val(),"pageSize": $("[name='pageSize']").val()},
         dataType:"json",
@@ -61,10 +61,8 @@ function findNeedArrangeCD() {
                 // 获取状态
                 var displayVal = "";
                 displayVal = courseDesignList[i].display;
-                if(parseInt(displayVal)==-1){
-                    status = "未保存";
-                }else if(parseInt(displayVal)==0){
-                    status = "已保存，未提交";
+                if(parseInt(displayVal)==0){
+                    status = "已保存";
                 }else if(parseInt(displayVal)==1){
                     status = "已提交";
                 }else{
@@ -102,7 +100,7 @@ function findNeedArrangeCD() {
             needArrangeCourseDesign(total,pageNum,pageSize);
         },
         error:function () {
-            alert("查询信息失败！");
+            layer.msg("查询信息失败！");
         }
     });
 
@@ -151,13 +149,18 @@ function  showArrangeInfo(obj) {
 
 function deleteArrangeInfo(obj) {
 
+    var checkStr = $(obj).parent("td").parent("tr").find("td").eq(8).text();
+    //  alert(checkStr);
+    if (checkStr=="----"){
+        layer.msg("没有可以删除的信息！");
+        return;
+    }else if(checkStr=="已提交") {
+        layer.msg("当前安排已提交！");
+        return;
+    }
+
     layer.confirm("确定要删除课设安排信息么？",function () {
-        var checkStr = $(obj).parent("td").parent("tr").find("td").eq(8).text();
-        //  alert(checkStr);
-        if (checkStr=="----"){
-            layer.alert("没有可以删除的信息！");
-            return;
-        }
+
         //
         // var majorID = $(obj).parent("td").parent("tr").find("td").eq(1).text();
         // var grade = $(obj).parent("td").parent("tr").find("td").eq(2).text();
@@ -168,17 +171,17 @@ function deleteArrangeInfo(obj) {
 
         // alert(trainCourseID);
         $.ajax({
-            url:"/jwxt/findcourseDesign/deleteCourseDesignArrangeInfo.do",
+            url:contextPath +"/findcourseDesign/deleteCourseDesignArrangeInfo.do",
             type:"post",
             // data:{"trainCourseID":trainCourseID,"yearNum":yearNum,"majorID":majorID,"grade":grade},
             data:{"courseDesignArrangeID":courseDesignArrangeID},
             async:false,
             dataType:"json",
             success:function () {
-                layer.alert("删除成功！")
+                layer.msg("删除成功！")
             },
             error:function () {
-                layer.alert("删除安排信息失败！");
+                layer.msg("删除安排信息失败！");
             }
         });
         findNeedArrangeCD();
@@ -213,7 +216,7 @@ var isArrange = function isArrange() {
 function courseDesignArrange(){
     // 检查是否选择年级，学期，专业
     if(year==""||semester==""||major==""){
-        layer.alert("请先选择具体的年级/专业/学期再进行分配！");
+        layer.msg("请先选择具体的年级/专业/学期再进行分配！");
         return;
     }
 
@@ -222,7 +225,7 @@ function courseDesignArrange(){
         // 检查所选课设是否安排
         var checkStr = $(".layui-form-checked").parent().parent().find("td").eq(8).text();
         if (checkStr!="----"){
-            layer.alert("所选课设已经安排！");
+            layer.msg("所选课设已经安排！");
             chooseCourse=0;//清空值
             return;
         }
@@ -231,80 +234,17 @@ function courseDesignArrange(){
         trainCourseID = $(".layui-form-checked").parent().parent().find("td").eq(3).text();
         var courseNum = $(".layui-form-checked").parent().parent().find("td").eq(5).text();
         //alert(majorID+","+courseName+","+trainCourseID);
+        //alert(courseName)
         // alert(semester+","+year);
         var courseName=encodeURI(encodeURI(courseName));
         x_admin_show('课设分配','./courseDesign-Arrange.jsp?majorID='+majorID+'&courseName='+courseName+'&trainCourseID='+trainCourseID+' &year='+year+'&semester='+semester+'&courseNum='+courseNum+'')
 
     }else if(chooseCourse<=0){
-        layer.alert('请先选择需要分配的课设');
+        layer.msg('请先选择需要分配的课设');
     } else {
-        layer.alert("请选择一门课程设计进行分配")
+        layer.msg("请选择一门课程设计进行分配")
     }
     chooseCourse=0;//清空值
-}
-
-function courseDesignImport(){
-    panduan();//调用判断方法
-    if (chooseCourse>0) {
-        layer.alert('导出成功');
-    }
-    else{
-        layer.alert('请先选择需要导出的课设信息');
-    }
-    chooseCourse=0;//清空值
-}
-
-
-//处理保存(提交)按钮
-function save(){
-    checkNum();
-    if(chooseCourse<=0){
-        layer.alert("请选中要保存的课设信息");
-        return;
-    }
-    var indexx=0;
-    $(".checkdiv").each(function() {
-        if ($(this).hasClass("layui-form-checked")) {
-            var status = $(this).parents("tr").find("td").eq(8).text();
-            if(status=="已保存，未提交" || status=="已提交"||status == "----"){
-                indexx++;
-                return;
-            }
-        }
-    })
-    if(indexx>0){
-        layer.alert("请选择未保存的课设安排信息进行保存");
-        indexx=0;
-        return;
-    }
-
-    layer.confirm("确定保存选中的课设安排信息么？",function () {
-        var str = "";
-        $("#tbodyNeedArrange").find("div").each(function () {
-            if($(this).hasClass("layui-form-checked")){
-                var courseDesignArrangeID =  $(this).parent("td").parent("tr").find("td").eq(12).text();
-                //alert(courseDesignArrangeID)
-                str=str+","+courseDesignArrangeID;
-            }
-        })
-        //alert(str);
-        $.ajax({
-            url:"/jwxt/arrangeCourseDesign/saveCourseDesignInfo.do",
-            type:"post",
-            data:{"str":str},
-            async:false,
-            dataType:"json",
-            success:function (result) {
-                layer.alert("保存成功！");
-            },
-            error:function () {
-                layer.alert("保存信息失败！");
-            }
-        });
-//    layer.alert('保存成功');
-        findNeedArrangeCD();
-    })
-
 }
 
 
@@ -312,7 +252,7 @@ function save(){
 function commit(){
     checkNum();
     if(chooseCourse<=0){
-        layer.alert("请选中要提交的课设信息");
+        layer.msg("请选中要提交的课设信息");
         return;
     }
 
@@ -320,14 +260,14 @@ function commit(){
     $(".checkdiv").each(function() {
         if ($(this).hasClass("layui-form-checked")) {
             var status = $(this).parents("tr").find("td").eq(8).text();
-            if(status=="已提交" || status=="未保存" || status == "----"){
+            if(status=="已提交"|| status == "----"){
                 indexx++;
                 return;
             }
         }
     })
     if(indexx>0){
-        layer.alert("请选择已保存的课设安排信息进行提交");
+        layer.msg("请选择已保存的课设安排信息进行提交");
         indexx=0;
         return;
     }
@@ -344,16 +284,16 @@ function commit(){
         })
         //  alert(str)
         $.ajax({
-            url:"/jwxt/arrangeCourseDesign/submitCourseDesignInfo.do",
+            url:contextPath +"/arrangeCourseDesign/submitCourseDesignInfo.do",
             type:"post",
             data:{"str":str},
             async:false,
             dataType:"json",
             success:function (result) {
-                layer.alert("提交成功！");
+                layer.msg("提交成功！");
             },
             error:function () {
-                layer.alert("提交信息失败！");
+                layer.msg("提交信息失败！");
             }
         });
         //layer.confirm('您确认要提交此次课设分配信息吗？');
@@ -399,3 +339,27 @@ layui.use('laydate', function () {
         elem: '#end' //指定元素
     });
 });
+
+
+// 导出excel
+function exportToExcel() {
+
+    var year = $("#yearSelect").find("option:selected").val();
+    var major = $("#majorSelect").find("option:selected").val();
+    var semester = $("#selectSemester").find("option:selected").val();
+
+    $("#dp1").val(year);
+    $("#dp2").val(major);
+    $("#dp3").val(semester);
+
+    layui.use(['layer'],function () {
+        var layer = layui.layer;
+        //询问是否确认下载
+        layer.confirm('确认下载课程设计安排信息?',function (index) {
+            $("#downParam").attr("action",contextPath +"/exportCourseDesignArrange/downCourseDesignArrangeInfo.do");//改变表单的提交地址为下载的地址
+            $("#downParam").submit();//提交表单
+            layer.close(index);
+        });
+    });
+
+}

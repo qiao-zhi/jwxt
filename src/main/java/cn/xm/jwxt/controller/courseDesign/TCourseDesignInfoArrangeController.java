@@ -1,6 +1,7 @@
 package cn.xm.jwxt.controller.courseDesign;
 
 import cn.xm.jwxt.bean.courseDesign.ListVo;
+import cn.xm.jwxt.bean.system.User;
 import cn.xm.jwxt.service.courseDesign.TCoursedesignInfoArrangeService;
 import cn.xm.jwxt.service.courseDesign.TCoursedesignToolService;
 import org.apache.log4j.Logger;
@@ -9,7 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -96,8 +101,14 @@ public class TCourseDesignInfoArrangeController {
     @ResponseBody
     @RequestMapping("/arrangeCourseDesignInfo.do")
     public boolean arrangeCourseDesignInfo(ListVo listVo){
+        //获取request与session
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session = request.getSession(false);
+        // 从session中获取教研室主任姓名
+        User user = (User) session.getAttribute("userinfo");
+        String arrangeTeacher = user.getUsername();
         try {
-            infoArrangeService.addCourseDesignerinfo(listVo);
+            infoArrangeService.addCourseDesignerinfo(listVo,arrangeTeacher);
         } catch (SQLException e) {
             logger.error("添加课设安排信息出错",e);
         }
@@ -108,19 +119,20 @@ public class TCourseDesignInfoArrangeController {
      *  改变课设显示状态（处理保存按钮）
      * @return
      */
-    @ResponseBody
-    @RequestMapping("/saveCourseDesignInfo.do")
-    public boolean saveInfoArrange(String str){
-        boolean result = false;
-        String Str = str.substring(1,str.length());
-        List<String> list = Arrays.asList(Str.split(","));
-        try {
-            result = infoArrangeService.modifyInfoDisplay(list,"0");
-        } catch (SQLException e) {
-            logger.error("修改课设安排信息状态出错",e);
-        }
-        return result;
-    }
+//
+//    @ResponseBody
+//    @RequestMapping("/saveCourseDesignInfo.do")
+//    public boolean saveInfoArrange(String str){
+//        boolean result = false;
+//        String Str = str.substring(1,str.length());
+//        List<String> list = Arrays.asList(Str.split(","));
+//        try {
+//            result = infoArrangeService.modifyInfoDisplay(list,"0");
+//        } catch (SQLException e) {
+//            logger.error("修改课设安排信息状态出错",e);
+//        }
+//        return result;
+//    }
 
     /**
      *  改变课设显示状态（处理提交按钮）
