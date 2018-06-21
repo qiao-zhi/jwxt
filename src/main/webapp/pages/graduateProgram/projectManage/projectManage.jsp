@@ -68,6 +68,7 @@
         <button class="layui-btn" id="allocateStudent" onclick="allocateStudent()">分配学生</button>
         <!--若申请人数小于 需要人数，则自动确认，不需要确认学生。 提交后不可修改-->
         <button class="layui-btn" onclick="confirmChooose()">确认学生 </button>
+        <button class="layui-btn" id="releaseProjectChoose" onclick="releaseProjectChoose()">课题选择发布 </button>
         <button class="layui-btn layui-btn-normal" onclick="x_admin_show('导出','./projectManage-output.jsp')">导出</button>
     </xblock>
     <!--end 操作区域-->

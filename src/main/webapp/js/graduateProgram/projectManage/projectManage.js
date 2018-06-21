@@ -13,6 +13,20 @@ layui.use('form', function(){
     });
 });
 
+//发布课题选择
+function releaseProjectChoose() {
+    layer.confirm("发布后学生不能选择课题，确认发布课题选择吗？",function () {
+        $.ajax({
+            url: contextPath + '/projectManage/releaseProjectChoose.do',
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                layer.alert(data);
+            }
+        })
+    })
+}
+
 //分配学生
 function allocateStudent() {
     var checkedTr = $('input[name=y_check]:checked');
@@ -80,6 +94,7 @@ $(function () {
     initYearNum();
     //判断用户类型
     showButtonByAuthority();
+
     //初始化表格
     findTaskNoticeBaseInfo();
 });
@@ -131,7 +146,7 @@ function showTaskNoticeBaseInfo(pageInfo){
             '<td class="reqireStudentNum">'+ checkNull(baseInfoList[i].reqireStudentNum) +'</td>' +
             '<td class="applyStudentNum">'+ checkNullRetrueZore(baseInfoList[i].applyStudentNum) +'</td>' +
             '<td class="td-manage">' +
-            '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'projectManage-view.jsp?teacherTitleID'+ baseInfoList[i].teacherTitleID+ '\')">' +
+            '    <a title="详细信息" onclick="x_admin_show(\'详细信息\',\'projectManage-view.jsp?teacherTitleID='+ baseInfoList[i].teacherTitleID+ '\')">' +
             '        <i class="layui-icon">&#xe63c;</i>' +
             '    </a>' +
             '</td>' +

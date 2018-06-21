@@ -29,13 +29,15 @@ function getGraDesignID() {
 
 //发布课题
 function releaseProject() {
-    $.ajax({
-        url: contextPath + '/project_AC/releaseProject.do',
-        type: 'POST',
-        async: false,
-        success: function (data) {
-            layer.alert(data);
-        }
+    layer.confirm("确认发布课题吗？",function () {
+        $.ajax({
+            url: contextPath + '/project_AC/releaseProject.do',
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                layer.alert(data);
+            }
+        })
     })
 }
 
@@ -128,8 +130,17 @@ $(function () {
     //获取用户权限，显示相应的按钮
     showButtonByAuthority();
 
+    //判断发布状态。如果已已发布。不允许对课题进行增改。
+    var isHasRelease = isHasRelease();
+    if (isHasRelease) {
+        $("#isHasNoRelease").hide();
+    } else {
+        $("#isHasNoRelease").show();
+    }
+
     findTaskNoticeBaseInfo();//初始化表格
 });
+
 
 function findTaskNoticeBaseInfo() {
     $.ajax({
@@ -168,7 +179,7 @@ function showTaskNoticeBaseInfo(pageInfo) {
             '<i class="layui-icon">&#xe63c;</i></a>';
         if (baseInfoList[i].checkStatus == "3" || baseInfoList[i].isSubmit == "0") {
             tr = tr +
-                '<a title="修改毕设课题"  onclick="x_admin_show(\'修改毕设课题\',\'project-AC-modify.jsp?teacherTitleID=' + baseInfoList[i].teacherTitleID + '\')" href="javascript:;">' +
+                '<a title="修改毕设课题"  class="isHasNoRelease" onclick="x_admin_show(\'修改毕设课题\',\'project-AC-modify.jsp?teacherTitleID=' + baseInfoList[i].teacherTitleID + '\')" href="javascript:;">' +
                 '<i class="layui-icon">&#xe642;</i></a>' +
                 '<a title="删除" onclick="member_del(this)" href="javascript:;">' +
                 '<i class="layui-icon">&#xe640;</i></a>' +
@@ -246,7 +257,6 @@ function member_del(obj) {
                 })
             }
         })
-
     });
 }
 

@@ -129,7 +129,7 @@ public class ProjectManageController {
      */
     @RequestMapping("/getProjectInfoDetail")
     public @ResponseBody
-    TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID, HttpSession session){
+    TeachergredesigntitleDetailVo getProjectInfoDetail(String teacherTitleID){
         TeachergredesigntitleDetailVo teachergredesigntitleDetailVo = new TeachergredesigntitleDetailVo();
         try {
             teachergredesigntitleDetailVo = project_ACService.initProjectInfo(teacherTitleID);
@@ -189,5 +189,26 @@ public class ProjectManageController {
 
         return teachergredesigntitle;
     }
+
+    /**
+     * 发布课题选择
+     *
+     * @return
+     */
+//    @RequestMapping("/releaseProjectChoose")
+//    public @ResponseBody String releaseProjectChoose() {
+//        try {
+//            String yearNum = DateHandler.getCurrentYearNum();
+//            Boolean res = projectManageService.releaseProjectChoose(yearNum);
+//            if (!res) {
+//                return "发布失败";
+//            }
+//        } catch (Exception e) {
+//            logger.error("发布失败", e);
+//            return "发布失败";
+//        }
+//        return "发布成功";
+//    }
+
 
 }

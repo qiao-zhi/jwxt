@@ -149,4 +149,20 @@ public interface Project_ACMapper {
      * @throws SQLException
      */
     public String selectCheckStatusByTeacherTitleID(String teacherTitleID) throws SQLException;
+
+    /**
+     * 获取课题发布状态
+     * @param yearNum
+     * @return
+     * @throws SQLException
+     */
+    public int selectReleaseStatus(String yearNum) throws SQLException;
+
+    /**
+     * 插入课题发布信息
+     * @param gdReleaseTable
+     * @return
+     * @throws SQLException
+     */
+    public int insertReleaseInfo(GdReleaseTable gdReleaseTable) throws SQLException;
 }

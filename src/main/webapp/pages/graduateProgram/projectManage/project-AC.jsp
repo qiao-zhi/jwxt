@@ -71,11 +71,11 @@
 
     <!--操作区域-->
     <xblock>
-        <button class="layui-btn" onclick="addProject()">填写课题申请表 </button>
-        <button class="layui-btn" id="jiaoyanshi" onclick="auditFirst()">教研室审核 </button>
-        <button class="layui-btn" id="yuanzhang" onclick="auditSecond()">院长审核 </button>
-        <button class="layui-btn" id="releaseProject" onclick="releaseProject()">发布课题 </button>
-        <%--<button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>--%>
+        <button class="layui-btn isHasNoRelease" onclick="addProject()">填写课题申请表 </button>
+        <button class="layui-btn isHasNoRelease" id="jiaoyanshi" onclick="auditFirst()">教研室审核 </button>
+        <button class="layui-btn isHasNoRelease" id="yuanzhang" onclick="auditSecond()">院长审核 </button>
+        <button class="layui-btn isHasNoRelease" id="releaseProject" onclick="releaseProject()">发布课题 </button>
+        <button class="layui-btn layui-btn-normal" onclick="">导出数据 </button>
     </xblock>
     <!--end 操作区域-->
 

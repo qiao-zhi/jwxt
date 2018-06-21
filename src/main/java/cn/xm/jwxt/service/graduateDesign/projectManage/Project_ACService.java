@@ -127,4 +127,13 @@ public interface Project_ACService {
      * @throws Exception
      */
     public Boolean releaseProject(String yearNum) throws Exception;
+
+    /**
+     * 获取课题发布状态
+     * @param yearNum
+     * @return
+     * @throws Exception
+     */
+    public boolean getReleaseStatus(String yearNum) throws Exception;
+
 }

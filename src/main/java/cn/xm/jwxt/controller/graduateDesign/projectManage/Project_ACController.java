@@ -41,7 +41,6 @@ public class Project_ACController {
     String releaseProject() {
         try {
             String yearNum = DateHandler.getCurrentYearNum();
-
             Boolean res = project_ACService.releaseProject(yearNum);
             if (!res) {
                 return "发布失败";
@@ -406,6 +405,26 @@ public class Project_ACController {
 
         return authority;
     }
+    /**
+     * 获取课题发布状态
+     *
+     * @return
+     */
+    @RequestMapping("/getReleaseStatus")
+    public @ResponseBody String getReleaseStatus() {
 
+        String yearNum = DateHandler.getCurrentYearNum();
+
+        try {
+            boolean res = project_ACService.getReleaseStatus(yearNum);
+            if (res) {
+                return "success";
+            }
+        } catch (Exception e) {
+            logger.error("获取课题发布状态失败", e);
+        }
+
+        return "false";
+    }
 
 }

@@ -205,8 +205,19 @@ public class Project_ACServiceImpl implements Project_ACService {
 
     @Override
     public Boolean releaseProject(String yearNum) throws Exception {
+        GdReleaseTable gdReleaseTable = new GdReleaseTable();
 
-        return null;
+        gdReleaseTable.setReleaseID(UUIDUtil.getUUID2());
+        gdReleaseTable.setProjectReleaseFlag("1");
+
+        int res = project_ACMapper.insertReleaseInfo(gdReleaseTable);
+        return res > 0 ? true : false;
+    }
+
+    @Override
+    public boolean getReleaseStatus(String yearNum) throws Exception {
+        int row = project_ACMapper.selectReleaseStatus(yearNum);
+        return row > 0 ? true : false;
     }
 
 }
