@@ -190,3 +190,18 @@ function getLocalTime(jsondate) {
     var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
     return date.getFullYear() + "-" + month + "-" + currentDate;
 }
+
+//判断课题是否发布课题，发布，返回true
+function isHasRelease() {
+    $.ajax({
+        url: contextPath + '/project_AC/getReleaseStatus.do',
+        type: 'POST',
+        async: false,
+        success: function (data) {
+            if (data == "success") {
+                return true;
+            }
+        }
+    });
+    return false;
+}

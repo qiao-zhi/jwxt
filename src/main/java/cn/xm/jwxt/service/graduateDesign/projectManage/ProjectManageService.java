@@ -62,4 +62,12 @@ public interface ProjectManageService {
      * @throws Exception
      */
     public boolean updateChooseStatus(Map<String, String> condition) throws Exception;
+
+    /**
+     * 发布课题选择
+     * @param yearNum
+     * @return
+     * @throws Exception
+     */
+//    public Boolean releaseProjectChoose(String yearNum) throws Exception;
 }

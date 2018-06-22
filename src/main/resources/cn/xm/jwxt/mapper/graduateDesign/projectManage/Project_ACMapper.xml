@@ -84,7 +84,9 @@
 
    <select id="selectProjectInfo" parameterType="java.lang.String"
             resultType="cn.xm.jwxt.bean.graduateDesign.TeachergredesigntitleDetailVo">
-    SELECT * FROM Teachergredesigntitle WHERE teacherTitleID = #{teacherTitleID}
+    select son.*,teacherName,majorName from t_major_base_info m,t_teacher_base_info t,
+    (SELECT * FROM Teachergredesigntitle WHERE teacherTitleID = #{teacherTitleID}) son
+		where m.majorID=son.majorID and t.teacherID=son.teacherID
   </select>
 
     <update id="updateProjectInfo" parameterType="cn.xm.jwxt.bean.graduateDesign.Teachergredesigntitle">
@@ -205,8 +207,13 @@
     <select id="selectTeacherIDByTeacherNum" parameterType="java.lang.String" resultType="java.lang.String">
         select teacherID from t_teacher_base_info where teacherNum = #{teacherNum}
     </select>
+
     <select id="selectCheckStatusByTeacherTitleID" parameterType="java.lang.String" resultType="java.lang.String">
         select checkStatus from teacherGreDesignTitle where teacherTitleID=#{teacherTitleID}
+    </select>
+
+    <select id="selectReleaseStatus" parameterType="java.lang.String">
+      select count(releaseID) from gdreleasetable where graDesignID in (select graDesignID from gradeuateBaseInfo where yearnum=#{yearNum})
     </select>
 
 

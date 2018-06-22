@@ -1,5 +1,6 @@
 package cn.xm.jwxt.service.impl.graduateDesign.projectManage;
 
+import cn.xm.jwxt.bean.graduateDesign.GdReleaseTable;
 import cn.xm.jwxt.bean.graduateDesign.StudentChooseProjectInfo;
 import cn.xm.jwxt.bean.graduateDesign.Studenttitleresult;
 import cn.xm.jwxt.mapper.graduateDesign.projectManage.ProjectManageMapper;
@@ -100,4 +101,18 @@ public class ProjectManageServiceImpl implements ProjectManageService {
 
         return false;
     }
+
+/*    @Override
+    public Boolean releaseProjectChoose(String yearNum) throws Exception {
+        //发布课题选择之后，学生不能选择课题。
+        GdReleaseTable gdReleaseTable = new GdReleaseTable();
+        int res = projectManageMapper.insertReleaseInfo(gdReleaseTable);
+        return res > 0 ? true : false;
+    }
+
+    @Override
+    public boolean getReleaseStatus(String yearNum) throws Exception {
+        int row = projectManageMapper.selectReleaseStatus(yearNum);
+        return row > 0 ? true : false;
+    }*/
 }

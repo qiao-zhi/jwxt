@@ -34,7 +34,7 @@ function initViewInfo(response) {
         '</tr>' +
         '<tr>' +
         '    <td>专业</td>' +
-        '    <td>' + checkNull(data.majorname) + '</td>' +
+        '    <td>' + checkNull(data.majorName) + '</td>' +
         '    <td>申请人数</td>' +
         '    <td>' + checkNull(data.reqirestudentnum) + '</td>' +
         '</tr>'+
